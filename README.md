@@ -10,7 +10,8 @@ an adapter and is not the low-level safety authority.
 
 Phase 1 build infrastructure is in progress. The repository has a host-native
 CMake probe/test build and a strict RK3588 cross-build path which requires a
-validated Debian 11 aarch64 sysroot. Motion-control product code has not started.
+validated Ubuntu 22.04 aarch64 sysroot from the board image. Motion-control
+product code has not started.
 
 Read these documents before implementation:
 
@@ -38,8 +39,8 @@ docker ps --filter name=rk3588-dev
 Collect a sysroot from an authorized target and cross-build:
 
 ```bash
-./scripts/sysroot/sync_from_target.sh <ssh-target> ./sysroots/rk3588-debian11
-ROBOT_CONTROL_SYSROOT="$PWD/sysroots/rk3588-debian11" \
+./scripts/sysroot/sync_from_target.sh <ssh-target> ./sysroots/rk3588-ubuntu2204
+ROBOT_CONTROL_SYSROOT="$PWD/sysroots/rk3588-ubuntu2204" \
   ./scripts/build/build_rk3588.sh
 ```
 

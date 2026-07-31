@@ -74,7 +74,7 @@ Linux kernel APIs
 
 - CMake is the only project build-system authority.
 - Support host-native tests, Debian-11-compatible aarch64 cross builds, and optional native target builds through presets/toolchain files.
-- Cross-link against a versioned Debian 11 target sysroot. Never link target artifacts against the Ubuntu 22.04 container root filesystem.
+- Cross-link against a versioned sysroot collected from the actual RK3588 Ubuntu 22.04 target/rootfs. Never substitute the cross-container filesystem for the target sysroot.
 - Docker is a versioned toolchain runner. The host checkout is authoritative and build outputs remain host-owned and out-of-source.
 - Pin every third-party dependency by an immutable tag plus commit, submodule commit, or vendored archive checksum. Normal builds must not fetch an unpinned branch.
 - Do not add dependencies without documenting purpose, version, license, target availability, and test impact.

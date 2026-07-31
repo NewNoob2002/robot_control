@@ -12,7 +12,7 @@ preset="${ROBOT_CONTROL_PRESET:-rk3588-release}"
 container="${ROBOT_CONTROL_CONTAINER:-${container_name}}"
 
 if [[ -z "${sysroot}" ]]; then
-  echo "ROBOT_CONTROL_SYSROOT must name a validated Debian 11 sysroot" >&2
+  echo "ROBOT_CONTROL_SYSROOT must name a validated Ubuntu 22.04 sysroot" >&2
   exit 2
 fi
 sysroot="$(realpath "${sysroot}")"

@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 3,
   "cmakeMinimumRequired": {
     "major": 3,
     "minor": 22,
@@ -35,7 +35,7 @@
       "name": "rk3588-base",
       "hidden": true,
       "inherits": "base",
-      "toolchainFile": "${sourceDir}/cmake/toolchains/aarch64-rk3588-debian11.cmake",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
       "cacheVariables": {
         "BUILD_TESTING": "OFF"
       }
@@ -43,7 +43,7 @@
     {
       "name": "rk3588-debug",
       "inherits": "rk3588-base",
-      "displayName": "RK3588 Debian 11 Debug",
+      "displayName": "RK3588 Ubuntu 22.04 Debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
@@ -51,7 +51,7 @@
     {
       "name": "rk3588-release",
       "inherits": "rk3588-base",
-      "displayName": "RK3588 Debian 11 Release",
+      "displayName": "RK3588 Ubuntu 22.04 Release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -105,4 +105,3 @@
     }
   ]
 }
-

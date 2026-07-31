@@ -30,12 +30,12 @@ grep -Eq 'Requesting program interpreter: /lib/(aarch64-linux-gnu/)?ld-linux-aar
   exit 4
 }
 
-if grep -Eq '\\((RPATH|RUNPATH)\\)' <<<"${dynamic}"; then
+if grep -Eq '\((RPATH|RUNPATH)\)' <<<"${dynamic}"; then
   echo "Target binary contains RPATH/RUNPATH" >&2
   exit 5
 fi
 
-mapfile -t needed < <(sed -n 's/.*Shared library: \\[\\([^]]*\\)\\].*/\\1/p' <<<"${dynamic}")
+mapfile -t needed < <(sed -n 's/.*Shared library: \[\([^]]*\)\].*/\1/p' <<<"${dynamic}")
 for library in "${needed[@]}"; do
   if ! find "${sysroot}/lib" "${sysroot}/usr/lib" \
       \( -type f -o -type l \) -name "${library}" -print -quit 2>/dev/null \
@@ -45,5 +45,30 @@ for library in "${needed[@]}"; do
   fi
 done
 
-printf 'elf=%s\ninterpreter=validated\nneeded=%s\nrpath=none\n' \
+version_info="$("${readelf_bin}" --version-info "${binary}")"
+
+check_versions() {
+  local prefix="$1"
+  local library="$2"
+  local provided
+  local required
+
+  required="$(grep -Eo "${prefix}_[0-9]+([.][0-9]+)*" <<<"${version_info}" \
+    | sort -Vu || true)"
+  [[ -n "${required}" ]] || return 0
+
+  provided="$("${readelf_bin}" --version-info "${library}")"
+  while IFS= read -r version; do
+    grep -Eq "(^|[[:space:]])${version}([[:space:]]|$)" <<<"${provided}" || {
+      echo "Required symbol version unavailable in sysroot: ${version}" >&2
+      exit 7
+    }
+  done <<<"${required}"
+}
+
+check_versions GLIBC "${sysroot}/lib/aarch64-linux-gnu/libc.so.6"
+check_versions GLIBCXX "${sysroot}/usr/lib/aarch64-linux-gnu/libstdc++.so.6"
+check_versions CXXABI "${sysroot}/usr/lib/aarch64-linux-gnu/libstdc++.so.6"
+
+printf 'elf=%s\ninterpreter=validated\nneeded=%s\nsymbol_versions=validated\nrpath=none\n' \
   "${binary}" "${needed[*]}"

@@ -8,7 +8,7 @@
 
 ## Requirements Summary
 
-The RK3588 process is the robot's low-level control authority. It must own SocketCAN/CANopen/CiA402, SBUS, arbitration, robot safety, diagnostics, and safe lifecycle independently of ROS2. The host repository is authoritative; Docker cross-compiles reproducibly against Debian 11-compatible target userspace; artifacts deploy over SSH and later run under systemd as a non-root service. Hardware configuration remains in the kernel/device tree.
+The RK3588 process is the robot's low-level control authority. It must own SocketCAN/CANopen/CiA402, SBUS, arbitration, robot safety, diagnostics, and safe lifecycle independently of ROS2. The host repository is authoritative; Docker cross-compiles reproducibly against the RK3588 Ubuntu 22.04 target userspace; artifacts deploy over SSH and later run under systemd as a non-root service. Hardware configuration remains in the kernel/device tree.
 
 Key behavioral requirements:
 
@@ -24,7 +24,7 @@ Key behavioral requirements:
 
 - A documented acyclic dependency graph is enforced by CMake targets and include boundaries.
 - `host-test` configures/builds/runs all protocol-independent tests on x86_64.
-- `rk3588-debug` and `rk3588-release` link only against a manifest-identified Debian 11 aarch64 sysroot; ELF interpreter and dynamic dependencies are checked automatically.
+- `rk3588-debug` and `rk3588-release` link only against a manifest-identified Ubuntu 22.04 aarch64 sysroot collected from the board image; ELF interpreter, dynamic dependencies, and symbol versions are checked automatically.
 - `vcan` integration proves CAN open/read/write, error propagation, timestamps/counters, process restart, and loss injection without hardware.
 - SBUS parser tests cover split/concatenated/corrupt/noisy streams, lost/failsafe flags, stale timeout, and recovery neutral gate.
 - Arbitration tests cover every source-validity/priority/handover case including the 150 ms compatibility zero-hold boundary and generation replay rejection.
@@ -47,7 +47,7 @@ Key behavioral requirements:
 - Two ZLAC8015D vendor PDFs are present.
 - Empty placeholder directories exist under `config/`, `platform/hal/`, and `user/*`.
 - `scripts/build.sh:1-14` invokes `rk3588-cross`, hardcodes a wrong host mount, creates an in-source `build/`, references a missing toolchain file, omits UID/GID handling, and uses unversioned image naming.
-- The inspected image `rk3588-cross:latest` is Ubuntu 22.04 amd64 with GCC 11.4 cross tools and CMake 3.22.1. This is a compiler environment, not a Debian 11 sysroot.
+- The inspected image `rk3588-cross:latest` is Ubuntu 22.04 amd64 with GCC 11.4 cross tools and CMake 3.22.1. It matches the target distribution family but remains a compiler environment, not a substitute for the board-derived sysroot.
 
 ## Missing / Broken
 
@@ -152,7 +152,7 @@ robot_control/
 ├── LICENSES/
 ├── cmake/
 │   ├── modules/
-│   └── toolchains/aarch64-rk3588-debian11.cmake
+│   └── toolchains/aarch64-rk3588-ubuntu2204.cmake
 ├── docker/cross/
 │   ├── Dockerfile
 │   └── image.lock
@@ -401,7 +401,7 @@ It would couple drive lifecycle and availability to ROS2 executor/lifecycle and 
 
 ## Cross Build and Sysroot
 
-Chosen strategy: **versioned rsync-generated sysroot from the actual RK3588 Debian 11 image**, normalized and archived with a manifest/checksum; use a Debian 11-compatible aarch64 cross linker configuration. This captures vendor board libraries not guaranteed in generic Debian repositories.
+Chosen strategy: **versioned sysroot from the actual RK3588 Ubuntu 22.04 image**, normalized and archived with a manifest/checksum; use the existing Ubuntu 22.04 GCC 11 aarch64 cross toolchain. This captures installed and vendor board libraries not guaranteed by the compiler container.
 
 Process:
 
@@ -413,13 +413,11 @@ Process:
 6. Automated ELF audit checks `readelf -l/-d`, interpreter, RPATH/RUNPATH, GLIBC/GLIBCXX symbol versions, and resolves dependencies against target/sysroot.
 7. Target smoke runs binary/library probes before project feature work.
 
-Alternative: a Debian 11 arm64 multiarch/chroot sysroot is more reproducible from public packages but may miss vendor board libraries. Use it for CI base packages; the actual-board sysroot remains the release compatibility authority until the board image is reproducibly generated.
-
-Critical lifecycle note: Debian 11 Bullseye LTS ends on **2026-08-31**, only one month after this plan date. Phase 0 must therefore add an OS-baseline ADR: keep Debian 11 only as the short-term compatibility target for existing hardware, and schedule a supported production OS evaluation rather than treating Bullseye as a new long-lived baseline.
+Alternative: an Ubuntu 22.04 arm64 package-derived sysroot is reproducible from public packages but may miss vendor board libraries. It may support CI; the actual-board sysroot remains the release compatibility authority until the board image is reproducibly generated.
 
 ## Docker
 
-- Version image, e.g. `robot-control-cross:debian11-gcc11-v1`, and pin base image digest.
+- Reuse the owner-provided `rk3588-cross` image and verify its immutable local image ID, compiler, CMake, and target triplet. Archive/reconstruction provenance remains required before distributed release CI.
 - Image contains compiler, CMake/Ninja, pkg-config wrapper, test/static-analysis tools; sysroot is mounted read-only.
 - Script mounts checkout and build/cache paths, passes current UID/GID or runs `--user $(id -u):$(id -g)`, sets a writable HOME/cache, and never edits source ownership.
 - Outputs: `out/build/<preset>/`, `out/artifacts/<version>/`, `out/test-results/`.
@@ -589,14 +587,14 @@ Each gate stores config, firmware identity, commands, raw frames, diagnostics, a
 - **Objective:** turn the pre-repository into a trustworthy project baseline before code.
 - **Files:** initialize/repair Git metadata; `README.md`, `docs/architecture/*`, `docs/decisions/*`, `third_party/README.md`, license inventory, captured legacy behavior tables.
 - **Prerequisites:** none; user authorization only if repairing Git history is destructive (otherwise initialize cleanly).
-- **Scope:** record CANopenNode/EasyLogger provenance; decide whether EasyLogger is removed; pin CANopenLinux; convert legacy arbiter/safety/CiA402 semantics into state/transition tables and test vectors; inventory drive docs contradictions; decide the supported-OS migration path because Bullseye LTS ends 2026-08-31.
+- **Scope:** record CANopenNode/EasyLogger provenance; decide whether EasyLogger is removed; pin CANopenLinux; convert legacy arbiter/safety/CiA402 semantics into state/transition tables and test vectors; inventory drive docs contradictions; record the selected Ubuntu 22.04 OS baseline.
 - **Validation:** every dependency has upstream URL/version/commit/license; every preserved safety rule cites legacy evidence; no product implementation.
 - **Acceptance:** approved ADR set and behavior baseline; Git status works; open hardware assumptions are explicit.
 - **Risks:** accidental attribution of snapshots; mitigate with hashes and upstream comparison.
 
 ## Phase 1 — Reproducible Build and ABI Proof
 
-- **Objective:** prove host tests and Debian 11 aarch64 hello/probe artifacts.
+- **Objective:** prove host tests and Ubuntu 22.04 aarch64 hello/probe artifacts.
 - **Files:** root CMake, presets, toolchain, `docker/cross`, sysroot scripts, build scripts, ABI audit.
 - **Prerequisites:** Phase 0 dependency decisions; SSH read access to target/rootfs.
 - **Scope:** sysroot manifest/sync, pinned Docker image, UID/GID, out-of-source outputs, native/cross/native-target presets.
@@ -722,7 +720,7 @@ Each gate stores config, firmware identity, commands, raw frames, diagnostics, a
 - **Scope:** command subscription, state/diagnostics/safety/source/health publication; monotonic receipt time and command sequence; separate process preferred initially.
 - **Validation:** kill/restart/hang ROS2 while CANopen core runs; stale command zero/inhibit; ABI/deployment audit.
 - **Acceptance:** ROS2 absence does not restart or corrupt core; no callback controls drive directly.
-- **Risks:** Debian 11 unsupported binary packages; likely container/source-build bridge must be evaluated.
+- **Risks:** ROS2 package/DDS compatibility with the board image must still be verified on target.
 
 ## Phase 14 — Fault Injection, Timing Qualification, and Real-Time Decision
 
@@ -750,14 +748,13 @@ Each gate stores config, firmware identity, commands, raw frames, diagnostics, a
 
 | Risk | Impact | Mitigation / Gate |
 |---|---|---|
-| Ubuntu toolchain links newer libc/userspace | target binary fails | actual Debian 11 sysroot, linker find-root, ELF/symbol audit, target smoke in Phase 1 |
+| Compiler container diverges from board userspace | target binary fails | actual Ubuntu 22.04 board sysroot, linker find-root, ELF/symbol audit, target smoke in Phase 1 |
 | Incomplete/vendor sysroot | hidden link/runtime mismatch | manifest/allowlist, normalized symlinks, target package inventory |
 | CAN timing/jitter | stale control or drive stop | separate 1 ms/event CAN processing from 100 Hz policy, measure action latency |
 | CANopenLinux integration mismatch | custom fork/instability | pinned upstream spike, minimal isolated patches, vcan simulated node |
 | Vendor CiA402 deviations | unsafe state decisions | raw values retained, profile decoder, read-only qualification and unloaded gates |
 | Linux scheduling latency | missed safety/control deadline | measure first; priority/affinity; PREEMPT_RT only with evidence |
-| ROS2 runtime incompatibility on Debian 11 | deployment blocked/core coupling | delay adapter, separate process, investigate source/container/bridge options |
-| Debian 11 reaches LTS end on 2026-08-31 | production security baseline becomes unsupported | Phase 0 OS ADR; time-box compatibility release and qualify a supported target OS |
+| ROS2/DDS runtime differs from the Ubuntu board image | deployment blocked/core coupling | delay adapter, separate process, verify Tier-1 arm64 packages and target behavior |
 | Excess privileges | security/reliability | dedicated user, privileged interface setup unit, udev ACLs, capability audit |
 | SBUS UART inversion/framing/latency | manual control unavailable/false recovery | early passive electrical/device test, PTY fixtures, neutral recovery gate |
 | Unsafe SIGKILL/power loss | no application cleanup | drive communication-loss timeout, zero-refresh policy, independent e-stop |
@@ -782,7 +779,7 @@ Only questions requiring target/business/hardware evidence remain:
 6. **Authorized automatic recovery policy.** After CAN/drive faults, may communication recover automatically while motion remains gated, and who provides manual rearm (SBUS switch, ROS2 service, physical input)? This affects the safety transition table.
 7. **Drive firmware/hardware identity.** Exact revision and whether persistent communication-loss protection/PDO parameters may be configured during commissioning. This blocks safe motion qualification.
 8. **Initial latency requirement.** The plan proposes 100 Hz with p99 wake lateness <2 ms and max <10 ms. If the robot dynamics require a stricter command-to-actuator bound, control rate and kernel evaluation change.
-9. **Supported production OS after Bullseye.** Is the LubanCat vendor image replaceable, and are Ubuntu 22.04 arm64 or a newer Debian/vendor image acceptable? Debian 11 LTS ends 2026-08-31, so this affects release lifetime, ROS2 support, and security maintenance.
+9. **Ubuntu image maintenance path.** Identify the vendor/image update owner and security-update policy for the flashed Ubuntu 22.04 image; this affects production patching and kernel/device compatibility.
 
 These do not block Phase 0 except rootfs availability is needed early in Phase 1.
 
@@ -797,7 +794,7 @@ Specifically, the next agent should:
 1. repair/initialize Git safely without discarding existing files;
 2. hash and identify the exact upstream revisions/licenses of `components/CANopenNode` and `components/EasyLogger`;
 3. select and pin a CANopenLinux revision compatible with the chosen CANopenNode revision;
-4. write ADR-0001 (layer/dependency boundaries), ADR-0002 (CANopenNode+CANopenLinux), ADR-0003 (board-derived Debian 11 sysroot), ADR-0004 (single-owner control/execution model), and ADR-0005 (post-Bullseye supported OS path);
+4. maintain ADR-0001 through ADR-0005 as the historical planning record and ADR-0006 as the accepted Ubuntu 22.04 target baseline;
 5. transcribe the cited legacy arbitration/safety/CiA402 rules into explicit transition tables and test-vector specifications;
 6. review these documents before any product C/C++ implementation.
 
@@ -825,7 +822,7 @@ The root `AGENTS.md` created alongside this plan encodes:
 - dependency direction and forbidden cross-layer dependencies;
 - safety invariants, command generations, zero/recovery/shutdown behavior;
 - single-owner concurrency and monotonic-time rules;
-- Debian 11 sysroot/Docker/dependency pinning rules;
+- Ubuntu 22.04 board-derived sysroot/Docker/dependency pinning rules;
 - Doxygen/error/ownership/logging standards;
 - test gates and hardware safety constraints;
 - non-root deployment/permissions and agent workflow.

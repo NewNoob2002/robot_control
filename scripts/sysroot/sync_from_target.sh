@@ -16,11 +16,25 @@ fi
 
 mkdir -p "${output}/.robot-control"
 
-for path in lib usr/include usr/lib; do
-  rsync --archive --links --numeric-ids \
-    --delete-delay \
-    "${target}:/${path}/" "${output}/${path}/"
-done
+if ssh "${target}" 'command -v rsync >/dev/null 2>&1'; then
+  for path in lib usr/include usr/lib; do
+    rsync --archive --links --numeric-ids \
+      --delete-delay \
+      "${target}:/${path}/" "${output}/${path}/"
+  done
+else
+  staging="$(mktemp -d "${output}.staging.XXXXXX")"
+  trap 'rm -rf "${tmp_manifest:-}" "${staging:-}"' EXIT
+  ssh "${target}" \
+    'tar --create --file=- --numeric-owner --one-file-system --directory=/ lib usr/include usr/lib' \
+    | tar --extract --file=- --no-same-owner --directory="${staging}"
+  rm -rf "${output}/lib" "${output}/usr/include" "${output}/usr/lib"
+  mkdir -p "${output}/usr"
+  mv "${staging}/lib" "${output}/lib"
+  mv "${staging}/usr/include" "${output}/usr/include"
+  mv "${staging}/usr/lib" "${output}/usr/lib"
+  rm -rf "${staging}"
+fi
 
 # Collect the manifest separately without assuming privileged target writes.
 tmp_manifest="$(mktemp -d)"

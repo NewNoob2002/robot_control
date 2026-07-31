@@ -5,7 +5,7 @@ if(DEFINED ENV{ROBOT_CONTROL_SYSROOT} AND NOT "$ENV{ROBOT_CONTROL_SYSROOT}" STRE
   file(REAL_PATH "$ENV{ROBOT_CONTROL_SYSROOT}" _robot_control_sysroot)
 else()
   message(FATAL_ERROR
-    "ROBOT_CONTROL_SYSROOT is required. Point it to a validated Debian 11 "
+    "ROBOT_CONTROL_SYSROOT is required. Point it to a validated Ubuntu 22.04 "
     "aarch64 sysroot; the Ubuntu cross-container filesystem is not valid.")
 endif()
 

@@ -12,6 +12,7 @@ compile_commands.json
 
 # Editor and OS files
 .cache/
+.clangd
 .idea/
 .vscode/
 *.swp
@@ -28,3 +29,6 @@ compile_commands.json
 /config/local/
 *.pem
 *.key
+
+# Ad-hoc local probe output (CMake output lives under out/)
+/tools/platform_probe/main

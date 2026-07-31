@@ -28,7 +28,7 @@ done
   exit 4
 }
 
-file "${loader}" | grep -q 'ARM aarch64' || {
+file -L "${loader}" | grep -q 'ARM aarch64' || {
   echo "Invalid sysroot: loader is not aarch64" >&2
   exit 5
 }
@@ -36,14 +36,14 @@ file "${loader}" | grep -q 'ARM aarch64' || {
 if [[ -f "${os_release}" ]]; then
   # shellcheck disable=SC1090
   source "${os_release}"
-  [[ "${ID:-}" == "debian" && "${VERSION_ID:-}" == "11" ]] || {
-    echo "Sysroot is not Debian 11: ID=${ID:-unknown} VERSION_ID=${VERSION_ID:-unknown}" >&2
+  [[ "${ID:-}" == "ubuntu" && "${VERSION_ID:-}" == "22.04" ]] || {
+    echo "Sysroot is not Ubuntu 22.04: ID=${ID:-unknown} VERSION_ID=${VERSION_ID:-unknown}" >&2
     exit 6
   }
 elif [[ -f "${sysroot}/.robot-control/os-release" ]]; then
   # shellcheck disable=SC1090
   source "${sysroot}/.robot-control/os-release"
-  [[ "${ID:-}" == "debian" && "${VERSION_ID:-}" == "11" ]] || exit 6
+  [[ "${ID:-}" == "ubuntu" && "${VERSION_ID:-}" == "22.04" ]] || exit 6
 else
   echo "Invalid sysroot: os-release metadata is missing" >&2
   exit 7
@@ -51,4 +51,3 @@ fi
 
 printf 'sysroot=%s\nloader=%s\nos=%s %s\n' \
   "${sysroot}" "${loader}" "${PRETTY_NAME:-Debian}" "${VERSION_ID}"
-
