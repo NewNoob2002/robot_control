@@ -1,0 +1,159 @@
+schema_version: 1
+source:
+  repository: "~/Desktop/workspace/STM32_PROJ/STM32G474_CANOPEN_Copy"
+  commit: "c34042e68aa23fcd789a63a1693a507296935032"
+  purpose: "Behavior-lock specifications; not executable tests yet"
+
+defaults:
+  handover_zero_dwell_ms: 150
+  cia402_transition_timeout_ms: 500
+  heartbeat_timeout_ms: 1500
+  tpdo_freshness_ms: 300
+
+arbitration:
+  - id: ARB-001
+    given: "SBUS is healthy, fresh, and commands non-zero manual motion"
+    when: "external autonomous command is also valid"
+    expect:
+      selected_source: SBUS
+      external_session_revoked: true
+      zero_required_before_future_external: true
+
+  - id: ARB-002
+    given: "SBUS becomes stale or failsafe"
+    when: "an old external command remains in memory"
+    expect:
+      selected_source: NONE
+      target: ZERO
+      old_external_command_accepted: false
+
+  - id: ARB-003
+    given: "both sources are zero for 149 ms after manual ownership"
+    when: "a valid external command requests motion"
+    expect:
+      selected_source: NONE
+      target: ZERO
+
+  - id: ARB-004
+    given: "both sources are zero for exactly 150 ms"
+    when: "external command uses the previous authorization generation"
+    expect:
+      selected_source: NONE
+      target: ZERO
+
+  - id: ARB-005
+    given: "both sources are zero for at least 150 ms"
+    when: "a fresh external session/generation supplies a valid command"
+    expect:
+      selected_source: EXTERNAL
+      target: "bounded external target"
+
+  - id: ARB-006
+    given: "a producer snapshot is internally incoherent or sequence-replayed"
+    when: "the arbiter evaluates it"
+    expect:
+      selected_source: NONE
+      target: ZERO
+
+safety:
+  - id: SAFE-001
+    given: "process has just started"
+    when: "no CANopen node has been qualified"
+    expect:
+      state: STARTUP_INHIBIT
+      target: ZERO
+      drive_enable_allowed: false
+
+  - id: SAFE-002
+    given: "drive is in FAULT and reset is requested"
+    when: "selected command is non-zero"
+    expect:
+      fault_reset_sent: false
+      motion_inhibited: true
+
+  - id: SAFE-003
+    given: "drive is in FAULT and all observations are current and safe"
+    when: "zero command and a fresh reset generation are present"
+    expect:
+      fault_reset_eligible: true
+      target_during_reset: ZERO
+
+  - id: SAFE-004
+    given: "CAN heartbeat becomes stale"
+    when: "the previous target was non-zero"
+    expect:
+      state: CANOPEN_UNAVAILABLE
+      target: ZERO
+      authorization_revoked: true
+
+  - id: SAFE-005
+    given: "CAN communication recovers"
+    when: "the former authorization generation is replayed"
+    expect:
+      target: ZERO
+      motion_authorized: false
+
+cia402:
+  - id: CIA-001
+    given: "status is SWITCH_ON_DISABLED and target is zero"
+    when: "enable is requested"
+    expect:
+      next_controlword: SHUTDOWN
+      nonzero_target_allowed: false
+
+  - id: CIA-002
+    given: "a transition command was sent"
+    when: "no newer status observation arrives before 500 ms"
+    expect:
+      transition: TIMEOUT
+      target: ZERO
+      authorization_revoked: true
+
+  - id: CIA-003
+    given: "status decodes OPERATION_ENABLED"
+    when: "actual mode does not equal requested velocity mode"
+    expect:
+      nonzero_target_allowed: false
+
+  - id: CIA-004
+    given: "statusword masked value is unknown"
+    when: "the decoder runs"
+    expect:
+      decoded_state: UNKNOWN
+      operation_enabled: false
+      raw_status_preserved: true
+
+  - id: CIA-005
+    given: "dual-axis raw status contains low and high halves"
+    when: "hardware axis mapping is not yet verified"
+    expect:
+      halves_decoded_independently: true
+      physical_axis_labels_assigned: false
+
+sbus:
+  - id: SBUS-001
+    given: "a valid 25-byte frame arrives in multiple reads"
+    when: "all bytes have arrived"
+    expect:
+      frames_published: 1
+
+  - id: SBUS-002
+    given: "noise and a bad footer precede a valid frame"
+    when: "the stream parser resynchronizes"
+    expect:
+      invalid_frames_incremented: true
+      valid_frame_published_after_resync: true
+
+  - id: SBUS-003
+    given: "frame_lost or failsafe flag is set"
+    when: "the frame is parsed"
+    expect:
+      source_healthy: false
+      target: ZERO
+
+  - id: SBUS-004
+    given: "valid frames resume after loss with non-neutral sticks"
+    when: "recovery policy evaluates the source"
+    expect:
+      motion_authorized: false
+

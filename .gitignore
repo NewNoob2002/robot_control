@@ -1,0 +1,30 @@
+# Build and generated output
+/build/
+/out/
+/install/
+/log/
+compile_commands.json
+
+# Local tool/runtime state; keep approved plans
+/.omx/*
+!/.omx/plans/
+!/.omx/plans/*.md
+
+# Editor and OS files
+.cache/
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# Target/sysroot material must never enter Git
+/sysroots/
+*.sysroot.tar*
+
+# Local deployment secrets and inventory overrides
+/.env
+/config/local/
+*.pem
+*.key
+
