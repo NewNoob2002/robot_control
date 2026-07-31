@@ -10,8 +10,9 @@ an adapter and is not the low-level safety authority.
 
 Phase 3 provides Linux mechanism adapters for descriptor ownership, poll-based
 waiting, absolute monotonic timing, synchronous termination events, raw UART,
-and throttled structured logging. These adapters contain no motion policy and
-are covered by pipe, PTY, signal, timing, sanitizer, and cross-build tests.
+and throttled structured logging through EasyLogger. These adapters contain no
+motion policy and are covered by pipe, PTY, signal, timing, sanitizer, and
+cross-build tests.
 SocketCAN and motion-producing integration have not started.
 
 Read these documents before implementation:

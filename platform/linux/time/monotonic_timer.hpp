@@ -29,6 +29,16 @@ using Timestamp = std::chrono::nanoseconds;
  */
 [[nodiscard]] Status sleep_until(Timestamp deadline) noexcept;
 
+/**
+ * Sleep until a deadline or cancellation descriptor readiness.
+ *
+ * @param deadline Absolute monotonic timestamp.
+ * @param cancellation_fd Borrowed descriptor, typically a signalfd.
+ * @return Success at the deadline, ECANCELED on cancellation, or failure.
+ */
+[[nodiscard]] Status sleep_until(Timestamp deadline,
+                                 int cancellation_fd) noexcept;
+
 class PeriodicDeadline final {
 public:
   /**
@@ -51,6 +61,14 @@ public:
   [[nodiscard]] Result<std::uint64_t> wait_next() noexcept;
 
   /**
+   * Wait for the current deadline while observing cancellation.
+   *
+   * @param cancellation_fd Borrowed event descriptor.
+   * @return Missed count, ECANCELED, overflow, or syscall failure.
+   */
+  [[nodiscard]] Result<std::uint64_t> wait_next(int cancellation_fd) noexcept;
+
+  /**
    * Return the next absolute deadline.
    *
    * @return Monotonic timestamp.
@@ -58,6 +76,8 @@ public:
   [[nodiscard]] Timestamp next() const noexcept { return next_; }
 
 private:
+  [[nodiscard]] Result<std::uint64_t> advance_after_wake() noexcept;
+
   Timestamp next_{};
   Timestamp period_{};
 };

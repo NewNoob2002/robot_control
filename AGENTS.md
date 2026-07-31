@@ -10,10 +10,11 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   safety, and CiA402 domain libraries; Phase 3 provides policy-free Linux fd,
   poll, monotonic timer, signal, UART, and logging adapters. SocketCAN,
   CANopen integration, CI, packaging, and deploy service are not implemented.
-- `components/CANopenNode/` and `components/EasyLogger/` are preserved,
-  unversioned baseline snapshots. Provenance findings and the selected
-  CANopenLinux/CANopenNode commit pair are recorded in `third_party/README.md`;
-  the snapshots are not approved release dependencies.
+- `components/CANopenNode/` remains an unversioned baseline snapshot.
+  EasyLogger's checksum-pinned core subset is integrated behind
+  `service/logging`; replacing the mixed snapshot with a clean immutable
+  upstream checkout remains release work. Provenance is recorded in
+  `third_party/README.md`.
 - `docs/ZLAC8015D_CANOPEN_NOTES.md` and the vendor PDFs are drive references; statements marked for hardware verification are not safety assumptions.
 - The legacy STM32 project at `~/Desktop/workspace/STM32_PROJ/STM32G474_CANOPEN_Copy` is read-only architectural evidence, not a source tree to copy.
 - The authoritative implementation plan is `.omx/plans/rk3588-motion-control-middleware-plan.md`.

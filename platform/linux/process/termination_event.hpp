@@ -12,30 +12,17 @@ public:
   TerminationEvent(const TerminationEvent &) = delete;
   TerminationEvent &operator=(const TerminationEvent &) = delete;
 
-  /**
-   * Move signal-mask restoration and signalfd ownership.
-   *
-   * @param other Source event, left inactive.
-   */
-  TerminationEvent(TerminationEvent &&other) noexcept;
-
-  /**
-   * Move-assign signal-mask restoration and signalfd ownership.
-   *
-   * @param other Source event, left inactive.
-   * @return This event.
-   */
-  TerminationEvent &operator=(TerminationEvent &&other) noexcept;
-
-  /** Restore the creating thread's prior signal mask and close signalfd. */
-  ~TerminationEvent();
+  TerminationEvent(TerminationEvent &&) noexcept = default;
+  TerminationEvent &operator=(TerminationEvent &&) noexcept = default;
+  ~TerminationEvent() = default;
 
   /**
    * Block SIGINT/SIGTERM in the current thread and create a nonblocking
    * signalfd.
    *
    * This must run in the process composition thread before worker threads are
-   * created so they inherit the blocked mask.
+   * created so they inherit the blocked mask. The mask remains blocked for the
+   * lifetime of the process; destruction only closes the descriptor.
    *
    * @return Owned event or context-rich pthread/signalfd failure.
    */
@@ -58,12 +45,9 @@ public:
   [[nodiscard]] Result<int> consume() noexcept;
 
 private:
-  TerminationEvent(UniqueFd fd, sigset_t old_mask) noexcept;
-  void restore() noexcept;
+  explicit TerminationEvent(UniqueFd fd) noexcept;
 
   UniqueFd fd_{};
-  sigset_t old_mask_{};
-  bool restores_mask_{false};
 };
 
 } // namespace robot_control::platform::linux::process

@@ -59,6 +59,18 @@ public:
             std::chrono::milliseconds timeout) noexcept;
 
   /**
+   * Wait for bytes while also observing a cancellation descriptor.
+   *
+   * @param destination Caller-owned output buffer.
+   * @param timeout Nonnegative maximum wait.
+   * @param cancellation_fd Borrowed event descriptor.
+   * @return Byte count, timeout, cancellation error, or device failure.
+   */
+  [[nodiscard]] Result<std::size_t> read_some(std::span<std::byte> destination,
+                                              std::chrono::milliseconds timeout,
+                                              int cancellation_fd) noexcept;
+
+  /**
    * Return the borrowed tty descriptor.
    *
    * @return Descriptor or -1 when closed.

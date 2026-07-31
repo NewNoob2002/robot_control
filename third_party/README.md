@@ -17,7 +17,8 @@ patch status are recorded here and in the applicable ADR.
 - Baseline content digest:
   `1e3e5e8ffd43dfe4df8e40345cab3fe51f0beb757c89ac88c63b20f2ac3879d5`
   (SHA-256 over the sorted list of per-file SHA-256 records)
-- Version status: **unresolved mixed/unversioned snapshot**
+- Version status: **checksum-pinned vendored snapshot; upstream commit remains
+  unresolved**
 
 The local snapshot cannot be attributed to one upstream commit from the
 available files. For example:
@@ -43,9 +44,20 @@ acceptable release dependency as-is.
 The local `easylogger/src/elog.c` matches upstream commit
 `980eac7383e26a98837a6b42e9cefcd219b15166`, while the license file first
 matches another historical commit. The directory also contains large unrelated
-MCU demonstrations. ADR-0002 excludes EasyLogger from the initial Linux design.
-Do not link or port it unless a later ADR demonstrates a requirement unmet by
-the project journald-oriented logger.
+MCU demonstrations. The amended ADR-0002 permits only the following
+checksum-pinned core subset:
+
+| File | SHA-256 |
+|---|---|
+| `easylogger/src/elog.c` | `775e0cbde6a7ebb9ef69bceb400042a55f98f02372b88b5cf61c5fef5d131e25` |
+| `easylogger/src/elog_utils.c` | `937eaf98151cb5fa25f102621802637d71ccadd56028098e3a45978a0707d9d0` |
+| `easylogger/inc/elog.h` | `e073ebceedaa064c058ecccf0ef1b06250975d937a30eee14f57de1fd9eff281` |
+| `LICENSE` | `c80023edf0b6ab08a88059549d4a79daa1f3ac3dc6a6350f25dff42fd9a88e44` |
+
+Normal builds compile only this subset plus the project-owned synchronous Linux
+port and configuration. MCU demonstrations, bundled ports, plugins, async
+output, buffering, and color are excluded. Replacing the snapshot with a clean
+immutable upstream checkout remains a release-readiness task.
 
 ## Selected dependency pair
 
@@ -70,4 +82,3 @@ exact CANopenNode commit as its submodule, eliminating an inferred API match.
 4. CI and release builds operate without network access after dependencies are
    checked out.
 5. Generate a license/SBOM report before the first release.
-

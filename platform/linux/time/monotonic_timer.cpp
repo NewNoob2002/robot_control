@@ -3,6 +3,8 @@
 #include <time.h>
 
 #include <cerrno>
+#include <limits>
+#include <poll.h>
 
 namespace robot_control::platform::linux::time {
 namespace {
@@ -50,32 +52,94 @@ Status sleep_until(const Timestamp deadline) noexcept {
   return Status::success();
 }
 
+Status sleep_until(const Timestamp deadline,
+                   const int cancellation_fd) noexcept {
+  if (deadline < Timestamp::zero() || cancellation_fd < 0) {
+    return Status::from_errno("ppoll", "invalid deadline or cancellation fd",
+                              EINVAL);
+  }
+  pollfd cancellation{
+      .fd = cancellation_fd,
+      .events = POLLIN,
+      .revents = 0,
+  };
+  while (true) {
+    const auto current = now();
+    if (!current.ok()) {
+      return current.status();
+    }
+    if (current.value() >= deadline) {
+      return Status::success();
+    }
+    const auto timeout = to_timespec(deadline - current.value());
+    const int result = ::ppoll(&cancellation, 1, &timeout, nullptr);
+    if (result > 0) {
+      return Status::from_errno("ppoll", "cancelled", ECANCELED);
+    }
+    if (result == 0) {
+      return Status::success();
+    }
+    if (errno != EINTR) {
+      return Status::from_errno("ppoll", "cancellation fd", errno);
+    }
+  }
+}
+
 PeriodicDeadline::PeriodicDeadline(const Timestamp first,
                                    const Timestamp period) noexcept
     : next_{first}, period_{period} {}
 
 Result<std::uint64_t> PeriodicDeadline::wait_next() noexcept {
-  if (period_ <= Timestamp::zero()) {
-    return Result<std::uint64_t>::failure(
-        Status::from_errno("periodic_wait", "non-positive period", EINVAL));
+  if (period_ <= Timestamp::zero() || next_ < Timestamp::zero()) {
+    return Result<std::uint64_t>::failure(Status::from_errno(
+        "periodic_wait", "invalid deadline or period", EINVAL));
   }
   const auto status = sleep_until(next_);
   if (!status.ok()) {
     return Result<std::uint64_t>::failure(status);
+  }
+  return advance_after_wake();
+}
+
+Result<std::uint64_t>
+PeriodicDeadline::wait_next(const int cancellation_fd) noexcept {
+  if (period_ <= Timestamp::zero() || next_ < Timestamp::zero()) {
+    return Result<std::uint64_t>::failure(Status::from_errno(
+        "periodic_wait", "invalid deadline or period", EINVAL));
+  }
+  const auto status = sleep_until(next_, cancellation_fd);
+  if (!status.ok()) {
+    return Result<std::uint64_t>::failure(status);
+  }
+  return advance_after_wake();
+}
+
+Result<std::uint64_t> PeriodicDeadline::advance_after_wake() noexcept {
+  if (period_ <= Timestamp::zero() || next_ < Timestamp::zero()) {
+    return Result<std::uint64_t>::failure(Status::from_errno(
+        "periodic_wait", "invalid deadline or period", EINVAL));
   }
   const auto wake = now();
   if (!wake.ok()) {
     return Result<std::uint64_t>::failure(wake.status());
   }
 
-  std::uint64_t missed = 0;
-  do {
-    next_ += period_;
-    if (next_ <= wake.value()) {
-      ++missed;
-    }
-  } while (next_ <= wake.value());
-  return Result<std::uint64_t>::success(missed);
+  if (wake.value() < next_) {
+    return Result<std::uint64_t>::failure(
+        Status::from_errno("periodic_wait", "clock moved backwards", EIO));
+  }
+  const auto delta = wake.value().count() - next_.count();
+  const auto period = period_.count();
+  const auto missed = delta / period;
+  const auto remainder = delta % period;
+  const auto increment = period - remainder;
+  if (wake.value().count() >
+      std::numeric_limits<Timestamp::rep>::max() - increment) {
+    return Result<std::uint64_t>::failure(
+        Status::from_errno("periodic_wait", "deadline overflow", EOVERFLOW));
+  }
+  next_ = Timestamp{wake.value().count() + increment};
+  return Result<std::uint64_t>::success(static_cast<std::uint64_t>(missed));
 }
 
 } // namespace robot_control::platform::linux::time

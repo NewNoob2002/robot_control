@@ -46,6 +46,14 @@ for library in "${needed[@]}"; do
 done
 
 version_info="$("${readelf_bin}" --version-info "${binary}")"
+symbols="$("${readelf_bin}" --wide --symbols "${binary}")"
+
+for symbol in pthread_sigmask signalfd ppoll clock_nanosleep tcsetattr elog_output; do
+  grep -Eq "[[:space:]]${symbol}(@|$)" <<<"${symbols}" || {
+    echo "Required Phase 3 symbol is not linked: ${symbol}" >&2
+    exit 8
+  }
+done
 
 check_versions() {
   local prefix="$1"
@@ -70,5 +78,5 @@ check_versions GLIBC "${sysroot}/lib/aarch64-linux-gnu/libc.so.6"
 check_versions GLIBCXX "${sysroot}/usr/lib/aarch64-linux-gnu/libstdc++.so.6"
 check_versions CXXABI "${sysroot}/usr/lib/aarch64-linux-gnu/libstdc++.so.6"
 
-printf 'elf=%s\ninterpreter=validated\nneeded=%s\nsymbol_versions=validated\nrpath=none\n' \
+printf 'elf=%s\ninterpreter=validated\nneeded=%s\nsymbol_versions=validated\nphase3_symbols=validated\nrpath=none\n' \
   "${binary}" "${needed[*]}"

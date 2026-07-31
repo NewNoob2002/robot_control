@@ -1,7 +1,10 @@
 #include "service/logging/logger.hpp"
 
+#include <elog.h>
+
 #include <chrono>
-#include <iomanip>
+#include <mutex>
+#include <sstream>
 
 namespace robot_control::service::logging {
 namespace {
@@ -28,9 +31,35 @@ std::string_view label(const Severity severity) noexcept {
   return "UNKNOWN";
 }
 
+uint8_t easylogger_level(const Severity severity) noexcept {
+  switch (severity) {
+  case Severity::debug:
+    return ELOG_LVL_DEBUG;
+  case Severity::info:
+    return ELOG_LVL_INFO;
+  case Severity::warning:
+    return ELOG_LVL_WARN;
+  case Severity::error:
+  case Severity::critical:
+    return ELOG_LVL_ERROR;
+  }
+  return ELOG_LVL_ERROR;
+}
+
+void initialize_easylogger() noexcept {
+  static std::once_flag initialized;
+  std::call_once(initialized, [] {
+    static_cast<void>(elog_init());
+    for (uint8_t level = ELOG_LVL_ASSERT; level < ELOG_LVL_TOTAL_NUM; ++level) {
+      elog_set_fmt(level, ELOG_FMT_LVL | ELOG_FMT_TAG);
+    }
+    elog_start();
+  });
+}
+
 } // namespace
 
-Logger::Logger(std::ostream &output) noexcept : output_{output} {}
+Logger::Logger() { initialize_easylogger(); }
 
 void Logger::log(const Severity severity, const std::string_view module,
                  const std::string_view event, const std::string_view context) {
@@ -65,16 +94,19 @@ void Logger::write_line(const Severity severity, const std::string_view module,
   const auto seconds = std::chrono::duration_cast<std::chrono::seconds>(
                            timestamp.time_since_epoch())
                            .count();
-  output_ << "timestamp_unix_s=" << seconds << " severity=" << label(severity)
-          << " module=" << std::quoted(module)
-          << " event=" << std::quoted(content.event);
+  std::ostringstream line;
+  line << "timestamp_unix_s=" << seconds << " severity=" << label(severity)
+       << " event=\"" << content.event << '"';
   if (!content.context.empty()) {
-    output_ << ' ' << content.context;
+    line << ' ' << content.context;
   }
   if (suppressed != 0) {
-    output_ << " suppressed=" << suppressed;
+    line << " suppressed=" << suppressed;
   }
-  output_ << '\n';
+  const auto text = line.str();
+  const std::string tag{module};
+  elog_output(easylogger_level(severity), tag.c_str(), __FILE__, __func__,
+              __LINE__, "%s", text.c_str());
 }
 
 } // namespace robot_control::service::logging

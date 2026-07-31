@@ -4,13 +4,16 @@ project(
   robot_control
   VERSION 0.1.0
   DESCRIPTION "RK3588 Linux motion-control middleware"
-  LANGUAGES CXX)
+  LANGUAGES C CXX)
 
 include(CTest)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(ROBOT_CONTROL_WARNINGS_AS_ERRORS "Treat project warnings as errors" ON)
@@ -44,6 +47,8 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
   add_subdirectory(tests/integration)
   add_test(NAME platform_probe_help COMMAND robot-control-platform-probe --help)
   add_test(NAME platform_probe_run COMMAND robot-control-platform-probe)
+  add_test(NAME platform_probe_phase3_smoke
+           COMMAND robot-control-platform-probe --phase3-smoke)
   set_tests_properties(
     platform_probe_run PROPERTIES PASS_REGULAR_EXPRESSION
                                   "probe_version=1.*machine=")

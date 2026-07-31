@@ -84,13 +84,24 @@ Result<SerialPort> SerialPort::open(std::string path,
 Result<std::size_t>
 SerialPort::read_some(const std::span<std::byte> destination,
                       const std::chrono::milliseconds timeout) noexcept {
+  return read_some(destination, timeout, -1);
+}
+
+Result<std::size_t>
+SerialPort::read_some(const std::span<std::byte> destination,
+                      const std::chrono::milliseconds timeout,
+                      const int cancellation_fd) noexcept {
   if (destination.empty()) {
     return Result<std::size_t>::failure(
         Status::from_errno("read", path_, EINVAL));
   }
-  const auto event = io::wait_readable(fd_.get(), timeout);
+  const auto event = io::wait_readable(fd_.get(), timeout, cancellation_fd);
   if (!event.ok()) {
     return Result<std::size_t>::failure(event.status());
+  }
+  if (event.value().cancelled) {
+    return Result<std::size_t>::failure(
+        Status::from_errno("read", path_ + " cancelled", ECANCELED));
   }
   if (event.value().error) {
     return Result<std::size_t>::failure(Status::from_errno("poll", path_, EIO));

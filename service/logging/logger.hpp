@@ -3,7 +3,6 @@
 #include <chrono>
 #include <cstdint>
 #include <mutex>
-#include <ostream>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -21,11 +20,9 @@ enum class Severity : std::uint8_t {
 class Logger final {
 public:
   /**
-   * Construct a structured logger writing to a caller-owned stream.
-   *
-   * @param output Stream which must outlive the logger.
+   * Construct a structured logger backed by EasyLogger stderr output.
    */
-  explicit Logger(std::ostream &output) noexcept;
+  Logger();
 
   /**
    * Emit one structured line.
@@ -77,7 +74,6 @@ private:
   void write_line(Severity severity, std::string_view module,
                   LineContent content, std::uint64_t suppressed);
 
-  std::ostream &output_;
   std::mutex mutex_{};
   std::unordered_map<std::string, ThrottleState> throttles_{};
 };

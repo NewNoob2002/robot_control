@@ -1,6 +1,6 @@
 # ADR-0002: CANopen and Logging Dependencies
 
-- Status: Accepted
+- Status: Amended
 - Date: 2026-07-31
 
 ## Context
@@ -21,17 +21,20 @@ Use CANopenLinux's SocketCAN/epoll integration rather than implementing a
 parallel production transport. Add a project-owned CANopen controller facade,
 network manager, CiA402 layer, and vendor drive profile above it.
 
-Do not use ros2_canopen as the low-level core. Do not adopt EasyLogger initially.
-Implement a minimal structured stderr logger designed for journald, with
-severity, module, monotonic/context fields, and repetition throttling.
+Do not use ros2_canopen as the low-level core.
+
+The original logging decision was amended after Phase 3 review: use the
+repository's EasyLogger core through a project-owned Linux port and C++ facade.
+Keep synchronous stderr output for journald, disable color/async/buffer modes,
+and retain project-owned structured fields and repetition throttling.
 
 ## Alternatives
 
 - Custom SocketCAN driver for CANopenNode: rejected as duplicated maintenance
   unless the integration spike proves a concrete upstream limitation.
 - ros2_canopen core: rejected because it couples safety availability to ROS2.
-- Keep EasyLogger: rejected because the snapshot is unpinned, MCU-focused, and
-  larger than the initial Linux logging need.
+- Direct use of EasyLogger macros throughout the application: rejected because
+  it would spread global state and third-party APIs across domain modules.
 - FetchContent from `master`: rejected because normal builds must be reproducible
   and offline.
 
@@ -42,6 +45,9 @@ severity, module, monotonic/context fields, and repetition throttling.
 - Upstream stack objects remain owned by the CANopen execution context.
 - Project policy is isolated from upstream callbacks.
 - Any upstream patch requires provenance and review.
+- EasyLogger's process-global state is confined to `service/logging`; this is a
+  documented exception to the no-global-state preference imposed by the chosen
+  library. Domain and platform APIs do not depend on EasyLogger headers.
 
 ## Verification
 
@@ -49,4 +55,3 @@ severity, module, monotonic/context fields, and repetition throttling.
 - Release builds perform no network fetch.
 - A vcan integration spike proves NMT, heartbeat, SDO, PDO, EMCY, shutdown, and
   reopen behavior before CiA402 motion work.
-

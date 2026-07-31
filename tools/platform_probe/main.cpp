@@ -1,3 +1,8 @@
+#include "platform/linux/process/termination_event.hpp"
+#include "platform/linux/time/monotonic_timer.hpp"
+#include "platform/linux/uart/serial_port.hpp"
+#include "service/logging/logger.hpp"
+
 #include <sys/utsname.h>
 #include <unistd.h>
 
@@ -16,7 +21,34 @@ namespace {
  * not be called concurrently with other unsynchronized writers.
  */
 void print_usage() {
-  std::cout << "Usage: robot-control-platform-probe [--help]\n";
+  std::cout << "Usage: robot-control-platform-probe [--help|--phase3-smoke]\n";
+}
+
+/**
+ * Link and safely execute representative Phase 3 APIs.
+ *
+ * @return Zero when mechanisms initialize and expected failure paths work.
+ */
+int phase3_smoke() {
+  namespace linux_time = robot_control::platform::linux::time;
+  const auto current = linux_time::now();
+  if (!current.ok() || !linux_time::sleep_until(current.value()).ok()) {
+    return 3;
+  }
+  auto termination =
+      robot_control::platform::linux::process::TerminationEvent::create();
+  if (!termination.ok()) {
+    return 4;
+  }
+  const auto missing = robot_control::platform::linux::uart::SerialPort::open(
+      "/definitely/missing/robot-control-phase3-probe", {});
+  if (missing.ok()) {
+    return 5;
+  }
+  robot_control::service::logging::Logger logger;
+  logger.log(robot_control::service::logging::Severity::info, "platform_probe",
+             "phase3_smoke", "result=pass");
+  return 0;
 }
 
 /**
@@ -66,6 +98,9 @@ int main(const int argc, char *argv[]) {
   if (argc == 2 && std::string_view{argv[1]} == "--help") {
     print_usage();
     return 0;
+  }
+  if (argc == 2 && std::string_view{argv[1]} == "--phase3-smoke") {
+    return phase3_smoke();
   }
   if (argc != 1) {
     print_usage();
