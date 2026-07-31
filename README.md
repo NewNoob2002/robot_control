@@ -8,10 +8,11 @@ an adapter and is not the low-level safety authority.
 
 ## Project status
 
-Phase 2 provides a platform-independent command, arbitration, safety, and
-CiA402 domain baseline with host behavior-lock tests. The repository also has a
-qualified Ubuntu 22.04 RK3588 cross-build path. Linux device adapters and
-motion-producing integration have not started.
+Phase 3 provides Linux mechanism adapters for descriptor ownership, poll-based
+waiting, absolute monotonic timing, synchronous termination events, raw UART,
+and throttled structured logging. These adapters contain no motion policy and
+are covered by pipe, PTY, signal, timing, sanitizer, and cross-build tests.
+SocketCAN and motion-producing integration have not started.
 
 Read these documents before implementation:
 
@@ -48,6 +49,19 @@ ROBOT_CONTROL_SYSROOT="$PWD/sysroots/rk3588-ubuntu2204" \
 execute as the host UID/GID, so output remains host-owned. The sysroot must be
 under the ignored `sysroots/` directory so the running container can see it.
 The Ubuntu-container filesystem is deliberately rejected as a target sysroot.
+
+## Phase 3 verification
+
+```bash
+./scripts/build/build_host.sh
+
+ROBOT_CONTROL_SYSROOT="$PWD/sysroots/rk3588-ubuntu2204" \
+  ./scripts/build/build_rk3588.sh
+```
+
+Detailed sanitizer, static-analysis, and boundary-audit evidence is recorded
+in
+[`docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md`](docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md).
 
 ## Safety
 

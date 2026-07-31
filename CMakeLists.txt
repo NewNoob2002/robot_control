@@ -35,10 +35,13 @@ if(ROBOT_CONTROL_WARNINGS_AS_ERRORS)
 endif()
 
 add_subdirectory(domain)
+add_subdirectory(platform)
+add_subdirectory(service)
 add_subdirectory(tools/platform_probe)
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
   add_subdirectory(tests/unit)
+  add_subdirectory(tests/integration)
   add_test(NAME platform_probe_help COMMAND robot-control-platform-probe --help)
   add_test(NAME platform_probe_run COMMAND robot-control-platform-probe)
   set_tests_properties(

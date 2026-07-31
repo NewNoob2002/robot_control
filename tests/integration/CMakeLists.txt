@@ -1,0 +1,6 @@
+add_executable(robot_control_linux_platform_tests linux_platform_tests.cpp)
+target_link_libraries(
+  robot_control_linux_platform_tests
+  PRIVATE robot_control_platform_linux robot_control_service_logging
+          robot_control_project_options robot_control_project_warnings)
+add_test(NAME linux_platform_integration COMMAND robot_control_linux_platform_tests)

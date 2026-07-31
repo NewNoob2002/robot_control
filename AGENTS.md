@@ -6,10 +6,10 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 
 ## Current State
 
-- Phases 0 and 1 are complete. Phase 2 provides pure command, arbitration,
-  safety, and CiA402 domain libraries with host behavior-lock tests; Linux
-  device adapters, CANopen integration, CI, packaging, and deploy service are
-  not implemented.
+- Phases 0 through 3 are complete. Phase 2 provides pure command, arbitration,
+  safety, and CiA402 domain libraries; Phase 3 provides policy-free Linux fd,
+  poll, monotonic timer, signal, UART, and logging adapters. SocketCAN,
+  CANopen integration, CI, packaging, and deploy service are not implemented.
 - `components/CANopenNode/` and `components/EasyLogger/` are preserved,
   unversioned baseline snapshots. Provenance findings and the selected
   CANopenLinux/CANopenNode commit pair are recorded in `third_party/README.md`;
@@ -21,6 +21,8 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   `docs/build/PHASE1_BUILD_BASELINE.md`.
 - Phase 2 behavior traceability and verification are recorded in
   `docs/verification/PHASE2_DOMAIN_BASELINE.md`.
+- Phase 3 Linux adapter verification is recorded in
+  `docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md`.
 
 ## Non-Negotiable Architecture
 
@@ -76,7 +78,7 @@ Linux kernel APIs
 ## Build and Dependency Rules
 
 - CMake is the only project build-system authority.
-- Support host-native tests, Debian-11-compatible aarch64 cross builds, and optional native target builds through presets/toolchain files.
+- Support host-native tests, Ubuntu-22.04-compatible aarch64 cross builds, and optional native target builds through presets/toolchain files.
 - Cross-link against a versioned sysroot collected from the actual RK3588 Ubuntu 22.04 target/rootfs. Never substitute the cross-container filesystem for the target sysroot.
 - Docker is a versioned toolchain runner. The host checkout is authoritative and build outputs remain host-owned and out-of-source.
 - Pin every third-party dependency by an immutable tag plus commit, submodule commit, or vendored archive checksum. Normal builds must not fetch an unpinned branch.
