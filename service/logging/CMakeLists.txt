@@ -8,7 +8,8 @@ add_library(
 target_include_directories(
   robot_control_easylogger
   PUBLIC "${PROJECT_SOURCE_DIR}/components/EasyLogger/easylogger/inc"
-  PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/easylogger_config")
+  PRIVATE "${PROJECT_SOURCE_DIR}"
+          "${CMAKE_CURRENT_SOURCE_DIR}/easylogger_config")
 target_compile_options(
   robot_control_easylogger
   PRIVATE

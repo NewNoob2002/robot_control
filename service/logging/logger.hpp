@@ -17,6 +17,12 @@ enum class Severity : std::uint8_t {
   critical,
 };
 
+/** Snapshot of non-recursive EasyLogger output health. */
+struct LoggerHealth {
+  std::uint64_t output_failures{0};
+  int last_error{0};
+};
+
 class Logger final {
 public:
   /**
@@ -58,6 +64,20 @@ public:
                      std::string_view event, std::string_view context,
                      std::chrono::steady_clock::time_point now);
 
+  /**
+   * Return non-recursive EasyLogger port failure diagnostics.
+   *
+   * @return Atomic process-wide health snapshot.
+   */
+  [[nodiscard]] LoggerHealth health() const noexcept;
+
+  /**
+   * Return the bounded number of tracked throttle identities.
+   *
+   * @return Value in the inclusive range 0..256.
+   */
+  [[nodiscard]] std::size_t throttle_key_count() const;
+
 private:
   struct ThrottleState {
     std::chrono::steady_clock::time_point last_emitted{};
@@ -74,8 +94,10 @@ private:
   void write_line(Severity severity, std::string_view module,
                   LineContent content, std::uint64_t suppressed);
 
-  std::mutex mutex_{};
+  mutable std::mutex mutex_{};
   std::unordered_map<std::string, ThrottleState> throttles_{};
+  ThrottleState overflow_throttle_{};
+  static constexpr std::size_t max_throttle_keys = 256;
 };
 
 } // namespace robot_control::service::logging

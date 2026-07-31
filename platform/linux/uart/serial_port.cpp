@@ -68,10 +68,17 @@ Result<SerialPort> SerialPort::open(std::string path,
   }
 
   const speed_t speed = termios_speed(config.baud_rate);
-  if (speed == 0 || ::cfsetispeed(&attributes, speed) != 0 ||
-      ::cfsetospeed(&attributes, speed) != 0) {
+  if (speed == 0) {
     return Result<SerialPort>::failure(
         Status::from_errno("cfsetspeed", path, EINVAL));
+  }
+  if (::cfsetispeed(&attributes, speed) != 0) {
+    return Result<SerialPort>::failure(
+        Status::from_errno("cfsetispeed", path, errno));
+  }
+  if (::cfsetospeed(&attributes, speed) != 0) {
+    return Result<SerialPort>::failure(
+        Status::from_errno("cfsetospeed", path, errno));
   }
   if (::tcsetattr(fd.get(), TCSANOW, &attributes) != 0) {
     return Result<SerialPort>::failure(
@@ -95,38 +102,55 @@ SerialPort::read_some(const std::span<std::byte> destination,
     return Result<std::size_t>::failure(
         Status::from_errno("read", path_, EINVAL));
   }
-  const auto event = io::wait_readable(fd_.get(), timeout, cancellation_fd);
-  if (!event.ok()) {
-    return Result<std::size_t>::failure(event.status());
-  }
-  if (event.value().cancelled) {
-    return Result<std::size_t>::failure(
-        Status::from_errno("read", path_ + " cancelled", ECANCELED));
-  }
-  if (event.value().error) {
-    return Result<std::size_t>::failure(Status::from_errno("poll", path_, EIO));
-  }
-  if (!event.value().readable) {
-    if (event.value().hangup) {
-      return Result<std::size_t>::failure(
-          Status::from_errno("read", path_ + " disconnected", EIO));
+  const auto deadline = std::chrono::steady_clock::now() + timeout;
+  while (true) {
+    const auto remaining =
+        std::chrono::duration_cast<std::chrono::milliseconds>(
+            deadline - std::chrono::steady_clock::now());
+    const auto bounded_remaining = remaining > std::chrono::milliseconds::zero()
+                                       ? remaining
+                                       : std::chrono::milliseconds::zero();
+    const auto event =
+        io::wait_readable(fd_.get(), bounded_remaining, cancellation_fd);
+    if (!event.ok()) {
+      return Result<std::size_t>::failure(event.status());
     }
-    return Result<std::size_t>::success(0);
-  }
+    if (event.value().cancelled) {
+      return Result<std::size_t>::failure(
+          Status::from_errno("read", path_ + " cancelled", ECANCELED));
+    }
+    if (event.value().error) {
+      return Result<std::size_t>::failure(
+          Status::from_errno("poll", path_, EIO));
+    }
+    if (!event.value().readable) {
+      if (event.value().hangup) {
+        return Result<std::size_t>::failure(
+            Status::from_errno("read", path_ + " disconnected", EIO));
+      }
+      return Result<std::size_t>::success(0);
+    }
 
-  ssize_t count = 0;
-  do {
-    count = ::read(fd_.get(), destination.data(), destination.size());
-  } while (count < 0 && errno == EINTR);
-  if (count < 0) {
-    return Result<std::size_t>::failure(
-        Status::from_errno("read", path_, errno));
+    ssize_t count = 0;
+    do {
+      count = ::read(fd_.get(), destination.data(), destination.size());
+    } while (count < 0 && errno == EINTR);
+    if (count < 0 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+      if (std::chrono::steady_clock::now() >= deadline) {
+        return Result<std::size_t>::success(0);
+      }
+      continue;
+    }
+    if (count < 0) {
+      return Result<std::size_t>::failure(
+          Status::from_errno("read", path_, errno));
+    }
+    if (count == 0) {
+      return Result<std::size_t>::failure(
+          Status::from_errno("read", path_ + " end-of-file", EIO));
+    }
+    return Result<std::size_t>::success(static_cast<std::size_t>(count));
   }
-  if (count == 0) {
-    return Result<std::size_t>::failure(
-        Status::from_errno("read", path_ + " end-of-file", EIO));
-  }
-  return Result<std::size_t>::success(static_cast<std::size_t>(count));
 }
 
 } // namespace robot_control::platform::linux::uart

@@ -42,13 +42,24 @@ Result<PollResult> wait_readable(const int fd,
     return Result<PollResult>::failure(
         Status::from_errno("poll", "fd=" + std::to_string(fd), errno));
   }
+  if (cancellation_fd >= 0) {
+    if ((descriptors[1].revents & POLLNVAL) != 0) {
+      return Result<PollResult>::failure(Status::from_errno(
+          "poll", "invalid cancellation fd=" + std::to_string(cancellation_fd),
+          EBADF));
+    }
+    if ((descriptors[1].revents & (POLLHUP | POLLERR)) != 0) {
+      return Result<PollResult>::failure(Status::from_errno(
+          "poll", "failed cancellation fd=" + std::to_string(cancellation_fd),
+          EIO));
+    }
+  }
   return Result<PollResult>::success(PollResult{
       .readable = (descriptors[0].revents & POLLIN) != 0,
       .hangup = (descriptors[0].revents & POLLHUP) != 0,
       .error = (descriptors[0].revents & (POLLERR | POLLNVAL)) != 0,
-      .cancelled = cancellation_fd >= 0 &&
-                   (descriptors[1].revents &
-                    (POLLIN | POLLHUP | POLLERR | POLLNVAL)) != 0,
+      .cancelled =
+          cancellation_fd >= 0 && (descriptors[1].revents & POLLIN) != 0,
   });
 }
 

@@ -26,7 +26,8 @@ Do not use ros2_canopen as the low-level core.
 The original logging decision was amended after Phase 3 review: use the
 repository's EasyLogger core through a project-owned Linux port and C++ facade.
 Keep synchronous stderr output for journald, disable color/async/buffer modes,
-and retain project-owned structured fields and repetition throttling.
+retain project-owned structured fields and repetition throttling, and expose
+port failures through atomic health counters without recursively logging them.
 
 ## Alternatives
 

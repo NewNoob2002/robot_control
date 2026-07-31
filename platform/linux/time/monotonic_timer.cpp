@@ -74,7 +74,16 @@ Status sleep_until(const Timestamp deadline,
     const auto timeout = to_timespec(deadline - current.value());
     const int result = ::ppoll(&cancellation, 1, &timeout, nullptr);
     if (result > 0) {
-      return Status::from_errno("ppoll", "cancelled", ECANCELED);
+      if ((cancellation.revents & POLLNVAL) != 0) {
+        return Status::from_errno("ppoll", "invalid cancellation fd", EBADF);
+      }
+      if ((cancellation.revents & (POLLHUP | POLLERR)) != 0) {
+        return Status::from_errno("ppoll", "failed cancellation fd", EIO);
+      }
+      if ((cancellation.revents & POLLIN) != 0) {
+        return Status::from_errno("ppoll", "cancelled", ECANCELED);
+      }
+      return Status::from_errno("ppoll", "unexpected cancellation event", EIO);
     }
     if (result == 0) {
       return Status::success();

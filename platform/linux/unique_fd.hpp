@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/linux/error.hpp"
+
 #include <unistd.h>
 
 #include <utility>
@@ -64,6 +66,23 @@ public:
    * @return Previously owned descriptor, or -1.
    */
   [[nodiscard]] int release() noexcept { return std::exchange(fd_, -1); }
+
+  /**
+   * Close the descriptor and report a close failure.
+   *
+   * The descriptor is relinquished even on error because retrying close can
+   * accidentally close a descriptor reused by another thread.
+   *
+   * @return Success for an empty owner, otherwise the close status.
+   */
+  [[nodiscard]] Status close() noexcept {
+    const int descriptor = release();
+    if (descriptor < 0 || ::close(descriptor) == 0) {
+      return Status::success();
+    }
+    return Status::from_errno("close", "fd=" + std::to_string(descriptor),
+                              errno);
+  }
 
   /**
    * Close the current descriptor and optionally adopt a replacement.

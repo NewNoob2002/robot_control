@@ -43,7 +43,10 @@ Result<TerminationEvent> TerminationEvent::create() noexcept {
 
 Result<int> TerminationEvent::consume() noexcept {
   signalfd_siginfo information{};
-  const auto count = ::read(fd_.get(), &information, sizeof(information));
+  ssize_t count = 0;
+  do {
+    count = ::read(fd_.get(), &information, sizeof(information));
+  } while (count < 0 && errno == EINTR);
   if (count < 0 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
     return Result<int>::success(0);
   }

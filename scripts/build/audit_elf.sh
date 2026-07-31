@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+export LC_ALL=C
 
 if [[ $# -ne 2 ]]; then
   echo "Usage: $0 <aarch64-elf> <sysroot>" >&2

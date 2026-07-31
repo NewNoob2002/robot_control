@@ -19,5 +19,6 @@ if "${repo_root}/scripts/sysroot/validate_sysroot.sh" "${temp}" \
 fi
 grep -q 'usr/include is missing' "${temp}/validate.log"
 
-echo "Phase 1 negative-path script tests passed"
+grep -q '^export LC_ALL=C$' "${repo_root}/scripts/build/audit_elf.sh"
 
+echo "Phase 1 negative-path script tests passed"

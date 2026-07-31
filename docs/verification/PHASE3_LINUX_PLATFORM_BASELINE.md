@@ -31,7 +31,9 @@ policy, ROS2, device-tree configuration, or physical device access is included.
 - `SerialPort` owns its descriptor and returns zero bytes for a read timeout;
   disconnect and syscall failures return context-rich errors.
 - EasyLogger process-global state is confined to `service/logging`; its Linux
-  port writes synchronously to stderr for journald.
+  port is derived from the component Linux example, writes synchronously to
+  stderr for journald, supplies time/process/thread hooks, and exposes
+  non-recursive atomic failure diagnostics.
 - Monotonic timestamps are used for deadlines and throttling. Wall-clock time
   appears only in human-readable log metadata.
 
@@ -39,14 +41,16 @@ policy, ROS2, device-tree configuration, or physical device access is included.
 
 `linux_platform_integration` validates:
 
-- descriptor move and close behavior;
+- descriptor move, automatic close, and explicit close-error behavior;
 - pipe timeout/readiness, cancellation, EINTR deadline preservation, and
-  invalid-descriptor errors;
+  invalid/failed cancellation-descriptor errors;
 - absolute/cancellable sleep and constant-time multi-billion-period catch-up;
 - SIGTERM delivery, consumption, and empty nonblocking reads;
 - PTY raw configuration, baud selection, fragmented byte reads, timeout,
   disconnect, and missing-device failures;
-- structured severity/module fields and deterministic suppression counts.
+- structured severity/module fields, deterministic suppression counts,
+  `/dev/full` failure health, and bounded throttle identities;
+- delayed UART, timer, and periodic cancellation after the waiter is blocked.
 
 ## Review resolution
 
@@ -67,6 +71,15 @@ and periodic waits; keep the termination mask blocked for process lifetime;
 advance periodic deadlines arithmetically with overflow detection; recompute
 poll time remaining after EINTR; guard failed results in tests; issue separate
 PTY writes/reads; and link/run `--phase3-smoke` in the audited target ELF.
+
+A second review also found valid issues. The ELF audit now fixes `LC_ALL=C`
+before parsing `readelf`; cancellation `POLLNVAL`, `POLLHUP`, and `POLLERR` are
+diagnostic failures rather than normal shutdown; delayed-writer tests prove
+bounded wake-up after blocking; `TerminationEvent::consume()` retries EINTR;
+UART retries transient EAGAIN against its original deadline; explicit
+descriptor close reports errors; termios speed setters preserve errno;
+EasyLogger failures are observable through `Logger::health()`; and throttle
+identity storage is capped at 256 keys.
 
 PTY and pipe tests deliberately avoid real UART and CAN hardware.
 
