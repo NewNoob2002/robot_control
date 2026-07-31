@@ -6,9 +6,10 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 
 ## Current State
 
-- Phase 0 is complete and committed. Phase 1 provides a working host CMake
-  probe/test build and strict cross-build/sysroot tooling; motion-control
-  application code, CI, packaging, and deploy service are not implemented.
+- Phases 0 and 1 are complete. Phase 2 provides pure command, arbitration,
+  safety, and CiA402 domain libraries with host behavior-lock tests; Linux
+  device adapters, CANopen integration, CI, packaging, and deploy service are
+  not implemented.
 - `components/CANopenNode/` and `components/EasyLogger/` are preserved,
   unversioned baseline snapshots. Provenance findings and the selected
   CANopenLinux/CANopenNode commit pair are recorded in `third_party/README.md`;
@@ -18,6 +19,8 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 - The authoritative implementation plan is `.omx/plans/rk3588-motion-control-middleware-plan.md`.
 - Phase 1 build evidence and remaining target validation are recorded in
   `docs/build/PHASE1_BUILD_BASELINE.md`.
+- Phase 2 behavior traceability and verification are recorded in
+  `docs/verification/PHASE2_DOMAIN_BASELINE.md`.
 
 ## Non-Negotiable Architecture
 

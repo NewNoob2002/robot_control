@@ -8,10 +8,10 @@ an adapter and is not the low-level safety authority.
 
 ## Project status
 
-Phase 1 build infrastructure is in progress. The repository has a host-native
-CMake probe/test build and a strict RK3588 cross-build path which requires a
-validated Ubuntu 22.04 aarch64 sysroot from the board image. Motion-control
-product code has not started.
+Phase 2 provides a platform-independent command, arbitration, safety, and
+CiA402 domain baseline with host behavior-lock tests. The repository also has a
+qualified Ubuntu 22.04 RK3588 cross-build path. Linux device adapters and
+motion-producing integration have not started.
 
 Read these documents before implementation:
 
