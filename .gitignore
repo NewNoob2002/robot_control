@@ -12,7 +12,6 @@ compile_commands.json
 
 # Editor and OS files
 .cache/
-.clangd
 .idea/
 .vscode/
 *.swp

@@ -1,0 +1,9 @@
+CompileFlags:
+  CompilationDatabase: out/build/host-debug
+
+Index:
+  Background: Build
+
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
