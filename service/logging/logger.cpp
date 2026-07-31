@@ -78,26 +78,23 @@ void Logger::log_throttled(std::string key,
                            const std::chrono::steady_clock::time_point now) {
   const std::scoped_lock lock{mutex_};
   auto position = throttles_.find(key);
-  ThrottleState *state = nullptr;
   if (position == throttles_.end()) {
     if (throttles_.size() >= max_throttle_keys) {
-      state = &overflow_throttle_;
-    } else {
-      position = throttles_.try_emplace(std::move(key)).first;
+      write_line(severity, module, LineContent{event, context}, 0);
+      return;
     }
+    position = throttles_.try_emplace(std::move(key)).first;
   }
-  if (state == nullptr) {
-    state = &position->second;
-  }
-  if (state->initialized && interval > std::chrono::milliseconds::zero() &&
-      (now - state->last_emitted) < interval) {
-    ++state->suppressed;
+  auto &state = position->second;
+  if (state.initialized && interval > std::chrono::milliseconds::zero() &&
+      (now - state.last_emitted) < interval) {
+    ++state.suppressed;
     return;
   }
-  write_line(severity, module, LineContent{event, context}, state->suppressed);
-  state->last_emitted = now;
-  state->suppressed = 0;
-  state->initialized = true;
+  write_line(severity, module, LineContent{event, context}, state.suppressed);
+  state.last_emitted = now;
+  state.suppressed = 0;
+  state.initialized = true;
 }
 
 LoggerHealth Logger::health() const noexcept {

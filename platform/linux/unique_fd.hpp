@@ -80,8 +80,9 @@ public:
     if (descriptor < 0 || ::close(descriptor) == 0) {
       return Status::success();
     }
+    const int saved_errno = errno;
     return Status::from_errno("close", "fd=" + std::to_string(descriptor),
-                              errno);
+                              saved_errno);
   }
 
   /**

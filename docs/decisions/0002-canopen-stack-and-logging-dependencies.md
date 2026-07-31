@@ -28,6 +28,10 @@ repository's EasyLogger core through a project-owned Linux port and C++ facade.
 Keep synchronous stderr output for journald, disable color/async/buffer modes,
 retain project-owned structured fields and repetition throttling, and expose
 port failures through atomic health counters without recursively logging them.
+The Linux port temporarily enables `O_NONBLOCK` while holding the EasyLogger
+output lock, restores the original descriptor flags, and records EAGAIN or flag
+restoration failures. Control-cycle code may emit only predeclared throttled
+events; general informational logging belongs outside the control cycle.
 
 ## Alternatives
 

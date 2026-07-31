@@ -48,6 +48,9 @@ public:
    * Emit at most one event per key and interval.
    *
    * The next emitted line includes the number of suppressed repetitions.
+   * At most 256 stable keys are retained. New keys beyond that bound are
+   * emitted without throttling so unrelated events never suppress each other.
+   * Control-cycle callers must use a fixed, predeclared key set.
    *
    * @param key Stable throttle identity.
    * @param interval Positive suppression interval.
@@ -96,7 +99,6 @@ private:
 
   mutable std::mutex mutex_{};
   std::unordered_map<std::string, ThrottleState> throttles_{};
-  ThrottleState overflow_throttle_{};
   static constexpr std::size_t max_throttle_keys = 256;
 };
 

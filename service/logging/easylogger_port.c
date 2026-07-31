@@ -3,6 +3,7 @@
 #include <elog.h>
 
 #include <errno.h>
+#include <fcntl.h>
 #include <pthread.h>
 #include <stdatomic.h>
 #include <string.h>
@@ -53,6 +54,18 @@ ElogErrCode elog_port_init(void) { return ELOG_NO_ERR; }
 
 /** Write one complete EasyLogger record to standard error. */
 void elog_port_output(const char *log, size_t size) {
+  const int original_flags = fcntl(STDERR_FILENO, F_GETFL);
+  if (original_flags < 0) {
+    record_error(errno);
+    return;
+  }
+  const bool restore_flags = (original_flags & O_NONBLOCK) == 0;
+  if (restore_flags &&
+      fcntl(STDERR_FILENO, F_SETFL, original_flags | O_NONBLOCK) != 0) {
+    record_error(errno);
+    return;
+  }
+  unsigned int interrupted = 0U;
   while (size > 0U) {
     const ssize_t count = write(STDERR_FILENO, log, size);
     if (count > 0) {
@@ -60,11 +73,15 @@ void elog_port_output(const char *log, size_t size) {
       size -= (size_t)count;
       continue;
     }
-    if (count < 0 && errno == EINTR) {
+    if (count < 0 && errno == EINTR && interrupted < 8U) {
+      ++interrupted;
       continue;
     }
     record_error(count == 0 ? EIO : errno);
-    return;
+    break;
+  }
+  if (restore_flags && fcntl(STDERR_FILENO, F_SETFL, original_flags) != 0) {
+    record_error(errno);
   }
 }
 

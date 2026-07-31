@@ -76,12 +76,16 @@ void test_fd_and_poll() {
   errno = 0;
   CHECK("FD-003", ::fcntl(duplicate, F_GETFD) == -1 && errno == EBADF);
 
+  const auto short_wait_start = std::chrono::steady_clock::now();
   auto event = io::wait_readable(moved.get(), 1ms);
+  const auto short_wait_elapsed =
+      std::chrono::steady_clock::now() - short_wait_start;
   CHECK("POLL-001", event.ok());
   if (!event.ok()) {
     return;
   }
   CHECK("POLL-001", !event.value().readable);
+  CHECK("POLL-001", short_wait_elapsed >= 500us && short_wait_elapsed < 50ms);
 
   const std::byte value{0x5a};
   CHECK("POLL-002", ::write(writer.get(), &value, sizeof(value)) == 1);
@@ -112,6 +116,15 @@ void test_fd_and_poll() {
   const auto bad = io::wait_readable(-1, 1ms);
   CHECK("POLL-004", !bad.ok());
   CHECK("POLL-004", bad.status().operation == "poll");
+  const int invalid_main = ::dup(moved.get());
+  CHECK("POLL-004", invalid_main >= 0);
+  if (invalid_main < 0) {
+    return;
+  }
+  CHECK("POLL-004", ::close(invalid_main) == 0);
+  const auto invalid_main_result = io::wait_readable(invalid_main, 1ms);
+  CHECK("POLL-004", !invalid_main_result.ok());
+  CHECK("POLL-004", invalid_main_result.status().error.value() == EBADF);
   const int invalid_cancellation = ::dup(cancel_reader.get());
   CHECK("POLL-004", invalid_cancellation >= 0);
   if (invalid_cancellation < 0) {
@@ -160,9 +173,18 @@ void test_fd_and_poll() {
   CHECK("POLL-005", static_cast<bool>(interrupt_writer));
   struct sigaction action{};
   action.sa_handler = handle_test_signal;
-  CHECK("POLL-005", ::sigemptyset(&action.sa_mask) == 0);
+  const bool signal_set_ready = ::sigemptyset(&action.sa_mask) == 0;
+  CHECK("POLL-005", signal_set_ready);
+  if (!signal_set_ready) {
+    return;
+  }
   struct sigaction old_action{};
-  CHECK("POLL-005", ::sigaction(SIGUSR1, &action, &old_action) == 0);
+  const bool handler_installed =
+      ::sigaction(SIGUSR1, &action, &old_action) == 0;
+  CHECK("POLL-005", handler_installed);
+  if (!handler_installed) {
+    return;
+  }
   const pthread_t waiting_thread = ::pthread_self();
   std::thread interrupter{[waiting_thread] {
     for (int index = 0; index < 4; ++index) {
@@ -340,6 +362,14 @@ void test_serial_port() {
   CHECK("UART-003", ::cfgetospeed(&attributes) == B115200);
 
   std::array<std::byte, 8> buffer{};
+  const auto negative_timeout = serial.read_some(buffer, -1ms);
+  CHECK("UART-003", !negative_timeout.ok());
+  CHECK("UART-003", negative_timeout.status().error.value() == EINVAL);
+  const auto overflow_timeout =
+      serial.read_some(buffer, std::chrono::milliseconds::max());
+  CHECK("UART-003", !overflow_timeout.ok());
+  CHECK("UART-003", overflow_timeout.status().error.value() == EOVERFLOW);
+
   auto count = serial.read_some(buffer, 1ms);
   CHECK("UART-004", count.ok());
   if (!count.ok()) {
@@ -465,6 +495,35 @@ void test_logger() {
     CHECK("LOG-004", health.last_error == ENOSPC);
   }
   CHECK("LOG-005", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
+
+  std::array<int, 2> backpressure_fds{};
+  const bool backpressure_ready =
+      ::pipe2(backpressure_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+  CHECK("LOG-006", backpressure_ready);
+  if (backpressure_ready) {
+    UniqueFd backpressure_reader{backpressure_fds[0]};
+    UniqueFd backpressure_writer{backpressure_fds[1]};
+    std::array<std::byte, 4096> fill{};
+    while (::write(backpressure_writer.get(), fill.data(), fill.size()) > 0) {
+    }
+    CHECK("LOG-006", errno == EAGAIN || errno == EWOULDBLOCK);
+    const int flags = ::fcntl(backpressure_writer.get(), F_GETFL);
+    CHECK("LOG-006", flags >= 0);
+    CHECK("LOG-006", ::fcntl(backpressure_writer.get(), F_SETFL,
+                             flags & ~O_NONBLOCK) == 0);
+    CHECK("LOG-006", ::dup2(backpressure_writer.get(), STDERR_FILENO) >= 0);
+    robot_control_elog_reset_health();
+    const auto blocked_start = std::chrono::steady_clock::now();
+    logger.log(logging::Severity::error, "test", "backpressure", "");
+    const auto blocked_elapsed =
+        std::chrono::steady_clock::now() - blocked_start;
+    const auto health = logger.health();
+    CHECK("LOG-006", blocked_elapsed < 100ms);
+    CHECK("LOG-006", health.output_failures >= 1U);
+    CHECK("LOG-006",
+          health.last_error == EAGAIN || health.last_error == EWOULDBLOCK);
+    CHECK("LOG-006", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
+  }
 }
 
 } // namespace

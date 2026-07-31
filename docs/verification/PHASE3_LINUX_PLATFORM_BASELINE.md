@@ -51,6 +51,8 @@ policy, ROS2, device-tree configuration, or physical device access is included.
 - structured severity/module fields, deterministic suppression counts,
   `/dev/full` failure health, and bounded throttle identities;
 - delayed UART, timer, and periodic cancellation after the waiter is blocked.
+- a real 1 ms wait, closed primary descriptor EBADF, UART timeout validation,
+  and bounded logging return under a full pipe.
 
 ## Review resolution
 
@@ -80,6 +82,17 @@ UART retries transient EAGAIN against its original deadline; explicit
 descriptor close reports errors; termios speed setters preserve errno;
 EasyLogger failures are observable through `Logger::health()`; and throttle
 identity storage is capped at 256 keys.
+
+A third review found no high-severity issue but identified short-timeout and
+degradation gaps. `wait_readable()` now uses nanosecond `ppoll` deadlines
+without millisecond truncation and rejects deadline overflow; a closed primary
+descriptor returns EBADF; UART rejects negative/overflowing timeouts;
+`UniqueFd::close()` captures errno immediately; and SIGUSR1 injection aborts
+safely if handler setup fails. EasyLogger writes temporarily use O_NONBLOCK,
+record EAGAIN/backpressure, restore descriptor flags, and bound EINTR retries.
+Throttle keys beyond the 256-key budget are emitted unthrottled rather than
+sharing suppression state; control-cycle callers are required to use a stable
+predeclared key set.
 
 PTY and pipe tests deliberately avoid real UART and CAN hardware.
 

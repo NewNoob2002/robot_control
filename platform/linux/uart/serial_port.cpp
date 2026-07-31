@@ -102,14 +102,27 @@ SerialPort::read_some(const std::span<std::byte> destination,
     return Result<std::size_t>::failure(
         Status::from_errno("read", path_, EINVAL));
   }
-  const auto deadline = std::chrono::steady_clock::now() + timeout;
+  if (timeout < std::chrono::milliseconds::zero()) {
+    return Result<std::size_t>::failure(
+        Status::from_errno("read", path_ + " negative timeout", EINVAL));
+  }
+  const auto start = std::chrono::steady_clock::now();
+  const auto maximum_timeout =
+      std::chrono::duration_cast<std::chrono::milliseconds>(
+          std::chrono::steady_clock::time_point::max() - start);
+  if (timeout > maximum_timeout) {
+    return Result<std::size_t>::failure(
+        Status::from_errno("read", path_ + " timeout overflow", EOVERFLOW));
+  }
+  const auto wait_duration =
+      std::chrono::duration_cast<std::chrono::steady_clock::duration>(timeout);
+  const auto deadline = start + wait_duration;
   while (true) {
-    const auto remaining =
-        std::chrono::duration_cast<std::chrono::milliseconds>(
-            deadline - std::chrono::steady_clock::now());
-    const auto bounded_remaining = remaining > std::chrono::milliseconds::zero()
-                                       ? remaining
-                                       : std::chrono::milliseconds::zero();
+    const auto remaining = deadline - std::chrono::steady_clock::now();
+    const auto bounded_remaining =
+        remaining > std::chrono::steady_clock::duration::zero()
+            ? std::chrono::ceil<std::chrono::milliseconds>(remaining)
+            : std::chrono::milliseconds::zero();
     const auto event =
         io::wait_readable(fd_.get(), bounded_remaining, cancellation_fd);
     if (!event.ok()) {
