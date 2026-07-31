@@ -1,0 +1,108 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "ROBOT_CONTROL_WARNINGS_AS_ERRORS": "ON"
+      }
+    },
+    {
+      "name": "host-debug",
+      "inherits": "base",
+      "displayName": "Host Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
+      "name": "host-test",
+      "inherits": "host-debug",
+      "displayName": "Host tests"
+    },
+    {
+      "name": "rk3588-base",
+      "hidden": true,
+      "inherits": "base",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/aarch64-rk3588-debian11.cmake",
+      "cacheVariables": {
+        "BUILD_TESTING": "OFF"
+      }
+    },
+    {
+      "name": "rk3588-debug",
+      "inherits": "rk3588-base",
+      "displayName": "RK3588 Debian 11 Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "rk3588-release",
+      "inherits": "rk3588-base",
+      "displayName": "RK3588 Debian 11 Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "rk3588-native-debug",
+      "inherits": "base",
+      "displayName": "Native build on RK3588",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TESTING": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "host-debug",
+      "configurePreset": "host-debug"
+    },
+    {
+      "name": "host-test",
+      "configurePreset": "host-test"
+    },
+    {
+      "name": "rk3588-debug",
+      "configurePreset": "rk3588-debug"
+    },
+    {
+      "name": "rk3588-release",
+      "configurePreset": "rk3588-release"
+    },
+    {
+      "name": "rk3588-native-debug",
+      "configurePreset": "rk3588-native-debug"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "host-test",
+      "configurePreset": "host-test",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "rk3588-native-debug",
+      "configurePreset": "rk3588-native-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}
+

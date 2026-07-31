@@ -6,11 +6,18 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 
 ## Current State
 
-- The repository is pre-implementation: there is no working root CMake build, application code, test suite, CI, packaging, or deploy service.
-- `components/CANopenNode/` and `components/EasyLogger/` are unpinned source snapshots until provenance/version metadata is established.
+- Phase 0 is complete and committed. Phase 1 provides a working host CMake
+  probe/test build and strict cross-build/sysroot tooling; motion-control
+  application code, CI, packaging, and deploy service are not implemented.
+- `components/CANopenNode/` and `components/EasyLogger/` are preserved,
+  unversioned baseline snapshots. Provenance findings and the selected
+  CANopenLinux/CANopenNode commit pair are recorded in `third_party/README.md`;
+  the snapshots are not approved release dependencies.
 - `docs/ZLAC8015D_CANOPEN_NOTES.md` and the vendor PDFs are drive references; statements marked for hardware verification are not safety assumptions.
 - The legacy STM32 project at `~/Desktop/workspace/STM32_PROJ/STM32G474_CANOPEN_Copy` is read-only architectural evidence, not a source tree to copy.
 - The authoritative implementation plan is `.omx/plans/rk3588-motion-control-middleware-plan.md`.
+- Phase 1 build evidence and remaining target validation are recorded in
+  `docs/build/PHASE1_BUILD_BASELINE.md`.
 
 ## Non-Negotiable Architecture
 
@@ -108,4 +115,3 @@ Linux kernel APIs
 4. Add tests and documentation with the implementation.
 5. Verify locally and report exact commands/results.
 6. Do not flash, move a motor, alter target device-tree/network configuration, deploy to production, or change persistent drive parameters without explicit authorization.
-

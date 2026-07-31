@@ -19,7 +19,8 @@ compile_commands.json
 .DS_Store
 
 # Target/sysroot material must never enter Git
-/sysroots/
+/sysroots/*
+!/sysroots/README.md
 *.sysroot.tar*
 
 # Local deployment secrets and inventory overrides
@@ -27,4 +28,3 @@ compile_commands.json
 /config/local/
 *.pem
 *.key
-

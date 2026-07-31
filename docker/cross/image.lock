@@ -1,0 +1,9 @@
+image_name=rk3588-cross
+image_tag=latest
+image_id=sha256:14cae4e1ab5aa8ee611e1efe4d20408bce17734b52297b9fa2c9c12a1742f677
+container_name=rk3588-dev
+base_image=ubuntu:22.04.5
+expected_architecture=amd64
+expected_target_triplet=aarch64-linux-gnu
+expected_compiler="aarch64-linux-gnu-g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0"
+expected_cmake="cmake version 3.22.1"

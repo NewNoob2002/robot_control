@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: $0 <sysroot>" >&2
+  exit 2
+fi
+
+readonly sysroot="$(realpath "$1")"
+readonly report="${sysroot}/.robot-control/normalization.tsv"
+mkdir -p "$(dirname "${report}")"
+: >"${report}"
+
+while IFS= read -r -d '' link; do
+  target="$(readlink "${link}")"
+  if [[ "${target}" == /* ]]; then
+    relative_target="$(realpath --canonicalize-missing --relative-to="$(dirname "${link}")" \
+      "${sysroot}${target}")"
+    printf '%s\t%s\t%s\n' "${link#${sysroot}/}" "${target}" "${relative_target}" \
+      >>"${report}"
+    ln -sfn "${relative_target}" "${link}"
+  fi
+done < <(find "${sysroot}/lib" "${sysroot}/usr/lib" -type l -print0)
+
