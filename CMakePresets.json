@@ -10,8 +10,11 @@
       "name": "base",
       "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "binaryDir": "$env{ROBOT_CONTROL_BUILD_ROOT}/${presetName}",
       "installDir": "${sourceDir}/out/install/${presetName}",
+      "environment": {
+        "ROBOT_CONTROL_BUILD_ROOT": "${sourceDir}/out/build"
+      },
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "ROBOT_CONTROL_WARNINGS_AS_ERRORS": "ON"
@@ -36,6 +39,9 @@
       "hidden": true,
       "inherits": "base",
       "toolchainFile": "${sourceDir}/cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+      "environment": {
+        "ROBOT_CONTROL_BUILD_ROOT": "${sourceDir}/out/build/cross"
+      },
       "cacheVariables": {
         "BUILD_TESTING": "OFF"
       }

@@ -6,12 +6,16 @@
 compile_commands.json
 
 # Local tool/runtime state; keep approved plans
+/.codex/
 /.omx/*
 !/.omx/plans/
 !/.omx/plans/*.md
 
 # Editor and OS files
 .cache/
+/.codegraph/
+__pycache__/
+*.py[cod]
 .idea/
 .vscode/
 *.swp
@@ -21,6 +25,9 @@ compile_commands.json
 # Target/sysroot material must never enter Git
 /sysroots/*
 !/sysroots/README.md
+!/sysroots/locks/
+!/sysroots/locks/*.json
+!/sysroots/locks/README.md
 *.sysroot.tar*
 
 # Local deployment secrets and inventory overrides

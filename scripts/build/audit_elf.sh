@@ -7,8 +7,9 @@ if [[ $# -ne 2 ]]; then
   exit 2
 fi
 
-readonly binary="$(realpath "$1")"
-readonly sysroot="$(realpath "$2")"
+binary="$(realpath -- "$1")"
+sysroot="$(realpath -- "$2")"
+readonly binary sysroot
 if [[ -n "${READELF:-}" ]]; then
   readonly readelf_bin="${READELF}"
 elif command -v aarch64-linux-gnu-readelf >/dev/null 2>&1; then
