@@ -1,0 +1,7 @@
+*
+!docker/
+docker/*
+!docker/cross/
+docker/cross/*
+!docker/cross/Dockerfile
+!docker/cross/packages.lock
