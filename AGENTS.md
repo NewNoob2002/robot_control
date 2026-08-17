@@ -17,7 +17,6 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   `third_party/README.md`.
 - `docs/ZLAC8015D_CANOPEN_NOTES.md` and the vendor PDFs are drive references; statements marked for hardware verification are not safety assumptions.
 - The legacy STM32 project at `~/Desktop/workspace/STM32_PROJ/STM32G474_CANOPEN_Copy` is read-only architectural evidence, not a source tree to copy.
-- The authoritative implementation plan is `.omx/plans/rk3588-motion-control-middleware-plan.md`.
 - Phase 1 build evidence and remaining target validation are recorded in
   `docs/build/PHASE1_BUILD_BASELINE.md`.
 - Phase 2 behavior traceability and verification are recorded in
@@ -115,7 +114,7 @@ Linux kernel APIs
 
 ## Agent Workflow
 
-1. Read this file, the current phase in `.omx/plans/rk3588-motion-control-middleware-plan.md`, and relevant design docs.
+1. Read this file and the relevant design docs.
 2. Inspect existing code and legacy evidence before editing; do not infer missing device mappings.
 3. Keep each change within one phase/milestone and avoid speculative later-phase abstractions.
 4. Add tests and documentation with the implementation.

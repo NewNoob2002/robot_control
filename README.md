@@ -18,7 +18,10 @@ SocketCAN and motion-producing integration have not started.
 Read these documents before implementation:
 
 - [`AGENTS.md`](AGENTS.md)
-- [implementation plan](.omx/plans/rk3588-motion-control-middleware-plan.md)
+- [Phase 0 repository baseline](docs/baseline/README.md)
+- [Phase 1 build and ABI baseline](docs/build/PHASE1_BUILD_BASELINE.md)
+- [Phase 2 domain baseline](docs/verification/PHASE2_DOMAIN_BASELINE.md)
+- [Phase 3 Linux platform baseline](docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md)
 - [architecture decisions](docs/decisions/)
 - [legacy behavioral contract](docs/architecture/LEGACY_BEHAVIOR_BASELINE.md)
 - [third-party provenance](third_party/README.md)
@@ -30,39 +33,118 @@ Host build and tests:
 ```bash
 ./scripts/build/build_host.sh
 ./scripts/test/test_phase1_scripts.sh
+./scripts/test/test_sysroot_manifest.sh
 ```
 
-The existing toolchain is recorded in `docker/cross/image.lock` and is reused:
+Build or verify the checksum-pinned cross-toolchain image:
 
 ```bash
-docker ps --filter name=rk3588-dev
+./scripts/build/build_cross_image.sh --update-lock
+./scripts/build/verify_cross_image.sh
 ```
 
-Collect a sysroot from an authorized target and cross-build:
+`docker/cross/image.lock` schema 2 records the Ubuntu snapshot, base image
+digest, Dockerfile and package-lock digests, local image ID, tool versions, and
+installed-package manifest digest. The current local tag is the versioned
+`rk3588-cross:phase1-20260814`; the immutable image ID remains the build
+authority. Lock refreshes use process-level transactional publication: the
+build is first published to a random candidate tag, the candidate is verified
+against a staged lock, and only then are the canonical tag and lock replaced.
+Caught failures through final canonical verification restore the previous
+canonical image and lock. Publishers are serialized by a global lock keyed by
+the Docker daemon ID and canonical image reference, and rollback refuses to
+overwrite image or lock state changed outside its transaction. This does not
+claim cross-subsystem atomicity for a host crash or power loss spanning the
+Docker tag store and filesystem lock.
+
+For an optional persistent development shell, create or reuse the
+clone-scoped container:
 
 ```bash
-./scripts/sysroot/sync_from_target.sh <ssh-target> ./sysroots/rk3588-ubuntu2204
-ROBOT_CONTROL_SYSROOT="$PWD/sysroots/rk3588-ubuntu2204" \
+./scripts/build/setup_cross_container.sh
+```
+
+The default name is `rk3588-dev-<clone-id>`, where the script derives the
+12-character clone ID from the absolute checkout path. The script mounts the
+source tree read-only, mounts `out/` and the ccache directory writable, disables
+networking, drops all capabilities, and enables `no-new-privileges`. Reuse and
+replacement require the expected managed, repository, clone, owner UID/GID, and
+container-contract labels. A same-name container with foreign or unknown
+ownership is left untouched; a legacy managed container without explicit owner
+labels is migrated only when its complete contract already matches the current
+user and checkout.
+
+The actual cross build does not depend on that persistent container. It uses
+an ephemeral `docker run --rm` invocation and mounts a validated, externally
+locked sysroot read-only at `/opt/robot-control/sysroot`. The container builds
+from a deterministic snapshot of currently existing tracked and nonignored
+untracked source files; image-lock verification and build metadata hashes are
+resolved from that same snapshot rather than the mutable live checkout.
+
+Collect a sysroot from an authorized target to any suitable host path, then
+cross-build:
+
+```bash
+sysroot_dir="$HOME/.cache/robot-control/sysroots/rk3588-ubuntu2204"
+./scripts/sysroot/sync_from_target.sh <ssh-target> "$sysroot_dir"
+ROBOT_CONTROL_SYSROOT="$sysroot_dir" \
+ROBOT_CONTROL_SYSROOT_LOCK="$sysroot_dir.lock.json" \
+ROBOT_CONTROL_PRESET=rk3588-debug \
   ./scripts/build/build_rk3588.sh
 ```
 
-`rk3588-dev` already mounts the host repository at `/workspace`. Build commands
-execute as the host UID/GID, so output remains host-owned. The sysroot must be
-under the ignored `sysroots/` directory so the running container can see it.
-The Ubuntu-container filesystem is deliberately rejected as a target sysroot.
+The sync script builds and validates a staging tree before replacing the
+requested destination. It refuses to replace an unmanaged directory, marks
+managed outputs, and always writes the adjacent external JSON identity lock;
+`ROBOT_CONTROL_SYSROOT_LOCK` is build-only and cannot redirect sync output.
+Concurrent compliant publishers for the same canonical destination and
+adjacent lock are serialized by a global exclusive lock held from initial
+publication inspection through cleanup, preventing cross-transaction
+tree/lock pairing. This is process-level serialization with
+interruption-aware rollback, not a claim of filesystem power-loss atomicity.
+The build revalidates target metadata checksums, a deterministic content
+manifest covering `lib`, `usr/lib`, and `usr/include`, and the external lock.
+`rk3588-debug` may use the adjacent generated lock. `rk3588-release` requires
+an explicit, Git-tracked, clean reviewed lock below `sysroots/locks/`; see
+[`sysroots/locks/README.md`](sysroots/locks/README.md). The Ubuntu
+compiler-container filesystem is deliberately rejected as a target sysroot.
+External locks must be regular non-symlink files. Synchronization also rejects
+an orphaned adjacent lock when its sysroot destination is absent.
+
+Each cross build removes only its validated preset build directory before
+configuration. This is intentional: deterministic source snapshots normalize
+file mtimes, so reusing an older Ninja object tree could associate stale
+objects with a new source attestation. Compiler output reuse remains available
+through ccache.
+
+As of 2026-08-17, this checkout contains no actual sysroot under `sysroots/`.
+Host and script checks were rerun on 2026-08-17. The locked image was built and
+verified on 2026-08-14, but Docker is unavailable in the current environment,
+so image runtime verification was not repeated on 2026-08-17. A real aarch64
+cross build, ELF audit, and target smoke test also remain pending. The retained
+cross/target results in the
+[Phase 1 baseline](docs/build/PHASE1_BUILD_BASELINE.md) are historical evidence
+from 2026-07-31.
 
 ## Phase 3 verification
 
 ```bash
 ./scripts/build/build_host.sh
-
-ROBOT_CONTROL_SYSROOT="$PWD/sysroots/rk3588-ubuntu2204" \
-  ./scripts/build/build_rk3588.sh
 ```
 
 Detailed sanitizer, static-analysis, and boundary-audit evidence is recorded
 in
 [`docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md`](docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md).
+
+When a validated release-equivalent sysroot is available, rerun the cross
+build separately:
+
+```bash
+ROBOT_CONTROL_SYSROOT="/absolute/path/to/rk3588-ubuntu2204" \
+ROBOT_CONTROL_SYSROOT_LOCK="$PWD/sysroots/locks/<reviewed-lock>.json" \
+ROBOT_CONTROL_PRESET=rk3588-release \
+  ./scripts/build/build_rk3588.sh
+```
 
 ## Safety
 
