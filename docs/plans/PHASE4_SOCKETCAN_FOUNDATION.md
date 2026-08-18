@@ -51,8 +51,9 @@ integration evidence, and passive target verification.
 5. **Tooling (complete):** passive-only `tools/can_probe` inspection with a
    bounded monotonic runtime, signal cancellation, and structured frame and
    metadata output.
-6. **Integration:** bidirectional `vcan` tests, filter tests, interface-down and
-   reopen behavior, plus an explicit capability-aware test runner.
+6. **Integration (in progress):** a capability-aware isolated runner and real
+   bidirectional `vcan` frame and raw-filter-isolation tests are complete;
+   error-frame runtime evidence plus interface-down and reopen behavior remain.
 7. **Target evidence:** read-only interface/driver inventory and passive capture
    on the authorized RK3588 target; record kernel limitations without changing
    network configuration.
@@ -68,10 +69,10 @@ integration evidence, and passive target verification.
 | Target passive | interface identity, receive-only capture, timestamps/counters, no root data path |
 | Static | warnings-as-errors, ShellCheck, Hadolint, changed-source format/static analysis |
 
-The `vcan` runner must distinguish unsupported infrastructure from a product
-failure. Creating or changing a `vcan` device requires `CAP_NET_ADMIN` and stays
-outside the library. Public CI may report an explicit skip until a privileged
-integration runner is available.
+The managed `vcan` runner distinguishes unsupported infrastructure from a
+product failure. It creates `vcan0` only inside an isolated user/network
+namespace, reports capability or kernel limitations as a CTest skip, and
+propagates test failures after setup.
 
 ## Acceptance criteria
 
@@ -95,7 +96,8 @@ timestamps and cumulative RX queue overflow counters for diagnostics; they do
 not use either value for monotonic deadlines or safety decisions. The
 `robot-control-can-probe` tool is receive-only, externally configured,
 steady-clock bounded, and emits stable key/value records without interpreting
-diagnostic metadata. Managed bidirectional `vcan` evidence, filter-isolation
-evidence, nonzero overflow runtime evidence, interface reopen behavior, and
-passive target validation remain pending; compilation and CLI tests are not
-recorded as `vcan` or target runtime evidence.
+diagnostic metadata. The managed isolated `vcan` runner has produced runtime
+evidence for bidirectional complete Classical CAN frames and exact raw-filter
+isolation; unsupported namespace or kernel capability is an explicit CTest
+skip. Nonzero overflow and error-frame runtime evidence, interface reopen
+behavior, and passive target validation remain pending.
