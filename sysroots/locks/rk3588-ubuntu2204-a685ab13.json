@@ -1,0 +1,11 @@
+{
+  "architecture": "arm64",
+  "artifact_id": "rk3588-ubuntu2204",
+  "os": {
+    "id": "ubuntu",
+    "version_id": "22.04"
+  },
+  "schema_version": 1,
+  "sysroot_content_sha256": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911",
+  "target_metadata_sha256": "ed106beba40637fb2606ed8d035f425daf8aea2294f1ff1b291319e1f84b7974"
+}
