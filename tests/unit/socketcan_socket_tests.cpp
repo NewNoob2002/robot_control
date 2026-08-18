@@ -24,6 +24,7 @@ namespace {
 using namespace std::chrono_literals;
 using robot_control::platform::linux::Result;
 using robot_control::platform::linux::UniqueFd;
+using robot_control::platform::linux::can::CanReceiveObservation;
 using robot_control::platform::linux::can::CanSocket;
 using robot_control::platform::linux::can::CanSocketConfig;
 using robot_control::platform::linux::can::ClassicCanFrame;
@@ -50,11 +51,52 @@ void check(const bool condition, const std::string_view id,
 ClassicCanFrame test_frame(const std::uint32_t raw_can_id = 0x321U) {
   return ClassicCanFrame{
       .raw_can_id = raw_can_id,
-      .payload_length = 4U,
+      .payload_length = 8U,
       .len8_dlc = 0U,
       .data = {std::byte{0x11}, std::byte{0x22}, std::byte{0x33},
-               std::byte{0x44}},
+               std::byte{0x44}, std::byte{0x55}, std::byte{0x66},
+               std::byte{0x77}, std::byte{0x88}},
   };
+}
+
+/** Drain queued frames before a managed-vcan assertion sequence. */
+bool drain_socket(CanSocket &socket, const std::string_view id) {
+  for (int index = 0; index < 64; ++index) {
+    const auto stale = socket.receive(0ms);
+    CHECK(id, stale.ok());
+    if (!stale.ok()) {
+      return false;
+    }
+    if (!stale.value().has_value()) {
+      return true;
+    }
+  }
+  CHECK(id, false);
+  return false;
+}
+
+/** Verify one complete received observation against its transmitted frame. */
+void check_received_frame(
+    const std::string_view id,
+    const Result<std::optional<CanReceiveObservation>> &received,
+    const ClassicCanFrame &expected) {
+  CHECK(id, received.ok());
+  CHECK(id, received.ok() && received.value().has_value());
+  if (!received.ok() || !received.value().has_value()) {
+    return;
+  }
+  const auto &actual = received.value()->frame;
+  CHECK(id, actual.raw_can_id == expected.raw_can_id);
+  CHECK(id, actual.payload_length == expected.payload_length);
+  CHECK(id, actual.len8_dlc == expected.len8_dlc);
+  CHECK(id, actual.data == expected.data);
+}
+
+/** Verify that a filtered receiver observes no frame before its deadline. */
+void check_receive_timeout(CanSocket &socket, const std::string_view id) {
+  const auto received = socket.receive(20ms);
+  CHECK(id, received.ok());
+  CHECK(id, received.ok() && !received.value().has_value());
 }
 
 /** Verify metadata configuration defaults and nested optional success. */
@@ -184,6 +226,7 @@ void test_configured_vcan() {
                  "vcan interface for bind/filter/frame/metadata checks\n";
     return;
   }
+  const int initial_failures = failures;
   if (!std::string_view{interface_name}.starts_with("vcan")) {
     std::cout << "SKIP: ROBOT_CONTROL_TEST_VCAN_INTERFACE must identify a "
                  "vcan interface; refusing active CAN transmission\n";
@@ -227,37 +270,52 @@ void test_configured_vcan() {
     return;
   }
 
-  const auto test_can_id = static_cast<canid_t>(
-      0x5a0U + (static_cast<unsigned int>(::getpid()) & 0x1fU));
-  const std::array<::can_filter, 1> io_filters{{
-      {.can_id = test_can_id,
+  const auto test_can_id_a = static_cast<canid_t>(
+      0x500U + ((static_cast<unsigned int>(::getpid()) & 0x3fU) * 2U));
+  const auto test_can_id_b = static_cast<canid_t>(test_can_id_a + 1U);
+  const std::array<::can_filter, 1> filter_a{{
+      {.can_id = test_can_id_a,
        .can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG},
   }};
-  auto receive_socket = CanSocket::open(
+  const std::array<::can_filter, 1> filter_b{{
+      {.can_id = test_can_id_b,
+       .can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG},
+  }};
+  auto endpoint_a = CanSocket::open(
       interface_name,
-      CanSocketConfig{.filters = std::span<const ::can_filter>{io_filters},
+      CanSocketConfig{.filters = std::span<const ::can_filter>{filter_b},
                       .error_mask = 0,
                       .receive_timestamp = true,
                       .receive_queue_overflow = true});
-  auto transmit_socket = CanSocket::open(
-      interface_name, CanSocketConfig{.filters = no_filters, .error_mask = 0});
-  CHECK("CAN-SOCKET-IO-008", receive_socket.ok());
-  CHECK("CAN-SOCKET-IO-008", transmit_socket.ok());
-  if (!receive_socket.ok() || !transmit_socket.ok()) {
+  auto endpoint_b = CanSocket::open(
+      interface_name,
+      CanSocketConfig{.filters = std::span<const ::can_filter>{filter_a},
+                      .error_mask = 0,
+                      .receive_timestamp = true,
+                      .receive_queue_overflow = true});
+  auto isolation_a = CanSocket::open(
+      interface_name,
+      CanSocketConfig{.filters = std::span<const ::can_filter>{filter_a},
+                      .error_mask = 0});
+  auto isolation_b = CanSocket::open(
+      interface_name,
+      CanSocketConfig{.filters = std::span<const ::can_filter>{filter_b},
+                      .error_mask = 0});
+  CHECK("CAN-SOCKET-IO-008", endpoint_a.ok());
+  CHECK("CAN-SOCKET-IO-008", endpoint_b.ok());
+  CHECK("CAN-SOCKET-IO-008", isolation_a.ok());
+  CHECK("CAN-SOCKET-IO-008", isolation_b.ok());
+  if (!endpoint_a.ok() || !endpoint_b.ok() || !isolation_a.ok() ||
+      !isolation_b.ok()) {
     return;
   }
 
-  for (int index = 0; index < 64; ++index) {
-    const auto stale = receive_socket.value().receive(0ms);
-    CHECK("CAN-SOCKET-IO-009", stale.ok());
-    if (!stale.ok() || !stale.value().has_value()) {
-      break;
-    }
-    CHECK("CAN-SOCKET-IO-009", index != 63);
+  if (!drain_socket(endpoint_a.value(), "CAN-SOCKET-IO-009") ||
+      !drain_socket(endpoint_b.value(), "CAN-SOCKET-IO-009") ||
+      !drain_socket(isolation_a.value(), "CAN-SOCKET-IO-009") ||
+      !drain_socket(isolation_b.value(), "CAN-SOCKET-IO-009")) {
+    return;
   }
-  const auto empty = receive_socket.value().receive(2ms);
-  CHECK("CAN-SOCKET-IO-010", empty.ok());
-  CHECK("CAN-SOCKET-IO-010", empty.ok() && !empty.value().has_value());
 
   std::array<int, 2> cancel_fds{};
   const bool cancel_ready =
@@ -273,7 +331,7 @@ void test_configured_vcan() {
         ::write(cancel_writer.get(), &cancel_value, sizeof(cancel_value)) == 1);
 
   const auto cancelled_receive =
-      receive_socket.value().receive(1s, cancel_reader.get());
+      endpoint_a.value().receive(1s, cancel_reader.get());
   CHECK("CAN-SOCKET-IO-011", !cancelled_receive.ok());
   CHECK("CAN-SOCKET-IO-011", cancelled_receive.status().operation == "receive");
   CHECK("CAN-SOCKET-IO-011",
@@ -285,29 +343,24 @@ void test_configured_vcan() {
   CHECK("CAN-SOCKET-IO-011",
         ::write(cancel_writer.get(), &cancel_value, sizeof(cancel_value)) == 1);
 
-  const ClassicCanFrame sent_frame = test_frame(test_can_id);
+  const ClassicCanFrame frame_a = test_frame(test_can_id_a);
   const auto cancelled_send =
-      transmit_socket.value().send(sent_frame, 1s, cancel_reader.get());
+      endpoint_a.value().send(frame_a, 1s, cancel_reader.get());
   CHECK("CAN-SOCKET-IO-012", !cancelled_send.ok());
   CHECK("CAN-SOCKET-IO-012", cancelled_send.operation == "send");
   CHECK("CAN-SOCKET-IO-012", cancelled_send.error.value() == ECANCELED);
-  const auto not_sent = receive_socket.value().receive(2ms);
-  CHECK("CAN-SOCKET-IO-012", not_sent.ok());
-  CHECK("CAN-SOCKET-IO-012", not_sent.ok() && !not_sent.value().has_value());
+  check_receive_timeout(endpoint_b.value(), "CAN-SOCKET-IO-012");
+  check_receive_timeout(isolation_a.value(), "CAN-SOCKET-IO-012");
 
-  const auto sent = transmit_socket.value().send(sent_frame, 100ms);
-  CHECK("CAN-SOCKET-IO-013", sent.ok());
-  const auto received = receive_socket.value().receive(100ms);
-  CHECK("CAN-SOCKET-IO-013", received.ok());
-  CHECK("CAN-SOCKET-IO-013", received.ok() && received.value().has_value());
-  if (received.ok() && received.value().has_value()) {
-    const auto &observation = *received.value();
-    const auto &frame = observation.frame;
-    CHECK("CAN-SOCKET-IO-013", frame.raw_can_id == sent_frame.raw_can_id);
-    CHECK("CAN-SOCKET-IO-013",
-          frame.payload_length == sent_frame.payload_length);
-    CHECK("CAN-SOCKET-IO-013", frame.len8_dlc == sent_frame.len8_dlc);
-    CHECK("CAN-SOCKET-IO-013", frame.data == sent_frame.data);
+  const auto sent_a = endpoint_a.value().send(frame_a, 100ms);
+  CHECK("CAN-SOCKET-IO-013", sent_a.ok());
+  const auto received_by_b = endpoint_b.value().receive(100ms);
+  check_received_frame("CAN-SOCKET-IO-013", received_by_b, frame_a);
+  const auto isolated_a = isolation_a.value().receive(100ms);
+  check_received_frame("CAN-SOCKET-FILTER-001", isolated_a, frame_a);
+  check_receive_timeout(isolation_b.value(), "CAN-SOCKET-FILTER-001");
+  if (received_by_b.ok() && received_by_b.value().has_value()) {
+    const auto &observation = *received_by_b.value();
     CHECK("CAN-SOCKET-METADATA-004", observation.kernel_timestamp.has_value());
     if (observation.kernel_timestamp.has_value()) {
       CHECK("CAN-SOCKET-METADATA-004",
@@ -322,6 +375,18 @@ void test_configured_vcan() {
     }
   }
 
+  ClassicCanFrame frame_b = test_frame(test_can_id_b);
+  frame_b.data = {std::byte{0x88}, std::byte{0x77}, std::byte{0x66},
+                  std::byte{0x55}, std::byte{0x44}, std::byte{0x33},
+                  std::byte{0x22}, std::byte{0x11}};
+  const auto sent_b = endpoint_b.value().send(frame_b, 100ms);
+  CHECK("CAN-SOCKET-IO-014", sent_b.ok());
+  const auto received_by_a = endpoint_a.value().receive(100ms);
+  check_received_frame("CAN-SOCKET-IO-014", received_by_a, frame_b);
+  const auto isolated_b = isolation_b.value().receive(100ms);
+  check_received_frame("CAN-SOCKET-FILTER-002", isolated_b, frame_b);
+  check_receive_timeout(isolation_a.value(), "CAN-SOCKET-FILTER-002");
+
   CanSocket owned = std::move(filtered).value();
   const int descriptor = owned.fd();
   {
@@ -333,6 +398,10 @@ void test_configured_vcan() {
   }
   errno = 0;
   CHECK("CAN-SOCKET-008", ::fcntl(descriptor, F_GETFD) == -1 && errno == EBADF);
+  if (failures == initial_failures) {
+    std::cout << "INFO: managed vcan bidirectional frame and filter isolation "
+                 "checks passed\n";
+  }
 }
 
 } // namespace

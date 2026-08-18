@@ -20,3 +20,8 @@ target_link_libraries(
           robot_control_project_warnings)
 add_test(NAME socketcan_socket_lifecycle
          COMMAND robot_control_socketcan_socket_tests)
+add_test(
+  NAME socketcan_vcan_managed
+  COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+          $<TARGET_FILE:robot_control_socketcan_socket_tests>)
+set_tests_properties(socketcan_vcan_managed PROPERTIES SKIP_RETURN_CODE 77)
