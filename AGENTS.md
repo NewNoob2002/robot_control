@@ -9,8 +9,10 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 - Phases 0 through 3 are complete. Phase 2 provides pure command, arbitration,
   safety, and CiA402 domain libraries; Phase 3 provides policy-free Linux fd,
   poll, monotonic timer, signal, UART, and logging adapters. Host build, test,
-  and static-check CI is implemented. SocketCAN, CANopen integration,
-  cross/HIL/release CI, packaging, and deploy service are not implemented.
+  and static-check CI is implemented. Phase 4 SocketCAN work is in progress,
+  beginning with the policy-free Classical CAN frame codec. Socket lifecycle,
+  `vcan`, CANopen integration, cross/HIL/release CI, packaging, and deploy
+  service are not implemented.
 - `components/CANopenNode/` remains an unversioned baseline snapshot.
   EasyLogger's checksum-pinned core subset is integrated behind
   `service/logging`; replacing the mixed snapshot with a clean immutable
@@ -24,6 +26,8 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   `docs/verification/PHASE2_DOMAIN_BASELINE.md`.
 - Phase 3 Linux adapter verification is recorded in
   `docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md`.
+- Phase 4 scope and acceptance criteria are recorded in
+  `docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md`.
 
 ## Non-Negotiable Architecture
 

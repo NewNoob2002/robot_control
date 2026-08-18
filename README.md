@@ -13,7 +13,9 @@ waiting, absolute monotonic timing, synchronous termination events, raw UART,
 and throttled structured logging through EasyLogger. These adapters contain no
 motion policy and are covered by pipe, PTY, signal, timing, sanitizer, and
 cross-build tests.
-SocketCAN and motion-producing integration have not started.
+Phase 4 SocketCAN work has started with a policy-free Classical CAN frame codec
+and boundary tests. Socket lifecycle, `vcan`, passive target capture, CANopen,
+and motion-producing integration remain pending.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
 syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not
@@ -27,6 +29,7 @@ Read these documents before implementation:
 - [Phase 1 build and ABI baseline](docs/build/PHASE1_BUILD_BASELINE.md)
 - [Phase 2 domain baseline](docs/verification/PHASE2_DOMAIN_BASELINE.md)
 - [Phase 3 Linux platform baseline](docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md)
+- [Phase 4 SocketCAN foundation plan](docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md)
 - [architecture decisions](docs/decisions/)
 - [legacy behavioral contract](docs/architecture/LEGACY_BEHAVIOR_BASELINE.md)
 - [third-party provenance](third_party/README.md)
