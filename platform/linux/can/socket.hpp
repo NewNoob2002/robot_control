@@ -1,10 +1,12 @@
 #pragma once
 
+#include "platform/linux/can/classic_frame.hpp"
 #include "platform/linux/error.hpp"
 #include "platform/linux/unique_fd.hpp"
 
 #include <linux/can.h>
 
+#include <chrono>
 #include <optional>
 #include <span>
 #include <string>
@@ -60,6 +62,46 @@ public:
    */
   [[nodiscard]] static Result<CanSocket>
   open(std::string interface_name, CanSocketConfig config = {}) noexcept;
+
+  /**
+   * Send exactly one complete Classical CAN frame before a monotonic deadline.
+   *
+   * The frame is validated and encoded before any write syscall. Cancellation
+   * wins when poll reports both cancellation and socket readiness. A
+   * cancellation descriptor is observed but never consumed or closed.
+   *
+   * @param frame Caller-owned frame borrowed for this call.
+   * @param timeout Nonnegative maximum duration for the complete operation.
+   * @param cancellation_fd Optional borrowed cancellation descriptor, or -1.
+   * @return Success after one full `CAN_MTU` write, or a context-rich failure.
+   *
+   * Thread safety: The caller must serialize operations using the same socket
+   * owner and keep both descriptors alive for the complete call. Cancellation
+   * cannot eliminate the race after readiness is returned and before `write()`.
+   */
+  [[nodiscard]] Status send(const ClassicCanFrame &frame,
+                            std::chrono::milliseconds timeout,
+                            int cancellation_fd = -1) noexcept;
+
+  /**
+   * Receive one complete Classical CAN frame before a monotonic deadline.
+   *
+   * Cancellation wins when poll reports both cancellation and socket
+   * readiness. Readable data is handled before socket error/hangup flags so
+   * subscribed CAN error frames remain observable. The cancellation descriptor
+   * is observed but never consumed or closed.
+   *
+   * @param timeout Nonnegative maximum duration for the complete operation.
+   * @param cancellation_fd Optional borrowed cancellation descriptor, or -1.
+   * @return A decoded frame, `std::nullopt` on timeout, or a context-rich
+   * failure. The returned frame is owned by the result.
+   *
+   * Thread safety: The caller must serialize operations using the same socket
+   * owner and keep both descriptors alive for the complete call. Cancellation
+   * cannot eliminate the race after readiness is returned and before `read()`.
+   */
+  [[nodiscard]] Result<std::optional<ClassicCanFrame>>
+  receive(std::chrono::milliseconds timeout, int cancellation_fd = -1) noexcept;
 
   /**
    * Return the borrowed socket descriptor.

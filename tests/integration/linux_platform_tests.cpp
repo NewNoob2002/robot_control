@@ -50,6 +50,21 @@ void check(const bool condition, const std::string_view id,
 
 #define CHECK(id, expression) check((expression), (id), #expression)
 
+/** Fill one nonblocking pipe writer until the kernel reports EAGAIN. */
+bool fill_nonblocking_pipe(const int fd) {
+  const std::array<std::byte, 4096> data{};
+  while (true) {
+    const ssize_t count = ::write(fd, data.data(), data.size());
+    if (count > 0) {
+      continue;
+    }
+    if (count < 0 && errno == EINTR) {
+      continue;
+    }
+    return count < 0 && (errno == EAGAIN || errno == EWOULDBLOCK);
+  }
+}
+
 /** Verify move-only descriptor ownership and poll readiness/timeout behavior.
  */
 void test_fd_and_poll() {
@@ -199,6 +214,102 @@ void test_fd_and_poll() {
   CHECK("POLL-005", ::sigaction(SIGUSR1, &old_action, nullptr) == 0);
   CHECK("POLL-005", interrupted.ok());
   CHECK("POLL-005", wait_elapsed >= 10ms && wait_elapsed < 100ms);
+}
+
+/** Verify writable readiness, cancellation, invalid fds, and fixed deadlines.
+ */
+void test_writable_poll() {
+  std::array<int, 2> pipe_fds{};
+  const bool pipe_ready = ::pipe2(pipe_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+  CHECK("POLL-W-001", pipe_ready);
+  if (!pipe_ready) {
+    return;
+  }
+  UniqueFd reader{pipe_fds[0]};
+  UniqueFd writer{pipe_fds[1]};
+
+  auto event = io::wait_writable(writer.get(), 10ms);
+  CHECK("POLL-W-001", event.ok());
+  CHECK("POLL-W-001", event.ok() && event.value().writable);
+
+  std::array<int, 2> cancel_fds{};
+  const bool cancel_ready =
+      ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+  CHECK("POLL-W-002", cancel_ready);
+  if (!cancel_ready) {
+    return;
+  }
+  UniqueFd cancel_reader{cancel_fds[0]};
+  UniqueFd cancel_writer{cancel_fds[1]};
+  const std::byte value{0x1};
+  CHECK("POLL-W-002", ::write(cancel_writer.get(), &value, sizeof(value)) == 1);
+  event = io::wait_writable(writer.get(), 5s, cancel_reader.get());
+  CHECK("POLL-W-002", event.ok());
+  CHECK("POLL-W-002", event.ok() && event.value().writable);
+  CHECK("POLL-W-002", event.ok() && event.value().cancelled);
+
+  const auto negative_main = io::wait_writable(-1, 1ms);
+  CHECK("POLL-W-003", !negative_main.ok());
+  CHECK("POLL-W-003", negative_main.status().error.value() == EINVAL);
+
+  const int invalid_main = ::dup(writer.get());
+  CHECK("POLL-W-003", invalid_main >= 0);
+  if (invalid_main < 0) {
+    return;
+  }
+  CHECK("POLL-W-003", ::close(invalid_main) == 0);
+  const auto invalid_main_result = io::wait_writable(invalid_main, 1ms);
+  CHECK("POLL-W-003", !invalid_main_result.ok());
+  CHECK("POLL-W-003", invalid_main_result.status().error.value() == EBADF);
+
+  const int invalid_cancellation = ::dup(cancel_reader.get());
+  CHECK("POLL-W-004", invalid_cancellation >= 0);
+  if (invalid_cancellation < 0) {
+    return;
+  }
+  CHECK("POLL-W-004", ::close(invalid_cancellation) == 0);
+  const auto invalid_cancel =
+      io::wait_writable(writer.get(), 1ms, invalid_cancellation);
+  CHECK("POLL-W-004", !invalid_cancel.ok());
+  CHECK("POLL-W-004", invalid_cancel.status().error.value() == EBADF);
+
+  const auto same_fd = io::wait_writable(writer.get(), 1ms, writer.get());
+  CHECK("POLL-W-005", !same_fd.ok());
+  CHECK("POLL-W-005", same_fd.status().error.value() == EINVAL);
+
+  CHECK("POLL-W-006", fill_nonblocking_pipe(writer.get()));
+  const auto timeout_start = std::chrono::steady_clock::now();
+  const auto timed_out = io::wait_writable(writer.get(), 2ms);
+  const auto timeout_elapsed = std::chrono::steady_clock::now() - timeout_start;
+  CHECK("POLL-W-006", timed_out.ok());
+  CHECK("POLL-W-006", timed_out.ok() && !timed_out.value().writable);
+  CHECK("POLL-W-006", timeout_elapsed >= 1ms && timeout_elapsed < 50ms);
+
+  struct sigaction action{};
+  action.sa_handler = handle_test_signal;
+  CHECK("POLL-W-007", ::sigemptyset(&action.sa_mask) == 0);
+  struct sigaction old_action{};
+  const bool handler_installed =
+      ::sigaction(SIGUSR1, &action, &old_action) == 0;
+  CHECK("POLL-W-007", handler_installed);
+  if (!handler_installed) {
+    return;
+  }
+  const pthread_t waiting_thread = ::pthread_self();
+  std::thread interrupter{[waiting_thread] {
+    for (int index = 0; index < 20; ++index) {
+      std::this_thread::sleep_for(5ms);
+      static_cast<void>(::pthread_kill(waiting_thread, SIGUSR1));
+    }
+  }};
+  const auto wait_start = std::chrono::steady_clock::now();
+  const auto interrupted = io::wait_writable(writer.get(), 20ms);
+  const auto wait_elapsed = std::chrono::steady_clock::now() - wait_start;
+  interrupter.join();
+  CHECK("POLL-W-007", ::sigaction(SIGUSR1, &old_action, nullptr) == 0);
+  CHECK("POLL-W-007", interrupted.ok());
+  CHECK("POLL-W-007", interrupted.ok() && !interrupted.value().writable);
+  CHECK("POLL-W-007", wait_elapsed >= 10ms && wait_elapsed < 70ms);
 }
 
 /** Verify absolute monotonic sleeping and invalid-period error propagation. */
@@ -535,6 +646,7 @@ void test_logger() {
  */
 int main() {
   test_fd_and_poll();
+  test_writable_poll();
   test_monotonic_timer();
   test_termination_event();
   test_serial_port();

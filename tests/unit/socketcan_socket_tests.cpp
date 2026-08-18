@@ -4,11 +4,15 @@
 
 #include <fcntl.h>
 #include <net/if.h>
+#include <unistd.h>
 
 #include <array>
 #include <cerrno>
+#include <chrono>
+#include <cstddef>
 #include <cstdlib>
 #include <iostream>
+#include <limits>
 #include <span>
 #include <string>
 #include <string_view>
@@ -17,8 +21,11 @@
 
 namespace {
 
+using namespace std::chrono_literals;
+using robot_control::platform::linux::UniqueFd;
 using robot_control::platform::linux::can::CanSocket;
 using robot_control::platform::linux::can::CanSocketConfig;
+using robot_control::platform::linux::can::ClassicCanFrame;
 
 static_assert(!std::is_copy_constructible_v<CanSocket>);
 static_assert(!std::is_copy_assignable_v<CanSocket>);
@@ -37,6 +44,17 @@ void check(const bool condition, const std::string_view id,
 }
 
 #define CHECK(id, expression) check((expression), (id), #expression)
+
+/** Build one valid standard Classical CAN data frame for socket tests. */
+ClassicCanFrame test_frame(const std::uint32_t raw_can_id = 0x321U) {
+  return ClassicCanFrame{
+      .raw_can_id = raw_can_id,
+      .payload_length = 4U,
+      .len8_dlc = 0U,
+      .data = {std::byte{0x11}, std::byte{0x22}, std::byte{0x33},
+               std::byte{0x44}},
+  };
+}
 
 /** Verify deterministic interface validation and lookup failures. */
 void test_open_failures() {
@@ -73,10 +91,71 @@ void test_closed_move_semantics() {
   CanSocket source;
   CanSocket moved{std::move(source)};
   CHECK("CAN-SOCKET-004", moved.fd() == -1);
+  // CanSocket documents a closed, callable moved-from state.
+  // NOLINTNEXTLINE(bugprone-use-after-move,clang-analyzer-cplusplus.Move)
+  const auto moved_from_receive = source.receive(0ms);
+  CHECK("CAN-SOCKET-004", !moved_from_receive.ok());
+  CHECK("CAN-SOCKET-004", moved_from_receive.status().error.value() == EBADF);
 
   CanSocket assigned;
   assigned = std::move(moved);
   CHECK("CAN-SOCKET-004", assigned.fd() == -1);
+}
+
+/** Verify deterministic frame-I/O validation without a CAN interface. */
+void test_io_failures_without_interface() {
+  CanSocket closed;
+  const auto receive_closed = closed.receive(0ms);
+  CHECK("CAN-SOCKET-IO-001", !receive_closed.ok());
+  CHECK("CAN-SOCKET-IO-001", receive_closed.status().operation == "receive");
+  CHECK("CAN-SOCKET-IO-001", receive_closed.status().context == "interface=");
+  CHECK("CAN-SOCKET-IO-001", receive_closed.status().error.value() == EBADF);
+
+  const ClassicCanFrame frame = test_frame();
+  const auto send_closed = closed.send(frame, 0ms);
+  CHECK("CAN-SOCKET-IO-002", !send_closed.ok());
+  CHECK("CAN-SOCKET-IO-002", send_closed.operation == "send");
+  CHECK("CAN-SOCKET-IO-002", send_closed.context == "interface=");
+  CHECK("CAN-SOCKET-IO-002", send_closed.error.value() == EBADF);
+
+  ClassicCanFrame invalid = frame;
+  invalid.raw_can_id = CAN_ERR_FLAG | 1U;
+  const auto invalid_send = closed.send(invalid, 0ms);
+  CHECK("CAN-SOCKET-IO-003", !invalid_send.ok());
+  CHECK("CAN-SOCKET-IO-003", invalid_send.operation == "validate_can_tx");
+  CHECK("CAN-SOCKET-IO-003",
+        invalid_send.context.starts_with("interface= raw_can_id="));
+  CHECK("CAN-SOCKET-IO-003", invalid_send.error.value() == EINVAL);
+
+  const auto negative_receive = closed.receive(-1ms);
+  CHECK("CAN-SOCKET-IO-004", !negative_receive.ok());
+  CHECK("CAN-SOCKET-IO-004", negative_receive.status().operation == "receive");
+  CHECK("CAN-SOCKET-IO-004",
+        negative_receive.status().context == "interface= negative timeout");
+  CHECK("CAN-SOCKET-IO-004", negative_receive.status().error.value() == EINVAL);
+
+  const auto negative_send = closed.send(frame, -1ms);
+  CHECK("CAN-SOCKET-IO-005", !negative_send.ok());
+  CHECK("CAN-SOCKET-IO-005", negative_send.operation == "send");
+  CHECK("CAN-SOCKET-IO-005",
+        negative_send.context == "interface= negative timeout");
+  CHECK("CAN-SOCKET-IO-005", negative_send.error.value() == EINVAL);
+
+  constexpr auto excessive_timeout = std::chrono::milliseconds::max();
+  const auto overflow_receive = closed.receive(excessive_timeout);
+  CHECK("CAN-SOCKET-IO-006", !overflow_receive.ok());
+  CHECK("CAN-SOCKET-IO-006", overflow_receive.status().operation == "receive");
+  CHECK("CAN-SOCKET-IO-006",
+        overflow_receive.status().context == "interface= timeout overflow");
+  CHECK("CAN-SOCKET-IO-006",
+        overflow_receive.status().error.value() == EOVERFLOW);
+
+  const auto overflow_send = closed.send(frame, excessive_timeout);
+  CHECK("CAN-SOCKET-IO-007", !overflow_send.ok());
+  CHECK("CAN-SOCKET-IO-007", overflow_send.operation == "send");
+  CHECK("CAN-SOCKET-IO-007",
+        overflow_send.context == "interface= timeout overflow");
+  CHECK("CAN-SOCKET-IO-007", overflow_send.error.value() == EOVERFLOW);
 }
 
 /** Verify bind, flags, filter modes, error mask, moves, and automatic close. */
@@ -85,6 +164,11 @@ void test_configured_vcan() {
   if (interface_name == nullptr || interface_name[0] == '\0') {
     std::cout << "SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing "
                  "vcan interface for bind/filter checks\n";
+    return;
+  }
+  if (!std::string_view{interface_name}.starts_with("vcan")) {
+    std::cout << "SKIP: ROBOT_CONTROL_TEST_VCAN_INTERFACE must identify a "
+                 "vcan interface; refusing active CAN transmission\n";
     return;
   }
 
@@ -125,6 +209,80 @@ void test_configured_vcan() {
     return;
   }
 
+  const auto test_can_id = static_cast<canid_t>(
+      0x5a0U + (static_cast<unsigned int>(::getpid()) & 0x1fU));
+  const std::array<::can_filter, 1> io_filters{{
+      {.can_id = test_can_id,
+       .can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG},
+  }};
+  auto receive_socket = CanSocket::open(
+      interface_name,
+      CanSocketConfig{.filters = std::span<const ::can_filter>{io_filters},
+                      .error_mask = 0});
+  auto transmit_socket = CanSocket::open(
+      interface_name, CanSocketConfig{.filters = no_filters, .error_mask = 0});
+  CHECK("CAN-SOCKET-IO-008", receive_socket.ok());
+  CHECK("CAN-SOCKET-IO-008", transmit_socket.ok());
+  if (!receive_socket.ok() || !transmit_socket.ok()) {
+    return;
+  }
+
+  for (int index = 0; index < 64; ++index) {
+    const auto stale = receive_socket.value().receive(0ms);
+    CHECK("CAN-SOCKET-IO-009", stale.ok());
+    if (!stale.ok() || !stale.value().has_value()) {
+      break;
+    }
+    CHECK("CAN-SOCKET-IO-009", index != 63);
+  }
+  const auto empty = receive_socket.value().receive(2ms);
+  CHECK("CAN-SOCKET-IO-010", empty.ok());
+  CHECK("CAN-SOCKET-IO-010", empty.ok() && !empty.value().has_value());
+
+  std::array<int, 2> cancel_fds{};
+  const bool cancel_ready =
+      ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+  CHECK("CAN-SOCKET-IO-011", cancel_ready);
+  if (!cancel_ready) {
+    return;
+  }
+  UniqueFd cancel_reader{cancel_fds[0]};
+  UniqueFd cancel_writer{cancel_fds[1]};
+  const std::byte cancel_value{0x1};
+  CHECK("CAN-SOCKET-IO-011",
+        ::write(cancel_writer.get(), &cancel_value, sizeof(cancel_value)) == 1);
+
+  const auto cancelled_receive =
+      receive_socket.value().receive(1s, cancel_reader.get());
+  CHECK("CAN-SOCKET-IO-011", !cancelled_receive.ok());
+  CHECK("CAN-SOCKET-IO-011", cancelled_receive.status().operation == "receive");
+  CHECK("CAN-SOCKET-IO-011",
+        cancelled_receive.status().error.value() == ECANCELED);
+
+  const ClassicCanFrame sent_frame = test_frame(test_can_id);
+  const auto cancelled_send =
+      transmit_socket.value().send(sent_frame, 1s, cancel_reader.get());
+  CHECK("CAN-SOCKET-IO-012", !cancelled_send.ok());
+  CHECK("CAN-SOCKET-IO-012", cancelled_send.operation == "send");
+  CHECK("CAN-SOCKET-IO-012", cancelled_send.error.value() == ECANCELED);
+  const auto not_sent = receive_socket.value().receive(2ms);
+  CHECK("CAN-SOCKET-IO-012", not_sent.ok());
+  CHECK("CAN-SOCKET-IO-012", not_sent.ok() && !not_sent.value().has_value());
+
+  const auto sent = transmit_socket.value().send(sent_frame, 100ms);
+  CHECK("CAN-SOCKET-IO-013", sent.ok());
+  const auto received = receive_socket.value().receive(100ms);
+  CHECK("CAN-SOCKET-IO-013", received.ok());
+  CHECK("CAN-SOCKET-IO-013", received.ok() && received.value().has_value());
+  if (received.ok() && received.value().has_value()) {
+    const auto &frame = *received.value();
+    CHECK("CAN-SOCKET-IO-013", frame.raw_can_id == sent_frame.raw_can_id);
+    CHECK("CAN-SOCKET-IO-013",
+          frame.payload_length == sent_frame.payload_length);
+    CHECK("CAN-SOCKET-IO-013", frame.len8_dlc == sent_frame.len8_dlc);
+    CHECK("CAN-SOCKET-IO-013", frame.data == sent_frame.data);
+  }
+
   CanSocket owned = std::move(filtered).value();
   const int descriptor = owned.fd();
   {
@@ -144,6 +302,7 @@ void test_configured_vcan() {
 int main() {
   test_open_failures();
   test_closed_move_semantics();
+  test_io_failures_without_interface();
   test_configured_vcan();
   if (failures != 0) {
     std::cerr << "socketcan_socket_tests failures=" << failures << '\n';
