@@ -5,6 +5,9 @@
 # phase and must not be part of the core CMake cross-toolchain bootstrap.
 ARG UBUNTU_IMAGE=ubuntu:22.04@sha256:3b06811b2afd352be909dd088a004166d665dc76d38b13eada33522a9d915c6f
 
+# The default is digest-pinned, and the build scripts reject an unpinned
+# override before invoking Docker. Hadolint 2.12 cannot infer that contract.
+# hadolint ignore=DL3006
 FROM ${UBUNTU_IMAGE}
 
 ARG UBUNTU_SNAPSHOT=20260814T000000Z
