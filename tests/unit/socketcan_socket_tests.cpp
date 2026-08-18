@@ -96,10 +96,17 @@ void test_configured_vcan() {
   CHECK("CAN-SOCKET-005",
         receive_all.value().interface_name() == interface_name);
   CHECK("CAN-SOCKET-005", receive_all.value().interface_index() != 0U);
-  CHECK("CAN-SOCKET-005",
-        (::fcntl(receive_all.value().fd(), F_GETFL) & O_NONBLOCK) != 0);
-  CHECK("CAN-SOCKET-005",
-        (::fcntl(receive_all.value().fd(), F_GETFD) & FD_CLOEXEC) != 0);
+  const int status_flags = ::fcntl(receive_all.value().fd(), F_GETFL);
+  CHECK("CAN-SOCKET-005", status_flags >= 0);
+  if (status_flags >= 0) {
+    CHECK("CAN-SOCKET-005", (status_flags & O_NONBLOCK) != 0);
+  }
+
+  const int descriptor_flags = ::fcntl(receive_all.value().fd(), F_GETFD);
+  CHECK("CAN-SOCKET-005", descriptor_flags >= 0);
+  if (descriptor_flags >= 0) {
+    CHECK("CAN-SOCKET-005", (descriptor_flags & FD_CLOEXEC) != 0);
+  }
 
   const std::span<const ::can_filter> no_filters{};
   const auto receive_none = CanSocket::open(
