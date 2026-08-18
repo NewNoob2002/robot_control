@@ -1,6 +1,7 @@
 add_library(
   robot_control_platform_linux
   can/classic_frame.cpp
+  can/socket.cpp
   io/poll_wait.cpp
   process/termination_event.cpp
   time/monotonic_timer.cpp

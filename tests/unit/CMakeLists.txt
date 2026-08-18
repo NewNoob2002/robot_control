@@ -12,3 +12,11 @@ target_link_libraries(
   PRIVATE robot_control_platform_linux robot_control_project_options
           robot_control_project_warnings)
 add_test(NAME socketcan_frame_codec COMMAND robot_control_socketcan_frame_tests)
+
+add_executable(robot_control_socketcan_socket_tests socketcan_socket_tests.cpp)
+target_link_libraries(
+  robot_control_socketcan_socket_tests
+  PRIVATE robot_control_platform_linux robot_control_project_options
+          robot_control_project_warnings)
+add_test(NAME socketcan_socket_lifecycle
+         COMMAND robot_control_socketcan_socket_tests)
