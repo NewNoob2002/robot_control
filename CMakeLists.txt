@@ -40,6 +40,7 @@ endif()
 add_subdirectory(domain)
 add_subdirectory(platform)
 add_subdirectory(service)
+add_subdirectory(tools/can_probe)
 add_subdirectory(tools/platform_probe)
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
@@ -49,6 +50,24 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
   add_test(NAME platform_probe_run COMMAND robot-control-platform-probe)
   add_test(NAME platform_probe_phase3_smoke
            COMMAND robot-control-platform-probe --phase3-smoke)
+  add_test(NAME can_probe_help COMMAND robot-control-can-probe --help)
+  add_test(NAME can_probe_missing_interface COMMAND robot-control-can-probe)
+  add_test(NAME can_probe_unknown_argument
+           COMMAND robot-control-can-probe --unknown)
+  add_test(NAME can_probe_duration_zero
+           COMMAND robot-control-can-probe --interface unused0 --duration-ms 0)
+  add_test(NAME can_probe_duration_nonnumeric
+           COMMAND robot-control-can-probe --interface unused0 --duration-ms abc)
+  add_test(
+    NAME can_probe_duration_overflow
+    COMMAND robot-control-can-probe --interface unused0 --duration-ms
+            9999999999999999999999999999999999999999)
+  set_tests_properties(
+    can_probe_missing_interface can_probe_unknown_argument
+    can_probe_duration_zero can_probe_duration_nonnumeric
+    can_probe_duration_overflow PROPERTIES WILL_FAIL TRUE)
+  set_tests_properties(can_probe_help PROPERTIES PASS_REGULAR_EXPRESSION
+                                                "Usage: robot-control-can-probe")
   set_tests_properties(
     platform_probe_run PROPERTIES PASS_REGULAR_EXPRESSION
                                   "probe_version=1.*machine=")
