@@ -4,8 +4,10 @@
 
 #include <fcntl.h>
 #include <net/if.h>
+#include <sys/socket.h>
 #include <unistd.h>
 
+#include <algorithm>
 #include <array>
 #include <cerrno>
 #include <chrono>
@@ -97,6 +99,135 @@ void check_receive_timeout(CanSocket &socket, const std::string_view id) {
   const auto received = socket.receive(20ms);
   CHECK(id, received.ok());
   CHECK(id, received.ok() && !received.value().has_value());
+}
+
+/** Return a bounded timeout that does not extend the supplied deadline. */
+std::chrono::milliseconds
+remaining_timeout(const std::chrono::steady_clock::time_point deadline,
+                  const std::chrono::milliseconds maximum) {
+  const auto remaining = std::chrono::duration_cast<std::chrono::milliseconds>(
+      deadline - std::chrono::steady_clock::now());
+  return std::clamp(remaining, 0ms, maximum);
+}
+
+/** Produce and verify a nonzero raw kernel RX queue overflow counter. */
+void test_receive_queue_overflow(const char *interface_name,
+                                 const canid_t test_can_id) {
+  constexpr int requested_receive_buffer = 1024;
+  constexpr std::size_t maximum_pressure_frames = 4096;
+  constexpr std::size_t maximum_drain_frames = 256;
+  const auto scenario_deadline = std::chrono::steady_clock::now() + 3s;
+  const std::array<::can_filter, 1> filter{{
+      {.can_id = test_can_id,
+       .can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG},
+  }};
+  const std::span<const ::can_filter> no_filters{};
+  auto receiver = CanSocket::open(
+      interface_name,
+      CanSocketConfig{.filters = std::span<const ::can_filter>{filter},
+                      .error_mask = 0,
+                      .receive_queue_overflow = true});
+  auto sender = CanSocket::open(
+      interface_name, CanSocketConfig{.filters = no_filters, .error_mask = 0});
+  CHECK("CAN-SOCKET-OVERFLOW-001", receiver.ok());
+  CHECK("CAN-SOCKET-OVERFLOW-001", sender.ok());
+  if (!receiver.ok() || !sender.ok()) {
+    return;
+  }
+
+  const int set_buffer_result = ::setsockopt(
+      receiver.value().fd(), SOL_SOCKET, SO_RCVBUF, &requested_receive_buffer,
+      static_cast<socklen_t>(sizeof(requested_receive_buffer)));
+  CHECK("CAN-SOCKET-OVERFLOW-002", set_buffer_result == 0);
+  if (set_buffer_result != 0) {
+    return;
+  }
+
+  int effective_receive_buffer = 0;
+  socklen_t buffer_length =
+      static_cast<socklen_t>(sizeof(effective_receive_buffer));
+  const int get_buffer_result =
+      ::getsockopt(receiver.value().fd(), SOL_SOCKET, SO_RCVBUF,
+                   &effective_receive_buffer, &buffer_length);
+  CHECK("CAN-SOCKET-OVERFLOW-003", get_buffer_result == 0);
+  CHECK("CAN-SOCKET-OVERFLOW-003",
+        buffer_length == sizeof(effective_receive_buffer));
+  CHECK("CAN-SOCKET-OVERFLOW-003", effective_receive_buffer > 0);
+  if (get_buffer_result != 0 ||
+      buffer_length != sizeof(effective_receive_buffer) ||
+      effective_receive_buffer <= 0) {
+    return;
+  }
+
+  const ClassicCanFrame pressure_frame = test_frame(test_can_id);
+  std::size_t frames_attempted = 0;
+  std::size_t frames_sent = 0;
+  while (frames_attempted < maximum_pressure_frames &&
+         std::chrono::steady_clock::now() < scenario_deadline) {
+    ++frames_attempted;
+    const auto sent = sender.value().send(
+        pressure_frame, remaining_timeout(scenario_deadline, 10ms));
+    CHECK("CAN-SOCKET-OVERFLOW-004", sent.ok());
+    if (!sent.ok()) {
+      break;
+    }
+    ++frames_sent;
+  }
+  CHECK("CAN-SOCKET-OVERFLOW-004", frames_sent == maximum_pressure_frames);
+  if (frames_sent != maximum_pressure_frames) {
+    return;
+  }
+
+  bool drained = false;
+  for (std::size_t drained_frames = 0;
+       drained_frames < maximum_drain_frames &&
+       std::chrono::steady_clock::now() < scenario_deadline;
+       ++drained_frames) {
+    const auto stale =
+        receiver.value().receive(remaining_timeout(scenario_deadline, 1ms));
+    CHECK("CAN-SOCKET-OVERFLOW-005", stale.ok());
+    if (!stale.ok()) {
+      return;
+    }
+    if (!stale.value().has_value()) {
+      drained = true;
+      break;
+    }
+  }
+  CHECK("CAN-SOCKET-OVERFLOW-005", drained);
+  if (!drained) {
+    return;
+  }
+
+  ClassicCanFrame marker = test_frame(test_can_id);
+  marker.data = {std::byte{0xde}, std::byte{0xad}, std::byte{0xbe},
+                 std::byte{0xef}, std::byte{0x01}, std::byte{0x23},
+                 std::byte{0x45}, std::byte{0x67}};
+  const auto marker_sent =
+      sender.value().send(marker, remaining_timeout(scenario_deadline, 100ms));
+  CHECK("CAN-SOCKET-OVERFLOW-006", marker_sent.ok());
+  if (!marker_sent.ok()) {
+    return;
+  }
+  const auto marker_received =
+      receiver.value().receive(remaining_timeout(scenario_deadline, 100ms));
+  check_received_frame("CAN-SOCKET-OVERFLOW-006", marker_received, marker);
+  if (!marker_received.ok() || !marker_received.value().has_value()) {
+    return;
+  }
+  const auto overflow = marker_received.value()->rx_queue_overflow;
+  CHECK("CAN-SOCKET-OVERFLOW-007", overflow.has_value());
+  CHECK("CAN-SOCKET-OVERFLOW-007", overflow.value_or(0U) > 0U);
+  if (!overflow.has_value() || *overflow == 0U) {
+    return;
+  }
+
+  std::cout << "INFO: managed vcan RX overflow evidence requested_rcvbuf="
+            << requested_receive_buffer
+            << " effective_rcvbuf=" << effective_receive_buffer
+            << " frames_attempted=" << frames_attempted
+            << " frames_sent=" << frames_sent
+            << " raw_overflow_counter=" << *overflow << '\n';
 }
 
 /** Verify metadata configuration defaults and nested optional success. */
@@ -368,11 +499,6 @@ void test_configured_vcan() {
       CHECK("CAN-SOCKET-METADATA-004",
             observation.kernel_timestamp->tv_nsec < 1'000'000'000L);
     }
-    if (!observation.rx_queue_overflow.has_value() ||
-        *observation.rx_queue_overflow == 0U) {
-      std::cout << "INFO: SO_RXQ_OVFL enabled; no nonzero overflow counter "
-                   "was observed\n";
-    }
   }
 
   ClassicCanFrame frame_b = test_frame(test_can_id_b);
@@ -386,6 +512,9 @@ void test_configured_vcan() {
   const auto isolated_b = isolation_b.value().receive(100ms);
   check_received_frame("CAN-SOCKET-FILTER-002", isolated_b, frame_b);
   check_receive_timeout(isolation_a.value(), "CAN-SOCKET-FILTER-002");
+
+  test_receive_queue_overflow(interface_name,
+                              static_cast<canid_t>(test_can_id_a + 0x100U));
 
   CanSocket owned = std::move(filtered).value();
   const int descriptor = owned.fd();
