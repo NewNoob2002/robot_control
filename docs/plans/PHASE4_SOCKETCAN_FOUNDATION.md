@@ -46,7 +46,8 @@ integration evidence, and passive target verification.
 3. **Basic frame I/O (complete):** nonblocking complete-frame send/receive, one
    monotonic deadline per operation, cancellation-fd observation, timeout and
    retry handling, and raw error-frame preservation on receive.
-4. **I/O metadata (pending):** kernel timestamps and RX queue overflow counters.
+4. **I/O metadata (complete):** optional raw kernel nanosecond timestamps and RX
+   queue overflow counters from receive ancillary data.
 5. **Tooling:** passive `tools/can_probe` inspection with bounded runtime and
    structured output.
 6. **Integration:** bidirectional `vcan` tests, filter tests, interface-down and
@@ -88,6 +89,8 @@ The completed delivery slices provide the policy-free Classical CAN frame
 codec, move-only SocketCAN socket lifecycle, and basic complete-frame
 send/receive with monotonic timeout and borrowed cancellation-fd semantics.
 Receive-all, receive-none, raw-filter, and error-mask configuration are
-explicit. Timestamp/overflow metadata, managed bidirectional `vcan` evidence,
-interface reopen behavior, probe tooling, and passive target validation remain
-pending.
+explicit. Receive observations preserve optional raw realtime-domain kernel
+timestamps and cumulative RX queue overflow counters for diagnostics; they do
+not use either value for monotonic deadlines or safety decisions. Managed
+bidirectional `vcan` evidence, nonzero overflow runtime evidence, interface
+reopen behavior, probe tooling, and passive target validation remain pending.

@@ -16,9 +16,11 @@ cross-build tests.
 Phase 4 SocketCAN work provides a policy-free Classical CAN frame codec, a
 move-only nonblocking socket lifecycle with explicit kernel filter/error-mask
 configuration, and complete-frame send/receive with monotonic timeout and
-cancellation. Timestamp/overflow metadata, managed bidirectional `vcan`
-integration, interface reopen, `can_probe`, passive target validation, CANopen,
-and motion-producing integration remain pending.
+cancellation. Receive observations also preserve optional raw kernel
+nanosecond timestamps and RX queue overflow counters for diagnostics. Managed
+bidirectional `vcan` integration, nonzero overflow evidence, interface reopen,
+`can_probe`, passive target validation, CANopen, and motion-producing
+integration remain pending.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
 syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not

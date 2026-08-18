@@ -11,10 +11,11 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   poll, monotonic timer, signal, UART, and logging adapters. Host build, test,
   and static-check CI is implemented. Phase 4 SocketCAN work now provides the
   policy-free Classical CAN frame codec, socket lifecycle, and basic frame
-  send/receive with monotonic timeout and cancellation. Timestamp/overflow
-  metadata, managed bidirectional `vcan` integration, interface reopen,
-  `can_probe`, target passive validation, CANopen integration, cross/HIL/release
-  CI, packaging, and deploy service are not implemented.
+  send/receive with monotonic timeout and cancellation, plus optional raw
+  kernel timestamp and RX queue overflow receive metadata. Managed
+  bidirectional `vcan` integration, nonzero overflow evidence, interface
+  reopen, `can_probe`, target passive validation, CANopen integration,
+  cross/HIL/release CI, packaging, and deploy service are not implemented.
 - `components/CANopenNode/` remains an unversioned baseline snapshot.
   EasyLogger's checksum-pinned core subset is integrated behind
   `service/logging`; replacing the mixed snapshot with a clean immutable
