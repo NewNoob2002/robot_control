@@ -13,8 +13,9 @@ waiting, absolute monotonic timing, synchronous termination events, raw UART,
 and throttled structured logging through EasyLogger. These adapters contain no
 motion policy and are covered by pipe, PTY, signal, timing, sanitizer, and
 cross-build tests.
-Phase 4 SocketCAN work has started with a policy-free Classical CAN frame codec
-and boundary tests. Socket lifecycle, `vcan`, passive target capture, CANopen,
+Phase 4 SocketCAN work provides a policy-free Classical CAN frame codec and a
+move-only nonblocking socket lifecycle with explicit kernel filter/error-mask
+configuration. Frame I/O and metadata, `vcan`, passive target capture, CANopen,
 and motion-producing integration remain pending.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python

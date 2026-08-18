@@ -38,12 +38,14 @@ integration evidence, and passive target verification.
 
 ## Delivery sequence
 
-1. **Frame codec:** typed Classical CAN storage, validation, Linux ABI
+1. **Frame codec (complete):** typed Classical CAN storage, validation, Linux ABI
    encode/decode, and host unit tests.
-2. **Socket lifecycle:** nonblocking socket creation, interface-index lookup,
-   bind, filter/error-mask options, deterministic close, and negative tests.
-3. **I/O observations:** deadline/cancellation-aware receive, complete-frame
-   transmit, timestamps, overflow counters, and raw error-frame preservation.
+2. **Socket lifecycle (complete):** nonblocking socket creation, interface-index
+   lookup, bind, filter/error-mask options, deterministic close, and negative
+   tests.
+3. **I/O observations (pending):** deadline/cancellation-aware receive,
+   complete-frame transmit, timestamps, overflow counters, and raw error-frame
+   preservation.
 4. **Tooling:** passive `tools/can_probe` inspection with bounded runtime and
    structured output.
 5. **Integration:** bidirectional `vcan` tests, filter tests, interface-down and
@@ -81,6 +83,8 @@ integration runner is available.
 
 ## Current implementation checkpoint
 
-The first delivery slice implements the policy-free Classical CAN frame codec
-and its host unit tests. Socket lifecycle, I/O, `vcan`, probe tooling, and target
-evidence remain pending in this branch.
+The first two delivery slices implement the policy-free Classical CAN frame
+codec and the move-only SocketCAN socket lifecycle, including explicit
+receive-all, receive-none, raw-filter, and error-mask configuration semantics.
+Frame I/O, timestamp/overflow metadata, bidirectional `vcan` evidence, interface
+reopen behavior, probe tooling, and passive target validation remain pending.
