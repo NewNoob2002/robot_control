@@ -22,6 +22,7 @@
 namespace {
 
 using namespace std::chrono_literals;
+using robot_control::platform::linux::Result;
 using robot_control::platform::linux::UniqueFd;
 using robot_control::platform::linux::can::CanSocket;
 using robot_control::platform::linux::can::CanSocketConfig;
@@ -54,6 +55,23 @@ ClassicCanFrame test_frame(const std::uint32_t raw_can_id = 0x321U) {
       .data = {std::byte{0x11}, std::byte{0x22}, std::byte{0x33},
                std::byte{0x44}},
   };
+}
+
+/** Verify metadata configuration defaults and nested optional success. */
+void test_metadata_config_and_nested_result() {
+  const CanSocketConfig defaults{};
+  CHECK("CAN-SOCKET-METADATA-001", !defaults.receive_timestamp);
+  CHECK("CAN-SOCKET-METADATA-001", !defaults.receive_queue_overflow);
+
+  const CanSocketConfig enabled{.receive_timestamp = true,
+                                .receive_queue_overflow = true};
+  CHECK("CAN-SOCKET-METADATA-002", enabled.receive_timestamp);
+  CHECK("CAN-SOCKET-METADATA-002", enabled.receive_queue_overflow);
+
+  const auto empty =
+      Result<std::optional<ClassicCanFrame>>::success(std::nullopt);
+  CHECK("CAN-SOCKET-METADATA-003", empty.ok());
+  CHECK("CAN-SOCKET-METADATA-003", !empty.value().has_value());
 }
 
 /** Verify deterministic interface validation and lookup failures. */
@@ -163,7 +181,7 @@ void test_configured_vcan() {
   const char *interface_name = std::getenv("ROBOT_CONTROL_TEST_VCAN_INTERFACE");
   if (interface_name == nullptr || interface_name[0] == '\0') {
     std::cout << "SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing "
-                 "vcan interface for bind/filter checks\n";
+                 "vcan interface for bind/filter/frame/metadata checks\n";
     return;
   }
   if (!std::string_view{interface_name}.starts_with("vcan")) {
@@ -218,7 +236,9 @@ void test_configured_vcan() {
   auto receive_socket = CanSocket::open(
       interface_name,
       CanSocketConfig{.filters = std::span<const ::can_filter>{io_filters},
-                      .error_mask = 0});
+                      .error_mask = 0,
+                      .receive_timestamp = true,
+                      .receive_queue_overflow = true});
   auto transmit_socket = CanSocket::open(
       interface_name, CanSocketConfig{.filters = no_filters, .error_mask = 0});
   CHECK("CAN-SOCKET-IO-008", receive_socket.ok());
@@ -258,6 +278,12 @@ void test_configured_vcan() {
   CHECK("CAN-SOCKET-IO-011", cancelled_receive.status().operation == "receive");
   CHECK("CAN-SOCKET-IO-011",
         cancelled_receive.status().error.value() == ECANCELED);
+  std::byte observed_cancel{};
+  CHECK("CAN-SOCKET-IO-011", ::read(cancel_reader.get(), &observed_cancel,
+                                    sizeof(observed_cancel)) == 1);
+  CHECK("CAN-SOCKET-IO-011", observed_cancel == cancel_value);
+  CHECK("CAN-SOCKET-IO-011",
+        ::write(cancel_writer.get(), &cancel_value, sizeof(cancel_value)) == 1);
 
   const ClassicCanFrame sent_frame = test_frame(test_can_id);
   const auto cancelled_send =
@@ -275,12 +301,25 @@ void test_configured_vcan() {
   CHECK("CAN-SOCKET-IO-013", received.ok());
   CHECK("CAN-SOCKET-IO-013", received.ok() && received.value().has_value());
   if (received.ok() && received.value().has_value()) {
-    const auto &frame = *received.value();
+    const auto &observation = *received.value();
+    const auto &frame = observation.frame;
     CHECK("CAN-SOCKET-IO-013", frame.raw_can_id == sent_frame.raw_can_id);
     CHECK("CAN-SOCKET-IO-013",
           frame.payload_length == sent_frame.payload_length);
     CHECK("CAN-SOCKET-IO-013", frame.len8_dlc == sent_frame.len8_dlc);
     CHECK("CAN-SOCKET-IO-013", frame.data == sent_frame.data);
+    CHECK("CAN-SOCKET-METADATA-004", observation.kernel_timestamp.has_value());
+    if (observation.kernel_timestamp.has_value()) {
+      CHECK("CAN-SOCKET-METADATA-004",
+            observation.kernel_timestamp->tv_nsec >= 0);
+      CHECK("CAN-SOCKET-METADATA-004",
+            observation.kernel_timestamp->tv_nsec < 1'000'000'000L);
+    }
+    if (!observation.rx_queue_overflow.has_value() ||
+        *observation.rx_queue_overflow == 0U) {
+      std::cout << "INFO: SO_RXQ_OVFL enabled; no nonzero overflow counter "
+                   "was observed\n";
+    }
   }
 
   CanSocket owned = std::move(filtered).value();
@@ -300,6 +339,7 @@ void test_configured_vcan() {
 
 /** Run policy-free SocketCAN lifecycle tests. */
 int main() {
+  test_metadata_config_and_nested_result();
   test_open_failures();
   test_closed_move_semantics();
   test_io_failures_without_interface();

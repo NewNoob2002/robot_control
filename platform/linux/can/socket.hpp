@@ -7,6 +7,8 @@
 #include <linux/can.h>
 
 #include <chrono>
+#include <cstdint>
+#include <ctime>
 #include <optional>
 #include <span>
 #include <string>
@@ -28,6 +30,30 @@ struct CanSocketConfig {
   /** Raw Linux CAN error classes to subscribe to; zero disables error frames.
    */
   can_err_mask_t error_mask{0};
+
+  /** Enable nanosecond software receive timestamps from the kernel. */
+  bool receive_timestamp{false};
+
+  /** Enable raw receive-queue overflow counters from the kernel. */
+  bool receive_queue_overflow{false};
+};
+
+/** Owned result of receiving one complete Classical CAN frame. */
+struct CanReceiveObservation {
+  /** Complete decoded frame, including any received `CAN_ERR_FLAG`. */
+  ClassicCanFrame frame{};
+
+  /**
+   * Optional raw `SCM_TIMESTAMPNS` software timestamp.
+   *
+   * This timestamp is in the kernel realtime clock domain and is retained for
+   * diagnostics only. It must not drive monotonic deadlines, freshness, or
+   * safety decisions.
+   */
+  std::optional<::timespec> kernel_timestamp{};
+
+  /** Optional raw cumulative `SO_RXQ_OVFL` packet-drop counter. */
+  std::optional<std::uint32_t> rx_queue_overflow{};
 };
 
 /** Move-only owner of one bound Classical CAN RAW socket. */
@@ -53,8 +79,9 @@ public:
    * Open, configure, and bind a nonblocking Classical CAN RAW socket.
    *
    * @param interface_name Linux network-interface name copied into the owner.
-   * @param config Receive-filter and error-mask configuration. Filter storage
-   * remains caller-owned and is borrowed only for this call.
+   * @param config Receive-filter, error-mask, and optional metadata
+   * configuration. Filter storage remains caller-owned and is borrowed only
+   * for this call.
    * @return Bound socket owner or a failure containing the syscall operation,
    * interface identity, and captured errno.
    *
@@ -93,14 +120,16 @@ public:
    *
    * @param timeout Nonnegative maximum duration for the complete operation.
    * @param cancellation_fd Optional borrowed cancellation descriptor, or -1.
-   * @return A decoded frame, `std::nullopt` on timeout, or a context-rich
-   * failure. The returned frame is owned by the result.
+   * @return An owned frame and available kernel metadata, `std::nullopt` on
+   * timeout, or a context-rich failure. Missing ancillary metadata remains
+   * `std::nullopt`.
    *
    * Thread safety: The caller must serialize operations using the same socket
    * owner and keep both descriptors alive for the complete call. Cancellation
-   * cannot eliminate the race after readiness is returned and before `read()`.
+   * cannot eliminate the race after readiness is returned and before
+   * `recvmsg()`.
    */
-  [[nodiscard]] Result<std::optional<ClassicCanFrame>>
+  [[nodiscard]] Result<std::optional<CanReceiveObservation>>
   receive(std::chrono::milliseconds timeout, int cancellation_fd = -1) noexcept;
 
   /**

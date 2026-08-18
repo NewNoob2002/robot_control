@@ -8,10 +8,14 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <array>
 #include <cerrno>
 #include <chrono>
 #include <cstddef>
+#include <cstdint>
+#include <cstring>
 #include <limits>
+#include <optional>
 #include <string_view>
 #include <utility>
 
@@ -120,6 +124,22 @@ Result<CanSocket> CanSocket::open(std::string interface_name,
         "setsockopt(CAN_RAW_ERR_FILTER)", context, saved_errno));
   }
 
+  constexpr int enable = 1;
+  if (config.receive_timestamp &&
+      ::setsockopt(fd.get(), SOL_SOCKET, SO_TIMESTAMPNS, &enable,
+                   static_cast<socklen_t>(sizeof(enable))) != 0) {
+    const int saved_errno = errno;
+    return Result<CanSocket>::failure(
+        Status::from_errno("setsockopt(SO_TIMESTAMPNS)", context, saved_errno));
+  }
+  if (config.receive_queue_overflow &&
+      ::setsockopt(fd.get(), SOL_SOCKET, SO_RXQ_OVFL, &enable,
+                   static_cast<socklen_t>(sizeof(enable))) != 0) {
+    const int saved_errno = errno;
+    return Result<CanSocket>::failure(
+        Status::from_errno("setsockopt(SO_RXQ_OVFL)", context, saved_errno));
+  }
+
   sockaddr_can address{};
   address.can_family = AF_CAN;
   address.can_ifindex = static_cast<int>(interface_index);
@@ -187,16 +207,17 @@ Status CanSocket::send(const ClassicCanFrame &frame,
   }
 }
 
-Result<std::optional<ClassicCanFrame>>
+Result<std::optional<CanReceiveObservation>>
 CanSocket::receive(const std::chrono::milliseconds timeout,
                    const int cancellation_fd) noexcept {
   const std::string context = "interface=" + interface_name_;
   const auto deadline = io_deadline(timeout, "receive", context);
   if (!deadline.ok()) {
-    return Result<std::optional<ClassicCanFrame>>::failure(deadline.status());
+    return Result<std::optional<CanReceiveObservation>>::failure(
+        deadline.status());
   }
   if (fd_.get() < 0) {
-    return Result<std::optional<ClassicCanFrame>>::failure(
+    return Result<std::optional<CanReceiveObservation>>::failure(
         Status::from_errno("receive", context, EBADF));
   }
 
@@ -205,31 +226,77 @@ CanSocket::receive(const std::chrono::milliseconds timeout,
     const auto event =
         io::wait_readable_until(fd_.get(), deadline.value(), cancellation_fd);
     if (!event.ok()) {
-      return Result<std::optional<ClassicCanFrame>>::failure(
+      return Result<std::optional<CanReceiveObservation>>::failure(
           with_interface_context(event.status(), context));
     }
     if (event.value().cancelled) {
-      return Result<std::optional<ClassicCanFrame>>::failure(
+      return Result<std::optional<CanReceiveObservation>>::failure(
           Status::from_errno("receive", context + " cancelled", ECANCELED));
     }
     if (!event.value().readable) {
       if (event.value().error || event.value().hangup) {
-        return Result<std::optional<ClassicCanFrame>>::failure(
+        return Result<std::optional<CanReceiveObservation>>::failure(
             Status::from_errno("poll", context + " socket failure", EIO));
       }
-      return Result<std::optional<ClassicCanFrame>>::success(std::nullopt);
+      return Result<std::optional<CanReceiveObservation>>::success(
+          std::nullopt);
     }
 
     ::can_frame frame{};
-    const ssize_t count = ::read(fd_.get(), &frame, CAN_MTU);
+    iovec payload{.iov_base = &frame, .iov_len = CAN_MTU};
+    alignas(::cmsghdr)
+        std::array<std::byte, CMSG_SPACE(sizeof(::timespec)) +
+                                  CMSG_SPACE(sizeof(std::uint32_t))>
+            control{};
+    msghdr message{};
+    message.msg_iov = &payload;
+    message.msg_iovlen = 1;
+    message.msg_control = control.data();
+    message.msg_controllen = control.size();
+
+    const ssize_t count = ::recvmsg(fd_.get(), &message, 0);
     if (count == static_cast<ssize_t>(CAN_MTU)) {
+      if ((message.msg_flags & (MSG_TRUNC | MSG_CTRUNC)) != 0) {
+        return Result<std::optional<CanReceiveObservation>>::failure(
+            Status::from_errno("recvmsg", context + " truncated message", EIO));
+      }
+
+      std::optional<::timespec> timestamp;
+      std::optional<std::uint32_t> overflow;
+      for (cmsghdr *header = CMSG_FIRSTHDR(&message); header != nullptr;
+           header = CMSG_NXTHDR(&message, header)) {
+        if (header->cmsg_level != SOL_SOCKET) {
+          continue;
+        }
+        if (header->cmsg_type == SCM_TIMESTAMPNS) {
+          if (header->cmsg_len < CMSG_LEN(sizeof(::timespec))) {
+            return Result<std::optional<CanReceiveObservation>>::failure(
+                Status::from_errno("parse_cmsg(SCM_TIMESTAMPNS)", context,
+                                   EIO));
+          }
+          ::timespec value{};
+          std::memcpy(&value, CMSG_DATA(header), sizeof(value));
+          timestamp = value;
+        } else if (header->cmsg_type == SO_RXQ_OVFL) {
+          if (header->cmsg_len < CMSG_LEN(sizeof(std::uint32_t))) {
+            return Result<std::optional<CanReceiveObservation>>::failure(
+                Status::from_errno("parse_cmsg(SO_RXQ_OVFL)", context, EIO));
+          }
+          std::uint32_t value = 0;
+          std::memcpy(&value, CMSG_DATA(header), sizeof(value));
+          overflow = value;
+        }
+      }
+
       auto decoded = decode_classic_frame(frame);
       if (!decoded.ok()) {
-        return Result<std::optional<ClassicCanFrame>>::failure(
+        return Result<std::optional<CanReceiveObservation>>::failure(
             with_interface_context(decoded.status(), context));
       }
-      return Result<std::optional<ClassicCanFrame>>::success(
-          std::optional<ClassicCanFrame>{std::move(decoded).value()});
+      return Result<std::optional<CanReceiveObservation>>::success(
+          CanReceiveObservation{.frame = std::move(decoded).value(),
+                                .kernel_timestamp = timestamp,
+                                .rx_queue_overflow = overflow});
     }
     if (count < 0) {
       const int saved_errno = errno;
@@ -237,11 +304,11 @@ CanSocket::receive(const std::chrono::milliseconds timeout,
           saved_errno == EWOULDBLOCK) {
         continue;
       }
-      return Result<std::optional<ClassicCanFrame>>::failure(
-          Status::from_errno("read", context, saved_errno));
+      return Result<std::optional<CanReceiveObservation>>::failure(
+          Status::from_errno("recvmsg", context, saved_errno));
     }
-    return Result<std::optional<ClassicCanFrame>>::failure(
-        Status::from_errno("read",
+    return Result<std::optional<CanReceiveObservation>>::failure(
+        Status::from_errno("recvmsg",
                            context + " expected=" + std::to_string(CAN_MTU) +
                                " actual=" + std::to_string(count),
                            EIO));

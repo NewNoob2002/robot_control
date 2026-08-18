@@ -20,8 +20,8 @@ struct PollResult {
  *
  * @param fd Borrowed descriptor; ownership remains with the caller.
  * @param timeout Nonnegative maximum wait duration.
- * @param cancellation_fd Optional borrowed cancellation descriptor. Readability
- * returns `cancelled=true` without consuming the event.
+ * @param cancellation_fd Optional borrowed cancellation descriptor. Its
+ * readiness returns `cancelled=true` without consuming the event.
  * @return Poll flags, timeout with all flags false, or context-rich failure.
  *
  * Thread safety: Reentrant for distinct descriptors. The caller owns descriptor
@@ -40,7 +40,7 @@ wait_readable(int fd, std::chrono::milliseconds timeout,
  * @param deadline Absolute `steady_clock` deadline. A past deadline performs
  * an immediate readiness check.
  * @param cancellation_fd Optional borrowed cancellation descriptor, or -1.
- * Readability returns `cancelled=true` without consuming the event.
+ * Its readiness returns `cancelled=true` without consuming the event.
  * @return Poll flags, timeout with all flags false, or context-rich failure.
  *
  * Thread safety: Reentrant for distinct descriptors. The caller owns both
@@ -55,8 +55,8 @@ wait_readable_until(int fd, std::chrono::steady_clock::time_point deadline,
  *
  * @param fd Borrowed descriptor; ownership remains with the caller.
  * @param timeout Nonnegative maximum wait duration.
- * @param cancellation_fd Optional borrowed cancellation descriptor. Readability
- * returns `cancelled=true` without consuming the event.
+ * @param cancellation_fd Optional borrowed cancellation descriptor. Its
+ * readiness returns `cancelled=true` without consuming the event.
  * @return Poll flags, timeout with all flags false, or context-rich failure.
  *
  * Thread safety: Reentrant for distinct descriptors. The caller owns descriptor
@@ -75,7 +75,7 @@ wait_writable(int fd, std::chrono::milliseconds timeout,
  * @param deadline Absolute `steady_clock` deadline. A past deadline performs
  * an immediate readiness check.
  * @param cancellation_fd Optional borrowed cancellation descriptor, or -1.
- * Readability returns `cancelled=true` without consuming the event.
+ * Its readiness returns `cancelled=true` without consuming the event.
  * @return Poll flags, timeout with all flags false, or context-rich failure.
  *
  * Thread safety: Reentrant for distinct descriptors. The caller owns both
