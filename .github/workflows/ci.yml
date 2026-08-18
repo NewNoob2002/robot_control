@@ -51,7 +51,9 @@ jobs:
           shellcheck "${shell_files[@]}"
 
       - name: Check cross image Dockerfile
-        run: hadolint docker/cross/Dockerfile
+        # The ARG default is digest-pinned, and the build scripts reject an
+        # unpinned override. Hadolint 2.12 cannot infer that external contract.
+        run: hadolint --ignore DL3006 docker/cross/Dockerfile
 
       - name: Check Python syntax
         run: |
