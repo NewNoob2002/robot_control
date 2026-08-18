@@ -11,6 +11,8 @@ ARG UBUNTU_SNAPSHOT=20260814T000000Z
 ARG CA_CERTIFICATES_VERSION=20260601~22.04.1
 ARG RECIPE_SHA256=unknown
 ARG PACKAGE_LOCK_SHA256=unknown
+# USERNAME is a non-secret account name used only for host UID/GID mapping.
+# hadolint ignore=DL3064
 ARG USERNAME=builder
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
@@ -44,6 +46,8 @@ RUN apt-get -o Acquire::https::Verify-Peer=false update && \
       "ca-certificates=${CA_CERTIFICATES_VERSION}" && \
     rm -rf /var/lib/apt/lists/*
 
+# The complete resolved dpkg set is verified against packages.lock below.
+# hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         binutils-aarch64-linux-gnu \
