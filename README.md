@@ -20,8 +20,9 @@ cancellation. Receive observations also preserve optional raw kernel
 nanosecond timestamps and RX queue overflow counters for diagnostics. The
 passive `robot-control-can-probe` is bounded and emits structured observations.
 A capability-aware isolated runner provides real bidirectional `vcan` frame and
-raw-filter-isolation coverage while explicitly skipping unsupported hosts.
-Nonzero overflow and error-frame runtime evidence, interface reopen, passive
+raw-filter-isolation coverage plus a bounded queue-pressure check that records
+a nonzero raw cumulative `SO_RXQ_OVFL` counter, while explicitly skipping
+unsupported hosts. Error-frame runtime evidence, interface reopen, passive
 target validation, CANopen, and motion-producing integration remain pending.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python

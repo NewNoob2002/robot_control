@@ -52,8 +52,9 @@ integration evidence, and passive target verification.
    bounded monotonic runtime, signal cancellation, and structured frame and
    metadata output.
 6. **Integration (in progress):** a capability-aware isolated runner and real
-   bidirectional `vcan` frame and raw-filter-isolation tests are complete;
-   error-frame runtime evidence plus interface-down and reopen behavior remain.
+   bidirectional `vcan` frame, raw-filter-isolation, and nonzero raw
+   `SO_RXQ_OVFL` counter tests are complete; error-frame runtime evidence plus
+   interface-down and reopen behavior remain.
 7. **Target evidence:** read-only interface/driver inventory and passive capture
    on the authorized RK3588 target; record kernel limitations without changing
    network configuration.
@@ -98,6 +99,9 @@ not use either value for monotonic deadlines or safety decisions. The
 steady-clock bounded, and emits stable key/value records without interpreting
 diagnostic metadata. The managed isolated `vcan` runner has produced runtime
 evidence for bidirectional complete Classical CAN frames and exact raw-filter
-isolation; unsupported namespace or kernel capability is an explicit CTest
-skip. Nonzero overflow and error-frame runtime evidence, interface reopen
-behavior, and passive target validation remain pending.
+isolation. A bounded queue-pressure scenario also records a real nonzero raw
+cumulative `SO_RXQ_OVFL` counter without interpreting it as a delta, deadline,
+or safety signal. Unsupported namespace or kernel capability is an explicit
+CTest skip. Error-frame runtime evidence, interface reopen behavior, and
+passive RK3588 target validation remain pending; the namespace-local `vcan`
+evidence is not target hardware evidence.
