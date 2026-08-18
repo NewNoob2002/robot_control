@@ -88,8 +88,15 @@ RUN groupadd --gid "${USER_GID}" "${USERNAME}" && \
         --create-home \
         --shell /bin/bash \
         "${USERNAME}" && \
-    mkdir -p /workspace "/home/${USERNAME}/.cache/ccache" && \
-    chown -R "${USERNAME}:${USERNAME}" /workspace "/home/${USERNAME}"
+    mkdir -p \
+        /opt/robot-control/sysroot \
+        /workspace \
+        "/home/${USERNAME}/.cache/ccache" && \
+    chown -R \
+        "${USERNAME}:${USERNAME}" \
+        /opt/robot-control \
+        /workspace \
+        "/home/${USERNAME}"
 
 USER ${USERNAME}
 

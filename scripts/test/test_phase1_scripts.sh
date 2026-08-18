@@ -11,7 +11,10 @@ while IFS= read -r script; do
 done < <(find "${repo_root}/scripts" -type f -name '*.sh' -print | LC_ALL=C sort)
 
 if ROBOT_CONTROL_SYSROOT="${temp}" \
-  cmake --preset rk3588-debug -S "${repo_root}" >"${temp}/cmake.log" 2>&1; then
+  cmake --preset rk3588-debug \
+    -S "${repo_root}" \
+    -B "${temp}/invalid-cross-build" \
+    >"${temp}/cmake.log" 2>&1; then
   echo "Cross configure unexpectedly accepted an invalid sysroot" >&2
   exit 1
 fi
@@ -68,7 +71,12 @@ attestation="${temp}/source-attestation.json"
 "${repo_root}/scripts/build/create_source_snapshot.sh" \
   "${snapshot}" "${attestation}" >/dev/null
 test -f "${snapshot}/CMakeLists.txt"
+test -d "${snapshot}/out"
 test ! -e "${snapshot}/.codex"
+grep -q '/opt/robot-control/sysroot' \
+  "${repo_root}/docker/cross/Dockerfile"
+grep -q 'test -d /opt/robot-control/sysroot' \
+  "${repo_root}/scripts/build/verify_cross_image.sh"
 grep -q '^/.codex/$' "${repo_root}/.gitignore"
 grep -q 'Docker CLI is required to build the locked cross image' \
   "${repo_root}/scripts/build/build_cross_image.sh"

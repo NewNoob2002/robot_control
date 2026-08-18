@@ -139,6 +139,9 @@ mapfile -t observed < <(
     --security-opt no-new-privileges \
     "${image}" \
     bash -lc '
+      test -d /workspace
+      test -d /opt/robot-control/sysroot
+      test -d /home/builder/.cache/ccache
       aarch64-linux-gnu-g++ -dumpmachine
       aarch64-linux-gnu-g++ --version | head -n 1
       cmake --version | head -n 1

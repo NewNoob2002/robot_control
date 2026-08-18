@@ -95,6 +95,10 @@ PY
 
 mkdir -- "${snapshot}"
 tar --extract --file="${archive}" --directory="${snapshot}" --no-same-owner
+# Docker cannot create a nested bind-mount target below the read-only source
+# snapshot. Keep this empty directory in every generated snapshot so the host
+# output tree can be mounted at /workspace/out.
+mkdir -- "${snapshot}/out"
 
 python3 - \
   "${attestation}" \
