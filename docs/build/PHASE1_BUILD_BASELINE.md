@@ -288,6 +288,37 @@ Dockerfile lint were not rerun in this pass. No actual target sysroot or
 reviewed release lock is available, so aarch64 debug/release builds and ELF
 auditing remain pending external prerequisites.
 
+## Docker and target-sysroot verification on 2026-08-18
+
+The previously unavailable checks were completed after Docker, ShellCheck,
+Hadolint, and a read-only sysroot collected from the authorized RK3588 target
+became available. This verification used:
+
+- Docker client and server version 29.1.3;
+- locked image `rk3588-cross:phase1-20260814` with immutable image ID
+  `sha256:682f8ed4409ffc8b68053d325ddaf98870e5e1d86f250141acc50eee3ef729e8`;
+- sysroot content digest
+  `a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911`;
+- reviewed release lock
+  `sysroots/locks/rk3588-ubuntu2204-a685ab13.json`.
+
+Results:
+
+- locked-image runtime verification passed;
+- all project shell scripts passed ShellCheck and the cross Dockerfile passed
+  Hadolint;
+- RK3588 Debug and Release cross builds completed against the real target
+  sysroot;
+- both ELF audits verified the aarch64 interpreter, `NEEDED` dependencies,
+  GLIBC/GLIBCXX/CXXABI symbol versions, and absence of RPATH/RUNPATH;
+- both artifact metadata records identify clean revision
+  `3f7d794808b9b77b852fe7838a3a67b37bd77db5` and a 593-file source snapshot.
+
+The resulting local evidence is retained below
+`out/artifacts/rk3588-debug/` and `out/artifacts/rk3588-release/`; `out/` is not
+committed. Target smoke testing remains pending and no motion-producing or
+persistent target operation was performed.
+
 ## Historical cross and target evidence
 
 The following evidence was collected on 2026-07-31 and is retained as the

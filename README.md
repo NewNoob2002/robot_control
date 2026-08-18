@@ -14,6 +14,11 @@ and throttled structured logging through EasyLogger. These adapters contain no
 motion policy and are covered by pipe, PTY, signal, timing, sanitizer, and
 cross-build tests.
 SocketCAN and motion-producing integration have not started.
+The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
+1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
+syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not
+run on public runners because they require the checksum-locked sysroot
+collected from the authorized target and the locally locked toolchain image.
 
 Read these documents before implementation:
 
@@ -117,14 +122,13 @@ file mtimes, so reusing an older Ninja object tree could associate stale
 objects with a new source attestation. Compiler output reuse remains available
 through ccache.
 
-As of 2026-08-17, this checkout contains no actual sysroot under `sysroots/`.
-Host and script checks were rerun on 2026-08-17. The locked image was built and
-verified on 2026-08-14, but Docker is unavailable in the current environment,
-so image runtime verification was not repeated on 2026-08-17. A real aarch64
-cross build, ELF audit, and target smoke test also remain pending. The retained
-cross/target results in the
-[Phase 1 baseline](docs/build/PHASE1_BUILD_BASELINE.md) are historical evidence
-from 2026-07-31.
+As of 2026-08-18, the locked image has been runtime-verified and this checkout
+has completed Debug and Release aarch64 cross builds against the real target
+sysroot. Both artifacts passed interpreter, dependency, symbol-version, and
+RPATH/RUNPATH ELF audits. The sysroot itself remains local and ignored; only
+its reviewed release identity lock is versioned. Target smoke testing remains
+pending. Detailed evidence is recorded in the
+[Phase 1 baseline](docs/build/PHASE1_BUILD_BASELINE.md).
 
 ## Phase 3 verification
 
