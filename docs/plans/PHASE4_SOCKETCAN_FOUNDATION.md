@@ -43,14 +43,15 @@ integration evidence, and passive target verification.
 2. **Socket lifecycle (complete):** nonblocking socket creation, interface-index
    lookup, bind, filter/error-mask options, deterministic close, and negative
    tests.
-3. **I/O observations (pending):** deadline/cancellation-aware receive,
-   complete-frame transmit, timestamps, overflow counters, and raw error-frame
-   preservation.
-4. **Tooling:** passive `tools/can_probe` inspection with bounded runtime and
+3. **Basic frame I/O (complete):** nonblocking complete-frame send/receive, one
+   monotonic deadline per operation, cancellation-fd observation, timeout and
+   retry handling, and raw error-frame preservation on receive.
+4. **I/O metadata (pending):** kernel timestamps and RX queue overflow counters.
+5. **Tooling:** passive `tools/can_probe` inspection with bounded runtime and
    structured output.
-5. **Integration:** bidirectional `vcan` tests, filter tests, interface-down and
+6. **Integration:** bidirectional `vcan` tests, filter tests, interface-down and
    reopen behavior, plus an explicit capability-aware test runner.
-6. **Target evidence:** read-only interface/driver inventory and passive capture
+7. **Target evidence:** read-only interface/driver inventory and passive capture
    on the authorized RK3588 target; record kernel limitations without changing
    network configuration.
 
@@ -83,8 +84,10 @@ integration runner is available.
 
 ## Current implementation checkpoint
 
-The first two delivery slices implement the policy-free Classical CAN frame
-codec and the move-only SocketCAN socket lifecycle, including explicit
-receive-all, receive-none, raw-filter, and error-mask configuration semantics.
-Frame I/O, timestamp/overflow metadata, bidirectional `vcan` evidence, interface
-reopen behavior, probe tooling, and passive target validation remain pending.
+The completed delivery slices provide the policy-free Classical CAN frame
+codec, move-only SocketCAN socket lifecycle, and basic complete-frame
+send/receive with monotonic timeout and borrowed cancellation-fd semantics.
+Receive-all, receive-none, raw-filter, and error-mask configuration are
+explicit. Timestamp/overflow metadata, managed bidirectional `vcan` evidence,
+interface reopen behavior, probe tooling, and passive target validation remain
+pending.

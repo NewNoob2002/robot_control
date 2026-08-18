@@ -10,9 +10,11 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   safety, and CiA402 domain libraries; Phase 3 provides policy-free Linux fd,
   poll, monotonic timer, signal, UART, and logging adapters. Host build, test,
   and static-check CI is implemented. Phase 4 SocketCAN work now provides the
-  policy-free Classical CAN frame codec and socket lifecycle. Frame I/O,
-  metadata, `vcan`, CANopen integration, cross/HIL/release CI, packaging, and
-  deploy service are not implemented.
+  policy-free Classical CAN frame codec, socket lifecycle, and basic frame
+  send/receive with monotonic timeout and cancellation. Timestamp/overflow
+  metadata, managed bidirectional `vcan` integration, interface reopen,
+  `can_probe`, target passive validation, CANopen integration, cross/HIL/release
+  CI, packaging, and deploy service are not implemented.
 - `components/CANopenNode/` remains an unversioned baseline snapshot.
   EasyLogger's checksum-pinned core subset is integrated behind
   `service/logging`; replacing the mixed snapshot with a clean immutable
