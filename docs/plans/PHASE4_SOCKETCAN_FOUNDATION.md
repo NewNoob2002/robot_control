@@ -48,8 +48,9 @@ integration evidence, and passive target verification.
    retry handling, and raw error-frame preservation on receive.
 4. **I/O metadata (complete):** optional raw kernel nanosecond timestamps and RX
    queue overflow counters from receive ancillary data.
-5. **Tooling:** passive `tools/can_probe` inspection with bounded runtime and
-   structured output.
+5. **Tooling (complete):** passive-only `tools/can_probe` inspection with a
+   bounded monotonic runtime, signal cancellation, and structured frame and
+   metadata output.
 6. **Integration:** bidirectional `vcan` tests, filter tests, interface-down and
    reopen behavior, plus an explicit capability-aware test runner.
 7. **Target evidence:** read-only interface/driver inventory and passive capture
@@ -91,6 +92,10 @@ send/receive with monotonic timeout and borrowed cancellation-fd semantics.
 Receive-all, receive-none, raw-filter, and error-mask configuration are
 explicit. Receive observations preserve optional raw realtime-domain kernel
 timestamps and cumulative RX queue overflow counters for diagnostics; they do
-not use either value for monotonic deadlines or safety decisions. Managed
-bidirectional `vcan` evidence, nonzero overflow runtime evidence, interface
-reopen behavior, probe tooling, and passive target validation remain pending.
+not use either value for monotonic deadlines or safety decisions. The
+`robot-control-can-probe` tool is receive-only, externally configured,
+steady-clock bounded, and emits stable key/value records without interpreting
+diagnostic metadata. Managed bidirectional `vcan` evidence, filter-isolation
+evidence, nonzero overflow runtime evidence, interface reopen behavior, and
+passive target validation remain pending; compilation and CLI tests are not
+recorded as `vcan` or target runtime evidence.
