@@ -12,10 +12,12 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   and static-check CI is implemented. Phase 4 SocketCAN work now provides the
   policy-free Classical CAN frame codec, socket lifecycle, and basic frame
   send/receive with monotonic timeout and cancellation, plus optional raw
-  kernel timestamp and RX queue overflow receive metadata. Managed
-  bidirectional `vcan` integration, nonzero overflow evidence, interface
-  reopen, `can_probe`, target passive validation, CANopen integration,
-  cross/HIL/release CI, packaging, and deploy service are not implemented.
+  kernel timestamp and RX queue overflow receive metadata, and receive-only
+  `can_probe`. Managed namespace-local bidirectional `vcan` frame evidence, raw
+  filter isolation, and nonzero raw cumulative `SO_RXQ_OVFL` evidence are
+  complete. CAN error-frame runtime evidence, interface down/up and reopen,
+  RK3588 target passive validation, CANopen integration, cross/HIL/release CI,
+  packaging, and deploy service remain.
 - `components/CANopenNode/` remains an unversioned baseline snapshot.
   EasyLogger's checksum-pinned core subset is integrated behind
   `service/logging`; replacing the mixed snapshot with a clean immutable
