@@ -15,9 +15,9 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   kernel timestamp and RX queue overflow receive metadata, and receive-only
   `can_probe`. Managed namespace-local bidirectional `vcan` frame evidence, raw
   filter isolation, and nonzero raw cumulative `SO_RXQ_OVFL` evidence are
-  complete. CAN error-frame runtime evidence, interface down/up and reopen,
-  RK3588 target passive validation, CANopen integration, cross/HIL/release CI,
-  packaging, and deploy service remain.
+  complete, along with namespace-local CAN error-frame runtime evidence.
+  Interface down/up and reopen, RK3588 target passive validation, CANopen
+  integration, cross/HIL/release CI, packaging, and deploy service remain.
 - `components/CANopenNode/` remains an unversioned baseline snapshot.
   EasyLogger's checksum-pinned core subset is integrated behind
   `service/logging`; replacing the mixed snapshot with a clean immutable

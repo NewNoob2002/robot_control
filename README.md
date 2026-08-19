@@ -21,9 +21,9 @@ nanosecond timestamps and RX queue overflow counters for diagnostics. The
 passive `robot-control-can-probe` is bounded and emits structured observations.
 A capability-aware isolated runner provides real bidirectional `vcan` frame and
 raw-filter-isolation coverage plus a bounded queue-pressure check that records
-a nonzero raw cumulative `SO_RXQ_OVFL` counter, while explicitly skipping
-unsupported hosts. CAN error-frame runtime evidence, interface down/up and
-reopen, RK3588 passive target validation, CANopen, and motion-producing
+a nonzero raw cumulative `SO_RXQ_OVFL` counter and complete raw CAN error-frame
+preservation, while explicitly skipping unsupported hosts. Interface down/up
+and reopen, RK3588 passive target validation, CANopen, and motion-producing
 integration remain pending.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python

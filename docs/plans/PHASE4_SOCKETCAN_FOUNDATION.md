@@ -52,8 +52,8 @@ integration evidence, and passive target verification.
    metadata output.
 6. **Integration (in progress):** a capability-aware isolated runner and real
    bidirectional `vcan` frame, raw-filter-isolation, and nonzero raw
-   `SO_RXQ_OVFL` counter tests are complete; error-frame runtime evidence plus
-   interface-down and reopen behavior remain.
+   `SO_RXQ_OVFL` counter tests are complete, along with raw CAN error-frame
+   preservation evidence; interface-down and reopen behavior remain.
 7. **Target evidence:** read-only interface/driver inventory and passive capture
    on the authorized RK3588 target; record kernel limitations without changing
    network configuration.
@@ -100,7 +100,9 @@ diagnostic metadata. The managed isolated `vcan` runner has produced runtime
 evidence for bidirectional complete Classical CAN frames and exact raw-filter
 isolation. A bounded queue-pressure scenario also records a real nonzero raw
 cumulative `SO_RXQ_OVFL` counter without interpreting it as a delta, deadline,
-or safety signal. Unsupported namespace or kernel capability is an explicit
-CTest skip. Error-frame runtime evidence, interface reopen behavior, and
+or safety signal. The same isolated `vcan` environment has produced a raw CAN
+error frame and verified complete identifier, error-class, DLC, and payload
+preservation through the production receive path. Unsupported namespace or
+kernel capability is an explicit CTest skip. Interface down/up and reopen plus
 passive RK3588 target validation remain pending; the namespace-local `vcan`
 evidence is not target hardware evidence.
