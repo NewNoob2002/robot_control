@@ -1,6 +1,7 @@
 #include "platform/linux/can/socket.hpp"
 
 #include <linux/can/error.h>
+#include <linux/can/raw.h>
 
 #include <fcntl.h>
 #include <net/if.h>
@@ -13,6 +14,7 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdlib>
+#include <iomanip>
 #include <iostream>
 #include <limits>
 #include <span>
@@ -108,6 +110,99 @@ remaining_timeout(const std::chrono::steady_clock::time_point deadline,
   const auto remaining = std::chrono::duration_cast<std::chrono::milliseconds>(
       deadline - std::chrono::steady_clock::now());
   return std::clamp(remaining, 0ms, maximum);
+}
+
+/** Inject one test-only error frame through a bound raw SocketCAN socket. */
+bool inject_test_error_frame(const unsigned int interface_index,
+                             const ::can_frame &frame) {
+  const int descriptor =
+      ::socket(PF_CAN, SOCK_RAW | SOCK_NONBLOCK | SOCK_CLOEXEC, CAN_RAW);
+  CHECK("CAN-SOCKET-ERROR-003", descriptor >= 0);
+  if (descriptor < 0) {
+    return false;
+  }
+  UniqueFd injector{descriptor};
+
+  const int filter_result =
+      ::setsockopt(injector.get(), SOL_CAN_RAW, CAN_RAW_FILTER, nullptr, 0);
+  CHECK("CAN-SOCKET-ERROR-003", filter_result == 0);
+  if (filter_result != 0) {
+    return false;
+  }
+
+  sockaddr_can address{};
+  address.can_family = AF_CAN;
+  address.can_ifindex = static_cast<int>(interface_index);
+  const int bind_result =
+      ::bind(injector.get(), reinterpret_cast<const sockaddr *>(&address),
+             static_cast<socklen_t>(sizeof(address)));
+  CHECK("CAN-SOCKET-ERROR-003", bind_result == 0);
+  if (bind_result != 0) {
+    return false;
+  }
+
+  const ssize_t count = ::write(injector.get(), &frame, CAN_MTU);
+  CHECK("CAN-SOCKET-ERROR-003", count == static_cast<ssize_t>(CAN_MTU));
+  return count == static_cast<ssize_t>(CAN_MTU);
+}
+
+/** Verify raw CAN error-frame subscription and complete payload preservation.
+ */
+void test_error_frame_runtime(const char *interface_name) {
+  constexpr can_err_mask_t error_classes = CAN_ERR_BUSOFF | CAN_ERR_CRTL;
+  constexpr canid_t raw_can_id = CAN_ERR_FLAG | error_classes;
+  constexpr std::array<std::byte, CAN_ERR_DLC> payload{
+      std::byte{0x00}, std::byte{CAN_ERR_CRTL_RX_WARNING},
+      std::byte{0x12}, std::byte{0x34},
+      std::byte{0x56}, std::byte{0x78},
+      std::byte{0x9a}, std::byte{0xbc}};
+  const std::span<const ::can_filter> no_filters{};
+  const int initial_failures = failures;
+  auto receiver = CanSocket::open(
+      interface_name,
+      CanSocketConfig{.filters = no_filters, .error_mask = error_classes});
+  auto control = CanSocket::open(
+      interface_name, CanSocketConfig{.filters = no_filters, .error_mask = 0});
+  CHECK("CAN-SOCKET-ERROR-001", receiver.ok());
+  CHECK("CAN-SOCKET-ERROR-001", control.ok());
+  if (!receiver.ok() || !control.ok()) {
+    return;
+  }
+  if (!drain_socket(receiver.value(), "CAN-SOCKET-ERROR-002") ||
+      !drain_socket(control.value(), "CAN-SOCKET-ERROR-002")) {
+    return;
+  }
+
+  ::can_frame injected{};
+  injected.can_id = raw_can_id;
+  injected.len = CAN_ERR_DLC;
+  injected.len8_dlc = 0U;
+  std::copy(payload.begin(), payload.end(),
+            reinterpret_cast<std::byte *>(injected.data));
+  if (!inject_test_error_frame(receiver.value().interface_index(), injected)) {
+    return;
+  }
+
+  const ClassicCanFrame expected{
+      .raw_can_id = raw_can_id,
+      .payload_length = CAN_ERR_DLC,
+      .len8_dlc = 0U,
+      .data = payload,
+  };
+  const auto received = receiver.value().receive(100ms);
+  check_received_frame("CAN-SOCKET-ERROR-004", received, expected);
+  check_receive_timeout(control.value(), "CAN-SOCKET-ERROR-005");
+
+  if (failures == initial_failures) {
+    std::cout << "INFO: managed vcan CAN error-frame evidence raw_can_id=0x"
+              << std::hex << std::setfill('0') << std::setw(8) << raw_can_id
+              << " error_classes=0x" << std::setw(8) << error_classes
+              << " payload=";
+    for (const std::byte value : payload) {
+      std::cout << std::setw(2) << std::to_integer<unsigned int>(value);
+    }
+    std::cout << std::dec << std::setfill(' ') << '\n';
+  }
 }
 
 /** Produce and verify a nonzero raw kernel RX queue overflow counter. */
@@ -515,6 +610,7 @@ void test_configured_vcan() {
 
   test_receive_queue_overflow(interface_name,
                               static_cast<canid_t>(test_can_id_a + 0x100U));
+  test_error_frame_runtime(interface_name);
 
   CanSocket owned = std::move(filtered).value();
   const int descriptor = owned.fd();
