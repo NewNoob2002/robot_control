@@ -50,10 +50,10 @@ integration evidence, and passive target verification.
 5. **Tooling (complete):** passive-only `tools/can_probe` inspection with a
    bounded monotonic runtime, signal cancellation, and structured frame and
    metadata output.
-6. **Integration (in progress):** a capability-aware isolated runner and real
-   bidirectional `vcan` frame, raw-filter-isolation, and nonzero raw
-   `SO_RXQ_OVFL` counter tests are complete, along with raw CAN error-frame
-   preservation evidence; interface-down and reopen behavior remain.
+6. **Integration (complete):** a capability-aware isolated runner provides real
+   bidirectional `vcan` frame, raw-filter-isolation, nonzero raw `SO_RXQ_OVFL`
+   counter, raw CAN error-frame preservation, and interface down/up with
+   explicit endpoint reopen evidence.
 7. **Target evidence:** read-only interface/driver inventory and passive capture
    on the authorized RK3588 target; record kernel limitations without changing
    network configuration.
@@ -102,7 +102,11 @@ isolation. A bounded queue-pressure scenario also records a real nonzero raw
 cumulative `SO_RXQ_OVFL` counter without interpreting it as a delta, deadline,
 or safety signal. The same isolated `vcan` environment has produced a raw CAN
 error frame and verified complete identifier, error-class, DLC, and payload
-preservation through the production receive path. Unsupported namespace or
-kernel capability is an explicit CTest skip. Interface down/up and reopen plus
-passive RK3588 target validation remain pending; the namespace-local `vcan`
-evidence is not target hardware evidence.
+preservation through the production receive path. It has also verified bounded
+link-down failures, restoration to up, and fresh endpoints opened through the
+existing `CanSocket::open()` with the original filter and timestamp settings.
+The production library still neither configures interfaces nor provides
+automatic recovery. Unsupported namespace or kernel capability is an explicit
+CTest skip. Passive RK3588 target validation remains pending; the
+namespace-local `vcan` evidence is not target hardware evidence. CANopen and
+later integration also remain pending.
