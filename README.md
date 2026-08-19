@@ -22,8 +22,9 @@ passive `robot-control-can-probe` is bounded and emits structured observations.
 A capability-aware isolated runner provides real bidirectional `vcan` frame and
 raw-filter-isolation coverage plus a bounded queue-pressure check that records
 a nonzero raw cumulative `SO_RXQ_OVFL` counter, while explicitly skipping
-unsupported hosts. Error-frame runtime evidence, interface reopen, passive
-target validation, CANopen, and motion-producing integration remain pending.
+unsupported hosts. CAN error-frame runtime evidence, interface down/up and
+reopen, RK3588 passive target validation, CANopen, and motion-producing
+integration remain pending.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
 syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not

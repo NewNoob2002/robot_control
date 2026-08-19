@@ -13,8 +13,7 @@ integration evidence, and passive target verification.
 - It must not contain CANopen, CiA402, node-ID, motion, arbitration, recovery, or
   safety policy.
 - The library never creates, configures, or brings up a CAN interface.
-- `tools/can_probe` is passive by default and must require an explicit option
-  before any test-frame transmission.
+- `tools/can_probe` is passive-only and provides no frame-transmission option.
 - Phase 4 does not deploy to the target, alter target networking, move hardware,
   or change persistent drive parameters.
 
