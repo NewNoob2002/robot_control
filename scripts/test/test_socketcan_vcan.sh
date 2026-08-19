@@ -39,5 +39,6 @@ unshare --user --map-root-user --net -- bash -c '
   fi
   echo "INFO: managed namespace vcan0 is up"
   export ROBOT_CONTROL_TEST_VCAN_INTERFACE=vcan0
+  export ROBOT_CONTROL_TEST_ALLOW_VCAN_LINK_TOGGLE=1
   exec "$1"
 ' bash "${test_program}"

@@ -5,6 +5,7 @@
 
 #include <fcntl.h>
 #include <net/if.h>
+#include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -110,6 +111,237 @@ remaining_timeout(const std::chrono::steady_clock::time_point deadline,
   const auto remaining = std::chrono::duration_cast<std::chrono::milliseconds>(
       deadline - std::chrono::steady_clock::now());
   return std::clamp(remaining, 0ms, maximum);
+}
+
+/** Set and verify one test-only network interface administrative state. */
+bool set_test_interface_up(const std::string_view interface_name,
+                           const bool requested_up) {
+  if (interface_name.empty() || interface_name.size() >= IFNAMSIZ) {
+    ++failures;
+    std::cerr << "CAN-SOCKET-LINK-003 failed: operation=validate_interface"
+              << " interface=" << interface_name << " errno=" << ENAMETOOLONG
+              << '\n';
+    return false;
+  }
+
+  const int descriptor = ::socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+  if (descriptor < 0) {
+    const int saved_errno = errno;
+    ++failures;
+    std::cerr << "CAN-SOCKET-LINK-003 failed: operation=socket(AF_INET)"
+              << " interface=" << interface_name << " errno=" << saved_errno
+              << '\n';
+    return false;
+  }
+  UniqueFd control{descriptor};
+
+  ifreq request{};
+  interface_name.copy(request.ifr_name, interface_name.size());
+  request.ifr_name[interface_name.size()] = '\0';
+  if (::ioctl(control.get(), SIOCGIFFLAGS, &request) != 0) {
+    const int saved_errno = errno;
+    ++failures;
+    std::cerr << "CAN-SOCKET-LINK-003 failed: operation=SIOCGIFFLAGS"
+              << " interface=" << interface_name << " errno=" << saved_errno
+              << '\n';
+    return false;
+  }
+
+  request.ifr_flags = requested_up
+                          ? static_cast<short>(request.ifr_flags | IFF_UP)
+                          : static_cast<short>(request.ifr_flags & ~IFF_UP);
+  if (::ioctl(control.get(), SIOCSIFFLAGS, &request) != 0) {
+    const int saved_errno = errno;
+    ++failures;
+    std::cerr << "CAN-SOCKET-LINK-003 failed: operation=SIOCSIFFLAGS"
+              << " interface=" << interface_name << " errno=" << saved_errno
+              << '\n';
+    return false;
+  }
+  if (::ioctl(control.get(), SIOCGIFFLAGS, &request) != 0) {
+    const int saved_errno = errno;
+    ++failures;
+    std::cerr << "CAN-SOCKET-LINK-003 failed: operation=SIOCGIFFLAGS"
+              << " interface=" << interface_name << " errno=" << saved_errno
+              << '\n';
+    return false;
+  }
+
+  const bool actual_up = (request.ifr_flags & IFF_UP) != 0;
+  if (actual_up != requested_up) {
+    ++failures;
+    std::cerr << "CAN-SOCKET-LINK-003 failed: operation=verify_interface_flags"
+              << " interface=" << interface_name << " errno=" << EIO << '\n';
+    return false;
+  }
+  return true;
+}
+
+/** Verify bounded link-down failure and explicit SocketCAN endpoint reopen. */
+void test_interface_down_and_reopen(const char *interface_name,
+                                    const canid_t test_can_id) {
+  const char *allow_toggle =
+      std::getenv("ROBOT_CONTROL_TEST_ALLOW_VCAN_LINK_TOGGLE");
+  if (!std::string_view{interface_name}.starts_with("vcan") ||
+      allow_toggle == nullptr || std::string_view{allow_toggle} != "1") {
+    std::cout << "SKIP: managed vcan link toggle requires isolated runner "
+                 "authorization\n";
+    return;
+  }
+
+  const int initial_failures = failures;
+  const auto scenario_deadline = std::chrono::steady_clock::now() + 2s;
+  const std::array<::can_filter, 1> filter{{
+      {.can_id = test_can_id,
+       .can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG},
+  }};
+  const std::span<const ::can_filter> no_filters{};
+  unsigned int original_interface_index = 0U;
+  std::string receive_operation;
+  std::string receive_context;
+  int receive_errno = 0;
+  std::string send_operation;
+  std::string send_context;
+  int send_errno = 0;
+
+  {
+    auto sender =
+        CanSocket::open(interface_name, CanSocketConfig{.filters = no_filters,
+                                                        .error_mask = 0});
+    auto receiver = CanSocket::open(
+        interface_name,
+        CanSocketConfig{.filters = std::span<const ::can_filter>{filter},
+                        .error_mask = 0,
+                        .receive_timestamp = true});
+    CHECK("CAN-SOCKET-LINK-001", sender.ok());
+    CHECK("CAN-SOCKET-LINK-001", receiver.ok());
+    if (!sender.ok() || !receiver.ok()) {
+      return;
+    }
+    original_interface_index = receiver.value().interface_index();
+    CHECK("CAN-SOCKET-LINK-001", original_interface_index != 0U);
+    if (!drain_socket(receiver.value(), "CAN-SOCKET-LINK-001")) {
+      return;
+    }
+
+    const ClassicCanFrame baseline = test_frame(test_can_id);
+    const auto baseline_sent = sender.value().send(
+        baseline, remaining_timeout(scenario_deadline, 100ms));
+    CHECK("CAN-SOCKET-LINK-002", baseline_sent.ok());
+    const auto baseline_received =
+        receiver.value().receive(remaining_timeout(scenario_deadline, 100ms));
+    check_received_frame("CAN-SOCKET-LINK-002", baseline_received, baseline);
+    CHECK("CAN-SOCKET-LINK-002",
+          baseline_received.ok() && baseline_received.value().has_value() &&
+              baseline_received.value()->kernel_timestamp.has_value());
+    if (failures != initial_failures) {
+      return;
+    }
+
+    const bool interface_down = set_test_interface_up(interface_name, false);
+    if (interface_down) {
+      const auto down_receive =
+          receiver.value().receive(remaining_timeout(scenario_deadline, 100ms));
+      CHECK("CAN-SOCKET-LINK-004", !down_receive.ok());
+      receive_operation = down_receive.status().operation;
+      receive_context = down_receive.status().context;
+      receive_errno = down_receive.status().error.value();
+      CHECK("CAN-SOCKET-LINK-004", receive_operation == "poll");
+      CHECK("CAN-SOCKET-LINK-004",
+            receive_context ==
+                std::string{"interface="} + interface_name + " socket failure");
+      CHECK("CAN-SOCKET-LINK-004", receive_errno == EIO);
+
+      const auto down_send = sender.value().send(
+          baseline, remaining_timeout(scenario_deadline, 100ms));
+      CHECK("CAN-SOCKET-LINK-005", !down_send.ok());
+      send_operation = down_send.operation;
+      send_context = down_send.context;
+      send_errno = down_send.error.value();
+      CHECK("CAN-SOCKET-LINK-005", send_operation == "write");
+      CHECK("CAN-SOCKET-LINK-005",
+            send_context == std::string{"interface="} + interface_name);
+      CHECK("CAN-SOCKET-LINK-005", send_errno == ENETDOWN);
+    }
+
+    const bool interface_restored = set_test_interface_up(interface_name, true);
+    CHECK("CAN-SOCKET-LINK-006", interface_restored);
+    if (!interface_down || !interface_restored ||
+        failures != initial_failures) {
+      return;
+    }
+  }
+
+  auto reopened_sender = CanSocket::open(
+      interface_name, CanSocketConfig{.filters = no_filters, .error_mask = 0});
+  auto reopened_receiver = CanSocket::open(
+      interface_name,
+      CanSocketConfig{.filters = std::span<const ::can_filter>{filter},
+                      .error_mask = 0,
+                      .receive_timestamp = true});
+  CHECK("CAN-SOCKET-LINK-007", reopened_sender.ok());
+  CHECK("CAN-SOCKET-LINK-007", reopened_receiver.ok());
+  if (!reopened_sender.ok() || !reopened_receiver.ok()) {
+    return;
+  }
+  CHECK("CAN-SOCKET-LINK-007",
+        reopened_receiver.value().interface_name() == interface_name);
+  CHECK("CAN-SOCKET-LINK-007",
+        reopened_receiver.value().interface_index() != 0U);
+  CHECK("CAN-SOCKET-LINK-007", reopened_receiver.value().interface_index() ==
+                                   original_interface_index);
+  if (!drain_socket(reopened_receiver.value(), "CAN-SOCKET-LINK-007")) {
+    return;
+  }
+
+  ClassicCanFrame marker = test_frame(test_can_id);
+  marker.data = {std::byte{0xa5}, std::byte{0x5a}, std::byte{0xde},
+                 std::byte{0xad}, std::byte{0xbe}, std::byte{0xef},
+                 std::byte{0x42}, std::byte{0x24}};
+  const auto marker_sent = reopened_sender.value().send(
+      marker, remaining_timeout(scenario_deadline, 100ms));
+  CHECK("CAN-SOCKET-LINK-008", marker_sent.ok());
+  const auto marker_received = reopened_receiver.value().receive(
+      remaining_timeout(scenario_deadline, 100ms));
+  check_received_frame("CAN-SOCKET-LINK-008", marker_received, marker);
+  CHECK("CAN-SOCKET-LINK-008",
+        marker_received.ok() && marker_received.value().has_value() &&
+            marker_received.value()->kernel_timestamp.has_value());
+
+  const ClassicCanFrame filtered_frame =
+      test_frame(static_cast<canid_t>(test_can_id + 1U));
+  const auto filtered_sent = reopened_sender.value().send(
+      filtered_frame, remaining_timeout(scenario_deadline, 100ms));
+  CHECK("CAN-SOCKET-LINK-009", filtered_sent.ok());
+  const auto filtered_receive = reopened_receiver.value().receive(
+      remaining_timeout(scenario_deadline, 20ms));
+  CHECK("CAN-SOCKET-LINK-009", filtered_receive.ok());
+  CHECK("CAN-SOCKET-LINK-009",
+        filtered_receive.ok() && !filtered_receive.value().has_value());
+
+  if (failures == initial_failures) {
+    std::cout << "INFO: managed vcan link-down/reopen evidence interface="
+              << interface_name
+              << " original_ifindex=" << original_interface_index
+              << " reopened_ifindex="
+              << reopened_receiver.value().interface_index()
+              << " receive_operation=" << receive_operation
+              << " receive_context=\"" << receive_context << "\""
+              << " receive_errno=" << receive_errno
+              << " send_operation=" << send_operation << " send_context=\""
+              << send_context << "\""
+              << " send_errno=" << send_errno << " raw_can_id=0x" << std::hex
+              << std::setfill('0') << std::setw(8) << marker.raw_can_id
+              << std::dec << std::setfill(' ')
+              << " dlc=" << static_cast<unsigned int>(marker.payload_length)
+              << " len8_dlc=" << static_cast<unsigned int>(marker.len8_dlc)
+              << " payload=";
+    for (const std::byte value : marker.data) {
+      std::cout << std::hex << std::setfill('0') << std::setw(2)
+                << std::to_integer<unsigned int>(value);
+    }
+    std::cout << std::dec << std::setfill(' ') << '\n';
+  }
 }
 
 /** Inject one test-only error frame through a bound raw SocketCAN socket. */
@@ -611,6 +843,7 @@ void test_configured_vcan() {
   test_receive_queue_overflow(interface_name,
                               static_cast<canid_t>(test_can_id_a + 0x100U));
   test_error_frame_runtime(interface_name);
+  test_interface_down_and_reopen(interface_name, 0x6a5U);
 
   CanSocket owned = std::move(filtered).value();
   const int descriptor = owned.fd();
