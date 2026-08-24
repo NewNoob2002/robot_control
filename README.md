@@ -26,7 +26,8 @@ preservation, and interface down/up with explicit endpoint reopen evidence,
 while explicitly skipping unsupported hosts. RK3588 passive target validation
 is complete, including ordinary-user deadline/SIGTERM behavior and raw
 ID/DLC/payload/timestamp/overflow preservation under external traffic. CANopen
-and motion-producing integration remain pending.
+and motion-producing integration remain pending. The next planned node is the
+non-actuating CANopen observation and lifecycle foundation.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
 syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not
@@ -41,6 +42,7 @@ Read these documents before implementation:
 - [Phase 2 domain baseline](docs/verification/PHASE2_DOMAIN_BASELINE.md)
 - [Phase 3 Linux platform baseline](docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md)
 - [Phase 4 SocketCAN foundation plan](docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md)
+- [Phase 5 non-actuating CANopen integration plan](docs/plans/PHASE5_CANOPEN_INTEGRATION.md)
 - [architecture decisions](docs/decisions/)
 - [legacy behavioral contract](docs/architecture/LEGACY_BEHAVIOR_BASELINE.md)
 - [third-party provenance](third_party/README.md)

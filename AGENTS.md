@@ -6,19 +6,19 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 
 ## Current State
 
-- Phases 0 through 3 are complete. Phase 2 provides pure command, arbitration,
+- Phases 0 through 4 are complete. Phase 2 provides pure command, arbitration,
   safety, and CiA402 domain libraries; Phase 3 provides policy-free Linux fd,
   poll, monotonic timer, signal, UART, and logging adapters. Host build, test,
-  and static-check CI is implemented. Phase 4 SocketCAN work now provides the
+  and static-check CI is implemented. Phase 4 SocketCAN work provides the
   policy-free Classical CAN frame codec, socket lifecycle, and basic frame
   send/receive with monotonic timeout and cancellation, plus optional raw
   kernel timestamp and RX queue overflow receive metadata, and receive-only
   `can_probe`. Managed namespace-local bidirectional `vcan` frame evidence, raw
   filter isolation, and nonzero raw cumulative `SO_RXQ_OVFL` evidence are
   complete, along with namespace-local CAN error-frame runtime evidence and
-  interface down/up with explicit endpoint reopen evidence. RK3588 target
-  passive validation, CANopen integration, cross/HIL/release CI, packaging, and
-  deploy service remain.
+  interface down/up with explicit endpoint reopen evidence. RK3588 passive
+  target validation is complete. Phase 5 non-actuating CANopen integration,
+  cross/HIL/release CI, packaging, and deploy service remain.
 - `components/CANopenNode/` remains an unversioned baseline snapshot.
   EasyLogger's checksum-pinned core subset is integrated behind
   `service/logging`; replacing the mixed snapshot with a clean immutable
@@ -34,6 +34,8 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   `docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md`.
 - Phase 4 scope and acceptance criteria are recorded in
   `docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md`.
+- Phase 5 scope and delivery slices are recorded in
+  `docs/plans/PHASE5_CANOPEN_INTEGRATION.md`.
 
 ## Non-Negotiable Architecture
 
