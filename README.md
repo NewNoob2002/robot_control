@@ -23,8 +23,10 @@ A capability-aware isolated runner provides real bidirectional `vcan` frame and
 raw-filter-isolation coverage plus a bounded queue-pressure check that records
 a nonzero raw cumulative `SO_RXQ_OVFL` counter, complete raw CAN error-frame
 preservation, and interface down/up with explicit endpoint reopen evidence,
-while explicitly skipping unsupported hosts. RK3588 passive target validation,
-CANopen, and motion-producing integration remain pending.
+while explicitly skipping unsupported hosts. RK3588 passive target validation
+is complete, including ordinary-user deadline/SIGTERM behavior and raw
+ID/DLC/payload/timestamp/overflow preservation under external traffic. CANopen
+and motion-producing integration remain pending.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
 syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not

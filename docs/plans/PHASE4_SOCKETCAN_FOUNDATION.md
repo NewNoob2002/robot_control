@@ -54,9 +54,29 @@ integration evidence, and passive target verification.
    bidirectional `vcan` frame, raw-filter-isolation, nonzero raw `SO_RXQ_OVFL`
    counter, raw CAN error-frame preservation, and interface down/up with
    explicit endpoint reopen evidence.
-7. **Target evidence:** read-only interface/driver inventory and passive capture
-   on the authorized RK3588 target; record kernel limitations without changing
-   network configuration.
+7. **Target evidence (complete):** read-only interface/driver inventory and
+   passive capture on the authorized RK3588 target; record kernel limitations
+   without changing network configuration.
+
+The authorized 2026-08-24 target-evidence attempt is **PASS**.
+Read-only RK3588 identity and CAN inventory passed. The operator selected
+`can0`, 500000 bit/s, and `restart-ms 100`, and authorized a temporary SCP
+deployment. A locked-sysroot aarch64 Debug probe was built, audited, copied to
+`/tmp/robot-control-can-probe-33b879c5`, hash-verified, dependency-checked,
+and executed with `--help`. The operator then configured `can0` manually;
+fresh SSH evidence confirms UP/LOWER_UP, ERROR-ACTIVE, bitrate 500000, and
+`restart-ms 100`. As UID/GID 1000, a bounded 5000 ms passive probe exited 0
+with a deadline summary, and a 60000 ms probe consumed SIGTERM after about one
+second and exited 143 with the expected signal summary. Both runs observed zero
+frames because expected analyzer traffic was not active. Postflight found no
+remaining probe/socket and unchanged zero interface counters. After the
+analyzer started periodic traffic, a final 3000 ms receive-only run captured
+31 frames with raw ID `0x000007ff`, payload length 8, len8 DLC 0, data
+`48504d5200000001`, raw kernel timestamps, and raw queue-overflow value
+`none`; it exited 0 with a deadline summary. No timestamp conversion,
+overflow-delta inference, transmit, or motion operation was performed. Phase 4
+RK3588 passive target evidence is complete. See
+[`PHASE4_TARGET_EVIDENCE.md`](../verification/PHASE4_TARGET_EVIDENCE.md).
 
 ## Verification matrix
 
@@ -107,6 +127,11 @@ link-down failures, restoration to up, and fresh endpoints opened through the
 existing `CanSocket::open()` with the original filter and timestamp settings.
 The production library still neither configures interfaces nor provides
 automatic recovery. Unsupported namespace or kernel capability is an explicit
-CTest skip. Passive RK3588 target validation remains pending; the
-namespace-local `vcan` evidence is not target hardware evidence. CANopen and
-later integration also remain pending.
+CTest skip. The 2026-08-24 RK3588 read-only identity and interface inventory
+passed and the reviewed aarch64 probe is now available at the authorized
+temporary target path. Ordinary-user target socket open, bounded deadline, and
+SIGTERM cancellation evidence pass on the externally configured `can0`.
+The final external-traffic capture supplies passive raw frame and ancillary
+metadata evidence, completing the Phase 4 RK3588 target gate. Namespace-local
+`vcan` evidence remains separate from target hardware evidence. CANopen and
+later integration remain pending.
