@@ -1,8 +1,18 @@
 set(canopen_node_dir "${PROJECT_SOURCE_DIR}/components/CANopenLinux/CANopenNode")
+set(canopen_linux_driver
+    "${PROJECT_SOURCE_DIR}/components/CANopenLinux/CO_driver.c")
+
+add_library(robot_control_canopen_transmit_gate OBJECT transmit_gate.c)
+target_link_libraries(robot_control_canopen_transmit_gate
+                      PRIVATE robot_control_project_warnings)
+set_source_files_properties(
+  "${canopen_linux_driver}"
+  PROPERTIES COMPILE_DEFINITIONS
+             "send=robot_control_canopen_deny_transmit")
 
 add_library(
   robot_control_canopen_upstream STATIC
-  ${PROJECT_SOURCE_DIR}/components/CANopenLinux/CO_driver.c
+  ${canopen_linux_driver}
   ${canopen_node_dir}/CANopen.c
   ${canopen_node_dir}/301/CO_ODinterface.c
   ${canopen_node_dir}/301/CO_NMT_Heartbeat.c
@@ -12,7 +22,8 @@ add_library(
   ${canopen_node_dir}/301/CO_SDOclient.c
   ${canopen_node_dir}/301/CO_PDO.c
   ${canopen_node_dir}/301/CO_fifo.c
-  od/OD.c)
+  od/OD.c
+  $<TARGET_OBJECTS:robot_control_canopen_transmit_gate>)
 target_compile_definitions(
   robot_control_canopen_upstream
   PUBLIC CO_DRIVER_CUSTOM CO_MULTIPLE_OD CO_SINGLE_THREAD)

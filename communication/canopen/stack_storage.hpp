@@ -35,7 +35,7 @@ public:
    */
   [[nodiscard]] static CreateResult create(StackConfig config) noexcept;
 
-  /** Free upstream allocation, then release the generated-OD ownership claim. */
+  /** Clear OD extensions, free allocation, then release the ownership claim. */
   ~StackStorage();
 
   StackStorage(const StackStorage &) = delete;

@@ -1,6 +1,8 @@
 #include "communication/canopen/CO_driver_custom.h"
 #include "communication/canopen/stack_storage.hpp"
+#include "platform/linux/unique_fd.hpp"
 
+#include <fcntl.h>
 #include <linux/if.h>
 
 #include <array>
@@ -19,6 +21,7 @@ using namespace std::chrono_literals;
 using robot_control::communication::canopen::StackConfig;
 using robot_control::communication::canopen::StackStorage;
 using robot_control::communication::canopen::validate_stack_config;
+using robot_control::platform::linux::UniqueFd;
 
 static_assert(CO_CONFIG_NMT ==
               (CO_CONFIG_NMT_CALLBACK_CHANGE |
@@ -76,6 +79,16 @@ StackConfig valid_config(std::string interface_name = "can0",
       .heartbeat_timeout = 1000ms,
       .sdo_timeout = 500ms,
   };
+}
+
+/** Return whether every generated OD entry has no installed extension. */
+bool all_extensions_clear() {
+  for (std::uint16_t index = 0U; index < OD->size; ++index) {
+    if (OD->list[index].extension != nullptr) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /** Verify pure startup configuration validation at every specified boundary. */
@@ -202,34 +215,79 @@ void test_storage() {
   CHECK("CANOPEN-STACK-034",
         first->stack()->CANmodule->CANinterfaceCount == 0U);
   CHECK("CANOPEN-STACK-035", !first->stack()->CANmodule->CANnormal);
+  CHECK("CANOPEN-STACK-036", all_extensions_clear());
 
   auto second = StackStorage::create(valid_config("missing0", 2U));
-  CHECK("CANOPEN-STACK-036", !second.ok());
-  CHECK("CANOPEN-STACK-037", second.status().operation == "claim_canopen_stack");
-  CHECK("CANOPEN-STACK-038", second.status().context == "controller=127 remote=2");
-  CHECK("CANOPEN-STACK-039", second.status().error.value() == EBUSY);
+  CHECK("CANOPEN-STACK-037", !second.ok());
+  CHECK("CANOPEN-STACK-038", second.status().operation == "claim_canopen_stack");
+  CHECK("CANOPEN-STACK-039", second.status().context == "controller=127 remote=2");
+  CHECK("CANOPEN-STACK-040", second.status().error.value() == EBUSY);
+
+  OD_extension_t first_extension{};
+  OD_extension_t last_extension{};
+  CHECK("CANOPEN-STACK-041",
+        OD_extension_init(&OD->list[0], &first_extension) == ODR_OK);
+  CHECK("CANOPEN-STACK-042",
+        OD_extension_init(&OD->list[OD->size - 1U], &last_extension) == ODR_OK);
 
   const auto heap_memory_used = first->heap_memory_used();
   first.reset();
+  CHECK("CANOPEN-STACK-043", all_extensions_clear());
   auto reacquired_result = StackStorage::create(valid_config("missing0", 2U));
-  CHECK("CANOPEN-STACK-040", reacquired_result.ok());
+  CHECK("CANOPEN-STACK-044", reacquired_result.ok());
   if (reacquired_result.ok()) {
     const auto &reacquired = reacquired_result.value();
-    CHECK("CANOPEN-STACK-041",
+    CHECK("CANOPEN-STACK-045", all_extensions_clear());
+    CHECK("CANOPEN-STACK-046",
           reacquired->heap_memory_used() == heap_memory_used);
-    CHECK("CANOPEN-STACK-042",
+    CHECK("CANOPEN-STACK-047",
           OD_PERSIST_COMM.x1016_consumerHeartbeatTime[0] == 0x000203e8U);
-    CHECK("CANOPEN-STACK-043",
+    CHECK("CANOPEN-STACK-048",
           OD_PERSIST_COMM.x1016_consumerHeartbeatTime[1] == 0U);
-    CHECK("CANOPEN-STACK-044",
+    CHECK("CANOPEN-STACK-049",
           OD_PERSIST_COMM.x1280_SDOClientParameter.node_IDOfTheSDOServer == 2U);
-    CHECK("CANOPEN-STACK-045",
+    CHECK("CANOPEN-STACK-050",
           OD_PERSIST_COMM.x1400_RPDOCommunicationParameter.COB_IDUsedByRPDO ==
               0x182U);
-    CHECK("CANOPEN-STACK-046",
+    CHECK("CANOPEN-STACK-051",
           OD_PERSIST_COMM.x1603_RPDOMappingParameter
                   .numberOfMappedApplicationObjectsInPDO == 0U);
   }
+}
+
+/** Prove the pinned NMT boot-up path cannot reach the Linux send syscall. */
+void test_transmit_gate() {
+  UniqueFd sink{::open("/dev/null", O_WRONLY | O_CLOEXEC)};
+  CHECK("CANOPEN-TX-001", sink.get() >= 0);
+  if (!sink) {
+    return;
+  }
+
+  CO_CANinterface_t interface{};
+  interface.fd = sink.get();
+  CO_CANmodule_t module{};
+  module.CANinterfaces = &interface;
+  module.CANinterfaceCount = 1U;
+  CO_CANtx_t heartbeat{};
+  errno = 0;
+  CHECK("CANOPEN-TX-002",
+        CO_CANsend(&module, &heartbeat) == CO_ERROR_SYSCALL);
+  CHECK("CANOPEN-TX-003", errno == EACCES);
+
+  CO_EM_t emergency{};
+  CO_NMT_t nmt{};
+  nmt.operatingState = CO_NMT_INITIALIZING;
+  nmt.operatingStatePrev = CO_NMT_INITIALIZING;
+  nmt.em = &emergency;
+  nmt.HB_CANdevTx = &module;
+  nmt.HB_TXbuff = &heartbeat;
+
+  CO_NMT_internalState_t state = CO_NMT_INITIALIZING;
+  errno = 0;
+  CHECK("CANOPEN-TX-004",
+        CO_NMT_process(&nmt, &state, 0U, nullptr) == CO_RESET_NOT);
+  CHECK("CANOPEN-TX-005", state == CO_NMT_PRE_OPERATIONAL);
+  CHECK("CANOPEN-TX-006", errno == EACCES);
 }
 
 } // namespace
@@ -238,6 +296,7 @@ void test_storage() {
 int main() {
   test_validation();
   test_storage();
+  test_transmit_gate();
   if (failures != 0) {
     std::cerr << "canopen_stack_tests failures=" << failures << '\n';
     return EXIT_FAILURE;

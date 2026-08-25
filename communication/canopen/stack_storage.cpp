@@ -19,8 +19,19 @@ std::string identity_context(const StackConfig &config) {
          " remote=" + std::to_string(config.remote_node_id);
 }
 
+/** Remove callbacks that may point into a deleted upstream stack allocation. */
+void clear_object_dictionary_extensions() noexcept {
+  if (OD == nullptr || OD->list == nullptr) {
+    return;
+  }
+  for (std::uint16_t index = 0U; index < OD->size; ++index) {
+    OD->list[index].extension = nullptr;
+  }
+}
+
 /** Restore all generated mutable OD groups before applying injected values. */
 void reset_generated_dictionary() noexcept {
+  clear_object_dictionary_extensions();
   static const OD_PERSIST_COMM_t generated_persist_comm = OD_PERSIST_COMM;
   static const OD_RAM_t generated_ram = OD_RAM;
   OD_PERSIST_COMM = generated_persist_comm;
@@ -115,6 +126,7 @@ StackStorage::CreateResult StackStorage::create(StackConfig config) noexcept {
 }
 
 StackStorage::~StackStorage() {
+  clear_object_dictionary_extensions();
   CO_delete(stack_);
   stack_claim.clear(std::memory_order_release);
 }
