@@ -45,17 +45,16 @@ trap cleanup EXIT
 readonly file_list="${temporary}/files.zlist"
 readonly archive="${temporary}/source.tar"
 
-git -C "${repo_root}" ls-files \
-  --cached \
-  --others \
-  --exclude-standard \
-  -z |
+{
+  git -C "${repo_root}" ls-files --cached --recurse-submodules -z
+  git -C "${repo_root}" ls-files --others --exclude-standard -z
+} |
   while IFS= read -r -d '' path; do
     if [[ -e "${repo_root}/${path}" || -L "${repo_root}/${path}" ]]; then
       printf '%s\0' "${path}"
     fi
   done |
-  LC_ALL=C sort -z >"${file_list}"
+  LC_ALL=C sort -zu >"${file_list}"
 
 if [[ ! -s "${file_list}" ]]; then
   echo "No source files were selected for the build snapshot" >&2
