@@ -4,6 +4,8 @@ Date: 2026-08-25
 
 Implementation revision: `889459ad1882bcbce5b00b44c371e6d275ab7bb8`
 
+LLVM remediation revision: `8bef091c1d21989ea746c41c24b033e2e4518d01`
+
 ## Outcome
 
 P5.3 now has a project-owned, single-thread CANopen lifecycle facade around
@@ -97,11 +99,35 @@ its only transmit-site dependency is
 `robot_control_canopen_deny_transmit`. The lifecycle calls no transmit API
 directly.
 
-The host compiler warning policy passed with `-Werror`. This machine does not
-provide `clang-format`, `clang-tidy`, or `cppcheck`. A supplemental GCC 13.3
-`-fanalyzer` build was attempted, but exited 1 on pre-existing analyzer false
-positives in `platform/linux/error.hpp` before reaching the changed lifecycle
-object; it is not claimed as a passed static-analysis gate.
+LLVM 22.1.8 was then made available at `/opt/llvm-22.1.8/bin`. The following
+scoped checks exited 0:
+
+```bash
+rtk /opt/llvm-22.1.8/bin/clang-format --dry-run --Werror \
+  communication/canopen/lifecycle.hpp \
+  communication/canopen/lifecycle.cpp
+
+rtk /opt/llvm-22.1.8/bin/clang-tidy \
+  communication/canopen/lifecycle.cpp \
+  -p /tmp/robot_control_p5_3_final_debug --quiet \
+  --checks='-*,clang-analyzer-*,bugprone-*,-bugprone-unchecked-optional-access,performance-*,portability-*,-portability-avoid-pragma-once' \
+  --warnings-as-errors='clang-analyzer-*,bugprone-*'
+```
+
+The same clang-tidy policy also exited 0 for `stack_storage.cpp` and
+`canopen_stack_tests.cpp`. `bugprone-unchecked-optional-access` is excluded
+because the project `Result<T>::value()` API explicitly documents `ok()` as a
+precondition; `portability-avoid-pragma-once` is excluded because `#pragma once`
+is the repository's established header convention.
+
+The first clang-tidy pass found one P5.3 issue: adjacent convertible
+`error_info` and `errno` parameters in `upstream_status()` could be swapped.
+Revision `8bef091c1d21989ea746c41c24b033e2e4518d01` groups them in a designated
+`UpstreamFailure` value and gives `LifecycleExit` an explicit `std::uint8_t`
+base type. Debug and Release rebuilt the five affected steps and passed the
+18/18 zero-CAN suites after that change. `cppcheck` was not found in the
+configured LLVM directory or the standard user/system binary directories, so
+no cppcheck result is claimed.
 
 ## RK3588 cross evidence
 
@@ -124,27 +150,27 @@ rtk env \
 
 Debug and Release each exited 0, completed 41/41 steps, and passed interpreter,
 needed-library, symbol-version, Phase 3 symbol, and no-RPATH audits. Both
-metadata files record `dirty: false`, 655 source files, revision
-`889459ad1882bcbce5b00b44c371e6d275ab7bb8`, and snapshot SHA-256
-`c7f6817221907eb75396f7fc1aef23fda94e8418deac47e303645cec94705479`.
+metadata files record `dirty: false`, 656 source files, revision
+`8bef091c1d21989ea746c41c24b033e2e4518d01`, and snapshot SHA-256
+`78d3243780b7626b772f7988ac243b16e5ed0829d830ebd9dab4fad89347d1fb`.
 
 | Preset | Artifact / metadata | SHA-256 |
 |---|---|---|
 | Debug | `out/artifacts/rk3588-debug/robot-control-platform-probe` | `60467297cc86e281af7a48774c95bb4c8d7f4819e8afa63def1f557ae23b65e6` |
-| Debug | `out/artifacts/rk3588-debug/build-metadata.json` | `d517e0f9e978e650a07819b87760df3dd494f3735b34f1c5c21f09e8037bdec6` |
+| Debug | `out/artifacts/rk3588-debug/build-metadata.json` | `34fbd3d6677e689346f7c959b1b88a6576f01860c5fda6a135125917df000cbf` |
 | Debug | `librobot_control_canopen_upstream.a` | `bd08d440a9b4aa4abb91742edf0cde2f3ba2c247ebfd666948d166fb84be7a79` |
-| Debug | `librobot_control_communication_canopen.a` | `42d1f0e61900daff15c30e68fd5d94a02bb1729f2a386e88bd96169aedf6f957` |
+| Debug | `librobot_control_communication_canopen.a` | `a3a4d2313d03f98b9216bcc3b62c74d870a52cc0af84bf1acb0bd8b1d9f1010f` |
 | Release | `out/artifacts/rk3588-release/robot-control-platform-probe` | `35ad27e6aad21e4c5dbbe384b597b7a1868e07739b4627872c94653e5f03389a` |
-| Release | `out/artifacts/rk3588-release/build-metadata.json` | `c764af5b523e4c515e413ffb56a84ccdd5cbeb1676c3dbb203e9cda6c84a2068` |
+| Release | `out/artifacts/rk3588-release/build-metadata.json` | `e4ca69fa49d7c17c4ca7d9dcee65fffc1ed96fe0df79903c32caed0b740c0e8d` |
 | Release | `librobot_control_canopen_upstream.a` | `35754c2d9c2c294055e6d7d735b669602db9699120732cf1c0a3ad06196e443c` |
-| Release | `librobot_control_communication_canopen.a` | `bfdac18f5a6833080ad28e0e034963783534f75b24ba83ac4c3cd7d5f4c5ea84` |
+| Release | `librobot_control_communication_canopen.a` | `7ae6d30469d33d21f49a26313f47a277d8070231ce4e318d05529f1856175057` |
 
 ## Review result
 
 ```yaml
 review_result:
   schema_version: 1
-  source_revision: 889459ad1882bcbce5b00b44c371e6d275ab7bb8
+  source_revision: 8bef091c1d21989ea746c41c24b033e2e4518d01
   scope:
     - communication/canopen/lifecycle.hpp
     - communication/canopen/lifecycle.cpp
@@ -155,9 +181,10 @@ review_result:
   toolchain_context: GNU 13.3 host C++20; GNU 11.4 aarch64 C++20
   findings: []
   verification:
-    - fresh Host Debug 52/52 build and 18/18 zero-CAN tests
-    - fresh Host Release 52/52 build and 18/18 zero-CAN tests
+    - baseline fresh Host Debug/Release 52/52 builds
+    - post-remediation Host Debug/Release rebuild and 18/18 zero-CAN tests
     - default-deny transmit symbol audit
+    - LLVM 22.1.8 clang-format and scoped clang-tidy
     - RK3588 Debug and Release 41/41 plus ELF audits
 ```
 

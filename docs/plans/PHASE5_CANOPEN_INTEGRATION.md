@@ -138,6 +138,10 @@ runtime was executed, so open-endpoint deadline/signal/interface-loss/reopen
 evidence remains assigned to P5.5 rather than being inferred here. See
 `docs/verification/P5_3_LIFECYCLE_BASELINE.md`.
 
+LLVM follow-up commit `8bef091c1d21989ea746c41c24b033e2e4518d01`
+passes scoped clang-format/clang-tidy checks, fixes their one actionable
+parameter-order finding, and requalifies both RK3588 cross presets.
+
 Acceptance:
 
 - Exactly one context calls CANopenNode initialization and process functions.
