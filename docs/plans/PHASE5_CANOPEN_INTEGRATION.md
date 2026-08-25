@@ -122,6 +122,13 @@ behaviors found during P5.2 review:
   while `CO_delete()` does not clear them. Teardown, partial-init failure, and
   reopen must clear every extension while the single-owner claim remains held.
 
+Prerequisite closure: commit `f78a74d8ac28271319e6b1aefaae75d71e082e3e`
+adds the default-deny driver boundary and owner-held OD extension cleanup. Host
+contracts cover direct send denial, the pinned initial NMT boot-up path,
+teardown, and reacquisition. This closes only the two prerequisites; the P5.3
+lifecycle itself remains unimplemented. See
+`docs/verification/P5_3_PREREQUISITE_BASELINE.md`.
+
 Acceptance:
 
 - Exactly one context calls CANopenNode initialization and process functions.
