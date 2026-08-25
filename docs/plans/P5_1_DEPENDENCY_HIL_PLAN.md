@@ -106,14 +106,14 @@ linux_path=components/CANopenLinux
 node_path=components/CANopenLinux/CANopenNode
 ```
 
-1. Both paths exist; `git -C components/CANopenLinux rev-parse --is-inside-work-tree` and `git -C components/CANopenLinux/CANopenNode rev-parse --is-inside-work-tree` succeed.
-2. `.gitmodules` maps `components/CANopenLinux` to `https://github.com/CANopenNode/CANopenLinux.git`.
+1. Both paths exist; each `git rev-parse --show-toplevel` succeeds and its canonical path exactly equals the expected submodule path rather than a parent repository.
+2. `.gitmodules` maps the exact path `components/CANopenLinux` to `https://github.com/CANopenNode/CANopenLinux.git`.
 3. The root index entry for `components/CANopenLinux` has mode `160000` and the expected CANopenLinux object ID.
 4. CANopenLinux `HEAD` equals `expected_linux`.
 5. CANopenLinux `HEAD` records `CANopenNode` as mode `160000` and object ID `expected_node`.
 6. Nested CANopenNode `HEAD` equals `expected_node`.
 7. CANopenLinux's `.gitmodules` records the canonical CANopenNode upstream URL.
-8. `git status --porcelain=v1 --untracked-files=all` is empty in both dependency working trees.
+8. `git status --porcelain=v1 --untracked-files=all` succeeds and is empty in both dependency working trees; command failure is a dirty-state verification failure.
 
 Successful output must be stable key/value records:
 
@@ -126,9 +126,12 @@ relationship=nested-gitlink result=pass
 The regression driver must:
 
 - run the clean-tree verifier successfully;
-- invoke a test-only expected-revision override with a 40-zero SHA and require exit 3;
+- copy the verifier to a uniquely named temporary file under `scripts/build`, replace only the fixed CANopenLinux SHA in that copy with a 40-zero SHA, and require exit 3; the production verifier has no expected-revision override;
 - create one uniquely named untracked marker under the CANopenNode working tree, require exit 4, and remove the marker through an EXIT trap;
 - reject execution if that marker already exists;
+- use a temporary local Git fixture with present but uninitialized submodule directories and require exit 2;
+- inject a test-only failing `git status` wrapper and require exit 4 without any `dirty=false` output;
+- inject a wrong top-level submodule path and require exit 3;
 - verify the top-level legacy `components/CANopenNode` path is absent.
 
 - [ ] **Step 3: Run the regression before replacing the dependency**

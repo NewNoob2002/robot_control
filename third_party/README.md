@@ -12,7 +12,9 @@ patch status are recorded here and in the applicable ADR.
 
 - Former path: `components/CANopenNode` (removed in P5.1)
 - Upstream: <https://github.com/CANopenNode/CANopenNode>
-- License: Apache-2.0 (`components/CANopenNode/LICENSE`)
+- License: Apache-2.0; the historical license file is recorded by
+  `docs/baseline/MANIFEST.sha256` (current upstream copy:
+  `components/CANopenLinux/CANopenNode/LICENSE`)
 - Local file count at baseline: 71
 - Baseline content digest:
   `1e3e5e8ffd43dfe4df8e40345cab3fe51f0beb757c89ac88c63b20f2ac3879d5`

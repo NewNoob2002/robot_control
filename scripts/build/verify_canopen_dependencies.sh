@@ -2,7 +2,7 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-expected_linux="${ROBOT_CONTROL_TEST_EXPECTED_CANOPEN_LINUX:-f1348d4072cdabea4c3435a13c721ac29ab4cc91}"
+expected_linux=f1348d4072cdabea4c3435a13c721ac29ab4cc91
 expected_node=ef9ac3a2279e34855a20c787fc1bc48bc995ec22
 linux_path=components/CANopenLinux
 node_path=components/CANopenLinux/CANopenNode
@@ -15,12 +15,29 @@ fail() {
 
 [[ -e "${repo_root}/${linux_path}" ]] ||
   fail 2 "CANopenLinux dependency is missing or uninitialized: ${linux_path}"
-git -C "${repo_root}/${linux_path}" rev-parse --is-inside-work-tree >/dev/null 2>&1 ||
+if ! linux_root="$(
+  git -C "${repo_root}/${linux_path}" rev-parse --show-toplevel 2>/dev/null
+)"; then
+  fail 2 "CANopenLinux dependency is missing or uninitialized: ${linux_path}"
+fi
+[[ "$(realpath "${linux_root}")" == "$(realpath "${repo_root}/${linux_path}")" ]] ||
   fail 2 "CANopenLinux dependency is missing or uninitialized: ${linux_path}"
 [[ -e "${repo_root}/${node_path}" ]] ||
   fail 2 "CANopenNode dependency is missing or uninitialized: ${node_path}"
-git -C "${repo_root}/${node_path}" rev-parse --is-inside-work-tree >/dev/null 2>&1 ||
+if ! node_root="$(
+  git -C "${repo_root}/${node_path}" rev-parse --show-toplevel 2>/dev/null
+)"; then
   fail 2 "CANopenNode dependency is missing or uninitialized: ${node_path}"
+fi
+[[ "$(realpath "${node_root}")" == "$(realpath "${repo_root}/${node_path}")" ]] ||
+  fail 2 "CANopenNode dependency is missing or uninitialized: ${node_path}"
+
+configured_linux_path="$(
+  git -C "${repo_root}" config -f .gitmodules \
+    --get submodule.components/CANopenLinux.path || true
+)"
+[[ "${configured_linux_path}" == "${linux_path}" ]] ||
+  fail 3 "CANopenLinux path mismatch: ${configured_linux_path:-missing}"
 
 linux_url="$(git -C "${repo_root}" config -f .gitmodules --get submodule.components/CANopenLinux.url || true)"
 [[ "${linux_url}" == "https://github.com/CANopenNode/CANopenLinux.git" ]] ||
@@ -50,9 +67,21 @@ node_url="$(git -C "${repo_root}/${linux_path}" config -f .gitmodules --get subm
 [[ "${node_url}" == "https://github.com/CANopenNode/CANopenNode.git" ]] ||
   fail 3 "CANopenNode URL mismatch: ${node_url:-missing}"
 
-[[ -z "$(git -C "${repo_root}/${linux_path}" status --porcelain=v1 --untracked-files=all)" ]] ||
+if ! linux_status="$(
+  git -C "${repo_root}/${linux_path}" status \
+    --porcelain=v1 --untracked-files=all
+)"; then
+  fail 4 "Unable to determine CANopenLinux dependency cleanliness"
+fi
+[[ -z "${linux_status}" ]] ||
   fail 4 "CANopenLinux dependency is dirty"
-[[ -z "$(git -C "${repo_root}/${node_path}" status --porcelain=v1 --untracked-files=all)" ]] ||
+if ! node_status="$(
+  git -C "${repo_root}/${node_path}" status \
+    --porcelain=v1 --untracked-files=all
+)"; then
+  fail 4 "Unable to determine CANopenNode dependency cleanliness"
+fi
+[[ -z "${node_status}" ]] ||
   fail 4 "CANopenNode dependency is dirty"
 
 printf 'dependency=CANopenLinux revision=%s dirty=false\n' "${linux_revision}"

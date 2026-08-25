@@ -22,9 +22,31 @@ boundary.
 
 `./scripts/test/test_canopen_dependencies.sh` exited 0. Its clean check printed
 both revisions with `dirty=false` and the nested relationship `result=pass`;
-its wrong-revision override returned 3 and its temporary nested dirty marker
-returned 4. Before dependency installation the same regression returned 2 at
+its temporary wrong-revision verifier copy returned 3 and its temporary nested
+dirty marker returned 4. The production verifier has no expected-revision
+override. Before dependency installation the same regression returned 2 at
 the missing CANopenLinux path, providing the required RED result.
+
+## Review corrections
+
+Post-qualification review found that the first verifier could accept an
+environment-provided expected CANopenLinux revision, could let
+`rev-parse --is-inside-work-tree` resolve to a parent repository, and did not
+explicitly classify `git status` failure. TDD review assertions first failed on
+the production expected-revision override. The corrected verifier now:
+
+- fixes both expected revisions in production code;
+- requires each `--show-toplevel` canonical path to equal its exact submodule
+  path;
+- checks the top-level `.gitmodules` path as well as URL;
+- treats either dependency `git status` failure as exit 4 before printing any
+  clean result.
+
+The regression uses a temporary verifier copy for the 40-zero SHA, an
+uninitialized local-submodule fixture for exit 2, a failing status wrapper for
+exit 4 with no `dirty=false` output, and a wrong-path wrapper for exit 3. No
+real dependency checkout is changed by these negative tests. The qualification
+status remains **PARTIAL** for the previously recorded reasons.
 
 ## Verification results
 
