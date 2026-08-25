@@ -71,7 +71,7 @@ snapshot, non-SocketCAN host, ShellCheck, and RK3588 Debug/Release cross gates.
 Target-runtime HIL is not applicable because P5.1 links no CANopen source. See
 `docs/verification/P5_1_DEPENDENCY_QUALIFICATION.md`.
 
-### P5.2 — Minimal stack build and object dictionary
+### P5.2 — Minimal stack build and object dictionary (complete)
 
 Add the smallest CMake targets needed for NMT/heartbeat observation, heartbeat
 consumer, EMCY consumer, SDO client, and receive PDO processing. Keep the
@@ -92,6 +92,12 @@ Acceptance:
   execution context.
 - Invalid node IDs, interface names, bit rates, and nonpositive timeouts fail
   before socket activation.
+
+Closure: source revision `bd88a72453f7b071b56d0ab628ce9ab5cd95af59`
+passes the dependency verifier, Host Debug/Release 18-test non-SocketCAN suites,
+exact source/warning audits, and network-disabled RK3588 Debug/Release builds
+with ELF audits. No CAN, `vcan`, target, deployment, or motion operation was
+executed. See `docs/verification/P5_2_STACK_BUILD_BASELINE.md`.
 
 ### P5.3 — Single-owner Linux lifecycle
 
