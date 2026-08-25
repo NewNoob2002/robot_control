@@ -35,6 +35,15 @@
       "displayName": "Host tests"
     },
     {
+      "name": "host-release",
+      "inherits": "base",
+      "displayName": "Host Release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
       "name": "rk3588-base",
       "hidden": true,
       "inherits": "base",
@@ -82,6 +91,10 @@
       "configurePreset": "host-test"
     },
     {
+      "name": "host-release",
+      "configurePreset": "host-release"
+    },
+    {
       "name": "rk3588-debug",
       "configurePreset": "rk3588-debug"
     },
@@ -98,6 +111,13 @@
     {
       "name": "host-test",
       "configurePreset": "host-test",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "host-release",
+      "configurePreset": "host-release",
       "output": {
         "outputOnFailure": true
       }

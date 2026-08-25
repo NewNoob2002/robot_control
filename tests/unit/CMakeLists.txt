@@ -6,6 +6,14 @@ target_link_libraries(
           robot_control_project_warnings)
 add_test(NAME domain_behavior_lock COMMAND robot_control_domain_tests)
 
+add_executable(robot_control_canopen_stack_tests canopen_stack_tests.cpp
+                                                canopen_test_log_stub.c)
+target_link_libraries(
+  robot_control_canopen_stack_tests
+  PRIVATE robot_control_communication_canopen robot_control_project_options
+          robot_control_project_warnings)
+add_test(NAME canopen_stack_build COMMAND robot_control_canopen_stack_tests)
+
 add_executable(robot_control_socketcan_frame_tests socketcan_frame_tests.cpp)
 target_link_libraries(
   robot_control_socketcan_frame_tests

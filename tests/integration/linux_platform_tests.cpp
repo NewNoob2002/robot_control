@@ -352,7 +352,7 @@ void test_monotonic_timer() {
   const std::byte value{0x1};
   std::thread delayed_cancel{[fd = cancel_writer.get(), value] {
     std::this_thread::sleep_for(20ms);
-    static_cast<void>(::write(fd, &value, sizeof(value)));
+    [[maybe_unused]] const auto written = ::write(fd, &value, sizeof(value));
   }};
   const auto cancel_start = std::chrono::steady_clock::now();
   const auto cancelled =
@@ -375,7 +375,7 @@ void test_monotonic_timer() {
   std::thread delayed_periodic_cancel{
       [fd = periodic_cancel_writer.get(), value] {
         std::this_thread::sleep_for(20ms);
-        static_cast<void>(::write(fd, &value, sizeof(value)));
+        [[maybe_unused]] const auto written = ::write(fd, &value, sizeof(value));
       }};
   const auto periodic_cancelled =
       cancellable_periodic.wait_next(periodic_cancel_reader.get());
@@ -517,7 +517,8 @@ void test_serial_port() {
   const std::byte cancel_byte{0x1};
   std::thread delayed_cancel{[fd = cancel_writer.get(), cancel_byte] {
     std::this_thread::sleep_for(20ms);
-    static_cast<void>(::write(fd, &cancel_byte, sizeof(cancel_byte)));
+    [[maybe_unused]] const auto written =
+        ::write(fd, &cancel_byte, sizeof(cancel_byte));
   }};
   const auto cancel_start = std::chrono::steady_clock::now();
   count = serial.read_some(buffer, 5s, cancel_reader.get());

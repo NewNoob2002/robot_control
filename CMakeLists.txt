@@ -40,6 +40,7 @@ endif()
 add_subdirectory(domain)
 add_subdirectory(platform)
 add_subdirectory(service)
+add_subdirectory(communication/canopen)
 add_subdirectory(tools/can_probe)
 add_subdirectory(tools/platform_probe)
 
