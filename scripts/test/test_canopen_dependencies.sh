@@ -172,10 +172,22 @@ set -e
 
 grep -q 'scripts/build/verify_canopen_dependencies.sh' \
   "${repo_root}/scripts/build/build_host.sh"
+readonly p5_1_host_gate="${repo_root}/scripts/build/build_p5_1_host.sh"
+[[ -x "${p5_1_host_gate}" ]] || {
+  echo "P5.1 host qualification gate is missing or not executable" >&2
+  exit 1
+}
+grep -Fq 'scripts/build/verify_canopen_dependencies.sh' "${p5_1_host_gate}"
+grep -Fq "ctest --preset host-test --exclude-regex '^socketcan_(socket_lifecycle|vcan_managed)$'" \
+  "${p5_1_host_gate}"
 grep -q 'scripts/build/verify_canopen_dependencies.sh' \
   "${repo_root}/scripts/build/build_rk3588.sh"
 grep -q 'submodules: recursive' "${repo_root}/.github/workflows/ci.yml"
 grep -q './scripts/test/test_canopen_dependencies.sh' \
+  "${repo_root}/.github/workflows/ci.yml"
+grep -Fq './scripts/build/build_p5_1_host.sh' \
+  "${repo_root}/.github/workflows/ci.yml"
+grep -Fq "ctest --preset host-test --tests-regex '^socketcan_(socket_lifecycle|vcan_managed)$'" \
   "${repo_root}/.github/workflows/ci.yml"
 
 echo "CANopen dependency regression checks passed"

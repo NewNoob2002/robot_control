@@ -65,8 +65,11 @@ jobs:
       - name: Verify CANopen dependency pair
         run: ./scripts/test/test_canopen_dependencies.sh
 
-      - name: Build and test host configuration
-        run: ./scripts/build/build_host.sh
+      - name: Run P5.1 non-SocketCAN host qualification
+        run: ./scripts/build/build_p5_1_host.sh
+
+      - name: Run Phase 4 SocketCAN regressions
+        run: ctest --preset host-test --tests-regex '^socketcan_(socket_lifecycle|vcan_managed)$'
 
       - name: Run Phase 1 script regressions
         run: ./scripts/test/test_phase1_scripts.sh

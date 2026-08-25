@@ -55,10 +55,30 @@ Both artifacts use source revision
 snapshot, GNU aarch64 11.4.0, and sysroot content SHA-256
 `a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911`.
 
-| Preset | Artifact | SHA-256 |
-|---|---|---|
-| `rk3588-debug` | `out/artifacts/rk3588-debug/robot-control-platform-probe` | `7d20a00a263c1f45eba603393acf7f53733965bed65667ac0a086e5960db7932` |
-| `rk3588-release` | `out/artifacts/rk3588-release/robot-control-platform-probe` | `a0bd2c42b46d7a9dd95ccbbaa2c8f39f9294f43500bc99e715b00865f37c89ab` |
+| Preset | Exit | Artifact | Metadata | SHA-256 |
+|---|---:|---|---|---|
+| `rk3588-debug` | 0 | `out/artifacts/rk3588-debug/robot-control-platform-probe` | `out/artifacts/rk3588-debug/build-metadata.json` | `7d20a00a263c1f45eba603393acf7f53733965bed65667ac0a086e5960db7932` |
+| `rk3588-release` | 0 | `out/artifacts/rk3588-release/robot-control-platform-probe` | `out/artifacts/rk3588-release/build-metadata.json` | `a0bd2c42b46d7a9dd95ccbbaa2c8f39f9294f43500bc99e715b00865f37c89ab` |
+
+Exact Debug command (exit 0):
+
+```bash
+rtk env \
+  ROBOT_CONTROL_SYSROOT=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204 \
+  ROBOT_CONTROL_SYSROOT_LOCK=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204.lock.json \
+  ROBOT_CONTROL_PRESET=rk3588-debug \
+  ./scripts/build/build_rk3588.sh
+```
+
+Exact Release command (exit 0):
+
+```bash
+rtk env \
+  ROBOT_CONTROL_SYSROOT=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204 \
+  ROBOT_CONTROL_SYSROOT_LOCK=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/locks/rk3588-ubuntu2204-a685ab13.json \
+  ROBOT_CONTROL_PRESET=rk3588-release \
+  ./scripts/build/build_rk3588.sh
+```
 
 Both ELF audits validate the aarch64 interpreter, sysroot-resolved shared
 libraries and symbol versions, required Phase 3 symbols, and absence of
@@ -96,12 +116,29 @@ test_result:
   counts: {total: 17, passed: 17, failed: 0, skipped: 0}
   classified_failures: []
   log: "command table in this document"
-  requirements: ["P5.1-HOST-001", "P5.1-HIL-001"]
+  requirements: ["P5.1-HOST-001"]
 ```
 
-HIL remains not applicable rather than passed. `P5.1-HIL-001` is satisfied by
-the closure batch's prohibited-operation audit and explicit exclusion of both
-SocketCAN runtime tests.
+HIL remains not applicable rather than passed. It is recorded independently so
+that the prohibited-operation audit and explicit SocketCAN exclusions cannot be
+misread as executed HIL evidence.
+
+```yaml
+test_result:
+  schema_version: 1
+  source_revision: "37fa3351baac620c9558806eea00d92fb9022ce4"
+  artifact_checksums: {}
+  level: hil
+  target: "not-applicable-by-phase-scope"
+  command: "not run: P5.1 links no CANopen source"
+  timing: {started_at_utc: null, duration_ms: 0, timeout_ms: 0}
+  attempts: 0
+  passed: false
+  counts: {total: 0, passed: 0, failed: 0, skipped: 0}
+  classified_failures: []
+  log: "no HIL log; no target, physical CAN, drive, or vcan operation executed"
+  requirements: ["P5.1-HIL-001"]
+```
 
 ## P5.2 handoff
 
