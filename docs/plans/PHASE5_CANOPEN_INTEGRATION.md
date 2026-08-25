@@ -125,9 +125,18 @@ behaviors found during P5.2 review:
 Prerequisite closure: commit `f78a74d8ac28271319e6b1aefaae75d71e082e3e`
 adds the default-deny driver boundary and owner-held OD extension cleanup. Host
 contracts cover direct send denial, the pinned initial NMT boot-up path,
-teardown, and reacquisition. This closes only the two prerequisites; the P5.3
-lifecycle itself remains unimplemented. See
+teardown, and reacquisition. That commit closed only the two prerequisites. See
 `docs/verification/P5_3_PREREQUISITE_BASELINE.md`.
+
+Implementation baseline: commit
+`889459ad1882bcbce5b00b44c371e6d275ab7bb8` adds the single-owner facade,
+monotonic epoll loop, borrowed synchronous termination event, explicit
+communication reset/reopen, deterministic endpoint/OD cleanup, contextual
+startup failures, and host missing-interface/fd-lifetime contracts. Fresh Host
+Debug/Release and clean RK3588 Debug/Release cross gates pass. No CAN or `vcan`
+runtime was executed, so open-endpoint deadline/signal/interface-loss/reopen
+evidence remains assigned to P5.5 rather than being inferred here. See
+`docs/verification/P5_3_LIFECYCLE_BASELINE.md`.
 
 Acceptance:
 
