@@ -373,7 +373,7 @@ Expected: network-disabled Release build, successful artifact publication, check
 
 - [ ] **Step 4: Create the qualification evidence document**
 
-Record exact source revision, dependency revisions, commands, exit codes, test counts, cross artifact paths/checksums, toolchain/sysroot identities, and classified failures. Add a `test_result` YAML record using the actual `rtk git rev-parse HEAD` output and the actual UTC evidence timestamp. Its fixed fields are: schema version 1, level `hil`, target `RK3588/ZLAC8015D`, command `not executed: P5.1 links no CANopen source and has no target behavior`, attempts 0, passed false, zero test counts, classified failure `not-applicable-by-phase-scope`, log `none`, and requirement `P5.1-HIL-001`. Explain that `passed: false` means no HIL pass is claimed; it is not a product failure. No target address, credential, or secret may enter the document.
+Record exact source revision, dependency revisions, commands, exit codes, test counts, cross artifact paths/checksums, toolchain/sysroot identities, and classified failures. Add a `test_result` YAML record using the actual clean qualification revision. Its fixed fields are: schema version 1, empty artifact checksums, level `hil`, target `not-applicable-by-phase-scope`, command `not run: P5.1 links no CANopen source`, null start time with zero duration and timeout, attempts 0, passed false, zero test counts, no classified failures, log `no HIL log; no target, physical CAN, drive, or vcan operation executed`, and requirement `P5.1-HIL-001`. Explain that `passed: false` means no HIL pass is claimed; it is not a product failure. No target address, credential, or secret may enter the document.
 
 - [ ] **Step 5: Run final local audit**
 
