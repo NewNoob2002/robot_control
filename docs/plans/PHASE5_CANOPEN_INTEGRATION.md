@@ -99,7 +99,7 @@ exact source/warning audits, and network-disabled RK3588 Debug/Release builds
 with ELF audits. No CAN, `vcan`, target, deployment, or motion operation was
 executed. See `docs/verification/P5_2_STACK_BUILD_BASELINE.md`.
 
-### P5.3 — Single-owner Linux lifecycle
+### P5.3 — Single-owner Linux lifecycle (complete)
 
 Create the project-owned CANopen facade and one bounded event loop around the
 upstream Linux driver. It opens only an externally configured interface, uses
@@ -142,6 +142,13 @@ LLVM follow-up commit `8bef091c1d21989ea746c41c24b033e2e4518d01`
 passes scoped clang-format/clang-tidy checks, fixes their one actionable
 parameter-order finding, and requalifies both RK3588 cross presets.
 
+Independent review of the P5.3 commits through documentation revision
+`83063dc` found no blocking correctness defect. Fresh Host Debug and Release
+builds each completed 52/52 steps and passed the 18/18 zero-CAN suite; scoped
+LLVM 22.1.8 format/tidy checks and the transmit symbol audit also exited 0.
+The unrelated `039aa2c` logging/format commit was excluded from P5.3
+correctness scope. Open-endpoint runtime evidence remains assigned to P5.5.
+
 Acceptance:
 
 - Exactly one context calls CANopenNode initialization and process functions.
@@ -176,6 +183,13 @@ Acceptance:
   objects.
 - Protocol callbacks perform bounded owner-local updates only; they do not call
   domain safety, arbitration, CiA402, ROS2, or logging policy.
+
+Development pre-review: the minimum implementation will tap the existing
+upstream socket event without adding another socket or transport, classify raw
+frames in project-owned code, and publish copied coherent snapshots. It will
+not register the pinned EMCY callback because that callback has no caller
+object and decodes bytes without checking DLC. See
+`docs/plans/P5_4_IMMUTABLE_OBSERVATION_PLAN.md`.
 
 ### P5.5 — Managed `vcan` receive evidence
 

@@ -196,3 +196,79 @@ baseline does not claim runtime passage for deadline/SIGINT/SIGTERM while an
 endpoint is open, live interface loss, or successful endpoint reopen. Those
 paths are implemented here and remain assigned to the managed-vcan lifecycle
 scenarios in P5.5 and the passive target evidence in P5.7.
+
+## Independent review
+
+An independent review covered P5.3 commits `f78a74d`, `33f693b`, `889459a`,
+`6a7f2a3`, `8bef091`, and `83063dc` against the P5.2 review baseline
+`4a3b490`. Commit `039aa2c` was excluded because its EasyLogger configuration
+and repository formatting policy are unrelated user changes.
+
+No blocking correctness finding was identified. The review confirmed that all
+upstream transmit submissions resolve to the default-deny gate, every init
+failure/reset/reopen/destructor path clears OD extensions before upstream
+storage can be deleted, the termination event remains borrowed, and partial
+epoll/CAN initialization is reclaimed by deterministic owners.
+
+Fresh review commands configured and built 52/52 steps for both Debug and
+Release, then passed 18/18 tests in each configuration while explicitly
+excluding the two SocketCAN runtime tests. Each command exited 0:
+
+```bash
+rtk cmake -S . -B /tmp/robot_control_p53_review_debug -G Ninja \
+  -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON
+rtk cmake --build /tmp/robot_control_p53_review_debug --parallel 2
+rtk ctest --test-dir /tmp/robot_control_p53_review_debug \
+  --output-on-failure \
+  -E '^socketcan_(socket_lifecycle|vcan_managed)$'
+
+rtk cmake -S . -B /tmp/robot_control_p53_review_release -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON
+rtk cmake --build /tmp/robot_control_p53_review_release --parallel 2
+rtk ctest --test-dir /tmp/robot_control_p53_review_release \
+  --output-on-failure \
+  -E '^socketcan_(socket_lifecycle|vcan_managed)$'
+```
+
+The following static and binary checks also exited 0:
+
+```bash
+rtk /opt/llvm-22.1.8/bin/clang-format --dry-run --Werror \
+  communication/canopen/lifecycle.hpp \
+  communication/canopen/lifecycle.cpp
+
+rtk /opt/llvm-22.1.8/bin/clang-tidy \
+  communication/canopen/lifecycle.cpp \
+  -p /tmp/robot_control_p53_review_debug --quiet \
+  --checks='-*,clang-analyzer-*,bugprone-*,-bugprone-unchecked-optional-access,performance-*,portability-*,-portability-avoid-pragma-once' \
+  --warnings-as-errors='clang-analyzer-*,bugprone-*'
+
+rtk git diff --check 4a3b490..83063dc
+rtk nm -u \
+  /tmp/robot_control_p53_review_debug/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_driver.c.o
+```
+
+The same clang-tidy command exited 0 for `stack_storage.cpp` and
+`canopen_stack_tests.cpp`. The driver object has no undefined libc `send`; its
+transmit-site dependency is `robot_control_canopen_deny_transmit`. The configured
+non-interactive shell still does not expose LLVM through `PATH`, so this review
+used the verified absolute LLVM 22.1.8 paths. `cppcheck` remains unavailable and
+no result is claimed.
+
+```yaml
+independent_review_result:
+  schema_version: 1
+  review_revision: 83063dc
+  code_revision: 8bef091c1d21989ea746c41c24b033e2e4518d01
+  excluded_revision: 039aa2c
+  findings: []
+  decision: PASS
+  residual_evidence:
+    - managed-vcan open-endpoint deadline and signal exit
+    - live interface loss and successful reopen
+    - target passive lifecycle runtime
+```
