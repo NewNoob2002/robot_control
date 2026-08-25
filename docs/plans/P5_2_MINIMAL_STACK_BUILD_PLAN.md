@@ -291,9 +291,16 @@ rtk ctest --preset host-test --exclude-regex '^socketcan_(socket_lifecycle|vcan_
 rtk cmake --preset host-release -S /home/gtc/Desktop/workspace/Linux_PROJ/robot_control
 rtk cmake --build --preset host-release
 rtk ctest --preset host-release --exclude-regex '^socketcan_(socket_lifecycle|vcan_managed)$'
-rtk git diff --check
+rtk git diff --check 3d02421 HEAD -- . ':(exclude)communication/canopen/od/OD.h'
+rtk cmp communication/canopen/od/OD.c components/CANopenLinux/CANopenNode/example/OD.c
+rtk cmp communication/canopen/od/OD.h components/CANopenLinux/CANopenNode/example/OD.h
 rtk git submodule status --recursive
 ```
+
+The generated upstream `OD.h` contains six pre-existing trailing-whitespace
+lines. Preserve it byte-for-byte: exclude only that file from the whitespace
+check, and use the exact `cmp` commands plus recorded SHA-256 values as its
+content gate.
 
 Inspect `compile_commands.json` or verbose build output to prove excluded source
 files are absent and project/upstream warning policies are separated. Then stage

@@ -60,9 +60,15 @@ rtk ctest --preset host-test --exclude-regex '^socketcan_(socket_lifecycle|vcan_
 rtk cmake --preset host-release -S /home/gtc/Desktop/workspace/Linux_PROJ/robot_control
 rtk cmake --build --preset host-release
 rtk ctest --preset host-release --exclude-regex '^socketcan_(socket_lifecycle|vcan_managed)$'
-rtk git diff --check
+rtk git diff --check 3d02421 HEAD -- . ':(exclude)communication/canopen/od/OD.h'
+rtk cmp communication/canopen/od/OD.c components/CANopenLinux/CANopenNode/example/OD.c
+rtk cmp communication/canopen/od/OD.h components/CANopenLinux/CANopenNode/example/OD.h
 rtk git submodule status --recursive
 ```
+
+The scoped diff check excludes only generated `OD.h`, whose pinned upstream
+input contains six trailing-whitespace lines. Both `cmp` commands exited 0, and
+the checksums above prove the copied generated files remain byte-identical.
 
 | Preset | Tests | Passed | Failed | Skipped | Duration |
 |---|---:|---:|---:|---:|---:|
@@ -188,3 +194,13 @@ physical CAN, RK3588 access, driver/network/device-tree configuration,
 deployment, persistent drive operation, or motion command was executed. Cross
 compilation is host-side only. Runtime lifecycle and passive/active CAN evidence
 remain explicitly deferred to their later authorized slices.
+
+## Independent review
+
+An independent `gpt-5.6-sol` medium review of `3d02421..77779633` found no
+Critical defect and approved P5.2 closure. It approved P5.3 planning only: the
+P5.3 contract must deny the pinned stack's initial NMT boot-up transmission and
+must clear heap-backed OD extensions across init failure, teardown, and reopen
+before implementation begins. These are P5.3 lifecycle requirements, not P5.2
+allocation defects. The review performed no CAN, `vcan`, hardware, deployment,
+or repository operation.

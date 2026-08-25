@@ -111,6 +111,17 @@ The owner handles communication reset and endpoint reopen explicitly. It may
 restore observation after a link interruption but cannot reauthorize motion or
 configure the link.
 
+Before implementation, the P5.3 contract must resolve two pinned-stack
+behaviors found during P5.2 review:
+
+- `CO_NMT_process()` submits the initial boot-up frame even when producer
+  heartbeat time is zero. Normal observer mode therefore requires a
+  deny-by-default transmit gate at the upstream driver boundary, or a separately
+  reviewed receive-only process path, before lifecycle processing is reachable.
+- Upstream initialization installs heap-backed `OD_entry.extension` pointers,
+  while `CO_delete()` does not clear them. Teardown, partial-init failure, and
+  reopen must clear every extension while the single-owner claim remains held.
+
 Acceptance:
 
 - Exactly one context calls CANopenNode initialization and process functions.
@@ -118,7 +129,10 @@ Acceptance:
   and `errno` where applicable.
 - Deadline, signal shutdown, interface loss, and reopen are bounded and leak no
   descriptor or receiver.
-- Normal observer mode has no reachable transmit submission.
+- A host contract test proves normal observer mode denies the initial boot-up
+  submission and every other reachable transmit attempt.
+- Init failure, teardown, and reacquisition tests prove no OD entry retains a
+  stale extension pointer.
 
 ### P5.4 — Immutable observation contract
 
