@@ -43,4 +43,12 @@ set -e
 }
 rm -f -- "${marker}"
 
+grep -q 'scripts/build/verify_canopen_dependencies.sh' \
+  "${repo_root}/scripts/build/build_host.sh"
+grep -q 'scripts/build/verify_canopen_dependencies.sh' \
+  "${repo_root}/scripts/build/build_rk3588.sh"
+grep -q 'submodules: recursive' "${repo_root}/.github/workflows/ci.yml"
+grep -q './scripts/test/test_canopen_dependencies.sh' \
+  "${repo_root}/.github/workflows/ci.yml"
+
 echo "CANopen dependency regression checks passed"
