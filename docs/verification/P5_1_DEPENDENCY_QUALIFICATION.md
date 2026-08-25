@@ -42,11 +42,14 @@ the production expected-revision override. The corrected verifier now:
 - treats either dependency `git status` failure as exit 4 before printing any
   clean result.
 
-The regression uses a temporary verifier copy for the 40-zero SHA, an
-uninitialized local-submodule fixture for exit 2, a failing status wrapper for
-exit 4 with no `dirty=false` output, and a wrong-path wrapper for exit 3. No
-real dependency checkout is changed by these negative tests. The qualification
-status remains **PARTIAL** for the previously recorded reasons.
+The regression uses a temporary verifier copy for the 40-zero SHA and one local
+submodule fixture that separately proves exit 2 for an uninitialized
+CANopenLinux and for an initialized CANopenLinux whose nested CANopenNode is
+uninitialized; the second log names CANopenNode. Separate injected
+CANopenLinux and CANopenNode status failures each prove exit 4, the matching
+cleanliness error, and no `dirty=false` output. A wrong-path wrapper proves exit
+3. No real dependency checkout is changed by these negative tests. The
+qualification status remains **PARTIAL** for the previously recorded reasons.
 
 ## Verification results
 

@@ -129,8 +129,8 @@ The regression driver must:
 - copy the verifier to a uniquely named temporary file under `scripts/build`, replace only the fixed CANopenLinux SHA in that copy with a 40-zero SHA, and require exit 3; the production verifier has no expected-revision override;
 - create one uniquely named untracked marker under the CANopenNode working tree, require exit 4, and remove the marker through an EXIT trap;
 - reject execution if that marker already exists;
-- use a temporary local Git fixture with present but uninitialized submodule directories and require exit 2;
-- inject a test-only failing `git status` wrapper and require exit 4 without any `dirty=false` output;
+- use a temporary local Git fixture to require exit 2 first with the top-level submodule uninitialized and again after initializing only CANopenLinux while leaving nested CANopenNode uninitialized; the latter log must identify CANopenNode;
+- inject separate test-only CANopenLinux and CANopenNode `git status` failures; each requires exit 4, its matching error, and no `dirty=false` output;
 - inject a wrong top-level submodule path and require exit 3;
 - verify the top-level legacy `components/CANopenNode` path is absent.
 
