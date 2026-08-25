@@ -1,5 +1,7 @@
 # P5.1 Immutable CANopen Dependency Pair Qualification Plan
 
+Status: **COMPLETE** — remediation qualification closed 2026-08-25.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace the mixed CANopenNode snapshot with the exact CANopenLinux/CANopenNode pair selected by ADR-0002 and prove that normal host and RK3588 builds consume a clean, offline-reproducible source tree without performing CAN, drive, or target operations.
@@ -20,7 +22,7 @@
 - Do not add CANopen sources to CMake in P5.1.
 - Normal configure/build/test commands must perform no network fetch.
 - Do not open or configure CAN interfaces, connect to a drive, send CAN frames, deploy to the RK3588, or change target state.
-- Preserve the existing user-owned modification to `docker/cross/image.lock`; never stage or commit it.
+- The cross-image lock must match the verified local image before it is committed or used for Release qualification.
 - Use `rtk` for shell commands issued interactively.
 - Every test wait and build invocation must be bounded by the existing CI/build timeout or an explicit `timeout`.
 
@@ -352,7 +354,10 @@ Expected: validated sysroot, Docker build with `--network none`, successful aarc
 
 - [ ] **Step 3: Run Release cross qualification**
 
-The release build requires a clean source snapshot. First verify that the only remaining workspace modification is the protected `docker/cross/image.lock`. Because that modification makes the source snapshot dirty, do not hide, revert, or include it. If it remains modified, record Release as unavailable due to the pre-existing dirty source and leave P5.1 completion open unless the user separately resolves that file.
+The release build requires a clean source snapshot. Verify the cross-image lock
+with `scripts/build/verify_cross_image.sh`, commit an intentional lock update,
+and confirm `git status --short` is empty before the Release build. Never bypass
+the clean-source gate.
 
 When the worktree is clean, run:
 
@@ -385,7 +390,9 @@ rtk git diff -- docker/cross/image.lock
 rtk git submodule status --recursive
 ```
 
-Expected: all available required checks pass; both submodules show exact commits without `+`, `-`, or `U`; the protected image-lock modification is unchanged and unstaged. Explicitly report any unavailable Release cross build.
+Expected: all required checks pass; both submodules show exact commits without
+`+`, `-`, or `U`; the working tree is clean; Debug and Release cross evidence
+uses the same clean source revision.
 
 - [ ] **Step 6: Commit documentation and qualification evidence**
 
@@ -410,4 +417,7 @@ P5.1 is complete only when:
 - no third-party source is modified;
 - no target-runtime, CAN, drive, deployment, or motion command was executed.
 
-If Release cross build remains unavailable solely because the pre-existing `docker/cross/image.lock` modification keeps the source snapshot dirty, report P5.1 as **PARTIAL**, preserve the modification, and request the owner to resolve that file. Do not weaken the clean-release gate.
+The completion gate closed on 2026-08-25 after the cross-image lock was verified
+and committed, ShellCheck passed, and a clean no-SocketCAN remediation batch
+passed both RK3588 cross presets. The earlier isolated-`vcan` execution remains
+recorded as a superseded process deviation.

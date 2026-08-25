@@ -25,9 +25,10 @@ a nonzero raw cumulative `SO_RXQ_OVFL` counter, complete raw CAN error-frame
 preservation, and interface down/up with explicit endpoint reopen evidence,
 while explicitly skipping unsupported hosts. RK3588 passive target validation
 is complete, including ordinary-user deadline/SIGTERM behavior and raw
-ID/DLC/payload/timestamp/overflow preservation under external traffic. P5.1
-installs and verifies the exact ADR-0002 CANopenLinux/CANopenNode recursive
-submodule pair without linking its sources. P5.2 remains the first slice that
+ID/DLC/payload/timestamp/overflow preservation under external traffic. P5.1 is
+complete and installs and verifies the exact ADR-0002 CANopenLinux/CANopenNode
+recursive submodule pair without linking its sources; host/static and clean
+RK3588 Debug/Release cross qualification pass. P5.2 remains the first slice that
 builds CANopen code; non-actuating observation and lifecycle behavior remain
 pending.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase

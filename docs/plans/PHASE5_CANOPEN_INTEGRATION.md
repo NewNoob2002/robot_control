@@ -49,7 +49,7 @@ monotonic-timestamped observations for later application and safety adapters.
 
 ## Delivery slices
 
-### P5.1 — Immutable dependency pair
+### P5.1 — Immutable dependency pair (complete)
 
 Replace the mixed `components/CANopenNode` snapshot with the exact dependency
 pair selected by ADR-0002. Preserve attribution through Git history rather than
@@ -65,6 +65,11 @@ Acceptance:
   minimal, documented, and tested.
 - A provenance check fails on a wrong or dirty dependency revision.
 - The existing host build remains green before CANopen sources are linked.
+
+Closure: the 2026-08-25 remediation qualification passes dependency, recursive
+snapshot, non-SocketCAN host, ShellCheck, and RK3588 Debug/Release cross gates.
+Target-runtime HIL is not applicable because P5.1 links no CANopen source. See
+`docs/verification/P5_1_DEPENDENCY_QUALIFICATION.md`.
 
 ### P5.2 — Minimal stack build and object dictionary
 

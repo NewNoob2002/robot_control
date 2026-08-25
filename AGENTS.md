@@ -17,9 +17,11 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   filter isolation, and nonzero raw cumulative `SO_RXQ_OVFL` evidence are
   complete, along with namespace-local CAN error-frame runtime evidence and
   interface down/up with explicit endpoint reopen evidence. RK3588 passive
-  target validation is complete. P5.1 replaces the mixed CANopenNode snapshot
-  with the exact CANopenLinux/CANopenNode recursive submodule pair selected by
-  ADR-0002 and verifies it before normal builds. P5.2 remains the first slice
+  target validation is complete. P5.1 is complete: it replaces the mixed
+  CANopenNode snapshot with the exact CANopenLinux/CANopenNode recursive
+  submodule pair selected by
+  ADR-0002 and verifies it before normal builds, recursive snapshots, and clean
+  RK3588 Debug/Release cross builds. P5.2 remains the first slice
   that links CANopen sources; later Phase 5 integration, cross/HIL/release CI,
   packaging, and deploy service remain.
 - EasyLogger's checksum-pinned core subset remains integrated behind
