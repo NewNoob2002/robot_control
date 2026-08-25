@@ -88,6 +88,14 @@ public:
    */
   [[nodiscard]] const StackConfig &config() const noexcept;
 
+  /**
+   * Close the current endpoint and restore generated OD storage for reinit.
+   *
+   * Thread safety: Owner-thread only. All upstream pointers remain owned here;
+   * callers must not retain OD extensions across this operation.
+   */
+  void prepare_communication_reset() noexcept;
+
 private:
   /**
    * Construct claimed storage before upstream allocation.

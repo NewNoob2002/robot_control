@@ -145,4 +145,12 @@ std::uint32_t StackStorage::heap_memory_used() const noexcept {
 
 const StackConfig &StackStorage::config() const noexcept { return config_; }
 
+void StackStorage::prepare_communication_reset() noexcept {
+  if (stack_ != nullptr) {
+    CO_CANmodule_disable(stack_->CANmodule);
+  }
+  reset_generated_dictionary();
+  apply_receive_configuration(config_);
+}
+
 } // namespace robot_control::communication::canopen

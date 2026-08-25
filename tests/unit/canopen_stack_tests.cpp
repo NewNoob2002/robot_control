@@ -1,7 +1,10 @@
 #include "communication/canopen/CO_driver_custom.h"
+#include "communication/canopen/lifecycle.hpp"
 #include "communication/canopen/stack_storage.hpp"
+#include "platform/linux/process/termination_event.hpp"
 #include "platform/linux/unique_fd.hpp"
 
+#include <dirent.h>
 #include <fcntl.h>
 #include <linux/if.h>
 
@@ -18,9 +21,11 @@
 namespace {
 
 using namespace std::chrono_literals;
+using robot_control::communication::canopen::Lifecycle;
 using robot_control::communication::canopen::StackConfig;
 using robot_control::communication::canopen::StackStorage;
 using robot_control::communication::canopen::validate_stack_config;
+using robot_control::platform::linux::process::TerminationEvent;
 using robot_control::platform::linux::UniqueFd;
 
 static_assert(CO_CONFIG_NMT ==
@@ -89,6 +94,20 @@ bool all_extensions_clear() {
     }
   }
   return true;
+}
+
+/** Count process descriptors while including this helper's directory handle. */
+std::size_t descriptor_count() {
+  DIR *const directory = ::opendir("/proc/self/fd");
+  if (directory == nullptr) {
+    return std::numeric_limits<std::size_t>::max();
+  }
+  std::size_t count = 0U;
+  while (::readdir(directory) != nullptr) {
+    ++count;
+  }
+  static_cast<void>(::closedir(directory));
+  return count;
 }
 
 /** Verify pure startup configuration validation at every specified boundary. */
@@ -252,6 +271,15 @@ void test_storage() {
     CHECK("CANOPEN-STACK-051",
           OD_PERSIST_COMM.x1603_RPDOMappingParameter
                   .numberOfMappedApplicationObjectsInPDO == 0U);
+    OD_extension_t reopen_extension{};
+    CHECK("CANOPEN-STACK-052",
+          OD_extension_init(&OD->list[0], &reopen_extension) == ODR_OK);
+    reacquired->prepare_communication_reset();
+    CHECK("CANOPEN-STACK-053", all_extensions_clear());
+    CHECK("CANOPEN-STACK-054",
+          reacquired->stack()->CANmodule->CANinterfaces == nullptr);
+    CHECK("CANOPEN-STACK-055",
+          OD_PERSIST_COMM.x1016_consumerHeartbeatTime[0] == 0x000203e8U);
   }
 }
 
@@ -290,6 +318,45 @@ void test_transmit_gate() {
   CHECK("CANOPEN-TX-006", errno == EACCES);
 }
 
+/** Verify missing-interface startup is contextual and releases every owner/fd. */
+void test_lifecycle_startup_failure() {
+  auto termination_result = TerminationEvent::create();
+  CHECK("CANOPEN-LIFECYCLE-001", termination_result.ok());
+  if (!termination_result.ok()) {
+    return;
+  }
+  auto termination = std::move(termination_result).value();
+  const auto descriptors_before = descriptor_count();
+  CHECK("CANOPEN-LIFECYCLE-002",
+        descriptors_before != std::numeric_limits<std::size_t>::max());
+
+  auto created =
+      Lifecycle::create(valid_config("p5_3_missing0"), termination);
+  CHECK("CANOPEN-LIFECYCLE-003", !created.ok());
+  CHECK("CANOPEN-LIFECYCLE-004",
+        created.status().operation == "if_nametoindex");
+  CHECK("CANOPEN-LIFECYCLE-005",
+        created.status().context.find("interface=p5_3_missing0") !=
+            std::string::npos);
+  CHECK("CANOPEN-LIFECYCLE-006",
+        created.status().context.find("controller=127") != std::string::npos);
+  CHECK("CANOPEN-LIFECYCLE-007",
+        created.status().context.find("remote=1") != std::string::npos);
+  CHECK("CANOPEN-LIFECYCLE-008",
+        created.status().context.find("upstream=not-called") !=
+            std::string::npos);
+  CHECK("CANOPEN-LIFECYCLE-009",
+        created.status().error.value() == ENODEV);
+  CHECK("CANOPEN-LIFECYCLE-010",
+        all_extensions_clear());
+  CHECK("CANOPEN-LIFECYCLE-011",
+        descriptor_count() == descriptors_before);
+
+  auto reacquired = StackStorage::create(valid_config("p5_3_missing0", 2U));
+  CHECK("CANOPEN-LIFECYCLE-012", reacquired.ok());
+  CHECK("CANOPEN-LIFECYCLE-013", all_extensions_clear());
+}
+
 } // namespace
 
 /** Run the host-only minimal CANopen allocation contract. */
@@ -297,6 +364,7 @@ int main() {
   test_validation();
   test_storage();
   test_transmit_gate();
+  test_lifecycle_startup_failure();
   if (failures != 0) {
     std::cerr << "canopen_stack_tests failures=" << failures << '\n';
     return EXIT_FAILURE;
