@@ -17,13 +17,14 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   filter isolation, and nonzero raw cumulative `SO_RXQ_OVFL` evidence are
   complete, along with namespace-local CAN error-frame runtime evidence and
   interface down/up with explicit endpoint reopen evidence. RK3588 passive
-  target validation is complete. Phase 5 non-actuating CANopen integration,
-  cross/HIL/release CI, packaging, and deploy service remain.
-- `components/CANopenNode/` remains an unversioned baseline snapshot.
-  EasyLogger's checksum-pinned core subset is integrated behind
-  `service/logging`; replacing the mixed snapshot with a clean immutable
-  upstream checkout remains release work. Provenance is recorded in
-  `third_party/README.md`.
+  target validation is complete. P5.1 replaces the mixed CANopenNode snapshot
+  with the exact CANopenLinux/CANopenNode recursive submodule pair selected by
+  ADR-0002 and verifies it before normal builds. P5.2 remains the first slice
+  that links CANopen sources; later Phase 5 integration, cross/HIL/release CI,
+  packaging, and deploy service remain.
+- EasyLogger's checksum-pinned core subset remains integrated behind
+  `service/logging`. CANopen dependency provenance and zero-local-patch status
+  are recorded in `third_party/README.md`.
 - `docs/ZLAC8015D_CANOPEN_NOTES.md` and the vendor PDFs are drive references; statements marked for hardware verification are not safety assumptions.
 - The legacy STM32 project at `~/Desktop/workspace/STM32_PROJ/STM32G474_CANOPEN_Copy` is read-only architectural evidence, not a source tree to copy.
 - Phase 1 build evidence and remaining target validation are recorded in

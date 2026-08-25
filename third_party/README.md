@@ -1,16 +1,16 @@
 # Third-Party Dependency Provenance
 
-Status date: 2026-07-31.
+Status date: 2026-08-25.
 
 Normal builds must not fetch mutable branches. A dependency is accepted only
 after its upstream URL, immutable commit, license, integration method, and local
 patch status are recorded here and in the applicable ADR.
 
-## Existing snapshots
+## Removed snapshots
 
-### CANopenNode
+### Historical CANopenNode snapshot
 
-- Path: `components/CANopenNode`
+- Former path: `components/CANopenNode` (removed in P5.1)
 - Upstream: <https://github.com/CANopenNode/CANopenNode>
 - License: Apache-2.0 (`components/CANopenNode/LICENSE`)
 - Local file count at baseline: 71
@@ -20,7 +20,7 @@ patch status are recorded here and in the applicable ADR.
 - Version status: **checksum-pinned vendored snapshot; upstream commit remains
   unresolved**
 
-The local snapshot cannot be attributed to one upstream commit from the
+The historical snapshot could not be attributed to one upstream commit from the
 available files. For example:
 
 - local `CANopen.c` exactly matches upstream commit
@@ -28,8 +28,10 @@ available files. For example:
 - local `doc/CHANGELOG.md` exactly matches upstream commit
   `f41bfdcb5d0d432455e5d4df0a16cd5520a8fd57`.
 
-Those files resolve to different commits. The directory is therefore not an
-acceptable release dependency as-is.
+Those files resolve to different commits. P5.1 removed the directory instead
+of preserving a second CANopenNode copy.
+
+## Existing snapshots
 
 ### EasyLogger
 
@@ -59,24 +61,26 @@ port and configuration. MCU demonstrations, bundled ports, plugins, async
 output, buffering, and color are excluded. Replacing the snapshot with a clean
 immutable upstream checkout remains a release-readiness task.
 
-## Selected dependency pair
+## Installed CANopen dependency pair
 
-The initial CANopen integration spike shall use:
+P5.1 installs the pair as recursive Git submodules:
 
-| Dependency | Immutable commit | Upstream description |
-|---|---|---|
-| CANopenLinux | `f1348d4072cdabea4c3435a13c721ac29ab4cc91` | `v4.0-25-gf1348d4`, 2025-08-18 |
-| CANopenNode | `ef9ac3a2279e34855a20c787fc1bc48bc995ec22` | CANopenLinux submodule commit, 2025-08-04 |
+| Dependency | Path | Canonical upstream | Immutable commit |
+|---|---|---|---|
+| CANopenLinux | `components/CANopenLinux` | <https://github.com/CANopenNode/CANopenLinux.git> | `f1348d4072cdabea4c3435a13c721ac29ab4cc91` |
+| CANopenNode | `components/CANopenLinux/CANopenNode` | <https://github.com/CANopenNode/CANopenNode.git> | `ef9ac3a2279e34855a20c787fc1bc48bc995ec22` |
 
 Both use Apache-2.0. The pair is chosen together because CANopenLinux pins that
 exact CANopenNode commit as its submodule, eliminating an inferred API match.
+Both working trees are clean and carry zero local patches. Normal builds verify
+the root gitlink, nested gitlink, canonical URLs, exact checkouts, and clean
+trees before configuration; P5.1 does not add either dependency to CMake.
 
 ## Integration policy
 
-1. Replace the unversioned CANopenNode snapshot only in the dependency
-   integration phase, after reviewing the diff and legacy compatibility.
-2. Prefer Git submodules for the paired upstream repositories because their
-   relationship is already expressed by CANopenLinux.
+1. Retain CANopenLinux as the only top-level CANopen dependency; its nested
+   CANopenNode gitlink is the compatibility authority.
+2. Initialize both levels recursively before normal offline builds.
 3. Do not edit third-party files directly. Carry necessary changes as minimal,
    documented patches and attempt upstream compatibility first.
 4. CI and release builds operate without network access after dependencies are
