@@ -132,7 +132,8 @@ fi
 exec "${ROBOT_CONTROL_TEST_REAL_GIT}" "$@"
 EOF
 chmod +x "${fake_bin}/git"
-readonly real_git="$(command -v git)"
+real_git="$(command -v git)"
+readonly real_git
 
 while IFS='|' read -r status_mode expected_error; do
   status_log="${temp}/${status_mode}.log"
