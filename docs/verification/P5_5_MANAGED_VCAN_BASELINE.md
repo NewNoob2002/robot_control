@@ -189,3 +189,14 @@ P5.6 still owns all read-only SDO request authorization, request/response
 correlation, abort, retry, timeout, and replay evidence. P5.7 still owns the
 ordinary-user RK3588 passive observer run, target-side capture/process cleanup,
 and final Phase 5 closure record.
+
+## Independent review
+
+An independent review on 2026-08-26 re-read commit
+`2b291c1d4d14982ec28839dcf65a6de1165dc307`, its direct upstream driver
+paths, and the managed test. It found no correctness, safety, concurrency,
+portability, or test-adequacy finding. Scoped LLVM analysis passed again; the
+CANopen stack and Linux platform tests passed 2/2; the Debug managed-vcan test
+passed without skip or retry and again reported 14 peer frames and zero
+observer TX. The lifecycle object retained only `ioctl`, `recv`, and
+`setsockopt` syscall dependencies and no transmit syscall.
