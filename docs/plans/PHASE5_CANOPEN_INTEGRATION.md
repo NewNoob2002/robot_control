@@ -200,13 +200,14 @@ RK3588 Debug/Release cross gates pass. No CAN or `vcan` runtime was executed;
 the live SocketCAN behavior remains assigned to P5.5. See
 `docs/verification/P5_4_OBSERVATION_BASELINE.md`.
 
-### P5.5 — Managed `vcan` receive evidence
+### P5.5 — Managed `vcan` receive evidence (complete)
 
 Extend the existing capability-aware namespace runner with a deterministic
 CANopen peer. Exercise the production owner path with boot-up, heartbeat/NMT
-state, EMCY, SDO response, TPDO1..4, timeout, restart, shutdown, and endpoint
-reopen sequences. Unsupported kernel or namespace capability remains an
-explicit skip; a configured scenario failure is a test failure.
+state, EMCY, TPDO1..4, timeout, restart, shutdown, and endpoint reopen
+sequences. Unsupported kernel or namespace capability remains an explicit
+skip; a configured scenario failure is a test failure. The normal observer's
+SDO result remains empty; SDO request/response evidence belongs to P5.6.
 
 Acceptance:
 
@@ -217,6 +218,15 @@ Acceptance:
 - An independent socket observes zero frames transmitted by normal observer
   startup and runtime.
 - Reopen requires a fresh boot generation before remote state becomes current.
+
+Closure: revision `2b291c1d4d14982ec28839dcf65a6de1165dc307` adds the
+managed CANopen peer test, exact project-owned one-peer receive filters, and a
+bounded 10 ms administrative link-state check. Debug, Release, and ASan/UBSan
+managed-vcan runs preserve boot, heartbeat, EMCY, TPDO1..4, and CAN error
+frames; prove exact timeout boundaries, single consumption, fresh-boot reopen,
+SIGINT/SIGTERM exits, and zero observer TX. Host Debug/Release 18-test suites,
+LLVM checks, and clean RK3588 Debug/Release cross audits pass. See
+`docs/verification/P5_5_MANAGED_VCAN_BASELINE.md`.
 
 ### P5.6 — Debug-only read-only commissioning path
 

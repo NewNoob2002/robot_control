@@ -24,9 +24,13 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   RK3588 Debug/Release cross builds. P5.2 is complete: it builds the reviewed
   minimal CANopenLinux/CANopenNode source subset, validates invalid-by-default
   startup configuration, and owns one inactive fixed OD/stack allocation with
-  host Debug/Release and clean RK3588 Debug/Release evidence. P5.3 lifecycle
-  work and later Phase 5 integration, HIL/release CI, packaging, and deploy
-  service remain.
+  host Debug/Release and clean RK3588 Debug/Release evidence. P5.3 through P5.5
+  are complete: the single-owner lifecycle publishes immutable CANopen
+  observations, and managed namespace-local `vcan` proves boot, heartbeat,
+  EMCY, TPDO1..4, exact timeouts, error frames, link loss/reopen, signal exits,
+  same-socket single consumption, and zero normal-operation TX. P5.6
+  commissioning, P5.7 target-passive closure, later HIL/release CI, packaging,
+  and deploy service remain.
 - EasyLogger's checksum-pinned core subset remains integrated behind
   `service/logging`. CANopen dependency provenance and zero-local-patch status
   are recorded in `third_party/README.md`.
