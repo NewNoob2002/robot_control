@@ -228,7 +228,7 @@ SIGINT/SIGTERM exits, and zero observer TX. Host Debug/Release 18-test suites,
 LLVM checks, and clean RK3588 Debug/Release cross audits pass. See
 `docs/verification/P5_5_MANAGED_VCAN_BASELINE.md`.
 
-### P5.6 — Debug-only read-only commissioning path
+### P5.6 — Debug-only read-only commissioning path (complete)
 
 Add one small commissioning executable or build-only mode around the same owner.
 A single transmit authorization point at the upstream driver boundary rejects
@@ -254,6 +254,15 @@ Acceptance:
   point or its transmit authorization.
 - No target commissioning command is run without a new explicit authorization
   and hardware-test preflight.
+
+Closure: revision `3b0b86eea7a9b79f578e1f80861ae1902001cbde` adds the
+default-off Debug-only build, exact one-frame transmit gate, fixed-node NMT
+inhibit commands, reviewed expedited SDO upload whitelist, correlated immutable
+results, timeout quarantine and optional one retry, CLI validation, and Host and
+managed-vcan tests. Commissioning Host tests pass 26/26; default Debug/Release
+remain 18/18; ASan/UBSan, LLVM checks, artifact isolation, P5.5 regression, and
+clean RK3588 Debug/Release cross audits pass. No physical CAN commissioning was
+run. See `docs/verification/P5_6_READ_ONLY_COMMISSIONING_BASELINE.md`.
 
 ### P5.7 — Cross, target-passive, and closure evidence
 

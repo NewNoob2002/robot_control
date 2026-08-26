@@ -24,13 +24,17 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   RK3588 Debug/Release cross builds. P5.2 is complete: it builds the reviewed
   minimal CANopenLinux/CANopenNode source subset, validates invalid-by-default
   startup configuration, and owns one inactive fixed OD/stack allocation with
-  host Debug/Release and clean RK3588 Debug/Release evidence. P5.3 through P5.5
+  host Debug/Release and clean RK3588 Debug/Release evidence. P5.3 through P5.6
   are complete: the single-owner lifecycle publishes immutable CANopen
   observations, and managed namespace-local `vcan` proves boot, heartbeat,
   EMCY, TPDO1..4, exact timeouts, error frames, link loss/reopen, signal exits,
-  same-socket single consumption, and zero normal-operation TX. P5.6
-  commissioning, P5.7 target-passive closure, later HIL/release CI, packaging,
-  and deploy service remain.
+  same-socket single consumption, and zero normal-operation TX. P5.6 adds a
+  separately enabled Debug-only commissioning artifact whose sole transmit gate
+  permits fixed node-1 NMT inhibit commands and reviewed read-only expedited SDO
+  uploads, with request/attempt correlation, timeout quarantine, one explicit
+  retry, managed-vcan evidence, default-artifact isolation, sanitizers, LLVM, and
+  clean RK3588 cross evidence. P5.7 target-passive closure, later HIL/release CI,
+  packaging, and deploy service remain.
 - EasyLogger's checksum-pinned core subset remains integrated behind
   `service/logging`. CANopen dependency provenance and zero-local-patch status
   are recorded in `third_party/README.md`.
@@ -46,6 +50,8 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   `docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md`.
 - Phase 5 scope and delivery slices are recorded in
   `docs/plans/PHASE5_CANOPEN_INTEGRATION.md`.
+- P5.6 implementation and verification evidence is recorded in
+  `docs/verification/P5_6_READ_ONLY_COMMISSIONING_BASELINE.md`.
 
 ## Non-Negotiable Architecture
 
