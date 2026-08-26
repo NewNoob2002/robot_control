@@ -161,7 +161,7 @@ Acceptance:
 - Init failure, teardown, and reacquisition tests prove no OD entry retains a
   stale extension pointer.
 
-### P5.4 — Immutable observation contract
+### P5.4 — Immutable observation contract (complete)
 
 Publish one versioned snapshot containing the remote node boot generation, NMT
 state, heartbeat observation, EMCY record, SDO result when commissioned, and
@@ -190,6 +190,15 @@ frames in project-owned code, and publish copied coherent snapshots. It will
 not register the pinned EMCY callback because that callback has no caller
 object and decodes bytes without checking DLC. See
 `docs/plans/P5_4_IMMUTABLE_OBSERVATION_PLAN.md`.
+
+Closure: revision `05a948660596ecab3ec2f4bf487976b0cb60865b` implements
+the immutable raw observation contract, owner-driven timeout/version changes,
+transport/boot generations, malformed/replay/future rejection, EMCY decoding,
+four TPDO slots, same-socket peek/consume verification, and project-owned CAN
+error-frame filtering. Host Debug/Release, sanitizer, scoped LLVM, and clean
+RK3588 Debug/Release cross gates pass. No CAN or `vcan` runtime was executed;
+the live SocketCAN behavior remains assigned to P5.5. See
+`docs/verification/P5_4_OBSERVATION_BASELINE.md`.
 
 ### P5.5 — Managed `vcan` receive evidence
 

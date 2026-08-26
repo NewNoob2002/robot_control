@@ -2,7 +2,7 @@
 
 Date: 2026-08-25
 
-Status: **APPROVED TO IMPLEMENT AFTER TESTS DEFINE THE CONTRACT**
+Status: **IMPLEMENTED; LIVE SOCKETCAN EVIDENCE DEFERRED TO P5.5**
 
 ## Scope
 
@@ -14,6 +14,13 @@ ROS2 integration, or safety decisions.
 P5.3 independent review found no blocking defect. P5.4 may build on revision
 `8bef091c1d21989ea746c41c24b033e2e4518d01`; its open-endpoint behavior remains
 runtime-qualified later by the managed-vcan P5.5 slice.
+
+Implementation revision `05a948660596ecab3ec2f4bf487976b0cb60865b` adds
+the test-first observation state machine, copied snapshot API, same-socket raw
+peek/consume path, project-owned CAN error-frame receive filter, and lifecycle
+generation invalidation. Host Debug/Release, scoped LLVM, sanitizer, and clean
+RK3588 Debug/Release cross gates pass. See
+`docs/verification/P5_4_OBSERVATION_BASELINE.md`.
 
 ## Pinned-driver findings
 
