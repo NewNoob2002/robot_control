@@ -66,7 +66,8 @@ void ObservationStore::invalidate_remote() noexcept {
     state_.nmt.current = false;
     state_.heartbeat.frame.current = false;
     state_.emergency.frame.current = false;
-    state_.sdo_result.current = false;
+    state_.sdo_result.frame.current = false;
+    sdo_token_.active = false;
     for (auto& tpdo : state_.tpdo) {
         tpdo.current = false;
     }
@@ -90,7 +91,8 @@ void ObservationStore::invalidate_addressed(const std::uint32_t identifier) noex
         return;
     }
     if (identifier == 0x580U + remote_node_id_) {
-        state_.sdo_result.current = false;
+        state_.sdo_result.frame.current = false;
+        sdo_token_.active = false;
         return;
     }
     const auto index = tpdo_index(identifier, remote_node_id_);
@@ -111,6 +113,31 @@ void ObservationStore::begin_transport() noexcept {
     state_.generation.boot = 0U;
     invalidate_remote();
     ++state_.version;
+}
+
+void ObservationStore::begin_sdo_upload(const std::uint64_t request_generation, const std::uint64_t attempt_generation,
+                                        const std::uint16_t index, const std::uint8_t subindex,
+                                        const std::uint8_t expected_size) noexcept {
+    const std::scoped_lock lock{mutex_};
+    state_.sdo_result.frame.current = false;
+    sdo_token_ = {.active = request_generation != 0U && attempt_generation != 0U && expected_size >= 1U
+                            && expected_size <= 4U,
+                  .generation = state_.generation,
+                  .request = request_generation,
+                  .attempt = attempt_generation,
+                  .index = index,
+                  .subindex = subindex,
+                  .expected_size = expected_size};
+    ++state_.version;
+}
+
+void ObservationStore::cancel_sdo_upload() noexcept {
+    const std::scoped_lock lock{mutex_};
+    if (sdo_token_.active) {
+        sdo_token_.active = false;
+        state_.sdo_result.frame.current = false;
+        ++state_.version;
+    }
 }
 
 ObservationGeneration ObservationStore::generation() const noexcept {
@@ -149,6 +176,44 @@ void ObservationStore::ingest(RawCanopenFrame frame, const std::chrono::steady_c
     }
 
     const auto identifier = standard_identifier(frame);
+    if (identifier == 0x580U + remote_node_id_) {
+        const auto reject = [&]() {
+            state_.sdo_rejected = {.present = true, .current = false, .raw = frame};
+            ++state_.sdo_rejection_count;
+            ++state_.version;
+        };
+        if (frame.dlc != 8U || !sdo_token_.active || sdo_token_.generation != state_.generation
+            || frame.payload[1] != static_cast<std::uint8_t>(sdo_token_.index)
+            || frame.payload[2] != static_cast<std::uint8_t>(sdo_token_.index >> 8U)
+            || frame.payload[3] != sdo_token_.subindex) {
+            reject();
+            return;
+        }
+        const bool abort = frame.payload[0] == 0x80U;
+        const std::uint8_t expected_command =
+            static_cast<std::uint8_t>(0x43U | ((4U - sdo_token_.expected_size) << 2U));
+        if (!abort && frame.payload[0] != expected_command) {
+            reject();
+            return;
+        }
+        SdoObservation result{
+            .frame = {.present = true, .current = true, .raw = frame},
+            .outcome = abort ? SdoOutcome::abort : SdoOutcome::expedited_upload,
+            .request_generation = sdo_token_.request,
+            .attempt_generation = sdo_token_.attempt,
+            .index = sdo_token_.index,
+            .subindex = sdo_token_.subindex,
+            .data_length = abort ? std::uint8_t{0U} : sdo_token_.expected_size,
+            .abort_code = abort ? read_u32(frame.payload, 4U) : 0U,
+        };
+        if (!abort) {
+            std::copy_n(frame.payload.begin() + 4, result.data_length, result.data.begin());
+        }
+        state_.sdo_result = result;
+        sdo_token_.active = false;
+        ++state_.version;
+        return;
+    }
     if (identifier == 0x700U + remote_node_id_) {
         if (frame.dlc != 1U || !valid_nmt_state(frame.payload[0])) {
             record_malformed(frame);
@@ -280,9 +345,9 @@ ObservationSnapshot ObservationStore::snapshot(const std::chrono::steady_clock::
     snapshot.emergency.frame.current = snapshot.emergency.frame.current
                                        && snapshot.emergency.frame.raw.generation == snapshot.generation
                                        && snapshot.emergency.frame.raw.received_at <= now;
-    snapshot.sdo_result.current = snapshot.sdo_result.current
-                                  && snapshot.sdo_result.raw.generation == snapshot.generation
-                                  && snapshot.sdo_result.raw.received_at <= now;
+    snapshot.sdo_result.frame.current = snapshot.sdo_result.frame.current
+                                        && snapshot.sdo_result.frame.raw.generation == snapshot.generation
+                                        && snapshot.sdo_result.frame.raw.received_at <= now;
     return snapshot;
 }
 

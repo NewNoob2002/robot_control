@@ -14,6 +14,8 @@ extern "C" {
 
 namespace robot_control::communication::canopen {
 
+class CommissioningSession;
+
 /** Reason a bounded CANopen owner loop returned without an error. */
 enum class LifecycleExit : std::uint8_t { deadline, sigint, sigterm, application_reset, quit };
 
@@ -82,6 +84,7 @@ class Lifecycle final {
     [[nodiscard]] ObservationSnapshot observation_snapshot(std::chrono::steady_clock::time_point now) const noexcept;
 
   private:
+    friend class CommissioningSession;
     /** Construct an inactive owner from already claimed resources. */
     Lifecycle(std::unique_ptr<StackStorage> storage, platform::linux::process::TerminationEvent& termination) noexcept;
 

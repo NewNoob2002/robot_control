@@ -30,6 +30,7 @@ using robot_control::communication::canopen::ObservationGeneration;
 using robot_control::communication::canopen::ObservationStore;
 using robot_control::communication::canopen::RawCanopenFrame;
 using robot_control::communication::canopen::RemoteNmtState;
+using robot_control::communication::canopen::SdoOutcome;
 using robot_control::communication::canopen::StackConfig;
 using robot_control::communication::canopen::StackStorage;
 using robot_control::communication::canopen::validate_stack_config;
@@ -324,7 +325,7 @@ void test_observation_contract() {
   snapshot = observations.snapshot(start + 14ms);
   CHECK("CANOPEN-OBS-045", reopened_generation.transport == 3U);
   CHECK("CANOPEN-OBS-046", !snapshot.boot_observed);
-  CHECK("CANOPEN-OBS-047", !snapshot.sdo_result.current);
+  CHECK("CANOPEN-OBS-047", !snapshot.sdo_result.frame.current);
   observations.ingest(
       raw_frame(0x181U, 8U, {}, start + 14ms, boot_generation),
       start + 14ms);
@@ -380,6 +381,96 @@ void test_observation_freshness() {
   CHECK("CANOPEN-OBS-056", !snapshot.heartbeat.frame.current);
   CHECK("CANOPEN-OBS-057", !snapshot.nmt.current);
   CHECK("CANOPEN-OBS-058", snapshot.version > before_heartbeat_timeout);
+}
+
+/** Verify exact SDO upload correlation, parsing, cancellation, and rejection. */
+void test_sdo_observation_contract() {
+  const auto start = std::chrono::steady_clock::time_point{30s};
+  ObservationStore observations{valid_config()};
+  observations.begin_transport();
+  auto generation = observations.generation();
+  observations.ingest(raw_frame(0x701U, 1U, {0x00U}, start, generation), start);
+  generation = observations.generation();
+  observations.ingest(
+      raw_frame(0x701U, 1U, {0x7FU}, start + 1ms, generation), start + 1ms);
+
+  observations.ingest(
+      raw_frame(0x581U, 8U, {0x4FU, 0x01U, 0x10U, 0U, 0xAAU},
+                start + 2ms, generation),
+      start + 2ms);
+  auto snapshot = observations.snapshot(start + 2ms);
+  CHECK("CANOPEN-SDO-001", snapshot.sdo_rejection_count == 1U);
+  CHECK("CANOPEN-SDO-002", !snapshot.sdo_result.frame.current);
+
+  observations.begin_sdo_upload(1U, 1U, 0x1000U, 0U, 4U);
+  observations.ingest(
+      raw_frame(0x581U, 8U,
+                {0x43U, 0x00U, 0x10U, 1U, 1U, 2U, 3U, 4U}, start + 3ms,
+                generation),
+      start + 3ms);
+  observations.ingest(
+      raw_frame(0x581U, 8U,
+                {0x43U, 0x00U, 0x10U, 0U, 1U, 2U, 3U, 4U}, start + 4ms,
+                generation),
+      start + 4ms);
+  snapshot = observations.snapshot(start + 4ms);
+  CHECK("CANOPEN-SDO-003", snapshot.sdo_rejection_count == 2U);
+  CHECK("CANOPEN-SDO-004", snapshot.sdo_result.frame.current);
+  CHECK("CANOPEN-SDO-005",
+        snapshot.sdo_result.outcome == SdoOutcome::expedited_upload);
+  CHECK("CANOPEN-SDO-006", snapshot.sdo_result.request_generation == 1U);
+  CHECK("CANOPEN-SDO-007", snapshot.sdo_result.attempt_generation == 1U);
+  CHECK("CANOPEN-SDO-008", snapshot.sdo_result.data_length == 4U);
+  CHECK("CANOPEN-SDO-009",
+        snapshot.sdo_result.data ==
+            (std::array<std::uint8_t, 4>{1U, 2U, 3U, 4U}));
+
+  observations.ingest(
+      raw_frame(0x581U, 8U,
+                {0x43U, 0x00U, 0x10U, 0U, 1U, 2U, 3U, 4U}, start + 5ms,
+                generation),
+      start + 5ms);
+  observations.begin_sdo_upload(2U, 2U, 0x1001U, 0U, 1U);
+  observations.ingest(
+      raw_frame(0x581U, 8U, {0x4FU, 0x01U, 0x10U, 0U, 0x5AU},
+                start + 6ms, generation),
+      start + 6ms);
+  snapshot = observations.snapshot(start + 6ms);
+  CHECK("CANOPEN-SDO-010", snapshot.sdo_rejection_count == 3U);
+  CHECK("CANOPEN-SDO-011", snapshot.sdo_result.data_length == 1U);
+  CHECK("CANOPEN-SDO-012", snapshot.sdo_result.data[0] == 0x5AU);
+
+  observations.begin_sdo_upload(3U, 3U, 0x2035U, 0U, 2U);
+  observations.ingest(
+      raw_frame(0x581U, 8U,
+                {0x80U, 0x35U, 0x20U, 0U, 0U, 0U, 2U, 6U}, start + 7ms,
+                generation),
+      start + 7ms);
+  snapshot = observations.snapshot(start + 7ms);
+  CHECK("CANOPEN-SDO-013", snapshot.sdo_result.outcome == SdoOutcome::abort);
+  CHECK("CANOPEN-SDO-014", snapshot.sdo_result.abort_code == 0x06020000U);
+
+  observations.begin_sdo_upload(4U, 4U, 0x2035U, 0U, 2U);
+  observations.cancel_sdo_upload();
+  observations.ingest(
+      raw_frame(0x581U, 8U,
+                {0x4BU, 0x35U, 0x20U, 0U, 0x34U, 0x12U}, start + 8ms,
+                generation),
+      start + 8ms);
+  snapshot = observations.snapshot(start + 8ms);
+  CHECK("CANOPEN-SDO-015", snapshot.sdo_rejection_count == 4U);
+  CHECK("CANOPEN-SDO-016", !snapshot.sdo_result.frame.current);
+
+  observations.begin_sdo_upload(5U, 5U, 0x2035U, 0U, 2U);
+  observations.begin_transport();
+  observations.ingest(
+      raw_frame(0x581U, 8U,
+                {0x4BU, 0x35U, 0x20U, 0U, 0x34U, 0x12U}, start + 9ms,
+                generation),
+      start + 9ms);
+  snapshot = observations.snapshot(start + 9ms);
+  CHECK("CANOPEN-SDO-017", snapshot.replay_count == 1U);
+  CHECK("CANOPEN-SDO-018", !snapshot.sdo_result.frame.current);
 }
 
 /** Verify allocation, exact active counts, OD values, and no CAN activation. */
@@ -576,6 +667,7 @@ int main() {
   test_validation();
   test_observation_contract();
   test_observation_freshness();
+  test_sdo_observation_contract();
   test_storage();
   test_transmit_gate();
   test_lifecycle_startup_failure();

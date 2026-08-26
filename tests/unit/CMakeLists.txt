@@ -46,3 +46,28 @@ add_test(
   COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
           $<TARGET_FILE:robot_control_socketcan_socket_tests>)
 set_tests_properties(socketcan_vcan_managed PROPERTIES SKIP_RETURN_CODE 77)
+
+if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
+  add_executable(robot_control_canopen_commissioning_gate_tests
+                 canopen_commissioning_gate_tests.cpp)
+  target_link_libraries(
+    robot_control_canopen_commissioning_gate_tests
+    PRIVATE robot_control_canopen_commissioning_gate robot_control_project_options
+            robot_control_project_warnings)
+  add_test(NAME canopen_commissioning_gate
+           COMMAND robot_control_canopen_commissioning_gate_tests)
+
+  add_executable(robot_control_canopen_commissioning_vcan_tests
+                 canopen_commissioning_vcan_tests.cpp canopen_test_log_stub.c)
+  target_link_libraries(
+    robot_control_canopen_commissioning_vcan_tests
+    PRIVATE robot_control_communication_canopen_commissioning
+            robot_control_platform_linux robot_control_project_options
+            robot_control_project_warnings)
+  add_test(
+    NAME canopen_commissioning_vcan_managed
+    COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+            $<TARGET_FILE:robot_control_canopen_commissioning_vcan_tests>)
+  set_tests_properties(canopen_commissioning_vcan_managed
+                       PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 15)
+endif()

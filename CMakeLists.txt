@@ -17,6 +17,13 @@ set(CMAKE_C_EXTENSIONS ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(ROBOT_CONTROL_WARNINGS_AS_ERRORS "Treat project warnings as errors" ON)
+option(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING
+       "Build the Debug-only read-only CANopen commissioning tool" OFF)
+if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
+  if(CMAKE_CONFIGURATION_TYPES OR NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message(FATAL_ERROR "CANopen commissioning requires a single-config Debug build")
+  endif()
+endif()
 
 add_library(robot_control_project_options INTERFACE)
 target_compile_features(robot_control_project_options INTERFACE cxx_std_20)
@@ -43,6 +50,9 @@ add_subdirectory(service)
 add_subdirectory(communication/canopen)
 add_subdirectory(tools/can_probe)
 add_subdirectory(tools/platform_probe)
+if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
+  add_subdirectory(tools/canopen_commission)
+endif()
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
   # Register an invalid can_probe invocation that must return usage error 2.

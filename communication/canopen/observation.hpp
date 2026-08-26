@@ -42,6 +42,22 @@ enum class RemoteNmtState : std::uint8_t {
     unknown = 0xFFU,
 };
 
+/** Outcome retained for one correlated commissioning SDO upload response. */
+enum class SdoOutcome : std::uint8_t { none, expedited_upload, abort };
+
+/** Store one accepted SDO response and its request correlation. */
+struct SdoObservation {
+    FrameObservation frame{};
+    SdoOutcome outcome{SdoOutcome::none};
+    std::uint64_t request_generation{0};
+    std::uint64_t attempt_generation{0};
+    std::uint16_t index{0};
+    std::uint8_t subindex{0};
+    std::uint8_t data_length{0};
+    std::array<std::uint8_t, 4> data{};
+    std::uint32_t abort_code{0};
+};
+
 /** Store the latest valid remote NMT state and its raw source frame. */
 struct NmtObservation {
     bool present{false};
@@ -73,13 +89,15 @@ struct ObservationSnapshot {
     NmtObservation nmt{};
     HeartbeatObservation heartbeat{};
     EmergencyObservation emergency{};
-    FrameObservation sdo_result{};
+    SdoObservation sdo_result{};
+    FrameObservation sdo_rejected{};
     std::array<FrameObservation, 4> tpdo{};
     FrameObservation malformed{};
     FrameObservation can_error{};
     std::uint64_t malformed_count{0};
     std::uint64_t future_timestamp_count{0};
     std::uint64_t replay_count{0};
+    std::uint64_t sdo_rejection_count{0};
 };
 
 /** Accumulate owner-thread CANopen frames and publish coherent value copies. */
@@ -109,6 +127,27 @@ class ObservationStore final {
    * Thread safety: Safe for one writer and concurrent snapshot readers.
    */
     [[nodiscard]] ObservationGeneration generation() const noexcept;
+
+    /**
+     * Arm one exact commissioning SDO upload response correlation token.
+     *
+     * @param request_generation Nonzero logical request generation.
+     * @param attempt_generation Nonzero physical attempt generation.
+     * @param index Expected object dictionary index.
+     * @param subindex Expected object dictionary subindex.
+     * @param expected_size Required expedited payload size from one through four.
+     *
+     * Thread safety: Safe for the sole writer while readers call snapshot().
+     */
+    void begin_sdo_upload(std::uint64_t request_generation, std::uint64_t attempt_generation, std::uint16_t index,
+                          std::uint8_t subindex, std::uint8_t expected_size) noexcept;
+
+    /**
+     * Cancel an incomplete commissioning SDO response token.
+     *
+     * Thread safety: Safe for the sole writer while readers call snapshot().
+     */
+    void cancel_sdo_upload() noexcept;
 
     /**
    * Validate and accumulate one raw frame without invoking external policy.
@@ -156,6 +195,15 @@ class ObservationStore final {
     std::chrono::milliseconds heartbeat_timeout_{0};
     std::chrono::milliseconds tpdo_timeout_{0};
     std::array<std::uint8_t, 4> tpdo_expected_dlc_{};
+    struct SdoToken {
+        bool active{false};
+        ObservationGeneration generation{};
+        std::uint64_t request{0};
+        std::uint64_t attempt{0};
+        std::uint16_t index{0};
+        std::uint8_t subindex{0};
+        std::uint8_t expected_size{0};
+    } sdo_token_{};
     mutable std::mutex mutex_{};
     ObservationSnapshot state_{};
 };

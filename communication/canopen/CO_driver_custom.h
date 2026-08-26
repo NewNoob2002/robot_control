@@ -1,7 +1,13 @@
 #pragma once
 
+#ifdef ROBOT_CONTROL_CANOPEN_COMMISSIONING
+#define CO_CONFIG_NMT                                                         \
+  (CO_CONFIG_NMT_CALLBACK_CHANGE | CO_CONFIG_NMT_MASTER |                    \
+   CO_CONFIG_GLOBAL_FLAG_TIMERNEXT)
+#else
 #define CO_CONFIG_NMT                                                         \
   (CO_CONFIG_NMT_CALLBACK_CHANGE | CO_CONFIG_GLOBAL_FLAG_TIMERNEXT)
+#endif
 #define CO_CONFIG_HB_CONS                                                     \
   (CO_CONFIG_HB_CONS_ENABLE | CO_CONFIG_HB_CONS_CALLBACK_MULTI |             \
    CO_CONFIG_HB_CONS_QUERY_FUNCT | CO_CONFIG_GLOBAL_FLAG_TIMERNEXT)

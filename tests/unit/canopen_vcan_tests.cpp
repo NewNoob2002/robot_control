@@ -337,7 +337,7 @@ int main() {
         CHECK("P55-TPDO-002", same_raw_frame(snapshot.tpdo[index], tpdo[index]));
         print_observation(std::string{"tpdo"} + std::to_string(index + 1U), snapshot.tpdo[index]);
     }
-    CHECK("P55-SDO-001", !snapshot.sdo_result.present);
+    CHECK("P55-SDO-001", !snapshot.sdo_result.frame.present);
 
     CHECK("P55-ORDER-001", snapshot.boot.raw.received_at <= snapshot.heartbeat.frame.raw.received_at);
     CHECK("P55-ORDER-001", snapshot.heartbeat.frame.raw.received_at <= snapshot.emergency.frame.raw.received_at);
