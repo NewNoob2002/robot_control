@@ -5,9 +5,11 @@
 #include <linux/can/raw.h>
 #include <net/if.h>
 #include <sys/epoll.h>
+#include <sys/ioctl.h>
 #include <sys/socket.h>
 
 #include <algorithm>
+#include <array>
 #include <cerrno>
 #include <csignal>
 #include <cstdint>
@@ -20,6 +22,8 @@ namespace robot_control::communication::canopen {
 namespace {
 
 constexpr std::uint32_t process_interval_us = 1'000U;
+constexpr auto interface_check_interval = std::chrono::milliseconds{10};
+constexpr canid_t exact_standard_filter_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG;
 
 /** Pinned error details kept together to prevent argument-order mistakes. */
 struct UpstreamFailure {
@@ -65,6 +69,40 @@ RawCanopenFrame raw_frame(const can_frame& frame, const std::chrono::steady_cloc
 bool same_frame(const can_frame& peeked, const CO_CANrxMsg_t& consumed) noexcept {
     return consumed.ident == peeked.can_id && consumed.DLC == peeked.can_dlc
            && std::equal(std::begin(consumed.data), std::end(consumed.data), std::begin(peeked.data));
+}
+
+/** Require one named CAN interface to remain administratively up. */
+platform::linux::Status require_interface_up(const int descriptor, const StackConfig& config) noexcept {
+    ifreq request{};
+    std::copy(config.interface_name.begin(), config.interface_name.end(), request.ifr_name);
+    errno = 0;
+    if (::ioctl(descriptor, SIOCGIFFLAGS, &request) != 0) {
+        return platform::linux::Status::from_errno("ioctl(SIOCGIFFLAGS)", identity_context(config), errno);
+    }
+    if ((request.ifr_flags & IFF_UP) == 0) {
+        return platform::linux::Status::from_errno("ioctl(SIOCGIFFLAGS)", identity_context(config) + " state=down",
+                                                   ENETDOWN);
+    }
+    return platform::linux::Status::success();
+}
+
+/** Install the exact one-peer receive set needed by the observation owner. */
+platform::linux::Status install_observation_filters(const int descriptor, const StackConfig& config) noexcept {
+    const std::array<can_filter, 8> filters{{
+        {.can_id = 0x000U, .can_mask = exact_standard_filter_mask},
+        {.can_id = 0x080U + config.remote_node_id, .can_mask = exact_standard_filter_mask},
+        {.can_id = 0x180U + config.remote_node_id, .can_mask = exact_standard_filter_mask},
+        {.can_id = 0x280U + config.remote_node_id, .can_mask = exact_standard_filter_mask},
+        {.can_id = 0x380U + config.remote_node_id, .can_mask = exact_standard_filter_mask},
+        {.can_id = 0x480U + config.remote_node_id, .can_mask = exact_standard_filter_mask},
+        {.can_id = 0x580U + config.remote_node_id, .can_mask = exact_standard_filter_mask},
+        {.can_id = 0x700U + config.remote_node_id, .can_mask = exact_standard_filter_mask},
+    }};
+    errno = 0;
+    if (::setsockopt(descriptor, SOL_CAN_RAW, CAN_RAW_FILTER, filters.data(), sizeof(filters)) != 0) {
+        return platform::linux::Status::from_errno("setsockopt(CAN_RAW_FILTER)", identity_context(config), errno);
+    }
+    return platform::linux::Status::success();
 }
 
 } // namespace
@@ -156,6 +194,11 @@ platform::linux::Status Lifecycle::reopen() noexcept {
         storage_->prepare_communication_reset();
         return platform::linux::Status::from_errno("CO_CANinit", context + " interface_count", EPROTO);
     }
+    auto interface_status = require_interface_up(module->CANinterfaces[0].fd, config);
+    if (!interface_status.ok()) {
+        storage_->prepare_communication_reset();
+        return interface_status;
+    }
     constexpr can_err_mask_t error_mask = CAN_ERR_MASK;
     errno = 0;
     if (::setsockopt(module->CANinterfaces[0].fd, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &error_mask, sizeof(error_mask))
@@ -198,6 +241,12 @@ platform::linux::Status Lifecycle::reopen() noexcept {
         return platform::linux::Status::from_errno("CO_CANsetNormalMode", context + " upstream=void",
                                                    saved_errno == 0 ? EIO : saved_errno);
     }
+    auto filter_status = install_observation_filters(module->CANinterfaces[0].fd, config);
+    if (!filter_status.ok()) {
+        storage_->prepare_communication_reset();
+        return filter_status;
+    }
+    next_interface_check_ = std::chrono::steady_clock::now() + interface_check_interval;
     return platform::linux::Status::success();
 }
 
@@ -281,6 +330,26 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
                 return RunResult::failure(status);
             }
             continue;
+        }
+
+        const auto interface_check_time = std::chrono::steady_clock::now();
+        if (interface_check_time >= next_interface_check_) {
+            next_interface_check_ = interface_check_time + interface_check_interval;
+            const auto* const module = storage_->stack()->CANmodule;
+            const auto interface_status =
+                module->CANinterfaceCount == 1U
+                    ? require_interface_up(module->CANinterfaces[0].fd, storage_->config())
+                    : platform::linux::Status::from_errno("check_can_interface", identity_context(storage_->config()),
+                                                          EPROTO);
+            if (!interface_status.ok()) {
+                epoll_.epoll_new = false;
+                CO_epoll_processLast(&epoll_);
+                const auto status = reopen();
+                if (!status.ok()) {
+                    return RunResult::failure(status);
+                }
+                continue;
+            }
         }
 
         const auto receive_status = process_receive_event(std::chrono::steady_clock::now());

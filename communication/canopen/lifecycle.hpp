@@ -60,8 +60,9 @@ class Lifecycle final {
     /**
    * Process CANopen until a monotonic deadline, termination signal, or reset.
    *
-   * Communication reset and endpoint error/hangup perform one bounded reopen
-   * attempt and continue only when observation has been restored.
+   * Communication reset, endpoint error/hangup, and a 10 ms administrative
+   * link-state check perform one bounded reopen attempt and continue only when
+   * observation has been restored.
    *
    * @param deadline Absolute steady-clock deadline.
    * @return Exit reason, or a context-rich processing/reopen failure.
@@ -95,6 +96,8 @@ class Lifecycle final {
     ObservationStore observations_;
     platform::linux::process::TerminationEvent* termination_{nullptr};
     CO_epoll_t epoll_{};
+    /** Next bounded administrative interface-state check. */
+    std::chrono::steady_clock::time_point next_interface_check_{};
 };
 
 } // namespace robot_control::communication::canopen

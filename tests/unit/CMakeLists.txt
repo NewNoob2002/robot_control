@@ -14,6 +14,19 @@ target_link_libraries(
           robot_control_project_warnings)
 add_test(NAME canopen_stack_build COMMAND robot_control_canopen_stack_tests)
 
+add_executable(robot_control_canopen_vcan_tests canopen_vcan_tests.cpp
+                                              canopen_test_log_stub.c)
+target_link_libraries(
+  robot_control_canopen_vcan_tests
+  PRIVATE robot_control_communication_canopen robot_control_platform_linux
+          robot_control_project_options robot_control_project_warnings)
+add_test(
+  NAME canopen_vcan_managed
+  COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+          $<TARGET_FILE:robot_control_canopen_vcan_tests>)
+set_tests_properties(canopen_vcan_managed PROPERTIES SKIP_RETURN_CODE 77
+                                                     TIMEOUT 10)
+
 add_executable(robot_control_socketcan_frame_tests socketcan_frame_tests.cpp)
 target_link_libraries(
   robot_control_socketcan_frame_tests
