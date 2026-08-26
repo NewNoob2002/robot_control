@@ -36,8 +36,8 @@ target_include_directories(
   PUBLIC ${PROJECT_SOURCE_DIR}/components/CANopenLinux ${canopen_node_dir}
          ${CMAKE_CURRENT_SOURCE_DIR}/od)
 
-add_library(robot_control_communication_canopen lifecycle.cpp stack_config.cpp
-                                                stack_storage.cpp)
+add_library(robot_control_communication_canopen lifecycle.cpp observation.cpp
+                                                stack_config.cpp stack_storage.cpp)
 target_include_directories(robot_control_communication_canopen
                            PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(

@@ -3,6 +3,7 @@
 #include "platform/linux/error.hpp"
 
 #include <chrono>
+#include <array>
 #include <cstdint>
 #include <string>
 
@@ -16,6 +17,8 @@ struct StackConfig {
   std::uint16_t bit_rate_kbit_s{500};
   std::chrono::milliseconds heartbeat_timeout{0};
   std::chrono::milliseconds sdo_timeout{0};
+  std::chrono::milliseconds tpdo_timeout{0};
+  std::array<std::uint8_t, 4> tpdo_expected_dlc{};
 };
 
 /**

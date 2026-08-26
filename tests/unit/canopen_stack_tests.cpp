@@ -1,18 +1,22 @@
 #include "communication/canopen/CO_driver_custom.h"
 #include "communication/canopen/lifecycle.hpp"
+#include "communication/canopen/observation.hpp"
 #include "communication/canopen/stack_storage.hpp"
 #include "platform/linux/process/termination_event.hpp"
 #include "platform/linux/unique_fd.hpp"
 
 #include <dirent.h>
 #include <fcntl.h>
+#include <linux/can.h>
 #include <linux/if.h>
 
+#include <algorithm>
 #include <array>
 #include <cerrno>
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
+#include <initializer_list>
 #include <limits>
 #include <memory>
 #include <string>
@@ -22,6 +26,10 @@ namespace {
 
 using namespace std::chrono_literals;
 using robot_control::communication::canopen::Lifecycle;
+using robot_control::communication::canopen::ObservationGeneration;
+using robot_control::communication::canopen::ObservationStore;
+using robot_control::communication::canopen::RawCanopenFrame;
+using robot_control::communication::canopen::RemoteNmtState;
 using robot_control::communication::canopen::StackConfig;
 using robot_control::communication::canopen::StackStorage;
 using robot_control::communication::canopen::validate_stack_config;
@@ -83,7 +91,27 @@ StackConfig valid_config(std::string interface_name = "can0",
       .bit_rate_kbit_s = 500U,
       .heartbeat_timeout = 1000ms,
       .sdo_timeout = 500ms,
+      .tpdo_timeout = 100ms,
+      .tpdo_expected_dlc = {8U, 0U, 0U, 0U},
   };
+}
+
+/** Build one raw observation frame with deterministic unused payload bytes. */
+RawCanopenFrame raw_frame(
+    const std::uint32_t identifier, const std::uint8_t dlc,
+    const std::initializer_list<std::uint8_t> payload,
+    const std::chrono::steady_clock::time_point received_at,
+    const ObservationGeneration generation) {
+  RawCanopenFrame frame{
+      .identifier = identifier,
+      .dlc = dlc,
+      .received_at = received_at,
+      .generation = generation,
+  };
+  std::copy_n(payload.begin(),
+              std::min(payload.size(), frame.payload.size()),
+              frame.payload.begin());
+  return frame;
 }
 
 /** Return whether every generated OD entry has no installed extension. */
@@ -161,13 +189,197 @@ void test_validation() {
     config = valid_config();
     config.sdo_timeout = timeout;
     CHECK("CANOPEN-CONFIG-014", !validate_stack_config(config).ok());
+    config = valid_config();
+    config.tpdo_timeout = timeout;
+    CHECK("CANOPEN-CONFIG-016", !validate_stack_config(config).ok());
   }
   for (const auto timeout : {1ms, 65535ms}) {
     config = valid_config();
     config.heartbeat_timeout = timeout;
     config.sdo_timeout = timeout;
+    config.tpdo_timeout = timeout;
     CHECK("CANOPEN-CONFIG-015", validate_stack_config(config).ok());
   }
+  config = valid_config();
+  config.tpdo_expected_dlc[2] = 9U;
+  CHECK("CANOPEN-CONFIG-017", !validate_stack_config(config).ok());
+}
+
+/** Verify boot, freshness, malformed, replay, error, and reset contracts. */
+void test_observation_contract() {
+  const auto start = std::chrono::steady_clock::time_point{10s};
+  ObservationStore observations{valid_config()};
+  auto snapshot = observations.snapshot(start);
+  CHECK("CANOPEN-OBS-001", snapshot.version == 0U);
+  CHECK("CANOPEN-OBS-002", snapshot.generation == ObservationGeneration{});
+  CHECK("CANOPEN-OBS-003", !snapshot.boot_observed);
+
+  observations.begin_transport();
+  const auto first_generation = observations.generation();
+  CHECK("CANOPEN-OBS-004", first_generation.transport == 1U);
+  CHECK("CANOPEN-OBS-005", first_generation.boot == 0U);
+
+  observations.ingest(
+      raw_frame(0x701U, 1U, {0x05U}, start, first_generation), start);
+  snapshot = observations.snapshot(start);
+  CHECK("CANOPEN-OBS-006", !snapshot.heartbeat.frame.current);
+  CHECK("CANOPEN-OBS-007", !snapshot.nmt.current);
+
+  observations.ingest(
+      raw_frame(0x701U, 1U, {0x00U}, start + 1ms, first_generation),
+      start + 1ms);
+  const auto boot_generation = observations.generation();
+  snapshot = observations.snapshot(start + 1ms);
+  CHECK("CANOPEN-OBS-008", boot_generation.transport == 1U);
+  CHECK("CANOPEN-OBS-009", boot_generation.boot == 1U);
+  CHECK("CANOPEN-OBS-010", snapshot.boot_observed);
+  CHECK("CANOPEN-OBS-011", snapshot.boot.current);
+  CHECK("CANOPEN-OBS-012", snapshot.nmt.current);
+  CHECK("CANOPEN-OBS-013",
+        snapshot.nmt.state == RemoteNmtState::initializing);
+
+  observations.ingest(
+      raw_frame(0x701U, 1U, {0x05U}, start + 2ms, boot_generation),
+      start + 2ms);
+  observations.ingest(raw_frame(0x181U, 8U,
+                                {0x00U, 0x14U, 0x00U, 0x14U, 0U, 0U, 0U, 0U},
+                                start + 3ms, boot_generation),
+                      start + 3ms);
+  snapshot = observations.snapshot(start + 3ms);
+  CHECK("CANOPEN-OBS-014", snapshot.heartbeat.frame.current);
+  CHECK("CANOPEN-OBS-015",
+        snapshot.nmt.state == RemoteNmtState::operational);
+  CHECK("CANOPEN-OBS-016", snapshot.tpdo[0].current);
+  CHECK("CANOPEN-OBS-017", snapshot.tpdo[0].raw.payload[1] == 0x14U);
+  CHECK("CANOPEN-OBS-018", !snapshot.tpdo[1].current);
+  observations.ingest(
+      raw_frame(0x281U, 0U, {}, start + 3ms, boot_generation),
+      start + 3ms);
+  snapshot = observations.snapshot(start + 3ms);
+  CHECK("CANOPEN-OBS-050", snapshot.tpdo[1].current);
+
+  observations.ingest(raw_frame(0x281U, 1U, {0xAAU}, start + 4ms,
+                                boot_generation),
+                      start + 4ms);
+  snapshot = observations.snapshot(start + 4ms);
+  CHECK("CANOPEN-OBS-024", snapshot.malformed_count == 1U);
+  CHECK("CANOPEN-OBS-025", snapshot.malformed.present);
+  CHECK("CANOPEN-OBS-026", !snapshot.tpdo[1].current);
+  CHECK("CANOPEN-OBS-027", snapshot.tpdo[0].current);
+
+  observations.ingest(raw_frame(0x081U, 8U,
+                                {0x10U, 0x23U, 0x04U, 0x07U, 0x78U, 0x56U,
+                                 0x34U, 0x12U},
+                                start + 5ms, boot_generation),
+                      start + 5ms);
+  snapshot = observations.snapshot(start + 5ms);
+  CHECK("CANOPEN-OBS-028", snapshot.emergency.frame.current);
+  CHECK("CANOPEN-OBS-029", snapshot.emergency.error_code == 0x2310U);
+  CHECK("CANOPEN-OBS-030", snapshot.emergency.error_register == 0x04U);
+  CHECK("CANOPEN-OBS-031", snapshot.emergency.error_bit == 0x07U);
+  CHECK("CANOPEN-OBS-032", snapshot.emergency.info_code == 0x12345678U);
+
+  observations.ingest(
+      raw_frame(0x081U, 3U, {1U, 2U, 3U}, start + 6ms, boot_generation),
+      start + 6ms);
+  snapshot = observations.snapshot(start + 6ms);
+  CHECK("CANOPEN-OBS-033", !snapshot.emergency.frame.current);
+  CHECK("CANOPEN-OBS-034", snapshot.malformed_count == 2U);
+
+  observations.ingest(raw_frame(0x701U, 1U, {0x04U}, start + 20ms,
+                                boot_generation),
+                      start + 10ms);
+  snapshot = observations.snapshot(start + 10ms);
+  CHECK("CANOPEN-OBS-035", snapshot.future_timestamp_count == 1U);
+  CHECK("CANOPEN-OBS-036", !snapshot.heartbeat.frame.current);
+
+  const auto before_replay_version = snapshot.version;
+  observations.ingest(
+      raw_frame(0x181U, 8U, {}, start + 11ms, first_generation),
+      start + 11ms);
+  snapshot = observations.snapshot(start + 11ms);
+  CHECK("CANOPEN-OBS-037", snapshot.replay_count == 1U);
+  CHECK("CANOPEN-OBS-038", snapshot.version > before_replay_version);
+
+  observations.ingest(
+      raw_frame(CAN_ERR_FLAG | 0x04U, 8U, {0U}, start + 12ms,
+                boot_generation),
+      start + 12ms);
+  const auto error_generation = observations.generation();
+  snapshot = observations.snapshot(start + 12ms);
+  CHECK("CANOPEN-OBS-039", error_generation.transport == 2U);
+  CHECK("CANOPEN-OBS-040", error_generation.boot == 0U);
+  CHECK("CANOPEN-OBS-041", snapshot.can_error.present);
+  CHECK("CANOPEN-OBS-042", !snapshot.boot_observed);
+  CHECK("CANOPEN-OBS-043", !snapshot.tpdo[0].current);
+
+  observations.ingest(
+      raw_frame(0x701U, 1U, {0x05U}, start + 13ms, error_generation),
+      start + 13ms);
+  snapshot = observations.snapshot(start + 13ms);
+  CHECK("CANOPEN-OBS-044", !snapshot.heartbeat.frame.current);
+
+  observations.begin_transport();
+  const auto reopened_generation = observations.generation();
+  snapshot = observations.snapshot(start + 14ms);
+  CHECK("CANOPEN-OBS-045", reopened_generation.transport == 3U);
+  CHECK("CANOPEN-OBS-046", !snapshot.boot_observed);
+  CHECK("CANOPEN-OBS-047", !snapshot.sdo_result.current);
+  observations.ingest(
+      raw_frame(0x181U, 8U, {}, start + 14ms, boot_generation),
+      start + 14ms);
+  snapshot = observations.snapshot(start + 14ms);
+  CHECK("CANOPEN-OBS-053", snapshot.replay_count == 2U);
+  CHECK("CANOPEN-OBS-054", snapshot.generation == reopened_generation);
+  CHECK("CANOPEN-OBS-055", !snapshot.tpdo[0].current);
+
+  const auto immutable_copy = snapshot;
+  observations.ingest(
+      raw_frame(0x701U, 1U, {0x00U}, start + 15ms, reopened_generation),
+      start + 15ms);
+  CHECK("CANOPEN-OBS-048", immutable_copy.generation == reopened_generation);
+  CHECK("CANOPEN-OBS-049", !immutable_copy.boot_observed);
+}
+
+/** Verify inclusive monotonic deadlines create one versioned invalidation. */
+void test_observation_freshness() {
+  const auto start = std::chrono::steady_clock::time_point{20s};
+  ObservationStore observations{valid_config()};
+  observations.begin_transport();
+  const auto initial_generation = observations.generation();
+  observations.ingest(
+      raw_frame(0x701U, 1U, {0x00U}, start, initial_generation), start);
+  const auto generation = observations.generation();
+  observations.ingest(
+      raw_frame(0x701U, 1U, {0x05U}, start + 1ms, generation),
+      start + 1ms);
+  observations.ingest(
+      raw_frame(0x181U, 8U, {}, start + 2ms, generation), start + 2ms);
+
+  auto snapshot = observations.snapshot(start + 102ms);
+  const auto before_tpdo_timeout = snapshot.version;
+  observations.advance_time(start + 102ms);
+  snapshot = observations.snapshot(start + 102ms);
+  CHECK("CANOPEN-OBS-019", snapshot.tpdo[0].current);
+  CHECK("CANOPEN-OBS-020", snapshot.version == before_tpdo_timeout);
+
+  observations.advance_time(start + 102ms + 1ns);
+  snapshot = observations.snapshot(start + 102ms + 1ns);
+  CHECK("CANOPEN-OBS-021", !snapshot.tpdo[0].current);
+  CHECK("CANOPEN-OBS-022", snapshot.heartbeat.frame.current);
+  CHECK("CANOPEN-OBS-023", snapshot.version > before_tpdo_timeout);
+
+  const auto before_heartbeat_timeout = snapshot.version;
+  observations.advance_time(start + 1001ms);
+  snapshot = observations.snapshot(start + 1001ms);
+  CHECK("CANOPEN-OBS-051", snapshot.heartbeat.frame.current);
+  CHECK("CANOPEN-OBS-052", snapshot.version == before_heartbeat_timeout);
+
+  observations.advance_time(start + 1001ms + 1ns);
+  snapshot = observations.snapshot(start + 1001ms + 1ns);
+  CHECK("CANOPEN-OBS-056", !snapshot.heartbeat.frame.current);
+  CHECK("CANOPEN-OBS-057", !snapshot.nmt.current);
+  CHECK("CANOPEN-OBS-058", snapshot.version > before_heartbeat_timeout);
 }
 
 /** Verify allocation, exact active counts, OD values, and no CAN activation. */
@@ -362,6 +574,8 @@ void test_lifecycle_startup_failure() {
 /** Run the host-only minimal CANopen allocation contract. */
 int main() {
   test_validation();
+  test_observation_contract();
+  test_observation_freshness();
   test_storage();
   test_transmit_gate();
   test_lifecycle_startup_failure();

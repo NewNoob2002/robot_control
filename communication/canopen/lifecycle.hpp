@@ -1,5 +1,6 @@
 #pragma once
 
+#include "communication/canopen/observation.hpp"
 #include "communication/canopen/stack_storage.hpp"
 #include "platform/linux/process/termination_event.hpp"
 
@@ -69,6 +70,16 @@ class Lifecycle final {
    */
     [[nodiscard]] RunResult run_until(std::chrono::steady_clock::time_point deadline) noexcept;
 
+    /**
+     * Copy the latest coherent remote observation at the supplied monotonic time.
+     *
+     * @param now Reader monotonic time used to evaluate freshness.
+     * @return Immutable value copy with stale records marked non-current.
+     *
+     * Thread safety: Safe for concurrent readers while the owner loop runs.
+     */
+    [[nodiscard]] ObservationSnapshot observation_snapshot(std::chrono::steady_clock::time_point now) const noexcept;
+
   private:
     /** Construct an inactive owner from already claimed resources. */
     Lifecycle(std::unique_ptr<StackStorage> storage, platform::linux::process::TerminationEvent& termination) noexcept;
@@ -76,7 +87,12 @@ class Lifecycle final {
     /** Return true when the current epoll event reports endpoint loss. */
     [[nodiscard]] bool endpoint_lost() const noexcept;
 
+    /** Peek, consume, verify, and record one current CAN receive event. */
+    [[nodiscard]] platform::linux::Status
+    process_receive_event(std::chrono::steady_clock::time_point received_at) noexcept;
+
     std::unique_ptr<StackStorage> storage_{};
+    ObservationStore observations_;
     platform::linux::process::TerminationEvent* termination_{nullptr};
     CO_epoll_t epoll_{};
 };

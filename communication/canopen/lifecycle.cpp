@@ -1,11 +1,17 @@
 #include "communication/canopen/lifecycle.hpp"
 
+#include <linux/can.h>
+#include <linux/can/error.h>
+#include <linux/can/raw.h>
 #include <net/if.h>
 #include <sys/epoll.h>
+#include <sys/socket.h>
 
+#include <algorithm>
 #include <cerrno>
 #include <csignal>
 #include <cstdint>
+#include <limits>
 #include <new>
 #include <string>
 #include <utility>
@@ -42,11 +48,30 @@ platform::linux::Status upstream_status(const char* operation, const StackConfig
                                                error_number);
 }
 
+/** Convert one Linux Classical CAN frame into the raw observation contract. */
+RawCanopenFrame raw_frame(const can_frame& frame, const std::chrono::steady_clock::time_point received_at,
+                          const ObservationGeneration generation) noexcept {
+    RawCanopenFrame raw{
+        .identifier = frame.can_id,
+        .dlc = frame.can_dlc,
+        .received_at = received_at,
+        .generation = generation,
+    };
+    std::copy_n(frame.data, raw.payload.size(), raw.payload.begin());
+    return raw;
+}
+
+/** Return whether the pinned driver copied the same matched frame that was peeked. */
+bool same_frame(const can_frame& peeked, const CO_CANrxMsg_t& consumed) noexcept {
+    return consumed.ident == peeked.can_id && consumed.DLC == peeked.can_dlc
+           && std::equal(std::begin(consumed.data), std::end(consumed.data), std::begin(peeked.data));
+}
+
 } // namespace
 
 Lifecycle::Lifecycle(std::unique_ptr<StackStorage> storage,
                      platform::linux::process::TerminationEvent& termination) noexcept
-    : storage_{std::move(storage)}, termination_{&termination} {
+    : storage_{std::move(storage)}, observations_{storage_->config()}, termination_{&termination} {
     epoll_.epoll_fd = -1;
     epoll_.event_fd = -1;
     epoll_.timer_fd = -1;
@@ -101,6 +126,7 @@ Lifecycle::~Lifecycle() {
 }
 
 platform::linux::Status Lifecycle::reopen() noexcept {
+    observations_.begin_transport();
     storage_->prepare_communication_reset();
     const auto& config = storage_->config();
     const auto context = identity_context(config);
@@ -123,6 +149,20 @@ platform::linux::Status Lifecycle::reopen() noexcept {
         const int saved_errno = errno;
         storage_->prepare_communication_reset();
         return upstream_status("CO_CANinit", config, {.error = error, .error_info = 0U, .error_number = saved_errno});
+    }
+
+    auto* const module = storage_->stack()->CANmodule;
+    if (module->CANinterfaceCount != 1U) {
+        storage_->prepare_communication_reset();
+        return platform::linux::Status::from_errno("CO_CANinit", context + " interface_count", EPROTO);
+    }
+    constexpr can_err_mask_t error_mask = CAN_ERR_MASK;
+    errno = 0;
+    if (::setsockopt(module->CANinterfaces[0].fd, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &error_mask, sizeof(error_mask))
+        != 0) {
+        const int saved_errno = errno;
+        storage_->prepare_communication_reset();
+        return platform::linux::Status::from_errno("setsockopt(CAN_RAW_ERR_FILTER)", context, saved_errno);
     }
 
     std::uint32_t error_info = 0U;
@@ -167,6 +207,44 @@ bool Lifecycle::endpoint_lost() const noexcept {
            && (epoll_.ev.events & static_cast<std::uint32_t>(EPOLLERR | EPOLLHUP)) != 0U;
 }
 
+platform::linux::Status
+Lifecycle::process_receive_event(const std::chrono::steady_clock::time_point received_at) noexcept {
+    auto* const module = storage_->stack()->CANmodule;
+    if (!epoll_.epoll_new || module->CANinterfaceCount != 1U || epoll_.ev.data.fd != module->CANinterfaces[0].fd
+        || (epoll_.ev.events & static_cast<std::uint32_t>(EPOLLIN)) == 0U) {
+        return platform::linux::Status::success();
+    }
+
+    const auto context = identity_context(storage_->config());
+    can_frame peeked{};
+    errno = 0;
+    const auto received = ::recv(epoll_.ev.data.fd, &peeked, sizeof(peeked), MSG_PEEK | MSG_DONTWAIT);
+    if (received != static_cast<ssize_t>(sizeof(peeked))) {
+        return platform::linux::Status::from_errno("recv(MSG_PEEK)", context + " resource=can_frame",
+                                                   received < 0 ? errno : EIO);
+    }
+
+    CO_CANrxMsg_t consumed{};
+    constexpr auto unset_index = std::numeric_limits<std::int32_t>::min();
+    std::int32_t message_index = unset_index;
+    if (!CO_CANrxFromEpoll(module, &epoll_.ev, &consumed, &message_index)) {
+        return platform::linux::Status::from_errno("CO_CANrxFromEpoll", context + " event_fd_mismatch", EPROTO);
+    }
+    epoll_.epoll_new = false;
+
+    if ((peeked.can_id & CAN_ERR_FLAG) == 0U) {
+        if (message_index == unset_index) {
+            return platform::linux::Status::from_errno("CO_CANrxFromEpoll", context + " receive_result_missing", EIO);
+        }
+        if (message_index >= 0 && !same_frame(peeked, consumed)) {
+            return platform::linux::Status::from_errno("CO_CANrxFromEpoll", context + " peek_consume_mismatch", EPROTO);
+        }
+    }
+
+    observations_.ingest(raw_frame(peeked, received_at, observations_.generation()), received_at);
+    return platform::linux::Status::success();
+}
+
 Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_point deadline) noexcept {
     while (true) {
         if (std::chrono::steady_clock::now() >= deadline) {
@@ -205,6 +283,13 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
             continue;
         }
 
+        const auto receive_status = process_receive_event(std::chrono::steady_clock::now());
+        if (!receive_status.ok()) {
+            CO_epoll_processLast(&epoll_);
+            return RunResult::failure(receive_status);
+        }
+        observations_.advance_time(std::chrono::steady_clock::now());
+
         CO_epoll_processRT(&epoll_, storage_->stack(), false);
         CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
         CO_epoll_processMain(&epoll_, storage_->stack(), false, &reset);
@@ -221,6 +306,10 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
             return RunResult::success(LifecycleExit::quit);
         }
     }
+}
+
+ObservationSnapshot Lifecycle::observation_snapshot(const std::chrono::steady_clock::time_point now) const noexcept {
+    return observations_.snapshot(now);
 }
 
 } // namespace robot_control::communication::canopen

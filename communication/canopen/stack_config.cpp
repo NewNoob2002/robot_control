@@ -56,6 +56,14 @@ validate_stack_config(const StackConfig &config) noexcept {
       config.sdo_timeout > maximum_timeout) {
     return invalid("sdo_timeout");
   }
+  if (config.tpdo_timeout <= std::chrono::milliseconds::zero() ||
+      config.tpdo_timeout > maximum_timeout) {
+    return invalid("tpdo_timeout");
+  }
+  if (std::ranges::any_of(config.tpdo_expected_dlc,
+                          [](const std::uint8_t dlc) { return dlc > 8U; })) {
+    return invalid("tpdo_expected_dlc");
+  }
   return platform::linux::Status::success();
 }
 
