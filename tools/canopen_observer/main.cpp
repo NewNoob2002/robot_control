@@ -42,8 +42,8 @@ struct Options {
 
 /** Print the explicit normal-observer configuration syntax. */
 void print_usage() {
-    std::cout << "Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N \\n"
-                 "       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N \\n"
+    std::cout << "Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N\n"
+                 "       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N\n"
                  "       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]\n";
 }
 
