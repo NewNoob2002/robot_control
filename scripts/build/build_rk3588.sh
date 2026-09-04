@@ -3,6 +3,7 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 readonly repo_root
+"${repo_root}/scripts/build/verify_canopen_dependencies.sh"
 
 sysroot="${ROBOT_CONTROL_SYSROOT:-}"
 preset="${ROBOT_CONTROL_PRESET:-rk3588-release}"

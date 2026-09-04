@@ -1,7 +1,7 @@
 schema_version=2
 image_name=rk3588-cross
 image_tag=phase1-20260814
-image_id=sha256:682f8ed4409ffc8b68053d325ddaf98870e5e1d86f250141acc50eee3ef729e8
+image_id=sha256:f2198e31e27c084bc2deff761e124fa9d7ce580a8d986c7885fd62bb1701e7dd
 container_name=rk3588-dev
 base_image=ubuntu:22.04@sha256:3b06811b2afd352be909dd088a004166d665dc76d38b13eada33522a9d915c6f
 ubuntu_snapshot=20260814T000000Z

@@ -1,0 +1,14 @@
+2026-09-04T03:17:12.133475117Z
+Linux lubancat 6.1.84 #1 SMP Fri Jul  3 10:19:32 CST 2026 aarch64 aarch64 aarch64 GNU/Linux
+driver: rockchip_canfd
+version: 6.1.84
+firmware-version: 
+expansion-rom-version: 
+bus-info: fea60000.can
+supports-statistics: no
+supports-test: no
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: no
+/sys/bus/platform/drivers/rockchip_canfd
+of:NcanT(null)Crockchip,can-2.0

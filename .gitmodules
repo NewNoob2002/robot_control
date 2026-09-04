@@ -1,0 +1,3 @@
+[submodule "components/CANopenLinux"]
+	path = components/CANopenLinux
+	url = https://github.com/CANopenNode/CANopenLinux.git

@@ -70,7 +70,7 @@ public:
    * @return Failed result.
    */
   [[nodiscard]] static Result failure(Status status) {
-    return Result{std::nullopt, std::move(status)};
+    return Result{std::move(status)};
   }
 
   /**
@@ -115,11 +115,10 @@ public:
   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
 
 private:
-  Result(std::optional<T> value, Status status)
-      : value_{std::move(value)}, status_{std::move(status)} {}
-
   Result(T value, Status status)
       : value_{std::move(value)}, status_{std::move(status)} {}
+
+  explicit Result(Status status) : status_{std::move(status)} {}
 
   std::optional<T> value_{};
   Status status_{};

@@ -17,6 +17,13 @@ set(CMAKE_C_EXTENSIONS ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(ROBOT_CONTROL_WARNINGS_AS_ERRORS "Treat project warnings as errors" ON)
+option(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING
+       "Build the Debug-only read-only CANopen commissioning tool" OFF)
+if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
+  if(CMAKE_CONFIGURATION_TYPES OR NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message(FATAL_ERROR "CANopen commissioning requires a single-config Debug build")
+  endif()
+endif()
 
 add_library(robot_control_project_options INTERFACE)
 target_compile_features(robot_control_project_options INTERFACE cxx_std_20)
@@ -40,15 +47,54 @@ endif()
 add_subdirectory(domain)
 add_subdirectory(platform)
 add_subdirectory(service)
+add_subdirectory(communication/canopen)
+add_subdirectory(tools/can_probe)
+add_subdirectory(tools/canopen_observer)
 add_subdirectory(tools/platform_probe)
+if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
+  add_subdirectory(tools/canopen_commission)
+endif()
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
+  # Register an invalid can_probe invocation that must return usage error 2.
+  function(add_can_probe_invalid_cli_test test_name)
+    add_test(
+      NAME ${test_name}
+      COMMAND
+        ${CMAKE_COMMAND}
+        "-DPROGRAM=$<TARGET_FILE:robot-control-can-probe>"
+        "-DPROGRAM_ARGUMENTS=${ARGN}" -DEXPECTED_EXIT_CODE=2 -P
+        "${CMAKE_CURRENT_SOURCE_DIR}/cmake/assert_exit_code.cmake")
+  endfunction()
+
   add_subdirectory(tests/unit)
   add_subdirectory(tests/integration)
   add_test(NAME platform_probe_help COMMAND robot-control-platform-probe --help)
   add_test(NAME platform_probe_run COMMAND robot-control-platform-probe)
   add_test(NAME platform_probe_phase3_smoke
            COMMAND robot-control-platform-probe --phase3-smoke)
+  add_test(NAME can_probe_help COMMAND robot-control-can-probe --help)
+  add_can_probe_invalid_cli_test(can_probe_missing_interface)
+  add_can_probe_invalid_cli_test(can_probe_unknown_argument --unknown)
+  add_can_probe_invalid_cli_test(can_probe_duration_zero --interface unused0
+                                 --duration-ms 0)
+  add_can_probe_invalid_cli_test(can_probe_duration_nonnumeric --interface
+                                 unused0 --duration-ms abc)
+  add_can_probe_invalid_cli_test(
+    can_probe_duration_overflow --interface unused0 --duration-ms
+    9999999999999999999999999999999999999999)
+  add_can_probe_invalid_cli_test(can_probe_duplicate_interface --interface
+                                 unused0 --interface unused1)
+  add_can_probe_invalid_cli_test(can_probe_duplicate_duration --interface
+                                 unused0 --duration-ms 1 --duration-ms 2)
+  add_can_probe_invalid_cli_test(can_probe_interface_missing_value --interface
+                                 --duration-ms 1)
+  add_can_probe_invalid_cli_test(can_probe_duration_missing_value --interface
+                                 unused0 --duration-ms)
+  add_can_probe_invalid_cli_test(can_probe_duration_negative --interface unused0
+                                 --duration-ms -1)
+  set_tests_properties(can_probe_help PROPERTIES PASS_REGULAR_EXPRESSION
+                                                "Usage: robot-control-can-probe")
   set_tests_properties(
     platform_probe_run PROPERTIES PASS_REGULAR_EXPRESSION
                                   "probe_version=1.*machine=")

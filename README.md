@@ -13,7 +13,31 @@ waiting, absolute monotonic timing, synchronous termination events, raw UART,
 and throttled structured logging through EasyLogger. These adapters contain no
 motion policy and are covered by pipe, PTY, signal, timing, sanitizer, and
 cross-build tests.
-SocketCAN and motion-producing integration have not started.
+Phase 4 SocketCAN work provides a policy-free Classical CAN frame codec, a
+move-only nonblocking socket lifecycle with explicit kernel filter/error-mask
+configuration, and complete-frame send/receive with monotonic timeout and
+cancellation. Receive observations also preserve optional raw kernel
+nanosecond timestamps and RX queue overflow counters for diagnostics. The
+passive `robot-control-can-probe` is bounded and emits structured observations.
+A capability-aware isolated runner provides real bidirectional `vcan` frame and
+raw-filter-isolation coverage plus a bounded queue-pressure check that records
+a nonzero raw cumulative `SO_RXQ_OVFL` counter, complete raw CAN error-frame
+preservation, and interface down/up with explicit endpoint reopen evidence,
+while explicitly skipping unsupported hosts. RK3588 passive target validation
+is complete, including ordinary-user deadline/SIGTERM behavior and raw
+ID/DLC/payload/timestamp/overflow preservation under external traffic. Phase 5
+P5.1 through P5.6 are complete: the pinned CANopen dependency pair, minimal
+stack, single-owner lifecycle, immutable observations, managed-vcan receive
+evidence, and isolated Debug-only read-only commissioning path pass their host,
+sanitizer, static, and RK3588 cross gates. P5.7 local qualification, target
+deployment, bounded deadline/SIGTERM, cleanup, and independent zero-transmit
+evidence pass. A final error-enabled HIL run preserved the exact node-1
+read-only SDO 0x601 request and 0x581 response in the target raw capture; the
+normal observer published the response as the expected `sdo_rejected` raw
+observation. Target RXF/RXMF advanced by two, TX remained zero, no error frame
+was observed, and cleanup passed. Phase 5 is complete.
+See
+docs/verification/PHASE5_CANOPEN_BASELINE.md.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
 syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not
@@ -27,6 +51,8 @@ Read these documents before implementation:
 - [Phase 1 build and ABI baseline](docs/build/PHASE1_BUILD_BASELINE.md)
 - [Phase 2 domain baseline](docs/verification/PHASE2_DOMAIN_BASELINE.md)
 - [Phase 3 Linux platform baseline](docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md)
+- [Phase 4 SocketCAN foundation plan](docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md)
+- [Phase 5 non-actuating CANopen integration plan](docs/plans/PHASE5_CANOPEN_INTEGRATION.md)
 - [architecture decisions](docs/decisions/)
 - [legacy behavioral contract](docs/architecture/LEGACY_BEHAVIOR_BASELINE.md)
 - [third-party provenance](third_party/README.md)

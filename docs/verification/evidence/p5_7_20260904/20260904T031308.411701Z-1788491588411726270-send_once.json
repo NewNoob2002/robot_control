@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "serial": "207F346D5650",
+  "operation": "send_once",
+  "data": {
+    "profile": "JCAN physical bus",
+    "rule": "canopen-node1-sdo-upload-2008-00",
+    "nominal_bitrate": 500000,
+    "data_bitrate": 0,
+    "frame": {
+      "id": 1537,
+      "data": "40 08 20 00 00 00 00 00",
+      "fd": false,
+      "remote": false,
+      "brs": false,
+      "extended": false
+    }
+  },
+  "warnings": [],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T031308.411701Z-1788491588411726270-send_once.json"
+}

@@ -1,0 +1,3 @@
+# Preserve raw hardware evidence bytes; device command output may contain
+# meaningful padding or trailing blank records covered by SHA256SUMS.
+docs/verification/evidence/** whitespace=-trailing-space,-blank-at-eof

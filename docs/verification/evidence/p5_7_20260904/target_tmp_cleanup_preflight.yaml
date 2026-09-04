@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T04:20:00Z"
+  operation: "storage-write"
+  authorization: "User requested cleanup of test-generated garbage and temporary files after Phase 5 closure."
+  target:
+    board: "RK3588 lubancat"
+    hardware_revision: "unknown"
+    probe_or_adapter_serial: "not-applicable"
+    transport: "network"
+  artifact_or_stimulus: "Delete only the inventoried /tmp/robot_control_p57_* logs and /tmp/robot-control-canopen-observer-0d32ca9 after their necessary evidence copies passed SHA-256 verification."
+  limits: "Explicit inventoried regular files only; no recursive deletion, glob-expanded broad target, service, network, CAN, or production path change."
+  recovery_plan: "Repository evidence copies and SHA256SUMS remain authoritative; rebuild the observer from revision 0d32ca9 if restaging is later required."
+  approved: true

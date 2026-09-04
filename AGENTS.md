@@ -6,16 +6,45 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 
 ## Current State
 
-- Phases 0 through 3 are complete. Phase 2 provides pure command, arbitration,
+- Phases 0 through 4 are complete. Phase 2 provides pure command, arbitration,
   safety, and CiA402 domain libraries; Phase 3 provides policy-free Linux fd,
   poll, monotonic timer, signal, UART, and logging adapters. Host build, test,
-  and static-check CI is implemented. SocketCAN, CANopen integration,
-  cross/HIL/release CI, packaging, and deploy service are not implemented.
-- `components/CANopenNode/` remains an unversioned baseline snapshot.
-  EasyLogger's checksum-pinned core subset is integrated behind
-  `service/logging`; replacing the mixed snapshot with a clean immutable
-  upstream checkout remains release work. Provenance is recorded in
-  `third_party/README.md`.
+  and static-check CI is implemented. Phase 4 SocketCAN work provides the
+  policy-free Classical CAN frame codec, socket lifecycle, and basic frame
+  send/receive with monotonic timeout and cancellation, plus optional raw
+  kernel timestamp and RX queue overflow receive metadata, and receive-only
+  `can_probe`. Managed namespace-local bidirectional `vcan` frame evidence, raw
+  filter isolation, and nonzero raw cumulative `SO_RXQ_OVFL` evidence are
+  complete, along with namespace-local CAN error-frame runtime evidence and
+  interface down/up with explicit endpoint reopen evidence. RK3588 passive
+  target validation is complete. P5.1 is complete: it replaces the mixed
+  CANopenNode snapshot with the exact CANopenLinux/CANopenNode recursive
+  submodule pair selected by
+  ADR-0002 and verifies it before normal builds, recursive snapshots, and clean
+  RK3588 Debug/Release cross builds. P5.2 is complete: it builds the reviewed
+  minimal CANopenLinux/CANopenNode source subset, validates invalid-by-default
+  startup configuration, and owns one inactive fixed OD/stack allocation with
+  host Debug/Release and clean RK3588 Debug/Release evidence. P5.3 through P5.6
+  are complete: the single-owner lifecycle publishes immutable CANopen
+  observations, and managed namespace-local `vcan` proves boot, heartbeat,
+  EMCY, TPDO1..4, exact timeouts, error frames, link loss/reopen, signal exits,
+  same-socket single consumption, and zero normal-operation TX. P5.6 adds a
+  separately enabled Debug-only commissioning artifact whose sole transmit gate
+  permits fixed node-1 NMT inhibit commands and reviewed read-only expedited SDO
+  uploads, with request/attempt correlation, timeout quarantine, one explicit
+  retry, managed-vcan evidence, default-artifact isolation, sanitizers, LLVM, and
+  clean RK3588 cross evidence. P5.7 local, cross, target deployment,
+  deadline/SIGTERM, cleanup, and independent zero-transmit evidence pass. Three
+  separately authorized read-only SDO uploads received the same exact drive
+  response while target TX remained zero. The final error-enabled HIL run
+  preserved the exact 0x601 request and 0x581 response in the target raw
+  capture, and the normal observer published the response as the expected raw
+  `sdo_rejected` observation. RXF/RXMF advanced by two, target TX stayed zero,
+  no error frame was observed, and cleanup passed. Phase 5 is complete. Later
+  HIL/release CI, packaging, and deploy service remain.
+- EasyLogger's checksum-pinned core subset remains integrated behind
+  `service/logging`. CANopen dependency provenance and zero-local-patch status
+  are recorded in `third_party/README.md`.
 - `docs/ZLAC8015D_CANOPEN_NOTES.md` and the vendor PDFs are drive references; statements marked for hardware verification are not safety assumptions.
 - The legacy STM32 project at `~/Desktop/workspace/STM32_PROJ/STM32G474_CANOPEN_Copy` is read-only architectural evidence, not a source tree to copy.
 - Phase 1 build evidence and remaining target validation are recorded in
@@ -24,6 +53,12 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   `docs/verification/PHASE2_DOMAIN_BASELINE.md`.
 - Phase 3 Linux adapter verification is recorded in
   `docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md`.
+- Phase 4 scope and acceptance criteria are recorded in
+  `docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md`.
+- Phase 5 scope and delivery slices are recorded in
+  `docs/plans/PHASE5_CANOPEN_INTEGRATION.md`.
+- P5.6 implementation and verification evidence is recorded in
+  `docs/verification/P5_6_READ_ONLY_COMMISSIONING_BASELINE.md`.
 
 ## Non-Negotiable Architecture
 

@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.0.2
         with:
           persist-credentials: false
+          submodules: recursive
 
       - name: Install host dependencies
         run: |
@@ -61,8 +62,20 @@ jobs:
             scripts/sysroot/generate_content_manifest.py \
             scripts/sysroot/write_sysroot_lock.py
 
-      - name: Build and test host configuration
-        run: ./scripts/build/build_host.sh
+      - name: Verify CANopen dependency pair
+        run: ./scripts/test/test_canopen_dependencies.sh
+
+      - name: Run P5.1 non-SocketCAN host qualification
+        run: ./scripts/build/build_p5_1_host.sh
+
+      - name: Run P5.2 Host Release qualification
+        run: |
+          cmake --preset host-release -S "${GITHUB_WORKSPACE}"
+          cmake --build --preset host-release
+          ctest --preset host-release --exclude-regex '^socketcan_(socket_lifecycle|vcan_managed)$'
+
+      - name: Run Phase 4 SocketCAN regressions
+        run: ctest --preset host-test --tests-regex '^socketcan_(socket_lifecycle|vcan_managed)$'
 
       - name: Run Phase 1 script regressions
         run: ./scripts/test/test_phase1_scripts.sh

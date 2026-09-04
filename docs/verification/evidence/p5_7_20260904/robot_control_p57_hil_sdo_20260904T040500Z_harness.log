@@ -1,0 +1,31 @@
+tag=20260904T040500Z start_utc=2026-09-04T04:06:29.214284482Z observer_pid=10505 raw_pid=10504
+readiness=pass utc=2026-09-04T04:06:30.219490212Z
+
+receive list 'rx_all':
+  (any: no entry)
+  device   can_id   can_mask      function          userdata       matches  ident
+   can0      000    00000000  0000000000000000  0000000000000000         0  raw
+  (can1: no entry)
+
+
+receive list 'rx_sff':
+  (any: no entry)
+  device   can_id   can_mask      function          userdata       matches  ident
+   can0      000    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      081    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      181    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      281    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      381    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      481    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      581    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      701    c00007ff  0000000000000000  0000000000000000         0  raw
+  (can1: no entry)
+
+
+receive list 'rx_err':
+  (any: no entry)
+  device   can_id   can_mask      function          userdata       matches  ident
+   can0      000    1fffffff  0000000000000000  0000000000000000         0  raw
+  (can1: no entry)
+
+end_utc=2026-09-04T04:08:30.218762061Z observer_exit=0 raw_exit=124

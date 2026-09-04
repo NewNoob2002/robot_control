@@ -101,6 +101,46 @@ import sys
 shutil.rmtree(sys.argv[1])
 PY
 
+readonly node_repo="${temp}/node-repo"
+readonly linux_repo="${temp}/linux-repo"
+readonly recursive_snapshot_repo="${temp}/recursive-snapshot-repo"
+for fixture_repo in "${node_repo}" "${linux_repo}" "${recursive_snapshot_repo}"; do
+  git init -q "${fixture_repo}"
+  git -C "${fixture_repo}" config user.name "Robot Control Test"
+  git -C "${fixture_repo}" config user.email \
+    "robot-control-test@example.invalid"
+done
+printf 'CANopenNode fixture\n' >"${node_repo}/CANopen.c"
+git -C "${node_repo}" add CANopen.c
+git -C "${node_repo}" commit -qm 'node fixture'
+
+printf 'CANopenLinux fixture\n' >"${linux_repo}/CO_driver.c"
+git -C "${linux_repo}" add CO_driver.c
+git -C "${linux_repo}" commit -qm 'linux fixture'
+git -C "${linux_repo}" -c protocol.file.allow=always submodule add \
+  "${node_repo}" CANopenNode >/dev/null
+git -C "${linux_repo}" commit -qam 'add nested node fixture'
+
+mkdir -p "${recursive_snapshot_repo}/scripts/build"
+cp "${repo_root}/scripts/build/create_source_snapshot.sh" \
+  "${recursive_snapshot_repo}/scripts/build/create_source_snapshot.sh"
+printf '/out/\n' >"${recursive_snapshot_repo}/.gitignore"
+git -C "${recursive_snapshot_repo}" add .gitignore scripts/build/create_source_snapshot.sh
+git -C "${recursive_snapshot_repo}" commit -qm 'snapshot fixture'
+git -C "${recursive_snapshot_repo}" -c protocol.file.allow=always submodule add \
+  "${linux_repo}" components/CANopenLinux >/dev/null
+git -C "${recursive_snapshot_repo}" commit -qam 'add linux fixture'
+git -C "${recursive_snapshot_repo}" -c protocol.file.allow=always submodule update \
+  --init --recursive >/dev/null
+
+readonly recursive_snapshot_output="${recursive_snapshot_repo}/out/source"
+"${recursive_snapshot_repo}/scripts/build/create_source_snapshot.sh" \
+  "${recursive_snapshot_output}" \
+  "${recursive_snapshot_repo}/out/source-attestation.json" >/dev/null
+test -f "${recursive_snapshot_output}/components/CANopenLinux/CO_driver.c"
+test -f \
+  "${recursive_snapshot_output}/components/CANopenLinux/CANopenNode/CANopen.c"
+
 readonly snapshot_fixture="${temp}/snapshot-fixture"
 mkdir -p "${snapshot_fixture}/scripts/build"
 cp "${repo_root}/scripts/build/create_source_snapshot.sh" \
