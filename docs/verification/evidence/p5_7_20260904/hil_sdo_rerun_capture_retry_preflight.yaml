@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T04:05:00Z"
+  operation: "storage-write"
+  authorization: "Continuation of the user-authorized P5.7 HIL rerun; the first receiver setup failed before stimulus because candump rejects -L with -e."
+  target:
+    board: "RK3588 lubancat"
+    hardware_revision: "unknown"
+    probe_or_adapter_serial: "not-applicable"
+    transport: "network"
+  artifact_or_stimulus: "Bounded logs under /tmp/robot_control_p57_hil_sdo_20260904T040500Z_*"
+  limits: "One 60-second normal observer and one 120-second error-enabled unfiltered candump using compatible -ta -e output; no CAN/network configuration, privilege escalation, service change, or overwrite."
+  recovery_plan: "Wait for or terminate only the named bounded processes, copy logs into the repository evidence bundle, verify no receiver remains, and leave can0 unchanged."
+  approved: true

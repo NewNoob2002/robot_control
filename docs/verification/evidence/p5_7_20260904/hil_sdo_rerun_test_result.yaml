@@ -1,0 +1,19 @@
+test_result:
+  schema_version: 1
+  source_revision: "0d32ca928e6c3969bd8a1007870a10e1b7e5cb27"
+  artifact_checksums:
+    "/tmp/robot-control-canopen-observer-0d32ca9": "288bd769710bed7fc88f32957d7313a06a93e0784806db12286ff3b1d056ac4b"
+  safety_preflight: "hil_sdo_rerun_preflight.yaml"
+  level: "hil"
+  target: "RK3588 lubancat can0 plus CANopen drive node 1 and JCAN 207F346D5650"
+  command: "One jcan_sdo_read node=1 index=0x2008 subindex=0 with bounded target observer and candump -ta -e can0"
+  timing:
+    started_at_utc: "2026-09-04T04:06:29.214284482Z"
+    duration_ms: 121005
+    timeout_ms: 122000
+  attempts: 2
+  passed: true
+  counts: {total: 1, passed: 1, failed: 0, skipped: 0}
+  classified_failures: ["first-receiver-setup-invalid-candump-option-combination-no-stimulus"]
+  log: "hil_sdo_rerun_result.md"
+  requirements: ["P5.7-positive-target-RX", "P5.7-zero-normal-TX"]

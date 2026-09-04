@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "serial": "207F346D5650",
+  "operation": "capture",
+  "data": {
+    "profile": "JCAN physical bus",
+    "duration_ms": 3000.4836349999096,
+    "received_frames": 0,
+    "matched_frames": 0,
+    "dropped_frames": 0,
+    "samples": []
+  },
+  "warnings": [],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T024311.660896Z-1788489791660934658-capture.json"
+}

@@ -25,12 +25,19 @@ a nonzero raw cumulative `SO_RXQ_OVFL` counter, complete raw CAN error-frame
 preservation, and interface down/up with explicit endpoint reopen evidence,
 while explicitly skipping unsupported hosts. RK3588 passive target validation
 is complete, including ordinary-user deadline/SIGTERM behavior and raw
-ID/DLC/payload/timestamp/overflow preservation under external traffic. P5.1 is
-complete and installs and verifies the exact ADR-0002 CANopenLinux/CANopenNode
-recursive submodule pair without linking its sources; host/static and clean
-RK3588 Debug/Release cross qualification pass. P5.2 remains the first slice that
-builds CANopen code; non-actuating observation and lifecycle behavior remain
-pending.
+ID/DLC/payload/timestamp/overflow preservation under external traffic. Phase 5
+P5.1 through P5.6 are complete: the pinned CANopen dependency pair, minimal
+stack, single-owner lifecycle, immutable observations, managed-vcan receive
+evidence, and isolated Debug-only read-only commissioning path pass their host,
+sanitizer, static, and RK3588 cross gates. P5.7 local qualification, target
+deployment, bounded deadline/SIGTERM, cleanup, and independent zero-transmit
+evidence pass. A final error-enabled HIL run preserved the exact node-1
+read-only SDO 0x601 request and 0x581 response in the target raw capture; the
+normal observer published the response as the expected `sdo_rejected` raw
+observation. Target RXF/RXMF advanced by two, TX remained zero, no error frame
+was observed, and cleanup passed. Phase 5 is complete.
+See
+docs/verification/PHASE5_CANOPEN_BASELINE.md.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
 syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not

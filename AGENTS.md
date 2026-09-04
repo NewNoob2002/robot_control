@@ -33,8 +33,15 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   permits fixed node-1 NMT inhibit commands and reviewed read-only expedited SDO
   uploads, with request/attempt correlation, timeout quarantine, one explicit
   retry, managed-vcan evidence, default-artifact isolation, sanitizers, LLVM, and
-  clean RK3588 cross evidence. P5.7 target-passive closure, later HIL/release CI,
-  packaging, and deploy service remain.
+  clean RK3588 cross evidence. P5.7 local, cross, target deployment,
+  deadline/SIGTERM, cleanup, and independent zero-transmit evidence pass. Three
+  separately authorized read-only SDO uploads received the same exact drive
+  response while target TX remained zero. The final error-enabled HIL run
+  preserved the exact 0x601 request and 0x581 response in the target raw
+  capture, and the normal observer published the response as the expected raw
+  `sdo_rejected` observation. RXF/RXMF advanced by two, target TX stayed zero,
+  no error frame was observed, and cleanup passed. Phase 5 is complete. Later
+  HIL/release CI, packaging, and deploy service remain.
 - EasyLogger's checksum-pinned core subset remains integrated behind
   `service/logging`. CANopen dependency provenance and zero-local-patch status
   are recorded in `third_party/README.md`.

@@ -1,0 +1,24 @@
+tag=20260904T024712Z observer_pid=7008 raw_pid=7007
+readiness=pass
+
+receive list 'rx_all':
+  (any: no entry)
+  device   can_id   can_mask      function          userdata       matches  ident
+   can0      000    00000000  0000000000000000  0000000000000000         0  raw
+  (can1: no entry)
+
+
+receive list 'rx_sff':
+  (any: no entry)
+  device   can_id   can_mask      function          userdata       matches  ident
+   can0      000    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      081    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      181    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      281    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      381    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      481    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      581    c00007ff  0000000000000000  0000000000000000         0  raw
+   can0      701    c00007ff  0000000000000000  0000000000000000         0  raw
+  (can1: no entry)
+
+observer_exit=0 raw_exit=124

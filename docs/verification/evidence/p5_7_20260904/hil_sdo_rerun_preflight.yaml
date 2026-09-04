@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T04:02:19Z"
+  operation: "bus-write"
+  authorization: "User requested continuation and a P5.7 HIL rerun after providing the successful bounded JCAN periodic-run evidence."
+  target:
+    board: "RK3588 lubancat plus powered CANopen drive node 1"
+    hardware_revision: "unknown"
+    probe_or_adapter_serial: "207F346D5650"
+    transport: "can"
+  artifact_or_stimulus: "One expedited read-only SDO upload to node 1 object 0x2008:00: standard ID 0x601, DLC 8, payload 40 08 20 00 00 00 00 00."
+  limits: "Exactly one jcan_sdo_read call; no retry, periodic transmission, NMT, SDO download, reset, power cycle, parameter modification, interface reconfiguration, or motion command."
+  recovery_plan: "Allow all bounded target receivers to exit; preserve raw/error/observer logs; verify target TX remains zero, can0 remains ERROR-ACTIVE with zero errors, and JCAN has no active periodic task or configuration change."
+  approved: true

@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T02:42:29Z"
+  operation: "bus-write"
+  authorization: "User explicitly authorized the bounded final diagnostic send and then requested continuation after SSH recovery."
+  target:
+    board: "RK3588 host plus powered CANopen drive node 1"
+    hardware_revision: "unknown"
+    probe_or_adapter_serial: "207F346D5650"
+    transport: "can"
+  artifact_or_stimulus: "One expedited SDO upload: standard CAN ID 0x601, DLC 8, payload 40 08 20 00 00 00 00 00, object 0x2008:00 on node 1."
+  limits: "Exactly one non-periodic request; expect standard CAN ID 0x581 response; no NMT, SDO download, reset, power cycle, persistent parameter write, or retry."
+  recovery_plan: "Allow the 30-second captures to finish, verify target TX remains zero, verify can0 stays ERROR-ACTIVE with zero error counters, confirm JCAN configuration is unchanged and no periodic task exists."
+  approved: true

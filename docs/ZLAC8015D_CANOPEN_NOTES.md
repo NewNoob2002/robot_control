@@ -468,28 +468,33 @@ are in `Docs/CONTROL_REQUIREMENTS.md`.
 
 ## 16. Phase 5 Software Integration Decision
 
-The active non-actuating communications layer uses vendored CANopenNode v4.0,
-local controller node ID `0x7F`, drive node ID 1, and the reviewed 500 kbit/s
-standard Classic CAN allocation. The receive-focused process observes boot-up,
-heartbeat/NMT state, EMCY, SDO responses, and four TPDOs. SYNC is disabled
-because no reviewed synchronous-PDO timing requirement exists yet.
+The active Linux non-actuating communications layer uses the pinned
+CANopenLinux/CANopenNode pair, local controller node ID `0x7F`, drive node ID 1,
+and the reviewed 500 kbit/s standard Classic CAN allocation. The normal
+receive-focused process observes boot-up, heartbeat/NMT state, EMCY, and four
+TPDOs. SDO results exist only for the separately enabled commissioning build.
+SYNC is disabled because no reviewed synchronous-PDO timing requirement exists.
 
 The project uses a 1500 ms heartbeat observation timeout and 300 ms TPDO
-freshness timeout as software policies. The 2026-07-22 measurement resolves the
-`0x1017` unit conflict for the identified fixture as 0.5 ms/count. The normal
-controller does not write `0x6040`, `0x6060`, `0x60FF`, `0x2010`, motor
-parameters, brake objects, or any other drive object. It does not send NMT or
-SDO traffic at startup. The dedicated Debug-only commissioning artifact allowed
-only fixed NMT transitions, whitelisted uploads, and exact volatile heartbeat
-writes of 1000 or zero. The complete ownership and static object-dictionary
-approach are documented in `Docs/CANOPEN_INTEGRATION.md`.
+freshness timeout as target-passive software policies. The normal observer does
+not write any drive object and its upstream transmit boundary always denies
+socket submission. The dedicated Debug-only commissioning artifact permits
+only node-1 NMT Stopped or Pre-operational and reviewed read-only expedited SDO
+uploads; it provides no SDO download, RPDO, motion, reset, or NMT Operational
+path.
 
-The 2026-07-22 evidence archive closes Phase 5 and M3 for non-actuating CANopen
-communications. It covers boot-up, heartbeat, read-only SDO, PDO observation,
-analyzer-injected EMCY reception, timeout, and restart. Remaining unchecked
-items still require separate hardware work and no result in this batch claims
-CiA402 motion, drive-originated fault behavior, brake behavior, electrical
-bus-off, or worst-case load acceptance.
+The 2026-07-22 archive remains legacy drive-reference evidence and does not
+close the current Linux P5.7 gate. As of 2026-09-04, P5.1 through P5.6 and the
+P5.7 local/cross/target lifecycle and zero-transmit subgates pass. Three
+authorized read-only uploads received the same drive response. A later
+time-aligned single-frame diagnostic advanced target can0 RXF but produced no
+socket match. A later 50 ms 0x7FF control was received normally by `candump`,
+proving the general target raw path works. The final error-enabled HIL rerun
+preserved the exact 0x601 request and 0x581 drive response, and the normal
+observer published the response as the expected raw `sdo_rejected` observation.
+Phase 5 is complete. No result claims CiA402 motion,
+drive-originated fault behavior, brake behavior, electrical bus-off, or
+worst-case load acceptance.
 
 ## 17. Phase 6B.2B Software-Only Transition Preparation
 

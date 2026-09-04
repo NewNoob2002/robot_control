@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T03:11:54Z"
+  operation: "bus-write"
+  authorization: "User replied '授权' to the exact bounded jcan_send_once proposal on 2026-09-04."
+  target:
+    board: "RK3588 lubancat plus powered CANopen drive node 1"
+    hardware_revision: "unknown"
+    probe_or_adapter_serial: "207F346D5650"
+    transport: "can"
+  artifact_or_stimulus: "One standard Classic CAN frame: ID 0x601, DLC 8, payload 40 08 20 00 00 00 00 00."
+  limits: "Exactly one jcan_send_once call; extended=false, fd=false, brs=false, remote=false, periodic=false; no retry, NMT, SDO download, reset, power cycle, or parameter modification."
+  recovery_plan: "Allow the bounded target captures to finish; verify target TX remains zero, can0 remains ERROR-ACTIVE with zero errors, JCAN configuration is unchanged, and no periodic task or receiver remains."
+  approved: true

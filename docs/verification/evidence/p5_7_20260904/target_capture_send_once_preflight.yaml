@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T03:11:54Z"
+  operation: "storage-write"
+  authorization: "User authorized the final tightly time-aligned P5.7 single-frame diagnostic."
+  target:
+    board: "RK3588 lubancat"
+    hardware_revision: "unknown"
+    probe_or_adapter_serial: "not-applicable"
+    transport: "network"
+  artifact_or_stimulus: "Three unique bounded logs under /tmp/robot_control_p57_send_once_20260904T031154Z_*"
+  limits: "60-second normal observer plus unfiltered candump; no CAN or network configuration, privilege escalation, service change, or overwrite."
+  recovery_plan: "Wait for both processes, copy logs to the repository evidence bundle, verify no receiver remains, and leave can0 configuration unchanged."
+  approved: true

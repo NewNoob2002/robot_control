@@ -1,0 +1,20 @@
+bus_validation:
+  schema_version: 1
+  created_at_utc: "2026-09-04T02:50:23Z"
+  safety_preflight: "can_write_preflight.yaml"
+  interface: "can"
+  adapter_or_resource: "JCAN 207F346D5650 plus RK3588 can0"
+  settings:
+    can:
+      nominal_bitrate: "500000"
+      listen_only: false
+  requirements: ["P5.7-positive-target-RX", "P5.7-zero-normal-TX"]
+  stimulus: "20260904T024928.369831Z-1788490168369855786-sdo_read.json"
+  measurements_or_responses: "diagnostic_result.md"
+  raw_capture: "robot_control_p57_diag_20260904T024712Z_raw.log"
+  report: "../../PHASE5_CANOPEN_BASELINE.md"
+  cleanup:
+    required: true
+    completed: true
+    final_state: "No target receiver; can0 ERROR-ACTIVE with TX=0 and zero errors; JCAN configuration unchanged and periodic lists empty."
+  passed: false

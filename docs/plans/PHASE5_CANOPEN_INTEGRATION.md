@@ -1,6 +1,6 @@
 # Phase 5 Non-Actuating CANopen Integration Plan
 
-Status: **PLANNED**
+Status: **COMPLETE — P5.1 THROUGH P5.7 ACCEPTED**
 
 Plan date: 2026-08-24
 
@@ -265,6 +265,24 @@ clean RK3588 Debug/Release cross audits pass. No physical CAN commissioning was
 run. See `docs/verification/P5_6_READ_ONLY_COMMISSIONING_BASELINE.md`.
 
 ### P5.7 — Cross, target-passive, and closure evidence
+
+Progress on 2026-09-04: the passive observer implementation at revision
+0d32ca9 passes Host Debug 28/28, Host Release 28/28, commissioning Debug
+36/36, ASan/UBSan 36/36, scoped LLVM checks, and clean locked-sysroot RK3588
+Debug/Release cross builds. The reviewed Debug artifact was staged and run as
+an ordinary user on can0. Deadline, SIGTERM, cleanup, and independent JCAN
+zero-transmit evidence pass. Three separately authorized node-1 0x2008:00 SDO
+uploads received the same exact drive response and left target TX at zero. A
+subsequent time-aligned single-frame diagnostic advanced target can0 RXF from
+six to seven but produced no socket match. A later operator control received
+50 ms 0x7FF traffic normally in `candump`, proving the general RK3588
+SocketCAN raw path works. The final error-enabled HIL rerun then preserved the
+exact 0x601 request and 0x581 response in the target raw capture. The normal
+observer published snapshot version 2 with the exact response as the expected
+`sdo_rejected` raw observation; RXF/RXMF advanced by two, target TX remained
+zero, no error frame was observed, and cleanup passed. P5.7 and Phase 5 are
+complete. See
+docs/verification/PHASE5_CANOPEN_BASELINE.md.
 
 Run the complete host suite, managed `vcan` integration, changed-source static
 checks, and RK3588 Debug/Release cross builds. On an authorized RK3588 target,

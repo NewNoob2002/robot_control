@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T02:45:03Z"
+  operation: "storage-write"
+  authorization: "User requested continuation of the interrupted P5.7 target diagnostic on 2026-09-04; the first 30-second window expired before any CAN stimulus."
+  target:
+    board: "RK3588 lubancat"
+    hardware_revision: "unknown"
+    probe_or_adapter_serial: "not-applicable"
+    transport: "network"
+  artifact_or_stimulus: "Three unique bounded diagnostic logs under /tmp/robot_control_p57_diag_20260904T024503Z_*"
+  limits: "90-second normal observer plus unfiltered candump; no CAN or network configuration, privilege escalation, service change, or overwrite of an existing path."
+  recovery_plan: "Wait for both bounded processes, copy logs into the repository evidence bundle, verify no receiver remains, and leave can0 configuration unchanged."
+  approved: true
