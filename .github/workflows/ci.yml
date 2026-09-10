@@ -108,6 +108,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends ninja-build clang iproute2
+          sudo apt-get install --yes --no-install-recommends "linux-modules-extra-$(uname -r)"
           sudo modprobe vcan
 
       - name: Build the isolated Debug qualification artifact
@@ -134,7 +135,8 @@ jobs:
           ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
           UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
         run: |
-          ctest --test-dir out/build/phase6-ci --output-on-failure --output-junit results.xml
+          ctest --test-dir out/build/phase6-ci --output-on-failure \
+            --output-junit "$PWD/out/build/phase6-ci/results.xml"
           python3 - <<'PY'
           from pathlib import Path
           import xml.etree.ElementTree as ET
