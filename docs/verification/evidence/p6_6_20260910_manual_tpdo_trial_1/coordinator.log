@@ -1,0 +1,6 @@
+JCAN_READY: silent observer connected
+CAPTURE_READY
+EXECUTOR_STARTED
+MANUAL_ROTATION_READY duration_ms=60000 no_motor_commands=1
+TRIAL_FINISHED rc=0
+COORDINATOR_FINISHED error=None

@@ -1,0 +1,15 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: '2026-09-08T06:05:17Z'
+  operation: bus-write
+  authorization: 'User explicitly requested reacquisition and confirmed drive power off, both wheels raised/unloaded, and observation from chassis right side; same bounded trial scope retained.'
+  target:
+    board: RK3588 lubancat with ZLAC8015D V4 node 1
+    hardware_revision: unknown
+    probe_or_adapter_serial: 207F346D5650
+    transport: Classical CAN 500000 bit/s
+  artifact_or_stimulus: 'ELF sha256 899914fdccb5df378eabcf4aafab93d23d48cf01ef35098847b8af81d38bc881; --target-once 2:5 --duration-ms 3000'
+  limits: '0x60FF:02=+5 rpm once for 3000 ms; 0x60FF:01=0 throughout; temporary 0x1017:00 0->1000->0 and 0x200F:00 1->0->1; no reverse, subindex-1 nonzero, EEPROM, brake-output write, or further retry'
+  physical_state: 'Drive powered off; both wheels raised and unloaded; wiring unchanged from authorized fixture; brake clear; independent power cut available; observer on chassis right side.'
+  recovery_plan: 'Executor sends zero, returns node to pre-operational/shutdown, restores 0x200F=1; wrapper restores 0x1017=0 once; operator can cut power independently.'
+  approved: true

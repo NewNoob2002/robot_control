@@ -1,0 +1,13 @@
+{
+  "target": "robot-dev machine-id 6923ab3301fb4a8d816759b04ec6bf0a",
+  "interface": "can0 Classical CAN500000",
+  "adapter_serial": "207F346D5650",
+  "mode": "silent receive only",
+  "operation": "TPDO configuration and hand-rotation capture",
+  "artifact": "8ca2c0250736e792ecb0b7067973ce2547f7e2d6fb9c38d0147a5788ade34c8a",
+  "baseline": "0x181 type255 timer100 count2 status-first/speed-second; heartbeat0; targets0; independent speeds0; faults0",
+  "drive_state": "both ReadyToSwitchOn or SwitchOnDisabled required; no motor controlwords or targets transmitted",
+  "operator": "raised unloaded wheels, independent power cut, manually rotate only after ready and only if freely movable; never force brake",
+  "restoration": "Pre-operational; original mapping readback; heartbeat0; target0 and non-enabled state readback",
+  "authorization": "authorization.json"
+}

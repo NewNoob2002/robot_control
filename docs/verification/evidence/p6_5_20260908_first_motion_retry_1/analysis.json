@@ -1,0 +1,80 @@
+{
+  "protocol_validated": true,
+  "physical_observation_validated": true,
+  "overall_status": "pass",
+  "artifact_sha256": "2f5d9ce170953a141cb0fd219d83c1a6c087e6e88e89efd187b94119ef2a44fb",
+  "target_frames": 275,
+  "jcan_frames": 275,
+  "jcan_exact_target_capture": true,
+  "jcan_dropped_frames": 0,
+  "sdo_downloads_total": 15,
+  "executor_sdo_downloads": 13,
+  "sdo_uploads": 32,
+  "nmt_frames": [
+    "0101",
+    "8001"
+  ],
+  "nonzero_target_writes": 1,
+  "nonzero_request_at": "1788838700.415278",
+  "first_zero_request_at": "1788838700.916263",
+  "target_to_zero_ms": 500.985,
+  "target_to_zero_limit_ms": 520,
+  "target_to_zero_within_limit": true,
+  "zero_settle_velocity_606C_01": [
+    {
+      "sample_at": "1788838700.960588",
+      "raw": 32,
+      "rpm": 3.2,
+      "after_zero_ms": 44.325
+    },
+    {
+      "sample_at": "1788838701.013591",
+      "raw": -5,
+      "rpm": -0.5,
+      "after_zero_ms": 97.328
+    },
+    {
+      "sample_at": "1788838701.066591",
+      "raw": 0,
+      "rpm": 0.0,
+      "after_zero_ms": 150.328
+    }
+  ],
+  "zero_velocity_reached_ms": 150.328,
+  "pre_operational_nmt_after_zero_ms": 155.888,
+  "command_application_restore_after_zero_ms": 357.993,
+  "heartbeat_restore_at": "1788838774.060477",
+  "motion_window_tpdo1_frames": 10,
+  "motion_window_tpdo1_payloads": [
+    "2744271400000000"
+  ],
+  "motion_window_packed_velocity_halves_zero": true,
+  "sdo_aborts": 0,
+  "emcy_frames": 0,
+  "can_error_frames": 0,
+  "executor_result": "qualification_complete node=1 operation=5",
+  "postflight_values": {
+    "1017:00": 0,
+    "200F:00": 1,
+    "6040:00": 6,
+    "6041:00": 337712161,
+    "6060:00": 3,
+    "6061:00": 3,
+    "60FF:01": 0,
+    "60FF:02": 0,
+    "606C:01": 0,
+    "606C:02": 0,
+    "606C:03": 0,
+    "603F:00": 0
+  },
+  "operator_observation": "From the chassis left side, the left wheel again rotated counterclockwise; the right wheel remained stationary; the mechanical brake had no abnormal action or sound.",
+  "limits": [
+    "JCAN timestamps are zero; all timing values use the RK3588 monotonic candump capture.",
+    "TPDO1 packed velocity remained zero while SDO 0x606C:01 showed 3.2 rpm then -0.5 rpm during deceleration.",
+    "Reverse direction and 0x60FF:02 motion were not attempted."
+  ],
+  "physical_mapping": {
+    "60FF:01": "left wheel",
+    "positive_5_rpm_direction_from_left_side": "counterclockwise"
+  }
+}

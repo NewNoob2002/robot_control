@@ -1,0 +1,38 @@
+test_result:
+  schema_version: 1
+  source_revision: 1d1314d25269d38f9679cd2c15e23df65afcd2a4
+  artifact_checksums:
+    robot-control-zlac-qualification: 899914fdccb5df378eabcf4aafab93d23d48cf01ef35098847b8af81d38bc881
+  level: hil
+  target: RK3588 lubancat; ZLAC8015D V4 node 1; JCAN 207F346D5650
+  safety_preflight: safety_preflight.yaml
+  command: robot-control-zlac-qualification --interface can0 --target-once 2:5 --duration-ms 3000; temporary 0x1017 0->1000->0 and 0x200F 1->0->1
+  attempts: 2
+  passed: true
+  counts:
+    total: 2
+    passed: 1
+    failed: 1
+    skipped: 0
+  classified_failures:
+  - prior-independent-capture-started-after-core-run
+  requirements:
+  - P6.5-independent-channel-2-mapping
+  - P6.5-three-second-observation
+  - P6.5-bounded-zero
+  - P6.5-dual-capture
+  - P6.5-physical-direction-confirmation
+  log: target/executor.log
+  raw_capture: target/rk3588_can.log
+  independent_capture: 20260908T061250.553651Z-1788847970553688102-capture.json
+  analysis: analysis.json
+  technical_result: Exactly one +5 rpm write to 0x60FF:02; first zero 3001.004 ms later; 0x606C:02 settled 3.3 -> -0.8 -> 0.3 -> -0.2 -> -0.4 -> 0.3 -> -0.1 -> 0 rpm by 427.313 ms after zero; executor completed and restoration verified.
+  dual_capture: All 215 JCAN frames exactly match all 215 RK3588 frames; zero JCAN drops.
+  operator_observation: From chassis right side, right wheel rotated counter-clockwise for approximately 3 seconds; left wheel remained stationary; mechanical brake had no abnormal action or sound.
+  postflight: 0x1017=0, 0x200F=1, controlword 0x0006, dual status 0x1421/0x1421, mode 3, zero targets and all velocity views, fault 0; can0 ERROR-ACTIVE with zero errors/drops.
+  limitations:
+  - TPDO1 packed velocity stayed zero while SDO 0x606C:02 measured deceleration
+  - No reverse command
+  cleanup: No residual executor or candump process; no JCAN periodic task; adapter configuration unchanged.
+  result: pass
+  physical_mapping: 0x60FF:02 -> right wheel; positive target -> counter-clockwise viewed from chassis right side

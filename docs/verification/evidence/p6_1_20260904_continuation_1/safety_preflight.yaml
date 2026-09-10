@@ -1,0 +1,37 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T08:33:22Z"
+  operation: bus-write
+  authorization: "User explicitly authorized on 2026-09-04 one retry of 0x2000:00 and, only if successful, one attempt for each remaining 22 read_manifest.yaml objects."
+  target:
+    board: "Embedfire LubanCat-4IO, hostname lubancat, machine-id 6923ab3301fb4a8d816759b04ec6bf0a"
+    hardware_revision: "rockchip,rk3588s-lubancat-4io / rockchip,rk3588"
+    probe_or_adapter_serial: "JCAN 207F346D5650, single channel"
+    transport: can
+  artifact_or_stimulus: "continuation_manifest.yaml sha256 e129d93ad13da47dd97ff8fed1bb0df2fb709dc1cc2a2b01a5ff7367b6b01047; jcan_bus_profile.retry1.toml sha256 9a9fc7cced9a019fd852c264ae6685815d20e2fb86ba997ce2ea201115d12c98"
+  limits: "First send exactly one standard CAN 0x601 expedited SDO upload for node 1 object 0x2000:00. Continue only on ok=true, no warnings, and exact 2-byte response. Then send positions 98 through 119 once each in manifest order. Request DLC 8 and payload 40 <index-le> <subindex> 00 00 00 00. No further retry, SDO download, NMT, RPDO, broadcast, periodic TX, raw TX, interface change, reset, parameter modification, or motion command."
+  recovery_plan: "Stop on first ok=false, warning, abort, timeout, width mismatch, unexpected traffic, target error, or capture/cleanup error. Stop passive capture; verify RK3588 can0 remains ERROR-ACTIVE with target TX zero; verify no JCAN periodic task and unchanged config; restore the original JCAN profile to sha256 752389399793ee8d50a25a8d30eecebc1879127d58e5f67bad79bcfc65ae13e1."
+  fixture:
+    drive_model: "ZLAC8015D V4"
+    node_id: 1
+    nominal_bitrate: 500000
+    power_state: "External DC supply energized; no power-setting change authorized"
+    chassis_bottom_raised: true
+    stable_support: true
+    wheels_fully_clear: true
+    named_operator: "Ted"
+    independent_physical_stop: "External emergency-stop button"
+    emergency_inputs: "X0/X1 installed; positions 112 through 116 required"
+    mechanical_brakes: "B0/B1 installed; positions 117 through 119 required"
+  monitor:
+    target_alias: robot-dev
+    interface: can0
+    baseline: "UP, LOWER_UP, ERROR-ACTIVE, 500000 bit/s, error counters zero, cumulative RX 9226, cumulative TX zero"
+    command: "ssh robot-dev timeout 300 candump -ta -e can0, streamed to local rk3588_raw.log"
+  source:
+    revision: "1d1314d25269d38f9679cd2c15e23df65afcd2a4"
+    dirty: true
+    requester: "JCAN MCP jcan_sdo_read"
+    deployed_robot_control_artifact: "not used; RK3588 is passive capture only"
+  approved: true
+

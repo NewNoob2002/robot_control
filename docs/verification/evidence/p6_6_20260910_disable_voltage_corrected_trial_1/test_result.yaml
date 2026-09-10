@@ -1,0 +1,42 @@
+test_result:
+  schema_version: 1
+  source_revision: "1d1314d25269d38f9679cd2c15e23df65afcd2a4 plus recorded working tree"
+  artifact_checksum: 833548e609bb96b1061154f3c24c21e1e0a734c20060027a40c9da4ba3354be0
+  command: "--interface can0 --disable-voltage-once 2:5 --duration-ms 10000"
+  target: "RK3588 can0, ZLAC8015D V4 node 1, JCAN 207F346D5650"
+  timestamp_utc: "2026-09-10T01:00:02Z"
+  attempts:
+    total_physical_disable_voltage: 2
+    corrected_artifact: 1
+    retry_performed_during_this_attempt: false
+  executor_exit_code: 0
+  qualification_complete: true
+  electronic_hil_passed: true
+  operator_observation_pending: false
+  passed: true
+  operator_observation: "Right wheel rotated counter-clockwise during the positive channel-2 command; left wheel remained stationary; both wheels stopped after Disable Voltage; no abnormal brake action or sound."
+  frame_counts: {rk3588: 393, jcan: 393, normalized_sequences_equal: true}
+  timings_ms:
+    nonzero_interval: 10001.031
+    disable_voltage_sdo_ack: 0.307
+    first_raw_dual_0x1460: 31.754
+    channel_2_first_zero_readback: 420.230
+    packed_velocity_zero: 422.227
+    nmt_preoperational: 436.796
+    preoperational_heartbeat: 588.977
+  cleanup:
+    both_targets_zero_verified: true
+    all_velocity_views_zero_verified: true
+    restored_0x200f: 1
+    restored_0x1017: 0
+    shutdown_after_disable_voltage: false
+    reenable_after_disable_voltage: false
+  negative_checks:
+    sdo_abort_count: 0
+    emcy_count: 0
+    can_error_frame_count: 0
+    jcan_error_count: 0
+    residual_executor: false
+    residual_candump: false
+    jcan_configuration_unchanged: true
+  evidence: [rk3588_can.log, jcan_session.jsonl, executor.log, analysis.json]

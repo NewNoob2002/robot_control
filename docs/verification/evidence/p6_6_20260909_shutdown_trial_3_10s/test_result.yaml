@@ -1,0 +1,16 @@
+test_result:
+  schema_version: 1
+  source_revision: "1d1314d25269d38f9679cd2c15e23df65afcd2a4 plus recorded working tree"
+  artifact_checksums:
+    robot-control-zlac-qualification: 9f21aa6c4e2cd1a31dbd0b12975dbcb210320d9dd2ad70ae60ceca3ad4c6aea3
+  safety_preflight: safety_preflight.yaml
+  level: hil
+  target: "RK3588 can0, ZLAC8015D V4 node 1, JCAN 207F346D5650"
+  command: "--interface can0 --shutdown-once 2:5 --duration-ms 10000"
+  timing: {started_at_utc: "2026-09-09T09:22:06.459071Z", duration_ms: 10989.150, timeout_ms: 60000}
+  attempts: 1
+  passed: true
+  counts: {total: 2, passed: 2, failed: 0, skipped: 0}
+  classified_failures: []
+  log: analysis.md
+  requirements: [P6.6-Shutdown-once, P6.6-independent-capture, P6.6-operator-observation]

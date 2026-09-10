@@ -1,0 +1,10 @@
+Internal ctest changing into directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p67-closure-debug
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p67-closure-debug
+    Start 51: canopen_qualification_gate
+1/2 Test #51: canopen_qualification_gate ...........   Passed    0.00 sec
+    Start 52: canopen_qualification_vcan_managed
+2/2 Test #52: canopen_qualification_vcan_managed ...   Passed   29.94 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =  29.94 sec

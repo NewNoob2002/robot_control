@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - codex/phase6-development
   pull_request:
   merge_group:
 
@@ -65,6 +66,11 @@ jobs:
       - name: Verify CANopen dependency pair
         run: ./scripts/test/test_canopen_dependencies.sh
 
+      - name: Verify Phase 6 evidence archives and current manifests
+        run: |
+          python3 scripts/test/test_phase6_evidence.py
+          python3 scripts/test/test_qualification_elf_audit.py
+
       - name: Run P5.1 non-SocketCAN host qualification
         run: ./scripts/build/build_p5_1_host.sh
 
@@ -82,3 +88,61 @@ jobs:
 
       - name: Run sysroot manifest regressions
         run: ./scripts/test/test_sysroot_manifest.sh
+
+  phase6-qualification:
+    name: Phase 6 qualification (${{ matrix.variant }})
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [debug, sanitizer]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.0.2
+        with:
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Install host dependencies and enable vcan support
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ninja-build clang iproute2
+          sudo modprobe vcan
+
+      - name: Build the isolated Debug qualification artifact
+        env:
+          VARIANT: ${{ matrix.variant }}
+        run: |
+          flags=()
+          if [[ "${VARIANT}" == sanitizer ]]; then
+            flags+=(
+              -DCMAKE_C_COMPILER=clang
+              -DCMAKE_CXX_COMPILER=clang++
+              "-DCMAKE_C_FLAGS=-fsanitize=address,undefined -fno-omit-frame-pointer"
+              "-DCMAKE_CXX_FLAGS=-fsanitize=address,undefined -fno-omit-frame-pointer"
+            )
+          fi
+          cmake -S . -B out/build/phase6-ci -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON \
+            -DROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION=ON \
+            -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON "${flags[@]}"
+          cmake --build out/build/phase6-ci --parallel 2
+
+      - name: Run qualification tests including mandatory managed vcan
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+        run: |
+          ctest --test-dir out/build/phase6-ci --output-on-failure --output-junit results.xml
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          report = ET.parse(Path('out/build/phase6-ci/results.xml'))
+          cases = {case.attrib['name']: case for case in report.iter('testcase')}
+          for name in ('canopen_qualification_gate', 'canopen_qualification_vcan_managed'):
+              assert name in cases, f'Missing qualification test: {name}'
+          skipped = [name for name, case in cases.items() if case.find('skipped') is not None]
+          assert not skipped, f'Required tests skipped: {skipped}'
+          print(f'PASS: {len(cases)} tests executed without skips')
+          PY

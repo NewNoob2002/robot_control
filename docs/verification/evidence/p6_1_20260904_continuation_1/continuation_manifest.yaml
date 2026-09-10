@@ -1,0 +1,38 @@
+continuation_manifest:
+  schema_version: 1
+  phase: P6.1
+  session: continuation-1
+  date: "2026-09-04"
+  node_id: 1
+  nominal_bitrate: 500000
+  retry_object: "0x2000:00"
+  retry_count: 1
+  continue_only_if_retry_succeeds: true
+  later_object_count: 22
+  later_retry_allowed: false
+  state_change_allowed: false
+  objects:
+    - {position: 97, object: "0x2000:00", width_bytes: 2}
+    - {position: 98, object: "0x2007:00", width_bytes: 2}
+    - {position: 99, object: "0x2008:00", width_bytes: 2}
+    - {position: 100, object: "0x200F:00", width_bytes: 2}
+    - {position: 101, object: "0x603F:00", width_bytes: 4}
+    - {position: 102, object: "0x6041:00", width_bytes: 4}
+    - {position: 103, object: "0x605A:00", width_bytes: 2}
+    - {position: 104, object: "0x6060:00", width_bytes: 1}
+    - {position: 105, object: "0x6061:00", width_bytes: 1}
+    - {position: 106, object: "0x606C:00", width_bytes: 2}
+    - {position: 107, object: "0x606C:01", width_bytes: 4}
+    - {position: 108, object: "0x606C:02", width_bytes: 4}
+    - {position: 109, object: "0x606C:03", width_bytes: 4}
+    - {position: 110, object: "0x60FF:01", width_bytes: 4}
+    - {position: 111, object: "0x60FF:02", width_bytes: 4}
+    - {position: 112, object: "0x2003:00", width_bytes: 2}
+    - {position: 113, object: "0x2026:03", width_bytes: 2}
+    - {position: 114, object: "0x2030:01", width_bytes: 2}
+    - {position: 115, object: "0x2030:02", width_bytes: 2}
+    - {position: 116, object: "0x2030:03", width_bytes: 2}
+    - {position: 117, object: "0x2030:04", width_bytes: 2}
+    - {position: 118, object: "0x2030:07", width_bytes: 2}
+    - {position: 119, object: "0x2030:08", width_bytes: 2}
+  execution_status: passed-23-of-23

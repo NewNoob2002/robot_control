@@ -1,0 +1,3 @@
+{"event":"session_started","receive_enabled":true,"reconnect_ms":2000,"serial":"207F346D5650"}
+{"event":"connected","mode":"silent","serial":"207F346D5650"}
+{"event":"session_stopping","reason":"stdin_eof"}

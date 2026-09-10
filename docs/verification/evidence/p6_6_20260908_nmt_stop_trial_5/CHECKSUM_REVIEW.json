@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-10",
+  "scope": "Two pre-existing Markdown checksum mismatches; no raw capture mismatch",
+  "action": "Preserve old manifest, record current reviewed document hashes; documents unchanged by cleanup",
+  "issues": [
+    {
+      "manifest": "docs/verification/evidence/p6_6_20260908_nmt_stop_trial_5/SHA256SUMS",
+      "path": "docs/verification/evidence/p6_6_20260908_nmt_stop_trial_5/analysis.md",
+      "recorded": "99b519b6129a53c367c93a8aa1f4d63b001d09420089798b0dbe9a114ae8b610",
+      "actual": "f87656746169c3d165275a6fa5396b0cf9af4a1055efbf7704a0319a882c38bd",
+      "unchanged_from_pre_cleanup": true
+    },
+    {
+      "manifest": "docs/verification/evidence/p6_6_20260908_nmt_stop_trial_5/SHA256SUMS",
+      "path": "docs/verification/evidence/p6_6_20260908_nmt_stop_trial_5/operator_observation.md",
+      "recorded": "17921eb129f8b09d2eb379779a842116f335f1c4741624b5a3d840614a95594e",
+      "actual": "e5b07149edd36dea511674136e55255323aae567ba088b0cc0e1ab7d76668d04",
+      "unchanged_from_pre_cleanup": true
+    }
+  ]
+}

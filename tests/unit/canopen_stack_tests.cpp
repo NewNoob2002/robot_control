@@ -223,8 +223,8 @@ void test_observation_contract() {
   observations.ingest(
       raw_frame(0x701U, 1U, {0x05U}, start, first_generation), start);
   snapshot = observations.snapshot(start);
-  CHECK("CANOPEN-OBS-006", !snapshot.heartbeat.frame.current);
-  CHECK("CANOPEN-OBS-007", !snapshot.nmt.current);
+  CHECK("CANOPEN-OBS-006", snapshot.heartbeat.frame.current);
+  CHECK("CANOPEN-OBS-007", snapshot.nmt.current);
 
   observations.ingest(
       raw_frame(0x701U, 1U, {0x00U}, start + 1ms, first_generation),
@@ -318,7 +318,7 @@ void test_observation_contract() {
       raw_frame(0x701U, 1U, {0x05U}, start + 13ms, error_generation),
       start + 13ms);
   snapshot = observations.snapshot(start + 13ms);
-  CHECK("CANOPEN-OBS-044", !snapshot.heartbeat.frame.current);
+  CHECK("CANOPEN-OBS-044", snapshot.heartbeat.frame.current);
 
   observations.begin_transport();
   const auto reopened_generation = observations.generation();

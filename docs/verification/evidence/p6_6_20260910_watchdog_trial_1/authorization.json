@@ -1,0 +1,9 @@
+{
+  "authorized": true,
+  "stimulus": "watchdog",
+  "elf_sha256": "a03895cb4bb60a98783e6c705a89ddd91ce7152c5dd337074360a41d176c6c2b",
+  "operator_ready": true,
+  "user_confirmation": "have restored target connectivity and authorize again",
+  "recorded_utc": "2026-09-10T03:49:33.253141+00:00",
+  "scope": "One node-1 right-axis +5 rpm watchdog trial: watchdog 1000 ms, 200 ms lead plus 1500 ms host silence, fixed readbacks, zero/Shutdown/Pre-operational cleanup and volatile restoration; raised wheels and operator power cut ready as proposed. No heartbeat or TPDO suppression in this run."
+}

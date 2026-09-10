@@ -1,0 +1,49 @@
+{
+  "validated": true,
+  "target_frames": 278,
+  "jcan_frames": 233,
+  "jcan_exact_target_prefix": true,
+  "jcan_dropped_frames": 0,
+  "actual_boot_at": "1788769182.744418",
+  "enabled_feedback_at": "1788769183.886069",
+  "post_enable_sdo_velocity_uploads": 3,
+  "post_enable_zero_target_writes": 2,
+  "post_enable_controlwords": [
+    6
+  ],
+  "shutdown_command_at": "1788769183.902258",
+  "pre_operational_nmt_at": "1788769183.914747",
+  "enabled_to_shutdown_command_ms": 16.189,
+  "enabled_to_preop_nmt_ms": 28.678,
+  "all_tpdo1_velocities_zero": true,
+  "sdo_pairs_in_main_capture": 33,
+  "sdo_aborts": 0,
+  "nmt_frames": [
+    "0101",
+    "8001"
+  ],
+  "can_error_frames": 0,
+  "heartbeat_restoration_at": "1788769279.162948",
+  "heartbeat_restoration_acknowledged": true,
+  "postflight_values": {
+    "1017:00": 0,
+    "6040:00": 6,
+    "6041:00": 337712161,
+    "6060:00": 3,
+    "6061:00": 3,
+    "60FF:01": 0,
+    "60FF:02": 0,
+    "606C:01": 0,
+    "606C:02": 0,
+    "606C:03": 0,
+    "603F:00": 0
+  },
+  "terminal_state_verified": "controlword 0006; dual status 1421/1421; zero targets and all velocities; fault 0; mode 3; heartbeat 0",
+  "limits": [
+    "Cleanup sent Pre-operational 12.489 ms after Shutdown command, before a new TPDO1; immediate shutdown status timing is not claimed",
+    "Terminal shutdown state is independently verified later by SDO, not by a post-SIGTERM TPDO1",
+    "SIGTERM kill syscall timestamp is not present on CAN; helper correlates it to exact enabled zero-velocity TPDO",
+    "JCAN covers a 233-frame exact target prefix; RK3588 covers later heartbeat restoration",
+    "Postflight RK3588 supplemental capture covers 8 of 11 uploads; MCP records all 11"
+  ]
+}

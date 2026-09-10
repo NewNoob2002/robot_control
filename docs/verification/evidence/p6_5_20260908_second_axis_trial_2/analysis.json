@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-08",
+  "trial": "P6.5 independent channel-2 first motion, reacquisition",
+  "rk3588_frame_count": 215,
+  "jcan_frame_count": 215,
+  "jcan_dropped_frames": 0,
+  "jcan_warnings": [],
+  "frame_sequences_identical": true,
+  "first_mismatch_index": null,
+  "target_nonzero": {
+    "can_id": "0x601",
+    "payload": "23 FF 60 02 05 00 00 00",
+    "timestamp": 1788847837.581636
+  },
+  "first_target_zero": {
+    "can_id": "0x601",
+    "payload": "23 FF 60 02 00 00 00 00",
+    "timestamp": 1788847840.58264
+  },
+  "nonzero_to_zero_ms": 3001.004,
+  "nonzero_to_zero_limit_ms": 3020,
+  "nonzero_to_zero_within_limit": true,
+  "channel1_nonzero_target_writes": 0,
+  "channel2_nonzero_target_writes": 1,
+  "channel2_settle_reads": [
+    {
+      "timestamp": 1788847840.624935,
+      "elapsed_ms": 42.295,
+      "raw": 33
+    },
+    {
+      "timestamp": 1788847840.679941,
+      "elapsed_ms": 97.301,
+      "raw": -8
+    },
+    {
+      "timestamp": 1788847840.73494,
+      "elapsed_ms": 152.3,
+      "raw": 3
+    },
+    {
+      "timestamp": 1788847840.789946,
+      "elapsed_ms": 207.306,
+      "raw": -2
+    },
+    {
+      "timestamp": 1788847840.844947,
+      "elapsed_ms": 262.307,
+      "raw": -4
+    },
+    {
+      "timestamp": 1788847840.899948,
+      "elapsed_ms": 317.308,
+      "raw": 3
+    },
+    {
+      "timestamp": 1788847840.954955,
+      "elapsed_ms": 372.315,
+      "raw": -1
+    },
+    {
+      "timestamp": 1788847841.009953,
+      "elapsed_ms": 427.313,
+      "raw": 0
+    }
+  ],
+  "channel2_zero_settle_ms": 427.313,
+  "sdo_abort_count": 0,
+  "emcy_count": 0,
+  "can_error_frame_count": 0,
+  "tpdo1_packed_velocity_nonzero_count": 0,
+  "operator_observation": {
+    "view": "chassis right side",
+    "right_wheel": "counter-clockwise for approximately 3 seconds",
+    "left_wheel": "stationary throughout",
+    "mechanical_brake": "no abnormal action or sound"
+  },
+  "result": "PASS",
+  "open_contradiction": "TPDO1 packed velocity remained zero while 0x606C:02 and direct observation showed right-wheel motion.",
+  "sdo_download_request_count": 15,
+  "sdo_upload_request_count": 44,
+  "nmt_payloads": [
+    "0101",
+    "8001"
+  ]
+}

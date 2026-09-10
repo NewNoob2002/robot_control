@@ -82,3 +82,40 @@ if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
     PRIVATE robot_control_platform_linux robot_control_project_options
             robot_control_project_warnings)
 endif()
+
+if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
+  add_library(robot_control_canopen_qualification_gate OBJECT
+              qualification_gate.c)
+  target_include_directories(robot_control_canopen_qualification_gate
+                             PUBLIC ${PROJECT_SOURCE_DIR})
+  target_link_libraries(robot_control_canopen_qualification_gate
+                        PRIVATE robot_control_project_warnings)
+
+  add_library(
+    robot_control_canopen_upstream_qualification STATIC
+    ${canopen_upstream_sources}
+    $<TARGET_OBJECTS:robot_control_canopen_qualification_gate>)
+  target_compile_definitions(
+    robot_control_canopen_upstream_qualification
+    PRIVATE send=robot_control_canopen_qualification_transmit
+    PUBLIC CO_DRIVER_CUSTOM CO_MULTIPLE_OD CO_SINGLE_THREAD
+           ROBOT_CONTROL_CANOPEN_QUALIFICATION)
+  target_include_directories(robot_control_canopen_upstream_qualification
+                             PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+  target_include_directories(
+    robot_control_canopen_upstream_qualification
+    SYSTEM
+    PUBLIC ${PROJECT_SOURCE_DIR}/components/CANopenLinux ${canopen_node_dir}
+           ${CMAKE_CURRENT_SOURCE_DIR}/od)
+
+  add_library(robot_control_communication_canopen_qualification
+              lifecycle.cpp observation.cpp qualification.cpp stack_config.cpp
+              stack_storage.cpp)
+  target_include_directories(robot_control_communication_canopen_qualification
+                             PUBLIC ${PROJECT_SOURCE_DIR})
+  target_link_libraries(
+    robot_control_communication_canopen_qualification
+    PUBLIC robot_control_canopen_upstream_qualification
+    PRIVATE robot_control_domain_drive robot_control_platform_linux
+            robot_control_project_options robot_control_project_warnings)
+endif()

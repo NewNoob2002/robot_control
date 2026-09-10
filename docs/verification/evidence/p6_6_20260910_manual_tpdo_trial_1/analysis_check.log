@@ -1,0 +1,117 @@
+{
+  "capture_and_restoration": "PASS",
+  "physical_acceptance": "PASS: operator accepted manual TPDO speed feedback",
+  "scope_limit": "RX accounting remains a separate unresolved evidence issue; enabled-drive watchdog timing not tested",
+  "kernel_counter_excess": {
+    "rx": {
+      "packets": 3,
+      "bytes": 24
+    },
+    "tx": {
+      "packets": 0,
+      "bytes": 0
+    }
+  },
+  "counter_reconciliation": "UNRESOLVED",
+  "matched_frames": 2042,
+  "frame_ids": {
+    "601": 294,
+    "581": 294,
+    "000": 3,
+    "701": 243,
+    "181": 1205,
+    "281": 1,
+    "381": 1,
+    "481": 1
+  },
+  "kernel_deltas": {
+    "rx": {
+      "packets": 1748,
+      "bytes": 12259
+    },
+    "tx": {
+      "packets": 297,
+      "bytes": 2358
+    }
+  },
+  "target_or_controlword_writes": 0,
+  "downloads": 18,
+  "uploads": 276,
+  "nmt": 3,
+  "operational_interval_ms": 60220.992,
+  "tpdo_samples": 1205,
+  "tpdo_interval_ms": {
+    "minimum": 49.778,
+    "median": 50.007,
+    "maximum": 50.247
+  },
+  "left_raw_range": [
+    -5,
+    4
+  ],
+  "right_raw_range": [
+    -1036,
+    920
+  ],
+  "left_nonzero_samples": 19,
+  "right_nonzero_samples": 1043,
+  "final_tpdo_samples": [
+    [
+      59.982269,
+      0,
+      0,
+      "14211421"
+    ],
+    [
+      60.032277,
+      0,
+      0,
+      "14211421"
+    ],
+    [
+      60.082289,
+      0,
+      0,
+      "14211421"
+    ],
+    [
+      60.132299,
+      0,
+      0,
+      "14211421"
+    ],
+    [
+      60.182309,
+      0,
+      0,
+      "14211421"
+    ]
+  ],
+  "comparison_limitation": "SDO and TPDO samples are asynchronous; nearest-sample differences are not accuracy or scale proof.",
+  "restored_mapping": [
+    "0x60410020",
+    "0x606C0320"
+  ],
+  "heartbeat_restored": 0,
+  "event_timer_raw": 100,
+  "operator_observation": {
+    "user_confirmation": "turn only the right wheel, in clockwise and counter-clockwise both, and did the left wheel stay still with normal brake behavior and sound",
+    "right_wheel_rotated_manually": true,
+    "directions": [
+      "clockwise",
+      "counter-clockwise"
+    ],
+    "left_wheel_stationary": true,
+    "brake_behavior_normal": true,
+    "sound_normal": true,
+    "direction_timestamp_markers": false,
+    "acceptance": {
+      "status": "PASS",
+      "scope": "manual TPDO speed feedback test",
+      "user_confirmation": "this test demonstrates that the TPDO feedback speed is satisfactory. Regarding the few instances of non-zero speed feedback from the left wheel\u2014likely caused by chassis vibration or similar factors\u2014the TPDO test can be considered successful.",
+      "left_excursions": "accepted by operator for this manual test",
+      "proposed_cause": "chassis vibration or similar factors; operator hypothesis, not measured root cause",
+      "recorded_date": "2026-09-10"
+    }
+  }
+}

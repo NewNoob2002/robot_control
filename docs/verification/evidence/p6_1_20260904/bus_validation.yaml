@@ -1,0 +1,16 @@
+bus_validation:
+  schema_version: 1
+  created_at_utc: "2026-09-04T08:20:53Z"
+  safety_preflight: safety_preflight.yaml
+  interface: can
+  adapter_or_resource: "JCAN 207F346D5650; RK3588 can0 passive monitor"
+  settings:
+    can: {nominal_bitrate: 500000, data_bitrate: 0, listen_only: false}
+  requirements: [P6.1-R04, P6.1-R05, P6.1-R06, P6.1-R07, P6.1-R08, P6.1-R09, P6.1-R10]
+  stimulus: "read_manifest.yaml positions 1 through 97; one attempt each; positions 98 through 119 not sent"
+  measurements_or_responses: jcan_sdo_reads.json
+  raw_capture: "RK3588 candump was visible in the command transcript through position 96 but was not durably archived; target RX delta 193 is consistent with 96 request/response pairs plus the position-97 request"
+  report: cleanup.md
+  cleanup: {required: true, completed: true, final_state: "JCAN policy restored; no periodic tasks; adapter config unchanged; can0 ERROR-ACTIVE; target TX packets zero"}
+  passed: false
+

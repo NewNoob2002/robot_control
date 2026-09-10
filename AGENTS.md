@@ -40,8 +40,19 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   preserved the exact 0x601 request and 0x581 response in the target raw
   capture, and the normal observer published the response as the expected raw
   `sdo_rejected` observation. RXF/RXMF advanced by two, target TX stayed zero,
-  no error frame was observed, and cleanup passed. Phase 5 is complete. Later
-  HIL/release CI, packaging, and deploy service remain.
+  no error frame was observed, and cleanup passed. Phase 5 is complete. Phase
+  6 is in progress. P6.1–P6.5 and the recorded NMT Stop, Shutdown, Disable
+  Voltage and Quick Stop unloaded trials pass. The operator accepted the
+  manual speed-first TPDO feedback test on 2026-09-10, including small
+  left-speed excursions; vibration is a proposed cause, not an established
+  hardware fact. Watchdog timing/recovery and the remaining physical loss
+  tests remain open. Current source passes 53 qualification tests and 53
+  sanitizer tests; default Debug/Release and P5.6 isolation also pass.
+  Use docs/verification/PHASE6_CHECKPOINT.md for current disposition and
+  docs/verification/evidence/README.md to find direct or archived evidence.
+  Keep the qualification path Debug-only/default-OFF. No production daemon,
+  full SBUS/M4 pipeline, ROS2, persistent drive configuration or loaded
+  operation is added by this checkpoint.
 - EasyLogger's checksum-pinned core subset remains integrated behind
   `service/logging`. CANopen dependency provenance and zero-local-patch status
   are recorded in `third_party/README.md`.
@@ -57,6 +68,14 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   `docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md`.
 - Phase 5 scope and delivery slices are recorded in
   `docs/plans/PHASE5_CANOPEN_INTEGRATION.md`.
+- Phase 6 scope, safety envelope, delivery slices, and completion gate are
+  recorded in `docs/plans/PHASE6_ZLAC8015D_QUALIFICATION.md`.
+- P6.1 software preparation and the remaining physical-read gate are recorded
+  in `docs/verification/P6_1_CONTRACT_FIXTURE_READ_ONLY_BASELINE.md`.
+- P6.2 pure protocol semantics and software evidence are recorded in
+  `docs/verification/P6_2_ZLAC_PROTOCOL_SEMANTICS_BASELINE.md`.
+- P6.3 bounded executor and software/vcan evidence are recorded in
+  `docs/verification/P6_3_BOUNDED_QUALIFICATION_EXECUTOR_BASELINE.md`.
 - P5.6 implementation and verification evidence is recorded in
   `docs/verification/P5_6_READ_ONLY_COMMISSIONING_BASELINE.md`.
 

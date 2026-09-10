@@ -1,0 +1,16 @@
+bus_validation:
+  schema_version: 1
+  created_at_utc: '2026-09-07T09:15:02Z'
+  safety_preflight: safety_preflight.yaml
+  interface: can
+  adapter_or_resource: 'RK3588 can0 active requester; JCAN 207F346D5650 independent observer'
+  settings:
+    can: {nominal_bitrate: 500000, data_bitrate: 'not-applicable', listen_only: false}
+  requirements: [P6.4-post-enable-termination-inhibits-and-cleans-up]
+  stimulus: 'bootstrap.log and signal_trigger.log'
+  measurements_or_responses: analysis.json
+  raw_capture: rk3588_can.log
+  independent_capture: 20260907T082057.941827Z-1788769257941855606-capture.json
+  report: test_result.yaml
+  cleanup: {required: true, completed: true, final_state: 'heartbeat disabled; controlword 0x0006; dual status 0x1421/0x1421; zero targets and velocities; NMT Pre-operational requested'}
+  passed: true

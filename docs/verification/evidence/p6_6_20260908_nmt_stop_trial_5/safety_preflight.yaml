@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-08T10:31:15Z"
+  operation: "bus-write"
+  authorization: "User explicitly confirmed and authorized the final same-session P6.6 NMT Stop evidence trial after both captures were ready."
+  target:
+    board: "RK3588 robot controller and ZLAC8015D V4 node 1"
+    hardware_revision: "ZLAC8015D V4"
+    probe_or_adapter_serial: "JCAN 207F346D5650 (independent listen-only capture)"
+    transport: "Classical CANopen over can0"
+  artifact_or_stimulus: "robot-control-zlac-qualification SHA256 269aaa0152cd1a1d46a7d38dfe23fd214e31fa062479a10addf8ad27f4a5bd20; --nmt-stop-once 2:5 --duration-ms 2000"
+  limits: "Node 1 only; axis 2 target +5 rpm for 2000 ms; one NMT Stop 000#0201; axis 1 stays zero; temporary 0x1017:00 0->500->0 and 0x200F:00 1->0->1; no executor retry; wheels raised and unloaded."
+  recovery_plan: "Executor writes both targets zero, transitions to safe CiA402 state, restores 0x200F and 0x1017, stops captures; independent power removal remains available."
+  approved: true

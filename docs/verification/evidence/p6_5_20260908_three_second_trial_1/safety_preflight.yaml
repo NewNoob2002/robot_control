@@ -1,0 +1,37 @@
+safety_preflight:
+  schema_version: 1
+  date: '2026-09-08'
+  authorization: User confirmed and authorized the exact 3000 ms observation trial.
+  physical_state:
+    drive_power: off_at_preflight
+    wheels: both_raised_unloaded_confirmed
+    wiring: unchanged_confirmed
+    mechanical_brake: installed_will_not_impede_left_wheel_confirmed
+    independent_power_cut: immediately_available_confirmed
+  scope:
+    node: 1
+    operation: 0x60FF:01 = +5 rpm once for 3000 ms
+    other_target: 0x60FF:02 = 0 throughout
+    heartbeat: 0x1017:00 0 -> 1000 -> 0, volatile
+    command_application: 0x200F:00 1 -> 0 -> 1, volatile
+    prohibited:
+    - reverse
+    - second_axis_motion
+    - EEPROM_write
+    - brake_output_write
+    - retry
+  adapter:
+    serial: 207F346D5650
+    nominal_bitrate: 500000
+    fd: false
+    warnings: 0
+    periodic_tasks: 0
+  target:
+    host: lubancat
+    architecture: aarch64
+    can0: ERROR-ACTIVE
+    tx_error: 0
+    rx_error: 0
+    drops: 0
+  artifact_sha256: 899914fdccb5df378eabcf4aafab93d23d48cf01ef35098847b8af81d38bc881
+  decision: ready_to_arm_observers_while_powered_off

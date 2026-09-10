@@ -1,0 +1,20 @@
+{
+  "user_confirmation": "turn only the right wheel, in clockwise and counter-clockwise both, and did the left wheel stay still with normal brake behavior and sound",
+  "right_wheel_rotated_manually": true,
+  "directions": [
+    "clockwise",
+    "counter-clockwise"
+  ],
+  "left_wheel_stationary": true,
+  "brake_behavior_normal": true,
+  "sound_normal": true,
+  "direction_timestamp_markers": false,
+  "acceptance": {
+    "status": "PASS",
+    "scope": "manual TPDO speed feedback test",
+    "user_confirmation": "this test demonstrates that the TPDO feedback speed is satisfactory. Regarding the few instances of non-zero speed feedback from the left wheel\u2014likely caused by chassis vibration or similar factors\u2014the TPDO test can be considered successful.",
+    "left_excursions": "accepted by operator for this manual test",
+    "proposed_cause": "chassis vibration or similar factors; operator hypothesis, not measured root cause",
+    "recorded_date": "2026-09-10"
+  }
+}

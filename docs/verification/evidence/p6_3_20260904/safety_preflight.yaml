@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T10:24:32Z"
+  operation: bus-write
+  authorization: "User requested continuation of P6.3 software and managed-vcan verification"
+  target:
+    board: "host namespace-local virtual CAN only"
+    hardware_revision: "not-applicable"
+    probe_or_adapter_serial: "not-applicable"
+    transport: can
+  artifact_or_stimulus: "robot_control_canopen_qualification_vcan_tests on ephemeral vcan0"
+  limits: "Temporary user/network namespace; standard IDs 0x000, 0x581, 0x601, and 0x701 only; no physical CAN interface"
+  recovery_plan: "Test process exit destroys the namespace and vcan0; no persistent interface or hardware state exists"
+  approved: true

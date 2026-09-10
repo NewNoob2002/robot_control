@@ -1,0 +1,170 @@
+{
+  "executor_result": "PASS",
+  "physical_acceptance": "PARTIAL: motion and subsequent stop confirmed; exact stop timing and traffic-resumption safety remain open",
+  "observed_watchdog_behavior": "right wheel rotated counter-clockwise then stopped; left stationary, normal brake and sound",
+  "latched_stop_qualified": false,
+  "recovery_limitation": "Prior trial confirmed restart; zero sampled feedback in this run cannot exclude an unsampled brief restart.",
+  "matched_frames": 170,
+  "capture_agreement": true,
+  "target_packet_deltas": {
+    "rx": 112,
+    "tx": 58
+  },
+  "captured_rx": 112,
+  "rx_counter_excess": 0,
+  "rx_counter_reconciliation": "PASS",
+  "frame_ids": {
+    "601": 56,
+    "581": 56,
+    "701": 10,
+    "000": 2,
+    "181": 43,
+    "281": 1,
+    "381": 1,
+    "481": 1
+  },
+  "downloads": 16,
+  "nonzero_target_requests": 1,
+  "watchdog_raw": 1000,
+  "initial_independent_velocities": [
+    {
+      "subindex": 1,
+      "raw_i32": 0
+    },
+    {
+      "subindex": 2,
+      "raw_i32": 52
+    }
+  ],
+  "initial_velocity_check_ms": 2.317,
+  "host_silence_ms": 1503.002,
+  "precleanup_velocities": [
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      3,
+      0
+    ]
+  ],
+  "first_cleanup_zero_ms_after_probe": 6.003,
+  "shutdown_ms_after_probe": 14.003,
+  "velocity_rebound": [],
+  "final_all_zero_ms_after_probe": 36.316,
+  "preop_heartbeat_ms_after_probe": 145.379,
+  "restoration_ms_after_probe": 157.351,
+  "raw_status_changes_during_silence": [
+    {
+      "ms_after_last_host_tx": 34.59,
+      "status_bytes": "27142744"
+    },
+    {
+      "ms_after_last_host_tx": 534.047,
+      "status_bytes": "27142714"
+    }
+  ],
+  "timing_limitation": "Raw status flag change is not a qualified velocity/stop timestamp; do not infer watchdog time units.",
+  "restored_values": {
+    "2000:00": 0,
+    "1017:00": 0,
+    "200F:00": 1,
+    "60FF:01": 0,
+    "60FF:02": 0
+  },
+  "can_errors_or_drops": 0,
+  "adapter_configuration_unchanged": true,
+  "operator_observation": {
+    "latest_user_confirmation": "right wheel counter-clockwise then stop",
+    "preceding_confirmation": "observe the right wheel counter-clockwise from the right side of the right wheel and left wheel stay stationary, with normal brake behavior and sound",
+    "superseded_observation": "observe the right and left wheel both stay stationary and both no move, with normal brake behavior and sound",
+    "right_wheel_motion_observed": true,
+    "right_wheel_direction": "counter-clockwise viewed from right side",
+    "right_wheel_stopped": true,
+    "left_wheel_stationary": true,
+    "brake_behavior_normal": true,
+    "sound_normal": true,
+    "stop_specifically_during_silence": null,
+    "restart_after_silence": null,
+    "note": "Latest observations correct earlier both-stationary report. Exact stop phase and absence of restart were not explicitly confirmed."
+  },
+  "counter_discrepancy_window": "None in this trial; boundary snapshots stable",
+  "counter_snapshots": {
+    "counters_capture_ready": {
+      "rx": {
+        "bytes": 2624,
+        "packets": 372,
+        "errors": 0,
+        "dropped": 0,
+        "over_errors": 0,
+        "multicast": 0
+      },
+      "tx": {
+        "bytes": 1172,
+        "packets": 151,
+        "errors": 0,
+        "dropped": 0,
+        "carrier_errors": 0,
+        "collisions": 0
+      }
+    },
+    "counters_before_executor": {
+      "rx": {
+        "bytes": 2624,
+        "packets": 372,
+        "errors": 0,
+        "dropped": 0,
+        "over_errors": 0,
+        "multicast": 0
+      },
+      "tx": {
+        "bytes": 1172,
+        "packets": 151,
+        "errors": 0,
+        "dropped": 0,
+        "carrier_errors": 0,
+        "collisions": 0
+      }
+    },
+    "counters_executor_exited": {
+      "rx": {
+        "bytes": 3426,
+        "packets": 484,
+        "errors": 0,
+        "dropped": 0,
+        "over_errors": 0,
+        "multicast": 0
+      },
+      "tx": {
+        "bytes": 1624,
+        "packets": 209,
+        "errors": 0,
+        "dropped": 0,
+        "carrier_errors": 0,
+        "collisions": 0
+      }
+    },
+    "counters_before_capture_stop": {
+      "rx": {
+        "bytes": 3426,
+        "packets": 484,
+        "errors": 0,
+        "dropped": 0,
+        "over_errors": 0,
+        "multicast": 0
+      },
+      "tx": {
+        "bytes": 1624,
+        "packets": 209,
+        "errors": 0,
+        "dropped": 0,
+        "carrier_errors": 0,
+        "collisions": 0
+      }
+    }
+  }
+}

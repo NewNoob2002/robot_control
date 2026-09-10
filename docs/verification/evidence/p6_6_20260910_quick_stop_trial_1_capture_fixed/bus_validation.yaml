@@ -1,0 +1,26 @@
+bus_validation:
+  schema_version: 1
+  passed: true
+  interface: can0
+  bitrate: 500000
+  jcan_serial: 207F346D5650
+  jcan_mode: silent
+  frames: 203
+  target_rx_delta: 137
+  target_tx_delta: 66
+  transmit_counts:
+    sdo_downloads: 14
+    sdo_uploads: 50
+    nmt: 2
+    nonzero: 1
+    quick_stop: 1
+  error_frames: 0
+  sdo_aborts: 0
+  emcy_frames: 0
+  counter_growth_errors_or_drops: false
+  adapter_configuration_unchanged: true
+  no_residual_target_can_processes: true
+  jcan_shutdown_confirmed: true
+  raw_target: target/rk3588_can.log
+  raw_independent: jcan_session.jsonl
+  analysis: analysis.json

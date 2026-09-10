@@ -1,0 +1,21 @@
+safety_preflight:
+  schema_version: 1
+  date: 2026-09-08
+  authorization: 'User confirmed and authorized one exact retry.'
+  physical_state:
+    drive_power: off_at_preflight
+    wheels: both_raised_unloaded_confirmed
+    wiring: unchanged_confirmed
+    mechanical_brake: installed_no_prior_abnormal_action_or_sound
+    independent_power_cut: immediately_available_confirmed
+  scope:
+    node: 1
+    operation: '0x60FF:01 = +5 rpm once for 500 ms'
+    other_target: '0x60FF:02 = 0 throughout'
+    heartbeat: '0x1017:00 0 -> 1000 -> 0, volatile'
+    command_application: '0x200F:00 1 -> 0 -> 1, volatile'
+    prohibited: [reverse, second_axis_motion, EEPROM_write, brake_output_write, retry]
+  adapter: {serial: 207F346D5650, nominal_bitrate: 500000, fd: false, warnings: 0, periodic_tasks: 0}
+  target: {host: lubancat, architecture: aarch64, can0: ERROR-ACTIVE, tx_error: 0, rx_error: 0, drops: 0}
+  artifact_sha256: 2f5d9ce170953a141cb0fd219d83c1a6c087e6e88e89efd187b94119ef2a44fb
+  decision: ready_to_arm_observers_while_powered_off

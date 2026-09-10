@@ -1,0 +1,14 @@
+[0/1] Re-running CMake...
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p67-closure-sanitizer
+[1/10] Building C object communication/canopen/CMakeFiles/robot_control_canopen_qualification_gate.dir/qualification_gate.c.o
+[2/10] Linking C static library communication/canopen/librobot_control_canopen_upstream_qualification.a
+[3/10] Building CXX object tests/unit/CMakeFiles/robot_control_canopen_qualification_gate_tests.dir/canopen_qualification_gate_tests.cpp.o
+[4/10] Linking CXX executable tests/unit/robot_control_canopen_qualification_gate_tests
+[5/10] Building CXX object tools/zlac_qualification/CMakeFiles/robot-control-zlac-qualification.dir/main.cpp.o
+[6/10] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/qualification.cpp.o
+[7/10] Linking CXX static library communication/canopen/librobot_control_communication_canopen_qualification.a
+[8/10] Linking CXX executable tools/zlac_qualification/robot-control-zlac-qualification
+[9/10] Building CXX object tests/unit/CMakeFiles/robot_control_canopen_qualification_vcan_tests.dir/canopen_qualification_vcan_tests.cpp.o
+[10/10] Linking CXX executable tests/unit/robot_control_canopen_qualification_vcan_tests

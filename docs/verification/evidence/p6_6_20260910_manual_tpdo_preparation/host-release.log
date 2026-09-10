@@ -1,0 +1,62 @@
+Internal ctest changing into directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/host-release
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/host-release
+      Start  1: platform_probe_help
+ 1/28 Test  #1: platform_probe_help ................................................   Passed    0.00 sec
+      Start  2: platform_probe_run
+ 2/28 Test  #2: platform_probe_run .................................................   Passed    0.00 sec
+      Start  3: platform_probe_phase3_smoke
+ 3/28 Test  #3: platform_probe_phase3_smoke ........................................   Passed    0.00 sec
+      Start  4: can_probe_help
+ 4/28 Test  #4: can_probe_help .....................................................   Passed    0.00 sec
+      Start  5: can_probe_missing_interface
+ 5/28 Test  #5: can_probe_missing_interface ........................................   Passed    0.00 sec
+      Start  6: can_probe_unknown_argument
+ 6/28 Test  #6: can_probe_unknown_argument .........................................   Passed    0.00 sec
+      Start  7: can_probe_duration_zero
+ 7/28 Test  #7: can_probe_duration_zero ............................................   Passed    0.01 sec
+      Start  8: can_probe_duration_nonnumeric
+ 8/28 Test  #8: can_probe_duration_nonnumeric ......................................   Passed    0.00 sec
+      Start  9: can_probe_duration_overflow
+ 9/28 Test  #9: can_probe_duration_overflow ........................................   Passed    0.00 sec
+      Start 10: can_probe_duplicate_interface
+10/28 Test #10: can_probe_duplicate_interface ......................................   Passed    0.00 sec
+      Start 11: can_probe_duplicate_duration
+11/28 Test #11: can_probe_duplicate_duration .......................................   Passed    0.00 sec
+      Start 12: can_probe_interface_missing_value
+12/28 Test #12: can_probe_interface_missing_value ..................................   Passed    0.00 sec
+      Start 13: can_probe_duration_missing_value
+13/28 Test #13: can_probe_duration_missing_value ...................................   Passed    0.01 sec
+      Start 14: can_probe_duration_negative
+14/28 Test #14: can_probe_duration_negative ........................................   Passed    0.00 sec
+      Start 15: canopen_observer_help
+15/28 Test #15: canopen_observer_help ..............................................   Passed    0.00 sec
+      Start 16: canopen_observer_invalid_
+16/28 Test #16: canopen_observer_invalid_ ..........................................   Passed    0.00 sec
+      Start 17: canopen_observer_invalid___unknown
+17/28 Test #17: canopen_observer_invalid___unknown .................................   Passed    0.00 sec
+      Start 18: canopen_observer_invalid___interface_unused0
+18/28 Test #18: canopen_observer_invalid___interface_unused0 .......................   Passed    0.00 sec
+      Start 19: canopen_observer_invalid___interface_unused0___interface_unused1
+19/28 Test #19: canopen_observer_invalid___interface_unused0___interface_unused1 ...   Passed    0.00 sec
+      Start 20: canopen_observer_invalid___duration_ms_0
+20/28 Test #20: canopen_observer_invalid___duration_ms_0 ...........................   Passed    0.00 sec
+      Start 21: canopen_observer_invalid___duration_ms_1___duration_ms_2
+21/28 Test #21: canopen_observer_invalid___duration_ms_1___duration_ms_2 ...........   Passed    0.00 sec
+      Start 22: domain_behavior_lock
+22/28 Test #22: domain_behavior_lock ...............................................   Passed    0.00 sec
+      Start 23: canopen_stack_build
+23/28 Test #23: canopen_stack_build ................................................   Passed    0.00 sec
+      Start 24: canopen_vcan_managed
+24/28 Test #24: canopen_vcan_managed ...............................................   Passed    0.52 sec
+      Start 25: socketcan_frame_codec
+25/28 Test #25: socketcan_frame_codec ..............................................   Passed    0.01 sec
+      Start 26: socketcan_socket_lifecycle
+26/28 Test #26: socketcan_socket_lifecycle .........................................   Passed    0.00 sec
+      Start 27: socketcan_vcan_managed
+27/28 Test #27: socketcan_vcan_managed .............................................   Passed    0.15 sec
+      Start 28: linux_platform_integration
+28/28 Test #28: linux_platform_integration .........................................   Passed    0.20 sec
+
+100% tests passed, 0 tests failed out of 28
+
+Total Test time (real) =   0.98 sec

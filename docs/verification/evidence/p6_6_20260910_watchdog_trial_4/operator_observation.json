@@ -1,0 +1,14 @@
+{
+  "latest_user_confirmation": "right wheel counter-clockwise then stop",
+  "preceding_confirmation": "observe the right wheel counter-clockwise from the right side of the right wheel and left wheel stay stationary, with normal brake behavior and sound",
+  "superseded_observation": "observe the right and left wheel both stay stationary and both no move, with normal brake behavior and sound",
+  "right_wheel_motion_observed": true,
+  "right_wheel_direction": "counter-clockwise viewed from right side",
+  "right_wheel_stopped": true,
+  "left_wheel_stationary": true,
+  "brake_behavior_normal": true,
+  "sound_normal": true,
+  "stop_specifically_during_silence": null,
+  "restart_after_silence": null,
+  "note": "Latest observations correct earlier both-stationary report. Exact stop phase and absence of restart were not explicitly confirmed."
+}

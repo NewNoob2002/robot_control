@@ -1,0 +1,14 @@
+2: can0: <NOARP,UP,LOWER_UP,ECHO> mtu 16 qdisc pfifo_fast state UP mode DEFAULT group default qlen 10
+    link/can  promiscuity 0 minmtu 0 maxmtu 0 
+    can state ERROR-ACTIVE (berr-counter tx 0 rx 0) restart-ms 100 
+	  bitrate 500000 sample-point 0.866 
+	  tq 26 prop-seg 32 phase-seg1 32 phase-seg2 10 sjw 1
+	  rockchip_canfd: tseg1 1..128 tseg2 1..128 sjw 1..128 brp 1..256 brp-inc 2
+	  clock 150000000 
+	  re-started bus-errors arbit-lost error-warn error-pass bus-off
+	  0          0          0          0          0          0         numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 parentbus platform parentdev fea60000.can 
+    RX:  bytes packets errors dropped  missed   mcast           
+          1253     619      0       0       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+           348      45      0       0       0       0 
+2f5d9ce170953a141cb0fd219d83c1a6c087e6e88e89efd187b94119ef2a44fb  /tmp/robot-control-qualifications/p65-2f5d9ce17095/robot-control-zlac-qualification

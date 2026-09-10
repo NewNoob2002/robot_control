@@ -1,0 +1,25 @@
+test_result:
+  schema_version: 1
+  source_revision: "1d1314d25269d38f9679cd2c15e23df65afcd2a4 (working tree contains reviewed Phase 6 changes)"
+  artifact_checksums:
+    robot-control-zlac-qualification: "269aaa0152cd1a1d46a7d38dfe23fd214e31fa062479a10addf8ad27f4a5bd20"
+  safety_preflight: "safety_preflight.yaml"
+  level: "hil"
+  target: "RK3588 can0 and ZLAC8015D V4 node 1"
+  command: "/tmp/robot-control-qualifications/p66-online-269aaa0152cd/robot-control-zlac-qualification --interface can0 --nmt-stop-once 2:5 --duration-ms 2000"
+  timing:
+    started_at_utc: "2026-09-08T10:31:15Z"
+    duration_ms: 3504
+    timeout_ms: 180000
+    timing_basis: "RK3588 raw capture first-to-last CAN frame; excludes the one-second passive startup window"
+  attempts: 1
+  passed: true
+  counts:
+    total: 1
+    passed: 1
+    failed: 0
+    skipped: 0
+  classified_failures: []
+  log: "executor.log"
+  requirements:
+    - "P6.6 bounded node-1 NMT Stop"

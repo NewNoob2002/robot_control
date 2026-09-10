@@ -1,0 +1,44 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-04T07:04:17Z"
+  operation: bus-write
+  authorization: "User authorized on 2026-09-04 modifying the JCAN profile to allow only the 119 SDO upload requests in read_manifest.yaml and executing that P6.1 read-only inventory."
+  target:
+    board: "Embedfire LubanCat-4IO, hostname lubancat, machine-id 6923ab3301fb4a8d816759b04ec6bf0a"
+    hardware_revision: "rockchip,rk3588s-lubancat-4io / rockchip,rk3588"
+    probe_or_adapter_serial: "JCAN 207F346D5650, single channel"
+    transport: can
+  artifact_or_stimulus: "read_manifest.yaml sha256 5d2b07443a747c167dfa513de73bf2700843b29b1271b0ea3cae33be5ac3ada1; exactly 119 standard CAN 0x601 expedited SDO upload requests to node 1"
+  limits: "One attempt per exact manifest object; standard CAN only; request DLC 8 and payload 40 <index-le> <subindex> 00 00 00 00; no retry, SDO download, NMT, RPDO, broadcast, periodic TX, raw TX, interface change, reset, parameter modification, or motion command."
+  recovery_plan: "Stop on the first ok=false, warning, abort, timeout, identity/width mismatch, unexpected traffic, target error, or cleanup error. Stop passive capture, verify RK3588 can0 remains ERROR-ACTIVE with target TX unchanged at zero, verify no JCAN periodic task, verify JCAN config unchanged, and restore jcan_bus_profile.toml exactly to sha256 752389399793ee8d50a25a8d30eecebc1879127d58e5f67bad79bcfc65ae13e1."
+  fixture:
+    drive_model: "ZLAC8015D V4"
+    node_id: 1
+    nominal_bitrate: 500000
+    power_state: "External DC supply energized; no power-setting change authorized"
+    chassis_bottom_raised: true
+    stable_support: true
+    wheels_fully_clear: true
+    named_operator: "Ted"
+    independent_physical_stop: "External emergency-stop button"
+    emergency_inputs: "X0/X1 installed; conditional manifest objects required"
+    mechanical_brakes: "B0/B1 installed; conditional manifest objects required"
+  monitor:
+    target_alias: "robot-dev"
+    target_os: "Ubuntu 22.04.5 LTS"
+    target_kernel: "6.1.84"
+    target_architecture: "aarch64 little-endian"
+    interface: "can0"
+    baseline: "UP, LOWER_UP, ERROR-ACTIVE, 500000 bit/s, tx/rx error counters zero, cumulative TX packets zero"
+    tool: "/usr/bin/candump"
+    tool_sha256: "15a665ae12939cf185cf4be20cbdedf7e49c666a6d39a80daefb4242a4239489"
+  source:
+    revision: "1d1314d25269d38f9679cd2c15e23df65afcd2a4"
+    dirty: true
+    active_requester: "JCAN MCP jcan_sdo_read"
+    deployed_robot_control_artifact: "not used; RK3588 is passive capture only"
+  profile:
+    path: "/home/gtc/Desktop/workspace/JCAN/jcan_bus_profile.toml"
+    before_sha256: "752389399793ee8d50a25a8d30eecebc1879127d58e5f67bad79bcfc65ae13e1"
+    prepared_profile: "jcan_bus_profile.p6_1.toml"
+  approved: true

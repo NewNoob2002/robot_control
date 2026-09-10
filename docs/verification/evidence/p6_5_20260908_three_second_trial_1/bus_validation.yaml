@@ -1,0 +1,24 @@
+bus_validation:
+  schema_version: 1
+  interface: can0
+  bitrate: 500000
+  can_fd: false
+  target_frames: 191
+  independent_jcan_frames: 191
+  independent_capture_exact: true
+  dropped_frames: 0
+  sdo_downloads_total: 15
+  sdo_uploads: 34
+  nmt_frames:
+  - '0101'
+  - '8001'
+  nonzero_target_writes: 1
+  target_to_zero_ms: 3000.994
+  zero_velocity_reached_ms: 254.256
+  sdo_aborts: 0
+  emcy_frames: 0
+  can_error_frames: 0
+  result: pass
+  raw_capture: target/rk3588_can.log
+  independent_capture: 20260908T042755.663793Z-1788841675663818473-capture.json
+  analysis: analysis.json

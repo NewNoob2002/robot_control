@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "serial": "207F346D5650",
+  "operation": "capture",
+  "data": {
+    "duration_ms": 2001.2632369980565,
+    "received_frames": 0,
+    "matched_frames": 0,
+    "dropped_frames": 0,
+    "samples": []
+  },
+  "warnings": [],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T084113.215991Z-1788511273216025253-capture.json"
+}
+
+

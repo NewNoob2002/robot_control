@@ -1,0 +1,25 @@
+test_result:
+  schema_version: 1
+  source_revision: 1d1314d25269d38f9679cd2c15e23df65afcd2a4
+  artifact_checksums: {robot-control-zlac-qualification: ac24cc41ccb2684c0464eac82ea5388ff1fc0ceffa8cef9cc23f17eec770c971}
+  level: hil
+  target: 'RK3588 lubancat; ZLAC8015D node 1; JCAN 207F346D5650'
+  safety_preflight: safety_preflight.yaml
+  command: '/tmp/robot-control-qualifications/p64-ac24cc41ccb2/robot-control-zlac-qualification --interface can0 --zero-sequence; bootstrap_after_boot.sh supplies one reviewed heartbeat configuration'
+  attempts: 1
+  passed: true
+  counts: {total: 1, passed: 1, failed: 0, skipped: 0}
+  classified_failures: []
+  requirements: [P6.4-normal-zero-target-transitions-and-drive-cleanup]
+  log: executor.log
+  raw_capture: rk3588_can.log
+  analysis: analysis.json
+  bus_validation: bus_validation.yaml
+  result: 'Exit 0; exact 9 downloads/25 uploads/2 NMT; both status halves 1421->1423->1427->1421 with zero velocities; newer Operational then Pre-operational heartbeat'
+  transition_latency_ms: [20.780, 41.784, 42.680, 33.642]
+  tpdo1_interval_ms: [49.942, 49.956]
+  independent_capture: '260 JCAN frames match the target prefix exactly, including full normal sequence and drive cleanup; zero dropped frames'
+  operator_observation: 'User confirms both wheels remained stationary and installed mechanical brakes had no abnormal action or sound'
+  postflight: 'Heartbeat restored to 0 with target raw acknowledgement and separate JCAN/target upload; mode request/display independently read as 3; both targets/velocities zero in terminal cleanup records'
+  limitations: ['Fixture heartbeat restoration occurred after main JCAN capture ended; do not claim uninterrupted dual raw coverage of that supplemental write', 'DLC0 281/381/481 observed once each after Operational and preserved as drive behavior', 'Seven vendor LOG_DEBUG epoll-new diagnostics retained; no CAN error frame evidenced', 'Normal core pass does not close negative-path P6.4 acceptance']
+  cleanup: 'Executor, bootstrap and bounded captures completed; no NMT reset, nonzero target, brake-output or persistent write'

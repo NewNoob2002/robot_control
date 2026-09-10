@@ -1,0 +1,336 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+qualification_wait_boot node=1 timeout_s=1
+(CO_CANsend) OS error "Permission denied" in send()
+qualification_online_probe node=1 object=0x1017:00
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+MANUAL_ROTATION_READY duration_ms=60000 no_motor_commands=1
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967294
+manual_velocity sub=3 raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=604
+manual_velocity sub=3 raw=39321600
+manual_velocity sub=1 raw=3
+manual_velocity sub=2 raw=886
+manual_velocity sub=3 raw=57802754
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=860
+manual_velocity sub=3 raw=56557568
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=338
+manual_velocity sub=3 raw=22609920
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=228
+manual_velocity sub=3 raw=14942208
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=108
+manual_velocity sub=3 raw=6881280
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=540
+manual_velocity sub=3 raw=35127296
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=619
+manual_velocity sub=3 raw=40304640
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=665
+manual_velocity sub=3 raw=44105728
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=574
+manual_velocity sub=3 raw=38404096
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966465
+manual_velocity sub=3 raw=4240244736
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967046
+manual_velocity sub=3 raw=4278386688
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966872
+manual_velocity sub=3 raw=4267442176
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966689
+manual_velocity sub=3 raw=4255449088
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966428
+manual_velocity sub=3 raw=4238278656
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966260
+manual_velocity sub=3 raw=4227203072
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966621
+manual_velocity sub=3 raw=4250075136
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966736
+manual_velocity sub=3 raw=4257546240
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966862
+manual_velocity sub=3 raw=4265476096
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966959
+manual_velocity sub=3 raw=4273274880
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966926
+manual_velocity sub=3 raw=4270981120
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966926
+manual_velocity sub=3 raw=4270981120
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966828
+manual_velocity sub=3 raw=4264493056
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966552
+manual_velocity sub=3 raw=4246470656
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966574
+manual_velocity sub=3 raw=4247322624
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967095
+manual_velocity sub=3 raw=4281008128
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967035
+manual_velocity sub=3 raw=4278321152
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966866
+manual_velocity sub=3 raw=4266983424
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966753
+manual_velocity sub=3 raw=4259643392
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966670
+manual_velocity sub=3 raw=4254138368
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966662
+manual_velocity sub=3 raw=4253024256
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966783
+manual_velocity sub=3 raw=4260102144
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967124
+manual_velocity sub=3 raw=4284088320
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967010
+manual_velocity sub=3 raw=4276420608
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966909
+manual_velocity sub=3 raw=4268621824
+manual_velocity sub=(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+1 raw=0
+manual_velocity sub=2 raw=4294966499
+manual_velocity sub=3 raw=4242997248
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966765
+manual_velocity sub=3 raw=4260429824
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967008
+manual_velocity sub=3 raw=4276224000
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4
+manual_velocity sub=3 raw=327680
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966752
+manual_velocity sub=3 raw=4258529280
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966761
+manual_velocity sub=3 raw=4260167680
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967258
+manual_velocity sub=3 raw=4292935680
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966776
+manual_velocity sub=3 raw=4261150720
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967007
+manual_velocity sub=3 raw=4275372032
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967098
+manual_velocity sub=3 raw=4282318848
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966943
+manual_velocity sub=3 raw=4272095232
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966647
+manual_velocity sub=3 raw=4252631040
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294966669
+manual_velocity sub=3 raw=4253286400
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967232
+manual_velocity sub=3 raw=4290510848
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=4294967021
+manual_velocity sub=3 raw=4277141504
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=1
+manual_velocity sub=3 raw=65536
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+MANUAL_ROTATION_END
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+qualification_complete node=1 operation=14

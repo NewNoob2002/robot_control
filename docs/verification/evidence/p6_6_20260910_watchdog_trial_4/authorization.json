@@ -1,0 +1,10 @@
+{
+  "authorized": true,
+  "stimulus": "watchdog",
+  "elf_sha256": "ea1fba5cb9fa3c6e5ede192820b4a4ddc6af575a404f46e19d8290497e7b2ea5",
+  "operator_ready": true,
+  "user_confirmation": "Authorize",
+  "recorded_utc": "2026-09-10T05:38:00.465308+00:00",
+  "scope": "One corrected node-1 right-axis +5 rpm watchdog trial on robot-dev can0 Classical CAN 500k; raw watchdog 1000, 200ms lead, <=100ms independent left-zero/right-nonzero velocity check, then 1500ms TX-free window, fixed readbacks and zero/Shutdown/Pre-operational cleanup with volatile restoration. Exact frame/payload/count bounds in local_trial.py validate_frame. JCAN 207F346D5650 silent RX only. No heartbeat/TPDO suppression or retries.",
+  "authorization_context": "User authorizes proposed corrected re-test with same right-axis +5 rpm and watchdog limits plus <=100ms pre-silence velocity check; existing raised/unloaded setup and independent power cut readiness persist."
+}

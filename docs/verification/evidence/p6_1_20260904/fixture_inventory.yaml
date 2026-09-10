@@ -1,0 +1,1774 @@
+fixture_inventory:
+  schema_version: 1
+  phase: P6.1
+  session_date: "2026-09-04"
+  node_id: 1
+  expected_objects: 119
+  successful_objects: 96
+  failed_objects: 1
+  not_attempted_objects: 22
+  result: stopped-on-first-timeout
+  records:
+    - position: 1
+      object: "0x1000:00"
+      expected_width_bytes: 4
+      group: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "fixture identity and firmware baseline"
+      classification: read-only
+      rollback_role: none
+      status: success
+      request: "40 00 10 00 00 00 00 00"
+      response: "43 00 10 00 92 01 02 00"
+      raw_little_endian: "92 01 02 00"
+      decoded_unsigned: 131474
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080504.117824Z-1788509104117849146-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 2
+      object: "0x1001:00"
+      expected_width_bytes: 1
+      group: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "fixture identity and firmware baseline"
+      classification: read-only
+      rollback_role: none
+      status: success
+      request: "40 01 10 00 00 00 00 00"
+      response: "4F 01 10 00 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080608.427053Z-1788509168427089996-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 3
+      object: "0x1009:00"
+      expected_width_bytes: 2
+      group: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "fixture identity and firmware baseline"
+      classification: read-only
+      rollback_role: none
+      status: success
+      request: "40 09 10 00 00 00 00 00"
+      response: "4B 09 10 00 01 00 00 00"
+      raw_little_endian: "01 00"
+      decoded_unsigned: 1
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080613.192919Z-1788509173192944184-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 4
+      object: "0x100A:00"
+      expected_width_bytes: 2
+      group: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "fixture identity and firmware baseline"
+      classification: read-only
+      rollback_role: none
+      status: success
+      request: "40 0A 10 00 00 00 00 00"
+      response: "4B 0A 10 00 01 00 00 00"
+      raw_little_endian: "01 00"
+      decoded_unsigned: 1
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080617.904713Z-1788509177904739911-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 5
+      object: "0x1018:00"
+      expected_width_bytes: 1
+      group: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "fixture identity and firmware baseline"
+      classification: read-only
+      rollback_role: none
+      status: success
+      request: "40 18 10 00 00 00 00 00"
+      response: "4F 18 10 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080622.315772Z-1788509182315797600-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 6
+      object: "0x1018:01"
+      expected_width_bytes: 4
+      group: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "fixture identity and firmware baseline"
+      classification: read-only
+      rollback_role: none
+      status: success
+      request: "40 18 10 01 00 00 00 00"
+      response: "43 18 10 01 00 01 00 00"
+      raw_little_endian: "00 01 00 00"
+      decoded_unsigned: 256
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080629.222777Z-1788509189222803151-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 7
+      object: "0x1018:02"
+      expected_width_bytes: 4
+      group: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "fixture identity and firmware baseline"
+      classification: read-only
+      rollback_role: none
+      status: success
+      request: "40 18 10 02 00 00 00 00"
+      response: "43 18 10 02 01 00 00 00"
+      raw_little_endian: "01 00 00 00"
+      decoded_unsigned: 1
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080636.071765Z-1788509196071802590-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 8
+      object: "0x2031:00"
+      expected_width_bytes: 2
+      group: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "fixture identity and firmware baseline"
+      classification: read-only
+      rollback_role: none
+      status: success
+      request: "40 31 20 00 00 00 00 00"
+      response: "4B 31 20 00 81 63 00 00"
+      raw_little_endian: "81 63"
+      decoded_unsigned: 25473
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080641.352685Z-1788509201352708398-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 9
+      object: "0x1400:00"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 14 00 00 00 00 00"
+      response: "4F 00 14 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080646.348564Z-1788509206348591227-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 10
+      object: "0x1400:01"
+      expected_width_bytes: 4
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 14 01 00 00 00 00"
+      response: "43 00 14 01 01 02 00 00"
+      raw_little_endian: "01 02 00 00"
+      decoded_unsigned: 513
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080651.382401Z-1788509211382427478-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 11
+      object: "0x1400:02"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 14 02 00 00 00 00"
+      response: "4F 00 14 02 FF 00 00 00"
+      raw_little_endian: "FF"
+      decoded_unsigned: 255
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080656.182406Z-1788509216182432452-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 12
+      object: "0x1400:03"
+      expected_width_bytes: 2
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 14 03 00 00 00 00"
+      response: "4B 00 14 03 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080701.548393Z-1788509221548419200-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 13
+      object: "0x1400:04"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 14 04 00 00 00 00"
+      response: "4F 00 14 04 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080708.231214Z-1788509228231240541-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 14
+      object: "0x1400:05"
+      expected_width_bytes: 2
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 14 05 00 00 00 00"
+      response: "4B 00 14 05 E8 03 00 00"
+      raw_little_endian: "E8 03"
+      decoded_unsigned: 1000
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080714.642081Z-1788509234642105269-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 15
+      object: "0x1401:00"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 14 00 00 00 00 00"
+      response: "4F 01 14 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080720.674211Z-1788509240674236971-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 16
+      object: "0x1401:01"
+      expected_width_bytes: 4
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 14 01 00 00 00 00"
+      response: "43 01 14 01 01 03 00 00"
+      raw_little_endian: "01 03 00 00"
+      decoded_unsigned: 769
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080726.132025Z-1788509246132047495-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 17
+      object: "0x1401:02"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 14 02 00 00 00 00"
+      response: "4F 01 14 02 FF 00 00 00"
+      raw_little_endian: "FF"
+      decoded_unsigned: 255
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080733.690961Z-1788509253690988221-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 18
+      object: "0x1401:03"
+      expected_width_bytes: 2
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 14 03 00 00 00 00"
+      response: "4B 01 14 03 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080741.904900Z-1788509261904927095-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 19
+      object: "0x1401:04"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 14 04 00 00 00 00"
+      response: "4F 01 14 04 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080750.128832Z-1788509270128858172-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 20
+      object: "0x1401:05"
+      expected_width_bytes: 2
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 14 05 00 00 00 00"
+      response: "4B 01 14 05 E8 03 00 00"
+      raw_little_endian: "E8 03"
+      decoded_unsigned: 1000
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080755.308785Z-1788509275308811950-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 21
+      object: "0x1402:00"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 14 00 00 00 00 00"
+      response: "4F 02 14 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080801.135736Z-1788509281135762712-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 22
+      object: "0x1402:01"
+      expected_width_bytes: 4
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 14 01 00 00 00 00"
+      response: "43 02 14 01 01 04 00 00"
+      raw_little_endian: "01 04 00 00"
+      decoded_unsigned: 1025
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080806.363477Z-1788509286363512992-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 23
+      object: "0x1402:02"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 14 02 00 00 00 00"
+      response: "4F 02 14 02 FF 00 00 00"
+      raw_little_endian: "FF"
+      decoded_unsigned: 255
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080811.874823Z-1788509291874852320-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 24
+      object: "0x1402:03"
+      expected_width_bytes: 2
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 14 03 00 00 00 00"
+      response: "4B 02 14 03 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080818.408549Z-1788509298408569352-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 25
+      object: "0x1402:04"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 14 04 00 00 00 00"
+      response: "4F 02 14 04 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080825.527347Z-1788509305527372399-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 26
+      object: "0x1402:05"
+      expected_width_bytes: 2
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 14 05 00 00 00 00"
+      response: "4B 02 14 05 E8 03 00 00"
+      raw_little_endian: "E8 03"
+      decoded_unsigned: 1000
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080830.728454Z-1788509310728510077-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 27
+      object: "0x1403:00"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 14 00 00 00 00 00"
+      response: "4F 03 14 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080838.100348Z-1788509318100372848-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 28
+      object: "0x1403:01"
+      expected_width_bytes: 4
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 14 01 00 00 00 00"
+      response: "43 03 14 01 01 05 00 00"
+      raw_little_endian: "01 05 00 00"
+      decoded_unsigned: 1281
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080843.568258Z-1788509323568284117-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 29
+      object: "0x1403:02"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 14 02 00 00 00 00"
+      response: "4F 03 14 02 FF 00 00 00"
+      raw_little_endian: "FF"
+      decoded_unsigned: 255
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080849.643176Z-1788509329643202078-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 30
+      object: "0x1403:03"
+      expected_width_bytes: 2
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 14 03 00 00 00 00"
+      response: "4B 03 14 03 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080858.909165Z-1788509338909191390-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 31
+      object: "0x1403:04"
+      expected_width_bytes: 1
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 14 04 00 00 00 00"
+      response: "4F 03 14 04 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080905.836065Z-1788509345836090860-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 32
+      object: "0x1403:05"
+      expected_width_bytes: 2
+      group: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 14 05 00 00 00 00"
+      response: "4B 03 14 05 E8 03 00 00"
+      raw_little_endian: "E8 03"
+      decoded_unsigned: 1000
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080910.605144Z-1788509350605169020-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 33
+      object: "0x1600:00"
+      expected_width_bytes: 1
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 16 00 00 00 00 00"
+      response: "4F 00 16 00 02 00 00 00"
+      raw_little_endian: "02"
+      decoded_unsigned: 2
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080916.107831Z-1788509356107858326-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 34
+      object: "0x1600:01"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 16 01 00 00 00 00"
+      response: "43 00 16 01 10 00 40 60"
+      raw_little_endian: "10 00 40 60"
+      decoded_unsigned: 1614807056
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080922.254952Z-1788509362254972755-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 35
+      object: "0x1600:02"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 16 02 00 00 00 00"
+      response: "43 00 16 02 08 00 60 60"
+      raw_little_endian: "08 00 60 60"
+      decoded_unsigned: 1616904200
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080927.123004Z-1788509367123028030-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 36
+      object: "0x1600:03"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 16 03 00 00 00 00"
+      response: "43 00 16 03 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080933.851863Z-1788509373851890193-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 37
+      object: "0x1600:04"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 16 04 00 00 00 00"
+      response: "43 00 16 04 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080940.009686Z-1788509380009709236-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 38
+      object: "0x1601:00"
+      expected_width_bytes: 1
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 16 00 00 00 00 00"
+      response: "4F 01 16 00 01 00 00 00"
+      raw_little_endian: "01"
+      decoded_unsigned: 1
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080945.277911Z-1788509385277943496-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 39
+      object: "0x1601:01"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 16 01 00 00 00 00"
+      response: "43 01 16 01 20 03 FF 60"
+      raw_little_endian: "20 03 FF 60"
+      decoded_unsigned: 1627325216
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080949.972866Z-1788509389972889789-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 40
+      object: "0x1601:02"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 16 02 00 00 00 00"
+      response: "43 01 16 02 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080958.767543Z-1788509398767571771-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 41
+      object: "0x1601:03"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 16 03 00 00 00 00"
+      response: "43 01 16 03 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081007.310561Z-1788509407310586552-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 42
+      object: "0x1601:04"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 16 04 00 00 00 00"
+      response: "43 01 16 04 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081012.011707Z-1788509412011740346-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 43
+      object: "0x1602:00"
+      expected_width_bytes: 1
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 16 00 00 00 00 00"
+      response: "4F 02 16 00 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081017.461403Z-1788509417461428740-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 44
+      object: "0x1602:01"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 16 01 00 00 00 00"
+      response: "43 02 16 01 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081023.516320Z-1788509423516344736-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 45
+      object: "0x1602:02"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 16 02 00 00 00 00"
+      response: "43 02 16 02 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081030.199271Z-1788509430199297220-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 46
+      object: "0x1602:03"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 16 03 00 00 00 00"
+      response: "43 02 16 03 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081035.424564Z-1788509435424590212-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 47
+      object: "0x1602:04"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 16 04 00 00 00 00"
+      response: "43 02 16 04 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081041.260180Z-1788509441260205635-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 48
+      object: "0x1603:00"
+      expected_width_bytes: 1
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 16 00 00 00 00 00"
+      response: "4F 03 16 00 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081046.392156Z-1788509446392181422-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 49
+      object: "0x1603:01"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 16 01 00 00 00 00"
+      response: "43 03 16 01 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081051.424452Z-1788509451424523219-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 50
+      object: "0x1603:02"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 16 02 00 00 00 00"
+      response: "43 03 16 02 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081057.454207Z-1788509457454233655-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 51
+      object: "0x1603:03"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 16 03 00 00 00 00"
+      response: "43 03 16 03 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081102.963231Z-1788509462963257552-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 52
+      object: "0x1603:04"
+      expected_width_bytes: 4
+      group: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "RPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 16 04 00 00 00 00"
+      response: "43 03 16 04 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081108.694008Z-1788509468694037191-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 53
+      object: "0x1800:00"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 18 00 00 00 00 00"
+      response: "4F 00 18 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081116.056097Z-1788509476056123207-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 54
+      object: "0x1800:01"
+      expected_width_bytes: 4
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 18 01 00 00 00 00"
+      response: "43 00 18 01 81 01 00 00"
+      raw_little_endian: "81 01 00 00"
+      decoded_unsigned: 385
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081121.818827Z-1788509481818850283-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 55
+      object: "0x1800:02"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 18 02 00 00 00 00"
+      response: "4F 00 18 02 FF 00 00 00"
+      raw_little_endian: "FF"
+      decoded_unsigned: 255
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081126.969912Z-1788509486969939358-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 56
+      object: "0x1800:03"
+      expected_width_bytes: 2
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 18 03 00 00 00 00"
+      response: "4B 00 18 03 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081134.056766Z-1788509494056792052-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 57
+      object: "0x1800:04"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 18 04 00 00 00 00"
+      response: "4F 00 18 04 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081142.259999Z-1788509502260020809-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 58
+      object: "0x1800:05"
+      expected_width_bytes: 2
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 18 05 00 00 00 00"
+      response: "4B 00 18 05 64 00 00 00"
+      raw_little_endian: "64 00"
+      decoded_unsigned: 100
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081147.853797Z-1788509507853825486-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 59
+      object: "0x1801:00"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 18 00 00 00 00 00"
+      response: "4F 01 18 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081154.471712Z-1788509514471747989-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 60
+      object: "0x1801:01"
+      expected_width_bytes: 4
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 18 01 00 00 00 00"
+      response: "43 01 18 01 81 02 00 00"
+      raw_little_endian: "81 02 00 00"
+      decoded_unsigned: 641
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081159.822466Z-1788509519822500591-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 61
+      object: "0x1801:02"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 18 02 00 00 00 00"
+      response: "4F 01 18 02 FF 00 00 00"
+      raw_little_endian: "FF"
+      decoded_unsigned: 255
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081206.030569Z-1788509526030597849-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 62
+      object: "0x1801:03"
+      expected_width_bytes: 2
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 18 03 00 00 00 00"
+      response: "4B 01 18 03 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081211.804627Z-1788509531804648967-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 63
+      object: "0x1801:04"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 18 04 00 00 00 00"
+      response: "4F 01 18 04 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081219.533816Z-1788509539533845656-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 64
+      object: "0x1801:05"
+      expected_width_bytes: 2
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 18 05 00 00 00 00"
+      response: "4B 01 18 05 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081225.029639Z-1788509545029676900-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 65
+      object: "0x1802:00"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 18 00 00 00 00 00"
+      response: "4F 02 18 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081232.814411Z-1788509552814441610-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 66
+      object: "0x1802:01"
+      expected_width_bytes: 4
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 18 01 00 00 00 00"
+      response: "43 02 18 01 81 03 00 00"
+      raw_little_endian: "81 03 00 00"
+      decoded_unsigned: 897
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081239.095712Z-1788509559095758644-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 67
+      object: "0x1802:02"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 18 02 00 00 00 00"
+      response: "4F 02 18 02 FF 00 00 00"
+      raw_little_endian: "FF"
+      decoded_unsigned: 255
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081244.930874Z-1788509564930906440-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 68
+      object: "0x1802:03"
+      expected_width_bytes: 2
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 18 03 00 00 00 00"
+      response: "4B 02 18 03 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081252.527499Z-1788509572527532460-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 69
+      object: "0x1802:04"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 18 04 00 00 00 00"
+      response: "4F 02 18 04 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081301.548264Z-1788509581548293281-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 70
+      object: "0x1802:05"
+      expected_width_bytes: 2
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 18 05 00 00 00 00"
+      response: "4B 02 18 05 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081309.039230Z-1788509589039263996-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 71
+      object: "0x1803:00"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 18 00 00 00 00 00"
+      response: "4F 03 18 00 05 00 00 00"
+      raw_little_endian: "05"
+      decoded_unsigned: 5
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081315.390018Z-1788509595390043543-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 72
+      object: "0x1803:01"
+      expected_width_bytes: 4
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 18 01 00 00 00 00"
+      response: "43 03 18 01 81 04 00 00"
+      raw_little_endian: "81 04 00 00"
+      decoded_unsigned: 1153
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081321.189046Z-1788509601189075769-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 73
+      object: "0x1803:02"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 18 02 00 00 00 00"
+      response: "4F 03 18 02 FF 00 00 00"
+      raw_little_endian: "FF"
+      decoded_unsigned: 255
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081329.106943Z-1788509609106969645-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 74
+      object: "0x1803:03"
+      expected_width_bytes: 2
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 18 03 00 00 00 00"
+      response: "4B 03 18 03 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081336.266861Z-1788509616266883106-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 75
+      object: "0x1803:04"
+      expected_width_bytes: 1
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 18 04 00 00 00 00"
+      response: "4F 03 18 04 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081343.346964Z-1788509623346992036-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 76
+      object: "0x1803:05"
+      expected_width_bytes: 2
+      group: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO communication baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 18 05 00 00 00 00"
+      response: "4B 03 18 05 00 00 00 00"
+      raw_little_endian: "00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081352.974852Z-1788509632974877649-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 77
+      object: "0x1A00:00"
+      expected_width_bytes: 1
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 1A 00 00 00 00 00"
+      response: "4F 00 1A 00 02 00 00 00"
+      raw_little_endian: "02"
+      decoded_unsigned: 2
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081400.365656Z-1788509640365681556-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 78
+      object: "0x1A00:01"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 1A 01 00 00 00 00"
+      response: "43 00 1A 01 20 00 41 60"
+      raw_little_endian: "20 00 41 60"
+      decoded_unsigned: 1614872608
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081406.559619Z-1788509646559640581-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 79
+      object: "0x1A00:02"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 1A 02 00 00 00 00"
+      response: "43 00 1A 02 20 03 6C 60"
+      raw_little_endian: "20 03 6C 60"
+      decoded_unsigned: 1617691424
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081415.575671Z-1788509655575707230-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 80
+      object: "0x1A00:03"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 1A 03 00 00 00 00"
+      response: "43 00 1A 03 20 00 64 60"
+      raw_little_endian: "20 00 64 60"
+      decoded_unsigned: 1617166368
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081423.746573Z-1788509663746598387-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 81
+      object: "0x1A00:04"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 00 1A 04 00 00 00 00"
+      response: "43 00 1A 04 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081431.057581Z-1788509671057604403-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 82
+      object: "0x1A01:00"
+      expected_width_bytes: 1
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 1A 00 00 00 00 00"
+      response: "4F 01 1A 00 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081438.679305Z-1788509678679331715-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 83
+      object: "0x1A01:01"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 1A 01 00 00 00 00"
+      response: "43 01 1A 01 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081446.247467Z-1788509686247514235-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 84
+      object: "0x1A01:02"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 1A 02 00 00 00 00"
+      response: "43 01 1A 02 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081452.733558Z-1788509692733594753-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 85
+      object: "0x1A01:03"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 1A 03 00 00 00 00"
+      response: "43 01 1A 03 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081504.009553Z-1788509704009595324-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 86
+      object: "0x1A01:04"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 01 1A 04 00 00 00 00"
+      response: "43 01 1A 04 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081510.085382Z-1788509710085418516-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 87
+      object: "0x1A02:00"
+      expected_width_bytes: 1
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 1A 00 00 00 00 00"
+      response: "4F 02 1A 00 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081518.432612Z-1788509718432636594-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 88
+      object: "0x1A02:01"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 1A 01 00 00 00 00"
+      response: "43 02 1A 01 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081525.212073Z-1788509725212101837-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 89
+      object: "0x1A02:02"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 1A 02 00 00 00 00"
+      response: "43 02 1A 02 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081533.192097Z-1788509733192121208-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 90
+      object: "0x1A02:03"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 1A 03 00 00 00 00"
+      response: "43 02 1A 03 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081540.671364Z-1788509740671398688-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 91
+      object: "0x1A02:04"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 02 1A 04 00 00 00 00"
+      response: "43 02 1A 04 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081549.858711Z-1788509749858760675-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 92
+      object: "0x1A03:00"
+      expected_width_bytes: 1
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 1A 00 00 00 00 00"
+      response: "4F 03 1A 00 00 00 00 00"
+      raw_little_endian: "00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081558.952953Z-1788509758952975528-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 93
+      object: "0x1A03:01"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 1A 01 00 00 00 00"
+      response: "43 03 1A 01 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081605.525234Z-1788509765525263807-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 94
+      object: "0x1A03:02"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 1A 02 00 00 00 00"
+      response: "43 03 1A 02 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081611.685010Z-1788509771685045584-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 95
+      object: "0x1A03:03"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 1A 03 00 00 00 00"
+      response: "43 03 1A 03 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081618.698923Z-1788509778698954243-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 96
+      object: "0x1A03:04"
+      expected_width_bytes: 4
+      group: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "TPDO mapping baseline and future rollback"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      status: success
+      request: "40 03 1A 04 00 00 00 00"
+      response: "43 03 1A 04 00 00 00 00"
+      raw_little_endian: "00 00 00 00"
+      decoded_unsigned: 0
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081628.525850Z-1788509788525879281-sdo_read.json"
+      review_status: width-confirmed-semantic-review-pending
+    - position: 97
+      object: "0x2000:00"
+      expected_width_bytes: 2
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: timeout
+      request: "40 00 20 00 00 00 00 00"
+      response: null
+      raw_little_endian: null
+      evidence_path: "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081638.113282Z-1788509798113323157-sdo_read.json"
+      review_status: failed-no-response-no-retry
+    - position: 98
+      object: "0x2007:00"
+      expected_width_bytes: 2
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 99
+      object: "0x2008:00"
+      expected_width_bytes: 2
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 100
+      object: "0x200F:00"
+      expected_width_bytes: 2
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 101
+      object: "0x603F:00"
+      expected_width_bytes: 4
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: none
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 102
+      object: "0x6041:00"
+      expected_width_bytes: 4
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: none
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 103
+      object: "0x605A:00"
+      expected_width_bytes: 2
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 104
+      object: "0x6060:00"
+      expected_width_bytes: 1
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 105
+      object: "0x6061:00"
+      expected_width_bytes: 1
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: none
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 106
+      object: "0x606C:00"
+      expected_width_bytes: 2
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: none
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 107
+      object: "0x606C:01"
+      expected_width_bytes: 4
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: none
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 108
+      object: "0x606C:02"
+      expected_width_bytes: 4
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: none
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 109
+      object: "0x606C:03"
+      expected_width_bytes: 4
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: none
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 110
+      object: "0x60FF:01"
+      expected_width_bytes: 4
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: safe-zero-and-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 111
+      object: "0x60FF:02"
+      expected_width_bytes: 4
+      group: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "eligibility, state, feedback, and restoration baseline"
+      classification: mixed-upload-only
+      rollback_role: safe-zero-and-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 112
+      object: "0x2003:00"
+      expected_width_bytes: 2
+      group: emergency-input-conditional-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "installed X0/X1 emergency-input baseline"
+      classification: mixed-upload-only
+      rollback_role: none
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 113
+      object: "0x2026:03"
+      expected_width_bytes: 2
+      group: emergency-input-conditional-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "installed X0/X1 emergency-input baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 114
+      object: "0x2030:01"
+      expected_width_bytes: 2
+      group: emergency-input-conditional-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "installed X0/X1 emergency-input baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 115
+      object: "0x2030:02"
+      expected_width_bytes: 2
+      group: emergency-input-conditional-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "installed X0/X1 emergency-input baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 116
+      object: "0x2030:03"
+      expected_width_bytes: 2
+      group: emergency-input-conditional-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "installed X0/X1 emergency-input baseline"
+      classification: mixed-upload-only
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 117
+      object: "0x2030:04"
+      expected_width_bytes: 2
+      group: mechanical-brake-conditional-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "installed B0/B1 mechanical-brake baseline"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 118
+      object: "0x2030:07"
+      expected_width_bytes: 2
+      group: mechanical-brake-conditional-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "installed B0/B1 mechanical-brake baseline"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+    - position: 119
+      object: "0x2030:08"
+      expected_width_bytes: 2
+      group: mechanical-brake-conditional-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      intended_use: "installed B0/B1 mechanical-brake baseline"
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required
+      status: not-attempted
+      request: null
+      response: null
+      raw_little_endian: null
+      evidence_path: null
+      review_status: blocked-by-position-97-timeout
+

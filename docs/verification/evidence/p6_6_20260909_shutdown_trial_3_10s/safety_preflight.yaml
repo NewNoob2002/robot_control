@@ -1,0 +1,14 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-09T09:20:25Z"
+  operation: bus-write
+  authorization: "User confirmed the raised/unloaded fixture, clear right-side wheel, immediate independent drive-power cutoff, and authorized a 10-second wheel interval on 2026-09-09. The preceding stale-ELF invocation emitted no CAN request and no motion."
+  target:
+    board: "RK3588 robot controller and ZLAC8015D V4 node 1"
+    hardware_revision: "identified Phase 6 fixture"
+    probe_or_adapter_serial: "JCAN 207F346D5650 (persistent independent silent receive)"
+    transport: "Classical CANopen over can0 at 500000 bit/s"
+  artifact_or_stimulus: "robot-control-zlac-qualification SHA256 9f21aa6c4e2cd1a31dbd0b12975dbcb210320d9dd2ad70ae60ceca3ad4c6aea3; --interface can0 --shutdown-once 2:5 --duration-ms 10000"
+  limits: "Node 1 only; axis 2 target +5 rpm for at most 10000 ms; axis 1 remains zero; exactly one attempted 0x6040:00=0x0006 Shutdown; temporary volatile 0x1017:00 0->500->0 and 0x200F:00 1->0->1; no Disable Voltage, Quick Stop, 0x2000, 0x605A, reverse, retry, fault reset, EEPROM, brake-output, interface, or power-state write."
+  recovery_plan: "After Shutdown attempt, write and verify both targets zero, require zero velocity, enter NMT Pre-operational, and restore 0x200F/0x1017. On unexpected motion, CAN loss, cleanup failure, obstruction, or abnormal brake action/sound, operator removes drive power immediately."
+  approved: true

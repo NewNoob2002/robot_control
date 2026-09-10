@@ -38,6 +38,15 @@ observation. Target RXF/RXMF advanced by two, TX remained zero, no error frame
 was observed, and cleanup passed. Phase 5 is complete.
 See
 docs/verification/PHASE5_CANOPEN_BASELINE.md.
+Phase 6 checkpoint: P6.1–P6.5 and the recorded NMT Stop, Shutdown, Disable
+Voltage and Quick Stop trials pass. The operator accepted manual speed-first
+TPDO feedback on September 10, 2026. Watchdog timing/recovery and the remaining
+physical loss tests are still open; this is not final Phase 6 acceptance.
+See the [Phase 6 checkpoint](docs/verification/PHASE6_CHECKPOINT.md) for current
+status and the [evidence index](docs/verification/evidence/README.md) for accepted
+trials and archived history. The qualification executor remains Debug-only and
+default-OFF; production motion, persistent configuration and loaded operation
+remain outside this checkpoint.
 The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
 1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
 syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not
@@ -53,6 +62,10 @@ Read these documents before implementation:
 - [Phase 3 Linux platform baseline](docs/verification/PHASE3_LINUX_PLATFORM_BASELINE.md)
 - [Phase 4 SocketCAN foundation plan](docs/plans/PHASE4_SOCKETCAN_FOUNDATION.md)
 - [Phase 5 non-actuating CANopen integration plan](docs/plans/PHASE5_CANOPEN_INTEGRATION.md)
+- [Phase 6 ZLAC8015D drive qualification plan](docs/plans/PHASE6_ZLAC8015D_QUALIFICATION.md)
+- [P6.1 contract, fixture, and read-only baseline](docs/verification/P6_1_CONTRACT_FIXTURE_READ_ONLY_BASELINE.md)
+- [P6.2 ZLAC protocol semantics baseline](docs/verification/P6_2_ZLAC_PROTOCOL_SEMANTICS_BASELINE.md)
+- [P6.3 bounded qualification executor baseline](docs/verification/P6_3_BOUNDED_QUALIFICATION_EXECUTOR_BASELINE.md)
 - [architecture decisions](docs/decisions/)
 - [legacy behavioral contract](docs/architecture/LEGACY_BEHAVIOR_BASELINE.md)
 - [third-party provenance](third_party/README.md)

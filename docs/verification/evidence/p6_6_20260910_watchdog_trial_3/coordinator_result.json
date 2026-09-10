@@ -1,0 +1,11 @@
+{
+  "go_sent": true,
+  "executor_started": true,
+  "error": null,
+  "frames": 166,
+  "downloads": 16,
+  "uploads": 38,
+  "nmt_frames": 2,
+  "nonzero_requests": 1,
+  "cleanup_shutdown_requests": 1
+}

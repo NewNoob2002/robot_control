@@ -1,0 +1,13 @@
+Mon Sep  7 07:29:08 UTC 2026
+10028 candump -L can0
+10415 candump -ta -e can0,0:0,#FFFFFFFF
+10537 candump -L can0
+
+receive list 'rx_all':
+  (any: no entry)
+  device   can_id   can_mask      function          userdata       matches  ident
+   can0      000    00000000  0000000000000000  0000000000000000         0  raw
+   can0      000    00000000  0000000000000000  0000000000000000         0  raw
+   can0      000    00000000  0000000000000000  0000000000000000         1  raw
+  (can1: no entry)
+

@@ -1,0 +1,109 @@
+read_manifest:
+  schema_version: 1
+  phase: P6.1
+  prepared_at: "2026-09-04"
+  node_id: 1
+  operation: expedited-sdo-upload-only
+  mandatory_object_count: 111
+  conditional_object_count: 8
+  maximum_object_count: 119
+  retry_allowed: false
+  state_change_allowed: false
+  groups:
+    - purpose: identity-and-firmware
+      source: vendor-pdf-v1.00-and-v1.01
+      classification: read-only
+      rollback_role: none
+      objects:
+        - {object: "0x1000:00", width_bytes: 4}
+        - {object: "0x1001:00", width_bytes: 1}
+        - {object: "0x1009:00", width_bytes: 2}
+        - {object: "0x100A:00", width_bytes: 2}
+        - {object: "0x1018:00", width_bytes: 1}
+        - {object: "0x1018:01", width_bytes: 4}
+        - {object: "0x1018:02", width_bytes: 4}
+        - {object: "0x2031:00", width_bytes: 2}
+    - purpose: rpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      indexes: ["0x1400", "0x1401", "0x1402", "0x1403"]
+      subindexes:
+        - {subindex: "00", width_bytes: 1, access: read-only}
+        - {subindex: "01", width_bytes: 4, access: rw-s}
+        - {subindex: "02", width_bytes: 1, access: rw-s}
+        - {subindex: "03", width_bytes: 2, access: rw-s}
+        - {subindex: "04", width_bytes: 1, access: rw}
+        - {subindex: "05", width_bytes: 2, access: rw-s}
+    - purpose: rpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      indexes: ["0x1600", "0x1601", "0x1602", "0x1603"]
+      subindexes:
+        - {subindex: "00", width_bytes: 1, access: rw-s}
+        - {subindex: "01", width_bytes: 4, access: rw-s}
+        - {subindex: "02", width_bytes: 4, access: rw-s}
+        - {subindex: "03", width_bytes: 4, access: rw-s}
+        - {subindex: "04", width_bytes: 4, access: rw-s}
+    - purpose: tpdo-communication-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      indexes: ["0x1800", "0x1801", "0x1802", "0x1803"]
+      subindexes:
+        - {subindex: "00", width_bytes: 1, access: read-only}
+        - {subindex: "01", width_bytes: 4, access: rw-s}
+        - {subindex: "02", width_bytes: 1, access: rw-s}
+        - {subindex: "03", width_bytes: 2, access: rw-s}
+        - {subindex: "04", width_bytes: 1, access: rw}
+        - {subindex: "05", width_bytes: 2, access: rw-s}
+    - purpose: tpdo-mapping-inventory
+      source: vendor-pdf-v1.00-and-v1.01
+      classification: upload-of-rw-s-configuration
+      rollback_role: exact-original-required-before-any-pdo-write
+      indexes: ["0x1A00", "0x1A01", "0x1A02", "0x1A03"]
+      subindexes:
+        - {subindex: "00", width_bytes: 1, access: rw-s}
+        - {subindex: "01", width_bytes: 4, access: rw-s}
+        - {subindex: "02", width_bytes: 4, access: rw-s}
+        - {subindex: "03", width_bytes: 4, access: rw-s}
+        - {subindex: "04", width_bytes: 4, access: rw-s}
+    - purpose: eligibility-restoration-and-observation
+      source: vendor-pdf-v1.00-and-v1.01
+      classification: mixed-upload-only
+      objects:
+        - {object: "0x2000:00", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x2007:00", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x2008:00", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x200F:00", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x603F:00", width_bytes: 4, access: read-only, rollback_role: none}
+        - {object: "0x6041:00", width_bytes: 4, access: read-only, rollback_role: none}
+        - {object: "0x605A:00", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x6060:00", width_bytes: 1, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x6061:00", width_bytes: 1, access: read-only, rollback_role: none}
+        - {object: "0x606C:00", width_bytes: 2, access: read-only, rollback_role: none}
+        - {object: "0x606C:01", width_bytes: 4, access: read-only, rollback_role: none}
+        - {object: "0x606C:02", width_bytes: 4, access: read-only, rollback_role: none}
+        - {object: "0x606C:03", width_bytes: 4, access: read-only, rollback_role: none}
+        - {object: "0x60FF:01", width_bytes: 4, access: rw, rollback_role: safe-zero-and-original-required}
+        - {object: "0x60FF:02", width_bytes: 4, access: rw, rollback_role: safe-zero-and-original-required}
+    - purpose: emergency-input-conditional-inventory
+      condition: fixture-has-x0-or-x1-emergency-input
+      source: vendor-pdf-v1.00-and-v1.01
+      classification: mixed-upload-only
+      objects:
+        - {object: "0x2003:00", width_bytes: 2, access: read-only, rollback_role: none}
+        - {object: "0x2026:03", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x2030:01", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x2030:02", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x2030:03", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+    - purpose: mechanical-brake-conditional-inventory
+      condition: fixture-has-b0-or-b1-mechanical-brake
+      source: vendor-pdf-v1.00-and-v1.01
+      classification: upload-of-rw-s-configuration
+      objects:
+        - {object: "0x2030:04", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x2030:07", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+        - {object: "0x2030:08", width_bytes: 2, access: rw-s, rollback_role: exact-original-required}
+  execution_status: complete-reviewed

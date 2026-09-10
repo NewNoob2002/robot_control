@@ -1,0 +1,77 @@
+schema_version = 1
+name = "JCAN physical bus"
+enabled = true
+approved = true
+authorization = "User permanently authorized periodic transmission of the exact standard CAN 0x7FF rule: DLC 8, data 01 02 03 04 05 06 07 08"
+approved_at_utc = "2026-09-04T03:46:52Z"
+serial = "207F346D5650"
+
+# Physical bus declaration supplied by the operator.
+nominal_bitrate = 500000
+data_bitrate = 0
+fd_standard = 0
+
+min_period_ms = 10
+max_periodic_tasks = 4
+cleanup_state = "stopped"
+max_capture_ms = 5000
+max_capture_frames = 1000
+
+# Raw device values are checked before any physical bus operation. They record
+# the current adapter state but do not prove the unknown preset-to-bitrate map.
+[expected_config]
+can_speed = "0c"
+can_customval = "00 00 01 00 04 00 59 00 1e 00"
+fd_speed = "06"
+fd_customval = "00 00 03 00 04 00 1d 00 0a 00"
+standard = "00"
+term_res = "00"
+busoff_recovery = "00"
+auto_retrans = "00"
+
+[[frames]]
+name = "tx-7ff-0102030405060708-periodic"
+direction = "tx"
+id = 0x7FF
+extended = false
+fd = false
+brs = false
+remote = false
+# Permanently authorized by the operator on 2026-09-04.
+periodic = true
+dlc = [8]
+data = ["01 02 03 04 05 06 07 08"]
+
+[[frames]]
+name = "canopen-node1-sdo-upload-2008-00"
+direction = "tx"
+id = 0x601
+extended = false
+fd = false
+brs = false
+remote = false
+dlc = [8]
+data = ["40 08 20 00 00 00 00 00"]
+
+[[frames]]
+name = "canopen-node1-sdo-download-2008-00-same-200"
+direction = "tx"
+id = 0x601
+extended = false
+fd = false
+brs = false
+remote = false
+# The two operator-authorized periodic HIL runs completed; default closed again.
+periodic = false
+dlc = [8]
+data = ["2B 08 20 00 C8 00 00 00"]
+
+[[frames]]
+name = "canopen-node1-sdo-response-2008-00"
+direction = "rx"
+id = 0x581
+extended = false
+fd = false
+brs = false
+remote = false
+dlc = [8]

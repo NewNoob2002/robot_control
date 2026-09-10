@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "serial": null,
+  "operation": "bus_profile_status",
+  "data": {
+    "path": "/home/gtc/Desktop/workspace/JCAN/jcan_bus_profile.toml",
+    "name": "Robot Control P6.1 continuation 1",
+    "enabled": true,
+    "approved": true,
+    "authorization": "User explicitly authorized on 2026-09-04 one retry of 0x2000:00 and, only if successful, one attempt for each remaining 22 read-manifest objects",
+    "approved_at_utc": "2026-09-04T08:30:00Z",
+    "serial": "207F346D5650",
+    "nominal_bitrate": 500000,
+    "data_bitrate": 0,
+    "fd_standard": 0,
+    "min_period_ms": 10,
+    "max_periodic_tasks": 1,
+    "cleanup_state": "stopped",
+    "max_capture_ms": 5000,
+    "max_capture_frames": 1000,
+    "frames": [
+      {
+        "name": "p6-1-continuation-node1-exact-sdo-uploads",
+        "direction": "tx",
+        "id": 1537,
+        "extended": false,
+        "fd": false,
+        "brs": false,
+        "remote": false,
+        "periodic": false,
+        "dlc": [
+          8
+        ],
+        "payload_variants": 23
+      },
+      {
+        "name": "p6-1-continuation-node1-sdo-responses",
+        "direction": "rx",
+        "id": 1409,
+        "extended": false,
+        "fd": false,
+        "brs": false,
+        "remote": false,
+        "periodic": false,
+        "dlc": [
+          8
+        ],
+        "payload_variants": 0
+      }
+    ]
+  },
+  "warnings": [],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083453.847452Z-1788510893847470359-bus_profile_status.json"
+}
+

@@ -1,0 +1,96 @@
+{
+  "executor_result": "PASS",
+  "physical_acceptance": "OPEN: RX-counter discrepancy and exact timing remain unresolved",
+  "observed_watchdog_behavior": "stop during silence followed by physical restart",
+  "latched_stop_qualified": false,
+  "recovery_limitation": "Restart occurred without a renewed nonzero target or Enable Operation request; exact triggering frame is not isolated.",
+  "matched_frames": 182,
+  "capture_agreement": true,
+  "target_packet_deltas": {
+    "rx": 122,
+    "tx": 62
+  },
+  "captured_rx": 120,
+  "rx_counter_excess": 2,
+  "rx_counter_reconciliation": "UNRESOLVED",
+  "frame_ids": {
+    "601": 60,
+    "581": 60,
+    "701": 11,
+    "000": 2,
+    "181": 46,
+    "281": 1,
+    "381": 1,
+    "481": 1
+  },
+  "downloads": 16,
+  "nonzero_target_requests": 1,
+  "watchdog_raw": 1000,
+  "host_silence_ms": 1700.008,
+  "precleanup_velocities": [
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      3,
+      0
+    ]
+  ],
+  "first_cleanup_zero_ms_after_probe": 5.996,
+  "shutdown_ms_after_probe": 13.937,
+  "velocity_rebound": [
+    {
+      "ms_after_probe": 39.297,
+      "subindex": 2,
+      "raw_i32": -3
+    },
+    {
+      "ms_after_probe": 94.241,
+      "subindex": 2,
+      "raw_i32": -24
+    },
+    {
+      "ms_after_probe": 149.304,
+      "subindex": 2,
+      "raw_i32": -24
+    }
+  ],
+  "final_all_zero_ms_after_probe": 205.307,
+  "preop_heartbeat_ms_after_probe": 399.196,
+  "restoration_ms_after_probe": 411.36,
+  "raw_status_changes_during_silence": [
+    {
+      "ms_after_last_host_tx": 36.307,
+      "status_bytes": "27142744"
+    },
+    {
+      "ms_after_last_host_tx": 536.08,
+      "status_bytes": "27142714"
+    }
+  ],
+  "timing_limitation": "Raw status flag change is not a qualified velocity/stop timestamp; do not infer watchdog time units.",
+  "restored_values": {
+    "2000:00": 0,
+    "1017:00": 0,
+    "200F:00": 1,
+    "60FF:01": 0,
+    "60FF:02": 0
+  },
+  "can_errors_or_drops": 0,
+  "adapter_configuration_unchanged": true,
+  "operator_observation": {
+    "recorded_utc": "2026-09-10T04:41:18.862012+00:00",
+    "user_confirmation": "right wheel stop during the silent interval, then restart  and the left wheel stay stationary, with normal brake behavior and sound",
+    "right_wheel_stopped_during_silence": true,
+    "right_wheel_restarted_after_stop": true,
+    "left_wheel_stationary": true,
+    "normal_brake_behavior": true,
+    "normal_sound": true,
+    "scope": "Watchdog attempt 2 only; this confirms physical stop and subsequent restart, not a latched stop or an exact restart-trigger frame."
+  }
+}

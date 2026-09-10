@@ -1,0 +1,8 @@
+{
+  "recorded_utc": "2026-09-10T03:55:09.593262+00:00",
+  "user_confirmation": "both wheels remain stationary, with no abnormal brake action and sound",
+  "both_wheels_stationary": true,
+  "abnormal_brake_action": false,
+  "abnormal_sound": false,
+  "scope": "Aborted zero-target watchdog setup; no watchdog stimulus or nonzero target occurred."
+}

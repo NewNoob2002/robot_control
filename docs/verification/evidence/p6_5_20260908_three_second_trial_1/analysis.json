@@ -1,0 +1,93 @@
+{
+  "protocol_validated": true,
+  "physical_motion_observed": true,
+  "physical_direction_confirmed": true,
+  "overall_status": "pass",
+  "artifact_sha256": "899914fdccb5df378eabcf4aafab93d23d48cf01ef35098847b8af81d38bc881",
+  "target_frames": 191,
+  "jcan_frames": 191,
+  "jcan_exact_target_capture": true,
+  "jcan_dropped_frames": 0,
+  "jcan_warnings": [],
+  "sdo_downloads_total": 15,
+  "sdo_uploads": 34,
+  "nmt_frames": [
+    "0101",
+    "8001"
+  ],
+  "nonzero_target_writes": 1,
+  "nonzero_request_at": "1788841503.759221",
+  "first_zero_request_at": "1788841506.760215",
+  "target_to_zero_ms": 3000.994,
+  "target_to_zero_limit_ms": 3020,
+  "target_to_zero_within_limit": true,
+  "zero_settle_velocity_606C_01": [
+    {
+      "after_zero_ms": 42.333,
+      "raw": 12,
+      "rpm": 1.2
+    },
+    {
+      "after_zero_ms": 95.231,
+      "raw": -18,
+      "rpm": -1.8
+    },
+    {
+      "after_zero_ms": 148.327,
+      "raw": 4,
+      "rpm": 0.4
+    },
+    {
+      "after_zero_ms": 201.341,
+      "raw": 2,
+      "rpm": 0.2
+    },
+    {
+      "after_zero_ms": 254.256,
+      "raw": 0,
+      "rpm": 0.0
+    }
+  ],
+  "zero_velocity_reached_ms": 254.256,
+  "pre_operational_nmt_after_zero_ms": 259.878,
+  "command_application_restore_after_zero_ms": 345.934,
+  "heartbeat_restore_after_zero_ms": 353.809,
+  "motion_window_tpdo1_frames": 60,
+  "motion_window_tpdo1_payloads": [
+    "2744271400000000"
+  ],
+  "motion_window_packed_velocity_halves_zero": true,
+  "sdo_aborts": 0,
+  "emcy_frames": 0,
+  "can_error_frames": 0,
+  "executor_result": "qualification_complete node=1 operation=5",
+  "postflight_values": {
+    "1017:00": 0,
+    "200F:00": 1,
+    "6040:00": 6,
+    "6041:00": 337712161,
+    "6060:00": 3,
+    "6061:00": 3,
+    "60FF:01": 0,
+    "60FF:02": 0,
+    "606C:01": 0,
+    "606C:02": 0,
+    "606C:03": 0,
+    "603F:00": 0
+  },
+  "operator_observation_raw": "左轮从车架左侧观察为逆时针，右轮没有转动，机械制动器没有异常动作或声音",
+  "operator_observation": {
+    "left_wheel": "counterclockwise_viewed_from_chassis_left_side",
+    "right_wheel": "stationary",
+    "mechanical_brake": "no_abnormal_action_or_sound"
+  },
+  "limits": [
+    "JCAN timestamps are zero; timing uses the RK3588 monotonic candump capture.",
+    "TPDO1 packed velocity remained zero while SDO 0x606C:01 showed deceleration.",
+    "Reverse direction and 0x60FF:02 motion were not attempted."
+  ],
+  "physical_mapping": {
+    "60FF:01": "left wheel",
+    "positive_5_rpm_direction_from_left_side": "counterclockwise"
+  }
+}

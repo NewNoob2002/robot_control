@@ -1,0 +1,15 @@
+bus_validation:
+  schema_version: 1
+  created_at_utc: "2026-09-09T09:20:25Z"
+  safety_preflight: safety_preflight.yaml
+  interface: can
+  adapter_or_resource: "RK3588 can0 plus JCAN 207F346D5650"
+  settings:
+    can: {nominal_bitrate: "500000", listen_only: false}
+  requirements: [P6.6-Shutdown-once, P6.6-independent-capture, P6.6-cleanup]
+  stimulus: "node 1 channel 2 +5 rpm for 10000 ms, then one 0x6040:00=0x0006 Shutdown"
+  measurements_or_responses: analysis.md
+  raw_capture: "rk3588_can.log and jcan_session.jsonl"
+  report: analysis.md
+  cleanup: {required: true, completed: true, final_state: "targets zero, zero measured velocity, NMT Pre-operational, 0x200F:00=1, 0x1017:00=0"}
+  passed: true

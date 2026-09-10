@@ -1,0 +1,7 @@
+JCAN_READY: silent observer connected
+CAPTURE_READY
+EXECUTOR_STARTED
+TRIAL_FINISHED rc=1
+STOP: TRIAL_FINISHED rc=1
+Operator: use the independent power cut if stopping or cleanup is uncertain.
+COORDINATOR_FINISHED error=TRIAL_FINISHED rc=1

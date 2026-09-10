@@ -1,0 +1,29 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "REPLACE"
+  operation: bus-write
+  authorization: "REPLACE_WITH_CURRENT_USER_AUTHORIZATION"
+  target:
+    board: "REPLACE_RK3588_IDENTITY"
+    hardware_revision: "REPLACE"
+    probe_or_adapter_serial: "REPLACE_JCAN_SERIAL_AND_CHANNEL"
+    transport: can
+  artifact_or_stimulus: "One attempt per object in read_manifest.yaml; node 1 expedited SDO uploads only"
+  limits: "One attempt for each of 111 mandatory objects plus only applicable conditional objects, maximum 119; no NMT, SDO download, RPDO, reset, interface change, periodic TX, retry, parameter change, or motion; REPLACE_WITH_TIMEOUT"
+  recovery_plan: "Stop on first mismatch or warning; preserve all evidence; verify no periodic task or configuration change; REPLACE_WITH_POWER_AND_PROCESS_CLEANUP"
+  fixture:
+    drive_model: ZLAC8015D-V4
+    drive_identity_and_firmware: "REPLACE_OR_MARK_TO_BE_READ"
+    node_id: 1
+    nominal_bitrate: 500000
+    power_state: "REPLACE"
+    wheels_unloaded_and_clear: false
+    named_operator: "REPLACE"
+    independent_physical_stop: "REPLACE"
+    emergency_inputs: "REPLACE_PRESENT_OR_NOT_APPLICABLE"
+    mechanical_brakes: "REPLACE_PRESENT_OR_NOT_APPLICABLE"
+  source:
+    revision: "REPLACE"
+    artifact_path: "REPLACE"
+    artifact_sha256: "REPLACE"
+  approved: false

@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "serial": "207F346D5650",
+  "operation": "periodic_list",
+  "data": {
+    "active": [],
+    "recent": [],
+    "session_cleanup_error": null
+  },
+  "warnings": [],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T082046.110637Z-1788510046110656639-periodic_list.json"
+}
+

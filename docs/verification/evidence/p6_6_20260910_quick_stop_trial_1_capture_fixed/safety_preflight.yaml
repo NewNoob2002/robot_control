@@ -1,0 +1,107 @@
+safety_preflight:
+  schema_version: 1
+  prepared_date: '2026-09-10'
+  status: executed_once_hil_pass
+  authorized: true
+  target:
+    board: RK3588 Ubuntu 22.04
+    drive: ZLAC8015D V4
+    node_id: 1
+    interface: can0
+    bitrate: 500000
+    jcan_serial: 207F346D5650
+    current_identity_verified: true
+    hostname: lubancat
+    machine_id: 6923ab3301fb4a8d816759b04ec6bf0a
+  artifact:
+    source_revision: e8c6c16e3dd4e16ec70f6b8f11de694966736b02
+    sha256: 6193a8df071c92c766189d9871094aa1dcbfbb88e82e0c8e1acb5dfa7acd86ba
+    local: out/staging/p66-quick-stop-6193a8df071c/robot-control-zlac-qualification
+    proposed_target: /tmp/robot-control-qualifications/p66-quick-stop-6193a8df071c/robot-control-zlac-qualification
+    deployed: true
+    remote_checksum_verified: true
+  operation:
+    arguments: --interface can0 --quick-stop-once 2:5 --duration-ms 2000
+    frame_manifest: ../../P6_6_QUICK_STOP_HIL_PREPARATION.md
+    selected_axis: right
+    other_axis_target_rpm: 0
+    nonzero_target_rpm: 5
+    nonzero_intervals: 1
+    duration_ms: 2000
+    capture_interval_acceptance_ms: 2020
+    quick_stop_attempts: 1
+    quick_stop_frame: 601#2B40600002000000
+    can_flags: standard_classical_data
+    can_fd: false
+    automatic_retry: false
+    periodic_transmission: false
+    maximum_sdo_downloads_including_cleanup: 16
+    maximum_fixed_sdo_uploads_including_cleanup: 300
+    maximum_nmt_frames: 2
+  baseline:
+    required_0x605a: 5
+    write_0x605a: false
+    required_0x1017: 0
+    temporary_0x1017: 500
+    restore_0x1017: 0
+    required_0x200f: 1
+    temporary_0x200f: 0
+    restore_0x200f: 1
+    mode: 3
+    targets_and_all_velocity_readbacks: zero
+    fault: zero
+    write_0x2000: false
+    persistent_writes: false
+  acquisition:
+    start_both_observers_before_executor: true
+    jcan_mode: silent
+    persistent_jsonl_session: true
+    duration_ms: 60000
+    maximum_frames: 10000
+    other_active_requesters: forbidden
+    startup_passive_window_ms: 1000
+    sdo_timeout_ms: 500
+    transition_timeout_ms: 2000
+    settle_poll_ms: 50
+    heartbeat_freshness_ms: 1000
+    tpdo_freshness_ms: 100
+    candump_arguments:
+    - -ta
+    - -e
+    - -n
+    - '10000'
+    - can0,0:0,#FFFFFFFF
+  cleanup:
+    verify_both_targets_and_all_velocities_zero: true
+    nmt_preoperational_verified: true
+    restore_and_upload_temporary_values: true
+    terminal_controlword_retry: forbidden
+    shutdown_or_reenable_after_quick_stop_attempt: forbidden
+    no_residual_executor_capture_or_jcan_periodic_task: required
+    unusable_can_recovery: operator_removes_power_no_wire_stop_claim
+  acceptance:
+    matching_ordered_rk3588_jcan_frames: required
+    newer_dual_quick_stop_active_state: required
+    operator_motion_and_brake_observation: required
+    no_warnings_drops_errors_or_unexpected_frames: required
+    cleanup_failure_remains_failed_trial: true
+    packed_zero_alone_is_not_standstill_evidence: true
+  authorization:
+    user_message: confirm and authorize
+    recorded_at_utc: '2026-09-10T02:09:55.978001+00:00'
+    scope: deployment and exactly one proposed Quick Stop trial; no automatic physical
+      retry
+  operator_confirmations:
+    operator: user/operator in this session
+    both_wheels_raised_and_unloaded: true
+    area_clear: true
+    independent_immediate_power_cut: true
+    mechanical_brake_released: true
+    wiring_unchanged: true
+    x0_x1_physical_connections: not specified; no input actuation in this trial
+    b0_b1_physical_connections: not specified; no output writes in this trial
+  prior_preflight_abort:
+    evidence: ../p6_6_20260910_quick_stop_trial_1
+    executor_started: false
+    can_tx_delta: 0
+    authorization_consumed: false

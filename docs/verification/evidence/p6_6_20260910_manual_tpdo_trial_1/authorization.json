@@ -1,0 +1,18 @@
+{
+  "authorized": true,
+  "stimulus": "manual_tpdo",
+  "elf_sha256": "8ca2c0250736e792ecb0b7067973ce2547f7e2d6fb9c38d0147a5788ade34c8a",
+  "operator_ready": true,
+  "user_confirmation": "ok, you can refer this to configure, and after the test app run in rk3588 board, i will rotation the right wheel handly for capture the speed change",
+  "scope": "One node-1 TPDO1 speed-first/status-second volatile mapping session, raw event timer100, temporary heartbeat500 restored0, NMT Pre-operational/Operational/Pre-operational, fixed readbacks,60s operator hand-rotation capture and exact original mapping restoration. No target/controlword/watchdog/persistent writes. JCAN207F346D5650 silent RX only.",
+  "recorded_utc": "2026-09-10T07:37:14.601563+00:00",
+  "bounds": {
+    "downloads": 18,
+    "uploads": 300,
+    "nmt": 3,
+    "frames": 10000,
+    "local_capture_s": 95,
+    "remote_deadline_s": 85,
+    "manual_window_s": 60
+  }
+}

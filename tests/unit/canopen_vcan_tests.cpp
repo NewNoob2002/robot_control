@@ -389,7 +389,7 @@ int main() {
     print_observation("can_error", snapshot.can_error);
 
     snapshot = send_and_process(*owner, peer, heartbeat, monitor, "P55-ERROR-REBOOT-001");
-    CHECK("P55-ERROR-REBOOT-002", !snapshot.heartbeat.frame.current);
+    CHECK("P55-ERROR-REBOOT-002", snapshot.heartbeat.frame.current);
     snapshot = send_and_process(*owner, peer, boot, monitor, "P55-ERROR-REBOOT-003");
     snapshot = send_and_process(*owner, peer, heartbeat, monitor, "P55-ERROR-REBOOT-004");
     CHECK("P55-ERROR-REBOOT-005", snapshot.heartbeat.frame.current);
@@ -436,7 +436,7 @@ int main() {
     CHECK("P55-LINK-008", !snapshot.boot_observed);
 
     snapshot = send_and_process(*owner, peer, heartbeat, monitor, "P55-LINK-REBOOT-001");
-    CHECK("P55-LINK-REBOOT-002", !snapshot.heartbeat.frame.current);
+    CHECK("P55-LINK-REBOOT-002", snapshot.heartbeat.frame.current);
     snapshot = send_and_process(*owner, peer, boot, monitor, "P55-LINK-REBOOT-003");
     snapshot = send_and_process(*owner, peer, heartbeat, monitor, "P55-LINK-REBOOT-004");
     CHECK("P55-LINK-REBOOT-005", snapshot.heartbeat.frame.current);

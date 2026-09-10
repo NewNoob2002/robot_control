@@ -1,0 +1,16 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: '2026-09-07T08:15:00Z'
+  operation: bounded-zero-target-process-termination-HIL
+  authorization: 'User requests continuing remaining P6.4 tests and confirms drive powered off; previous P6.4 zero-target, heartbeat bootstrap, power-cycle and SIGTERM test authorization retained'
+  approved: true
+  target: {board: 'RK3588 lubancat 6923ab3301fb4a8d816759b04ec6bf0a; ZLAC8015D node 1', probe_or_adapter_serial: '207F346D5650', transport: can}
+  artifact: '/tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/robot-control-zlac-qualification'
+  sha256: 0bb8aa097a0fe1e1e6ed59bcedeb866f011403988219b7e2c453c03480cc95da
+  fixture: 'Operator=user; both wheels suspended/unloaded, wiring unchanged, mechanical brakes installed, independent power disconnect available; preceding normal sequence had no motion or brake anomaly'
+  startup: 'Drive held off. Start target/JCAN captures, exact-owner boot helper, exact-owner enabled-state SIGTERM helper, and 180-second owner. Write READY_TO_POWER_ON only after all receive registrations/process identities are verified. Operator powers on upon target status marker.'
+  bootstrap: 'One standard 0x601 DLC8 2B 17 10 00 E8 03 00 00 after exact 0x701/00 and live owner; no retry. Restore recorded U16 zero after owner exit and verify upload.'
+  signal_stimulus: 'One SIGTERM to the unique exact owner PID after standard 0x181 DLC8 27 14 27 14 00 00 00 00; helper sends no CAN frames and exits after one signal.'
+  bounds: 'Owner startup 180s, SDO 500ms, transition 2000ms, owner outer 210s/2s kill reserve; helpers 210s/2s; target capture 300s; JCAN 240s/100000 frames; no retries or nonzero target'
+  expected_cleanup: 'Owner must inhibit, submit zero targets/readbacks, Shutdown and Pre-operational without re-enable. Postflight verifies raw status, velocity, targets, fault, modes and heartbeat baseline.'
+  recovery_plan: 'Unexpected motion, CAN loss or unverified cleanup requires operator independent power removal. Communication-loss protection 0x2000 remains disabled; process exit alone is not accepted as stop evidence.'

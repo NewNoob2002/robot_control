@@ -1,0 +1,20 @@
+13738 timeout -k 2s 210s sh /tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/bootstrap_after_boot_180.sh
+13739 sh /tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/bootstrap_after_boot_180.sh
+13741 sh /tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/bootstrap_after_boot_180.sh
+14119 zsh -c owner="/tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/robot-control-zlac-qualification --interface can0 --zero-sequence"; test "$(pgrep -f -x "$owner" | wc -l)" -eq 1; pgrep -af "bootstrap_after_boot_180.sh"; pgrep -af "sigterm_after_enable_180.sh"; pgrep -ax candump; grep -q "qualification_wait_boot node=1 timeout_s=180" /home/cat/nonexistent 2>/dev/null || true; cat /proc/net/can/rcvlist_all
+13861 timeout -k 2s 210s sh /tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/sigterm_after_enable_180.sh
+13862 sh /tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/sigterm_after_enable_180.sh
+13864 sh /tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/sigterm_after_enable_180.sh
+14119 zsh -c owner="/tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/robot-control-zlac-qualification --interface can0 --zero-sequence"; test "$(pgrep -f -x "$owner" | wc -l)" -eq 1; pgrep -af "bootstrap_after_boot_180.sh"; pgrep -af "sigterm_after_enable_180.sh"; pgrep -ax candump; grep -q "qualification_wait_boot node=1 timeout_s=180" /home/cat/nonexistent 2>/dev/null || true; cat /proc/net/can/rcvlist_all
+13597 candump -ta -e can0,0:0,#FFFFFFFF
+13740 candump -L can0
+13863 candump -L can0
+
+receive list 'rx_all':
+  (any: no entry)
+  device   can_id   can_mask      function          userdata       matches  ident
+   can0      000    00000000  0000000000000000  0000000000000000         0  raw
+   can0      000    00000000  0000000000000000  0000000000000000         0  raw
+   can0      000    00000000  0000000000000000  0000000000000000         0  raw
+  (can1: no entry)
+

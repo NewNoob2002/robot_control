@@ -1,0 +1,8 @@
+{
+  "authorization": "authorization.json",
+  "hardware_preflight": "remote_trial_4.py verifies identity/interface/errors/processes before GO",
+  "operator_setup": "raised unloaded wheels; independent power cut; known traffic-resumption restart risk",
+  "artifact_hash_verified": true,
+  "source_hashes_verified": true,
+  "physical_retry": false
+}

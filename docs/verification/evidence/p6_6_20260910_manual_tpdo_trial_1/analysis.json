@@ -1,0 +1,539 @@
+{
+  "capture_and_restoration": "PASS",
+  "physical_acceptance": "PASS: operator accepted manual TPDO speed feedback",
+  "scope_limit": "RX accounting remains a separate unresolved evidence issue; enabled-drive watchdog timing not tested",
+  "kernel_counter_excess": {
+    "rx": {
+      "packets": 3,
+      "bytes": 24
+    },
+    "tx": {
+      "packets": 0,
+      "bytes": 0
+    }
+  },
+  "counter_reconciliation": "UNRESOLVED",
+  "matched_frames": 2042,
+  "frame_ids": {
+    "601": 294,
+    "581": 294,
+    "000": 3,
+    "701": 243,
+    "181": 1205,
+    "281": 1,
+    "381": 1,
+    "481": 1
+  },
+  "kernel_deltas": {
+    "rx": {
+      "packets": 1748,
+      "bytes": 12259
+    },
+    "tx": {
+      "packets": 297,
+      "bytes": 2358
+    }
+  },
+  "target_or_controlword_writes": 0,
+  "downloads": 18,
+  "uploads": 276,
+  "nmt": 3,
+  "operational_interval_ms": 60220.992,
+  "tpdo_samples": 1205,
+  "tpdo_interval_ms": {
+    "minimum": 49.778,
+    "median": 50.007,
+    "maximum": 50.247
+  },
+  "left_raw_range": [
+    -5,
+    4
+  ],
+  "right_raw_range": [
+    -1036,
+    920
+  ],
+  "left_nonzero_samples": 19,
+  "right_nonzero_samples": 1043,
+  "final_tpdo_samples": [
+    [
+      59.982269,
+      0,
+      0,
+      "14211421"
+    ],
+    [
+      60.032277,
+      0,
+      0,
+      "14211421"
+    ],
+    [
+      60.082289,
+      0,
+      0,
+      "14211421"
+    ],
+    [
+      60.132299,
+      0,
+      0,
+      "14211421"
+    ],
+    [
+      60.182309,
+      0,
+      0,
+      "14211421"
+    ]
+  ],
+  "independent_right_comparisons": [
+    {
+      "sdo_seconds_after_operational": 0.235495,
+      "right_sdo_raw": 0,
+      "nearest_tpdo_raw": 0,
+      "tpdo_minus_sdo_ms": 14.714,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 1.240508,
+      "right_sdo_raw": 0,
+      "nearest_tpdo_raw": 0,
+      "tpdo_minus_sdo_ms": 8.664,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 2.248696,
+      "right_sdo_raw": 0,
+      "nearest_tpdo_raw": 0,
+      "tpdo_minus_sdo_ms": -0.562,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 3.254518,
+      "right_sdo_raw": 0,
+      "nearest_tpdo_raw": 0,
+      "tpdo_minus_sdo_ms": -7.359,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 4.25953,
+      "right_sdo_raw": 0,
+      "nearest_tpdo_raw": 0,
+      "tpdo_minus_sdo_ms": -13.411,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 5.266418,
+      "right_sdo_raw": 0,
+      "nearest_tpdo_raw": 0,
+      "tpdo_minus_sdo_ms": -21.336,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 6.272481,
+      "right_sdo_raw": -2,
+      "nearest_tpdo_raw": 2,
+      "tpdo_minus_sdo_ms": 21.574,
+      "raw_difference": 4
+    },
+    {
+      "sdo_seconds_after_operational": 7.279485,
+      "right_sdo_raw": 604,
+      "nearest_tpdo_raw": 579,
+      "tpdo_minus_sdo_ms": 13.527,
+      "raw_difference": -25
+    },
+    {
+      "sdo_seconds_after_operational": 8.284497,
+      "right_sdo_raw": 886,
+      "nearest_tpdo_raw": 872,
+      "tpdo_minus_sdo_ms": 7.538,
+      "raw_difference": -14
+    },
+    {
+      "sdo_seconds_after_operational": 9.291499,
+      "right_sdo_raw": 860,
+      "nearest_tpdo_raw": 859,
+      "tpdo_minus_sdo_ms": 0.234,
+      "raw_difference": -1
+    },
+    {
+      "sdo_seconds_after_operational": 10.297508,
+      "right_sdo_raw": 338,
+      "nearest_tpdo_raw": 318,
+      "tpdo_minus_sdo_ms": -5.918,
+      "raw_difference": -20
+    },
+    {
+      "sdo_seconds_after_operational": 11.304519,
+      "right_sdo_raw": 228,
+      "nearest_tpdo_raw": 234,
+      "tpdo_minus_sdo_ms": -13.284,
+      "raw_difference": 6
+    },
+    {
+      "sdo_seconds_after_operational": 12.310472,
+      "right_sdo_raw": 108,
+      "nearest_tpdo_raw": 140,
+      "tpdo_minus_sdo_ms": -19.032,
+      "raw_difference": 32
+    },
+    {
+      "sdo_seconds_after_operational": 13.317471,
+      "right_sdo_raw": 540,
+      "nearest_tpdo_raw": 494,
+      "tpdo_minus_sdo_ms": 24.187,
+      "raw_difference": -46
+    },
+    {
+      "sdo_seconds_after_operational": 14.323478,
+      "right_sdo_raw": 619,
+      "nearest_tpdo_raw": 585,
+      "tpdo_minus_sdo_ms": 18.391,
+      "raw_difference": -34
+    },
+    {
+      "sdo_seconds_after_operational": 15.325492,
+      "right_sdo_raw": 665,
+      "nearest_tpdo_raw": 726,
+      "tpdo_minus_sdo_ms": 16.583,
+      "raw_difference": 61
+    },
+    {
+      "sdo_seconds_after_operational": 16.3325,
+      "right_sdo_raw": 574,
+      "nearest_tpdo_raw": 631,
+      "tpdo_minus_sdo_ms": 9.787,
+      "raw_difference": 57
+    },
+    {
+      "sdo_seconds_after_operational": 17.336514,
+      "right_sdo_raw": -831,
+      "nearest_tpdo_raw": -842,
+      "tpdo_minus_sdo_ms": 5.982,
+      "raw_difference": -11
+    },
+    {
+      "sdo_seconds_after_operational": 18.339474,
+      "right_sdo_raw": -250,
+      "nearest_tpdo_raw": -254,
+      "tpdo_minus_sdo_ms": 2.86,
+      "raw_difference": -4
+    },
+    {
+      "sdo_seconds_after_operational": 19.344477,
+      "right_sdo_raw": -424,
+      "nearest_tpdo_raw": -427,
+      "tpdo_minus_sdo_ms": -2.114,
+      "raw_difference": -3
+    },
+    {
+      "sdo_seconds_after_operational": 20.350484,
+      "right_sdo_raw": -607,
+      "nearest_tpdo_raw": -623,
+      "tpdo_minus_sdo_ms": -8.356,
+      "raw_difference": -16
+    },
+    {
+      "sdo_seconds_after_operational": 21.356439,
+      "right_sdo_raw": -868,
+      "nearest_tpdo_raw": -896,
+      "tpdo_minus_sdo_ms": -14.351,
+      "raw_difference": -28
+    },
+    {
+      "sdo_seconds_after_operational": 22.3625,
+      "right_sdo_raw": -1036,
+      "nearest_tpdo_raw": -1036,
+      "tpdo_minus_sdo_ms": -20.207,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 23.368447,
+      "right_sdo_raw": -675,
+      "nearest_tpdo_raw": -779,
+      "tpdo_minus_sdo_ms": 24.068,
+      "raw_difference": -104
+    },
+    {
+      "sdo_seconds_after_operational": 24.375452,
+      "right_sdo_raw": -560,
+      "nearest_tpdo_raw": -653,
+      "tpdo_minus_sdo_ms": 17.271,
+      "raw_difference": -93
+    },
+    {
+      "sdo_seconds_after_operational": 25.381461,
+      "right_sdo_raw": -434,
+      "nearest_tpdo_raw": -527,
+      "tpdo_minus_sdo_ms": 10.724,
+      "raw_difference": -93
+    },
+    {
+      "sdo_seconds_after_operational": 26.388469,
+      "right_sdo_raw": -337,
+      "nearest_tpdo_raw": -329,
+      "tpdo_minus_sdo_ms": 2.863,
+      "raw_difference": 8
+    },
+    {
+      "sdo_seconds_after_operational": 27.393482,
+      "right_sdo_raw": -370,
+      "nearest_tpdo_raw": -376,
+      "tpdo_minus_sdo_ms": -2.565,
+      "raw_difference": -6
+    },
+    {
+      "sdo_seconds_after_operational": 28.401483,
+      "right_sdo_raw": -370,
+      "nearest_tpdo_raw": -393,
+      "tpdo_minus_sdo_ms": -11.164,
+      "raw_difference": -23
+    },
+    {
+      "sdo_seconds_after_operational": 29.40849,
+      "right_sdo_raw": -468,
+      "nearest_tpdo_raw": -506,
+      "tpdo_minus_sdo_ms": -19.21,
+      "raw_difference": -38
+    },
+    {
+      "sdo_seconds_after_operational": 30.413443,
+      "right_sdo_raw": -744,
+      "nearest_tpdo_raw": -698,
+      "tpdo_minus_sdo_ms": 24.748,
+      "raw_difference": 46
+    },
+    {
+      "sdo_seconds_after_operational": 31.420443,
+      "right_sdo_raw": -722,
+      "nearest_tpdo_raw": -766,
+      "tpdo_minus_sdo_ms": 16.708,
+      "raw_difference": -44
+    },
+    {
+      "sdo_seconds_after_operational": 32.426456,
+      "right_sdo_raw": -201,
+      "nearest_tpdo_raw": -261,
+      "tpdo_minus_sdo_ms": 9.657,
+      "raw_difference": -60
+    },
+    {
+      "sdo_seconds_after_operational": 33.432462,
+      "right_sdo_raw": -261,
+      "nearest_tpdo_raw": -252,
+      "tpdo_minus_sdo_ms": 2.675,
+      "raw_difference": 9
+    },
+    {
+      "sdo_seconds_after_operational": 34.438467,
+      "right_sdo_raw": -430,
+      "nearest_tpdo_raw": -438,
+      "tpdo_minus_sdo_ms": -4.366,
+      "raw_difference": -8
+    },
+    {
+      "sdo_seconds_after_operational": 35.44547,
+      "right_sdo_raw": -543,
+      "nearest_tpdo_raw": -563,
+      "tpdo_minus_sdo_ms": -11.849,
+      "raw_difference": -20
+    },
+    {
+      "sdo_seconds_after_operational": 36.452479,
+      "right_sdo_raw": -626,
+      "nearest_tpdo_raw": -655,
+      "tpdo_minus_sdo_ms": -19.77,
+      "raw_difference": -29
+    },
+    {
+      "sdo_seconds_after_operational": 37.457487,
+      "right_sdo_raw": -634,
+      "nearest_tpdo_raw": -696,
+      "tpdo_minus_sdo_ms": 24.13,
+      "raw_difference": -62
+    },
+    {
+      "sdo_seconds_after_operational": 38.464495,
+      "right_sdo_raw": -513,
+      "nearest_tpdo_raw": -654,
+      "tpdo_minus_sdo_ms": 16.083,
+      "raw_difference": -141
+    },
+    {
+      "sdo_seconds_after_operational": 39.470443,
+      "right_sdo_raw": -172,
+      "nearest_tpdo_raw": -147,
+      "tpdo_minus_sdo_ms": 9.162,
+      "raw_difference": 25
+    },
+    {
+      "sdo_seconds_after_operational": 40.476447,
+      "right_sdo_raw": -286,
+      "nearest_tpdo_raw": -282,
+      "tpdo_minus_sdo_ms": 2.554,
+      "raw_difference": 4
+    },
+    {
+      "sdo_seconds_after_operational": 41.481458,
+      "right_sdo_raw": -387,
+      "nearest_tpdo_raw": -370,
+      "tpdo_minus_sdo_ms": -2.244,
+      "raw_difference": 17
+    },
+    {
+      "sdo_seconds_after_operational": 42.487418,
+      "right_sdo_raw": -797,
+      "nearest_tpdo_raw": -812,
+      "tpdo_minus_sdo_ms": -8.0,
+      "raw_difference": -15
+    },
+    {
+      "sdo_seconds_after_operational": 43.494472,
+      "right_sdo_raw": -531,
+      "nearest_tpdo_raw": -561,
+      "tpdo_minus_sdo_ms": -14.839,
+      "raw_difference": -30
+    },
+    {
+      "sdo_seconds_after_operational": 44.499427,
+      "right_sdo_raw": -288,
+      "nearest_tpdo_raw": -323,
+      "tpdo_minus_sdo_ms": -19.649,
+      "raw_difference": -35
+    },
+    {
+      "sdo_seconds_after_operational": 45.50544,
+      "right_sdo_raw": 4,
+      "nearest_tpdo_raw": 9,
+      "tpdo_minus_sdo_ms": 24.566,
+      "raw_difference": 5
+    },
+    {
+      "sdo_seconds_after_operational": 46.510393,
+      "right_sdo_raw": -544,
+      "nearest_tpdo_raw": -660,
+      "tpdo_minus_sdo_ms": 19.817,
+      "raw_difference": -116
+    },
+    {
+      "sdo_seconds_after_operational": 47.517387,
+      "right_sdo_raw": -535,
+      "nearest_tpdo_raw": -512,
+      "tpdo_minus_sdo_ms": 13.032,
+      "raw_difference": 23
+    },
+    {
+      "sdo_seconds_after_operational": 48.524394,
+      "right_sdo_raw": -38,
+      "nearest_tpdo_raw": -17,
+      "tpdo_minus_sdo_ms": 6.231,
+      "raw_difference": 21
+    },
+    {
+      "sdo_seconds_after_operational": 49.530403,
+      "right_sdo_raw": -520,
+      "nearest_tpdo_raw": -519,
+      "tpdo_minus_sdo_ms": 0.433,
+      "raw_difference": 1
+    },
+    {
+      "sdo_seconds_after_operational": 50.537464,
+      "right_sdo_raw": -289,
+      "nearest_tpdo_raw": -253,
+      "tpdo_minus_sdo_ms": -6.36,
+      "raw_difference": 36
+    },
+    {
+      "sdo_seconds_after_operational": 51.543475,
+      "right_sdo_raw": -198,
+      "nearest_tpdo_raw": -227,
+      "tpdo_minus_sdo_ms": -12.412,
+      "raw_difference": -29
+    },
+    {
+      "sdo_seconds_after_operational": 52.550487,
+      "right_sdo_raw": -353,
+      "nearest_tpdo_raw": -386,
+      "tpdo_minus_sdo_ms": -19.461,
+      "raw_difference": -33
+    },
+    {
+      "sdo_seconds_after_operational": 53.556429,
+      "right_sdo_raw": -649,
+      "nearest_tpdo_raw": -605,
+      "tpdo_minus_sdo_ms": 24.81,
+      "raw_difference": 44
+    },
+    {
+      "sdo_seconds_after_operational": 54.562492,
+      "right_sdo_raw": -627,
+      "nearest_tpdo_raw": -698,
+      "tpdo_minus_sdo_ms": 18.707,
+      "raw_difference": -71
+    },
+    {
+      "sdo_seconds_after_operational": 55.56745,
+      "right_sdo_raw": -64,
+      "nearest_tpdo_raw": -105,
+      "tpdo_minus_sdo_ms": 13.96,
+      "raw_difference": -41
+    },
+    {
+      "sdo_seconds_after_operational": 56.572453,
+      "right_sdo_raw": -275,
+      "nearest_tpdo_raw": -262,
+      "tpdo_minus_sdo_ms": 9.162,
+      "raw_difference": 13
+    },
+    {
+      "sdo_seconds_after_operational": 57.578466,
+      "right_sdo_raw": 1,
+      "nearest_tpdo_raw": 1,
+      "tpdo_minus_sdo_ms": 3.363,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 58.584473,
+      "right_sdo_raw": 0,
+      "nearest_tpdo_raw": 0,
+      "tpdo_minus_sdo_ms": -2.558,
+      "raw_difference": 0
+    },
+    {
+      "sdo_seconds_after_operational": 59.591478,
+      "right_sdo_raw": 0,
+      "nearest_tpdo_raw": 0,
+      "tpdo_minus_sdo_ms": -9.295,
+      "raw_difference": 0
+    }
+  ],
+  "comparison_limitation": "SDO and TPDO samples are asynchronous; nearest-sample differences are not accuracy or scale proof.",
+  "restored_mapping": [
+    "0x60410020",
+    "0x606C0320"
+  ],
+  "heartbeat_restored": 0,
+  "event_timer_raw": 100,
+  "operator_observation": {
+    "user_confirmation": "turn only the right wheel, in clockwise and counter-clockwise both, and did the left wheel stay still with normal brake behavior and sound",
+    "right_wheel_rotated_manually": true,
+    "directions": [
+      "clockwise",
+      "counter-clockwise"
+    ],
+    "left_wheel_stationary": true,
+    "brake_behavior_normal": true,
+    "sound_normal": true,
+    "direction_timestamp_markers": false,
+    "acceptance": {
+      "status": "PASS",
+      "scope": "manual TPDO speed feedback test",
+      "user_confirmation": "this test demonstrates that the TPDO feedback speed is satisfactory. Regarding the few instances of non-zero speed feedback from the left wheel\u2014likely caused by chassis vibration or similar factors\u2014the TPDO test can be considered successful.",
+      "left_excursions": "accepted by operator for this manual test",
+      "proposed_cause": "chassis vibration or similar factors; operator hypothesis, not measured root cause",
+      "recorded_date": "2026-09-10"
+    }
+  }
+}

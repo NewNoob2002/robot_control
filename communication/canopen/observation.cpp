@@ -233,12 +233,6 @@ void ObservationStore::ingest(RawCanopenFrame frame, const std::chrono::steady_c
             return;
         }
 
-        if (!state_.boot_observed) {
-            state_.heartbeat.frame = {.present = true, .current = false, .raw = frame};
-            ++state_.version;
-            return;
-        }
-
         if (state_.heartbeat.frame.present && frame.received_at < state_.heartbeat.frame.raw.received_at) {
             ++state_.replay_count;
             ++state_.version;
@@ -269,7 +263,7 @@ void ObservationStore::ingest(RawCanopenFrame frame, const std::chrono::steady_c
             ++state_.version;
             return;
         }
-        tpdo = {.present = true, .current = state_.boot_observed, .raw = frame};
+        tpdo = {.present = true, .current = state_.heartbeat.frame.current, .raw = frame};
         ++state_.version;
         return;
     }

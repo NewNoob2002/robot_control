@@ -1,0 +1,203 @@
+{
+  "electronic_hil_passed": true,
+  "operator_observation_pending": false,
+  "timestamp_utc": "2026-09-10T02:27:08.921557+00:00",
+  "frames": 203,
+  "sequences_equal": true,
+  "target_rx_delta": 137,
+  "target_tx_delta": 66,
+  "requests": {
+    "sdo_downloads": 14,
+    "sdo_uploads": 50,
+    "nmt": 2,
+    "nonzero": 1,
+    "quick_stop": 1
+  },
+  "timings_ms": {
+    "nonzero_interval": 2001.018,
+    "quick_stop_ack": 0.308,
+    "dual_quick_stop_active": 39.62,
+    "right_velocity_first_zero": 207.276,
+    "nmt_preoperational": 443.862,
+    "preoperational_heartbeat": 604.06,
+    "restoration_complete": 612.278,
+    "first_all_velocity_views_zero": 209.322,
+    "cleanup_all_velocity_views_zero": 442.289
+  },
+  "raw_dual_status": [
+    "0x1407",
+    "0x1407"
+  ],
+  "velocity_readbacks_after_stop": [
+    {
+      "t": 1789007231605828,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 40.341
+    },
+    {
+      "t": 1789007231607770,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": -1,
+      "elapsed_ms": 42.283
+    },
+    {
+      "t": 1789007231660825,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 95.338
+    },
+    {
+      "t": 1789007231662760,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": -47,
+      "elapsed_ms": 97.273
+    },
+    {
+      "t": 1789007231715766,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 150.279
+    },
+    {
+      "t": 1789007231717762,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": -10,
+      "elapsed_ms": 152.275
+    },
+    {
+      "t": 1789007231770763,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 205.276
+    },
+    {
+      "t": 1789007231772763,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 207.276
+    },
+    {
+      "t": 1789007231774809,
+      "index": 24684,
+      "subindex": 3,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 209.322
+    },
+    {
+      "t": 1789007231784788,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 219.301
+    },
+    {
+      "t": 1789007231786784,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": -5,
+      "elapsed_ms": 221.297
+    },
+    {
+      "t": 1789007231839789,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 274.302
+    },
+    {
+      "t": 1789007231841784,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": 2,
+      "elapsed_ms": 276.297
+    },
+    {
+      "t": 1789007231894794,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 329.307
+    },
+    {
+      "t": 1789007231896789,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": -1,
+      "elapsed_ms": 331.302
+    },
+    {
+      "t": 1789007231949787,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 384.3
+    },
+    {
+      "t": 1789007231951781,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": -4,
+      "elapsed_ms": 386.294
+    },
+    {
+      "t": 1789007232004786,
+      "index": 24684,
+      "subindex": 1,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 439.299
+    },
+    {
+      "t": 1789007232005842,
+      "index": 24684,
+      "subindex": 2,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 440.355
+    },
+    {
+      "t": 1789007232007776,
+      "index": 24684,
+      "subindex": 3,
+      "size": 4,
+      "value": 0,
+      "elapsed_ms": 442.289
+    }
+  ],
+  "cleanup": {
+    "targets_zero": true,
+    "velocities_zero": true,
+    "heartbeat_restored_to": 0,
+    "command_application_restored_to": 1,
+    "no_terminal_retry_or_reenable": true,
+    "jcan_configuration_unchanged": true
+  },
+  "passed": true,
+  "velocity_feedback_rebounded_after_first_zero": true
+}

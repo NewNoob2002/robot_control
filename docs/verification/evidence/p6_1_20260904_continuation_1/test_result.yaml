@@ -1,0 +1,18 @@
+test_result:
+  schema_version: 1
+  source_revision: 1d1314d25269d38f9679cd2c15e23df65afcd2a4
+  artifact_checksums:
+    continuation_manifest.yaml: e129d93ad13da47dd97ff8fed1bb0df2fb709dc1cc2a2b01a5ff7367b6b01047
+    jcan_bus_profile.retry1.toml: 9a9fc7cced9a019fd852c264ae6685815d20e2fb86ba997ce2ea201115d12c98
+  safety_preflight: safety_preflight.yaml
+  level: hil
+  target: "ZLAC8015D V4 node 1 via JCAN 207F346D5650 with passive RK3588 can0 monitor"
+  command: "one authorized retry of 0x2000:00; after success, positions 98 through 119 once each"
+  timing: {started_at_utc: "2026-09-04T08:35:37Z", duration_ms: 256312, timeout_ms: 15000}
+  attempts: 2
+  passed: true
+  counts: {total: 23, passed: 23, failed: 0, skipped: 0}
+  classified_failures: ["prior-attempt-sdo-response-timeout-0x2000:00-recovered-on-explicitly-authorized-retry"]
+  log: continuation_sdo_reads.json
+  requirements: [P6.1-R07, P6.1-R08, P6.1-R09, P6.1-R10]
+

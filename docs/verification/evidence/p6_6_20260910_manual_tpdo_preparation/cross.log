@@ -1,0 +1,135 @@
+dependency=CANopenLinux revision=f1348d4072cdabea4c3435a13c721ac29ab4cc91 dirty=false
+dependency=CANopenNode revision=ef9ac3a2279e34855a20c787fc1bc48bc995ec22 dirty=false
+relationship=nested-gitlink result=pass
+sysroot=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204
+loader=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204/lib/ld-linux-aarch64.so.1
+os=Ubuntu 22.04.5 LTS 22.04
+trust_anchor=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/locks/rk3588-ubuntu2204-a685ab13.json
+image=sha256:f2198e31e27c084bc2deff761e124fa9d7ce580a8d986c7885fd62bb1701e7dd
+image_id=sha256:f2198e31e27c084bc2deff761e124fa9d7ce580a8d986c7885fd62bb1701e7dd
+architecture=amd64
+target=aarch64-linux-gnu
+compiler=aarch64-linux-gnu-g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+cmake=cmake version 3.22.1
+ninja=1.10.1
+snapshot=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build-inputs/p66-manual-tpdo-f6hkkwu9/source
+attestation=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p6_6_20260910_manual_tpdo_preparation/source_attestation.json
+sha256=911df7ad46bcc8a0597923a5188dfeaf34af61096d930b9d5ce292576c87aa38
+files=1809
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/aarch64-linux-gnu-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/aarch64-linux-gnu-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/out/build/cross/p66-manual-tpdo-debug
+[1/69] Building CXX object domain/safety/CMakeFiles/robot_control_domain_safety.dir/safety_manager.cpp.o
+[2/69] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/cia402.cpp.o
+[3/69] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/zlac8015d.cpp.o
+[4/69] Linking CXX static library domain/drive/librobot_control_domain_drive.a
+[5/69] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/process/termination_event.cpp.o
+[6/69] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/__/__/components/EasyLogger/easylogger/src/elog_utils.c.o
+[7/69] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/__/__/components/EasyLogger/easylogger/src/elog.c.o
+[8/69] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/easylogger_port.c.o
+[9/69] Linking C static library service/logging/librobot_control_easylogger.a
+[10/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_transmit_gate.dir/transmit_gate.c.o
+[11/69] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/io/poll_wait.cpp.o
+[12/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_driver.c.o
+[13/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_epoll_interface.c.o
+[14/69] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/time/monotonic_timer.cpp.o
+[15/69] Building CXX object domain/control/CMakeFiles/robot_control_domain_control.dir/control_arbiter.cpp.o
+[16/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_ODinterface.c.o
+[17/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/CANopen.c.o
+[18/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_NMT_Heartbeat.c.o
+[19/69] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/socket.cpp.o
+[20/69] Linking CXX static library domain/control/librobot_control_domain_control.a
+[21/69] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/uart/serial_port.cpp.o
+[22/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_Emergency.c.o
+[23/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOserver.c.o
+[24/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_HBconsumer.c.o
+[25/69] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/classic_frame.cpp.o
+[26/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_fifo.c.o
+[27/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_PDO.c.o
+[28/69] Linking CXX static library domain/safety/librobot_control_domain_safety.a
+[29/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOclient.c.o
+[30/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/od/OD.c.o
+[31/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_qualification_gate.dir/qualification_gate.c.o
+[32/69] Linking C static library communication/canopen/librobot_control_canopen_upstream.a
+[33/69] Linking CXX static library platform/linux/librobot_control_platform_linux.a
+[34/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CO_driver.c.o
+[35/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CO_epoll_interface.c.o
+[36/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/CANopen.c.o
+[37/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_ODinterface.c.o
+[38/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_NMT_Heartbeat.c.o
+[39/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_HBconsumer.c.o
+[40/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_Emergency.c.o
+[41/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOserver.c.o
+[42/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOclient.c.o
+[43/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_PDO.c.o
+[44/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_fifo.c.o
+[45/69] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/od/OD.c.o
+[46/69] Linking C static library communication/canopen/librobot_control_canopen_upstream_qualification.a
+[47/69] Building CXX object service/logging/CMakeFiles/robot_control_service_logging.dir/logger.cpp.o
+[48/69] Linking CXX static library service/logging/librobot_control_service_logging.a
+[49/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_config.cpp.o
+[50/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_storage.cpp.o
+[51/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/observation.cpp.o
+[52/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/lifecycle.cpp.o
+[53/69] Linking CXX static library communication/canopen/librobot_control_communication_canopen.a
+[54/69] Building C object tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/observer_log.c.o
+[55/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/observation.cpp.o
+[56/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/lifecycle.cpp.o
+[57/69] Building C object tools/zlac_qualification/CMakeFiles/robot-control-zlac-qualification.dir/qualification_log.c.o
+[58/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/stack_config.cpp.o
+[59/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/qualification.cpp.o
+[60/69] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/stack_storage.cpp.o
+[61/69] Building CXX object tools/can_probe/CMakeFiles/robot-control-can-probe.dir/main.cpp.o
+[62/69] Linking CXX static library communication/canopen/librobot_control_communication_canopen_qualification.a
+[63/69] Building CXX object tools/platform_probe/CMakeFiles/robot-control-platform-probe.dir/main.cpp.o
+[64/69] Linking CXX executable tools/can_probe/robot-control-can-probe
+[65/69] Linking CXX executable tools/platform_probe/robot-control-platform-probe
+[66/69] Building CXX object tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/main.cpp.o
+[67/69] Linking CXX executable tools/canopen_observer/robot-control-canopen-observer
+[68/69] Building CXX object tools/zlac_qualification/CMakeFiles/robot-control-zlac-qualification.dir/main.cpp.o
+[69/69] Linking CXX executable tools/zlac_qualification/robot-control-zlac-qualification
+elf=/workspace/out/build/cross/p66-manual-tpdo-debug/tools/zlac_qualification/robot-control-zlac-qualification
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+rpath=none
+sysroot=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204
+loader=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204/lib/ld-linux-aarch64.so.1
+os=Ubuntu 22.04.5 LTS 22.04
+trust_anchor=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/locks/rk3588-ubuntu2204-a685ab13.json
+{
+  "elf": "out/build/cross/p66-manual-tpdo-debug/tools/zlac_qualification/robot-control-zlac-qualification",
+  "sha256": "8ca2c0250736e792ecb0b7067973ce2547f7e2d6fb9c38d0147a5788ade34c8a",
+  "source_snapshot": "out/build-inputs/p66-manual-tpdo-f6hkkwu9/source",
+  "image": "sha256:f2198e31e27c084bc2deff761e124fa9d7ce580a8d986c7885fd62bb1701e7dd",
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "3bcb35ff873a4ca2129abd9c1a1ac7d8c758062c109de70a1e80f45020a4cba0",
+    "communication/canopen/qualification.hpp": "a95ad5d1293918f3706ddada917b3cb9f97232044b21af808e42e5c1c3735311",
+    "communication/canopen/qualification_gate.c": "3b395b2d435259120fa2eed0396710097522dedd7fcfb6840b129620b0c496c3",
+    "communication/canopen/qualification_gate.h": "a55f6d4e9d189b130289663302d7b5ecb6e65bb36e12fb5799be9d3d3b0da9af",
+    "tools/zlac_qualification/main.cpp": "90e5837d5a5f824b161c5c8c389397b01816e17682d45b37d61bed3156c69519",
+    "tools/zlac_qualification/CMakeLists.txt": "1f220dce2f848d5ec58a99292b8e17dc5464e5191a41f03350a523343369e3fb",
+    "tests/unit/canopen_qualification_gate_tests.cpp": "4469d89454ec1dd5a14d0cc2ae6f592b7720817f9048eccc4f1faa2d00f970c4",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "96053060b2635e3729428d6fba234fcc6db24e14eb47ac2ee4d39dfd82d5a945",
+    "tests/unit/CMakeLists.txt": "ea01b2aa85637ecf3cad2f61832c95ce636f560ab018341a154849cda5138515"
+  },
+  "deployed": false,
+  "physical_tests": "pending"
+}

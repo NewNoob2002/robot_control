@@ -1,5 +1,11 @@
 # ZLAC8015D V4 CANopen Configuration and Integration Notes
 
+2026-09-10 checkpoint: the operator accepted manual speed-first TPDO feedback.
+See [the current checkpoint](verification/PHASE6_CHECKPOINT.md) and
+[evidence index](verification/evidence/README.md). Small left-speed excursions
+are accepted for that test; vibration is a hypothesis, not a firmware safety fact.
+
+
 ## 1. Sources and Status
 
 This note extracts implementation-relevant information from the following manufacturer documents:
@@ -8,6 +14,12 @@ This note extracts implementation-relevant information from the following manufa
 - `ZLAC8015D V4 series CANopen Communication Examples`, Version 1.01, 38 PDF pages.
 
 The original PDFs are the authoritative source. This note is an engineering index and discrepancy log, not a replacement for the manuals. Page references use the PDF page number; the printed page number is normally one less.
+
+The current Linux Phase 6 authority is
+`docs/plans/PHASE6_ZLAC8015D_QUALIFICATION.md`. Historical Phase 6A/6B and M4
+records summarized below predate the current Linux plan or refer to evidence
+outside this repository. They remain engineering input but do not close a
+current Phase 6 acceptance gate by themselves.
 
 Several contradictions exist between, and sometimes within, the documents. Entries marked **VERIFY ON HARDWARE** must not be encoded as safety assumptions until confirmed using SDO reads, a CAN analyzer, and an unloaded drive.
 
@@ -132,6 +144,8 @@ The documented shared controlword sequence is:
 | `0x0080` | Fault reset | Clear fault |
 
 Do not advance the sequence using fixed delays alone. Read `0x6041`, decode the relevant state, enforce a timeout, and fail safe if the expected transition does not occur.
+
+Hardware evidence on 2026-09-09 observed `0x6040:00=0x0000` move both status halves from raw `0x1427` to raw `0x1460`. The low nibble remains the documented `0000`; the additional state bits decode as Switch On Disabled when `0x0060` is accepted alongside `0x0040`. RK3588 and independent JCAN captures matched exactly.
 
 Operation mode:
 
@@ -496,7 +510,7 @@ Phase 5 is complete. No result claims CiA402 motion,
 drive-originated fault behavior, brake behavior, electrical bus-off, or
 worst-case load acceptance.
 
-## 17. Phase 6B.2B Software-Only Transition Preparation
+## 17. Historical Phase 6B.2B Software-Only Transition Preparation
 
 Phase 6B.2B defines but does not execute typed volatile candidates for
 `0x6060:00 = 3` and `0x6040:00 = 0006/0007/000F`. No J-Link, CAN, SDO, NMT,
@@ -509,7 +523,7 @@ become required again if later hardware installs either device. Any future
 hardware execution needs fresh operator safety confirmation and a separately
 authorized step-by-step plan; it cannot claim Phase 6, Phase 6B, or M4 complete.
 
-## 18. Approved Phase 6B/M4 SBUS Bench Scope (PENDING)
+## 18. Historical Phase 6B/M4 SBUS Bench Scope (NOT CURRENT LINUX SCOPE)
 
 The approved plan authorizes G0-G6 software preparation and verification only.
 It does not claim that the M4 Bench capability, runtime pipeline, executor, or
@@ -547,3 +561,54 @@ recovery.
 Electrical bus-off must use real error-injection equipment, and the fault-reset
 case must use a reviewed non-destructive stimulus. Without both, the evidence
 may support only M4 partial status. No current evidence closes G7-G10 or M4.
+
+## 19. Current Linux Phase 6 Decision
+
+Current Phase 6 is ZLAC8015D drive qualification governed by
+`docs/plans/PHASE6_ZLAC8015D_QUALIFICATION.md`. It reuses the Phase 5 Linux
+CANopen owner, observations, transmit boundary, and Phase 2 CiA402/safety
+domain. A separate Debug-only, default-OFF artifact may add only exact typed
+volatile operations required by that plan. Normal and read-only commissioning
+artifacts retain their existing transmit policies.
+
+Qualification progresses through read-only inventory, pure semantic tests,
+managed-`vcan` allowlist tests, zero-target CiA402 transitions, and only then
+separately authorized one-axis motion capped at 10 rpm for three seconds. Every
+active session requires a current safety preflight, exact bounds, RK3588 and
+independent JCAN raw evidence, verified zero/safe-state cleanup, and restoration
+readback.
+
+The first P6.5 physical motion trial on 2026-09-08 establishes that
+`0x60FF:01` commands the physical left wheel. With the observer at the chassis
+left side, a `+5 rpm` target rotated that wheel counterclockwise; the right
+wheel remained stationary and the mechanical brake produced no abnormal action
+or sound. This resolves only that independent target mapping and observed sign.
+Reverse motion and `0x60FF:02` remain untested.
+
+The same trial sent the first zero target 500.999 ms after the nonzero request.
+An SDO upload 44.312 ms later returned `0x606C:01 = 16`, documented as 1.6
+rpm, while TPDO1's packed velocity halves remained zero. The trial therefore
+failed closed during deceleration and the feedback disagreement remains a
+hardware-validation item. Qualification cleanup now polls all three `0x606C`
+views under the existing transition deadline rather than treating the first
+post-Shutdown sample as terminal proof.
+
+The historical M4/SBUS plan is not imported into Linux Phase 6. Full SBUS,
+ROS2, a production executor, EEPROM persistence, loaded operation, arbitrary
+SDO/CAN access, and certification remain outside this phase. Historical
+fixture results may seed tests but must be reproduced by the reviewed Linux
+artifact before becoming current acceptance evidence.
+
+## Manual speed-first TPDO verification — 2026-09-10
+
+The operator-authorized manual-only trial configured the supplied packed-speed-
+first/status-second TPDO1 order without target or controlword writes. The right
+wheel was turned by hand in both directions; the left remained stationary with
+normal brake/sound. Both captures match2042 frames, including1205 TPDO1 samples
+at median50.007ms. Right raw feedback spans-1036..920 and returns to zero;
+independent SDO speed also changes. Left raw excursions-5..4 in19 samples remain
+unexplained despite observed stationarity. Kernel RX has an unresolved excess of
+3 packets/24 bytes; no CAN errors/drops occurred. Original mapping and heartbeat
+were restored with exact readbacks. This supports manual feedback availability,
+not enabled-drive watchdog timing or perfect axis isolation. See
+[manual trial](verification/evidence/p6_6_20260910_manual_tpdo_trial_1/RESULT.md).

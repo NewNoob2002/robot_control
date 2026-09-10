@@ -1,0 +1,14 @@
+Mon Sep  7 07:29:44 UTC 2026
+qualification_wait_boot node=1
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+(CO_CANsend) OS error "Permission denied" in send()
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+qualification_complete node=1 operation=6
+Mon Sep  7 07:30:06 UTC 2026
+executor_exit=0

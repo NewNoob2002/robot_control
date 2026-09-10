@@ -1,0 +1,24 @@
+test_result:
+  schema_version: 1
+  source_revision: 1d1314d25269d38f9679cd2c15e23df65afcd2a4
+  artifact_checksums: {robot-control-zlac-qualification: 2f5d9ce170953a141cb0fd219d83c1a6c087e6e88e89efd187b94119ef2a44fb}
+  level: hil
+  target: 'RK3588 lubancat; ZLAC8015D V4 node 1; JCAN 207F346D5650'
+  safety_preflight: safety_preflight.yaml
+  command: 'robot-control-zlac-qualification --interface can0 --target-once 1:5 --duration-ms 500; temporary 0x1017 0->1000->0 and 0x200F 1->0->1'
+  attempts: 1
+  passed: true
+  counts: {total: 1, passed: 1, failed: 0, skipped: 0}
+  classified_failures: []
+  requirements: [P6.5-one-axis-first-motion, P6.5-bounded-zero, P6.5-dual-capture, P6.5-physical-axis-mapping]
+  log: target/executor.log
+  raw_capture: target/rk3588_can.log
+  independent_capture: 20260908T034122.209839Z-1788838882209894528-capture.json
+  analysis: analysis.json
+  result: 'Exactly one +5 rpm write to 0x60FF:01; first zero 500.985 ms later; 0x606C:01 settled 3.2 -> -0.5 -> 0 rpm by 150.328 ms after zero; executor completed and restoration verified.'
+  dual_capture: 'All 275 JCAN frames exactly match all 275 RK3588 frames; zero JCAN drops.'
+  operator_observation: 'From chassis left side, left wheel again rotated counterclockwise; right wheel remained stationary; mechanical brake had no abnormal action or sound.'
+  physical_mapping: '0x60FF:01 -> left wheel; positive target -> counterclockwise viewed from chassis left side'
+  postflight: '0x1017=0, 0x200F=1, controlword 0x0006, dual status 0x1421/0x1421, mode 3, zero targets and all velocity views, fault 0; can0 ERROR-ACTIVE with zero errors/drops.'
+  limitations: ['TPDO1 packed velocity stayed zero while SDO 0x606C:01 measured deceleration', 'No reverse or second-axis command', '500 ms physical observation was judged too short by the operator']
+  cleanup: 'No residual executor, candump, or JCAN periodic task; adapter configuration unchanged.'

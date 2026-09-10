@@ -1,0 +1,11 @@
+{
+  "ok": false,
+  "serial": "207F346D5650",
+  "operation": "sdo_read",
+  "data": null,
+  "warnings": [
+    "等待 CAN ID 581 超时"
+  ],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T081638.113282Z-1788509798113323157-sdo_read.json"
+}
+

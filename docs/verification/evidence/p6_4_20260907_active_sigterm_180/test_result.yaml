@@ -1,0 +1,28 @@
+test_result:
+  schema_version: 1
+  source_revision: 1d1314d25269d38f9679cd2c15e23df65afcd2a4
+  source_snapshot_sha256: 0f5ba8c5f199d7048617b451b944b81a18caeb0b84eab30e9ef7a3aa6cd66bc7
+  artifact_checksums: {robot-control-zlac-qualification: 0bb8aa097a0fe1e1e6ed59bcedeb866f011403988219b7e2c453c03480cc95da}
+  safety_preflight: safety_preflight.yaml
+  level: hil
+  target: 'RK3588 lubancat; ZLAC8015D node 1; JCAN 207F346D5650'
+  command: '/tmp/robot-control-qualifications/p64-180-0bb8aa097a0f/robot-control-zlac-qualification --interface can0 --zero-sequence; bootstrap_after_boot_180.sh configures the temporary heartbeat; sigterm_after_enable_180.sh sends one SIGTERM after exact dual-enabled zero-velocity TPDO1'
+  attempts: 1
+  passed: true
+  counts: {total: 1, passed: 1, failed: 0, skipped: 0}
+  classified_failures: []
+  requirements: [P6.4-post-enable-termination-inhibits-and-cleans-up]
+  log: executor.log
+  raw_capture: rk3588_can.log
+  independent_capture: 20260907T082057.941827Z-1788769257941855606-capture.json
+  analysis: analysis.json
+  trigger: 'One SIGTERM to exact owner PID 13988 after 0x181 / 27 14 27 14 00 00 00 00 at 1788769183.886069; no CAN frame was injected by the signal helper'
+  result: 'Executor exited 1 with qualification_owner_exit/Operation canceled; no re-enable followed the trigger; cleanup wrote both zero targets, uploaded all three zero velocities, sent Shutdown 0x0006 and NMT Pre-operational'
+  cleanup_latency_ms: {enabled_to_shutdown_command: 16.189, enabled_to_pre_operational_nmt: 28.678}
+  main_capture: {rk3588_frames: 278, jcan_frames: 233, jcan_exact_target_prefix: true, jcan_dropped_frames: 0, correlated_sdo_pairs: 33, sdo_aborts: 0, can_error_frames: 0}
+  postflight: '0x1017=0; 0x6040=0x0006; 0x6041=0x14211421; 0x6060=3; 0x6061=3; 0x60FF:01/02=0; 0x606C:01/02/03=0; 0x603F=0'
+  operator_observation: 'User confirms both wheels remained stationary throughout and installed mechanical brakes had no abnormal action or sound'
+  adapter_postflight: 'JCAN configuration unchanged; no active/recent periodic task; no session cleanup error'
+  target_postflight: 'can0 ERROR-ACTIVE at 500000 bit/s; zero errors/drops; verified orphan candump PID 14690 terminated with SIGTERM and no longer exists'
+  limitations: ['NMT Pre-operational was sent 12.489 ms after Shutdown, before another TPDO1; immediate Shutdown-state timing is not claimed', 'Terminal dual Shutdown state is proven by later SDO readback', 'JCAN covers an exact 233-frame prefix; RK3588 covers later heartbeat restoration', 'RK3588 supplemental capture covers 8 of 11 final uploads; JCAN MCP records all 11']
+  cleanup: 'Heartbeat 0x1017 restored and acknowledged; final readbacks safe; executor/helpers/captures stopped; stale helper-owned candump removed; no nonzero target, fault reset, brake-output or persistent write'

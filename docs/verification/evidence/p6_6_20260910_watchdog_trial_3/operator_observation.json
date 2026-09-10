@@ -1,0 +1,10 @@
+{
+  "recorded_utc": "2026-09-10T05:20:57.797565+00:00",
+  "user_confirmation": "observe the right and left wheel  both stay stationary, with normal brake behavior and sound",
+  "both_wheels_observed_stationary": true,
+  "right_wheel_motion_observed": false,
+  "left_wheel_stationary": true,
+  "normal_brake_behavior": true,
+  "normal_sound": true,
+  "scope": "Operator observed no wheel motion during re-test 3; dynamic watchdog stopping is not demonstrated by this run."
+}

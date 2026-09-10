@@ -11,6 +11,7 @@ AxisStatus decode_statusword(const std::uint16_t raw) noexcept {
     state = Cia402State::not_ready_to_switch_on;
     break;
   case 0x0040U:
+  case 0x0060U:
     state = Cia402State::switch_on_disabled;
     break;
   case 0x0021U:

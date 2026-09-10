@@ -1,0 +1,21 @@
+bus_validation:
+  schema_version: 1
+  timestamp_utc: "2026-09-10T01:00:02Z"
+  adapter_or_resource: "RK3588 can0 plus Rust JCAN 1.0 serial 207F346D5650"
+  interface_settings: "Classical CAN 500000 bit/s; JCAN silent mode; termination disabled"
+  frame_counts: {rk3588: 393, jcan: 393}
+  normalized_sequences_equal: true
+  authorized_stimulus:
+    id: 0x601
+    extended: false
+    fd: false
+    dlc: 8
+    payload: 2B40600000000000
+    count: 1
+  observations:
+    sdo_ack_ms: 0.307
+    first_raw_dual_status_0x1460_ms: 31.754
+    all_velocity_views_zero_ms: 422.227
+  errors: {sdo_abort: 0, emcy: 0, can_error_frame: 0, jcan: 0}
+  raw_capture: "rk3588_can.log and jcan_session.jsonl"
+  passed: true

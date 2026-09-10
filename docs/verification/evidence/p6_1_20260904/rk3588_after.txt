@@ -1,0 +1,9 @@
+2026-09-04T08:20:26Z
+can0: UP LOWER_UP ERROR-ACTIVE bitrate 500000 tx_error_counter 0 rx_error_counter 0
+rx_bytes: 73808
+rx_packets: 9226
+tx_bytes: 0
+tx_packets: 0
+bus_errors: 0
+bus_off: 0
+

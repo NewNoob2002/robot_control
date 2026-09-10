@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "serial": "207F346D5650",
+  "operation": "sdo_read",
+  "data": {
+    "node": 1,
+    "index": 24641,
+    "subindex": 0,
+    "value_hex": "21 14 21 14",
+    "value_unsigned": 337712161,
+    "request": "40 41 60 00 00 00 00 00",
+    "response": "43 41 60 00 21 14 21 14",
+    "drained_receive_bytes": 0
+  },
+  "warnings": [],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260907T085615.084731Z-1788771375084759517-sdo_read.json"
+}

@@ -1,0 +1,20 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: '2026-09-07T07:28:00Z'
+  operation: bus-write
+  authorization: 'User requests remaining P6.4 HIL and confirms both wheels raised/unloaded, unchanged wiring, installed mechanical brakes and no new power cycle yet; prior zero-target and heartbeat writes remain authorized'
+  approved: true
+  target: {board: 'RK3588 lubancat 6923ab3301fb4a8d816759b04ec6bf0a; ZLAC8015D node 1', probe_or_adapter_serial: '207F346D5650', transport: can}
+  artifact: '/tmp/robot-control-qualifications/p64-ac24cc41ccb2/robot-control-zlac-qualification'
+  sha256: ac24cc41ccb2684c0464eac82ea5388ff1fc0ceffa8cef9cc23f17eec770c971
+  fixture: 'Operator=user; both wheels suspended/unloaded, wiring unchanged, mechanical brakes installed, independent power-disconnect available. Brake polarity remains unproven and no brake-output write is authorized.'
+  initial_values: '../p6_4_20260907_remaining_preflight/read_inventory.json; identity verified; executor repeats mode/targets/fault/velocity eligibility after actual boot'
+  startup: 'Operator holds drive powered off. Start bounded RK3588 and JCAN captures plus tested bootstrap_after_boot.sh, then executor waiting for real boot. Notify operator to power on only after readiness. Target helper matches actual standard 701#00 and verifies live owner, sends one 0x1017 U16 1000 request and exits. Owner begins requests only after heartbeat. JCAN stays passive.'
+  bootstrap_frame: 'cansend can0 601#2B171000E8030000; exactly once, no retries; baseline 0 restored after owner exits with 601#2B17100000000000 and one upload 601#4017100000000000'
+  qualification: 'One --zero-sequence run; normal path 9 downloads + 25 uploads + 2 node-specific NMT requests; both targets zero, mode 3, controlwords 0006->0007->000F, then verified zero/Shutdown/Pre-operational cleanup'
+  bounds: 'Startup 60s; SDO 500ms; state/NMT transition 2000ms; heartbeat freshness 1000ms; TPDO freshness 100ms unchanged; executor <=90s plus 2s kill reserve; helper <=120s plus 2s kill reserve; RK3588 raw capture <=240s; JCAN <=180s/100000 frames; no nonzero target or implicit retry'
+  helper_sha256: a49bbe4af321f3d4e860337e026c51321be51d62cb2601d64dc5b21c7ae8ae8c
+  prior_attempt: 'Attempt 1 had actual boot near startup deadline and zero active writes. New event-triggered bootstrap addresses tool-roundtrip delay; seven hardware-free helper checks pass. Prior client capture timeout recovered with successful server evidence and clean periodic status.'
+  failure_cleanup: 'Executor can attempt its approved bounded cleanup after active failure: two zero targets with readback, one Shutdown, one Pre-operational. Submitted is not verified; verify terminal state or operator disconnects power. Preserve primary failure, no restart/re-enable.'
+  postflight: 'After executor exits, allow one fixed read each of 6040:00,6041:00,6060:00,6061:00,60FF:01/02,606C:01/02/03,603F:00 if needed to verify cleanup. Restore heartbeat baseline zero and upload. Exact expedited read framing, no retries.'
+  recovery_plan: 'On unexpected motion, nonzero feedback, failed cleanup, or loss of usable CAN, operator immediately removes drive power. Do not rely on process exit or disabled 0x2000 communication-loss protection.'

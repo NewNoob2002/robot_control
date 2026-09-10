@@ -1,0 +1,2 @@
+8ca2c0250736e792ecb0b7067973ce2547f7e2d6fb9c38d0147a5788ade34c8a  /tmp/robot-control-qualifications/p66-manual-tpdo-8ca2c0250736/robot-control-zlac-qualification
+908f7747050a1a43e70dfde67f6f331786124a4707c9cfd6ad972188a455b960  /tmp/robot-control-qualifications/p66-manual-tpdo-8ca2c0250736/remote_trial.py

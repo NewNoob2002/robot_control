@@ -1,0 +1,53 @@
+{
+  "status": "ABORTED_BEFORE_WATCHDOG_AND_MOTION",
+  "capture_agreement": true,
+  "matched_frames": 170,
+  "frame_ids": {
+    "601": 31,
+    "581": 31,
+    "701": 18,
+    "000": 2,
+    "181": 85,
+    "281": 1,
+    "381": 1,
+    "481": 1
+  },
+  "target_packet_deltas": {
+    "rx": 137,
+    "tx": 33
+  },
+  "downloads": 11,
+  "uploads": 20,
+  "nonzero_target_requests": 0,
+  "watchdog_downloads": 0,
+  "watchdog_baseline": 0,
+  "shutdown_ack_ms": [
+    0.334,
+    0.3
+  ],
+  "dual_status_raw": "0x1407/0x1407",
+  "tpdo_packed_velocity_always_zero": true,
+  "independent_velocity_zero": "preflight only; post-cleanup SDO verification not reached",
+  "final_target_readbacks": [
+    0,
+    0
+  ],
+  "restored_application": 1,
+  "restored_heartbeat": 0,
+  "shutdown_state_verified": false,
+  "preoperational_heartbeat_verified": false,
+  "can_errors_or_drops": 0,
+  "process_cleanup": "pass",
+  "adapter_configuration_unchanged": true,
+  "operator_observation": {
+    "recorded_utc": "2026-09-10T03:55:09.593262+00:00",
+    "user_confirmation": "both wheels remain stationary, with no abnormal brake action and sound",
+    "both_wheels_stationary": true,
+    "abnormal_brake_action": false,
+    "abnormal_sound": false,
+    "scope": "Aborted zero-target watchdog setup; no watchdog stimulus or nonzero target occurred."
+  },
+  "hardware_retry": false,
+  "watchdog_requirement": "OPEN; stimulus not reached",
+  "heartbeat_and_tpdo_trials": "not run"
+}

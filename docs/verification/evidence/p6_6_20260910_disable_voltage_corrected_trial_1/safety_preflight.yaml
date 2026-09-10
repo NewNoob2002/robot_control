@@ -1,0 +1,16 @@
+safety_preflight:
+  schema_version: 1
+  timestamp_utc: "2026-09-10T00:56:48Z"
+  operation: bus-write
+  authorization: "At 2026-09-10T00:56:48Z the user explicitly authorized the exact corrected retry and reconfirmed the raised/unloaded fixture, clear right wheel, and immediate independent drive-power cutoff."
+  target:
+    board: "RK3588 robot controller and ZLAC8015D V4 node 1"
+    hardware_revision: "identified Phase 6 fixture"
+    probe_or_adapter_serial: "JCAN 207F346D5650, persistent independent silent receive"
+    transport: "Classical CANopen over can0 at 500000 bit/s"
+  artifact_or_stimulus: "robot-control-zlac-qualification SHA256 833548e609bb96b1061154f3c24c21e1e0a734c20060027a40c9da4ba3354be0; --disable-voltage-once 2:5 --duration-ms 10000"
+  limits: "Node 1 only; channel 2/right-wheel target +5 rpm for at most 10000 ms; channel 1 remains zero; exactly one standard Classical CAN SDO request 0x601 DLC8 payload 2B40600000000000; temporary volatile 0x1017:00 0->500->0 and 0x200F:00 1->0->1; no periodic traffic or retry."
+  expected_observation: "Right wheel counter-clockwise, left wheel stationary, then both wheels stop after Disable Voltage with dual raw 0x1460 accepted as Switch On Disabled and measured zero velocity; no abnormal brake action or sound."
+  recovery_plan: "Write and verify both targets zero without Shutdown/re-enable, require zero velocity, enter NMT Pre-operational, and restore 0x200F/0x1017. On unexpected motion, CAN loss, cleanup failure, or abnormal brake action/sound, operator removes independent drive power immediately."
+  exclusions: [Quick-Stop, 0x2000, 0x605A, fault-reset, reverse-motion, EEPROM, brake-output-write, interface-change, automatic-retry]
+  approved: true

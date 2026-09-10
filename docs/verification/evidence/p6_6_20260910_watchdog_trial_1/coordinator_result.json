@@ -1,0 +1,11 @@
+{
+  "go_sent": true,
+  "executor_started": true,
+  "error": "TRIAL_FINISHED rc=1",
+  "frames": 170,
+  "downloads": 11,
+  "uploads": 20,
+  "nmt_frames": 2,
+  "nonzero_requests": 0,
+  "cleanup_shutdown_requests": 0
+}

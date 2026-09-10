@@ -19,9 +19,16 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(ROBOT_CONTROL_WARNINGS_AS_ERRORS "Treat project warnings as errors" ON)
 option(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING
        "Build the Debug-only read-only CANopen commissioning tool" OFF)
-if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
+option(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION
+       "Build the Debug-only bounded ZLAC qualification tool" OFF)
+if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING AND
+   ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
+  message(FATAL_ERROR "CANopen commissioning and ZLAC qualification are mutually exclusive")
+endif()
+if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING OR
+   ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
   if(CMAKE_CONFIGURATION_TYPES OR NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
-    message(FATAL_ERROR "CANopen commissioning requires a single-config Debug build")
+    message(FATAL_ERROR "CANopen commissioning/qualification requires a single-config Debug build")
   endif()
 endif()
 
@@ -53,6 +60,9 @@ add_subdirectory(tools/canopen_observer)
 add_subdirectory(tools/platform_probe)
 if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
   add_subdirectory(tools/canopen_commission)
+endif()
+if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
+  add_subdirectory(tools/zlac_qualification)
 endif()
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)

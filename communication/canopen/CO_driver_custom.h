@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef ROBOT_CONTROL_CANOPEN_COMMISSIONING
+#if defined(ROBOT_CONTROL_CANOPEN_COMMISSIONING) || defined(ROBOT_CONTROL_CANOPEN_QUALIFICATION)
 #define CO_CONFIG_NMT                                                         \
   (CO_CONFIG_NMT_CALLBACK_CHANGE | CO_CONFIG_NMT_MASTER |                    \
    CO_CONFIG_GLOBAL_FLAG_TIMERNEXT)

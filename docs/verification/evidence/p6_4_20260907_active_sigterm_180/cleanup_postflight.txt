@@ -1,0 +1,12 @@
+2026-09-07T09:12:01Z RK3588 postflight
+verified PID 14690: parent 1691, started 2026-09-07 16:55:43 CST, command candump -L can0
+sent SIGTERM only to PID 14690; subsequent ps -p 14690 returned no process
+can0 remained UP/LOWER_UP, ERROR-ACTIVE, Classical CAN 500000 bit/s
+RX 9800 packets / 11294 bytes; TX 75 packets / 576 bytes
+CAN errors, drops, missed, bus-errors, error-warning, error-passive and bus-off: zero
+no qualification executor remained; no candump process remained after excluding the inspection command itself
+
+2026-09-07T09:12:27Z..09:12:49Z JCAN postflight
+scan found serial 207F346D5650
+configuration matched the recorded baseline without warnings
+periodic_list: active=[], recent=[], session_cleanup_error=null

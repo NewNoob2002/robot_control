@@ -1,0 +1,17 @@
+test_result:
+  schema_version: 1
+  source_revision: 1d1314d25269d38f9679cd2c15e23df65afcd2a4
+  artifact_checksums:
+    read_manifest.yaml: 5d2b07443a747c167dfa513de73bf2700843b29b1271b0ea3cae33be5ac3ada1
+  safety_preflight: safety_preflight.yaml
+  level: hil
+  target: "ZLAC8015D V4 node 1 via JCAN 207F346D5650 with passive RK3588 can0 monitor"
+  command: "119-entry jcan_sdo_read manifest, one attempt per object, stopped at position 97 0x2000:00"
+  timing: {started_at_utc: "2026-09-04T08:05:04Z", duration_ms: 694000, timeout_ms: 15000}
+  attempts: 1
+  passed: false
+  counts: {total: 119, passed: 96, failed: 1, skipped: 22}
+  classified_failures: ["sdo-response-timeout-0x2000:00", "rk3588-raw-capture-not-durably-archived"]
+  log: jcan_sdo_reads.json
+  requirements: [P6.1-R04, P6.1-R05, P6.1-R06, P6.1-R07, P6.1-R08, P6.1-R09, P6.1-R10]
+

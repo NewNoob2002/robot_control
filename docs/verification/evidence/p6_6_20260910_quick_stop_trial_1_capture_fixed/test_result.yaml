@@ -1,0 +1,49 @@
+test_result:
+  schema_version: 1
+  source_revision: e8c6c16e3dd4e16ec70f6b8f11de694966736b02
+  artifact_sha256: 6193a8df071c92c766189d9871094aa1dcbfbb88e82e0c8e1acb5dfa7acd86ba
+  timestamp_utc: '2026-09-10T02:27:08.921557+00:00'
+  level: hil
+  command: --interface can0 --quick-stop-once 2:5 --duration-ms 2000
+  target: RK3588 lubancat can0; ZLAC8015D V4 node 1; JCAN 207F346D5650
+  passed: true
+  physical_motion_attempts: 1
+  prior_zero_transmit_capture_preflight_aborts: 1
+  retry_of_physical_motion: false
+  executor_exit_code: 0
+  frame_counts:
+    rk3588: 203
+    jcan: 203
+    normalized_sequences_equal: true
+  timings_ms:
+    nonzero_interval: 2001.018
+    quick_stop_ack: 0.308
+    dual_quick_stop_active: 39.62
+    right_velocity_first_zero: 207.276
+    nmt_preoperational: 443.862
+    preoperational_heartbeat: 604.06
+    restoration_complete: 612.278
+    first_all_velocity_views_zero: 209.322
+    cleanup_all_velocity_views_zero: 442.289
+  raw_dual_status:
+  - '0x1407'
+  - '0x1407'
+  operator_observation_pending: false
+  operator_observation_file: operator_observation.json
+  cleanup:
+    targets_zero: true
+    velocities_zero: true
+    heartbeat_restored_to: 0
+    command_application_restored_to: 1
+    no_terminal_retry_or_reenable: true
+    jcan_configuration_unchanged: true
+  requirements:
+  - P6.6-Quick-Stop-option-5
+  - P6.6-independent-capture
+  - P6.6-operator-observation
+  limits:
+  - No 0x605A change
+  - Packed TPDO velocity contradiction remains
+  - Initial zero feedback was followed by small nonzero readbacks; final cleanup zero
+    verification at 442.289 ms
+  - No watchdog/loss/fault/loaded qualification inferred

@@ -1,0 +1,7 @@
+{
+  "remote_executable_scan": "passed",
+  "conflicting_processes": [],
+  "live_can_counters_match_archived_postflight": true,
+  "can_state": "ERROR-ACTIVE",
+  "jcan_session_shutdown_confirmed": true
+}

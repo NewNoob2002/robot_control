@@ -1,0 +1,10 @@
+{
+  "recorded_utc": "2026-09-10T04:41:18.862012+00:00",
+  "user_confirmation": "right wheel stop during the silent interval, then restart  and the left wheel stay stationary, with normal brake behavior and sound",
+  "right_wheel_stopped_during_silence": true,
+  "right_wheel_restarted_after_stop": true,
+  "left_wheel_stationary": true,
+  "normal_brake_behavior": true,
+  "normal_sound": true,
+  "scope": "Watchdog attempt 2 only; this confirms physical stop and subsequent restart, not a latched stop or an exact restart-trigger frame."
+}

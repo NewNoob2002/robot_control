@@ -1,0 +1,11 @@
+Mon Sep  7 08:18:04 UTC 2026
+qualification_wait_boot node=1 timeout_s=180
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+(CO_CANsend) OS error "Permission denied" in send()
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+Mon Sep  7 08:19:43 UTC 2026
+executor_exit=1
+qualification_owner_exit: interface=can0 remote=1: Operation canceled

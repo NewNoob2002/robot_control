@@ -1,0 +1,15 @@
+# P6.6 Shutdown HIL Preparation
+
+Prepared: 2026-09-09T02:20:35Z; 10-second trial: 2026-09-09T09:22:06Z. Status: **SHUTDOWN HIL PASS**.
+
+The bounded Debug-only command is `--shutdown-once 2:5 --duration-ms 10000`. It commands only node-1 channel 2 at `+5 rpm` for at most 10000 ms, then attempts one `0x6040:00=0x0006` Shutdown. Once that attempt begins, response timeout does not permit another Shutdown or Operation Enabled command. Cleanup writes and verifies both targets zero, requires all available velocity readbacks to reach zero, enters NMT Pre-operational, and restores temporary `0x200F:00` and `0x1017:00` values.
+
+This slice does not authorize Disable Voltage, Quick Stop, `0x2000`, `0x605A`, fault reset, reverse motion, EEPROM, brake-output writes, interface changes, or retries. Current-source Host Debug and ASan/UBSan each pass 44/44 tests, managed-vcan covers both acknowledged Shutdown and missing-response cleanup, and the RK3588 Debug qualification build completes 69/69 steps. The staged ELF SHA-256 is `9f21aa6c4e2cd1a31dbd0b12975dbcb210320d9dd2ad70ae60ceca3ad4c6aea3`.
+
+The first physical trial completed with exit status zero and 196 RK3588 frames. The final Shutdown request was acknowledged in 0.341 ms, both axes reached Ready to Switch On in 39.318 ms, channel-2 measured velocity first reached zero in 318.321 ms, and cleanup restored NMT Pre-operational, `0x200F:00=1`, and `0x1017:00=0`. The independent JCAN capture ended 9.170 seconds before the RK3588 capture began, so it cannot satisfy the overlapping-capture gate. See `evidence/p6_6_20260909_shutdown_trial_1/analysis.md`.
+
+JCAN now uses the Rust `jcan 1.0.0` CLI under `/home/gtc/Desktop/workspace/JCAN`; the legacy MCP/Python path is prohibited. Read-only revalidation on 2026-09-09 passed self-test, selected serial `207F346D5650`, preserved the recorded raw configuration, and passively observed node-1 Pre-operational heartbeats. A retry must use one persistent JSONL silent session so independent reception is active before the RK3588 executor starts and remains active through cleanup. The retry remains a fresh, separately authorized physical stimulus.
+
+The operator then authorized a 10000 ms interval and reconfirmed the raised/unloaded fixture, clear right-side wheel, and immediate independent power cutoff. The old staged ELF rejected 10000 ms before transmitting; a corrected Debug ELF was rebuilt, passed 44/44 host tests and a 69/69 RK3588 qualification build, and was staged with SHA-256 `9f21aa6c4e2cd1a31dbd0b12975dbcb210320d9dd2ad70ae60ceca3ad4c6aea3`.
+
+The corrected 10-second run passed. RK3588 and JCAN captured the same 381-frame sequence, Shutdown was acknowledged in 0.322 ms, Ready to Switch On arrived in 31.564 ms, measured velocity first reached zero in 254.307 ms and was reverified at 323.279 ms, and cleanup completed by 343.972 ms. The operator confirmed counter-clockwise right-wheel rotation, a stationary left wheel, and no abnormal brake action or sound. See `evidence/p6_6_20260909_shutdown_trial_3_10s/`.

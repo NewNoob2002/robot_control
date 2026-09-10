@@ -1,0 +1,17 @@
+{
+  "software_status": "PASS",
+  "counts": {
+    "host_debug": 53,
+    "sanitizer": 53,
+    "p67-default-debug": 28,
+    "host-release": 28,
+    "p56-regression": 36
+  },
+  "manual_vcan_scenarios": 15,
+  "cross_and_elf_audit": "PASS",
+  "static_errors": 0,
+  "static_advisories": 21,
+  "static_review": "Existing const-return/optional-access/adjacent-parameter advisories; new fixed expect lambda has named bounded arguments; endl intentionally flushes readiness/end events.",
+  "elf_sha256": "8ca2c0250736e792ecb0b7067973ce2547f7e2d6fb9c38d0147a5788ade34c8a",
+  "physical_status": "pending"
+}

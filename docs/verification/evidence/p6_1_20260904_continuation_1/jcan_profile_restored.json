@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "serial": null,
+  "operation": "bus_profile_status",
+  "data": {
+    "path": "/home/gtc/Desktop/workspace/JCAN/jcan_bus_profile.toml",
+    "name": "JCAN physical bus",
+    "enabled": true,
+    "approved": true,
+    "authorization": "User permanently authorized periodic transmission of the exact standard CAN 0x7FF rule: DLC 8, data 01 02 03 04 05 06 07 08",
+    "approved_at_utc": "2026-09-04T03:46:52Z",
+    "serial": "207F346D5650",
+    "nominal_bitrate": 500000,
+    "data_bitrate": 0,
+    "fd_standard": 0,
+    "min_period_ms": 10,
+    "max_periodic_tasks": 4,
+    "cleanup_state": "stopped",
+    "max_capture_ms": 5000,
+    "max_capture_frames": 1000,
+    "frames": [
+      {
+        "name": "tx-7ff-0102030405060708-periodic",
+        "direction": "tx",
+        "id": 2047,
+        "extended": false,
+        "fd": false,
+        "brs": false,
+        "remote": false,
+        "periodic": true,
+        "dlc": [
+          8
+        ],
+        "payload_variants": 1
+      },
+      {
+        "name": "canopen-node1-sdo-upload-2008-00",
+        "direction": "tx",
+        "id": 1537,
+        "extended": false,
+        "fd": false,
+        "brs": false,
+        "remote": false,
+        "periodic": false,
+        "dlc": [
+          8
+        ],
+        "payload_variants": 1
+      },
+      {
+        "name": "canopen-node1-sdo-download-2008-00-same-200",
+        "direction": "tx",
+        "id": 1537,
+        "extended": false,
+        "fd": false,
+        "brs": false,
+        "remote": false,
+        "periodic": false,
+        "dlc": [
+          8
+        ],
+        "payload_variants": 1
+      },
+      {
+        "name": "canopen-node1-sdo-response-2008-00",
+        "direction": "rx",
+        "id": 1409,
+        "extended": false,
+        "fd": false,
+        "brs": false,
+        "remote": false,
+        "periodic": false,
+        "dlc": [
+          8
+        ],
+        "payload_variants": 0
+      }
+    ]
+  },
+  "warnings": [],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T084101.964739Z-1788511261964754503-bus_profile_status.json"
+}
+

@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "serial": null,
+  "operation": "scan",
+  "data": [
+    {
+      "serial": "207F346D5650",
+      "bus": 1,
+      "address": 44,
+      "vid": "ffff",
+      "pid": "0004"
+    }
+  ],
+  "warnings": [],
+  "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T080301.229965Z-1788508981229996827-scan.json"
+}
+

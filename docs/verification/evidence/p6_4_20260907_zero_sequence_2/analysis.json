@@ -1,0 +1,49 @@
+{
+  "normal_sequence_validated": true,
+  "core_downloads": 9,
+  "core_uploads": 25,
+  "nmt_requests": 2,
+  "transitions": [
+    {
+      "controlword": 6,
+      "raw_status": "0x1421",
+      "latency_ms": 20.78
+    },
+    {
+      "controlword": 7,
+      "raw_status": "0x1423",
+      "latency_ms": 41.784
+    },
+    {
+      "controlword": 15,
+      "raw_status": "0x1427",
+      "latency_ms": 42.68
+    },
+    {
+      "controlword": 6,
+      "raw_status": "0x1421",
+      "latency_ms": 33.642
+    }
+  ],
+  "tpdo1_frames": 14,
+  "tpdo1_interval_ms": {
+    "min": 49.942,
+    "max": 49.956
+  },
+  "all_recorded_velocities_zero": true,
+  "core_duration_ms": 998.185,
+  "matching_jcan_prefix_frames": 260,
+  "target_total_frames": 318,
+  "empty_tpdo_2_3_4": {
+    "0x281": 1,
+    "0x381": 1,
+    "0x481": 1
+  },
+  "restoration_inside_jcan_window": false,
+  "limits": [
+    "JCAN timestamps zero; timing from RK3588",
+    "Heartbeat restoration acknowledged on target after JCAN window; independent subsequent SDO read verifies zero",
+    "Postflight mode request/display readbacks 3",
+    "Seven vendor LOG_DEBUG epoll-new diagnostics remain recorded"
+  ]
+}

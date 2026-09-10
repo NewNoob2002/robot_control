@@ -1,0 +1,474 @@
+{
+  "schema_version": 1,
+  "phase": "P6.1",
+  "session": "continuation-1",
+  "authorization": "one retry 0x2000:00 then remaining 22 once each",
+  "adapter_serial": "207F346D5650",
+  "node_id": 1,
+  "expected_count": 23,
+  "completed_count": 23,
+  "failure": null,
+  "records": [
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8192,
+        "subindex": 0,
+        "value_hex": "00 00",
+        "value_unsigned": 0,
+        "request": "40 00 20 00 00 00 00 00",
+        "response": "4B 00 20 00 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083537.950584Z-1788510937950609094-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 97,
+      "retry": 1
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8199,
+        "subindex": 0,
+        "value_hex": "00 00",
+        "value_unsigned": 0,
+        "request": "40 07 20 00 00 00 00 00",
+        "response": "4B 07 20 00 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083632.536040Z-1788510992536066887-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 98,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8200,
+        "subindex": 0,
+        "value_hex": "C8 00",
+        "value_unsigned": 200,
+        "request": "40 08 20 00 00 00 00 00",
+        "response": "4B 08 20 00 C8 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083644.897015Z-1788511004897044325-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 99,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8207,
+        "subindex": 0,
+        "value_hex": "01 00",
+        "value_unsigned": 1,
+        "request": "40 0F 20 00 00 00 00 00",
+        "response": "4B 0F 20 00 01 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083700.021074Z-1788511020021098846-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 100,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24639,
+        "subindex": 0,
+        "value_hex": "00 00 00 00",
+        "value_unsigned": 0,
+        "request": "40 3F 60 00 00 00 00 00",
+        "response": "43 3F 60 00 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083714.447276Z-1788511034447310326-sdo_read.json",
+      "expected_width": 4,
+      "original_position": 101,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24641,
+        "subindex": 0,
+        "value_hex": "00 14 00 14",
+        "value_unsigned": 335549440,
+        "request": "40 41 60 00 00 00 00 00",
+        "response": "43 41 60 00 00 14 00 14",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083728.376428Z-1788511048376459725-sdo_read.json",
+      "expected_width": 4,
+      "original_position": 102,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24666,
+        "subindex": 0,
+        "value_hex": "05 00",
+        "value_unsigned": 5,
+        "request": "40 5A 60 00 00 00 00 00",
+        "response": "4B 5A 60 00 05 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083739.579253Z-1788511059579275021-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 103,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24672,
+        "subindex": 0,
+        "value_hex": "03",
+        "value_unsigned": 3,
+        "request": "40 60 60 00 00 00 00 00",
+        "response": "4F 60 60 00 03 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083749.996881Z-1788511069996915676-sdo_read.json",
+      "expected_width": 1,
+      "original_position": 104,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24673,
+        "subindex": 0,
+        "value_hex": "03",
+        "value_unsigned": 3,
+        "request": "40 61 60 00 00 00 00 00",
+        "response": "4F 61 60 00 03 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083757.948936Z-1788511077948977193-sdo_read.json",
+      "expected_width": 1,
+      "original_position": 105,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24684,
+        "subindex": 0,
+        "value_hex": "03 00",
+        "value_unsigned": 3,
+        "request": "40 6C 60 00 00 00 00 00",
+        "response": "4B 6C 60 00 03 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083808.048123Z-1788511088048157098-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 106,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24684,
+        "subindex": 1,
+        "value_hex": "00 00 00 00",
+        "value_unsigned": 0,
+        "request": "40 6C 60 01 00 00 00 00",
+        "response": "43 6C 60 01 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083817.332120Z-1788511097332191607-sdo_read.json",
+      "expected_width": 4,
+      "original_position": 107,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24684,
+        "subindex": 2,
+        "value_hex": "00 00 00 00",
+        "value_unsigned": 0,
+        "request": "40 6C 60 02 00 00 00 00",
+        "response": "43 6C 60 02 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083829.138817Z-1788511109138843728-sdo_read.json",
+      "expected_width": 4,
+      "original_position": 108,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24684,
+        "subindex": 3,
+        "value_hex": "00 00 00 00",
+        "value_unsigned": 0,
+        "request": "40 6C 60 03 00 00 00 00",
+        "response": "43 6C 60 03 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083836.994722Z-1788511116994751235-sdo_read.json",
+      "expected_width": 4,
+      "original_position": 109,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24831,
+        "subindex": 1,
+        "value_hex": "00 00 00 00",
+        "value_unsigned": 0,
+        "request": "40 FF 60 01 00 00 00 00",
+        "response": "43 FF 60 01 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083845.292064Z-1788511125292100227-sdo_read.json",
+      "expected_width": 4,
+      "original_position": 110,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 24831,
+        "subindex": 2,
+        "value_hex": "00 00 00 00",
+        "value_unsigned": 0,
+        "request": "40 FF 60 02 00 00 00 00",
+        "response": "43 FF 60 02 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083854.280445Z-1788511134280472092-sdo_read.json",
+      "expected_width": 4,
+      "original_position": 111,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8195,
+        "subindex": 0,
+        "value_hex": "00 00",
+        "value_unsigned": 0,
+        "request": "40 03 20 00 00 00 00 00",
+        "response": "4B 03 20 00 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083901.691004Z-1788511141691030722-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 112,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8230,
+        "subindex": 3,
+        "value_hex": "00 00",
+        "value_unsigned": 0,
+        "request": "40 26 20 03 00 00 00 00",
+        "response": "4B 26 20 03 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083909.187590Z-1788511149187618138-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 113,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8240,
+        "subindex": 1,
+        "value_hex": "00 00",
+        "value_unsigned": 0,
+        "request": "40 30 20 01 00 00 00 00",
+        "response": "4B 30 20 01 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083916.193261Z-1788511156193288715-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 114,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8240,
+        "subindex": 2,
+        "value_hex": "09 00",
+        "value_unsigned": 9,
+        "request": "40 30 20 02 00 00 00 00",
+        "response": "4B 30 20 02 09 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083923.224948Z-1788511163224972980-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 115,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8240,
+        "subindex": 3,
+        "value_hex": "09 00",
+        "value_unsigned": 9,
+        "request": "40 30 20 03 00 00 00 00",
+        "response": "4B 30 20 03 09 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083929.975187Z-1788511169975212982-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 116,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8240,
+        "subindex": 4,
+        "value_hex": "00 00",
+        "value_unsigned": 0,
+        "request": "40 30 20 04 00 00 00 00",
+        "response": "4B 30 20 04 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083938.777279Z-1788511178777317161-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 117,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8240,
+        "subindex": 7,
+        "value_hex": "00 00",
+        "value_unsigned": 0,
+        "request": "40 30 20 07 00 00 00 00",
+        "response": "4B 30 20 07 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083946.321992Z-1788511186322021282-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 118,
+      "retry": 0
+    },
+    {
+      "ok": true,
+      "serial": "207F346D5650",
+      "operation": "sdo_read",
+      "data": {
+        "node": 1,
+        "index": 8240,
+        "subindex": 8,
+        "value_hex": "00 00",
+        "value_unsigned": 0,
+        "request": "40 30 20 08 00 00 00 00",
+        "response": "4B 30 20 08 00 00 00 00",
+        "drained_receive_bytes": 0
+      },
+      "warnings": [],
+      "evidence_path": "/home/gtc/Desktop/workspace/JCAN/evidence/runtime/20260904T083954.272784Z-1788511194272809956-sdo_read.json",
+      "expected_width": 2,
+      "original_position": 119,
+      "retry": 0
+    }
+  ]
+}
+

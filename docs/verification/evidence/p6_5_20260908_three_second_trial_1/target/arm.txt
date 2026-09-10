@@ -1,0 +1,2 @@
+899914fdccb5df378eabcf4aafab93d23d48cf01ef35098847b8af81d38bc881  /tmp/robot-control-qualifications/p65-observe-899914fdccb5/robot-control-zlac-qualification
+armed capture_pid=16124 executor_pid=16125 bootstrap_pid=16126

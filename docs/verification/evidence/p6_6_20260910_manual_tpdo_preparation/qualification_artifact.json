@@ -1,0 +1,19 @@
+{
+  "elf": "out/build/cross/p66-manual-tpdo-debug/tools/zlac_qualification/robot-control-zlac-qualification",
+  "sha256": "8ca2c0250736e792ecb0b7067973ce2547f7e2d6fb9c38d0147a5788ade34c8a",
+  "source_snapshot": "out/build-inputs/p66-manual-tpdo-f6hkkwu9/source",
+  "image": "sha256:f2198e31e27c084bc2deff761e124fa9d7ce580a8d986c7885fd62bb1701e7dd",
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "3bcb35ff873a4ca2129abd9c1a1ac7d8c758062c109de70a1e80f45020a4cba0",
+    "communication/canopen/qualification.hpp": "a95ad5d1293918f3706ddada917b3cb9f97232044b21af808e42e5c1c3735311",
+    "communication/canopen/qualification_gate.c": "3b395b2d435259120fa2eed0396710097522dedd7fcfb6840b129620b0c496c3",
+    "communication/canopen/qualification_gate.h": "a55f6d4e9d189b130289663302d7b5ecb6e65bb36e12fb5799be9d3d3b0da9af",
+    "tools/zlac_qualification/main.cpp": "90e5837d5a5f824b161c5c8c389397b01816e17682d45b37d61bed3156c69519",
+    "tools/zlac_qualification/CMakeLists.txt": "1f220dce2f848d5ec58a99292b8e17dc5464e5191a41f03350a523343369e3fb",
+    "tests/unit/canopen_qualification_gate_tests.cpp": "4469d89454ec1dd5a14d0cc2ae6f592b7720817f9048eccc4f1faa2d00f970c4",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "96053060b2635e3729428d6fba234fcc6db24e14eb47ac2ee4d39dfd82d5a945",
+    "tests/unit/CMakeLists.txt": "ea01b2aa85637ecf3cad2f61832c95ce636f560ab018341a154849cda5138515"
+  },
+  "deployed": false,
+  "physical_tests": "pending"
+}

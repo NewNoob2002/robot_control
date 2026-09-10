@@ -1,0 +1,33 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+qualification_wait_boot node=1 timeout_s=1
+(CO_CANsend) OS error "Permission denied" in send()
+qualification_online_probe node=1 object=0x1017:00
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+qualification_complete node=1 operation=8
