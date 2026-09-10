@@ -50,7 +50,9 @@ policy, or the physical cause of the earlier status-first packed-speed behavior.
 - Managed-vcan includes 33 communication-loss and 15 manual-TPDO scenarios.
 - Pinned RK3588 Debug build and target-sysroot ELF audit passed.
 - Static analysis: no errors; 21 documented advisories reviewed.
-- Current source hashes match the tested/deployed manual-TPDO artifact.
+- Firmware-source hashes match the tested/deployed manual-TPDO artifact. The
+  test harness later received an explicit value capture for Clang 14 compatibility;
+  the original artifact attestation remains unchanged.
 
 Qualification artifact SHA256:
 8ca2c0250736e792ecb0b7067973ce2547f7e2d6fb9c38d0147a5788ade34c8a.

@@ -765,9 +765,8 @@ void test_success(const char* interface_name, CanSocket& peer) {
     for (const auto& [controlword, low] : std::array{std::pair{TransitionControlword::shutdown, 0x06U},
                                                      std::pair{TransitionControlword::switch_on, 0x07U},
                                                      std::pair{TransitionControlword::enable_operation, 0x0FU}}) {
-        std::jthread control_peer{[&] {
-            answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {static_cast<std::uint8_t>(low), 0U}), 0x6040U,
-                            0U, {});
+        std::jthread control_peer{[&, low_byte = static_cast<std::uint8_t>(low)] {
+            answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {low_byte, 0U}), 0x6040U, 0U, {});
         }};
         CHECK(session.send_controlword(controlword).ok());
         control_peer.join();
