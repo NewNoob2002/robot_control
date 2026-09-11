@@ -1,0 +1,33 @@
+{
+  "base": "/tmp/robot-control-qualifications/sync-feedback-3885a78bda2d",
+  "files": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/sync-feedback/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "3885a78bda2d41c6c05e0aaac01d2fb65644ea89f3528d3dde2b4c5311ef437a"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/sync-feedback/review_qualification_vcan_tests",
+      "sha256": "3f6f4ffebd1a65f21c830a82443ca053710011881ea365f6582a80504960853a"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    },
+    "authorization_left.json": {
+      "source": "docs/verification/evidence/p6_sync_feedback_20260911/left/authorization.json",
+      "sha256": "5352eb51279b206e7dfa770b379a6ec4ef6a5c5ca1df17f5dcf3099b497e27d2"
+    },
+    "remote_motion_left.py": {
+      "source": "docs/verification/evidence/p6_sync_feedback_20260911/left/remote_trial.py",
+      "sha256": "317e6844cfa6be264f60b1f4cc0ade26413e4f7f9467c201c0016aae5742518e"
+    }
+  },
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "b111f4be9f91e66e75f94959c3ecbee2c6c3ee9a54630b9bc67587ceac373a5a",
+    "communication/canopen/qualification.hpp": "b0395f689de3bce9d5e344e0440022f2cc894f17bb7fa3b028a4f3c4e4bc1deb",
+    "communication/canopen/qualification_gate.c": "b5e563fabb18220542c20ca034b08dc36ef242e27049da8f805574c58b23414f",
+    "communication/canopen/qualification_gate.h": "3b59a57182338b889d5f566a199c02add3e4accb916d4b453463d51301a3ffed",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "ea2b05b7634a8c21460e77b9b7074eb0dec813106e9d4b5142d27fc4cc7514a1",
+    "tests/unit/canopen_qualification_gate_tests.cpp": "a8a31894409c3aa8e95435454dfed8f2f97431acd8fb4ed5f9455ea98baac2fc"
+  }
+}

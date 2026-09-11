@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-11",
+  "host_qualification": "57/57",
+  "sanitizer": "57/57",
+  "default_debug": "28/28",
+  "default_release": "28/28",
+  "commissioning": "36/36",
+  "clang_tidy": {
+    "errors": 0,
+    "advisories": 16
+  },
+  "target_namespace_vcan": "lifecycle and qualification PASS",
+  "physical_can_access": false,
+  "physical_requalification": "pending",
+  "regression_red": "three expected assertions failed before lifecycle correction"
+}

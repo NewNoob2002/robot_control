@@ -1,0 +1,67 @@
+CAPTURE_READY
+EXECUTOR_STARTED
+KNOWN_DEBUG_DIAGNOSTIC (CO_CANsend) OS error "Permission denied" in send()
+KNOWN_DEBUG_DIAGNOSTIC (CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+MANUAL_ROTATION_READY duration_ms=60000 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=1014 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=2019 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=3026 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=4032 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=5038 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=6042 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=7048 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=8056 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=9063 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=10070 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=11076 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=12081 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=13088 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=14093 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=15099 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=16105 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=17111 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=18117 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=65455
+manual_sample elapsed_ms=19124 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=65155
+manual_sample elapsed_ms=20131 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=65276
+manual_sample elapsed_ms=21137 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=22143 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=64951
+manual_sample elapsed_ms=23148 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=65521
+manual_sample elapsed_ms=24151 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=65151
+manual_sample elapsed_ms=25157 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=64962
+manual_sample elapsed_ms=26163 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=65457
+manual_sample elapsed_ms=27168 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=64888
+manual_sample elapsed_ms=28171 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=29175 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=30176 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=15794176
+manual_sample elapsed_ms=31178 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=23920640
+manual_sample elapsed_ms=32185 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=21364736
+manual_sample elapsed_ms=33192 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=524288
+manual_sample elapsed_ms=34197 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=4915200
+manual_sample elapsed_ms=35202 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=21430274
+manual_sample elapsed_ms=36208 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=32505856
+manual_sample elapsed_ms=37215 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=33030144
+manual_sample elapsed_ms=38222 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=41091072
+manual_sample elapsed_ms=39227 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=4294901760
+manual_sample elapsed_ms=40233 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=41240 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=42243 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=43249 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=44255 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=45258 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=46260 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=47261 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=48267 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=49274 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=50280 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=51287 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=52294 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=53302 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=54307 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=55314 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=56320 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=57325 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=58333 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_sample elapsed_ms=59338 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+MANUAL_ROTATION_END
+TRIAL_FINISHED rc=0

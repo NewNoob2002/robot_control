@@ -1,0 +1,38 @@
+{
+  "status": "ABORTED; manual feedback not qualified",
+  "preflight": "16 values matched baseline",
+  "usb_send_acceptances": 160,
+  "independent_request_frames": 159,
+  "matched_sdo_responses": 157,
+  "missing_request": {
+    "sequence": 159,
+    "can_id": "0x601",
+    "payload": "40 6C 60 01 00 00 00 00",
+    "object": "606C:01",
+    "usb_accepted": true,
+    "independent_capture_seen": false,
+    "response_seen": false
+  },
+  "sampling_seconds_before_abort": 18.527076298999418,
+  "tpdo_frames": 472,
+  "tpdo_all_status": "0x14211421",
+  "tpdo_all_speed": 0,
+  "tpdo_interval_median_ms": 49.94702339172363,
+  "cleanup": "80 01 independently captured; JCAN and SSH/candump exit 0; no NMT acknowledgement or final SDO readback after abort",
+  "can_error_active": "ERROR-ACTIVE",
+  "can_error_counters": {
+    "tx": 0,
+    "rx": 0
+  },
+  "target_tx_before": 506,
+  "target_tx_after": 506,
+  "capture_rx_errors": 0,
+  "capture_rx_dropped": 0,
+  "limitations": [
+    "USB acceptance does not prove physical delivery; root cause not established",
+    "No nonzero wheel feedback observed; operator rotation timing not established",
+    "Application qualification executor was not exercised; no enable or nonzero target sent",
+    "Tool/chat latency is unsuitable for precise operator timing; next manual trial needs operator-visible local timing"
+  ],
+  "retry_executed": false
+}

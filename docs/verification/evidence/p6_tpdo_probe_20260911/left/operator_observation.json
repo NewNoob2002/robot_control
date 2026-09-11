@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-11",
+  "trial": "p6_tpdo_probe_20260911/left",
+  "confirmation": "是，只有左轮转动且停止正常",
+  "question_confirmed": "刚才这次诊断测试，是否只有左轮转动，并正常停止，右轮保持不动且无异常声音？",
+  "left_wheel_rotated": true,
+  "stopped_normally": true,
+  "right_wheel_stationary": true,
+  "abnormal_sound": false,
+  "rotation_direction": "not specified",
+  "scope": "operator observation of this trial; does not establish mode causality or packed-feedback qualification"
+}

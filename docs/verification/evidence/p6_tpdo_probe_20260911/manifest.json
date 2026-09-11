@@ -1,0 +1,30 @@
+{
+  "base": "/tmp/robot-control-qualifications/tpdo-probe-401305bd8b20",
+  "files": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/tpdo-probe/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "401305bd8b2087f8acf461c1a12de9dcdac4982902e93207c1f338368ce727f8"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/tpdo-probe/review_qualification_vcan_tests",
+      "sha256": "cd3ad9e2b6d72e305923135613c5f49832301221c11e1c7cc5b6a2d29aa66f48"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    },
+    "authorization_left.json": {
+      "source": "docs/verification/evidence/p6_tpdo_probe_20260911/left/authorization.json",
+      "sha256": "50cc355afa9e3d224a2fe0cd87d2ecbd57e55cdffba7b6a29453ae24c864d665"
+    },
+    "remote_motion_left.py": {
+      "source": "docs/verification/evidence/p6_tpdo_probe_20260911/left/remote_trial.py",
+      "sha256": "cd65fa7e7ae705fbf3930ca34dee7e3bb62c78a8506d2d51bc19c907050ef098"
+    }
+  },
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "15a4e88cca57aef2d1e3f7c986669c58412460166670bb1e1b6e8fedaa525454",
+    "communication/canopen/qualification.hpp": "ef16fe7a1cb339d72f37bd75acfb87c0e0ceebd65430ce5eb6e94e7365347839",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "6b133f6471af8cc7227f4511d3ca1b3e5cd5047bfaec5f6481f6a8bfa3eb18ae"
+  }
+}

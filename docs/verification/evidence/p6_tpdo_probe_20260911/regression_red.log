@@ -1,0 +1,134 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes
+
+[HANDLER_OUTPUT] 
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes
+
+    Start 56: canopen_qualification_vcan_managed
+1/1 Test #56: canopen_qualification_vcan_managed ...***Failed   36.15 sec
+INFO: managed namespace vcan0 is up
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(0x606CU, 1U)) failed line=467
+same(receive(peer), upload_request(index, subindex)) failed line=207
+same(receive(peer), upload_request(index, subindex)) failed line=207
+same(receive(peer), request) failed line=168
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=173
+same(receive(peer), request) failed line=168
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=173
+result.ok() == (velocity_probe < 2U) failed line=500
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), request) failed line=168
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=173
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), request) failed line=168
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(index, subindex)) failed line=207
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(index, subindex)) failed line=207
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(index, subindex)) failed line=207
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(index, subindex)) failed line=207
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=492
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), request) failed line=168
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=173
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), request) failed line=168
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=173
+result.ok() && !result.value().has_value() failed line=81
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(0x606CU, 1U)) failed line=467
+std::chrono::steady_clock::now() - target_at < (velocity_probe == 1U ? 350ms : 200ms) failed line=479
+result.ok() == (velocity_probe < 2U) failed line=500
+result.ok() && result.value().has_value() failed line=73
+same(receive(peer), upload_request(0x606CU, 1U)) failed line=467
+std::chrono::steady_clock::now() - target_at < (velocity_probe == 1U ? 350ms : 200ms) failed line=479
+result.ok() == (velocity_probe < 2U) failed line=500
+communication stimulus=0 scenario=0 result=:
+communication stimulus=0 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=0 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=0 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=0 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=0 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=1 result=qualification_nonzero_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=0 result=:
+communication stimulus=1 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=1 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=1 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=1 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=1 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=2 result=qualification_expected_feedback_loss_absent:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=3 result=qualification_unexpected_feedback_loss:interface=vcan0 remote=1 cleanup_failed=qualification_dual_state_timeout:Connection timed out interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=0 result=:
+communication stimulus=2 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=2 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=2 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=2 result=qualification_expected_feedback_loss_absent:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=3 result=qualification_unexpected_feedback_loss:interface=vcan0 remote=1 cleanup_failed=qualification_precondition:Transport endpoint is not connected interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=9 result=qualification_tpdo_timer_baseline:interface=vcan0 remote=1
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=0 result=:
+manual_tpdo scenario=1 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=2 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=3 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=4 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=5 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=6 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=7 result=qualification_manual_bounds:interface=vcan0 remote=1
+manual_tpdo scenario=8 result=CO_SDOclientDownload:interface=vcan0 remote=1
+manual_tpdo scenario=10 result=qualification_manual_drive_enabled:interface=vcan0 remote=1
+manual_tpdo scenario=11 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=12 result=qualification_manual_tpdo_missing:interface=vcan0 remote=1
+manual_tpdo scenario=13 result=qualification_owner_exit:interface=vcan0 remote=1
+manual_tpdo scenario=14 result=qualification_manual_drive_enabled:interface=vcan0 remote=1
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=15 result=CO_SDOclientDownload:interface=vcan0 remote=1 manual_cleanup_unverified original=
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=16 result=qualification_upload:interface=vcan0 remote=1
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=17 result=qualification_manual_baseline:interface=vcan0 remote=1 manual_cleanup_unverified original=
+INFO: P6.3/P6.4 managed-vcan frames=10366 prohibited=0 failures=42
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =  36.15 sec
+
+The following tests FAILED:
+	 56 - canopen_qualification_vcan_managed (Failed)
+[ERROR_MESSAGE] 
+Errors while running CTest
+

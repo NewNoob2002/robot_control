@@ -1,0 +1,8 @@
+{
+  "confirmed": true,
+  "right_rotated": true,
+  "normal_stop": true,
+  "left_stationary": true,
+  "no_abnormal_sound": true,
+  "user_confirmation": "是，右轮转动且停止正常，左轮不动，无异常声音"
+}

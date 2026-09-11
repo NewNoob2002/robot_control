@@ -1,0 +1,9 @@
+{
+  "authorized": true,
+  "requests_sent": 0,
+  "responses": [],
+  "passed": false,
+  "error": "AttributeError(\"'NoneType' object has no attribute 'strip'\")",
+  "capture_exit": 1,
+  "capture_stderr": "Log file format selected: Please disable ASCII/BINARY/SWAP options!\nTraceback (most recent call last):\n  File \"<string>\", line 8, in <module>\nAssertionError\n"
+}

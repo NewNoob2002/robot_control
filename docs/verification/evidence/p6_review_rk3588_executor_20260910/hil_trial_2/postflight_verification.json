@@ -1,0 +1,145 @@
+{
+  "date_utc": "2026-09-11T02:15:37.407250+00:00",
+  "disposition": "Manual status-first feedback accepted by operator for this rig; communication/cleanup verified; application diagnostic fixes remain open",
+  "captures": {
+    "frame_count": 1990,
+    "exact_order_equal": true,
+    "id_counts": {
+      "0x601": 267,
+      "0x581": 267,
+      "0x0": 3,
+      "0x701": 243,
+      "0x181": 1207,
+      "0x281": 1,
+      "0x381": 1,
+      "0x481": 1
+    }
+  },
+  "target_tx": {
+    "before": 776,
+    "after": 1046,
+    "delta": 270
+  },
+  "jcan_physical_tx": 0,
+  "sdo_matched": 267,
+  "final_reads": {
+    "6041:00": 337712161,
+    "6060:00": 3,
+    "6061:00": 3,
+    "60FF:01": 0,
+    "60FF:02": 0,
+    "603F:00": 0,
+    "606C:01": 0,
+    "606C:02": 0,
+    "606C:03": 0,
+    "1017:00": 0,
+    "1800:01": 385,
+    "1800:02": 255,
+    "1800:05": 100,
+    "1A00:00": 2,
+    "1A00:01": 1614872608,
+    "1A00:02": 1617691424
+  },
+  "nmt_preoperational_confirmed": true,
+  "heartbeat_restored_zero": true,
+  "zero_speed_final": true,
+  "can_error_counters": {
+    "tx": 0,
+    "rx": 0
+  },
+  "jcan_config_unchanged": true,
+  "subindex_speed_ranges_raw": {
+    "606C:01": {
+      "min": -631,
+      "max": 10,
+      "nonzero_samples": 10
+    },
+    "606C:02": {
+      "min": -3,
+      "max": 626,
+      "nonzero_samples": 10
+    },
+    "606C:03": {
+      "min": 0,
+      "max": 4294901760,
+      "nonzero_samples": 20
+    }
+  },
+  "tpdo_speed_ranges_raw": {
+    "low": [
+      -719,
+      38
+    ],
+    "high": [
+      -43,
+      695
+    ]
+  },
+  "observed_association": "First main burst: SDO subindex1 and TPDO low16; second main burst: SDO subindex2 and TPDO high16. Readings are not simultaneous, so exact sample equality is not asserted.",
+  "minor_low_half_readings_during_second_burst": [
+    {
+      "seconds_from_first_tpdo": 30.9193,
+      "low_raw": -4,
+      "high_raw": 401
+    },
+    {
+      "seconds_from_first_tpdo": 30.9692,
+      "low_raw": 1,
+      "high_raw": 287
+    },
+    {
+      "seconds_from_first_tpdo": 31.0191,
+      "low_raw": 1,
+      "high_raw": 148
+    },
+    {
+      "seconds_from_first_tpdo": 35.3145,
+      "low_raw": 2,
+      "high_raw": 503
+    },
+    {
+      "seconds_from_first_tpdo": 35.4144,
+      "low_raw": 2,
+      "high_raw": 327
+    }
+  ],
+  "minor_reading_cause": "Operator accepts the recorded small fluctuations as normal; chassis movement or encoder variation are operator-proposed explanations, not instrumentally isolated causes.",
+  "operator_sequence": "Confirmed by user: 先左轮、停稳左轮、再右轮、停稳右轮",
+  "known_debug_diagnostics": {
+    "(CO_CANsend) OS error \"Permission denied\" in send()": 1,
+    "(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7": 142
+  },
+  "diagnostic_policy": "Two exact upstream LOG_DEBUG messages retained under declared collection policy; all other error/warning strings abort. This is not a clean-diagnostic pass.",
+  "retries": 0,
+  "powered_trials": "Not started",
+  "operator_confirmation_date": "2026-09-11",
+  "physical_feedback_association": {
+    "scope": "This rig and captured status-first TPDO configuration only",
+    "left": {
+      "sdo_object": "606C:01",
+      "packed_velocity_half": "low16"
+    },
+    "right": {
+      "sdo_object": "606C:02",
+      "packed_velocity_half": "high16"
+    },
+    "motor_target_channel_mapping_verified": false,
+    "direction_polarity_verified": true,
+    "minor_other_half_readings_accepted": true,
+    "direction_polarity_scope": "Manual measured feedback only; no powered command polarity test",
+    "manual_backward_direction": {
+      "viewpoint": "From the left side of the chassis",
+      "wheel_rotation": "Both clockwise",
+      "ground_motion_if_not_raised": "Backward",
+      "left_feedback_dominant_sign": "negative",
+      "right_feedback_dominant_sign": "positive",
+      "target_command_polarity_verified": false
+    }
+  },
+  "operator_acceptance": {
+    "date": "2026-09-11",
+    "confirmation": "对应的, 并且这次测试时从车架左边看，两轮都是顺时针的也就是如果没有悬空会是倒退的情况下，微小波动标记为正常情况，车架晃动或者编码器小波动很正常",
+    "manual_feedback_accepted": true,
+    "minor_other_half_readings_accepted_as_normal": true
+  }
+}

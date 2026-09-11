@@ -2,6 +2,15 @@
 
 Status: **IN PROGRESS — P6.5 COMPLETE; P6.6 NMT STOP, SHUTDOWN, DISABLE VOLTAGE AND QUICK STOP SLICES HIL PASS**
 
+2026-09-11 amendment: the user-authorized synchronous packed PDO repair has
+passed one SDO left-axis and separate RPDO left/right trials. Those trials
+establish positive target scale, low-left/high-right order and restored TPDO
+feedback on this fixture. Negative and simultaneous nonzero wheel RPDO motion
+remain unqualified. Earlier stop passes above belong to their recorded
+artifacts; synchronous stop/loss requalification is prepared but blocked by
+two execution-approval timeouts before process creation. See
+[repair and scope](../verification/P6_SYNC_PACKED_PDO_REPAIR.md).
+
 Current checkpoint and accepted manual TPDO result:
 [Phase 6 checkpoint](../verification/PHASE6_CHECKPOINT.md). Historical evidence
 paths below are resolved by the [evidence index](../verification/evidence/README.md).
@@ -32,7 +41,9 @@ limited by an exact transmit allowlist and non-renewable bounds.
 - Use independent targets `0x60FF:01/02` first. Do not use packed target
   `0x60FF:03` until access, order, sign, and scale are verified. Initial
   qualification writes the independent targets through exact whitelisted SDO
-  downloads; no RPDO mapping or generic RPDO producer is needed in Phase 6.
+  downloads. The 2026-09-11 amendment now permits the fixed, bounded synchronous
+  packed-target and temporary RPDO1 qualification path described above. A
+  generic periodic RPDO producer remains outside this phase.
 - Preserve neutral low/high-half names for `0x6041` and packed feedback until
   one-axis-at-a-time hardware evidence proves physical mapping.
 - Advance CiA402 transitions only after a newer matching status observation;

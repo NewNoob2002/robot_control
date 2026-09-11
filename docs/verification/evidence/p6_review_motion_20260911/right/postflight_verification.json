@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "level": "hil",
+  "protocol_checks_passed": true,
+  "physical_axis_operator_acceptance": "pending",
+  "frames": 213,
+  "captures_equal": true,
+  "sdo_transactions": 60,
+  "target_tx_delta": 62,
+  "nonzero_requests": 1,
+  "command_to_zero_ms": 3001.012,
+  "tpdo_speed_raw_ranges": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "final_reads": {
+    "1017:0": 0,
+    "1800:1": 385,
+    "1800:2": 255,
+    "1800:5": 100,
+    "1a00:0": 2,
+    "1a00:1": 1614872608,
+    "1a00:2": 1617691424,
+    "6060:0": 3,
+    "6061:0": 3,
+    "60ff:1": 0,
+    "60ff:2": 0,
+    "603f:0": 0,
+    "606c:1": 0,
+    "606c:2": 0,
+    "606c:3": 0,
+    "200f:0": 1
+  },
+  "cleanup_passed": true,
+  "command": "rtk proxy python3 docs/verification/evidence/p6_review_motion_20260911/right/local_trial.py",
+  "attempts": 1,
+  "log": "target/rk3588_can.log",
+  "sdo_speed_raw_ranges": [
+    [
+      0,
+      0
+    ],
+    [
+      -12,
+      41
+    ]
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "authorization": "User requested primary execution in RK3588; prior HIL staging and non-actuating checks authorized",
+  "target": "robot-dev",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "destination": "/tmp/robot-control-qualifications/review-rk3588-74206353ffd3",
+  "artifacts": {
+    "test_socketcan_vcan.sh": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7",
+    "review_qualification_vcan_tests": "7b290e9561a63edba1d77414bb2b1500a6eb794d9c6d1a289eb0625e50b0707f",
+    "robot-control-zlac-qualification": "74206353ffd3f0c8b93547f2b88350d9edcf50862839015e348b708896deded0"
+  },
+  "operation": "Stage diagnostic binaries; run existing qualification tests only in isolated namespace vcan0",
+  "bounds": "Target test timeout 55 seconds; no physical can0 access",
+  "recovery": "Timeout test process, namespace disappears on exit; no production overwrite",
+  "physical_tx_authorized": false
+}

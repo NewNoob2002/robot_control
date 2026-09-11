@@ -1,0 +1,3 @@
+Initial test-edit commands failed from quoting before execution; corrected.
+Initial clang-tidy invocation rejected by zsh globbing before execution; quoted invocation passed.
+Initial sanitizer build detected missing printf format attribute in test logging stub; attribute added and rebuild passed.

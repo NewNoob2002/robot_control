@@ -1,6 +1,14 @@
 # ZLAC8015D V4 CANopen Configuration and Integration Notes
 
-2026-09-10 checkpoint: the operator accepted manual speed-first TPDO feedback.
+2026-09-11 update: synchronous packed-target SDO and single-RPDO left/right
+trials restored TPDO speed feedback, with operator-confirmed normal stops.
+TPDO1 is status U32 plus packed speed U32; the tested temporary RPDO1 is
+controlword U16 plus packed target U32. Original mapping was restored after
+each trial. This validates positive single-wheel operation on this fixture;
+negative and simultaneous nonzero wheel RPDO motion remain unqualified.
+See [the repair record](verification/P6_SYNC_PACKED_PDO_REPAIR.md).
+
+Historical 2026-09-10 checkpoint: the operator accepted manual speed-first TPDO feedback.
 See [the current checkpoint](verification/PHASE6_CHECKPOINT.md) and
 [evidence index](verification/evidence/README.md). Small left-speed excursions
 are accepted for that test; vibration is a hypothesis, not a firmware safety fact.
@@ -202,7 +210,13 @@ returned `0x200F:00 = 1`. This verifies the stored value for that fixture only;
 the exact synchronous application behavior remains unverified because no
 target write or motion was authorized.
 
-The first safe implementation should use asynchronous independent left/right targets, then evaluate synchronous packed updates only if simultaneous application is required and verified.
+The initial implementation used asynchronous independent targets. The current
+Linux qualification route instead verifies mode 1 and uses synchronous packed
+targets after the 2026-09-11 fixture trials restored packed feedback. This
+vendor command mode does not require CANopen SYNC frames, and permits different
+left/right targets; the present physical evidence covers one moving wheel at
+a time. Manufacturer contradictions remain historical facts, not general
+firmware guarantees.
 
 For the approved Phase 6B/M4 plan, `0x200F` is an explicit eligibility and
 cleanup gate. Upload it before independent-axis RPDO operation. Do not infer

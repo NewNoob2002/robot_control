@@ -1,0 +1,83 @@
+{
+  "status": "prepared; awaiting exact TX authorization",
+  "adapter_serial": "207F346D5650",
+  "mode": "normal",
+  "bitrate": 500000,
+  "remote_node": 1,
+  "can_id": "0x601",
+  "extended": false,
+  "fd": false,
+  "rtr": false,
+  "dlc": 8,
+  "requests": [
+    {
+      "object": "6041:00",
+      "payload": "40 41 60 00 00 00 00 00"
+    },
+    {
+      "object": "60FF:01",
+      "payload": "40 ff 60 01 00 00 00 00"
+    },
+    {
+      "object": "60FF:02",
+      "payload": "40 ff 60 02 00 00 00 00"
+    },
+    {
+      "object": "603F:00",
+      "payload": "40 3f 60 00 00 00 00 00"
+    },
+    {
+      "object": "6060:00",
+      "payload": "40 60 60 00 00 00 00 00"
+    },
+    {
+      "object": "6061:00",
+      "payload": "40 61 60 00 00 00 00 00"
+    },
+    {
+      "object": "606C:01",
+      "payload": "40 6c 60 01 00 00 00 00"
+    },
+    {
+      "object": "606C:02",
+      "payload": "40 6c 60 02 00 00 00 00"
+    },
+    {
+      "object": "606C:03",
+      "payload": "40 6c 60 03 00 00 00 00"
+    },
+    {
+      "object": "1017:00",
+      "payload": "40 17 10 00 00 00 00 00"
+    },
+    {
+      "object": "1800:01",
+      "payload": "40 00 18 01 00 00 00 00"
+    },
+    {
+      "object": "1800:02",
+      "payload": "40 00 18 02 00 00 00 00"
+    },
+    {
+      "object": "1800:05",
+      "payload": "40 00 18 05 00 00 00 00"
+    },
+    {
+      "object": "1A00:00",
+      "payload": "40 00 1a 00 00 00 00 00"
+    },
+    {
+      "object": "1A00:01",
+      "payload": "40 00 1a 01 00 00 00 00"
+    },
+    {
+      "object": "1A00:02",
+      "payload": "40 00 1a 02 00 00 00 00"
+    }
+  ],
+  "count_max": 16,
+  "timing": "one request at a time; at least 100ms apart; response timeout 1000ms; total <=30s; no retries; stop on first failure",
+  "receiver": "RK3588 robot-dev can0 passive capture; response ID 0x581",
+  "operator": "Power on, CAN connected, wheels raised, emergency stop and hand-rotation operator confirmed; keep wheels stationary during inventory",
+  "writes": "none; no NMT, controlword, target or mapping writes"
+}

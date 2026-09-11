@@ -1,0 +1,29 @@
+{
+  "status": "partial: non-actuating checks pass; live drive feedback unavailable",
+  "platform": {
+    "exit_code": 0,
+    "output": "linux_platform_integration passed"
+  },
+  "managed_vcan": {
+    "exit_code": 0,
+    "skipped": false,
+    "peer_frames": 19,
+    "observer_tx_frames": 0
+  },
+  "cli": "four rejected commands exit 2; see cli_results.json",
+  "passive": "deadline exit 0, SIGTERM exit 143; TX 506 unchanged, RX 2232 unchanged",
+  "jcan": {
+    "serial": "207F346D5650",
+    "mode": "silent",
+    "frames_observed": 0,
+    "shutdown_ok": true,
+    "exit_code": 0,
+    "configuration_unchanged": true
+  },
+  "limitations": [
+    "No real bus traffic observed; no live feedback validation",
+    "No motor commands sent; rounds 2-5 not run",
+    "Platform and vcan results transcribed from tool output; raw logs were not saved"
+  ],
+  "staging": "/tmp/robot-control-qualifications/review-hil-f576d0f375fe"
+}

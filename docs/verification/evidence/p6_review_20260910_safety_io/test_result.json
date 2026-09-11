@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-10",
+  "base_revision": "b902cd54abab8a0b83eb94403c110ed0458c06fb",
+  "scope": [
+    "standalone activation",
+    "TPDO preflight contract",
+    "transient receive errors",
+    "shared stderr flags"
+  ],
+  "tests": {
+    "review-fixes": {
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0
+    },
+    "review-fixes-sanitizer": {
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0
+    },
+    "review-default-debug": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "review-default-release": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "review-commissioning": {
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "mapping_rejection_scenarios": 18,
+  "static_analysis": {
+    "exit_code": 0,
+    "errors": 0,
+    "advisories": 53,
+    "review": "19 pragma-once; 12 const-return copies; 6 reserved names (4 required linker wrappers, 2 existing guards); 5 adjacent parameter signatures (new test path/mismatch are distinct loop variables); 4 intentional endl flushes; 4 stop-token value copies; 3 existing Result optional accesses with caller preconditions. No analyzer defect in changed production logic. Failed invocations retained separately."
+  },
+  "cross": {
+    "status": "PASS",
+    "compiler": "GCC 11.4.0 Ubuntu 22.04",
+    "image": "sha256:f2198e31e27c084bc2deff761e124fa9d7ce580a8d986c7885fd62bb1701e7dd",
+    "sysroot": "sysroots/rk3588-ubuntu2204",
+    "lock": "sysroots/rk3588-ubuntu2204.lock.json",
+    "elf_audits": "qualification Debug and default Debug/Release passed; sysroot validation before and after passed",
+    "artifacts_sha256": {
+      "out/build/cross/review-fixes-qualification/tools/zlac_qualification/robot-control-zlac-qualification": "2e522ae85f30455c62cced4d0a7fc3c007c1cd2fe46354b9a4efa8d523e3e067",
+      "out/build/cross/review-fixes-debug/tools/platform_probe/robot-control-platform-probe": "ff3b0e301896c1b098dc0634df91e61c120c8da71993417cc13aee479ed2cfc9",
+      "out/build/cross/review-fixes-release/tools/platform_probe/robot-control-platform-probe": "82a5febe43eb2a3f0fa2094605cccf796ba9d4031fcdf051d929026df7b9b228"
+    },
+    "source_note": "Snapshot precedes only final CLI whitespace, test-wrapper Doxygen comments and verification documentation edits."
+  },
+  "hardware": "NOT RUN; no physical TX, deployment or drive changes authorized or performed"
+}

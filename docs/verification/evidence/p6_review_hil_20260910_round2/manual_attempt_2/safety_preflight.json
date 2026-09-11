@@ -1,0 +1,152 @@
+{
+  "authorization": "User: \u6388\u6743\u6309\u76f8\u540c\u62a5\u6587\u6e05\u5355\u91cd\u65b0\u6267\u884c",
+  "manifest": {
+    "status": "prepared; not authorized or executed",
+    "adapter_serial": "207F346D5650",
+    "mode": "normal",
+    "bitrate": 500000,
+    "extended": false,
+    "fd": false,
+    "rtr": false,
+    "preflight": [
+      {
+        "object": "6041:00",
+        "payload": "40 41 60 00 00 00 00 00"
+      },
+      {
+        "object": "60FF:01",
+        "payload": "40 ff 60 01 00 00 00 00"
+      },
+      {
+        "object": "60FF:02",
+        "payload": "40 ff 60 02 00 00 00 00"
+      },
+      {
+        "object": "603F:00",
+        "payload": "40 3f 60 00 00 00 00 00"
+      },
+      {
+        "object": "6060:00",
+        "payload": "40 60 60 00 00 00 00 00"
+      },
+      {
+        "object": "6061:00",
+        "payload": "40 61 60 00 00 00 00 00"
+      },
+      {
+        "object": "606C:01",
+        "payload": "40 6c 60 01 00 00 00 00"
+      },
+      {
+        "object": "606C:02",
+        "payload": "40 6c 60 02 00 00 00 00"
+      },
+      {
+        "object": "606C:03",
+        "payload": "40 6c 60 03 00 00 00 00"
+      },
+      {
+        "object": "1017:00",
+        "payload": "40 17 10 00 00 00 00 00"
+      },
+      {
+        "object": "1800:01",
+        "payload": "40 00 18 01 00 00 00 00"
+      },
+      {
+        "object": "1800:02",
+        "payload": "40 00 18 02 00 00 00 00"
+      },
+      {
+        "object": "1800:05",
+        "payload": "40 00 18 05 00 00 00 00"
+      },
+      {
+        "object": "1A00:00",
+        "payload": "40 00 1a 00 00 00 00 00"
+      },
+      {
+        "object": "1A00:01",
+        "payload": "40 00 1a 01 00 00 00 00"
+      },
+      {
+        "object": "1A00:02",
+        "payload": "40 00 1a 02 00 00 00 00"
+      }
+    ],
+    "preconditions": "Fresh 16-read inventory matches accepted baseline; both targets zero, speeds zero, faults zero, both status ReadyToSwitchOn; stop otherwise",
+    "nmt_start": {
+      "id": "0x000",
+      "dlc": 2,
+      "payload": "01 01",
+      "count": 1
+    },
+    "sampling": {
+      "id": "0x601",
+      "dlc": 8,
+      "requests": [
+        {
+          "object": "6041:00",
+          "payload": "40 41 60 00 00 00 00 00"
+        },
+        {
+          "object": "606C:01",
+          "payload": "40 6c 60 01 00 00 00 00"
+        },
+        {
+          "object": "606C:02",
+          "payload": "40 6c 60 02 00 00 00 00"
+        },
+        {
+          "object": "606C:03",
+          "payload": "40 6c 60 03 00 00 00 00"
+        }
+      ],
+      "cycles_max": 80,
+      "cycle_interval_ms": 500,
+      "duration_ms": 40000
+    },
+    "nmt_cleanup": {
+      "id": "0x000",
+      "dlc": 2,
+      "payload": "80 01",
+      "count": 1
+    },
+    "final_reads": [
+      {
+        "object": "6041:00",
+        "payload": "40 41 60 00 00 00 00 00"
+      },
+      {
+        "object": "60FF:01",
+        "payload": "40 ff 60 01 00 00 00 00"
+      },
+      {
+        "object": "60FF:02",
+        "payload": "40 ff 60 02 00 00 00 00"
+      },
+      {
+        "object": "603F:00",
+        "payload": "40 3f 60 00 00 00 00 00"
+      },
+      {
+        "object": "606C:01",
+        "payload": "40 6c 60 01 00 00 00 00"
+      },
+      {
+        "object": "606C:02",
+        "payload": "40 6c 60 02 00 00 00 00"
+      }
+    ],
+    "maximum_requests_total": 344,
+    "response_timeout_ms": 1000,
+    "total_duration_limit_ms": 60000,
+    "retries": 0,
+    "stop_policy": "On first error abort sampling; only reserved pre-operational cleanup remains allowed; any cleanup failure requires operator intervention",
+    "operator_schedule": "After READY: 0-5s stationary; 5-15s left wheel gently; 15-20s stationary; 20-30s right wheel gently; 30-40s stationary. Never force brake.",
+    "no_writes": "No controlword, target, mapping, heartbeat or persistent parameter writes",
+    "receiver": "RK3588 passive can0 capture of all requests, responses and TPDO1"
+  },
+  "operator_ready": true,
+  "recovery": "One reserved pre-operational frame, no retry; shutdown JCAN; bounded passive capture exits"
+}

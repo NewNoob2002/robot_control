@@ -29,6 +29,7 @@ def main():
     """Validate archive membership, retained hashes, Python syntax and navigation links."""
     manifest = json.loads((EVIDENCE / 'archives/MANIFEST.json').read_text())
     archived = 0
+    archived_data = {}
     for record in manifest['archives']:
         archive_path = contained(EVIDENCE, record['path'])
         assert digest(archive_path.read_bytes()) == record['sha256'], archive_path
@@ -45,6 +46,8 @@ def main():
                 data = archive.extractfile(member).read()
                 entry = expected[member.name]
                 assert len(data) == entry['bytes'] and digest(data) == entry['sha256'], member.name
+                assert member.name not in archived_data, member.name
+                archived_data[member.name] = data
                 archived += 1
         assert seen == expected.keys(), archive_path
     for duplicate in manifest['removed_duplicates']:
@@ -56,18 +59,27 @@ def main():
             expected, name = line.split('  ', 1)
             base = ROOT if name.startswith('docs/') else checksums.parent
             path = contained(base, name)
-            assert digest(path.read_bytes()) == expected, path
+            data = path.read_bytes() if path.exists() else archived_data[path.relative_to(EVIDENCE).as_posix()]
+            assert digest(data) == expected, path
             retained += 1
     for path in EVIDENCE.glob('p6*/**/*.py'):
         ast.parse(path.read_text(), filename=str(path))
     ast.parse(Path(__file__).read_text())
-    for relative in ('docs/verification/PHASE6_CHECKPOINT.md', 'docs/verification/P6_7_CLOSURE_BASELINE.md',
-                     'docs/verification/evidence/README.md'):
+    for relative in ('README.md', 'docs/verification/PHASE6_CHECKPOINT.md',
+                     'docs/verification/P6_7_CLOSURE_BASELINE.md',
+                     'docs/verification/P6_SYNC_PACKED_PDO_REPAIR.md',
+                     'docs/verification/P6_TPDO_FEEDBACK_DIAGNOSIS.md',
+                     'docs/verification/P6_REVIEW_DIAGNOSTICS.md',
+                     'docs/verification/P6_REVIEW_ONLINE_STARTUP.md',
+                     'docs/verification/P6_REVIEW_SAFETY_IO_FIXES.md',
+                     'docs/verification/P6_REVIEW_HIL.md', 'docs/verification/evidence/README.md'):
         document = ROOT / relative
         for target in re.findall(r'\]\(([^)]+)\)', document.read_text()):
             target = target.split('#', 1)[0]
             if target and '://' not in target:
-                assert (document.parent / target).exists(), (relative, target)
+                path = (document.parent / target).resolve()
+                archived_link = path.is_relative_to(EVIDENCE) and path.relative_to(EVIDENCE).as_posix() in archived_data
+                assert path.exists() or archived_link, (relative, target)
     print(f'PASS: {archived} archived files, {retained} retained checksums, duplicate replacements, syntax and checkpoint links')
 
 

@@ -1,0 +1,80 @@
+{
+  "status": "withdrawn_before_execution",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "interface": "can0",
+  "bitrate": 500000,
+  "node": 1,
+  "elf_sha256": "12d0331abe47d094f0ad680bee736009aa19ca1ff4d924e5d11e0222e9e93f4c",
+  "executor": "/tmp/robot-control-qualifications/review-diagnostics-12d0331abe47/robot-control-zlac-qualification",
+  "jcan_serial": "207F346D5650",
+  "jcan_role": "silent capture only",
+  "rounds": [
+    {
+      "name": "zero",
+      "args": [
+        "--interface",
+        "can0",
+        "--zero-sequence"
+      ]
+    },
+    {
+      "name": "left",
+      "args": [
+        "--interface",
+        "can0",
+        "--target-once",
+        "1:5",
+        "--duration-ms",
+        "3000"
+      ]
+    },
+    {
+      "name": "right",
+      "args": [
+        "--interface",
+        "can0",
+        "--target-once",
+        "2:5",
+        "--duration-ms",
+        "3000"
+      ]
+    }
+  ],
+  "physical_flags": {
+    "extended": false,
+    "fd": false,
+    "brs": false,
+    "rtr": false
+  },
+  "boot_requirement": "actual 0x701 DLC1 payload00 received by the running executor, once per round",
+  "heartbeat_preparation": "RK3588 boot helper, one 0x601 DLC8 2B171000E8030000 after real boot; restore once with 2B17100000000000; independent ACK/readback required",
+  "limits": {
+    "attempts_per_round": 1,
+    "nonzero_downloads_per_motion_round": 1,
+    "nonzero_interval_ms": 3000,
+    "sdo_timeout_ms": 500,
+    "transition_timeout_ms": 2000,
+    "boot_wait_s": 180,
+    "capture_duration_limit_s": 240,
+    "capture_frame_limit": 10000,
+    "automatic_retries": 0
+  },
+  "stop_conditions": [
+    "unexpected diagnostic including the two previously excepted messages",
+    "SDO abort/timeout",
+    "CAN error or EMCY",
+    "missing/stale feedback",
+    "capture failure",
+    "wrong wheel or abnormal mechanical behavior",
+    "unverified cleanup"
+  ],
+  "physical_readiness": "pending current operator confirmation",
+  "current_can_readonly_preflight": {
+    "state": "ERROR-ACTIVE",
+    "bitrate": 500000,
+    "tx_packets": 1046,
+    "errors": 0,
+    "drops": 0
+  },
+  "reason": "Boot-up requirement was incorrect: current observation already accepts ordinary heartbeat without boot. Replaced by application-owned online heartbeat preparation; no reset or boot helper."
+}

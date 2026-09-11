@@ -1,0 +1,42 @@
+{
+  "base": "/tmp/robot-control-qualifications/rpdo-feedback-0e835fd8a9bc",
+  "files": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/rpdo-feedback/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "0e835fd8a9bcf1907a59e78a7fb753af791be5dfec1a8839fc64b66bb51ad659"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/rpdo-feedback/review_qualification_vcan_tests",
+      "sha256": "ef94de38a5cb163ad960c2915d6eef8faa3ade04243219354b97702439534380"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    },
+    "authorization_left.json": {
+      "source": "docs/verification/evidence/p6_rpdo_feedback_20260911/left/authorization.json",
+      "sha256": "2ff18e2fbd12951b2912aa565e09352f2e20f8c53b2930fe5390925ddf2b15d1"
+    },
+    "remote_motion_left.py": {
+      "source": "docs/verification/evidence/p6_rpdo_feedback_20260911/left/remote_trial.py",
+      "sha256": "194d6ba1d0bccce39e5b49991cd10c3e4b76e63815b7ef0da81b3e896617cca3"
+    },
+    "authorization_right.json": {
+      "source": "docs/verification/evidence/p6_rpdo_feedback_20260911/right/authorization.json",
+      "sha256": "bb261f1146f3932b707efc237af1b238e7d90d575126fea2d20664e548373837"
+    },
+    "remote_motion_right.py": {
+      "source": "docs/verification/evidence/p6_rpdo_feedback_20260911/right/remote_trial.py",
+      "sha256": "2fb9270c22dfe0c1e55dcb63ec07c2bb78d91f6c16929380bed465d5de4f1baa"
+    }
+  },
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "1064b5ff25a7ce75af400fd8a665f27a9290f5e847bcf5f1e1734cad7eb7eb43",
+    "communication/canopen/qualification.hpp": "dbbc16ad91c4db9f6b00d831cec26352574153587acc32bae5b449e16c5af36c",
+    "communication/canopen/qualification_gate.c": "96ed8f1cd16039b3d41854c02876103cfef8f1ccf9be3cad94ec586f6a57770e",
+    "communication/canopen/qualification_gate.h": "6f412f30173ba479dd6553329a210d5507e3faa6561a313e9ba858b1fb0dfe2e",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "e26061ec96e63e223aa6b26eb2ca29e0831e51ba307f4cab5e9fb86eca4c5380",
+    "tests/unit/canopen_qualification_gate_tests.cpp": "970d4166e312fb5aacb740daed4220293127e05fb19105cbac61bba6999de729",
+    "tools/zlac_qualification/main.cpp": "958450fe14aaf058914b56c275514111ddbe461c2179c2435e5e745dae0ba22e"
+  }
+}

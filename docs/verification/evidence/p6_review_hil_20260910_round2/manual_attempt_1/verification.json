@@ -1,0 +1,52 @@
+{
+  "outcome": "ABORTED before manual sampling: GO timeout",
+  "physical_requests": 18,
+  "preflight_reads": 16,
+  "independent_tx_match": true,
+  "nmt_start": "01 01",
+  "nmt_cleanup": "80 01",
+  "cleanup_delivery_independently_observed": true,
+  "nmt_state_acknowledged": false,
+  "manual_sampling_started": false,
+  "drive_writes": "NMT only; no controlword/target/config writes",
+  "target_tx_before": 506,
+  "target_tx_after": 506,
+  "can_after": {
+    "state": "ERROR-ACTIVE",
+    "berr_counter": {
+      "tx": 0,
+      "rx": 0
+    },
+    "restart_ms": 100,
+    "bittiming": {
+      "bitrate": 500000,
+      "sample_point": 0.866,
+      "tq": 26,
+      "prop_seg": 32,
+      "phase_seg1": 32,
+      "phase_seg2": 10,
+      "sjw": 1
+    },
+    "bittiming_const": {
+      "name": "rockchip_canfd",
+      "tseg1": {
+        "min": 1,
+        "max": 128
+      },
+      "tseg2": {
+        "min": 1,
+        "max": 128
+      },
+      "sjw": {
+        "min": 1,
+        "max": 128
+      },
+      "brp": {
+        "min": 1,
+        "max": 256
+      },
+      "brp_inc": 2
+    },
+    "clock": 150000000
+  }
+}

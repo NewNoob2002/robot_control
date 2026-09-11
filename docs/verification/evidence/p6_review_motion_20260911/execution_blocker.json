@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-11",
+  "user_authorized": true,
+  "runner_staging": "complete",
+  "offline_checks": "pass",
+  "execution_request": "zero/local_trial.py",
+  "approval_attempts": 2,
+  "outcome": "automatic approval review timed out twice before process creation",
+  "run_once_marker_present": false,
+  "physical_trials_started": 0,
+  "physical_tx_by_this_attempt": 0,
+  "next_action": "Approval blocker resolved; zero trial executed once. No automatic physical retry.",
+  "resolution": {
+    "date": "2026-09-11",
+    "request_round": 2,
+    "approval": "granted",
+    "process_created": true,
+    "coordinator_exit": 0,
+    "executor_exit": 0,
+    "nonzero_requests": 0,
+    "target_tx_delta": 47,
+    "evidence": "zero/coordinator_result.json"
+  }
+}

@@ -1,0 +1,385 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+qualification_wait_boot node=1 timeout_s=1
+(CO_CANsend) OS error "Permission denied" in send()
+qualification_online_probe node=1 object=0x1017:00
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+MANUAL_ROTATION_READY duration_ms=60000 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=1016 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=2021 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=3027 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=4030 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=5037 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=6041 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=7046 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=8048 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=9052 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=10059 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=11064 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=12068 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=13074 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=14081 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=15087 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=16092 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=17096 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=18103 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=19110 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=20117 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=21122 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=22126 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=23133 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=24138 phase=left tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=25144 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=26150 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=27157 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=28164 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=29169 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=30176 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=31182 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=32187 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=33192 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=34200 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=35207 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=36211 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=37218 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=38222 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=39226 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=40231 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=41238 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=42244 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=43249 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=44255 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=45262 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=46270 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=47277 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=48283 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=49288 phase=right tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=50293 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=51300 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=52307 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=53314 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=54321 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=55329 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=56335 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=57339 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=58346 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=59352 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=0
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+MANUAL_ROTATION_END
+(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7
+qualification_complete node=1 operation=13

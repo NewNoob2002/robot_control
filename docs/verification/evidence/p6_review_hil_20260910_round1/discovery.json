@@ -1,0 +1,40 @@
+{
+  "ssh_target_arch": "aarch64",
+  "os": "Ubuntu 22.04.5 LTS",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "can0": {
+    "state": "UP/ERROR-ACTIVE",
+    "bitrate": 500000,
+    "tx_error_counter": 0,
+    "rx_error_counter": 0,
+    "rx_packets": 2232,
+    "tx_packets": 506
+  },
+  "jcan_self_test": {
+    "ok": true,
+    "passed": true
+  },
+  "jcan_scan": {
+    "serial": "207F346D5650",
+    "bus": 1,
+    "address": 5,
+    "vid": "ffff",
+    "pid": "0004"
+  },
+  "jcan_config": {
+    "can_speed": "0C",
+    "can_customval": "00 00 01 00 04 00 59 00 1E 00",
+    "fd_speed": "06",
+    "fd_customval": "00 00 03 00 04 00 1D 00 0A 00",
+    "standard": "00",
+    "term_res": "00",
+    "busoff_recovery": "00",
+    "auto_retrans": "00",
+    "hardware_version": "00 00 00 00 00 00 00 00 00 00",
+    "id": "00 00"
+  },
+  "environment_failures": [
+    "SSH socket denied inside sandbox; read-only identity query succeeded outside.",
+    "JCAN scan USB Other error inside sandbox; read-only scan succeeded outside. No physical operation retried."
+  ]
+}

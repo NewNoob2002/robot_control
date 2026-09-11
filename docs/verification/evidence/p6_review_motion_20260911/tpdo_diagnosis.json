@@ -1,0 +1,498 @@
+{
+  "left": {
+    "source": "p6_review_motion_20260911/left/target/rk3588_can.log",
+    "tpdo_count": 75,
+    "tpdo_period_median_ms": 49.947,
+    "tpdo_speed_changes": 0,
+    "tpdo_status_values": {
+      "21 14 21 14": 12,
+      "23 14 23 14": 1,
+      "27 14 27 14": 1,
+      "27 44 27 14": 60,
+      "21 54 21 14": 1
+    },
+    "tpdo_speed_nonzero": 0,
+    "active_tpdo_count": 60,
+    "active_speed_sdo_responses": 0,
+    "packed_sdo_total": 5,
+    "packed_sdo_nonzero": 0,
+    "downloads": [
+      {
+        "line": 3,
+        "index": "0x1017",
+        "sub": 0,
+        "value": 500
+      },
+      {
+        "line": 38,
+        "index": "0x200f",
+        "sub": 0,
+        "value": 0
+      },
+      {
+        "line": 42,
+        "index": "0x60ff",
+        "sub": 1,
+        "value": 0
+      },
+      {
+        "line": 46,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 0
+      },
+      {
+        "line": 60,
+        "index": "0x6060",
+        "sub": 0,
+        "value": 3
+      },
+      {
+        "line": 64,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 6
+      },
+      {
+        "line": 73,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 7
+      },
+      {
+        "line": 82,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 15
+      },
+      {
+        "line": 91,
+        "index": "0x60ff",
+        "sub": 1,
+        "value": 5
+      },
+      {
+        "line": 167,
+        "index": "0x60ff",
+        "sub": 1,
+        "value": 0
+      },
+      {
+        "line": 171,
+        "index": "0x60ff",
+        "sub": 1,
+        "value": 0
+      },
+      {
+        "line": 175,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 0
+      },
+      {
+        "line": 179,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 6
+      },
+      {
+        "line": 210,
+        "index": "0x200f",
+        "sub": 0,
+        "value": 1
+      },
+      {
+        "line": 214,
+        "index": "0x1017",
+        "sub": 0,
+        "value": 0
+      }
+    ],
+    "first_nonzero_sdo_after_zero_ms": 39.24,
+    "nonzero_sdo_details": [
+      {
+        "line": 183,
+        "after_zero_ms": 39.24,
+        "sub": 1,
+        "raw": 22
+      },
+      {
+        "line": 187,
+        "after_zero_ms": 92.256,
+        "sub": 1,
+        "raw": -15
+      },
+      {
+        "line": 190,
+        "after_zero_ms": 145.248,
+        "sub": 1,
+        "raw": 4
+      },
+      {
+        "line": 193,
+        "after_zero_ms": 198.25,
+        "sub": 1,
+        "raw": -1
+      },
+      {
+        "line": 196,
+        "after_zero_ms": 251.257,
+        "sub": 1,
+        "raw": -1
+      },
+      {
+        "line": 199,
+        "after_zero_ms": 304.263,
+        "sub": 1,
+        "raw": -1
+      }
+    ],
+    "nonzero_tpdo_during_command": 0
+  },
+  "right": {
+    "source": "p6_review_motion_20260911/right/target/rk3588_can.log",
+    "tpdo_count": 72,
+    "tpdo_period_median_ms": 49.947,
+    "tpdo_speed_changes": 0,
+    "tpdo_status_values": {
+      "21 14 21 14": 10,
+      "23 14 23 14": 1,
+      "27 14 27 14": 1,
+      "27 14 27 44": 60
+    },
+    "tpdo_speed_nonzero": 0,
+    "active_tpdo_count": 60,
+    "active_speed_sdo_responses": 0,
+    "packed_sdo_total": 5,
+    "packed_sdo_nonzero": 0,
+    "downloads": [
+      {
+        "line": 3,
+        "index": "0x1017",
+        "sub": 0,
+        "value": 500
+      },
+      {
+        "line": 38,
+        "index": "0x200f",
+        "sub": 0,
+        "value": 0
+      },
+      {
+        "line": 42,
+        "index": "0x60ff",
+        "sub": 1,
+        "value": 0
+      },
+      {
+        "line": 46,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 0
+      },
+      {
+        "line": 60,
+        "index": "0x6060",
+        "sub": 0,
+        "value": 3
+      },
+      {
+        "line": 64,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 6
+      },
+      {
+        "line": 73,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 7
+      },
+      {
+        "line": 82,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 15
+      },
+      {
+        "line": 91,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 5
+      },
+      {
+        "line": 167,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 0
+      },
+      {
+        "line": 171,
+        "index": "0x60ff",
+        "sub": 1,
+        "value": 0
+      },
+      {
+        "line": 175,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 0
+      },
+      {
+        "line": 179,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 6
+      },
+      {
+        "line": 206,
+        "index": "0x200f",
+        "sub": 0,
+        "value": 1
+      },
+      {
+        "line": 210,
+        "index": "0x1017",
+        "sub": 0,
+        "value": 0
+      }
+    ],
+    "first_nonzero_sdo_after_zero_ms": 42.299,
+    "nonzero_sdo_details": [
+      {
+        "line": 185,
+        "after_zero_ms": 42.299,
+        "sub": 2,
+        "raw": 41
+      },
+      {
+        "line": 191,
+        "after_zero_ms": 97.297,
+        "sub": 2,
+        "raw": -12
+      },
+      {
+        "line": 196,
+        "after_zero_ms": 152.3,
+        "sub": 2,
+        "raw": 1
+      }
+    ],
+    "nonzero_tpdo_during_command": 0
+  },
+  "manual": {
+    "source": "p6_review_rk3588_executor_20260910/hil_trial_2/target/rk3588_can.log",
+    "tpdo_count": 1207,
+    "tpdo_period_median_ms": 49.945,
+    "tpdo_speed_changes": 388,
+    "tpdo_status_values": {
+      "21 14 21 14": 1207
+    },
+    "tpdo_speed_nonzero": 402,
+    "active_tpdo_count": 1207,
+    "active_speed_sdo_responses": 185,
+    "packed_sdo_total": 61,
+    "packed_sdo_nonzero": 20,
+    "downloads": [
+      {
+        "line": 33,
+        "index": "0x1017",
+        "sub": 0,
+        "value": 500
+      },
+      {
+        "line": 1987,
+        "index": "0x1017",
+        "sub": 0,
+        "value": 0
+      }
+    ],
+    "nonzero_small_tpdo_examples": [
+      {
+        "line": 625,
+        "low": -7,
+        "high": 0
+      },
+      {
+        "line": 627,
+        "low": -12,
+        "high": 0
+      },
+      {
+        "line": 628,
+        "low": -17,
+        "high": 0
+      },
+      {
+        "line": 648,
+        "low": 15,
+        "high": 0
+      },
+      {
+        "line": 649,
+        "low": 22,
+        "high": 0
+      },
+      {
+        "line": 650,
+        "low": 1,
+        "high": 0
+      },
+      {
+        "line": 651,
+        "low": -5,
+        "high": 0
+      },
+      {
+        "line": 653,
+        "low": -44,
+        "high": 0
+      },
+      {
+        "line": 674,
+        "low": 20,
+        "high": 0
+      },
+      {
+        "line": 675,
+        "low": -27,
+        "high": 0
+      },
+      {
+        "line": 689,
+        "low": -17,
+        "high": 0
+      },
+      {
+        "line": 709,
+        "low": 8,
+        "high": 0
+      }
+    ]
+  },
+  "watchdog4": {
+    "source": "p6_6_20260910_watchdog_trial_4/target/rk3588_can.log",
+    "tpdo_count": 43,
+    "tpdo_period_median_ms": 49.946,
+    "tpdo_speed_changes": 0,
+    "tpdo_status_values": {
+      "21 14 21 14": 7,
+      "23 14 23 14": 1,
+      "27 14 27 14": 21,
+      "27 14 27 44": 14
+    },
+    "tpdo_speed_nonzero": 0,
+    "active_tpdo_count": 34,
+    "active_speed_sdo_responses": 5,
+    "packed_sdo_total": 6,
+    "packed_sdo_nonzero": 0,
+    "downloads": [
+      {
+        "line": 5,
+        "index": "0x1017",
+        "sub": 0,
+        "value": 500
+      },
+      {
+        "line": 28,
+        "index": "0x200f",
+        "sub": 0,
+        "value": 0
+      },
+      {
+        "line": 32,
+        "index": "0x60ff",
+        "sub": 1,
+        "value": 0
+      },
+      {
+        "line": 36,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 0
+      },
+      {
+        "line": 50,
+        "index": "0x6060",
+        "sub": 0,
+        "value": 3
+      },
+      {
+        "line": 54,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 6
+      },
+      {
+        "line": 63,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 7
+      },
+      {
+        "line": 72,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 15
+      },
+      {
+        "line": 81,
+        "index": "0x2000",
+        "sub": 0,
+        "value": 1000
+      },
+      {
+        "line": 85,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 5
+      },
+      {
+        "line": 140,
+        "index": "0x60ff",
+        "sub": 1,
+        "value": 0
+      },
+      {
+        "line": 144,
+        "index": "0x60ff",
+        "sub": 2,
+        "value": 0
+      },
+      {
+        "line": 148,
+        "index": "0x6040",
+        "sub": 0,
+        "value": 6
+      },
+      {
+        "line": 159,
+        "index": "0x200f",
+        "sub": 0,
+        "value": 1
+      },
+      {
+        "line": 163,
+        "index": "0x1017",
+        "sub": 0,
+        "value": 0
+      },
+      {
+        "line": 167,
+        "index": "0x2000",
+        "sub": 0,
+        "value": 0
+      }
+    ],
+    "first_nonzero_sdo_after_zero_ms": -1508.671,
+    "nonzero_sdo_details": [
+      {
+        "line": 97,
+        "after_zero_ms": -1508.671,
+        "sub": 2,
+        "raw": 52
+      }
+    ],
+    "nonzero_tpdo_during_command": 0
+  }
+}

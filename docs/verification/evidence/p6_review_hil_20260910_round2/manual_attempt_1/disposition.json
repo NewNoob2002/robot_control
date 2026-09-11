@@ -1,0 +1,6 @@
+{
+  "status": "ABORTED; not a hardware feedback pass",
+  "cause": "Agent/tool orchestration did not deliver GO within 8 seconds",
+  "remedy": "Prepared next runner with handshake before any device operation, then a 5-second countdown after fresh preflight and TPDO; same frame limits and physical duration limit",
+  "retry_executed": false
+}

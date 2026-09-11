@@ -1,0 +1,20 @@
+{
+  "authorized": true,
+  "confirmation": "\u6388\u6743\u5e76\u786e\u8ba4\u5f00\u59cb\u6d4b\u8bd5",
+  "operator_ready": true,
+  "raised_wheels": true,
+  "estop_available": true,
+  "device": "RK3588 robot-dev can0 node1",
+  "jcan": "207F346D5650 silent only",
+  "retries": 0,
+  "no_power_cycle": true,
+  "args": [
+    "--interface",
+    "can0",
+    "--target-once",
+    "1:5",
+    "--duration-ms",
+    "3000"
+  ],
+  "on_failure": "SIGTERM application, retain capture and cleanup; require emergency stop if cleanup uncertain"
+}

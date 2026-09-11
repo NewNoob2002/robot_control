@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-11",
+  "host": "57/57 PASS",
+  "sanitizer": "57/57 PASS",
+  "cross": "aarch64 Debug qualification build and ELF audit PASS",
+  "target": "checksum verified; isolated qualification vcan PASS",
+  "clang_tidy": {
+    "errors": 0,
+    "advisories": 43
+  },
+  "physical_hil": "not executed",
+  "boot_up_required": false,
+  "power_cycle_required": false
+}

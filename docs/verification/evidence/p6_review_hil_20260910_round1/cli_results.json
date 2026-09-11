@@ -1,0 +1,37 @@
+[
+  {
+    "args": [
+      "--nmt",
+      "operational"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --manual-tpdo)\nCommunication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.\n"
+  },
+  {
+    "args": [
+      "--velocity-mode"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --manual-tpdo)\nCommunication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.\n"
+  },
+  {
+    "args": [
+      "--controlword",
+      "switch-on"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --manual-tpdo)\nCommunication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.\n"
+  },
+  {
+    "args": [
+      "--controlword",
+      "enable-operation"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --manual-tpdo)\nCommunication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.\n"
+  }
+]

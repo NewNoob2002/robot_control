@@ -1,0 +1,17 @@
+{
+  "authorized": true,
+  "stimulus": "right",
+  "elf_sha256": "0e835fd8a9bcf1907a59e78a7fb753af791be5dfec1a8839fc64b66bb51ad659",
+  "operator_ready": true,
+  "user_confirmation": "ok按总结的修复路线执行; 同步SDO左轮运行和停止已由用户确认正常",
+  "date": "2026-09-11",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--rpdo-once",
+    "2:5",
+    "--duration-ms",
+    "3000"
+  ]
+}

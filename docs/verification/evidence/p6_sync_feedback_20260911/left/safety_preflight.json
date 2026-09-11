@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "operation": "bus-write",
+  "approved": true,
+  "authorization": "ok按总结的修复路线执行",
+  "readiness_basis": "continuation of current operator-confirmed raised-wheel HIL session",
+  "target": {
+    "board": "RK3588 robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+    "interface": "can0",
+    "node": 1,
+    "adapter_serial": "207F346D5650"
+  },
+  "artifact_sha256": "3885a78bda2d41c6c05e0aaac01d2fb65644ea89f3528d3dde2b4c5311ef437a",
+  "stimulus": "200F=1 verified without writes; 60FF:03 packed left +5 right 0 once for 3000 ms; packed zero cleanup; no RPDO or EEPROM writes",
+  "limits": {
+    "physical_frames": "standard Classical CAN: node1 NMT 000#0101/8001; SDO 601 DLC8 exact gate; packed target 23FF600305000000 once; zeros 23FF600300000000; mode3 and bounded CiA402/heartbeat setup and cleanup",
+    "capture_ms": 40000,
+    "capture_frames": 10000,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "sample_upload_timeout_ms": 20
+  },
+  "recovery_plan": "coordinator abort closes control pipe; application SIGTERM and bounded zero/Shutdown/Pre-operational cleanup; physical power cut if cleanup uncertain",
+  "raised_wheels": true,
+  "estop_available": true,
+  "jcan": "silent observer only"
+}

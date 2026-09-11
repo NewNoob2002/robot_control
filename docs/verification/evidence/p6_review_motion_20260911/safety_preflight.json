@@ -1,0 +1,8 @@
+{
+  "status": "pending",
+  "test_scope_authorized": true,
+  "new_power_cycle_and_temporary_heartbeat_procedure_confirmed": false,
+  "operator_current_raised_wheels_estop_confirmation": false,
+  "physical_tx_started": false,
+  "reason": "Existing zero/first-motion executor requires real boot and current heartbeat; previous manual session restored 1017=0. Do not bypass."
+}

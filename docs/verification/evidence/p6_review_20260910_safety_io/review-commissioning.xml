@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-c++"
+	tests="36"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="mymint"
+	time="1"
+	timestamp="2026-09-10T10:47:23"
+	>
+	<testcase name="platform_probe_help" classname="platform_probe_help" time="0.00196842" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-platform-probe [--help|--phase3-smoke]
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_run" classname="platform_probe_run" time="0.0011136" status="run">
+		<properties/>
+		<system-out>probe_version=1
+sysname=Linux
+release=7.0.0-31-generic
+machine=x86_64
+pid=1411234
+monotonic_ns=117775364065949
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_phase3_smoke" classname="platform_probe_phase3_smoke" time="0.00201423" status="run">
+		<properties/>
+		<system-out>I/elog     EasyLogger V2.2.0 is initialize success.
+I/platform_probe timestamp_unix_s=1789033643 severity=INFO event="phase3_smoke" result=pass
+</system-out>
+	</testcase>
+	<testcase name="can_probe_help" classname="can_probe_help" time="0.00162039" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_missing_interface" classname="can_probe_missing_interface" time="0.0045833" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing required argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_unknown_argument" classname="can_probe_unknown_argument" time="0.00425939" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="unknown argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_zero" classname="can_probe_duration_zero" time="0.00542101" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms out of range value=0" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_nonnumeric" classname="can_probe_duration_nonnumeric" time="0.00425317" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=abc" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_overflow" classname="can_probe_duration_overflow" time="0.00417096" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms overflow value=9999999999999999999999999999999999999999" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_interface" classname="can_probe_duplicate_interface" time="0.00314978" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_duration" classname="can_probe_duplicate_duration" time="0.00359422" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_interface_missing_value" classname="can_probe_interface_missing_value" time="0.00407617" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_missing_value" classname="can_probe_duration_missing_value" time="0.00454885" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_negative" classname="can_probe_duration_negative" time="0.00445956" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=-1" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_help" classname="canopen_observer_help" time="0.00178622" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid_" classname="canopen_observer_invalid_" time="0.00427058" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___unknown" classname="canopen_observer_invalid___unknown" time="0.00391805" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing value argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0" classname="canopen_observer_invalid___interface_unused0" time="0.00421222" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0___interface_unused1" classname="canopen_observer_invalid___interface_unused0___interface_unused1" time="0.00465206" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_0" classname="canopen_observer_invalid___duration_ms_0" time="0.00282413" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="invalid value argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_1___duration_ms_2" classname="canopen_observer_invalid___duration_ms_1___duration_ms_2" time="0.00470729" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_commission_invalid_" classname="canopen_commission_invalid_" time="0.00338482" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-commission --interface IFACE (--nmt stopped|pre-operational | --upload INDEX:SUBINDEX [--retry-once])
+</system-out>
+	</testcase>
+	<testcase name="canopen_commission_invalid___unknown" classname="canopen_commission_invalid___unknown" time="0.00355448" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-commission --interface IFACE (--nmt stopped|pre-operational | --upload INDEX:SUBINDEX [--retry-once])
+</system-out>
+	</testcase>
+	<testcase name="canopen_commission_invalid___interface_vcan0" classname="canopen_commission_invalid___interface_vcan0" time="0.0039507" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-commission --interface IFACE (--nmt stopped|pre-operational | --upload INDEX:SUBINDEX [--retry-once])
+</system-out>
+	</testcase>
+	<testcase name="canopen_commission_invalid___interface_vcan0___nmt_operational" classname="canopen_commission_invalid___interface_vcan0___nmt_operational" time="0.00348155" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-commission --interface IFACE (--nmt stopped|pre-operational | --upload INDEX:SUBINDEX [--retry-once])
+</system-out>
+	</testcase>
+	<testcase name="canopen_commission_invalid___interface_vcan0___upload_6040_00" classname="canopen_commission_invalid___interface_vcan0___upload_6040_00" time="0.00396361" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-commission --interface IFACE (--nmt stopped|pre-operational | --upload INDEX:SUBINDEX [--retry-once])
+</system-out>
+	</testcase>
+	<testcase name="canopen_commission_invalid___interface_vcan0___nmt_stopped___retry_once" classname="canopen_commission_invalid___interface_vcan0___nmt_stopped___retry_once" time="0.00377991" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-commission --interface IFACE (--nmt stopped|pre-operational | --upload INDEX:SUBINDEX [--retry-once])
+</system-out>
+	</testcase>
+	<testcase name="domain_behavior_lock" classname="domain_behavior_lock" time="0.0010096" status="run">
+		<properties/>
+		<system-out>domain_behavior_lock passed
+</system-out>
+	</testcase>
+	<testcase name="canopen_stack_build" classname="canopen_stack_build" time="0.00198596" status="run">
+		<properties/>
+		<system-out>canopen_stack_tests passed
+</system-out>
+	</testcase>
+	<testcase name="canopen_vcan_managed" classname="canopen_vcan_managed" time="0.602584" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: P5.5 observation service=boot raw_can_id=0x00000701 dlc=1 payload=0000000000000000 timestamp_ns=117775592141800 transport=1 boot=1
+INFO: P5.5 observation service=heartbeat raw_can_id=0x00000701 dlc=1 payload=0500000000000000 timestamp_ns=117775603177759 transport=1 boot=1
+INFO: P5.5 observation service=emcy raw_can_id=0x00000081 dlc=8 payload=34125678efcdab90 timestamp_ns=117775614151991 transport=1 boot=1
+INFO: P5.5 observation service=tpdo1 raw_can_id=0x00000181 dlc=8 payload=1122334455667788 timestamp_ns=117775625152253 transport=1 boot=1
+INFO: P5.5 observation service=tpdo2 raw_can_id=0x00000281 dlc=0 payload=0000000000000000 timestamp_ns=117775636126565 transport=1 boot=1
+INFO: P5.5 observation service=tpdo3 raw_can_id=0x00000381 dlc=0 payload=0000000000000000 timestamp_ns=117775647142747 transport=1 boot=1
+INFO: P5.5 observation service=tpdo4 raw_can_id=0x00000481 dlc=0 payload=0000000000000000 timestamp_ns=117775658191520 transport=1 boot=1
+INFO: P5.5 observati...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="socketcan_frame_codec" classname="socketcan_frame_codec" time="0.00280198" status="run">
+		<properties/>
+		<system-out>socketcan_frame_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_socket_lifecycle" classname="socketcan_socket_lifecycle" time="0.00204305" status="run">
+		<properties/>
+		<system-out>SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing vcan interface for bind/filter/frame/metadata checks
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_vcan_managed" classname="socketcan_vcan_managed" time="0.158932" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: managed vcan RX overflow evidence requested_rcvbuf=1024 effective_rcvbuf=2304 frames_attempted=4096 frames_sent=4096 raw_overflow_counter=4093
+INFO: managed vcan CAN error-frame evidence raw_can_id=0x20000044 error_classes=0x00000044 payload=0004123456789abc
+INFO: managed vcan link-down/reopen evidence interface=vcan0 original_ifindex=2 reopened_ifindex=2 receive_operation=poll receive_context="interface=vcan0 socket failure" receive_errno=5 send_operation=write send_context="interface=vcan0" send_errno=100 raw_can_id=0x000006a5 dlc=8 len8_dlc=0 payload=a55adeadbeef4224
+INFO: managed vcan bidirectional frame and filter isolation checks passed
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="canopen_commissioning_gate" classname="canopen_commissioning_gate" time="0.00205419" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_commissioning_vcan_managed" classname="canopen_commissioning_vcan_managed" time="0.11467" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: P5.6 managed-vcan frames=13 prohibited=0
+</system-out>
+	</testcase>
+	<testcase name="linux_platform_integration" classname="linux_platform_integration" time="0.198527" status="run">
+		<properties/>
+		<system-out>linux_platform_integration passed
+</system-out>
+	</testcase>
+</testsuite>

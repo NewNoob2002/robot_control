@@ -1,0 +1,58 @@
+{
+  "status": "Software/target-isolated checks passed; manual feedback accepted by operator; application diagnostics remain open",
+  "tests": {
+    "host": {
+      "tests": "57",
+      "failures": "0",
+      "errors": null,
+      "skipped": "0"
+    },
+    "sanitizer": {
+      "tests": "57",
+      "failures": "0",
+      "errors": null,
+      "skipped": "0"
+    }
+  },
+  "target_vcan": {
+    "exit": 0,
+    "failures": 0,
+    "prohibited": 0,
+    "skipped": false
+  },
+  "static_analysis": {
+    "exit": 0,
+    "errors": 0,
+    "advisories": 41,
+    "checks": "clang-analyzer-*,bugprone-*,performance-*,portability-*",
+    "review": "Existing include-guard, const-return, optional-access preconditions and adjacent-parameter advisories; intentional flushed terminal progress at <=1Hz; initial no-checks invocation retained"
+  },
+  "cross": {
+    "elf_audit": "Both aarch64 application and vcan tests passed",
+    "sysroot": "validated against external lock",
+    "application_sha256": "74206353ffd3f0c8b93547f2b88350d9edcf50862839015e348b708896deded0"
+  },
+  "hil": {
+    "executor": "RK3588 application",
+    "jcan": "silent capture only",
+    "candump": "independent target capture",
+    "manifest": "hil_prepared/manifest.json",
+    "authorized": true,
+    "wrapper_staging": "remote wrapper, manifest and authorization=false hash-verified",
+    "physical_tx_during_software_preparation": 0,
+    "physical_run": "hil_prepared/postflight_verification.json",
+    "physical_tx_observed": 270,
+    "accepted": false,
+    "latest_physical_run": "hil_trial_2/postflight_verification.json",
+    "latest_collection_completed": true,
+    "manual_axis_signoff_pending": false,
+    "physical_feedback_association_confirmed": true,
+    "minor_readings_and_diagnostics_open": false,
+    "manual_feedback_accepted": true,
+    "manual_feedback_polarity_confirmed": true,
+    "minor_other_half_readings_accepted": true,
+    "application_diagnostics_open": true
+  },
+  "coordinator_offline_check": "All authorized payload types accepted; enable, target and remapping rejected; no JCAN send command",
+  "preparation_completed": "2026-09-11"
+}

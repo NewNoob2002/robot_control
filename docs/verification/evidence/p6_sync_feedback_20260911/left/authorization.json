@@ -1,0 +1,17 @@
+{
+  "authorized": true,
+  "stimulus": "left",
+  "elf_sha256": "3885a78bda2d41c6c05e0aaac01d2fb65644ea89f3528d3dde2b4c5311ef437a",
+  "operator_ready": true,
+  "user_confirmation": "ok按总结的修复路线执行",
+  "date": "2026-09-11",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--target-once",
+    "1:5",
+    "--duration-ms",
+    "3000"
+  ]
+}

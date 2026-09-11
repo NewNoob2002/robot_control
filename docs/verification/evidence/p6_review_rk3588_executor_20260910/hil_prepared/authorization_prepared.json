@@ -1,0 +1,8 @@
+{
+  "authorized": false,
+  "stimulus": "manual_tpdo",
+  "elf_sha256": "74206353ffd3f0c8b93547f2b88350d9edcf50862839015e348b708896deded0",
+  "operator_ready": false,
+  "user_confirmation": "",
+  "note": "Prepared only; changed sender and temporary heartbeat writes require authorization of this manifest"
+}

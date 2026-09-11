@@ -1,0 +1,7 @@
+{
+  "syntax": "pass",
+  "wrong_channel_or_nonzero": "rejected",
+  "fault_reset": "rejected",
+  "repeat_nonzero": "rejected",
+  "physical_execution": false
+}

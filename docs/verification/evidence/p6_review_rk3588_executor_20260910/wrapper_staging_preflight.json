@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-11",
+  "target": "robot-dev",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "destination": "/tmp/robot-control-qualifications/review-rk3588-74206353ffd3",
+  "artifacts": {
+    "remote_trial.py": "acc6492d1e74303f57eeac9fefb2d3c4be6200031fc5203824e01d0d58db2b24",
+    "authorization.json": "cfa592d6421a15026d219998147bf5ee9655d01b3e3c55f3f188f663d6e5d150",
+    "manifest.json": "8619b8e411b09b01523a85e75a3b522f8fab48e262be8671ebc9c5bafda94b21"
+  },
+  "operation": "Stage prepared wrappers only; authorization false; no execution or physical TX",
+  "authorization": "User requested RK3588 execution architecture and continuation",
+  "recovery": "No process started, production untouched"
+}

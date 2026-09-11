@@ -1,0 +1,235 @@
+{
+  "date": "2026-09-11",
+  "removed": [
+    {
+      "path": "out/build-inputs",
+      "bytes": 1409770762,
+      "reason": "verified source snapshot archive"
+    },
+    {
+      "path": "out/p5_1-source-snapshot",
+      "bytes": 90687870,
+      "reason": "verified source snapshot archive"
+    },
+    {
+      "path": "out/build/p67-closure-sanitizer",
+      "bytes": 105034107,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p67-closure-debug",
+      "bytes": 37938970,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p66-disable-voltage-sanitizer",
+      "bytes": 102799210,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p63-host-debug",
+      "bytes": 36407828,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p64-sanitizer",
+      "bytes": 100800038,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/review-static-make",
+      "bytes": 31252630,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p65-sanitizer",
+      "bytes": 102776392,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p66-shutdown-10s-sanitizer",
+      "bytes": 102749255,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p56-regression",
+      "bytes": 34177113,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p67-release_guard",
+      "bytes": 199456,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/review-static",
+      "bytes": 661607,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p67-mutual_exclusion",
+      "bytes": 199498,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p67-default-debug",
+      "bytes": 24896706,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p65-host-debug",
+      "bytes": 36799940,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/p66-shutdown-10s-host-debug",
+      "bytes": 36760150,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/review-diagnostics",
+      "bytes": 24575795,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p65-settle-debug",
+      "bytes": 22701649,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p66-online-debug",
+      "bytes": 22831493,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/p66-manual-tpdo-debug",
+      "bytes": 23267772,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/review-fixes-release",
+      "bytes": 1477881,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p66-nmt-stop-debug",
+      "bytes": 22854355,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/p67-qualification-debug",
+      "bytes": 22831278,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p65-debug",
+      "bytes": 22672611,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p66-shutdown-10s-debug",
+      "bytes": 22818573,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p66-disable-voltage-debug",
+      "bytes": 22810307,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/review-fixes-debug",
+      "bytes": 15242024,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/p66-communication-debug",
+      "bytes": 22940294,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p64-180-debug",
+      "bytes": 12724109,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/review-online",
+      "bytes": 24639448,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p65-three-second-debug",
+      "bytes": 22704697,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p66-disable-voltage-fix-debug",
+      "bytes": 22834371,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p66-shutdown-debug",
+      "bytes": 22797801,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/review-rk3588-executor",
+      "bytes": 18339856,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p64-debug",
+      "bytes": 22553815,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/review-fixes-qualification",
+      "bytes": 23294209,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/review-hil-round1",
+      "bytes": 27827693,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/rk3588-p63-debug",
+      "bytes": 22333321,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "out/build/cross/p66-motion-evidence-debug",
+      "bytes": 22963634,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "build/p56-host-debug",
+      "bytes": 31471876,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "build/p57-host-debug",
+      "bytes": 33184085,
+      "reason": "superseded generated CMake build"
+    },
+    {
+      "path": "build/p57-sanitize",
+      "bytes": 77143181,
+      "reason": "superseded generated CMake build"
+    }
+  ],
+  "removed_bytes": 2885747660,
+  "source_archive": "out/checkpoints/source-snapshots-20260911.tar.gz",
+  "source_archive_bytes": 78270456,
+  "source_archive_sha256": "b39b7acee56d9e53c54b2015ca04bb10f727c0b96f27b9fa30533a6c0e4356da",
+  "source_files_verified": 21045,
+  "python_cache_directories_removed": 3,
+  "preserved": [
+    "all raw CAN evidence",
+    "sysroots",
+    "current qualification/default builds",
+    "four recent cross artifacts",
+    "out/p67-release-review checkout",
+    "out/staging",
+    "one-shot markers and approval blockers"
+  ]
+}

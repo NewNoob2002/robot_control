@@ -46,8 +46,22 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   manual speed-first TPDO feedback test on 2026-09-10, including small
   left-speed excursions; vibration is a proposed cause, not an established
   hardware fact. Watchdog timing/recovery and the remaining physical loss
-  tests remain open. Current source passes 53 qualification tests and 53
-  sanitizer tests; default Debug/Release and P5.6 isolation also pass.
+  tests remain open. On 2026-09-11 the synchronous packed-target route restored
+  TPDO speed feedback. Single-RPDO left and right +5 rpm / 3 s trials passed;
+  the operator confirmed selected-wheel motion, normal stopping and no abnormal
+  sound. Original RPDO mappings were restored after each run. Current host and
+  sanitizer qualification suites pass 60/60; cross/ELF and target isolated-vcan
+  checks pass. Revised synchronous stop/loss physical tests have not started:
+  two execution-approval requests timed out before process creation. See
+  docs/verification/P6_SYNC_PACKED_PDO_REPAIR.md for exact scope and evidence.
+  Default Debug/Release and prior P5.6 isolation checks also pass.
+  See docs/verification/P6_REVIEW_SAFETY_IO_FIXES.md for the restricted standalone
+  activation API, live TPDO contract checks, receive/logging fixes and validation.
+  Diagnostic artifacts have been staged on RK3588; non-actuating target checks
+  pass, but physical requalification remains incomplete. The manual feedback
+  executor now runs in the RK3588 application with status-first mapping retained;
+  JCAN is a silent observer for the primary HIL flow. See
+  docs/verification/P6_REVIEW_HIL.md for the prepared run and aborted history.
   Use docs/verification/PHASE6_CHECKPOINT.md for current disposition and
   docs/verification/evidence/README.md to find direct or archived evidence.
   Keep the qualification path Debug-only/default-OFF. No production daemon,
@@ -111,6 +125,15 @@ Linux kernel APIs
 - Configuration is injected at startup and validated before device activation; deployment values are not scattered constants.
 - Device-tree/pinmux configuration belongs to the kernel/boot configuration, never this application.
 
+## Online drive attachment
+
+A drive may already be powered before RK3588 starts. Do not require historical
+boot-up or ask the operator to power-cycle merely to attach. Use current online
+SDO/heartbeat/TPDO evidence and the complete zero/mode/fault preflight. A later
+actual boot-up still invalidates the active generation. Zero/first-motion CLI
+uses the bounded online heartbeat preparation; see
+`docs/verification/P6_REVIEW_ONLINE_STARTUP.md`.
+
 ## Safety Invariants
 
 - Startup, source handover, recovery, stale input, missing feedback, CAN loss, drive fault, and shutdown produce zero motion before any enable/re-enable action.
@@ -155,6 +178,8 @@ Linux kernel APIs
 - Add or update tests before changing safety/arbitration semantics.
 - Required layers: unit tests, `vcan` integration, target hardware tests, fault injection, and long-duration soak tests.
 - Hardware motion tests begin unloaded/raised, with explicit zero-target preconditions and a physical emergency-stop path.
+- Primary HIL SDO/NMT/control sequences run in the RK3588 application. Use JCAN mainly for passive capture and separately authorized small validation sends; use target candump as a second capture. Do not substitute a JCAN/Python sequencer for the application under test.
+- Coordinate manual wheel phases through operator-visible application timing or an explicitly agreed manual sequence observed with candump. Do not rely on exact chat-message timing; confirm the actual wheel order before physical-axis sign-off.
 - Every implementation phase must leave a reviewable, testable state and meet the acceptance criteria in the project plan.
 - Before claiming completion, run the narrow changed tests, then applicable host build/tests, cross build, static analysis, and target smoke/HIL checks. Report any unavailable validation explicitly.
 - Never encode a manufacturer-document contradiction as a safety fact; add a hardware validation record.

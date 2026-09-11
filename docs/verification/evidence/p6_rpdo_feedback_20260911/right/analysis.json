@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "level": "hil",
+  "command": "python3 docs/verification/evidence/p6_rpdo_feedback_20260911/right/local_trial.py",
+  "attempts": 1,
+  "protocol_and_cleanup_passed": true,
+  "frames": 292,
+  "tx_frames": 101,
+  "sdo_transactions": 96,
+  "capture_pairs_equal": true,
+  "command_to_zero_ms": 3000.994,
+  "running_samples": [
+    {
+      "samples": [
+        {
+          "sub": 1,
+          "value": 0,
+          "bytes": "00 00 00 00",
+          "request_ms": 101.023,
+          "response_ms": 101.322,
+          "request_line": 130,
+          "response_line": 131,
+          "timestamp": 1789103617.445084
+        },
+        {
+          "sub": 2,
+          "value": 51,
+          "bytes": "33 00 00 00",
+          "request_ms": 103.022,
+          "response_ms": 103.314,
+          "request_line": 132,
+          "response_line": 133,
+          "timestamp": 1789103617.447076
+        },
+        {
+          "sub": 3,
+          "value": 3342336,
+          "bytes": "00 00 33 00",
+          "request_ms": 105.022,
+          "response_ms": 105.251,
+          "request_line": 134,
+          "response_line": 135,
+          "timestamp": 1789103617.449013
+        }
+      ],
+      "independent_raw": [
+        0,
+        51
+      ],
+      "packed_sdo_raw": [
+        0,
+        51
+      ],
+      "nearest_tpdo_raw": [
+        0,
+        51
+      ],
+      "tpdo_line": 129,
+      "tpdo_offset_ms": -13.473
+    },
+    {
+      "samples": [
+        {
+          "sub": 1,
+          "value": 0,
+          "bytes": "00 00 00 00",
+          "request_ms": 601.026,
+          "response_ms": 601.307,
+          "request_line": 148,
+          "response_line": 149,
+          "timestamp": 1789103617.945069
+        },
+        {
+          "sub": 2,
+          "value": 46,
+          "bytes": "2e 00 00 00",
+          "request_ms": 603.024,
+          "response_ms": 603.301,
+          "request_line": 150,
+          "response_line": 151,
+          "timestamp": 1789103617.947063
+        },
+        {
+          "sub": 3,
+          "value": 3014656,
+          "bytes": "00 00 2e 00",
+          "request_ms": 605.031,
+          "response_ms": 605.298,
+          "request_line": 152,
+          "response_line": 153,
+          "timestamp": 1789103617.94906
+        }
+      ],
+      "independent_raw": [
+        0,
+        46
+      ],
+      "packed_sdo_raw": [
+        0,
+        46
+      ],
+      "nearest_tpdo_raw": [
+        0,
+        45
+      ],
+      "tpdo_line": 147,
+      "tpdo_offset_ms": -14.037
+    },
+    {
+      "samples": [
+        {
+          "sub": 1,
+          "value": 0,
+          "bytes": "00 00 00 00",
+          "request_ms": 1109.03,
+          "response_ms": 1109.379,
+          "request_line": 167,
+          "response_line": 168,
+          "timestamp": 1789103618.453141
+        },
+        {
+          "sub": 2,
+          "value": 46,
+          "bytes": "2e 00 00 00",
+          "request_ms": 1111.027,
+          "response_ms": 1111.372,
+          "request_line": 169,
+          "response_line": 170,
+          "timestamp": 1789103618.455134
+        },
+        {
+          "sub": 3,
+          "value": 3014656,
+          "bytes": "00 00 2e 00",
+          "request_ms": 1113.024,
+          "response_ms": 1113.365,
+          "request_line": 171,
+          "response_line": 172,
+          "timestamp": 1789103618.457127
+        }
+      ],
+      "independent_raw": [
+        0,
+        46
+      ],
+      "packed_sdo_raw": [
+        0,
+        46
+      ],
+      "nearest_tpdo_raw": [
+        0,
+        51
+      ],
+      "tpdo_line": 165,
+      "tpdo_offset_ms": -22.618
+    },
+    {
+      "samples": [
+        {
+          "sub": 1,
+          "value": 0,
+          "bytes": "00 00 00 00",
+          "request_ms": 1619.03,
+          "response_ms": 1619.296,
+          "request_line": 185,
+          "response_line": 186,
+          "timestamp": 1789103618.963058
+        },
+        {
+          "sub": 2,
+          "value": 51,
+          "bytes": "33 00 00 00",
+          "request_ms": 1621.026,
+          "response_ms": 1621.287,
+          "request_line": 187,
+          "response_line": 188,
+          "timestamp": 1789103618.965049
+        },
+        {
+          "sub": 3,
+          "value": 3342336,
+          "bytes": "00 00 33 00",
+          "request_ms": 1623.023,
+          "response_ms": 1623.28,
+          "request_line": 189,
+          "response_line": 190,
+          "timestamp": 1789103618.967042
+        }
+      ],
+      "independent_raw": [
+        0,
+        51
+      ],
+      "packed_sdo_raw": [
+        0,
+        51
+      ],
+      "nearest_tpdo_raw": [
+        0,
+        53
+      ],
+      "tpdo_line": 191,
+      "tpdo_offset_ms": 16.905
+    },
+    {
+      "samples": [
+        {
+          "sub": 1,
+          "value": 0,
+          "bytes": "00 00 00 00",
+          "request_ms": 2128.024,
+          "response_ms": 2128.321,
+          "request_line": 203,
+          "response_line": 204,
+          "timestamp": 1789103619.472083
+        },
+        {
+          "sub": 2,
+          "value": 49,
+          "bytes": "31 00 00 00",
+          "request_ms": 2130.024,
+          "response_ms": 2130.313,
+          "request_line": 205,
+          "response_line": 206,
+          "timestamp": 1789103619.474075
+        },
+        {
+          "sub": 3,
+          "value": 3211264,
+          "bytes": "00 00 31 00",
+          "request_ms": 2132.026,
+          "response_ms": 2132.31,
+          "request_line": 207,
+          "response_line": 208,
+          "timestamp": 1789103619.476072
+        }
+      ],
+      "independent_raw": [
+        0,
+        49
+      ],
+      "packed_sdo_raw": [
+        0,
+        49
+      ],
+      "nearest_tpdo_raw": [
+        0,
+        50
+      ],
+      "tpdo_line": 209,
+      "tpdo_offset_ms": 7.358
+    },
+    {
+      "samples": [
+        {
+          "sub": 1,
+          "value": 0,
+          "bytes": "00 00 00 00",
+          "request_ms": 2638.034,
+          "response_ms": 2638.28,
+          "request_line": 221,
+          "response_line": 222,
+          "timestamp": 1789103619.982042
+        },
+        {
+          "sub": 2,
+          "value": 46,
+          "bytes": "2e 00 00 00",
+          "request_ms": 2639.51,
+          "response_ms": 2639.775,
+          "request_line": 224,
+          "response_line": 225,
+          "timestamp": 1789103619.983537
+        },
+        {
+          "sub": 3,
+          "value": 3080192,
+          "bytes": "00 00 2f 00",
+          "request_ms": 2641.028,
+          "response_ms": 2641.273,
+          "request_line": 226,
+          "response_line": 227,
+          "timestamp": 1789103619.985035
+        }
+      ],
+      "independent_raw": [
+        0,
+        46
+      ],
+      "packed_sdo_raw": [
+        0,
+        47
+      ],
+      "nearest_tpdo_raw": [
+        0,
+        46
+      ],
+      "tpdo_line": 223,
+      "tpdo_offset_ms": -2.12
+    }
+  ],
+  "can_errors_drops": 0,
+  "final_targets_speeds_fault_heartbeat_zero": true,
+  "application_mode_restored": 1,
+  "physical_observation": {
+    "confirmed": true,
+    "right_rotated": true,
+    "normal_stop": true,
+    "left_stationary": true,
+    "no_abnormal_sound": true,
+    "user_confirmation": "\u662f\uff0c\u53f3\u8f6e\u8f6c\u52a8\u4e14\u505c\u6b62\u6b63\u5e38\uff0c\u5de6\u8f6e\u4e0d\u52a8\uff0c\u65e0\u5f02\u5e38\u58f0\u97f3"
+  },
+  "timing_note": "Sequential SDO samples and nearest TPDO are not simultaneous."
+}

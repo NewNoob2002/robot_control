@@ -1,0 +1,5 @@
+Before lifecycle fix, managed-vcan exit 1:
+STARTUP-NO-SEND-ATTEMPT failed
+DEADLINE-EVENT diagnostic count failed
+REOPEN-NO-SEND-ATTEMPT failed
+Frame deferral and subsequent single-consumption checks passed.

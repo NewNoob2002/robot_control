@@ -1,0 +1,4 @@
+sysroot=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204
+loader=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204/lib/ld-linux-aarch64.so.1
+os=Ubuntu 22.04.5 LTS 22.04
+trust_anchor=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/sysroots/rk3588-ubuntu2204.lock.json

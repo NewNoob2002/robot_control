@@ -1,0 +1,17 @@
+{
+  "authorized": true,
+  "stimulus": "shutdown",
+  "elf_sha256": "fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205",
+  "operator_ready": true,
+  "user_confirmation": "ok按总结的修复路线执行; 左右轮RPDO运行和正常停止均经用户确认",
+  "date": "2026-09-11",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--shutdown-once",
+    "2:5",
+    "--duration-ms",
+    "1000"
+  ]
+}

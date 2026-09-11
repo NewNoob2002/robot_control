@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "operation": "bus-write",
+  "approved": true,
+  "authorization": "好的，可以针对这个问题和现在判断的原因进行具体测试勘测一下",
+  "readiness_basis": "continuation of current operator-confirmed raised-wheel HIL session",
+  "target": {
+    "board": "RK3588 robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+    "interface": "can0",
+    "node": 1,
+    "adapter_serial": "207F346D5650"
+  },
+  "artifact_sha256": "401305bd8b2087f8acf461c1a12de9dcdac4982902e93207c1f338368ce727f8",
+  "stimulus": "left subindex1 +5 rpm once, 3000 ms; asynchronous0x200F=0 restored to1; existing zero/enable/cleanup; at most18 additional0x606C:01/02/03 uploads",
+  "limits": {
+    "physical_frames": "standard Classical CAN, same reviewed SDO/NMT gate",
+    "capture_ms": 40000,
+    "capture_frames": 10000,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "sample_upload_timeout_ms": 20
+  },
+  "recovery_plan": "coordinator abort closes control pipe; application SIGTERM and bounded zero/Shutdown/Pre-operational cleanup; physical power cut if cleanup uncertain",
+  "raised_wheels": true,
+  "estop_available": true,
+  "jcan": "silent observer only"
+}

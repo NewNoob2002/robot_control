@@ -1,0 +1,9 @@
+{
+  "authorized": true,
+  "stimulus": "manual_tpdo",
+  "elf_sha256": "74206353ffd3f0c8b93547f2b88350d9edcf50862839015e348b708896deded0",
+  "operator_ready": true,
+  "user_confirmation": "\u6388\u6743\u5e76\u786e\u8ba4",
+  "note": "Authorized RK3588 application sender, JCAN silent and candump captures, exact 270-frame manifest including temporary heartbeat500ms and restoration0; operator confirms raised wheels/emergency stop/visible terminal",
+  "timestamp_utc": "2026-09-11T01:58:12.735507+00:00"
+}

@@ -1,0 +1,82 @@
+{
+  "base": "/tmp/robot-control-qualifications/sync-remainder-fa1944fdba2d",
+  "files": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/sync-remainder/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/sync-remainder/review_qualification_vcan_tests",
+      "sha256": "7b366637613e1a3637b2a14d4e73d29c3ec68fcb647c06232f33870ae3a2aa4d"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    },
+    "authorization_watchdog.json": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/watchdog/authorization.json",
+      "sha256": "d826ddd0c3c696b14c4f7b33edccfe698d6455d1a58b1cbf6d0749a603f9c3fd"
+    },
+    "remote_watchdog.py": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/watchdog/remote_trial.py",
+      "sha256": "f00cc033a324963788988783cd6883a54563c53b42a984cd4a16d54ea0411687"
+    },
+    "authorization_heartbeat_loss.json": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/heartbeat_loss/authorization.json",
+      "sha256": "2618c43297d768e744b14681b2632e398411d2e00120cbe18ccd7f331b61a227"
+    },
+    "remote_heartbeat_loss.py": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/heartbeat_loss/remote_trial.py",
+      "sha256": "2d7624ac16c637f840a6865373491f6b73a081d4992f5c8e683175f547d6ac51"
+    },
+    "authorization_tpdo_loss.json": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/tpdo_loss/authorization.json",
+      "sha256": "8575b0926f6df02ac576f1731e7cc2951142feee5e2c5cc7fa5d934848879ea9"
+    },
+    "remote_tpdo_loss.py": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/tpdo_loss/remote_trial.py",
+      "sha256": "35d23209c7d5781ffded21461e039400a1a37511db6ce6c254f6d8488bb251b2"
+    },
+    "authorization_shutdown.json": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/shutdown/authorization.json",
+      "sha256": "317d0cc8e8cc771b1bb9f2197158dd967084630d38055512c3cb1cb301c16ec0"
+    },
+    "remote_shutdown.py": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/shutdown/remote_trial.py",
+      "sha256": "296e2a111f1e19710358d8753710ca524a2e7f0ec4b9068fee678eeb6ac099d1"
+    },
+    "authorization_disable_voltage.json": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/disable_voltage/authorization.json",
+      "sha256": "dc8922786b35abfb207b1c042775a50b87bceaa3770512880b633cc7edb4c60b"
+    },
+    "remote_disable_voltage.py": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/disable_voltage/remote_trial.py",
+      "sha256": "6d413586173a62e2232a553c797badde54c3a501f670d115c22dda588faed5f2"
+    },
+    "authorization_quick_stop.json": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/quick_stop/authorization.json",
+      "sha256": "2f75662884cd12eacae8472717e38b13aeeb1dc0b158eab6423f7bdc692240c7"
+    },
+    "remote_quick_stop.py": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/quick_stop/remote_trial.py",
+      "sha256": "e20ae1f6a299768ec98b86d5cb7fe5f94ff6bad9d7e76c99fecf73a609fd63c7"
+    },
+    "authorization_nmt_stop.json": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/nmt_stop/authorization.json",
+      "sha256": "b0a165f453cbb330ccba4953ab965b00233f2aa11d5cc3d7a8840841c5d5c67b"
+    },
+    "remote_nmt_stop.py": {
+      "source": "docs/verification/evidence/p6_sync_remainder_20260911/nmt_stop/remote_trial.py",
+      "sha256": "d0008b1f28271dcbed2f52a55b8f6bf9719c89a3467b3464f3c92fa01d67e711"
+    }
+  },
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "8a81ed9cbcfbc42f3796f06763ddb1246e2c24a8ab52825c637837f750758ef1",
+    "communication/canopen/qualification.hpp": "8c75a76fd8e6a02110a06f63f635e328f3c56b922517450b1897e4a61dd8cd07",
+    "communication/canopen/qualification_gate.c": "96ed8f1cd16039b3d41854c02876103cfef8f1ccf9be3cad94ec586f6a57770e",
+    "communication/canopen/qualification_gate.h": "6f412f30173ba479dd6553329a210d5507e3faa6561a313e9ba858b1fb0dfe2e",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "c24637c9e53dec0e41a3d3c60540bc11fe13d47da3ff44bc07d41445534afdc5",
+    "tests/unit/canopen_qualification_gate_tests.cpp": "970d4166e312fb5aacb740daed4220293127e05fb19105cbac61bba6999de729",
+    "tools/zlac_qualification/main.cpp": "958450fe14aaf058914b56c275514111ddbe461c2179c2435e5e745dae0ba22e"
+  }
+}

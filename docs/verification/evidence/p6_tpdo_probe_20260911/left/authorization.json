@@ -1,0 +1,17 @@
+{
+  "authorized": true,
+  "stimulus": "left",
+  "elf_sha256": "401305bd8b2087f8acf461c1a12de9dcdac4982902e93207c1f338368ce727f8",
+  "operator_ready": true,
+  "user_confirmation": "好的，可以针对这个问题和现在判断的原因进行具体测试勘测一下",
+  "date": "2026-09-11",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--target-once",
+    "1:5",
+    "--duration-ms",
+    "3000"
+  ]
+}

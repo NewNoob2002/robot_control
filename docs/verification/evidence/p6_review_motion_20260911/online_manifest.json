@@ -1,0 +1,81 @@
+{
+  "status": "prepared_not_executed",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "interface": "can0",
+  "bitrate": 500000,
+  "node": 1,
+  "elf_sha256": "ef9837d751f9038ddadfa76b42107a526b740e6d65f84f0aa8e468ccd236fff0",
+  "executor": "/tmp/robot-control-qualifications/review-online-ef9837d751f9/robot-control-zlac-qualification",
+  "jcan_serial": "207F346D5650",
+  "jcan_role": "silent capture only",
+  "rounds": [
+    {
+      "name": "zero",
+      "args": [
+        "--interface",
+        "can0",
+        "--zero-sequence"
+      ]
+    },
+    {
+      "name": "left",
+      "args": [
+        "--interface",
+        "can0",
+        "--target-once",
+        "1:5",
+        "--duration-ms",
+        "3000"
+      ]
+    },
+    {
+      "name": "right",
+      "args": [
+        "--interface",
+        "can0",
+        "--target-once",
+        "2:5",
+        "--duration-ms",
+        "3000"
+      ]
+    }
+  ],
+  "physical_flags": {
+    "extended": false,
+    "fd": false,
+    "brs": false,
+    "rtr": false
+  },
+  "boot_requirement": "none; later actual boot invalidates the active generation",
+  "heartbeat_preparation": "When heartbeat absent: application uploads1017=0, downloads500ms once and verifies readback/new heartbeat; restores0 once on exit. Existing fresh heartbeat requires no write.",
+  "limits": {
+    "attempts_per_round": 1,
+    "nonzero_downloads_per_motion_round": 1,
+    "nonzero_interval_ms": 3000,
+    "sdo_timeout_ms": 500,
+    "transition_timeout_ms": 2000,
+    "boot_wait_s": 0,
+    "capture_duration_limit_s": 40,
+    "capture_frame_limit": 10000,
+    "automatic_retries": 0,
+    "online_observation_s": 1
+  },
+  "stop_conditions": [
+    "unexpected diagnostic including the two previously excepted messages",
+    "SDO abort/timeout",
+    "CAN error or EMCY",
+    "missing/stale feedback",
+    "capture failure",
+    "wrong wheel or abnormal mechanical behavior",
+    "unverified cleanup"
+  ],
+  "physical_readiness": "pending current operator confirmation; no power cycle required",
+  "current_can_readonly_preflight": {
+    "state": "ERROR-ACTIVE",
+    "bitrate": 500000,
+    "tx_packets": 1046,
+    "errors": 0,
+    "drops": 0
+  },
+  "reason": "Online application-owned attach; no power cycle, no boot helper."
+}

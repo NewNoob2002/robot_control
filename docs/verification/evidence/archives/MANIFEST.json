@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "date": "2026-09-10",
+  "date": "2026-09-11",
   "archives": [
     {
       "path": "archives/p6_4-history.tar.gz",
@@ -2948,6 +2948,233 @@
       ],
       "sha256": "dff26c01231538e39e914c1263f53e3fdd80f18efbe9a3c68200d8ead2f979c0",
       "archive_bytes": 16748
+    },
+    {
+      "path": "archives/p6_review-software-20260911.tar.gz",
+      "directories": [
+        "p6_review_20260910_safety_io",
+        "p6_review_diagnostics_20260911",
+        "p6_review_online_20260911",
+        "p6_review_rk3588_executor_20260910",
+        "p6_rpdo_feedback_20260911",
+        "p6_sync_feedback_20260911",
+        "p6_sync_remainder_20260911",
+        "p6_tpdo_probe_20260911"
+      ],
+      "files": [
+        {
+          "path": "p6_review_20260910_safety_io/clang-tidy-ninja-failed.log",
+          "bytes": 27726,
+          "sha256": "e04fd1750a36510f1ab2f07d4510808831d4d3ef31eb6bda3bb6dd0aa7c50508"
+        },
+        {
+          "path": "p6_review_20260910_safety_io/clang-tidy-ninja-scan-off-failed.log",
+          "bytes": 27726,
+          "sha256": "e04fd1750a36510f1ab2f07d4510808831d4d3ef31eb6bda3bb6dd0aa7c50508"
+        },
+        {
+          "path": "p6_review_20260910_safety_io/clang-tidy-no-checks-failed.log",
+          "bytes": 10900,
+          "sha256": "d23e6d6458adb3e3c922db252272d194cae1255c2b34586502c60cb50192877f"
+        },
+        {
+          "path": "p6_review_20260910_safety_io/clang-tidy.log",
+          "bytes": 25695,
+          "sha256": "c27674851c09afcf5f9ae661632ae6a0f43d2c9978cc52964f3ead2b31ba7f26"
+        },
+        {
+          "path": "p6_review_20260910_safety_io/review-fixes-sanitizer.xml",
+          "bytes": 38774,
+          "sha256": "9b197cda0a646eabd4f837599196d46a10c2fc243a7f1a56126341b0baca310b"
+        },
+        {
+          "path": "p6_review_20260910_safety_io/review-fixes.xml",
+          "bytes": 38816,
+          "sha256": "504df7f8bdb2d83a3b9358f8c6d8a88d259fcb476234b0e821f8a4b9edf56cef"
+        },
+        {
+          "path": "p6_review_diagnostics_20260911/clang_tidy.log",
+          "bytes": 5478,
+          "sha256": "00bc8a3d3a37c4174367a3b7544d8a73acc378a824ce5657ad78e3c82ddb4a1b"
+        },
+        {
+          "path": "p6_review_diagnostics_20260911/review-fixes-sanitizer.log",
+          "bytes": 92041,
+          "sha256": "bda095ed34801d65da8ee335bf9be7c5fe4e2ee8cfc2c286ae0c54b65415652c"
+        },
+        {
+          "path": "p6_review_diagnostics_20260911/review-fixes.log",
+          "bytes": 90901,
+          "sha256": "d51e77bc23ef67f0cb33eff3c08077125169353faba06b79c9b14981490774ba"
+        },
+        {
+          "path": "p6_review_diagnostics_20260911/target_vcan.log",
+          "bytes": 9393,
+          "sha256": "1a82d03e2f8e571f781d00f5fc6b8b3c4cc43de7d9660e45c424b204b4ad7bc6"
+        },
+        {
+          "path": "p6_review_online_20260911/clang_tidy.log",
+          "bytes": 20663,
+          "sha256": "a8182b6f1e917b3f0c6b45cc6216dfcd449f91e6e6b379e28bdf044ede9c2c28"
+        },
+        {
+          "path": "p6_review_online_20260911/review-fixes-sanitizer.log",
+          "bytes": 92043,
+          "sha256": "1132580b8604c4f75857b5ec59a9c116bc678d3ffd1e069c60fc8d392815f96b"
+        },
+        {
+          "path": "p6_review_online_20260911/review-fixes.log",
+          "bytes": 90903,
+          "sha256": "4b7c09db233474e8f1218d88d5f2063076140832600373a690056f6860abd872"
+        },
+        {
+          "path": "p6_review_online_20260911/target_vcan.log",
+          "bytes": 7859,
+          "sha256": "416f5e48044096a1a4b6699e5d2b9e6afc396f4018a82fa0b74ce382b31a9c04"
+        },
+        {
+          "path": "p6_review_rk3588_executor_20260910/clang_tidy.log",
+          "bytes": 19354,
+          "sha256": "8363d6211256f00cc1997835215070939ee00ac280002c4f9d836bc30ae73c39"
+        },
+        {
+          "path": "p6_review_rk3588_executor_20260910/clang_tidy_no_checks.log",
+          "bytes": 10900,
+          "sha256": "d23e6d6458adb3e3c922db252272d194cae1255c2b34586502c60cb50192877f"
+        },
+        {
+          "path": "p6_review_rk3588_executor_20260910/cross.log",
+          "bytes": 6442,
+          "sha256": "05d1b01374b066375ced20d0a77b7b91dbfab29cc6595b5c2f33fa9b72e7365d"
+        },
+        {
+          "path": "p6_review_rk3588_executor_20260910/host.xml",
+          "bytes": 38814,
+          "sha256": "d876b6a8160c68a4bc34c8f07617a397ead011f86be79c02a28496571a526596"
+        },
+        {
+          "path": "p6_review_rk3588_executor_20260910/sanitizer.xml",
+          "bytes": 38769,
+          "sha256": "f6a7a6a0c20ddbf831cb60cbd0a18d7420b6fd7f0059f363b6356df27609038e"
+        },
+        {
+          "path": "p6_review_rk3588_executor_20260910/target_vcan.log",
+          "bytes": 7489,
+          "sha256": "68bf11e137517928f8cd3de5d272a480bbeb263ba6359288be6224356f53d37f"
+        },
+        {
+          "path": "p6_rpdo_feedback_20260911/cross.log",
+          "bytes": 9589,
+          "sha256": "b3dc20383db1d7f758c8d6bb044ef37651383103f092671b9f80ba59d79da65d"
+        },
+        {
+          "path": "p6_rpdo_feedback_20260911/host.log",
+          "bytes": 12499,
+          "sha256": "e40f3a484f23eba287d61e784a352c9109eb68ac8953bfb5109a6c7a7910312f"
+        },
+        {
+          "path": "p6_rpdo_feedback_20260911/sanitizer.log",
+          "bytes": 12519,
+          "sha256": "1de245d286b6ff50d2109dbcdbc74fc7aaf98ddaa9a4c2c08fc00d35bd3ab170"
+        },
+        {
+          "path": "p6_rpdo_feedback_20260911/static.log",
+          "bytes": 10592,
+          "sha256": "42b2d03abf127282797aaf12724ab9cbda73aade8ef4fd418a46288e6686b271"
+        },
+        {
+          "path": "p6_rpdo_feedback_20260911/target_vcan.log",
+          "bytes": 7390,
+          "sha256": "9060d7f526ae8755872d64ec6c9f24d7eb16f0458ac6af81cb6723bcd12b081f"
+        },
+        {
+          "path": "p6_sync_feedback_20260911/docs-host-sync.log",
+          "bytes": 11587,
+          "sha256": "8a856ea60f226c71a7e3332bb395b8168660a04fff05c7f0ebea235b3c7cb3e8"
+        },
+        {
+          "path": "p6_sync_feedback_20260911/docs-sanitizer-sync.log",
+          "bytes": 11607,
+          "sha256": "1cd0e776a1cc21be2e4fbd637b2a178fb9678de2e4986929f56e609cce6fb6dd"
+        },
+        {
+          "path": "p6_sync_feedback_20260911/host_initial_failure.log",
+          "bytes": 9379,
+          "sha256": "5edba38f3c30b144d7a8ce2d040a67195014b32cc73cfc80d194600b0a0b34a3"
+        },
+        {
+          "path": "p6_sync_feedback_20260911/host_pass.log",
+          "bytes": 90912,
+          "sha256": "616ced9df400d4dfb18f3fbed2653b72fed3aeece0716730a5c6526de5f1cbd8"
+        },
+        {
+          "path": "p6_sync_feedback_20260911/sanitizer_pass.log",
+          "bytes": 92052,
+          "sha256": "2cb62f0fa15189c7a60a89dc82b87e8056037b48780649cc312c0925f60396c6"
+        },
+        {
+          "path": "p6_sync_feedback_20260911/static.log",
+          "bytes": 11016,
+          "sha256": "fd814f55d99be469a4a88a7fd8ce8f9685447ff15df21630c46115bada2145e9"
+        },
+        {
+          "path": "p6_sync_feedback_20260911/target_vcan.log",
+          "bytes": 7390,
+          "sha256": "e9983e0425d83171cc435c960bf4bed78537abcead61d7ea0e683fd8f5f97741"
+        },
+        {
+          "path": "p6_sync_remainder_20260911/cross.log",
+          "bytes": 9592,
+          "sha256": "7094506ae01c91e20df28d3387a1e5b6cdc1c94dc9960f1c0dc1019d74369f1d"
+        },
+        {
+          "path": "p6_sync_remainder_20260911/host.log",
+          "bytes": 12499,
+          "sha256": "cc661df0b1fbf61ba3e7bbab0399b8c0cd34dec9faf4b2d4de5156cac8950e45"
+        },
+        {
+          "path": "p6_sync_remainder_20260911/sanitizer.log",
+          "bytes": 12519,
+          "sha256": "d54cadb1b1a49bb4b4252da222189058bd6f01c8113adb77e2dac65b63b46bc3"
+        },
+        {
+          "path": "p6_sync_remainder_20260911/static.log",
+          "bytes": 10592,
+          "sha256": "367278b3e3a0cc5802c8d5195fe37c04d20a7ca0d9d4957271da3be2f971aafe"
+        },
+        {
+          "path": "p6_sync_remainder_20260911/target_vcan.log",
+          "bytes": 7573,
+          "sha256": "0abf4a37661d9b175d0491e56ea01256e58dcfead064ad6fabe60afce8a890aa"
+        },
+        {
+          "path": "p6_tpdo_probe_20260911/clang_tidy.log",
+          "bytes": 10959,
+          "sha256": "c114a88071e4309410700fc50747a6d4f0a063f9a1d191734f48e931e4f1f97c"
+        },
+        {
+          "path": "p6_tpdo_probe_20260911/clang_tidy_host.log",
+          "bytes": 10360,
+          "sha256": "f9002e2690c6ab2f06a3383ec7b2c21c286dd900def094930cac820c1a530a51"
+        },
+        {
+          "path": "p6_tpdo_probe_20260911/host.log",
+          "bytes": 11403,
+          "sha256": "eed1320c7c8fb1173bc450df60f300cf812e108d0033b62c03cab4a31a7715b4"
+        },
+        {
+          "path": "p6_tpdo_probe_20260911/sanitizer.log",
+          "bytes": 11607,
+          "sha256": "87db4a826566739e5462a0c04914b93a521306d22ef6023d4e8aaf504c3d34fc"
+        },
+        {
+          "path": "p6_tpdo_probe_20260911/target_vcan.log",
+          "bytes": 7390,
+          "sha256": "5509a08d405044a2751f137d6c9a464df3c489cfc0149b108ca8c655927833a8"
+        }
+      ],
+      "sha256": "4fb6629dc711248911c97ebe54f28790f5426c74dbde9a41aad863e4d562ba0e",
+      "reason": "Software build/test/static logs consolidated; raw CAN, operator observations, failures and approval blockers retained."
     }
   ],
   "removed_duplicates": [

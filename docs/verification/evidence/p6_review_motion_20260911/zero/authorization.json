@@ -1,0 +1,14 @@
+{
+  "authorized": true,
+  "stimulus": "zero",
+  "elf_sha256": "ef9837d751f9038ddadfa76b42107a526b740e6d65f84f0aa8e468ccd236fff0",
+  "operator_ready": true,
+  "user_confirmation": "\u6388\u6743\u5e76\u786e\u8ba4\u5f00\u59cb\u6d4b\u8bd5",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--zero-sequence"
+  ],
+  "date": "2026-09-11"
+}

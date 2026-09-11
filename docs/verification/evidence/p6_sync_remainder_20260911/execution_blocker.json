@@ -1,0 +1,40 @@
+{
+  "date": "2026-09-11",
+  "classification": "automatic_approval_timeout_before_process_creation",
+  "execution_requests": 2,
+  "processes_created": 0,
+  "physical_attempts": 0,
+  "command": "rtk proxy python3 docs/verification/evidence/p6_sync_remainder_20260911/watchdog/local_trial.py",
+  "approval_error": "The automatic permission approval review did not finish before its deadline.",
+  "disposition": "One permitted execution-request retry also timed out; no further physical request submitted. Existing test authorization remains recorded; execution review is blocking.",
+  "local_markers": {
+    "watchdog": {
+      "run_once_marker_exists": false,
+      "coordinator_result_exists": false
+    },
+    "heartbeat_loss": {
+      "run_once_marker_exists": false,
+      "coordinator_result_exists": false
+    },
+    "tpdo_loss": {
+      "run_once_marker_exists": false,
+      "coordinator_result_exists": false
+    },
+    "shutdown": {
+      "run_once_marker_exists": false,
+      "coordinator_result_exists": false
+    },
+    "disable_voltage": {
+      "run_once_marker_exists": false,
+      "coordinator_result_exists": false
+    },
+    "quick_stop": {
+      "run_once_marker_exists": false,
+      "coordinator_result_exists": false
+    },
+    "nmt_stop": {
+      "run_once_marker_exists": false,
+      "coordinator_result_exists": false
+    }
+  }
+}

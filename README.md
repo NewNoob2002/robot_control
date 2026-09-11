@@ -38,10 +38,16 @@ observation. Target RXF/RXMF advanced by two, TX remained zero, no error frame
 was observed, and cleanup passed. Phase 5 is complete.
 See
 docs/verification/PHASE5_CANOPEN_BASELINE.md.
-Phase 6 checkpoint: P6.1–P6.5 and the recorded NMT Stop, Shutdown, Disable
-Voltage and Quick Stop trials pass. The operator accepted manual speed-first
-TPDO feedback on September 10, 2026. Watchdog timing/recovery and the remaining
-physical loss tests are still open; this is not final Phase 6 acceptance.
+Phase 6 checkpoint, September 11, 2026: synchronous packed-target feedback and
+single-RPDO left/right trials pass, with operator-confirmed normal stopping.
+TPDO1 carries both statuswords and packed speeds; the temporary RPDO1 carries
+the common controlword and packed targets, with its original mapping restored
+after each trial. Host and sanitizer qualification suites pass 60/60 tests.
+The revised synchronous stop/loss artifact passes cross-build and target vcan
+checks, but its physical requalification is blocked by execution-approval
+timeouts before process creation. Earlier NMT Stop, Shutdown, Disable Voltage
+and Quick Stop evidence remains historical; Phase 6 is not complete.
+See the [synchronous PDO repair record](docs/verification/P6_SYNC_PACKED_PDO_REPAIR.md).
 See the [Phase 6 checkpoint](docs/verification/PHASE6_CHECKPOINT.md) for current
 status and the [evidence index](docs/verification/evidence/README.md) for accepted
 trials and archived history. The qualification executor remains Debug-only and

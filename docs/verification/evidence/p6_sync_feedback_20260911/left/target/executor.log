@@ -1,0 +1,4 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+qualification_wait_online node=1 timeout_s=1
+qualification_online_probe node=1 object=0x1017:00
+qualification_complete node=1 operation=4

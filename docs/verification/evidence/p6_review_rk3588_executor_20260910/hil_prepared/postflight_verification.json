@@ -1,0 +1,79 @@
+{
+  "date_utc": "2026-09-11T02:03:28.024235+00:00",
+  "disposition": "NOT ACCEPTED: unresolved application diagnostics and no nonzero manual feedback",
+  "communication_and_cleanup_verified": true,
+  "captures": {
+    "exact_order_equal": true,
+    "total_frames": 1990,
+    "id_counts": {
+      "0x601": 267,
+      "0x581": 267,
+      "0x0": 3,
+      "0x701": 243,
+      "0x181": 1207,
+      "0x281": 1,
+      "0x381": 1,
+      "0x481": 1
+    }
+  },
+  "rk3588_tx": {
+    "before": 506,
+    "after": 776,
+    "delta": 270,
+    "uploads": 265,
+    "downloads": 2,
+    "nmt": 3
+  },
+  "jcan_tx": 0,
+  "sdo_transactions_matched": 267,
+  "final_reads": {
+    "6041:00": 337712161,
+    "6060:00": 3,
+    "6061:00": 3,
+    "60FF:01": 0,
+    "60FF:02": 0,
+    "603F:00": 0,
+    "606C:01": 0,
+    "606C:02": 0,
+    "606C:03": 0,
+    "1017:00": 0,
+    "1800:01": 385,
+    "1800:02": 255,
+    "1800:05": 100,
+    "1A00:00": 2,
+    "1A00:01": 1614872608,
+    "1A00:02": 1617691424
+  },
+  "sdovelocity_values": {
+    "606C:01": [
+      0
+    ],
+    "606C:02": [
+      0
+    ],
+    "606C:03": [
+      0
+    ]
+  },
+  "tpdo_count": 1207,
+  "tpdo_all_zero_speed": true,
+  "operator_rotation_confirmation": "User explicitly confirmed forgetting to rotate; this was a stationary collection",
+  "nmt_preoperational_heartbeat_verified": true,
+  "producer_heartbeat_restored_zero": true,
+  "can_errors": {
+    "tx": 0,
+    "rx": 0
+  },
+  "jcan_configuration_unchanged": true,
+  "processes": "Application/coordinator/candump/JCAN exited 0; target wrapper reports both children stopped",
+  "application_diagnostics": {
+    "count": 139,
+    "messages": {
+      "(CO_CANsend) OS error \"Permission denied\" in send()": 1,
+      "(CO_epoll_processLast) CAN Epoll error, events=0x01, fd=7": 138
+    },
+    "note": "Coordinator forwarded phases only; application diagnostics were discovered postflight. Exit0 is not clean HIL acceptance."
+  },
+  "source_assessment": "CO_epoll_processLast labels unhandled epoll_new as CAN Epoll error at LOG_DEBUG; Lifecycle run_until deadline branch calls it before processing the pending event. This is a candidate explanation, not yet regression-tested. Exact rejected startup send is not identified by the log.",
+  "next_rounds": "3-5 not started; no automatic retry"
+}

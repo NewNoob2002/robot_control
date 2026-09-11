@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "operation": "bus-write",
+  "approved": true,
+  "authorization": "ok按总结的修复路线执行; 同步SDO左轮运行和停止已由用户确认正常",
+  "readiness_basis": "continuation of current operator-confirmed raised-wheel HIL session",
+  "target": {
+    "board": "RK3588 robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+    "interface": "can0",
+    "node": 1,
+    "adapter_serial": "207F346D5650"
+  },
+  "artifact_sha256": "0e835fd8a9bcf1907a59e78a7fb753af791be5dfec1a8839fc64b66bb51ad659",
+  "stimulus": "One left +5 rpm / right zero RPDO1 201#0F0005000000 for 3000ms; stop 201#060000000000; mode1 verified, temporary RPDO1 controlword+packed target mapping in Preop restored to checked factory controlword+mode baseline; SDO zero cleanup; no EEPROM",
+  "limits": {
+    "physical_frames": "Standard Classical CAN. RPDO201 DLC6 exactly 0F0005000000 once then 060000000000 once; SDO601 DLC8 fixed mapping/setup/zero/readback gate, <=32 downloads, <=512 uploads; NMT000 DLC2 8001/0101 <=3; no automatic retry.",
+    "capture_ms": 40000,
+    "capture_frames": 10000,
+    "attempts": 1,
+    "automatic_retries": 0,
+    "sample_upload_timeout_ms": 20
+  },
+  "recovery_plan": "coordinator abort closes control pipe; application SIGTERM and bounded zero/Shutdown/Pre-operational cleanup; physical power cut if cleanup uncertain",
+  "raised_wheels": true,
+  "estop_available": true,
+  "jcan": "silent observer only"
+}

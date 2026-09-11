@@ -1,0 +1,1 @@
+Before online-entry correction: new zero online case returned qualification_precondition. No 1017 request arrived; scripted responders consequently timed out. CTest exit 8 at 60 seconds. After correction all three online success cases and eight failure cases pass.

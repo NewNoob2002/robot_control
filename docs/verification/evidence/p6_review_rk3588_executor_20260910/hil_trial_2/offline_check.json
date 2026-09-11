@@ -1,0 +1,6 @@
+{
+  "same_manifest": true,
+  "known_debug_classification": true,
+  "new_error_warning_rejected": true,
+  "additional_candump_allowed": true
+}

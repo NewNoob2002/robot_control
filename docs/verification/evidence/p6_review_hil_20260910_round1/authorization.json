@@ -1,0 +1,10 @@
+{
+  "timestamp_utc": "2026-09-10T10:22:55.030599+00:00",
+  "user_request": "\u597d\u7684\u6388\u6743\u5f00\u59cbHIL",
+  "scope": "Begin five-round review-fix HIL; round 1 only stages diagnostic artifacts and exercises non-actuating checks. No physical CAN TX in round 1. Later hand rotation requires operator readiness; exact future TX manifests must be approved before transmission.",
+  "target": "robot-dev",
+  "expected_machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "adapter_serial": "207F346D5650",
+  "round1_authorized": true,
+  "physical_tx_authorized": false
+}
