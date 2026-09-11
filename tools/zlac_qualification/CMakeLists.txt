@@ -6,6 +6,10 @@ target_link_libraries(
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
   foreach(arguments IN ITEMS "--interface;vcan0;--manual-tpdo;--duration-ms;1000"
+                             "--interface;vcan0;--nmt;operational"
+                             "--interface;vcan0;--velocity-mode"
+                             "--interface;vcan0;--controlword;switch-on"
+                             "--interface;vcan0;--controlword;enable-operation"
                              "--interface;vcan0;--manual-tpdo;--watchdog-once"
                              "" "--unknown" "--interface;vcan0"
                              "--interface;vcan0;--nmt;reset-node"
@@ -13,6 +17,9 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
                              "--interface;vcan0;--target-once;1:11;--duration-ms;10"
                              "--interface;vcan0;--target-once;1:5;--duration-ms;3001"
                              "--interface;vcan0;--target-once;1:1"
+                             "--interface;vcan0;--rpdo-once;1:11;--duration-ms;10"
+                             "--interface;vcan0;--rpdo-once;2:5;--duration-ms;3001"
+                             "--interface;vcan0;--rpdo-once;1:5;--target-once;1:5;--duration-ms;10"
                              "--interface;vcan0;--nmt-stop-once;2:5;--duration-ms;2001"
                              "--interface;vcan0;--nmt-stop-once;2:5"
                              "--interface;vcan0;--shutdown-once;2:5"

@@ -28,7 +28,6 @@ using robot_control::platform::linux::process::TerminationEvent;
 enum class Operation : std::uint8_t {
     none,
     nmt,
-    velocity_mode,
     controlword,
     zero_targets,
     target_once,
@@ -51,14 +50,16 @@ struct Arguments {
     IndependentChannel channel{IndependentChannel::subindex_1};
     std::int32_t rpm{0};
     std::chrono::milliseconds duration{0};
+    bool use_rpdo{false};
 };
 
 /** Print the fixed qualification syntax without opening CAN. */
 void usage() {
     std::cerr << "Usage: robot-control-zlac-qualification --interface IFACE "
-                 "(--nmt operational|stopped|pre-operational | --velocity-mode | "
-                 "--controlword shutdown|switch-on|enable-operation | --zero-targets | "
+                 "(--nmt stopped|pre-operational | "
+                 "--controlword shutdown | --zero-targets | "
                  "--zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | "
+                 "--rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | "
                  "--nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | "
                  "--shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | "
                  "--disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | "
@@ -97,9 +98,7 @@ std::optional<Arguments> parse_arguments(const int argc, char** argv) {
             result.interface_name = argv[++index];
         } else if (argument == "--nmt" && index + 1 < argc && result.operation == Operation::none) {
             const std::string_view value{argv[++index]};
-            if (value == "operational") {
-                result.nmt = QualificationNmt::operational;
-            } else if (value == "stopped") {
+            if (value == "stopped") {
                 result.nmt = QualificationNmt::stopped;
             } else if (value == "pre-operational") {
                 result.nmt = QualificationNmt::pre_operational;
@@ -107,16 +106,10 @@ std::optional<Arguments> parse_arguments(const int argc, char** argv) {
                 return std::nullopt;
             }
             result.operation = Operation::nmt;
-        } else if (argument == "--velocity-mode" && result.operation == Operation::none) {
-            result.operation = Operation::velocity_mode;
         } else if (argument == "--controlword" && index + 1 < argc && result.operation == Operation::none) {
             const std::string_view value{argv[++index]};
             if (value == "shutdown") {
                 result.controlword = TransitionControlword::shutdown;
-            } else if (value == "switch-on") {
-                result.controlword = TransitionControlword::switch_on;
-            } else if (value == "enable-operation") {
-                result.controlword = TransitionControlword::enable_operation;
             } else {
                 return std::nullopt;
             }
@@ -125,12 +118,14 @@ std::optional<Arguments> parse_arguments(const int argc, char** argv) {
             result.operation = Operation::zero_sequence;
         } else if (argument == "--zero-targets" && result.operation == Operation::none) {
             result.operation = Operation::zero_targets;
-        } else if (argument == "--target-once" && index + 1 < argc && result.operation == Operation::none) {
+        } else if ((argument == "--target-once" || argument == "--rpdo-once") && index + 1 < argc
+                   && result.operation == Operation::none) {
             ++index;
             if (!parse_target(argv[index], result)) {
                 return std::nullopt;
             }
             result.operation = Operation::target_once;
+            result.use_rpdo = argument == "--rpdo-once";
         } else if (argument == "--nmt-stop-once" && index + 1 < argc && result.operation == Operation::none) {
             ++index;
             if (!parse_target(argv[index], result)) {
@@ -248,10 +243,10 @@ int main(const int argc, char** argv) {
     const bool online_probe_fallback =
         arguments->operation == Operation::nmt_stop_once || arguments->operation == Operation::shutdown_once
         || arguments->operation == Operation::disable_voltage_once || arguments->operation == Operation::quick_stop_once
-        || communication_loss || arguments->operation == Operation::manual_tpdo;
-    const auto startup_timeout =
-        arguments->operation == Operation::zero_sequence || arguments->operation == Operation::target_once ? 180s : 1s;
-    std::cout << "qualification_wait_boot node=1 timeout_s=" << startup_timeout.count() << std::endl;
+        || communication_loss || arguments->operation == Operation::manual_tpdo
+        || arguments->operation == Operation::zero_sequence || arguments->operation == Operation::target_once;
+    constexpr auto startup_timeout = 1s;
+    std::cout << "qualification_wait_online node=1 timeout_s=" << startup_timeout.count() << std::endl;
     const auto ready = wait_ready(*owner.value(), startup_timeout, !online_probe_fallback);
     if (!ready.ok() && !(online_probe_fallback && ready.error.value() == ETIMEDOUT)) {
         report(ready);
@@ -267,9 +262,6 @@ int main(const int argc, char** argv) {
         case Operation::nmt:
             result = session.send_nmt(arguments->nmt);
             break;
-        case Operation::velocity_mode:
-            result = session.set_velocity_mode();
-            break;
         case Operation::controlword:
             result = session.send_controlword(arguments->controlword);
             break;
@@ -278,7 +270,8 @@ int main(const int argc, char** argv) {
             break;
         case Operation::target_once:
             result =
-                session.qualify_first_motion_cia402(arguments->channel, arguments->rpm, arguments->duration, 2000ms);
+                session.qualify_first_motion_cia402(arguments->channel, arguments->rpm, arguments->duration, 2000ms,
+                                                     arguments->use_rpdo);
             break;
         case Operation::zero_sequence:
             result = session.qualify_zero_target_cia402(2000ms);

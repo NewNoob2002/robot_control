@@ -111,6 +111,19 @@ bool robot_control_canopen_qualification_authorize_tpdo_mapping(robot_control_ca
  */
 bool robot_control_canopen_qualification_authorize_target(uint8_t subindex, int32_t rpm);
 
+/** Authorize one packed target: at most one moving axis, each within +/-10 rpm.
+ * @param value Low signed 16 bits are left, high signed 16 bits are right.
+ * @return Whether one exact thread-local node-1 SDO frame was authorized.
+ */
+bool robot_control_canopen_qualification_authorize_packed_target(uint32_t value);
+
+/** Authorize fixed RPDO1 mapping setup/restoration on the owner thread; no retained pointers. */
+bool robot_control_canopen_qualification_authorize_rpdo_mapping(
+    robot_control_canopen_qualification_object_t object, uint32_t value, uint8_t size);
+
+/** Authorize one node-1 RPDO: enabled single-axis bounded target, or Shutdown with both targets zero. */
+bool robot_control_canopen_qualification_authorize_rpdo(uint16_t controlword, uint32_t value);
+
 /**
  * Clear any incomplete qualification authorization on this thread.
  *

@@ -9,7 +9,9 @@
 #include <chrono>
 #include <iostream>
 #include <limits>
+#include <linux/can.h>
 #include <string>
+#include <sys/socket.h>
 
 namespace robot_control::communication::canopen {
 namespace {
@@ -178,14 +180,19 @@ platform::linux::Status QualificationSession::download(const std::uint16_t index
         authorized = robot_control_canopen_qualification_authorize_watchdog(static_cast<std::uint16_t>(value));
     } else if (index == 0x1800U && object_subindex == 5U && data.size() == 2U) {
         authorized = robot_control_canopen_qualification_authorize_tpdo_event_timer(static_cast<std::uint16_t>(value));
+    } else if (index == 0x1400U || index == 0x1600U) {
+        authorized = robot_control_canopen_qualification_authorize_rpdo_mapping(
+            {index, object_subindex}, value, static_cast<std::uint8_t>(data.size()));
     } else if (index == 0x1800U || index == 0x1A00U) {
         authorized = robot_control_canopen_qualification_authorize_tpdo_mapping({index, object_subindex}, value,
                                                                                 static_cast<std::uint8_t>(data.size()));
     } else if (index == 0x6040U && object_subindex == 0U && data.size() == 2U) {
         authorized = robot_control_canopen_qualification_authorize_controlword(static_cast<std::uint16_t>(value));
     } else if (index == 0x60FFU && data.size() == 4U) {
-        authorized =
-            robot_control_canopen_qualification_authorize_target(object_subindex, std::bit_cast<std::int32_t>(value));
+        authorized = object_subindex == 3U
+                         ? robot_control_canopen_qualification_authorize_packed_target(value)
+                         : robot_control_canopen_qualification_authorize_target(object_subindex,
+                                                                                 std::bit_cast<std::int32_t>(value));
     }
     if (!authorized) {
         return failure("qualification_authorize_download", lifecycle_->storage_->config(), EACCES);
@@ -356,15 +363,103 @@ QualificationSession::verify_target(const IndependentChannel channel, const std:
     if (!encoded || rpm < -qualification_target_limit_rpm || rpm > qualification_target_limit_rpm) {
         return failure("qualification_target_range", lifecycle_->storage_->config(), ERANGE);
     }
+    if (synchronous_targets_) {
+        std::array<std::byte, 4> packed{};
+        const auto offset = channel == IndependentChannel::subindex_1 ? 0U : 2U;
+        packed[offset] = (*encoded)[0];
+        packed[offset + 1U] = (*encoded)[1];
+        if (rpdo_interval_) {
+            if (std::chrono::steady_clock::now() >= deadline) {
+                return failure("qualification_rpdo_deadline", lifecycle_->storage_->config(), ETIMEDOUT);
+            }
+            const auto sent = send_rpdo_target(load_u32(packed));
+            if (!sent.ok()) {
+                return sent;
+            }
+            const auto readback = upload(0x60FFU, 3U, require_fresh, deadline);
+            if (!readback.ok()) {
+                return readback.status();
+            }
+            return load_u32(packed) == (static_cast<std::uint32_t>(readback.value().data[0])
+                       | (static_cast<std::uint32_t>(readback.value().data[1]) << 8U)
+                       | (static_cast<std::uint32_t>(readback.value().data[2]) << 16U)
+                       | (static_cast<std::uint32_t>(readback.value().data[3]) << 24U))
+                       ? platform::linux::Status::success()
+                       : failure("qualification_rpdo_readback", lifecycle_->storage_->config(), EPROTO);
+        }
+        return verify_download(0x60FFU, 3U, packed, 0x60FFU, 3U, packed, require_fresh, deadline);
+    }
     return verify_download(0x60FFU, subindex(channel), *encoded, 0x60FFU, subindex(channel), *encoded, require_fresh,
                            deadline);
 }
 
-platform::linux::Status QualificationSession::set_command_application_raw(const std::uint16_t value,
-                                                                          const bool require_fresh) noexcept {
-    const std::array data{std::byte{static_cast<std::uint8_t>(value)},
-                          std::byte{static_cast<std::uint8_t>(value >> 8U)}};
-    return verify_download(0x200FU, 0U, data, 0x200FU, 0U, data, require_fresh);
+platform::linux::Status QualificationSession::preflight_rpdo_mapping() noexcept {
+    struct Entry { std::uint16_t index; std::uint8_t sub; std::uint32_t value; };
+    constexpr std::array entries{Entry{0x1400U, 1U, 0x201U}, Entry{0x1400U, 2U, 255U},
+        Entry{0x1400U, 5U, 1000U}, Entry{0x1600U, 0U, 2U},
+        Entry{0x1600U, 1U, 0x60400010U}, Entry{0x1600U, 2U, 0x60600008U}};
+    for (const auto entry : entries) {
+        const auto readback = upload(entry.index, entry.sub, true);
+        if (!readback.ok()) {
+            return readback.status();
+        }
+        const auto& bytes = readback.value().data;
+        const auto value = static_cast<std::uint32_t>(bytes[0]) | (static_cast<std::uint32_t>(bytes[1]) << 8U)
+            | (static_cast<std::uint32_t>(bytes[2]) << 16U) | (static_cast<std::uint32_t>(bytes[3]) << 24U);
+        if (value != entry.value) {
+            return failure("qualification_rpdo_baseline", lifecycle_->storage_->config(), EPROTO);
+        }
+    }
+    return platform::linux::Status::success();
+}
+
+platform::linux::Status QualificationSession::configure_rpdo_mapping(const bool restore) noexcept {
+    const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
+    if (!snapshot.nmt.current || snapshot.nmt.state != RemoteNmtState::pre_operational) {
+        return failure("qualification_rpdo_not_preoperational", lifecycle_->storage_->config(), EACCES);
+    }
+    struct Entry { std::uint16_t index; std::uint8_t sub; std::uint32_t value; std::uint8_t size; };
+    const std::array entries{Entry{0x1400U, 1U, 0x80000201U, 4U}, Entry{0x1600U, 0U, 0U, 1U},
+        Entry{0x1600U, 1U, 0x60400010U, 4U},
+        Entry{0x1600U, 2U, restore ? 0x60600008U : 0x60FF0320U, 4U},
+        Entry{0x1600U, 0U, 2U, 1U}, Entry{0x1400U, 1U, 0x201U, 4U}};
+    for (const auto entry : entries) {
+        const std::array bytes{std::byte{static_cast<std::uint8_t>(entry.value)},
+            std::byte{static_cast<std::uint8_t>(entry.value >> 8U)},
+            std::byte{static_cast<std::uint8_t>(entry.value >> 16U)},
+            std::byte{static_cast<std::uint8_t>(entry.value >> 24U)}};
+        const auto data = std::span{bytes}.first(entry.size);
+        const auto status = verify_download(entry.index, entry.sub, data, entry.index, entry.sub, data, false);
+        if (!status.ok()) {
+            return status;
+        }
+    }
+    return platform::linux::Status::success();
+}
+
+platform::linux::Status QualificationSession::send_rpdo_target(const std::uint32_t packed) noexcept {
+    const auto* const module = lifecycle_->storage_->stack()->CANmodule;
+    if (!rpdo_mapping_owned_ || !rpdo_interval_ || module->CANinterfaceCount != 1U
+        || module->CANinterfaces[0].fd < 0) {
+        return failure("qualification_rpdo_unavailable", lifecycle_->storage_->config(), EACCES);
+    }
+    const std::uint16_t controlword = packed == 0U ? 6U : 15U;
+    if (!robot_control_canopen_qualification_authorize_rpdo(controlword, packed)) {
+        return failure("qualification_rpdo_authorization", lifecycle_->storage_->config(), EACCES);
+    }
+    can_frame frame{};
+    frame.can_id = 0x201U;
+    frame.can_dlc = 6U;
+    frame.data[0] = static_cast<std::uint8_t>(controlword);
+    for (unsigned i = 0U; i < 4U; ++i) {
+        frame.data[2U + i] = static_cast<std::uint8_t>(packed >> (8U * i));
+    }
+    const auto sent = robot_control_canopen_qualification_transmit(
+        module->CANinterfaces[0].fd, &frame, CAN_MTU, MSG_DONTWAIT);
+    const auto error = errno;
+    robot_control_canopen_qualification_clear_authorization();
+    return sent == CAN_MTU ? platform::linux::Status::success()
+                          : failure("qualification_rpdo_send", lifecycle_->storage_->config(), error == 0 ? EIO : error);
 }
 
 platform::linux::Status QualificationSession::set_heartbeat_producer_raw(const std::uint16_t milliseconds,
@@ -372,6 +467,36 @@ platform::linux::Status QualificationSession::set_heartbeat_producer_raw(const s
     const std::array data{std::byte{static_cast<std::uint8_t>(milliseconds)},
                           std::byte{static_cast<std::uint8_t>(milliseconds >> 8U)}};
     return verify_download(0x1017U, 0U, data, 0x1017U, 0U, data, require_fresh);
+}
+
+platform::linux::Status QualificationSession::start_online_heartbeat(const std::chrono::milliseconds timeout) noexcept {
+    auto status = require_clean_generation();
+    if (!status.ok()) {
+        return status;
+    }
+    const auto heartbeat = upload(0x1017U, 0U, false);
+    if (!heartbeat.ok()) {
+        return heartbeat.status();
+    }
+    if (heartbeat.value().data != std::array<std::uint8_t, 4>{}) {
+        return failure("qualification_heartbeat_producer_baseline", lifecycle_->storage_->config(), EPROTO);
+    }
+    heartbeat_restore_required_ = true;
+    const auto started_at = std::chrono::steady_clock::now();
+    status = set_heartbeat_producer_raw(500U, false);
+    return status.ok() ? wait_heartbeat(started_at, timeout) : status;
+}
+
+platform::linux::Status QualificationSession::finish_online_sequence(platform::linux::Status status) noexcept {
+    const auto restored = restore_heartbeat_producer();
+    if (!restored.ok()) {
+        if (status.ok()) {
+            status = restored;
+        } else {
+            status.context += " heartbeat_restore_failed=" + restored.operation + ":" + restored.error.message();
+        }
+    }
+    return inhibit(std::move(status));
 }
 
 platform::linux::Status QualificationSession::restore_heartbeat_producer() noexcept {
@@ -413,6 +538,9 @@ platform::linux::Status QualificationSession::send_controlword_raw(const Transit
 }
 
 platform::linux::Status QualificationSession::send_nmt(const QualificationNmt command) noexcept {
+    if (command != QualificationNmt::stopped && command != QualificationNmt::pre_operational) {
+        return inhibit(failure("qualification_standalone_activation", lifecycle_->storage_->config(), EACCES));
+    }
     auto ready = require_ready();
     if (!ready.ok()) {
         return inhibit(ready);
@@ -422,6 +550,9 @@ platform::linux::Status QualificationSession::send_nmt(const QualificationNmt co
 }
 
 platform::linux::Status QualificationSession::set_velocity_mode() noexcept {
+    if (sequence_generation_.transport == 0U) {
+        return inhibit(failure("qualification_standalone_activation", lifecycle_->storage_->config(), EACCES));
+    }
     auto ready = require_ready();
     if (!ready.ok()) {
         return inhibit(ready);
@@ -432,6 +563,10 @@ platform::linux::Status QualificationSession::set_velocity_mode() noexcept {
 }
 
 platform::linux::Status QualificationSession::send_controlword(const TransitionControlword controlword) noexcept {
+    if (controlword != TransitionControlword::shutdown && controlword != TransitionControlword::disable_voltage
+        && controlword != TransitionControlword::quick_stop) {
+        return inhibit(failure("qualification_standalone_activation", lifecycle_->storage_->config(), EACCES));
+    }
     auto ready = require_ready();
     if (!ready.ok()) {
         return inhibit(ready);
@@ -519,7 +654,8 @@ platform::linux::Status QualificationSession::wait_heartbeat(const std::chrono::
 
 platform::linux::Status QualificationSession::wait_dual_state(const domain::drive::Cia402State expected,
                                                               const std::chrono::steady_clock::time_point previous,
-                                                              const std::chrono::milliseconds timeout) noexcept {
+                                                              const std::chrono::milliseconds timeout,
+                                                              const bool allow_deceleration) noexcept {
     domain::drive::TransitionTracker low;
     domain::drive::TransitionTracker high;
     low.start(expected, 0U, previous, timeout);
@@ -535,9 +671,10 @@ platform::linux::Status QualificationSession::wait_dual_state(const domain::driv
         const auto& tpdo = snapshot.tpdo[0];
         if (tpdo.current && tpdo.raw.received_at > previous) {
             const auto& bytes = tpdo.raw.payload;
-            if (std::any_of(bytes.begin() + 4, bytes.end(), [](const auto value) {
-                    return value != 0U;
-                })) {
+            const bool moving = std::any_of(bytes.begin() + 4, bytes.end(), [](const auto value) {
+                return value != 0U;
+            });
+            if (!allow_deceleration && moving) {
                 return failure("qualification_nonzero_tpdo_velocity", lifecycle_->storage_->config(), ERANGE);
             }
             const auto status = domain::drive::decode_dual_axis_status(
@@ -546,7 +683,7 @@ platform::linux::Status QualificationSession::wait_dual_state(const domain::driv
             // Evaluate both halves from this same newer frame; never latch one half across frames.
             low.start(expected, 0U, previous, timeout);
             high.start(expected, 0U, previous, timeout);
-            if (low.evaluate(status.low_half.state, 1U, now) == domain::drive::TransitionResult::reached
+            if (!moving && low.evaluate(status.low_half.state, 1U, now) == domain::drive::TransitionResult::reached
                 && high.evaluate(status.high_half.state, 1U, now) == domain::drive::TransitionResult::reached) {
                 return platform::linux::Status::success();
             }
@@ -565,6 +702,27 @@ platform::linux::Status QualificationSession::wait_dual_state(const domain::driv
 }
 
 platform::linux::Status QualificationSession::preflight_zero_target_cia402() noexcept {
+    struct Entry {
+        std::uint16_t index;
+        std::uint8_t subindex;
+        std::uint32_t expected;
+    };
+    // This executor decodes status first, then packed speed. Never infer mapping from DLC alone.
+    constexpr std::array contract{Entry{0x1800U, 1U, 0x181U},      Entry{0x1800U, 2U, 255U},
+                                  Entry{0x1800U, 5U, 100U},        Entry{0x1A00U, 0U, 2U},
+                                  Entry{0x1A00U, 1U, 0x60410020U}, Entry{0x1A00U, 2U, 0x606C0320U}};
+    if (lifecycle_->storage_->config().tpdo_expected_dlc[0] != 8U) {
+        return failure("qualification_tpdo_contract", lifecycle_->storage_->config(), EPROTO);
+    }
+    for (const auto entry : contract) {
+        const auto value = upload(entry.index, entry.subindex, true);
+        if (!value.ok()) {
+            return value.status();
+        }
+        if (load_u32(std::as_bytes(std::span{value.value().data})) != entry.expected) {
+            return failure("qualification_tpdo_contract", lifecycle_->storage_->config(), EPROTO);
+        }
+    }
     constexpr std::array<std::uint16_t, 5> indices{0x6060U, 0x6061U, 0x60FFU, 0x60FFU, 0x603FU};
     constexpr std::array<std::uint8_t, 5> parts{0U, 0U, 1U, 2U, 0U};
     for (std::size_t i = 0; i < indices.size(); ++i) {
@@ -627,7 +785,7 @@ QualificationSession::cleanup_zero_target_cia402(const std::chrono::milliseconds
         status = send_controlword_raw(TransitionControlword::shutdown, false);
     }
     if (status.ok() && !terminal_controlword_submitted_) {
-        status = wait_dual_state(domain::drive::Cia402State::ready_to_switch_on, shutdown_at, transition_timeout);
+        status = wait_dual_state(domain::drive::Cia402State::ready_to_switch_on, shutdown_at, transition_timeout, true);
     }
     if (status.ok()) {
         status = wait_zero_velocity(transition_timeout);
@@ -646,27 +804,37 @@ QualificationSession::cleanup_zero_target_cia402(const std::chrono::milliseconds
 
 platform::linux::Status
 QualificationSession::qualify_zero_target_cia402(const std::chrono::milliseconds transition_timeout) noexcept {
-    auto status = require_ready();
+    auto status = state_ == QualificationState::ready
+                      ? platform::linux::Status::success()
+                      : failure("qualification_inhibited", lifecycle_->storage_->config(), EACCES);
     if (!status.ok()) {
-        return inhibit(status);
+        return finish_online_sequence(status);
     }
     if (transition_timeout <= 0ms || transition_timeout > 5s || target_sequence_consumed_) {
-        return inhibit(failure("qualification_zero_bounds_or_consumed", lifecycle_->storage_->config(), EINVAL));
+        return finish_online_sequence(
+            failure("qualification_zero_bounds_or_consumed", lifecycle_->storage_->config(), EINVAL));
     }
     target_sequence_consumed_ = true;
     sequence_generation_ = lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation;
+    status = require_fresh_remote();
+    if (!status.ok()) {
+        status = start_online_heartbeat(transition_timeout);
+    }
+    if (!status.ok()) {
+        return finish_online_sequence(status);
+    }
     status = preflight_zero_target_cia402();
     if (!status.ok()) {
-        return inhibit(status);
+        return finish_online_sequence(status);
     }
     status = enter_zero_target_operation_enabled(transition_timeout);
     if (!status.ok()) {
         const auto restored = cleanup();
         status.context += restored.ok() ? " cleanup=submitted_unverified"
                                         : " cleanup_failed=" + restored.operation + ":" + restored.error.message();
-        return inhibit(status);
+        return finish_online_sequence(status);
     }
-    return inhibit(cleanup_zero_target_cia402(transition_timeout));
+    return finish_online_sequence(cleanup_zero_target_cia402(transition_timeout));
 }
 
 platform::linux::Status QualificationSession::run_target_interval(const IndependentChannel channel,
@@ -677,6 +845,7 @@ platform::linux::Status QualificationSession::run_target_interval(const Independ
         return status;
     }
     const auto deadline = std::chrono::steady_clock::now() + duration;
+    auto next_velocity_sample = std::chrono::steady_clock::now() + 100ms;
     status = verify_target(channel, rpm, true, deadline);
     if (!status.ok()) {
         static_cast<void>(verify_target(channel, 0, false));
@@ -692,6 +861,24 @@ platform::linux::Status QualificationSession::run_target_interval(const Independ
             break;
         }
         status = require_operation_enabled_feedback(channel);
+        const auto now = std::chrono::steady_clock::now();
+        if (status.ok() && now >= next_velocity_sample && deadline - now > 100ms) {
+            next_velocity_sample = now + 500ms;
+            // Capture independent and packed raw feedback without extending the zero deadline.
+            // The external CAN captures retain timestamps and values; do not log in this loop.
+            for (const std::uint8_t part : {std::uint8_t{1U}, std::uint8_t{2U}, std::uint8_t{3U}}) {
+                const auto velocity = upload(0x606CU, part, true,
+                                             std::min(deadline, std::chrono::steady_clock::now() + 20ms));
+                if (!velocity.ok()) {
+                    status = velocity.status();
+                    break;
+                }
+                status = require_operation_enabled_feedback(channel);
+                if (!status.ok()) {
+                    break;
+                }
+            }
+        }
     }
     const auto zero = verify_target(channel, 0, false);
     if (!zero.ok()) {
@@ -715,7 +902,11 @@ platform::linux::Status QualificationSession::run_target_once(const IndependentC
         return inhibit(failure("qualification_target_bounds", lifecycle_->storage_->config(), ERANGE));
     }
     sequence_generation_ = lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation;
-    auto status = verify_target(IndependentChannel::subindex_1, 0, true);
+    auto status = preflight_zero_target_cia402();
+    if (!status.ok()) {
+        return inhibit(status);
+    }
+    status = verify_target(IndependentChannel::subindex_1, 0, true);
     if (status.ok()) {
         status = verify_target(IndependentChannel::subindex_2, 0, true);
     }
@@ -727,13 +918,15 @@ platform::linux::Status QualificationSession::run_target_once(const IndependentC
 
 platform::linux::Status
 QualificationSession::cleanup_first_motion_cia402(const std::chrono::milliseconds transition_timeout) noexcept {
+    rpdo_interval_ = false;
     auto status = cleanup_zero_target_cia402(transition_timeout);
-    if (command_application_restore_required_) {
-        const auto restored = set_command_application_raw(1U, false);
-        if (restored.ok()) {
-            command_application_restore_required_ = false;
-        } else if (status.ok()) {
-            status = restored;
+    if (rpdo_mapping_owned_) {
+        const auto restored = configure_rpdo_mapping(true);
+        if (!restored.ok()) {
+            if (status.ok()) { status = restored; }
+            else { status.context += " mapping_restore_failed=" + restored.operation; }
+        } else {
+            rpdo_mapping_owned_ = false;
         }
     }
     const auto heartbeat_restored = restore_heartbeat_producer();
@@ -746,45 +939,73 @@ QualificationSession::cleanup_first_motion_cia402(const std::chrono::millisecond
 platform::linux::Status
 QualificationSession::qualify_first_motion_cia402(const IndependentChannel channel, const std::int32_t rpm,
                                                   const std::chrono::milliseconds duration,
-                                                  const std::chrono::milliseconds transition_timeout) noexcept {
-    auto status = require_ready();
+                                                  const std::chrono::milliseconds transition_timeout,
+                                                  const bool use_rpdo) noexcept {
+    auto status = state_ == QualificationState::ready
+                      ? platform::linux::Status::success()
+                      : failure("qualification_inhibited", lifecycle_->storage_->config(), EACCES);
     if (!status.ok()) {
-        return inhibit(status);
+        return finish_online_sequence(status);
     }
     if ((channel != IndependentChannel::subindex_1 && channel != IndependentChannel::subindex_2)
         || target_sequence_consumed_ || rpm == 0 || rpm < -qualification_target_limit_rpm
         || rpm > qualification_target_limit_rpm || duration <= 0ms || duration > qualification_duration_limit
         || transition_timeout <= 0ms || transition_timeout > 5s) {
-        return inhibit(
+        return finish_online_sequence(
             failure("qualification_first_motion_bounds_or_consumed", lifecycle_->storage_->config(), ERANGE));
     }
     target_sequence_consumed_ = true;
     sequence_generation_ = lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation;
+    status = require_fresh_remote();
+    if (!status.ok()) {
+        status = start_online_heartbeat(transition_timeout);
+    }
+    if (!status.ok()) {
+        return finish_online_sequence(status);
+    }
     status = preflight_zero_target_cia402();
     if (!status.ok()) {
-        return inhibit(status);
+        return finish_online_sequence(status);
     }
     const auto application = upload(0x200FU, 0U, true);
     if (!application.ok()) {
-        return inhibit(application.status());
+        return finish_online_sequence(application.status());
     }
     if (application.value().data != std::array<std::uint8_t, 4>{1U, 0U, 0U, 0U}) {
-        return inhibit(failure("qualification_command_application_baseline", lifecycle_->storage_->config(), EPROTO));
+        return finish_online_sequence(
+            failure("qualification_command_application_baseline", lifecycle_->storage_->config(), EPROTO));
     }
 
-    command_application_restore_required_ = true;
-    status = set_command_application_raw(0U, true);
-    if (!status.ok()) {
-        const auto restored = set_command_application_raw(1U, false);
-        if (restored.ok()) {
-            command_application_restore_required_ = false;
+    synchronous_targets_ = true;
+    if (use_rpdo) {
+        status = preflight_rpdo_mapping();
+        if (!status.ok()) {
+            return finish_online_sequence(status);
         }
-        status.context += restored.ok() ? " restore=verified"
-                                        : " restore_failed=" + restored.operation + ":" + restored.error.message();
-        return inhibit(status);
+        const auto preop_at = std::chrono::steady_clock::now();
+        status = send_nmt_raw(QualificationNmt::pre_operational, true);
+        if (status.ok()) {
+            status = wait_nmt_state(RemoteNmtState::pre_operational, preop_at, transition_timeout);
+        }
+        if (status.ok()) {
+            rpdo_mapping_owned_ = true;
+            status = configure_rpdo_mapping(false);
+        }
+        if (!status.ok()) {
+            if (rpdo_mapping_owned_) {
+                const auto restored = configure_rpdo_mapping(true);
+                rpdo_mapping_owned_ = !restored.ok();
+                status.context += restored.ok() ? " mapping_restore=verified"
+                    : " mapping_restore_failed=" + restored.operation + ":" + restored.error.message();
+            }
+            return finish_online_sequence(status);
+        }
     }
-    status = enter_zero_target_operation_enabled(transition_timeout);
     if (status.ok()) {
+        status = enter_zero_target_operation_enabled(transition_timeout);
+    }
+    if (status.ok()) {
+        rpdo_interval_ = use_rpdo;
         status = run_target_interval(channel, rpm, duration);
     }
     const auto cleaned = cleanup_first_motion_cia402(transition_timeout);
@@ -892,7 +1113,7 @@ QualificationSession::run_controlword_stop_interval(const IndependentChannel cha
     if (!status.ok()) {
         return status;
     }
-    status = wait_dual_state(expected_state, controlword_at, transition_timeout);
+    status = wait_dual_state(expected_state, controlword_at, transition_timeout, true);
     if (!status.ok()) {
         return status;
     }
@@ -1036,9 +1257,13 @@ platform::linux::Status QualificationSession::observe_communication_loss(const S
     if (!watchdog) {
         return failure("qualification_expected_feedback_loss_absent", lifecycle_->storage_->config(), ETIMEDOUT);
     }
-    // No SDO or stop command preceded this probe during the quiet window. A read may refresh the drive timer;
-    // nonzero feedback fails immediately and normal cleanup follows, without waiting or renewing the target.
-    return require_zero_velocity_feedback(false, std::chrono::steady_clock::now() + 500ms);
+    // Do not refresh the watchdog with an SDO probe while a nonzero target may still be retained.
+    // The loop above required continuously fresh TPDOs; the first subsequent TX is cleanup's packed zero.
+    const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
+    const auto& bytes = snapshot.tpdo[0].raw.payload;
+    const bool zero = std::all_of(bytes.begin() + 4, bytes.end(), [](const auto value) { return value == 0U; });
+    return zero ? platform::linux::Status::success()
+                : failure("qualification_nonzero_velocity", lifecycle_->storage_->config(), ERANGE);
 }
 
 platform::linux::Status
@@ -1121,31 +1346,10 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
             return inhibit(failure("qualification_quick_stop_option_baseline", lifecycle_->storage_->config(), EPROTO));
         }
     }
-    const auto heartbeat = upload(0x1017U, 0U, false);
-    if (!heartbeat.ok()) {
-        return inhibit(heartbeat.status());
-    }
-    if (heartbeat.value().data != std::array<std::uint8_t, 4>{0U, 0U, 0U, 0U}) {
-        return inhibit(failure("qualification_heartbeat_producer_baseline", lifecycle_->storage_->config(), EPROTO));
-    }
-    heartbeat_restore_required_ = true;
-    const auto heartbeat_started_at = std::chrono::steady_clock::now();
-    status = set_heartbeat_producer_raw(500U, false);
-    if (!status.ok()) {
-        const auto restored = restore_heartbeat_producer();
-        status.context += restored.ok()
-                              ? " heartbeat_restore=verified"
-                              : " heartbeat_restore_failed=" + restored.operation + ":" + restored.error.message();
-        return inhibit(status);
-    }
     const auto inhibit_after_heartbeat = [this](platform::linux::Status failed) {
-        const auto restored = restore_heartbeat_producer();
-        failed.context += restored.ok()
-                              ? " heartbeat_restore=verified"
-                              : " heartbeat_restore_failed=" + restored.operation + ":" + restored.error.message();
-        return inhibit(std::move(failed));
+        return finish_online_sequence(std::move(failed));
     };
-    status = wait_heartbeat(heartbeat_started_at, transition_timeout);
+    status = start_online_heartbeat(transition_timeout);
     if (!status.ok()) {
         return inhibit_after_heartbeat(status);
     }
@@ -1161,17 +1365,7 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
         return inhibit_after_heartbeat(
             failure("qualification_command_application_baseline", lifecycle_->storage_->config(), EPROTO));
     }
-    command_application_restore_required_ = true;
-    status = set_command_application_raw(0U, true);
-    if (!status.ok()) {
-        const auto restored = set_command_application_raw(1U, false);
-        if (restored.ok()) {
-            command_application_restore_required_ = false;
-        }
-        status.context += restored.ok() ? " restore=verified"
-                                        : " restore_failed=" + restored.operation + ":" + restored.error.message();
-        return inhibit_after_heartbeat(status);
-    }
+    synchronous_targets_ = true;
     status = enter_zero_target_operation_enabled(transition_timeout);
     if (status.ok()) {
         switch (stimulus) {
@@ -1251,7 +1445,8 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
 /** Configure the operator-supplied TPDO order without enabling or commanding either motor. */
 platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chrono::milliseconds duration) noexcept {
     using platform::linux::Status;
-    if (state_ != QualificationState::ready || duration <= 0ms || duration > 60s) {
+    if (state_ != QualificationState::ready || duration <= 0ms || duration > 60s
+        || lifecycle_->storage_->config().tpdo_expected_dlc[0] != 8U) {
         return inhibit(failure("qualification_manual_bounds", lifecycle_->storage_->config(), EINVAL));
     }
     state_ = QualificationState::cleanup_required;
@@ -1294,11 +1489,11 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
         std::uint32_t value;
     };
     constexpr std::array baseline{
-        Entry{0x60FFU, 1U, 0U},         Entry{0x60FFU, 2U, 0U},     Entry{0x603FU, 0U, 0U},
-        Entry{0x606CU, 1U, 0U},         Entry{0x606CU, 2U, 0U},     Entry{0x606CU, 3U, 0U},
-        Entry{0x1017U, 0U, 0U},         Entry{0x1800U, 1U, 0x181U}, Entry{0x1800U, 2U, 255U},
-        Entry{0x1800U, 5U, 100U},       Entry{0x1A00U, 0U, 2U},     Entry{0x1A00U, 1U, 0x60410020U},
-        Entry{0x1A00U, 2U, 0x606C0320U}};
+        Entry{0x6060U, 0U, 3U},     Entry{0x6061U, 0U, 3U},          Entry{0x60FFU, 1U, 0U},
+        Entry{0x60FFU, 2U, 0U},     Entry{0x603FU, 0U, 0U},          Entry{0x606CU, 1U, 0U},
+        Entry{0x606CU, 2U, 0U},     Entry{0x606CU, 3U, 0U},          Entry{0x1017U, 0U, 0U},
+        Entry{0x1800U, 1U, 0x181U}, Entry{0x1800U, 2U, 255U},        Entry{0x1800U, 5U, 100U},
+        Entry{0x1A00U, 0U, 2U},     Entry{0x1A00U, 1U, 0x60410020U}, Entry{0x1A00U, 2U, 0x606C0320U}};
     for (const auto entry : baseline) {
         const auto status = expect(entry.index, entry.sub, entry.value);
         if (!status.ok()) {
@@ -1342,32 +1537,9 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
         }
         return failure("qualification_manual_nmt_timeout", lifecycle_->storage_->config(), ETIMEDOUT);
     };
-    /** Apply the full disable/remap/enable sequence, stopping before activation on any failure. */
-    const auto mapping = [&](const bool restore) {
-        const std::array entries{Entry{0x1800U, 1U, 0x80000181U},
-                                 Entry{0x1A00U, 0U, 0U},
-                                 Entry{0x1A00U, 1U, restore ? 0x60410020U : 0x606C0320U},
-                                 Entry{0x1A00U, 2U, restore ? 0x606C0320U : 0x60410020U},
-                                 Entry{0x1A00U, 0U, 2U},
-                                 Entry{0x1800U, 2U, 255U},
-                                 Entry{0x1800U, 5U, 100U},
-                                 Entry{0x1800U, 1U, 0x181U}};
-        for (const auto entry : entries) {
-            const auto result = write(entry);
-            if (!result.ok()) {
-                return result;
-            }
-        }
-        return Status::success();
-    };
-    bool mapping_attempted = false;
     status = write({0x1017U, 0U, 500U});
     if (status.ok()) {
         status = nmt(QualificationNmt::pre_operational);
-    }
-    if (status.ok()) {
-        mapping_attempted = true;
-        status = mapping(false);
     }
     const auto operational_at = std::chrono::steady_clock::now();
     if (status.ok()) {
@@ -1396,7 +1568,7 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
         if (!actual_status.ok()) {
             status = actual_status.status();
         } else if (!disabled(load_u32(std::as_bytes(std::span{actual_status.value().data})))
-                   || !disabled(load_u32(std::as_bytes(std::span{snapshot.tpdo[0].raw.payload}.subspan(4U, 4U))))) {
+                   || !disabled(load_u32(std::as_bytes(std::span{snapshot.tpdo[0].raw.payload}.first(4U))))) {
             status = failure("qualification_manual_drive_enabled", lifecycle_->storage_->config(), EACCES);
         }
         if (status.ok()) {
@@ -1404,9 +1576,13 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
         }
     }
     if (status.ok()) {
-        std::cout << "MANUAL_ROTATION_READY duration_ms=" << duration.count() << " no_motor_commands=1" << std::endl;
-        deadline = std::chrono::steady_clock::now() + duration;
-        auto next_sample = std::chrono::steady_clock::now();
+        std::cout << "MANUAL_ROTATION_READY duration_ms=" << duration.count()
+                  << " no_motor_commands=1 mapping=status_first"
+                     " schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary"
+                  << std::endl;
+        const auto capture_started = std::chrono::steady_clock::now();
+        deadline = capture_started + duration;
+        auto next_sample = capture_started;
         while (status.ok() && std::chrono::steady_clock::now() < deadline) {
             const auto run = lifecycle_->run_until(std::min(deadline, std::chrono::steady_clock::now() + 10ms));
             if (!run.ok() || run.value() != LifecycleExit::deadline) {
@@ -1420,12 +1596,24 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
             }
             const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
             const auto& tpdo = snapshot.tpdo[0];
-            if (!tpdo.current || !disabled(load_u32(std::as_bytes(std::span{tpdo.raw.payload}.subspan(4U, 4U))))) {
+            if (!tpdo.current || !disabled(load_u32(std::as_bytes(std::span{tpdo.raw.payload}.first(4U))))) {
                 status = failure("qualification_manual_feedback", lifecycle_->storage_->config(), EPROTO);
                 break;
             }
             if (std::chrono::steady_clock::now() >= next_sample && deadline - std::chrono::steady_clock::now() > 50ms) {
                 next_sample = std::chrono::steady_clock::now() + 1s;
+                const auto elapsed = std::chrono::steady_clock::now() - capture_started;
+                const auto phase = elapsed < 10s   ? "stationary"
+                                   : elapsed < 25s ? "left"
+                                   : elapsed < 35s ? "stationary"
+                                   : elapsed < 50s ? "right"
+                                                   : "stationary";
+                std::cout << "manual_sample elapsed_ms="
+                          << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count()
+                          << " phase=" << phase
+                          << " tpdo_status_raw=" << load_u32(std::as_bytes(std::span{tpdo.raw.payload}.first(4U)))
+                          << " tpdo_velocity_raw="
+                          << load_u32(std::as_bytes(std::span{tpdo.raw.payload}.subspan(4U, 4U))) << std::endl;
                 const auto actual_status = read(0x6041U, 0U);
                 if (!actual_status.ok()) {
                     status = actual_status.status();
@@ -1451,14 +1639,16 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
     // Rollback is attempted even after an applied write loses its acknowledgement.
     deadline = std::chrono::steady_clock::now() + 5s;
     auto restored = nmt(QualificationNmt::pre_operational);
-    if (restored.ok() && mapping_attempted) {
-        restored = mapping(true);
-    }
     if (restored.ok()) {
         restored = expect(0x60FFU, 1U, 0U);
     }
     if (restored.ok()) {
         restored = expect(0x60FFU, 2U, 0U);
+    }
+    for (const auto entry : {Entry{0x603FU, 0U, 0U}, Entry{0x606CU, 1U, 0U}, Entry{0x606CU, 2U, 0U}}) {
+        if (restored.ok()) {
+            restored = expect(entry.index, entry.sub, entry.value);
+        }
     }
     if (restored.ok()) {
         const auto final_status = read(0x6041U, 0U);
@@ -1472,7 +1662,7 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
         restored = heartbeat;
     }
     if (!restored.ok()) {
-        restored.context += " manual_mapping_restoration_unverified original=" + status.operation;
+        restored.context += " manual_cleanup_unverified original=" + status.operation;
         return restored;
     }
     return status;

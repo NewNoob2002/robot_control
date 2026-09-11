@@ -44,9 +44,9 @@ class QualificationSession final {
     [[nodiscard]] QualificationState state() const noexcept;
 
     /**
-     * Send one exact node-1 qualification NMT command.
+     * Send one exact node-1 standalone inhibit command; Start requires a complete qualification sequence.
      *
-     * @param command Start, Stopped, or Pre-operational.
+     * @param command Stopped or Pre-operational; all other values are rejected without transmission.
      * @return Success after one kernel submission; failure inhibits the session.
      *
      * Thread safety: Qualification owner thread only.
@@ -54,18 +54,18 @@ class QualificationSession final {
     [[nodiscard]] platform::linux::Status send_nmt(QualificationNmt command) noexcept;
 
     /**
-     * Set velocity mode and require the exact mode-display readback.
+     * Set velocity mode inside an already prepared qualification sequence.
      *
-     * @return Success only after 0x6061:00 reads back 3.
+     * @return Success only after 0x6061:00 reads back 3; standalone use fails without transmission.
      *
      * Thread safety: Qualification owner thread only.
      */
     [[nodiscard]] platform::linux::Status set_velocity_mode() noexcept;
 
     /**
-     * Send one reviewed CiA402 transition controlword.
+     * Send one standalone inhibit controlword; activation requires a complete qualification sequence.
      *
-     * @param controlword Typed 0x0000, 0x0006, 0x0007, or 0x000F request.
+     * @param controlword Typed 0x0000, 0x0002, or 0x0006 request; other values are rejected without transmission.
      * @return Success after one exact SDO download; failure inhibits the session.
      *
      * Thread safety: Qualification owner thread only.
@@ -83,9 +83,9 @@ class QualificationSession final {
     [[nodiscard]] platform::linux::Status set_zero_targets() noexcept;
 
     /**
-     * Temporarily map packed speed before status and observe manual rotation without motor commands.
+     * Observe manual rotation using the verified status-first mapping without motor commands or remapping.
      * @param duration Capture window in (0, 60s]; the CLI fixes this to 60s.
-     * @return Success for capture/verified mapping restoration, not physical speed qualification.
+     * @return Success for capture and verified NMT/heartbeat cleanup, not physical speed qualification.
      * Thread safety: Owner thread only; consumes the session. Borrows the owner's lifetime.
      */
     [[nodiscard]] platform::linux::Status capture_manual_tpdo(std::chrono::milliseconds duration) noexcept;
@@ -118,19 +118,25 @@ class QualificationSession final {
 
     /**
      * Enter zero-target Operation Enabled, execute one target interval, and restore the fixture.
+     * Intervals with sufficient remaining time sample all three raw velocity objects after
+     * 100 ms, then at most every 500 ms. Each upload is bounded to 20 ms and sampling
+     * stops within 100 ms of the original zero deadline. Raw CAN capture is required
+     * for feedback diagnosis; successful execution does not establish tracking accuracy.
      *
      * @param channel Neutral independent subindex to command.
      * @param rpm Nonzero whole-rpm target with absolute value at most 10.
      * @param duration Positive target interval no greater than three seconds.
      * @param transition_timeout Positive per-state deadline no greater than five seconds.
-     * @return Success only after volatile asynchronous selection, verified motion cleanup, and baseline restoration.
+     * @param use_rpdo Temporarily map RPDO1 for the interval, restoring the exact checked baseline afterward.
+     * Uses verified synchronous mode 1 and 0x60FF:03 with the other wheel fixed at zero.
+     * @return Success only after bounded execution and verified motion cleanup.
      *
      * Thread safety: Qualification owner thread only; callable once per session.
      */
     [[nodiscard]] platform::linux::Status
     qualify_first_motion_cia402(domain::drive::zlac8015d::IndependentChannel channel, std::int32_t rpm,
                                 std::chrono::milliseconds duration,
-                                std::chrono::milliseconds transition_timeout) noexcept;
+                                std::chrono::milliseconds transition_timeout, bool use_rpdo = false) noexcept;
 
     /**
      * Enter bounded motion, issue NMT Stopped, zero in Pre-operational, and restore the fixture.
@@ -240,28 +246,34 @@ class QualificationSession final {
                                                          std::chrono::steady_clock::time_point previous,
                                                          std::chrono::milliseconds timeout) noexcept;
 
+    /** Start verified temporary heartbeat from a zero baseline without requiring historical boot-up.
+     * Owner thread only; callers must restore the producer on every exit, including failure.
+     */
+    [[nodiscard]] platform::linux::Status start_online_heartbeat(std::chrono::milliseconds timeout) noexcept;
+
+    /** Restore an owned temporary heartbeat and inhibit the completed/failed session. */
+    [[nodiscard]] platform::linux::Status finish_online_sequence(platform::linux::Status status) noexcept;
+
     /** Wait for one fresh heartbeat after enabling the temporary producer. */
     [[nodiscard]] platform::linux::Status wait_heartbeat(std::chrono::steady_clock::time_point previous,
                                                          std::chrono::milliseconds timeout) noexcept;
 
-    /** Wait for one newer TPDO1 whose two status halves match and whose packed velocity is zero. */
+    /** Wait for matching fresh status; allow deceleration only when a separate bounded zero wait follows. */
     [[nodiscard]] platform::linux::Status wait_dual_state(domain::drive::Cia402State expected,
                                                           std::chrono::steady_clock::time_point previous,
-                                                          std::chrono::milliseconds timeout) noexcept;
+                                                          std::chrono::milliseconds timeout,
+                                                          bool allow_deceleration = false) noexcept;
 
     /** Restore verified zero, Shutdown, and Pre-operational after a successful zero-target sequence. */
     [[nodiscard]] platform::linux::Status
     cleanup_zero_target_cia402(std::chrono::milliseconds transition_timeout) noexcept;
 
-    /** Run the shared read-only zero-target preflight. */
+    /** Read back the exact status-first TPDO1 contract, mode, zero targets, faults and zero speeds. */
     [[nodiscard]] platform::linux::Status preflight_zero_target_cia402() noexcept;
 
     /** Enter Operation Enabled with both targets and all velocity feedback zero. */
     [[nodiscard]] platform::linux::Status
     enter_zero_target_operation_enabled(std::chrono::milliseconds transition_timeout) noexcept;
-
-    /** Write and verify one volatile 0x200F command-application value. */
-    [[nodiscard]] platform::linux::Status set_command_application_raw(std::uint16_t value, bool require_fresh) noexcept;
 
     /** Write and verify the temporary 0x1017 heartbeat-producer interval. */
     [[nodiscard]] platform::linux::Status set_heartbeat_producer_raw(std::uint16_t milliseconds,
@@ -366,7 +378,16 @@ class QualificationSession final {
     Lifecycle* lifecycle_{nullptr};
     QualificationState state_{QualificationState::ready};
     bool target_sequence_consumed_{false};
-    bool command_application_restore_required_{false};
+    bool synchronous_targets_{false}; ///< First-motion probe uses packed targets after verifying mode 1.
+    bool rpdo_mapping_owned_{false}; ///< Fixed baseline must be restored even after partial setup.
+    bool rpdo_interval_{false}; ///< Only the bounded interval uses RPDO; cleanup retains SDO fallback.
+
+    /** Verify the fixed factory RPDO1 baseline before any temporary mapping writes. */
+    [[nodiscard]] platform::linux::Status preflight_rpdo_mapping() noexcept;
+    /** Set or restore the fixed RPDO1 mapping while Pre-operational; verify each write. */
+    [[nodiscard]] platform::linux::Status configure_rpdo_mapping(bool restore) noexcept;
+    /** Send one exact RPDO through the owner's CAN socket; no queue or automatic retry. */
+    [[nodiscard]] platform::linux::Status send_rpdo_target(std::uint32_t packed) noexcept;
     bool heartbeat_restore_required_{false};
     bool terminal_controlword_submitted_{false};
     std::uint64_t request_generation_{0};

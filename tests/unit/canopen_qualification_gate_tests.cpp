@@ -169,7 +169,38 @@ int main() {
     }
     CHECK(robot_control_canopen_qualification_upload_size({0x2010U, 0U}) == 0U);
     CHECK(robot_control_canopen_qualification_upload_size({0x200FU, 1U}) == 0U);
-    CHECK(robot_control_canopen_qualification_upload_size({0x60FFU, 3U}) == 0U);
+    CHECK(robot_control_canopen_qualification_upload_size({0x60FFU, 3U}) == 4U);
+    for (const std::uint32_t value : {0U, 5U, 5U << 16U}) {
+        const std::uint16_t controlword = value == 0U ? 6U : 15U;
+        CHECK(robot_control_canopen_qualification_authorize_rpdo(controlword, value));
+        can_frame request{};
+        request.can_id = 0x201U;
+        request.can_dlc = 6U;
+        request.data[0] = static_cast<std::uint8_t>(controlword);
+        for (unsigned i = 0U; i < 4U; ++i) {
+            request.data[i + 2U] = static_cast<std::uint8_t>(value >> (8U * i));
+        }
+        expect_sent(sockets, request);
+        expect_rejected(sockets[0], request);
+        CHECK(robot_control_canopen_qualification_authorize_rpdo(controlword, value));
+        request.can_id = 0x301U;
+        expect_rejected(sockets[0], request);
+    }
+    CHECK(!robot_control_canopen_qualification_authorize_rpdo(15U, 0U));
+    CHECK(!robot_control_canopen_qualification_authorize_rpdo(6U, 5U));
+    CHECK(!robot_control_canopen_qualification_authorize_rpdo(128U, 0U));
+    CHECK(!robot_control_canopen_qualification_authorize_rpdo(15U, 0x00050005U));
+    CHECK(!robot_control_canopen_qualification_authorize_rpdo_mapping({0x1401U, 1U}, 0x201U, 4U));
+    CHECK(!robot_control_canopen_qualification_authorize_rpdo_mapping({0x1600U, 0U}, 3U, 1U));
+    CHECK(!robot_control_canopen_qualification_authorize_rpdo_mapping({0x1600U, 2U}, 0x60FF0120U, 4U));
+    for (const std::uint32_t value : {0U, 10U, 65526U, 10U << 16U, 65526U << 16U}) {
+        CHECK(robot_control_canopen_qualification_authorize_packed_target(value));
+        expect_sent(sockets, sdo(0x23U, 0x60FFU, 3U, value));
+        expect_rejected(sockets[0], sdo(0x23U, 0x60FFU, 3U, value));
+    }
+    for (const std::uint32_t value : {11U, 65525U, 11U << 16U, 65525U << 16U, 0x00050005U, 0xFFFF0005U}) {
+        CHECK(!robot_control_canopen_qualification_authorize_packed_target(value));
+    }
 
     CHECK(robot_control_canopen_qualification_authorize_velocity_mode());
     auto wrong = sdo(0x2FU, 0x6060U, 0U, 3U);

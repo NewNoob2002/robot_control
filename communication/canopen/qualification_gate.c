@@ -51,8 +51,10 @@ uint8_t robot_control_canopen_qualification_upload_size(const robot_control_cano
         case 0x6040U:
         case 0x605AU:
             return object.subindex == 0U ? 2U : 0U;
+        case 0x1400U:
         case 0x1800U:
             return object.subindex == 1U ? 4U : object.subindex == 2U ? 1U : object.subindex == 5U ? 2U : 0U;
+        case 0x1600U:
         case 0x1A00U:
             return object.subindex == 0U ? 1U : object.subindex == 1U || object.subindex == 2U ? 4U : 0U;
         case 0x603FU:
@@ -62,9 +64,8 @@ uint8_t robot_control_canopen_qualification_upload_size(const robot_control_cano
         case 0x6061U:
             return object.subindex == 0U ? 1U : 0U;
         case 0x606CU:
-            return object.subindex >= 1U && object.subindex <= 3U ? 4U : 0U;
         case 0x60FFU:
-            return object.subindex == 1U || object.subindex == 2U ? 4U : 0U;
+            return object.subindex >= 1U && object.subindex <= 3U ? 4U : 0U;
         default:
             return 0U;
     }
@@ -166,6 +167,51 @@ bool robot_control_canopen_qualification_authorize_target(const uint8_t subindex
     }
     return authorize_frame(download_frame(
         (qualification_download_t){.command = 0x23U, .index = 0x60FFU, .subindex = subindex, .value = (uint32_t)rpm}));
+}
+
+bool robot_control_canopen_qualification_authorize_packed_target(const uint32_t value) {
+    const uint32_t low = value & 0xFFFFU;
+    const uint32_t high = value >> 16U;
+    if ((low > 10U && low < 65526U) || (high > 10U && high < 65526U) || (low != 0U && high != 0U)) {
+        robot_control_canopen_qualification_clear_authorization();
+        return false;
+    }
+    return authorize_frame(download_frame(
+        (qualification_download_t){.command = 0x23U, .index = 0x60FFU, .subindex = 3U, .value = value}));
+}
+
+bool robot_control_canopen_qualification_authorize_rpdo_mapping(
+    const robot_control_canopen_qualification_object_t object, const uint32_t value, const uint8_t size) {
+    const bool valid =
+        (object.index == 0x1400U && object.subindex == 1U && size == 4U && (value == 0x201U || value == 0x80000201U))
+        || (object.index == 0x1600U && object.subindex == 0U && size == 1U && (value == 0U || value == 2U))
+        || (object.index == 0x1600U && object.subindex == 1U && size == 4U && value == 0x60400010U)
+        || (object.index == 0x1600U && object.subindex == 2U && size == 4U
+            && (value == 0x60FF0320U || value == 0x60600008U));
+    if (!valid) {
+        robot_control_canopen_qualification_clear_authorization();
+        return false;
+    }
+    return authorize_frame(download_frame((qualification_download_t){
+        .command = size == 1U ? 0x2FU : 0x23U, .index = object.index, .subindex = object.subindex, .value = value}));
+}
+
+bool robot_control_canopen_qualification_authorize_rpdo(const uint16_t controlword, const uint32_t value) {
+    if (!robot_control_canopen_qualification_authorize_packed_target(value)
+        || !((controlword == 0x000FU && value != 0U) || (controlword == 0x0006U && value == 0U))) {
+        robot_control_canopen_qualification_clear_authorization();
+        return false;
+    }
+    struct can_frame frame = {0};
+    frame.can_id = 0x201U;
+    frame.can_dlc = 6U;
+    frame.data[0] = (uint8_t)controlword;
+    frame.data[1] = (uint8_t)(controlword >> 8U);
+    frame.data[2] = (uint8_t)value;
+    frame.data[3] = (uint8_t)(value >> 8U);
+    frame.data[4] = (uint8_t)(value >> 16U);
+    frame.data[5] = (uint8_t)(value >> 24U);
+    return authorize_frame(frame);
 }
 
 void robot_control_canopen_qualification_clear_authorization(void) {
