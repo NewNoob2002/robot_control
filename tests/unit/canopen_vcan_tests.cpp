@@ -24,6 +24,13 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <thread>
+
+extern "C" {
+extern unsigned canopen_test_send_diagnostics;
+extern unsigned canopen_test_epoll_diagnostics;
+void __real_CO_epoll_wait(CO_epoll_t* ep);
+}
 
 namespace {
 
@@ -47,6 +54,11 @@ constexpr auto heartbeat_timeout = 300ms;
 constexpr auto tpdo_timeout = 150ms;
 int failures = 0;
 std::size_t stimulus_count = 0U;
+int injected_peek_error = 0;
+unsigned injected_peek_count = 0U;
+bool repeat_peek_error = false;
+bool inject_short_peek = false;
+bool delay_can_event = false;
 
 /** Record one managed-vcan assertion failure. */
 void check(const bool condition, const std::string_view id, const std::string_view expression) {
@@ -262,7 +274,35 @@ void check_signal_exit(Lifecycle& owner, CanSocket& monitor, const int signal, c
 
 } // namespace
 
+/** Inject a single transient peek failure without consuming the queued frame. */
+extern "C" ssize_t __real_recv(int fd, void* buffer, size_t size, int flags);
+/** Inject the selected test failure only at the owner's peek boundary. */
+extern "C" ssize_t __wrap_recv(int fd, void* buffer, size_t size, int flags) {
+    if ((flags & MSG_PEEK) != 0 && inject_short_peek) {
+        inject_short_peek = false;
+        return 0;
+    }
+    if ((flags & MSG_PEEK) != 0 && injected_peek_error != 0) {
+        errno = injected_peek_error;
+        if (!repeat_peek_error) {
+            injected_peek_error = 0;
+        }
+        ++injected_peek_count;
+        return -1;
+    }
+    return __real_recv(fd, buffer, size, flags);
+}
+
 /** Run P5.5 production-owner evidence inside the managed vcan namespace. */
+/** Delay a readable CAN event across the caller deadline without consuming it. */
+extern "C" void __wrap_CO_epoll_wait(CO_epoll_t* ep) {
+    __real_CO_epoll_wait(ep);
+    if (delay_can_event && ep->epoll_new && (ep->ev.events & EPOLLIN) != 0U) {
+        delay_can_event = false;
+        std::this_thread::sleep_for(20ms);
+    }
+}
+
 int main() {
     const char* const interface_name = std::getenv("ROBOT_CONTROL_TEST_VCAN_INTERFACE");
     const char* const allow_link_toggle = std::getenv("ROBOT_CONTROL_TEST_ALLOW_VCAN_LINK_TOGGLE");
@@ -304,8 +344,45 @@ int main() {
     static_cast<void>(run_to_deadline(*owner, std::chrono::steady_clock::now() + 30ms, "P55-START-005"));
     check_monitor_quiet(monitor, "P55-ZERO-TX-001", 20ms);
 
+    CHECK("STARTUP-NO-SEND-ATTEMPT", canopen_test_send_diagnostics == 0U);
+    const auto deferred = frame(0x701U, 1U, {0x05U});
+    const auto before_deferred = owner->observation_snapshot(std::chrono::steady_clock::now());
+    CHECK("DEADLINE-EVENT", peer.send(deferred, 100ms).ok());
+    check_monitor_frame(monitor, deferred, "DEADLINE-EVENT");
+    const auto before_logs = canopen_test_epoll_diagnostics;
+    delay_can_event = true;
+    static_cast<void>(run_to_deadline(*owner, std::chrono::steady_clock::now() + 10ms, "DEADLINE-EVENT"));
+    CHECK("DEADLINE-EVENT", !delay_can_event);
+    CHECK("DEADLINE-EVENT", canopen_test_epoll_diagnostics == before_logs);
+    CHECK("DEADLINE-EVENT",
+          owner->observation_snapshot(std::chrono::steady_clock::now()).version == before_deferred.version);
+    static_cast<void>(run_to_deadline(*owner, std::chrono::steady_clock::now() + 10ms, "DEADLINE-DRAIN"));
+    CHECK("DEADLINE-DRAIN",
+          owner->observation_snapshot(std::chrono::steady_clock::now()).version == before_deferred.version + 1U);
+
     const auto boot = frame(0x701U, 1U, {0x00U});
     const auto heartbeat = frame(0x701U, 1U, {0x05U});
+    for (const int transient : {EINTR, EAGAIN}) {
+        injected_peek_error = transient;
+        const auto before_injections = injected_peek_count;
+        const auto observed = send_and_process(*owner, peer, heartbeat, monitor, "PEEK-TRANSIENT");
+        CHECK("PEEK-TRANSIENT", injected_peek_count == before_injections + 1U);
+        CHECK("PEEK-TRANSIENT", observed.heartbeat.frame.current);
+    }
+    const auto before_retry = owner->observation_snapshot(std::chrono::steady_clock::now());
+    CHECK("PEEK-DEADLINE", peer.send(heartbeat, 100ms).ok());
+    check_monitor_frame(monitor, heartbeat, "PEEK-DEADLINE");
+    repeat_peek_error = true;
+    injected_peek_error = EAGAIN;
+    static_cast<void>(run_to_deadline(*owner, std::chrono::steady_clock::now() + 10ms, "PEEK-DEADLINE"));
+    CHECK("PEEK-DEADLINE",
+          owner->observation_snapshot(std::chrono::steady_clock::now()).version == before_retry.version);
+    check_signal_exit(*owner, monitor, SIGTERM, LifecycleExit::sigterm, "PEEK-SIGNAL");
+    repeat_peek_error = false;
+    injected_peek_error = 0;
+    static_cast<void>(run_to_deadline(*owner, std::chrono::steady_clock::now() + 10ms, "PEEK-RECOVER"));
+    CHECK("PEEK-RECOVER",
+          owner->observation_snapshot(std::chrono::steady_clock::now()).version == before_retry.version + 1U);
     const auto emergency = frame(0x081U, 8U, {0x34U, 0x12U, 0x56U, 0x78U, 0xefU, 0xcdU, 0xabU, 0x90U});
     const std::array<ClassicCanFrame, 4> tpdo{
         frame(0x181U, 8U, {0x11U, 0x22U, 0x33U, 0x44U, 0x55U, 0x66U, 0x77U, 0x88U}), frame(0x281U, 0U, {}),
@@ -442,8 +519,21 @@ int main() {
     CHECK("P55-LINK-REBOOT-005", snapshot.heartbeat.frame.current);
     CHECK("P55-LINK-REBOOT-005", snapshot.generation.boot == 1U);
 
+    CHECK("REOPEN-NO-SEND-ATTEMPT", canopen_test_send_diagnostics == 0U);
     check_signal_exit(*owner, monitor, SIGINT, LifecycleExit::sigint, "P55-SIGNAL-INT");
     check_signal_exit(*owner, monitor, SIGTERM, LifecycleExit::sigterm, "P55-SIGNAL-TERM");
+
+    for (const bool short_frame : {false, true}) {
+        CHECK("PEEK-FATAL", peer.send(heartbeat, 100ms).ok());
+        check_monitor_frame(monitor, heartbeat, "PEEK-FATAL");
+        injected_peek_error = short_frame ? 0 : EIO;
+        inject_short_peek = short_frame;
+        const auto failed = owner->run_until(std::chrono::steady_clock::now() + 20ms);
+        CHECK("PEEK-FATAL", !failed.ok());
+        CHECK("PEEK-FATAL", failed.status().operation == "recv(MSG_PEEK)");
+        CHECK("PEEK-FATAL", failed.status().error.value() == EIO);
+        static_cast<void>(run_to_deadline(*owner, std::chrono::steady_clock::now() + 10ms, "PEEK-FATAL-DRAIN"));
+    }
 
     if (failures == 0) {
         std::cout << "INFO: P5.5 managed-vcan receive evidence passed"

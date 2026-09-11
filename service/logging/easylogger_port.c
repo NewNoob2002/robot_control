@@ -7,6 +7,7 @@
 #include <pthread.h>
 #include <stdatomic.h>
 #include <string.h>
+#include <sys/socket.h>
 #include <sys/syscall.h>
 #include <time.h>
 #include <unistd.h>
@@ -52,22 +53,27 @@ static void format_identity(char *text, size_t capacity, const char *prefix,
 /** Initialize the Linux EasyLogger port. */
 ElogErrCode elog_port_init(void) { return ELOG_NO_ERR; }
 
-/** Write one complete EasyLogger record to standard error. */
+/**
+ * Write a bounded record without changing stderr's shared open-file flags.
+ * Sockets use per-call nonblocking sends; other sinks use a separately opened,
+ * nonblocking append descriptor. Failure to reopen is reported, never bypassed
+ * by a blocking write. The borrowed stderr descriptor is never closed.
+ */
 void elog_port_output(const char *log, size_t size) {
-  const int original_flags = fcntl(STDERR_FILENO, F_GETFL);
-  if (original_flags < 0) {
-    record_error(errno);
-    return;
-  }
-  const bool restore_flags = (original_flags & O_NONBLOCK) == 0;
-  if (restore_flags &&
-      fcntl(STDERR_FILENO, F_SETFL, original_flags | O_NONBLOCK) != 0) {
-    record_error(errno);
-    return;
-  }
+  int output_fd = -1;
   unsigned int interrupted = 0U;
   while (size > 0U) {
-    const ssize_t count = write(STDERR_FILENO, log, size);
+    const ssize_t count = output_fd < 0
+                              ? send(STDERR_FILENO, log, size, MSG_DONTWAIT | MSG_NOSIGNAL)
+                              : write(output_fd, log, size);
+    if (count < 0 && output_fd < 0 && errno == ENOTSOCK) {
+      output_fd = open("/proc/self/fd/2", O_WRONLY | O_NONBLOCK | O_CLOEXEC | O_APPEND);
+      if (output_fd < 0) {
+        record_error(errno);
+        break;
+      }
+      continue;
+    }
     if (count > 0) {
       log += count;
       size -= (size_t)count;
@@ -80,7 +86,7 @@ void elog_port_output(const char *log, size_t size) {
     record_error(count == 0 ? EIO : errno);
     break;
   }
-  if (restore_flags && fcntl(STDERR_FILENO, F_SETFL, original_flags) != 0) {
+  if (output_fd >= 0 && close(output_fd) != 0) {
     record_error(errno);
   }
 }

@@ -16,6 +16,7 @@ add_test(NAME canopen_stack_build COMMAND robot_control_canopen_stack_tests)
 
 add_executable(robot_control_canopen_vcan_tests canopen_vcan_tests.cpp
                                               canopen_test_log_stub.c)
+target_link_options(robot_control_canopen_vcan_tests PRIVATE "-Wl,--wrap=recv" "-Wl,--wrap=CO_epoll_wait")
 target_link_libraries(
   robot_control_canopen_vcan_tests
   PRIVATE robot_control_communication_canopen robot_control_platform_linux

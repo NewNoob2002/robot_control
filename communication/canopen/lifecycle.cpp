@@ -220,6 +220,11 @@ platform::linux::Status Lifecycle::reopen() noexcept {
                                {.error = error, .error_info = error_info, .error_number = saved_errno});
     }
 
+    // This local client/observer is not an announcing NMT slave. Upstream sends
+    // boot-up from INITIALIZING even with producer heartbeat disabled. Establish
+    // the silent local role on every reset; remote observations remain separate.
+    storage_->stack()->NMT->operatingState = CO_NMT_PRE_OPERATIONAL;
+    storage_->stack()->NMT->operatingStatePrev = CO_NMT_PRE_OPERATIONAL;
     CO_epoll_initCANopenMain(&epoll_, storage_->stack());
 
     error_info = 0U;
@@ -268,9 +273,15 @@ Lifecycle::process_receive_event(const std::chrono::steady_clock::time_point rec
     can_frame peeked{};
     errno = 0;
     const auto received = ::recv(epoll_.ev.data.fd, &peeked, sizeof(peeked), MSG_PEEK | MSG_DONTWAIT);
+    const int receive_error = errno;
+    if (received < 0 && (receive_error == EINTR || receive_error == EAGAIN || receive_error == EWOULDBLOCK)) {
+        // Return to the owner loop so deadlines/signals still run; do not consume or publish a frame.
+        epoll_.epoll_new = false;
+        return platform::linux::Status::success();
+    }
     if (received != static_cast<ssize_t>(sizeof(peeked))) {
         return platform::linux::Status::from_errno("recv(MSG_PEEK)", context + " resource=can_frame",
-                                                   received < 0 ? errno : EIO);
+                                                   received < 0 ? receive_error : EIO);
     }
 
     CO_CANrxMsg_t consumed{};
@@ -318,6 +329,9 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
         }
 
         if (std::chrono::steady_clock::now() >= deadline) {
+            // CAN registration is level-triggered: leave the frame queued for
+            // the next run, rather than report an unprocessed event as unknown.
+            epoll_.epoll_new = false;
             CO_epoll_processLast(&epoll_);
             return RunResult::success(LifecycleExit::deadline);
         }

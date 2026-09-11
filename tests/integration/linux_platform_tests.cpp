@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <pthread.h>
 #include <signal.h>
+#include <sys/socket.h>
 #include <stdlib.h>
 #include <termios.h>
 #include <unistd.h>
@@ -35,6 +36,9 @@ namespace uart = robot_control::platform::linux::uart;
 namespace logging = robot_control::service::logging;
 
 int failures = 0;
+bool inspect_log_flags = false;
+int expected_stderr_flags = 0;
+bool log_changed_stderr_flags = false;
 
 /** No-op handler used to force an interruptible wait to return EINTR. */
 extern "C" void handle_test_signal(int) {}
@@ -562,6 +566,8 @@ void test_logger() {
     return;
   }
   logging::Logger logger;
+  expected_stderr_flags = ::fcntl(STDERR_FILENO, F_GETFL);
+  inspect_log_flags = true;
   const std::chrono::steady_clock::time_point t0{};
   logger.log(logging::Severity::info, "test", "started", "value=1");
   logger.log_throttled("repeat", 100ms, logging::Severity::warning, "test",
@@ -570,7 +576,10 @@ void test_logger() {
                        "repeat", "code=2", t0 + 1ms);
   logger.log_throttled("repeat", 100ms, logging::Severity::warning, "test",
                        "repeat", "code=2", t0 + 100ms);
+  inspect_log_flags = false;
+  const bool flags_preserved = !log_changed_stderr_flags;
   CHECK("LOG-001", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
+  CHECK("LOG-FLAGS-001", flags_preserved);
   capture_writer.reset();
   std::array<char, 2048> output{};
   const auto output_size =
@@ -638,7 +647,73 @@ void test_logger() {
   }
 }
 
+/** Verify socket output/backpressure and append-only reopening preserve shared sink flags. */
+void test_logger_sinks() {
+  UniqueFd saved{::dup(STDERR_FILENO)};
+  CHECK("LOG-SINK-001", static_cast<bool>(saved));
+  if (!saved) { return; }
+  std::array<int, 2> sockets{};
+  const bool created = ::socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0, sockets.data()) == 0;
+  CHECK("LOG-SINK-001", created);
+  if (!created) { return; }
+  UniqueFd reader{sockets[0]};
+  UniqueFd writer{sockets[1]};
+  CHECK("LOG-SINK-001", ::dup2(writer.get(), STDERR_FILENO) >= 0);
+  const int flags = ::fcntl(writer.get(), F_GETFL);
+  logging::Logger logger;
+  robot_control_elog_reset_health();
+  logger.log(logging::Severity::info, "test", "socket_record", "");
+  std::array<char, 2048> output{};
+  const auto count = ::recv(reader.get(), output.data(), output.size(), MSG_DONTWAIT);
+  const bool delivered = count > 0 && std::string_view(output.data(), static_cast<std::size_t>(count))
+                                         .find("socket_record") != std::string_view::npos;
+  const std::array<char, 4096> fill{};
+  while (::send(writer.get(), fill.data(), fill.size(), MSG_DONTWAIT | MSG_NOSIGNAL) > 0) {}
+  const bool full = errno == EAGAIN || errno == EWOULDBLOCK;
+  const auto start = std::chrono::steady_clock::now();
+  logger.log(logging::Severity::error, "test", "socket_full", "");
+  const auto elapsed = std::chrono::steady_clock::now() - start;
+  const auto health = logger.health();
+  const bool preserved = ::fcntl(writer.get(), F_GETFL) == flags;
+  reader.reset();
+  logger.log(logging::Severity::error, "test", "closed_socket", "");
+  const auto closed_health = logger.health();
+  CHECK("LOG-SINK-001", ::dup2(saved.get(), STDERR_FILENO) >= 0);
+  CHECK("LOG-SINK-001", delivered && full && preserved);
+  CHECK("LOG-SINK-002", elapsed < 100ms && health.output_failures >= 1U);
+  CHECK("LOG-SINK-002", health.last_error == EAGAIN || health.last_error == EWOULDBLOCK);
+  CHECK("LOG-SINK-003", closed_health.last_error == EPIPE);
+
+  char path[] = "/tmp/robot-control-log-XXXXXX";
+  UniqueFd file{::mkstemp(path)};
+  CHECK("LOG-SINK-004", static_cast<bool>(file));
+  if (!file) { return; }
+  CHECK("LOG-SINK-004", ::unlink(path) == 0);
+  CHECK("LOG-SINK-004", ::write(file.get(), "prefix", 6U) == 6);
+  CHECK("LOG-SINK-004", ::lseek(file.get(), 0, SEEK_SET) == 0);
+  const int file_flags = ::fcntl(file.get(), F_GETFL);
+  CHECK("LOG-SINK-004", ::dup2(file.get(), STDERR_FILENO) >= 0);
+  logger.log(logging::Severity::info, "test", "appended", "");
+  CHECK("LOG-SINK-004", ::dup2(saved.get(), STDERR_FILENO) >= 0);
+  CHECK("LOG-SINK-004", ::lseek(file.get(), 0, SEEK_CUR) == 0);
+  CHECK("LOG-SINK-004", ::fcntl(file.get(), F_GETFL) == file_flags);
+  const auto file_count = ::read(file.get(), output.data(), output.size());
+  CHECK("LOG-SINK-004", file_count > 6);
+  const std::string_view text(output.data(), file_count > 0 ? static_cast<std::size_t>(file_count) : 0U);
+  CHECK("LOG-SINK-004", text.starts_with("prefix") && text.find("appended") != std::string_view::npos);
+}
+
 } // namespace
+
+/** Delegate writes while inspecting shared stderr flags at the actual log write. */
+extern "C" ssize_t __real_write(int fd, const void* buffer, size_t size);
+/** Inspect flags at the write boundary, then invoke the real syscall unchanged. */
+extern "C" ssize_t __wrap_write(int fd, const void* buffer, size_t size) {
+  if (inspect_log_flags && ::fcntl(STDERR_FILENO, F_GETFL) != expected_stderr_flags) {
+    log_changed_stderr_flags = true;
+  }
+  return __real_write(fd, buffer, size);
+}
 
 /**
  * Execute Linux mechanism integration tests without accessing real devices.
@@ -652,6 +727,7 @@ int main() {
   test_termination_event();
   test_serial_port();
   test_logger();
+  test_logger_sinks();
   if (failures != 0) {
     std::cerr << "linux_platform_integration failures=" << failures << '\n';
     return EXIT_FAILURE;
