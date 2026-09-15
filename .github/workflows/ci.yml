@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - codex/phase6-development
+      - codex/phase9-sbus-development
   pull_request:
   merge_group:
 
