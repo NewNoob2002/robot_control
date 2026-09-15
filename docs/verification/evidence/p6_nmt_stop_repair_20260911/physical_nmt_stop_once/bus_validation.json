@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "interface": "can",
+  "settings": {
+    "bitrate": 500000,
+    "node": 1,
+    "jcan_serial": "207F346D5650",
+    "jcan_mode": "silent",
+    "jcan_physical_tx": false
+  },
+  "matched_frames": 140,
+  "sdo_transactions": 49,
+  "unexpected_traffic": 0,
+  "errors_drops": 0,
+  "analysis": "analysis.json",
+  "raw_captures": [
+    "target/rk3588_can.log",
+    "jcan_session.jsonl"
+  ],
+  "cleanup": {
+    "completed": true,
+    "final_state": "Pre-operational, both Switch On Disabled, target/speeds zero"
+  }
+}

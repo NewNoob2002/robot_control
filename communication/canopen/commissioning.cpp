@@ -1,4 +1,5 @@
 #include "communication/canopen/commissioning.hpp"
+#include "communication/canopen/sdo_client.hpp"
 
 #include "communication/canopen/commissioning_gate.h"
 
@@ -84,26 +85,42 @@ CommissioningSession::upload(const std::uint16_t index, const std::uint8_t subin
                 != CO_SDO_RT_ok_communicationEnd
             || !robot_control_canopen_authorize_sdo_upload(object)) {
             lifecycle_->observations_.cancel_sdo_upload();
-            CO_SDOclientClose(client);
+            close_sdo_client(*client);
+            robot_control_canopen_clear_authorization();
             return platform::linux::Result<SdoObservation>::failure(
                 failure("CO_SDOclientUploadInitiate", lifecycle_->storage_->config(), EPROTO));
         }
 
+        const auto transaction_deadline = std::chrono::steady_clock::now()
+            + lifecycle_->storage_->config().sdo_timeout;
+        const auto transaction_generation = lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation;
         CO_SDO_abortCode_t abort_code = CO_SDO_AB_NONE;
         auto previous = std::chrono::steady_clock::now();
         CO_SDO_return_t result = CO_SDOclientUpload(client, 0U, false, &abort_code, nullptr, nullptr, nullptr);
         while (result > CO_SDO_RT_ok_communicationEnd) {
-            const auto step_deadline = std::chrono::steady_clock::now() + 1ms;
+            const auto step_deadline = std::min(transaction_deadline, std::chrono::steady_clock::now() + 1ms);
             const auto run = lifecycle_->run_until(step_deadline);
             if (!run.ok() || run.value() != LifecycleExit::deadline) {
                 lifecycle_->observations_.cancel_sdo_upload();
-                CO_SDOclientClose(client);
+                close_sdo_client(*client);
                 robot_control_canopen_clear_authorization();
                 return platform::linux::Result<SdoObservation>::failure(
                     run.ok() ? failure("commissioning_owner_exit", lifecycle_->storage_->config(), ECANCELED)
                              : run.status());
             }
+            if (lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation != transaction_generation) {
+                lifecycle_->observations_.cancel_sdo_upload();
+                close_sdo_client(*client);
+                robot_control_canopen_clear_authorization();
+                return platform::linux::Result<SdoObservation>::failure(
+                    failure("commissioning_sdo_generation_changed", lifecycle_->storage_->config(), ENOTCONN));
+            }
             const auto now = std::chrono::steady_clock::now();
+            if (now >= transaction_deadline) {
+                abort_code = CO_SDO_AB_TIMEOUT;
+                result = CO_SDO_RT_endedWithClientAbort;
+                break;
+            }
             const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(now - previous).count();
             previous = now;
             result = CO_SDOclientUpload(
@@ -114,7 +131,7 @@ CommissioningSession::upload(const std::uint16_t index, const std::uint8_t subin
         }
         robot_control_canopen_clear_authorization();
         const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
-        CO_SDOclientClose(client);
+        close_sdo_client(*client);
         if (result == CO_SDO_RT_ok_communicationEnd || result == CO_SDO_RT_endedWithServerAbort) {
             if (!snapshot.sdo_result.frame.current || snapshot.sdo_result.request_generation != request_generation_
                 || snapshot.sdo_result.attempt_generation != attempt_generation_) {

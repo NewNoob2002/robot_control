@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "operation": "single zero-target physical recovery",
+  "approved": true,
+  "authorization": {
+    "authorized": true,
+    "stimulus": "zero",
+    "elf_sha256": "31d2d0848e9330f6f910e642d47bccb6552ca112cefa36214defa646c524b7e3",
+    "operator_ready": true,
+    "user_confirmation": "授权",
+    "authorization_context": "User authorizes physical zero-target recovery and subsequent NMT Stop verification after software repair; this runner executes only zero-target recovery once. Raised wheels, emergency stop and on-site conditions carry forward from operator confirmations; prior NMT failure was confirmed stationary and safe.",
+    "date": "2026-09-11",
+    "attempts": 1,
+    "args": [
+      "--interface",
+      "can0",
+      "--zero-sequence"
+    ]
+  },
+  "target": {
+    "board": "RK3588 robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+    "interface": "can0",
+    "node": 1,
+    "bitrate": 500000
+  },
+  "observer": {
+    "serial": "207F346D5650",
+    "mode": "silent",
+    "physical_tx": false
+  },
+  "limits": {
+    "attempts": 1,
+    "nonzero_targets": 0,
+    "disable_voltage_requests_max": 1,
+    "downloads_max": 16,
+    "uploads_max": 64,
+    "nmt_max": 4,
+    "per_transition_ms": 2000,
+    "executor_seconds": 30,
+    "capture_seconds": 40,
+    "frames_max": 10000
+  },
+  "expected_sequence": "verified zero targets; one Disable Voltage recovery from Quick Stop with new dual-disabled zero TPDO; Shutdown/Switch On/Enable at zero; zero targets and Shutdown, verify zero, Pre-operational, restore heartbeat",
+  "recovery_plan": "Application bounded zero/inhibit cleanup; terminate capture and observer; stop on any timeout/error without retry; operator independent stop if uncertain",
+  "source_and_artifact_manifest": "../manifest_budget.json"
+}

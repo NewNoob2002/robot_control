@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-g++"
+	tests="68"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="cathyLaptop"
+	time="85"
+	timestamp="2026-09-15T18:12:23"
+	>
+	<testcase name="platform_probe_help" classname="platform_probe_help" time="0.00173155" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-platform-probe [--help|--phase3-smoke]
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_run" classname="platform_probe_run" time="0.00168822" status="run">
+		<properties/>
+		<system-out>probe_version=1
+sysname=Linux
+release=7.2.5-1-cachyos
+machine=x86_64
+pid=29488
+monotonic_ns=2894978853833
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_phase3_smoke" classname="platform_probe_phase3_smoke" time="0.00150701" status="run">
+		<properties/>
+		<system-out>I/elog     EasyLogger V2.2.0 is initialize success.
+I/platform_probe timestamp_unix_s=1789467143 severity=INFO event="phase3_smoke" result=pass
+</system-out>
+	</testcase>
+	<testcase name="can_probe_help" classname="can_probe_help" time="0.00151738" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_missing_interface" classname="can_probe_missing_interface" time="0.00834735" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing required argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_unknown_argument" classname="can_probe_unknown_argument" time="0.00824022" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="unknown argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_zero" classname="can_probe_duration_zero" time="0.00810726" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms out of range value=0" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_nonnumeric" classname="can_probe_duration_nonnumeric" time="0.00763118" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=abc" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_overflow" classname="can_probe_duration_overflow" time="0.00793357" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms overflow value=9999999999999999999999999999999999999999" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_interface" classname="can_probe_duplicate_interface" time="0.0101942" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_duration" classname="can_probe_duplicate_duration" time="0.00797372" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_interface_missing_value" classname="can_probe_interface_missing_value" time="0.00903982" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_missing_value" classname="can_probe_duration_missing_value" time="0.0080855" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_negative" classname="can_probe_duration_negative" time="0.00821915" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=-1" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_help" classname="canopen_observer_help" time="0.00173839" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid_" classname="canopen_observer_invalid_" time="0.00855238" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___unknown" classname="canopen_observer_invalid___unknown" time="0.00780498" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing value argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0" classname="canopen_observer_invalid___interface_unused0" time="0.00856549" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0___interface_unused1" classname="canopen_observer_invalid___interface_unused0___interface_unused1" time="0.00779118" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_0" classname="canopen_observer_invalid___duration_ms_0" time="0.00819279" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="invalid value argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_1___duration_ms_2" classname="canopen_observer_invalid___duration_ms_1___duration_ms_2" time="0.00940241" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000" classname="zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000" time="0.00997277" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___nmt_operational" classname="zlac_qualification_invalid___interface_vcan0___nmt_operational" time="0.00803206" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___velocity_mode" classname="zlac_qualification_invalid___interface_vcan0___velocity_mode" time="0.00885429" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___controlword_switch_on" classname="zlac_qualification_invalid___interface_vcan0___controlword_switch_on" time="0.00776103" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___controlword_enable_operation" classname="zlac_qualification_invalid___interface_vcan0___controlword_enable_operation" time="0.0085089" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once" classname="zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once" time="0.00805204" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid_" classname="zlac_qualification_invalid_" time="0.00809727" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___unknown" classname="zlac_qualification_invalid___unknown" time="0.00781562" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0" classname="zlac_qualification_invalid___interface_vcan0" time="0.0115905" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___nmt_reset_node" classname="zlac_qualification_invalid___interface_vcan0___nmt_reset_node" time="0.00848146" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___controlword_quick_stop" classname="zlac_qualification_invalid___interface_vcan0___controlword_quick_stop" time="0.00788159" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10" classname="zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10" time="0.00747742" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001" classname="zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001" time="0.00813986" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___target_once_1_1" classname="zlac_qualification_invalid___interface_vcan0___target_once_1_1" time="0.00820613" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10" classname="zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10" time="0.00859281" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001" classname="zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001" time="0.00916134" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10" classname="zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10" time="0.00891982" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001" classname="zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001" time="0.00976082" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5" classname="zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5" time="0.00857716" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5" classname="zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5" time="0.00991403" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001" classname="zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001" time="0.0102902" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5" classname="zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5" time="0.00865406" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001" classname="zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001" time="0.00863516" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5" classname="zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5" time="0.00716042" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001" classname="zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001" time="0.00942049" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500" classname="zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500" time="0.00787311" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5" classname="zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5" time="0.00972769" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once" classname="zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once" time="0.0103408" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000" classname="zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000" time="0.00938863" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once" classname="zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once" time="0.00910181" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_can0___external_loss_once" classname="zlac_qualification_invalid___interface_can0___external_loss_once" time="0.00684685" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper" classname="zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper" time="0.00717648" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper" classname="zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper" time="0.00894546" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper" classname="zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper" time="0.00909943" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b" classname="zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b" time="0.00949207" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets" classname="zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets" time="0.00790747" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10" classname="zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10" time="0.00810973" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+</system-out>
+	</testcase>
+	<testcase name="domain_behavior_lock" classname="domain_behavior_lock" time="0.00167103" status="run">
+		<properties/>
+		<system-out>domain_behavior_lock passed
+</system-out>
+	</testcase>
+	<testcase name="canopen_stack_build" classname="canopen_stack_build" time="0.0020759" status="run">
+		<properties/>
+		<system-out>canopen_stack_tests passed
+</system-out>
+	</testcase>
+	<testcase name="canopen_vcan_managed" classname="canopen_vcan_managed" time="0.632753" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: P5.5 observation service=boot raw_can_id=0x00000701 dlc=1 payload=0000000000000000 timestamp_ns=2895613767827 transport=1 boot=1
+INFO: P5.5 observation service=heartbeat raw_can_id=0x00000701 dlc=1 payload=0500000000000000 timestamp_ns=2895624917087 transport=1 boot=1
+INFO: P5.5 observation service=emcy raw_can_id=0x00000081 dlc=8 payload=34125678efcdab90 timestamp_ns=2895635714634 transport=1 boot=1
+INFO: P5.5 observation service=tpdo1 raw_can_id=0x00000181 dlc=8 payload=1122334455667788 timestamp_ns=2895646709262 transport=1 boot=1
+INFO: P5.5 observation service=tpdo2 raw_can_id=0x00000281 dlc=0 payload=0000000000000000 timestamp_ns=2895657720432 transport=1 boot=1
+INFO: P5.5 observation service=tpdo3 raw_can_id=0x00000381 dlc=0 payload=0000000000000000 timestamp_ns=2895668713988 transport=1 boot=1
+INFO: P5.5 observation service=tpdo4 raw_can_id=0x00000481 dlc=0 payload=0000000000000000 timestamp_ns=2895679726580 transport=1 boot=1
+INFO: P5.5 observation service=can...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="socketcan_frame_codec" classname="socketcan_frame_codec" time="0.00275683" status="run">
+		<properties/>
+		<system-out>socketcan_frame_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_socket_lifecycle" classname="socketcan_socket_lifecycle" time="0.00259027" status="run">
+		<properties/>
+		<system-out>SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing vcan interface for bind/filter/frame/metadata checks
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_vcan_managed" classname="socketcan_vcan_managed" time="0.155201" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: managed vcan RX overflow evidence requested_rcvbuf=1024 effective_rcvbuf=2304 frames_attempted=4096 frames_sent=4096 raw_overflow_counter=4093
+INFO: managed vcan CAN error-frame evidence raw_can_id=0x20000044 error_classes=0x00000044 payload=0004123456789abc
+INFO: managed vcan link-down/reopen evidence interface=vcan0 original_ifindex=2 reopened_ifindex=2 receive_operation=poll receive_context="interface=vcan0 socket failure" receive_errno=5 send_operation=write send_context="interface=vcan0" send_errno=100 raw_can_id=0x000006a5 dlc=8 len8_dlc=0 payload=a55adeadbeef4224
+INFO: managed vcan bidirectional frame and filter isolation checks passed
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="can_interface_inhibitor_vcan_managed" classname="can_interface_inhibitor_vcan_managed" time="1.55908" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_qualification_gate" classname="canopen_qualification_gate" time="0.0102103" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_qualification_vcan_managed" classname="canopen_qualification_vcan_managed" time="82.0333" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+communication stimulus=0 scenario=0 result=:
+communication stimulus=0 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=0 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=0 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 second_zero_failed=CO_SDOclientDownload:Connection timed out watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=0 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=0 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="linux_platform_integration" classname="linux_platform_integration" time="0.20089" status="run">
+		<properties/>
+		<system-out>linux_platform_integration passed
+</system-out>
+	</testcase>
+</testsuite>

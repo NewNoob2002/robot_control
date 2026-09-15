@@ -1,0 +1,20 @@
+{
+  "go_sent": true,
+  "executor_started": true,
+  "error": "remote_err: Traceback (most recent call last):\n",
+  "frames": 352,
+  "downloads": 16,
+  "uploads": 107,
+  "nmt_frames": 2,
+  "nonzero_requests": 1,
+  "post_motion_boot_observed": true,
+  "first_host_after_boot": [
+    1537,
+    "23ff600300000000"
+  ],
+  "raw_can_error": false,
+  "host_requests_after_error": 0,
+  "remote_outcome": null,
+  "jcan_mode": "normal",
+  "jcan_data_frame_commands": 0
+}

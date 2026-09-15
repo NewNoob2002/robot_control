@@ -1,0 +1,17 @@
+{
+  "go_sent": true,
+  "executor_started": true,
+  "error": "capture frame bound",
+  "frames": 100001,
+  "downloads": 9,
+  "uploads": 54,
+  "nmt_frames": 1,
+  "nonzero_requests": 1,
+  "cleanup_shutdown_requests": 1,
+  "disable_voltage_requests": 0,
+  "nmt_stop_requests": 0,
+  "startup_recovery_requests": 0,
+  "cleanup_disable_requests": 0,
+  "interface_down_observed": true,
+  "host_requests_after_down_plus_250ms": 0
+}

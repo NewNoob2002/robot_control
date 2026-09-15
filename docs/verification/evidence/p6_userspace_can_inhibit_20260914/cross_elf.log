@@ -1,0 +1,16 @@
+elf=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/cross/userspace-inhibit-container-qualification/tools/zlac_qualification/robot-control-zlac-qualification
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+rpath=none
+elf=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/cross/userspace-inhibit-container-qualification/tools/can_interface_inhibitor/robot-control-can-interface-inhibitor
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+rpath=none
+elf=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/cross/userspace-inhibit-container-release/tools/platform_probe/robot-control-platform-probe
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+phase3_symbols=validated
+rpath=none

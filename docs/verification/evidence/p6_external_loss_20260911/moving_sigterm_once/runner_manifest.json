@@ -1,0 +1,9 @@
+{
+  "base": "/tmp/robot-control-qualifications/external-loss-dc639ff99b70",
+  "files": {
+    "local_trial.py": "da305bd6469817eef43d84c95292e55a281130b1b5e97dc2832dc5ef280f2408",
+    "remote_trial.py": "3f818867a58ae2cf3ac61056cd373f10f117ef68772778cc4a2e55c2e43744b5",
+    "authorization.json": "3eb528c5e6efe0b91b35a6692c1728530b100f51acd78f746fdee0f0814cd2d5",
+    "safety_preflight.json": "dd97fe92d33dc8fcef9450a95783e9b0e6063108bc8e7ec75977a48f9cea05c5"
+  }
+}

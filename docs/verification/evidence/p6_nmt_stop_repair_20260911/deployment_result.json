@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "safety_preflight": "stage_preflight.json",
+  "target": "RK3588 robot-dev",
+  "destination": "/tmp/robot-control-qualifications/nmt-repair-202bab381749",
+  "artifact_checksums": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/nmt-stop-repair-final-qualification/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "202bab381749c0418a61d727a7de02490d4a625594bba3e98346c6f96d3f175d"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/nmt-stop-repair-final-qualification/review_qualification_vcan_tests",
+      "sha256": "29100e97c7d040aa28f1199329e90d5e760cba701bffd1f6ce5aab1b149d478f"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    }
+  },
+  "verified": true,
+  "reset_after_deploy": false,
+  "production_deployment": false,
+  "rollback": {
+    "required": false,
+    "reason": "New temporary diagnostic directory; no service or existing artifact replaced."
+  }
+}

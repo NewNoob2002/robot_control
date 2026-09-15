@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-14",
+  "status": "NOT_QUALIFIED_EXPECTED_LOSS_ABSENT",
+  "matching_frames": 301,
+  "target_to_zero_request_ms": 2913.006,
+  "cleanup_verified": true,
+  "fresh_three_zero_sdo_views": true,
+  "final_status": "0x1421/0x1421",
+  "no_later_enable_or_operational": true,
+  "left_tpdo_speed_always_zero": true,
+  "interface_event_recorded": false,
+  "jcan_configuration_unchanged": true,
+  "retry": false,
+  "operator_confirmation": "是的，但是右轮运动的时间太短了，没有注意到就结束了",
+  "limits": "Operator confirms normal stopping and safe site; no interface-loss stimulus was recorded. Sampled zeros do not prove continuous zero."
+}

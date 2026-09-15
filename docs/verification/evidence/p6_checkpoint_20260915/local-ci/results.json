@@ -1,0 +1,190 @@
+[
+  {
+    "name": "shellcheck",
+    "command": [
+      "/tmp/p6-ci-tools/shellcheck-v0.10.0/shellcheck",
+      "scripts/build.sh",
+      "scripts/sysroot/sync_from_target.sh",
+      "scripts/sysroot/validate_sysroot.sh",
+      "scripts/sysroot/normalize_sysroot.sh",
+      "scripts/sysroot/collect_target_manifest.sh",
+      "scripts/test/test_canopen_dependencies.sh",
+      "scripts/test/test_can_inhibitor_vcan.sh",
+      "scripts/test/test_socketcan_vcan.sh",
+      "scripts/test/test_phase1_scripts.sh",
+      "scripts/test/test_sysroot_manifest.sh",
+      "scripts/build/verify_canopen_dependencies.sh",
+      "scripts/build/build_cross_image.sh",
+      "scripts/build/write_build_metadata.sh",
+      "scripts/build/audit_elf.sh",
+      "scripts/build/setup_cross_container.sh",
+      "scripts/build/create_source_snapshot.sh",
+      "scripts/build/build_rk3588.sh",
+      "scripts/build/build_host.sh",
+      "scripts/build/verify_cross_image.sh",
+      "scripts/build/build_p5_1_host.sh",
+      "scripts/build/audit_qualification_elf.sh",
+      "scripts/build/reset_cross_build_dir.sh",
+      "docs/verification/evidence/p6_review_motion_20260911/historical_bootstrap_after_boot.sh",
+      "docs/verification/evidence/p6_review_motion_20260911/historical_executor_wrapper.sh",
+      "docs/verification/evidence/p6_5_20260908_second_axis_trial_2/target/bootstrap_after_boot.sh",
+      "docs/verification/evidence/p6_5_20260908_second_axis_trial_2/target/executor_wrapper.sh",
+      "docs/verification/evidence/p6_emergency_input_v2_20260915/prepare_privileged.sh",
+      "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/target_vcan_smoke.sh",
+      "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/prepare_privileged.sh"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "hadolint",
+    "command": [
+      "/tmp/p6-ci-tools/hadolint-Linux-x86_64",
+      "--ignore",
+      "DL3006",
+      "docker/cross/Dockerfile"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "dependencies",
+    "command": [
+      "bash",
+      "scripts/test/test_canopen_dependencies.sh"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "elf_audit_regression",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/test/test_qualification_elf_audit.py"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "emergency_input",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/test/test_phase6_emergency_input.py"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "soak",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/test/test_phase6_zero_motion_soak.py"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "phase1_scripts",
+    "command": [
+      "bash",
+      "scripts/test/test_phase1_scripts.sh"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "sysroot_manifest",
+    "command": [
+      "bash",
+      "scripts/test/test_sysroot_manifest.sh"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "default_debug",
+    "command": [
+      "bash",
+      "scripts/build/build_p5_1_host.sh"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "default_debug_socketcan",
+    "command": [
+      "ctest",
+      "--preset",
+      "host-test",
+      "--tests-regex",
+      "^socketcan_(socket_lifecycle|vcan_managed)$"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "release_configure",
+    "command": [
+      "cmake",
+      "--preset",
+      "host-release",
+      "-S",
+      "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "release_build",
+    "command": [
+      "cmake",
+      "--build",
+      "--preset",
+      "host-release"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "release_tests",
+    "command": [
+      "ctest",
+      "--preset",
+      "host-release",
+      "--output-junit",
+      "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/checkpoints/p6-deferred-soak-20260915/local-ci/release.xml"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "commissioning_configure",
+    "command": [
+      "cmake",
+      "-S",
+      ".",
+      "-B",
+      "out/build/checkpoint-commissioning",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Debug",
+      "-DBUILD_TESTING=ON",
+      "-DROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING=ON",
+      "-DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "commissioning_build",
+    "command": [
+      "cmake",
+      "--build",
+      "out/build/checkpoint-commissioning",
+      "--parallel",
+      "2"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "commissioning_tests",
+    "command": [
+      "ctest",
+      "--test-dir",
+      "out/build/checkpoint-commissioning",
+      "--output-on-failure",
+      "--output-junit",
+      "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/checkpoints/p6-deferred-soak-20260915/local-ci/commissioning.xml"
+    ],
+    "returncode": 0
+  }
+]

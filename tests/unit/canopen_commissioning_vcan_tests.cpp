@@ -92,6 +92,8 @@ bool monitor_allowed(const ClassicCanFrame& value) {
 }
 } // namespace
 
+extern "C" unsigned canopen_test_send_diagnostics;
+
 int main() {
     const char* const interface_name = std::getenv("ROBOT_CONTROL_TEST_VCAN_INTERFACE");
     if (interface_name == nullptr || !std::string_view{interface_name}.starts_with("vcan")) {
@@ -180,6 +182,7 @@ int main() {
         CHECK(monitor_allowed(captured.value()->frame));
     }
     CHECK(monitored >= 13U);
+    CHECK(canopen_test_send_diagnostics == 0U);
     std::cout << "INFO: P5.6 managed-vcan frames=" << monitored << " prohibited=0\n";
     return failures.load() == 0 ? 0 : 1;
 }

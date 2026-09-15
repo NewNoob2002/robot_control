@@ -1,11 +1,35 @@
-# Phase 6 verified checkpoint — 2026-09-11
+# Phase 6 verified checkpoint — 2026-09-15
 
-**Phase 6 remains in progress.** The synchronous feedback repair and separate
-left/right RPDO trials pass. Revised synchronous stop/loss physical tests have
-not started: two execution requests timed out in automatic approval before
-process creation. That is an execution-review blocker, not an HIL failure.
+**Phase 6 remains OPEN. Long-duration soak is DEFERRED, not passed.**
+The operator accepted continuing SBUS and subsequent component development before
+revisiting the CANopen lifecycle and full-chain soak. This scheduling exception
+does not waive short regressions, final acceptance, or hardware authorization.
 
 ## Current disposition
+
+The bounded zero-target, independent-axis, revised stop/loss, moving SIGTERM,
+userspace cable-inhibitor, drive-power V2 and composite X1 results remain accepted
+within their exact artifact/fixture limits. Earlier failed/invalid trials remain
+failed/invalid. The userspace inhibitor is not a kernel repair.
+
+The three-hour soak v3 ran only 309.067 s and five passing cycles before its
+capture exited. All 300 TPDO and 900 SDO speed samples were zero; the captured
+9215 frames passed the existing traffic checks. Missing duration and final
+capture coverage prevent a soak pass. SIGHUP behavior was reproduced without CAN
+transmission; the old exit code/signal sender was not recorded.
+
+V4 was staged but never ran. Its JCAN preparation rejected a USB packet whose
+length disagreed with its header and exited. On deferral, the unused v4
+authorization was retired locally and on RK3588. No consumed runner was reused.
+See [the soak investigation and deferral](P6_SOAK_SESSION_REPAIR.md).
+
+Latest operator confirmation for the preparation was drive powered, X1 locked,
+wheels raised/stationary and wiring unchanged. Last interface inspection was
+can0 UP/ERROR-ACTIVE with zero current error counters. No subsequent physical
+power-off confirmation is recorded. Older OFF/DOWN statements belong to their
+dated trials. Archiving/CI does not change physical CAN or drive state.
+
+## Acceptance table
 
 | Item | Status | Evidence and limits |
 | --- | --- | --- |
@@ -13,68 +37,64 @@ process creation. That is an execution-review blocker, not an HIL failure.
 | Independent first-motion and earlier stop trials | HISTORICAL PASS | Exact earlier artifacts; not a pass for revised synchronous loss tests |
 | Synchronous packed SDO left +5 rpm / 3 s | PASS | Nonzero TPDO feedback; operator-confirmed selected-wheel motion and normal stop |
 | Single-RPDO left and right +5 rpm / 3 s | PASS | Each wheel tested separately; normal stop, other wheel stationary, no abnormal sound; original mapping restored |
-| Latest software qualification | PASS | Host 60/60, ASan/UBSan 60/60, cross/ELF and target isolated-vcan |
-| Revised synchronous stop/loss physical requalification | NOT EXECUTED | Two automatic approval timeouts before process creation |
-| Cable/power loss, moving SIGTERM and applicable fault/soak tests | OPEN | No new acceptance claimed |
+| Latest software qualification | LOCAL CI PASS; CROSS/TARGET NOT REVALIDATED | Debug and ASan/UBSan 68/68 each; defaults 28/28 each; commissioning 36/36; script/static checks pass. New helper length validation has no new HIL; locked cross image is absent. See current review/CI record |
+| Revised synchronous watchdog | PASS | One trial, 168 matching dual-capture frames, 1503.019 ms TX quiet; first zero-speed TPDO 634.003 ms after last request; operator confirms normal stop without restart |
+| Revised synchronous heartbeat loss | PASS | One trial, 195 matching frames, target-to-zero request 601.994 ms, zero error/drop counters; operator confirms normal stop without restart |
+| Revised synchronous TPDO loss | PASS | One trial, 171 matching frames, target-to-zero request 306.001 ms, timers restored, zero errors/drops; operator confirms normal stop without restart |
+| Revised Shutdown | PASS | 164 matching frames; stop command at 1001.063 ms; trailing observed zero TPDO 240.099 ms later; operator confirms normal stop |
+| Revised Disable Voltage | PASS | 164 matching frames; stop command at 1000.999 ms; trailing observed zero TPDO 240.688 ms later; operator confirms normal stop |
+| Revised Quick Stop | PASS | 151 matching frames; stop command at 1001.046 ms; zero TPDO 289.540 ms later; operator confirms normal stop |
+| Revised NMT Stop | STARTUP FAIL; STIMULUS NOT EXECUTED | 172 matching frames; zero nonzero-target requests; remained Quick Stop Active; startup and cleanup Shutdown state waits timed out |
+| Quick Stop zero-target recovery repair | SOFTWARE + PHYSICAL PASS | One Disable Voltage recovery, 122 matching frames, all speeds/targets zero, cleanup verified; host and sanitizer 60/60; cross/ELF and target vcan pass |
+| Historical NMT Stop after accepted zero recovery | FAIL; OPERATOR CONFIRMS STOPPED/SAFE | 147 matching frames; stop sent at 1000.889 ms; Pre-operational 0.149 ms later; no Stopped heartbeat or fresh final zero TPDO; cleanup state timeout |
+| Repaired NMT Stop with Pre-operational SDO cleanup | PASS | 140 matching frames; Stopped heartbeat at 98.014 ms, Pre-operational at 99.994 ms, three fresh zero speeds by 357.420 ms; dual 0x14601460; operator accepted normal stop without restart |
+| Moving SIGTERM | PASS | 135 matching frames, verified cleanup and operator acceptance; [record](P6_EXTERNAL_LOSS_TESTS.md) |
+| Controlled interface down/up | PASS | V5 on September 14: 3003.580 ms hold, first recovery request packed zero, final dual 0x1460 and three zero speeds, operator accepted; 221 target frames matched within 11525 JCAN frames; earlier failed attempts preserved |
+| Cable loss | FAIL; CLEANUP UNVERIFIED | One September 14 trial: controller errors, zero cleanup timeout; operator confirms stop/no restart and subsequent drive power-off. Offline review only; no retry |
+| Userspace `can0` inhibitor | SOFTWARE + TARGET + PHYSICAL PASS | Real CAN error followed by verified interface down in 12.563 ms; zero later RK3588 requests across a conservative 24 s silent-JCAN window; no auto-up; operator accepted stop/no-restart |
+| Drive-only power loss/restoration | PHYSICAL PASS; RUNNER POST-ASSERTION DEFECT | V2: 352 exact matching frames; normal-mode JCAN ACK with zero JCAN data-frame commands; restored boot to packed zero 2.494 ms; final `0x14401440` and three zero speed views; application exit 0; operator accepted; final drive OFF and `can0` DOWN. Attempt 1 remains invalid |
+| Applicable fault and soak tests | X1 PASS / SOAK DEFERRED, NOT PASSED | Zero-motion V2: 1989 exact frames and powered reset/no-restart. Moving: 225 exact frames, left speed always zero, X1 low-half activation, stable right zero 99.902 ms later and 861.245 ms before scheduled target zero; operator accepted normal stop/no sound/no restart. Raw runner false is a retained typed-marker timeout. V3 failed after 309 s / five cycles; V4 never started. Operator deferred soak on September 15 until SBUS/full-chain integration; fault/bus-off injection remains unavailable |
 | Simultaneous nonzero wheels, negative RPDO motion, loaded operation | NOT QUALIFIED | Outside the three successful physical repair trials |
 | P6.7 final phase acceptance | OPEN | Remaining physical gates and final regression required |
 
-The [repair record](P6_SYNC_PACKED_PDO_REPAIR.md) explains the fixed mappings,
-cleanup behavior, per-artifact evidence and hardware limits. The
-[evidence index](evidence/README.md) locates original captures, operator
-observations, failure history and archives.
+## Source review and CI
 
-## Implemented changes and validation
+[September 15 review and CI record](P6_CHECKPOINT_REVIEW_20260915.md) records the
+source scope, one corrected inhibitor protocol defect, current checks and
+unavailable validation. Historical HIL does not certify this new helper binary.
+GitHub Actions runs host/static, Debug and sanitizer qualification with mandatory
+managed vcan; it never runs physical RK3588 HIL. The run attached to the pushed
+commit is the authoritative remote-CI result.
 
-- [Safety/I/O corrections](P6_REVIEW_SAFETY_IO_FIXES.md): restricted standalone
-  activation, live TPDO mapping preflight, receive-boundary handling and logging
-  that preserves shared sink flags.
-- [Diagnostic corrections](P6_REVIEW_DIAGNOSTICS.md): silent local CANopen
-  startup/reopen and correctly deferred deadline events.
-- [Online attachment](P6_REVIEW_ONLINE_STARTUP.md): current heartbeat/SDO
-  evidence replaces a requirement for historical boot-up or operator power cycling.
-- [Feedback diagnosis](P6_TPDO_FEEDBACK_DIAGNOSIS.md): asynchronous enabled
-  motion updated independent speed but not the packed object; the synchronous
-  packed-target route restored SDO and TPDO speed feedback on this fixture.
-- First-motion and stop/loss qualification retain verified mode 1. The optional
-  fixed RPDO path checks, temporarily changes and restores its exact baseline.
-  Startup requires zero; stopping permits bounded deceleration and still
-  verifies zero. Watchdog observation is passive; its first subsequent TX clears
-  both targets instead of querying SDO while a motion target may be retained.
+## Evidence and remaining limits
 
-Latest staged remainder artifact SHA256:
-fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205.
-The [manifest](evidence/p6_sync_remainder_20260911/manifest.json) preserves exact
-file/source hashes. Host and sanitizer each pass 60 tests. Clean pinned GCC11.4
-cross build, ELF audit and target isolated-vcan pass. Default Debug/Release
-builds remain qualification-OFF. Static checks report zero errors and eight
-existing advisories. GitHub Actions performs host/static, Debug and sanitizer
-qualification with mandatory vcan; it does not run RK3588 HIL. The runs attached
-to the pushed commit are the authoritative remote-CI result.
+Use [the evidence index](evidence/README.md) and its verified archive manifest to
+locate raw captures, software logs, original authorizations and operator reports.
+Per-file hashes preserve both direct and archived bytes. In particular:
 
-## Historical evidence and archive
-
-The [accepted manual TPDO trial](evidence/p6_6_20260910_manual_tpdo_trial_1/RESULT.md)
-remains accepted, including the operator-reported minor other-wheel speed
-excursions. Vibration is a proposed cause, not an established safety fact.
-The [review HIL record](P6_REVIEW_HIL.md) preserves aborted preparations and
-superseded artifact status. Later passes do not erase earlier failures.
-
-Original raw CAN evidence, pre/post configuration observations, operator
-confirmations and one-shot markers remain directly readable. Software logs are
-compressed with per-file hashes in the
-[archive manifest](evidence/archives/MANIFEST.json); checksum validation resolves
-both direct and archived records. Earlier milestone detail remains in its dated
-verification documents and Git history.
+- [NMT Stop repair](P6_NMT_STOP_REPAIR.md) retains the failed startup/cleanup
+  attempts and the later accepted 140-frame trial.
+- [External loss](P6_EXTERNAL_LOSS_TESTS.md), [cable repair](P6_CABLE_LOSS_REPAIR.md)
+  and [userspace inhibition](P6_USERSPACE_CAN_INHIBITOR.md) retain failed and
+  accepted attempts separately.
+- [Delayed TX](P6_DELAYED_TX_INVESTIGATION.md) and
+  [driver-worker review](P6_ROCKCHIP_TX_WORKER_REVIEW.md) leave exact kernel
+  worker/stop concurrency and the full matching kernel commit unresolved.
+- [Power V2](evidence/p6_power_loss_v2_20260914/RESULT.md) and
+  [X1 evidence](P6_EMERGENCY_INPUT_AND_SOAK_PREPARATION.md) preserve wrapper
+  assertion defects without relabeling them as application failures or passes.
+- Mechanical brake output is not applicable to this fixture (operator confirmed
+  September 14). Non-destructive fault/electrical bus-off stimuli are unavailable.
 
 ## Next work
 
-1. Finish this archive/submission checkpoint and monitor its remote CI.
-2. Resume the same prepared watchdog execution request after execution review
-   permits it; the [blocker record](evidence/p6_sync_remainder_20260911/execution_blocker.json)
-   confirms no physical attempt occurred. Do not repeat successful repair trials.
-3. Complete separately bounded stop/loss requalification and remaining physical
-   applicability/fault/soak decisions before closing Phase 6.
+1. Continue SBUS and command/safety integration with short unit, vcan and bounded
+   integration regressions. This checkpoint implements none of that later work.
+2. Resolve JCAN USB receive framing before the next independent capture. Once the
+   full chain is ready, separately authorize both CANopen lifecycle and full-chain
+   long-duration tests; regenerate artifacts/preflight rather than reusing runners.
+3. Complete final-source cross/target and outstanding acceptance requirements
+   before declaring Phase 6 or the integrated system complete.
 
-Production motion services, full SBUS/M4, ROS2, permanent drive parameters,
-loaded operation and production deployment remain outside this checkpoint.
+Production motion services, ROS2, loaded operation, persistent drive changes,
+automatic motion reauthorization and production deployment remain outside scope.

@@ -1,0 +1,12 @@
+{
+  "syntax_pass": true,
+  "one_shot_markers": true,
+  "same_identity_and_elf_checks": true,
+  "one_down_and_one_up_after_3s": true,
+  "capture_option_validated_on_target_vcan": true,
+  "expected_capture_stderr": "can0: interface down",
+  "no_Operational_after_nonzero": true,
+  "nonzero_target_count_bound": 1,
+  "manual_sequence_accepted": true,
+  "hardware_executed": false
+}

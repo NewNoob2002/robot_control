@@ -1,0 +1,9 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "base": "/tmp/robot-control-qualifications/userspace-inhibit-fc77b14ec242",
+  "files": {
+    "robot-control-zlac-qualification": "fc77b14e78c60ad00f3fcda704889d0c913be60ef416e77c7ba5cd9a688b6fa4",
+    "robot-control-can-interface-inhibitor": "c2425001cbe583e3bb1e3307d4145e95cafd722d150154ff727fe519a80b1a5b",
+    "target_vcan_smoke.sh": "65291bc8737c4910aa0cb62c6a18a693c3c92f138c00dc621bef8ede5ba0f21c"
+  }
+}

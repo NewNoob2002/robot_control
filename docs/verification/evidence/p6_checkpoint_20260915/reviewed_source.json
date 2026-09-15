@@ -1,0 +1,134 @@
+[
+  {
+    "path": "communication/canopen/observation.hpp",
+    "sha256": "363170a51df0c703b3216c912d9547b2191279729fcd3149283526d3bef21f1b"
+  },
+  {
+    "path": "communication/canopen/qualification_gate.h",
+    "sha256": "6f412f30173ba479dd6553329a210d5507e3faa6561a313e9ba858b1fb0dfe2e"
+  },
+  {
+    "path": "communication/canopen/stack_config.hpp",
+    "sha256": "457270585ca8a059c72612edc3e33469f291a676fa38c61fe0123f901275176b"
+  },
+  {
+    "path": "communication/canopen/observation.cpp",
+    "sha256": "b9168abd8247d28c3b391878ea2f82d1b27282174469561b3ee0309829d4cd9d"
+  },
+  {
+    "path": "communication/canopen/CO_driver_custom.h",
+    "sha256": "c154167668a773b5bcb896190de7c13b87a532dab5efaaa69127185756d8678e"
+  },
+  {
+    "path": "communication/canopen/lifecycle.cpp",
+    "sha256": "c3667d0e993b0148d6f4e1f5a3cc2dda2f6af73f615e2438e98eeed01a48807e"
+  },
+  {
+    "path": "communication/canopen/stack_storage.hpp",
+    "sha256": "e1f0e34f3b713675d50caa74830e235a05125aae4c030877cabecb1f8c812b61"
+  },
+  {
+    "path": "communication/canopen/qualification.cpp",
+    "sha256": "f2f2a97ec580c2ddc4d3e7cfa3fb3bb202fa50573f1c71b4f771ad6f1bd76961"
+  },
+  {
+    "path": "communication/canopen/sdo_client.hpp",
+    "sha256": "4de9d0ef6bdac4a75b259fdbbddd1ff35846520fb36549e5b07fce8947840cc9"
+  },
+  {
+    "path": "communication/canopen/stack_config.cpp",
+    "sha256": "0d54020b0c5305adf4247d20002b1f158c9db58b2519e63da78df7f198f739d2"
+  },
+  {
+    "path": "communication/canopen/qualification_gate.c",
+    "sha256": "96ed8f1cd16039b3d41854c02876103cfef8f1ccf9be3cad94ec586f6a57770e"
+  },
+  {
+    "path": "communication/canopen/commissioning.hpp",
+    "sha256": "5fded290d3175569f7027fe796b4d79b97c726807891eecb65f05a011afdef12"
+  },
+  {
+    "path": "communication/canopen/commissioning.cpp",
+    "sha256": "bf6fd6039628b213d4ef7a07f6f3718ed20ce90cb70b981f90935ddd7316541a"
+  },
+  {
+    "path": "communication/canopen/transmit_gate.c",
+    "sha256": "d98850ef6cfd2602034ee03178d92208a6eb01cc335a6d69f6160143740da9c0"
+  },
+  {
+    "path": "communication/canopen/CMakeLists.txt",
+    "sha256": "a9a3a517a9446e413989dd44e98aa2dca8072008749f161c7ef3425964266053"
+  },
+  {
+    "path": "communication/canopen/commissioning_gate.h",
+    "sha256": "2a80ec3c3e988174e9fd8d9b5590d1e48c533b5cc7ef1df413a48fdca8d7c284"
+  },
+  {
+    "path": "communication/canopen/qualification.hpp",
+    "sha256": "996977ccfbbd5418bc2c71bd2a65db577858de60ad1161891241f7161b654e2a"
+  },
+  {
+    "path": "communication/canopen/stack_storage.cpp",
+    "sha256": "e9fd4cd1e100891fb072d8b62d7579639eba7db9f574f798f28db347340a52a9"
+  },
+  {
+    "path": "communication/canopen/lifecycle.hpp",
+    "sha256": "bef134607fa9faf80d53780081a4d8374c67984ad2265265bf30164b1128ac0b"
+  },
+  {
+    "path": "communication/canopen/commissioning_gate.c",
+    "sha256": "9f54bc740ed34ccfa984133207e7db07366ae6009d3386000fd5b22e7937fc0c"
+  },
+  {
+    "path": "platform/linux/can/socket.cpp",
+    "sha256": "44a86b1786892501ef1cd3624bf7fea31bdf43d4d9f861c625eea711a7045b0d"
+  },
+  {
+    "path": "platform/linux/can/classic_frame.hpp",
+    "sha256": "e9a128d8771665f8e4dd8ca3f69abca9b01b10139e30c76347d65793a05455c7"
+  },
+  {
+    "path": "platform/linux/can/interface_inhibitor.cpp",
+    "sha256": "2c12369c7d1be3623e8c4b2223874ee93d2a03b7a34c808bc05ce82d895e679d"
+  },
+  {
+    "path": "platform/linux/can/socket.hpp",
+    "sha256": "87ad59e593b0409f6c0b741f95b9b79244384a75bc56e24e33024ae8385fc30f"
+  },
+  {
+    "path": "platform/linux/can/interface_inhibitor.hpp",
+    "sha256": "f9c8616b97aa07f3dd436cfeaf1d4bdf469101828b24589d612d607f50957fab"
+  },
+  {
+    "path": "platform/linux/can/classic_frame.cpp",
+    "sha256": "0c090b81b0989ba70b586d3d79f518ab22473354c4501f02a4e1c68a13f5a10f"
+  },
+  {
+    "path": "tools/can_interface_inhibitor/main.cpp",
+    "sha256": "05611f3c1f37fba9f0b5ede50e3015bcce081c1015a778d892460a5739d2a889"
+  },
+  {
+    "path": "tools/can_interface_inhibitor/CMakeLists.txt",
+    "sha256": "55258a8e4778820727a50e6ea57eb82b53dc0cb264b13f3c1c19408cec5c8705"
+  },
+  {
+    "path": "tools/zlac_qualification/main.cpp",
+    "sha256": "30a56d14b59c8cde6706ca9c5f59782d3a3a0542fcc7c12ee680f2758b3bb756"
+  },
+  {
+    "path": "scripts/hil/phase6_zero_motion_soak.py",
+    "sha256": "b3473b8fe9b19e3a6e36d3f540bd65aa6ae1fbe5753f192ba75a34a77e5b0f08"
+  },
+  {
+    "path": "scripts/test/test_phase6_zero_motion_soak.py",
+    "sha256": "a63b3dc0aa1042bc34b9ea8fa7f1a12cfe4a2acd52d6be88d60ce42817a027a4"
+  },
+  {
+    "path": "tests/unit/can_interface_inhibitor_tests.cpp",
+    "sha256": "54d088c4fecb6f87eb11ec04fb2daf8984fcc13b293d19cace9b2825348cc4d3"
+  },
+  {
+    "path": ".github/workflows/ci.yml",
+    "sha256": "a054c1565e53f2d46892d174bb112eaeb3db31895a8e5d5a83e5cdf6a40a0a9d"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-14",
+  "status": "APPLICATION_SOCKET_BOUNDARY_INVESTIGATED_DRIVER_QUEUE_UNRESOLVED",
+  "physical_can_operations": false,
+  "drive_power": "operator_confirmed_off",
+  "production_code_changed": false,
+  "physical_trial_status": "FAIL_POST_ERROR_PHYSICAL_REQUEST",
+  "exit_tx_packets": 314,
+  "postflight_tx_packets": 315,
+  "host_vxcan_delivery_after_socket_close_ms": 400.070208,
+  "host_virtual_link_down_no_delivery_seconds": 2,
+  "target_vxcan_status": "UNAVAILABLE_UNKNOWN_DEVICE_TYPE_BEFORE_TX",
+  "matching_driver_source": "not present at target headers path; source symlink absent",
+  "next_required_evidence": "matching rockchip_canfd kernel source/build provenance; driver TX/completion/stop review before hardware cancellation claim"
+}

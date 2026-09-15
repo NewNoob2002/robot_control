@@ -1,0 +1,38 @@
+{
+  "helper_checks": [
+    {
+      "scenario": "normal",
+      "calls": [
+        "down",
+        "up"
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "interrupted_hold",
+      "calls": [
+        "down",
+        "up"
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "down_failure",
+      "calls": [
+        "down"
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "up_failure",
+      "calls": [
+        "down",
+        "up"
+      ],
+      "passed": true
+    }
+  ],
+  "physical_execution": false,
+  "manual_enter_and_application_arm_required": true,
+  "all_python_syntax_pass": true
+}

@@ -1,0 +1,101 @@
+{
+  "sha": "4b82c4e6018fb928afbd92719735b2acbd22363b",
+  "node_id": "C_kwDOIhzcdtoAKDRiODJjNGU2MDE4ZmI5MjhhZmJkOTI3MTk3MzViMmFjYmQyMjM2M2I",
+  "commit": {
+    "author": {
+      "name": "hejiawencc",
+      "email": "hjw0415@outlook.com",
+      "date": "2026-07-24T03:25:08Z"
+    },
+    "committer": {
+      "name": "hejiawencc",
+      "email": "hjw0415@outlook.com",
+      "date": "2026-07-24T03:37:52Z"
+    },
+    "message": "drivers can RK3568部分批次CAN驱动兼容性补丁#642482\n\ncommit 30ce62bbe27bc62318ec1e34ac26a10d3b6aac4d\nAuthor: Elaine Zhang <zhangqing@rock-chips.com>\nDate:   Mon Jun 15 15:01:24 2026 +0800\n\n    net: can: rockchip: rk3568: extend CPU version compatibility\n\n    Change the CPU version check from exact match (== 3) to\n    greater-or-equal(>= 3) to support higher CPU versions.\n\n    Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>\n    Change-Id: I8fe6161e5c48022478d60203d23c3e14e30d7317",
+    "tree": {
+      "sha": "dd5e78200ca2ba071b4f431d3c418f6c3baf0afb",
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/dd5e78200ca2ba071b4f431d3c418f6c3baf0afb"
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/4b82c4e6018fb928afbd92719735b2acbd22363b",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/LubanCat/kernel/commits/4b82c4e6018fb928afbd92719735b2acbd22363b",
+  "html_url": "https://github.com/LubanCat/kernel/commit/4b82c4e6018fb928afbd92719735b2acbd22363b",
+  "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/4b82c4e6018fb928afbd92719735b2acbd22363b/comments",
+  "author": {
+    "login": "hejiawencc",
+    "id": 59357359,
+    "node_id": "MDQ6VXNlcjU5MzU3MzU5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/59357359?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/hejiawencc",
+    "html_url": "https://github.com/hejiawencc",
+    "followers_url": "https://api.github.com/users/hejiawencc/followers",
+    "following_url": "https://api.github.com/users/hejiawencc/following{/other_user}",
+    "gists_url": "https://api.github.com/users/hejiawencc/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/hejiawencc/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/hejiawencc/subscriptions",
+    "organizations_url": "https://api.github.com/users/hejiawencc/orgs",
+    "repos_url": "https://api.github.com/users/hejiawencc/repos",
+    "events_url": "https://api.github.com/users/hejiawencc/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/hejiawencc/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "hejiawencc",
+    "id": 59357359,
+    "node_id": "MDQ6VXNlcjU5MzU3MzU5",
+    "avatar_url": "https://avatars.githubusercontent.com/u/59357359?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/hejiawencc",
+    "html_url": "https://github.com/hejiawencc",
+    "followers_url": "https://api.github.com/users/hejiawencc/followers",
+    "following_url": "https://api.github.com/users/hejiawencc/following{/other_user}",
+    "gists_url": "https://api.github.com/users/hejiawencc/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/hejiawencc/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/hejiawencc/subscriptions",
+    "organizations_url": "https://api.github.com/users/hejiawencc/orgs",
+    "repos_url": "https://api.github.com/users/hejiawencc/repos",
+    "events_url": "https://api.github.com/users/hejiawencc/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/hejiawencc/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "a9dc49732dd6df555a1e464aa2474edb3bcf270a",
+      "url": "https://api.github.com/repos/LubanCat/kernel/commits/a9dc49732dd6df555a1e464aa2474edb3bcf270a",
+      "html_url": "https://github.com/LubanCat/kernel/commit/a9dc49732dd6df555a1e464aa2474edb3bcf270a"
+    }
+  ],
+  "stats": {
+    "total": 2,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "4dedceb0ec438e0b6befa6fafe07387b017041d0",
+      "filename": "drivers/net/can/rockchip/rockchip_canfd.c",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/LubanCat/kernel/blob/4b82c4e6018fb928afbd92719735b2acbd22363b/drivers%2Fnet%2Fcan%2Frockchip%2Frockchip_canfd.c",
+      "raw_url": "https://github.com/LubanCat/kernel/raw/4b82c4e6018fb928afbd92719735b2acbd22363b/drivers%2Fnet%2Fcan%2Frockchip%2Frockchip_canfd.c",
+      "contents_url": "https://api.github.com/repos/LubanCat/kernel/contents/drivers%2Fnet%2Fcan%2Frockchip%2Frockchip_canfd.c?ref=4b82c4e6018fb928afbd92719735b2acbd22363b",
+      "patch": "@@ -1088,7 +1088,7 @@ static int rockchip_canfd_probe(struct platform_device *pdev)\n \n \trcan->mode = (unsigned long)of_device_get_match_data(&pdev->dev);\n \n-\tif ((cpu_is_rk3566() || cpu_is_rk3568()) && (rockchip_get_cpu_version() == 3))\n+\tif ((cpu_is_rk3566() || cpu_is_rk3568()) && (rockchip_get_cpu_version() >= 3))\n \t\trcan->mode = ROCKCHIP_RK3568_CAN_MODE_V2;\n \n \trcan->base = addr;"
+    }
+  ]
+}

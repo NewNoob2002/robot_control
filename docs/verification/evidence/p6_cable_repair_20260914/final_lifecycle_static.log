@@ -1,0 +1,12 @@
+[1/1] (1/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/lifecycle.cpp.
+52 warnings generated.
+[1/1] (2/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/lifecycle.cpp.
+104 warnings generated.
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+Suppressed 100 warnings (100 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.

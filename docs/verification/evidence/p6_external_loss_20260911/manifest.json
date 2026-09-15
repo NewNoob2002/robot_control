@@ -1,0 +1,22 @@
+{
+  "files": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/external-loss-sigterm-qualification/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "dc639ff99b7031b2137c6e23eb235ec3e0a3c635d9781dd10923072c02306a38"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/external-loss-sigterm-qualification/review_qualification_vcan_tests",
+      "sha256": "ff68afc53841a9697c6574e3695fa4a7bfaebecab6d6ef299cf8ee3ece4d7ee6"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    }
+  },
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "5d075b2d1792c8dcbf93cbb4b1dbc61457031f16f19b08b7bff66a009b948e2f",
+    "communication/canopen/qualification.hpp": "f469c113c324ae84ce09a687f0ffbede8d0464c39ae5353392c47b488f1bc8ee",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "a762fd46e6e78332cf23aa68c1c0aaaa4946ac72cfbbe56e56c65f6a8c5aeda0"
+  },
+  "base": "/tmp/robot-control-qualifications/external-loss-dc639ff99b70"
+}

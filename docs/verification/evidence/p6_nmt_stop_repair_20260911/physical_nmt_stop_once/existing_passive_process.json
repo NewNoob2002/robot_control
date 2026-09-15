@@ -1,0 +1,1 @@
+{"pid": 35900, "start_epoch_seconds": 1789115596.97, "cmdline": "candump -ta can0 ", "stdout": "/dev/pts/0"}

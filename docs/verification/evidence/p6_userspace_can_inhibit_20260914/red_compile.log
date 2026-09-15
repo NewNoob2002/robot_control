@@ -1,0 +1,4 @@
+tests/unit/can_interface_inhibitor_tests.cpp:1:10: fatal error: platform/linux/can/interface_inhibitor.hpp: No such file or directory
+    1 | #include "platform/linux/can/interface_inhibitor.hpp"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.

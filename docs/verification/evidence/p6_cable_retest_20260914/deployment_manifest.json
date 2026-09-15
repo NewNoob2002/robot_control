@@ -1,0 +1,16 @@
+{
+  "base": "/tmp/robot-control-qualifications/cable-repair-acc9f8828f65",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "sha256": {
+    "robot-control-zlac-qualification": "acc9f8828f657d968cb2c56a586b1f9e1f2c50250f6c1385d3e6b7439abed46f",
+    "review_qualification_vcan_tests": "48c2c728b860c7f94c1b312a2b6dc29445ecd96dd57c14436dcccb94a4dda10f",
+    "review_lifecycle_vcan_tests": "4054a2b1945b4c2fe676c187493d3e4cc857ca5b62c4b79ec4afbb5fe3fd336c",
+    "test_socketcan_vcan.sh": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+  },
+  "safety_preflight": {
+    "authorization": "好的可以开始进行目标机和物理复测",
+    "scope": "Unique nonproduction staging; invalid-argument smoke and isolated vcan only at this step",
+    "drive_power": "last confirmed off; no physical operations in this step",
+    "recovery": "No service, boot or physical interface changes; previous artifacts retained"
+  }
+}

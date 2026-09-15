@@ -1,0 +1,13 @@
+{
+  "approved": true,
+  "authorization": "User requested the first four remaining tests and confirmed physical CAN branch and drive-power operations are possible. Raised unloaded wheels and emergency-stop conditions remain confirmed.",
+  "operation": "diagnostic staging and isolated target vcan",
+  "target": "RK3588 robot-dev machine_id=6923ab3301fb4a8d816759b04ec6bf0a",
+  "limits": {
+    "destination": "/tmp/robot-control-qualifications/external-loss-dc639ff99b70",
+    "physical_CAN": false,
+    "test_seconds_max": 70
+  },
+  "artifact": "manifest.json",
+  "recovery": "Only new temporary files and owned virtual-bus test process."
+}

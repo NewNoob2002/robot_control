@@ -1,0 +1,72 @@
+{
+  "date": "2026-09-14",
+  "status": "PASS_BOUNDED_INTERFACE_LOSS",
+  "host": {
+    "passed": 62,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sanitizer": {
+    "passed": 62,
+    "failed": 0,
+    "skipped": 0
+  },
+  "clean_cross_variants": [
+    "qualification",
+    "default_debug",
+    "default_release"
+  ],
+  "elf_audits_passed": true,
+  "target_isolated_vcan": {
+    "passed": true,
+    "frames": 18127,
+    "prohibited": 0,
+    "failures": 0
+  },
+  "clang_tidy_exit": 0,
+  "clang_tidy_advisories": 23,
+  "frame_bound_check_passed": true,
+  "helper_restore_checks_passed": 4,
+  "actual_arm_window_check_passed": true,
+  "syntax_passed": true,
+  "physical_executor_started": true,
+  "motion_deadline_seconds": 8,
+  "interface_hold_seconds": 3,
+  "fresh_arm_limit_seconds": 6,
+  "capture_seconds": 40,
+  "capture_frames": 100000,
+  "elf_sha256": "2304c1c9892d327f73c65304601adfd4ced30e81fb2d4f3bfd1e2c5966ae857c",
+  "retry_authorized": false,
+  "physical_result": {
+    "status": "PASS_BOUNDED_INTERFACE_LOSS",
+    "target_frames": 221,
+    "jcan_frames": 11525,
+    "target_frames_matched_in_order": 221,
+    "all_non_tpdo1_frames_identical": true,
+    "extra_jcan_tpdo1_frames": 11304,
+    "extra_payloads": {
+      "2714274400002e00": 11304
+    },
+    "target_to_interface_down_ms": 1378.298975,
+    "interface_hold_ms": 3003.579965,
+    "up_start_to_first_zero_request_ms": 53.912873,
+    "up_complete_to_first_zero_request_ms": 49.896845,
+    "up_start_to_final_zero_sdo_ms": 567.174873,
+    "final_status": "0x1460/0x1460",
+    "fresh_three_zero_sdo_views": true,
+    "first_resumed_request_packed_zero": true,
+    "no_reenable": true,
+    "watchdog_and_heartbeat_baseline_zero_verified": true,
+    "cleanup_verified": true,
+    "operator_accepted": true,
+    "capture_overflow": false,
+    "reopen_buffer_log_lines": 299,
+    "limitations": [
+      "JCAN timestamps are zero; extra TPDO timing and physical retransmission cause cannot be established from this trace.",
+      "RK3588 cannot capture the disconnected interval; final sampled speed proves recovery zero, not continuous zero or exact stopping time during loss.",
+      "Repeated receive-buffer initialization logs during reopen remain a diagnostic rate issue."
+    ],
+    "retry": false
+  },
+  "one_shot_consumed": true
+}

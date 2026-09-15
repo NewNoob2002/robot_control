@@ -1,0 +1,5 @@
+{"event":"session_started","receive_enabled":true,"reconnect_ms":2000,"serial":"207F346D5650"}
+{"event":"connected","mode":"silent","serial":"207F346D5650"}
+{"brs":false,"can_id":1537,"data_hex":"40 41 60 00 00 00 00 00","event":"frame","extended":false,"fd":false,"id_hex":"601","remote":false,"timestamp":0}
+{"brs":false,"can_id":1409,"data_hex":"43 41 60 00 00 14 00 14","event":"frame","extended":false,"fd":false,"id_hex":"581","remote":false,"timestamp":0}
+{"data":{"stopped":true},"id":99,"ok":true,"op":"shutdown"}

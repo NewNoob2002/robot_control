@@ -1,0 +1,10 @@
+ffff800008098c88 T queue_delayed_work_on
+ffff80000809a1a0 T cancel_delayed_work
+ffff80000809a370 T cancel_delayed_work_sync
+ffff8000081094d8 T __msecs_to_jiffies
+ffff800008906d84 T __pm_runtime_idle
+ffff800008906ec0 T __pm_runtime_suspend
+ffff8000089e9aa4 T __can_get_echo_skb
+ffff8000089e9bdc T can_get_echo_skb
+ffff8000089ea480 T close_candev
+ffff800008e011a8 T netif_tx_wake_queue

@@ -1,0 +1,2 @@
+[1/2] Building CXX object tests/unit/CMakeFiles/robot_control_canopen_qualification_vcan_tests.dir/canopen_qualification_vcan_tests.cpp.o
+[2/2] Linking CXX executable tests/unit/robot_control_canopen_qualification_vcan_tests

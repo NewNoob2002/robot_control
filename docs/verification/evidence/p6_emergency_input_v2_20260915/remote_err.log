@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/emergency-input-zero-v2-bb4f44251672/remote_trial.py", line 92, in <module>
+    checks = validate_records(parse_capture((OUT / "rk3588_can.log").read_text()))
+  File "/tmp/robot-control-qualifications/emergency-input-zero-v2-bb4f44251672/trial_checks.py", line 74, in validate_records
+    assert status_bit15_passes(statuses), "statusword bit 15 did not show inactive-active-inactive on both halves"
+AssertionError: statusword bit 15 did not show inactive-active-inactive on both halves

@@ -62,6 +62,7 @@ if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
   add_subdirectory(tools/canopen_commission)
 endif()
 if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
+  add_subdirectory(tools/can_interface_inhibitor)
   add_subdirectory(tools/zlac_qualification)
 endif()
 

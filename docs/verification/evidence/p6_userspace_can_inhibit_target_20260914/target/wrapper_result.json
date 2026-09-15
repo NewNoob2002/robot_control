@@ -1,0 +1,9 @@
+{
+  "pass": false,
+  "interface_down": true,
+  "executor_stopped": true,
+  "capture_stopped": true,
+  "raw_can_error": false,
+  "post_error_requests": 0,
+  "safe_state_requires_drive_power_off": true
+}

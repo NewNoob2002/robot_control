@@ -1,0 +1,15 @@
+{
+  "authorized": true,
+  "stimulus": "interface_loss",
+  "elf_sha256": "2304c1c9892d327f73c65304601adfd4ced30e81fb2d4f3bfd1e2c5966ae857c",
+  "operator_ready": true,
+  "user_confirmation": "可以增加转动的时间再进行v5测试",
+  "date": "2026-09-14",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--external-loss-once"
+  ],
+  "authorization_context": "Same RK3588 machine 6923ab3301fb4a8d816759b04ec6bf0a, node1, can0 500000; raised unloaded wheels and safe site confirmed in this session. One right +5 rpm packed target, left zero. Fixed deadline 8 seconds from before motion, supervised feedback and 1000 ms watchdog. Operator Enter after observed right motion and application arming, accepted only within 6 seconds of arm; one can0 down, 3-second hold, up in finally. Recovery passive up to 10 seconds, first resumed CAN request packed zero, then verified zero/disabled cleanup and volatile heartbeat/watchdog baseline restoration. No re-enable, retry, persistent configuration, cable/power stimulus, or JCAN physical TX. Silent JCAN serial207F346D5650 and target candump each bounded to40seconds/100000frames. Fresh sudo terminal READY required before launch."
+}

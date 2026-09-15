@@ -1,0 +1,12 @@
+{
+  "drive_power": "OFF",
+  "both_wheels_stopped": true,
+  "site_safe": true,
+  "right_wheel_stopped_normally": true,
+  "left_wheel_remained_stationary": true,
+  "reconnected_without_restart": true,
+  "abnormal_sound": false,
+  "operator_entered_reconnected": true,
+  "target_terminal_done": true,
+  "operator_transcript": "ARMED; DISCONNECT NOW; RECONNECTED; DONE pass=true interface_down=true executor_stopped=true capture_stopped=true post_error_requests=0"
+}

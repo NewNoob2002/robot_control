@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "右轮逆时针旋转了一点然后停止了，两轮已停止、现场安全",
+  "right_wheel": "brief counterclockwise movement, then stopped (operator viewpoint unspecified)",
+  "both_wheels_stopped": true,
+  "site_safe": true,
+  "protocol_test_passed": false,
+  "drive_state_cleanup_verified": false,
+  "authorization_for_retry": false
+}

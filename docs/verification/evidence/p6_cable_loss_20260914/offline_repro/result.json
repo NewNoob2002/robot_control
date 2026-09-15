@@ -1,0 +1,23 @@
+{
+  "status": "REPRODUCED_GATE_REJECTED_TIMEOUT_ABORT",
+  "fixture_exit": 0,
+  "monitored_frames": 18142,
+  "prohibited_frames": 0,
+  "fixture_failures": 0,
+  "rejected_attempts": 38,
+  "rejected_payloads": {
+    "REJECTED_GATE can_id=601 dlc=8 data=80FF600100000405": 3,
+    "REJECTED_GATE can_id=601 dlc=8 data=806C600100000405": 6,
+    "REJECTED_GATE can_id=601 dlc=8 data=8000140100000405": 2,
+    "REJECTED_GATE can_id=601 dlc=8 data=8041600000000405": 1,
+    "REJECTED_GATE can_id=601 dlc=8 data=8040600000000405": 4,
+    "REJECTED_GATE can_id=601 dlc=8 data=8000200000000405": 3,
+    "REJECTED_GATE can_id=601 dlc=8 data=80FF600300000405": 11,
+    "REJECTED_GATE can_id=601 dlc=8 data=806C600200000405": 6,
+    "REJECTED_GATE can_id=601 dlc=8 data=8017100000000405": 2
+  },
+  "actual_hardware_rejected_payloads": "not identifiable from original logs",
+  "product_code_changed": false,
+  "physical_retry": false,
+  "command": "timeout 120s stdbuf -oL bash scripts/test/test_socketcan_vcan.sh out/build/cable-repro/cable_gate_repro"
+}

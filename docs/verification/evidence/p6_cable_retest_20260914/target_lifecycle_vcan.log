@@ -1,0 +1,11 @@
+INFO: managed namespace vcan0 is up
+INFO: P5.5 observation service=boot raw_can_id=0x00000701 dlc=1 payload=0000000000000000 timestamp_ns=10329326521663 transport=1 boot=1
+INFO: P5.5 observation service=heartbeat raw_can_id=0x00000701 dlc=1 payload=0500000000000000 timestamp_ns=10329337695332 transport=1 boot=1
+INFO: P5.5 observation service=emcy raw_can_id=0x00000081 dlc=8 payload=34125678efcdab90 timestamp_ns=10329348555453 transport=1 boot=1
+INFO: P5.5 observation service=tpdo1 raw_can_id=0x00000181 dlc=8 payload=1122334455667788 timestamp_ns=10329359556744 transport=1 boot=1
+INFO: P5.5 observation service=tpdo2 raw_can_id=0x00000281 dlc=0 payload=0000000000000000 timestamp_ns=10329370557743 transport=1 boot=1
+INFO: P5.5 observation service=tpdo3 raw_can_id=0x00000381 dlc=0 payload=0000000000000000 timestamp_ns=10329381555242 transport=1 boot=1
+INFO: P5.5 observation service=tpdo4 raw_can_id=0x00000481 dlc=0 payload=0000000000000000 timestamp_ns=10329392556533 transport=1 boot=1
+INFO: P5.5 observation service=can_error raw_can_id=0x20000044 dlc=8 payload=0004123456789abc timestamp_ns=10329643551516 transport=1 boot=1
+INFO: P5.5 link loss operation=ioctl(SIOCGIFFLAGS) context="interface=vcan0 controller=127 remote=1 state=down" errno=100
+INFO: P5.5 managed-vcan receive evidence passed interface=vcan0 peer_frames=20 observer_tx_frames=0

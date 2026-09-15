@@ -1,0 +1,97 @@
+69 warnings generated.
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:92:16: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+   92 |         return clean;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:110:16: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  110 |         return ready;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:124:16: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  124 |         return ready;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:377:24: warning: constness of 'sent' prevents automatic move [performance-no-automatic-move]
+  377 |                 return sent;
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:612:20: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  612 |             return ready;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:641:20: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+  641 |             return clean;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:668:20: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  668 |             return ready;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:853:16: warning: constness of 'preop' prevents automatic move [performance-no-automatic-move]
+  853 |         return preop;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:941:16: warning: constness of 'zero' prevents automatic move [performance-no-automatic-move]
+  941 |         return zero;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1180:12: warning: constness of 'restored' prevents automatic move [performance-no-automatic-move]
+ 1180 |     return restored;
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1186:53: warning: 2 adjacent parameters of 'run_controlword_stop_interval' of similar type ('const std::chrono::milliseconds') are easily swapped by mistake [bugprone-easily-swappable-parameters]
+ 1186 |                                                     const std::chrono::milliseconds duration,
+      |                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1187 |                                                     const std::chrono::milliseconds transition_timeout,
+      |                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1186:85: note: the first parameter in the range is 'duration'
+ 1186 |                                                     const std::chrono::milliseconds duration,
+      |                                                                                     ^~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1187:85: note: the last parameter in the range is 'transition_timeout'
+ 1187 |                                                     const std::chrono::milliseconds transition_timeout,
+      |                                                                                     ^~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1250:73: warning: 2 adjacent parameters of 'set_communication_setting' of convertible types are easily swapped by mistake [bugprone-easily-swappable-parameters]
+ 1250 |                                                                         const std::uint8_t object_subindex,
+      |                                                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1251 |                                                                         const std::uint16_t value) noexcept {
+      |                                                                         ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1250:92: note: the first parameter in the range is 'object_subindex'
+ 1250 |                                                                         const std::uint8_t object_subindex,
+      |                                                                                            ^~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1251:93: note: the last parameter in the range is 'value'
+ 1251 |                                                                         const std::uint16_t value) noexcept {
+      |                                                                                             ^~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1250:73: note: 
+ 1250 |                                                                         const std::uint8_t object_subindex,
+      |                                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1251:73: note: 'const std::uint8_t' and 'const std::uint16_t' may be implicitly converted: 'const std::uint8_t' (as 'unsigned char') -> 'const std::uint16_t' (as 'unsigned short'), 'const std::uint16_t' (as 'unsigned short') -> 'const std::uint8_t' (as 'unsigned char')
+ 1251 |                                                                         const std::uint16_t value) noexcept {
+      |                                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1262:20: warning: constness of 'status' prevents automatic move [performance-no-automatic-move]
+ 1262 |             return status;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1308:20: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+ 1308 |             return clean;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1553:56: warning: 2 adjacent parameters of 'operator()' of convertible types are easily swapped by mistake [bugprone-easily-swappable-parameters]
+ 1553 |     const auto expect = [&](const std::uint16_t index, const std::uint8_t sub, const std::uint32_t expected) {
+      |                                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1553:75: note: the first parameter in the range is 'sub'
+ 1553 |     const auto expect = [&](const std::uint16_t index, const std::uint8_t sub, const std::uint32_t expected) {
+      |                                                                           ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1553:100: note: the last parameter in the range is 'expected'
+ 1553 |     const auto expect = [&](const std::uint16_t index, const std::uint8_t sub, const std::uint32_t expected) {
+      |                                                                                                    ^~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1553:56: note: 
+ 1553 |     const auto expect = [&](const std::uint16_t index, const std::uint8_t sub, const std::uint32_t expected) {
+      |                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1553:80: note: 'const std::uint8_t' and 'const std::uint32_t' may be implicitly converted: 'const std::uint8_t' (as 'unsigned char') -> 'const std::uint32_t' (as 'unsigned int'), 'const std::uint32_t' (as 'unsigned int') -> 'const std::uint8_t' (as 'unsigned char')
+ 1553 |     const auto expect = [&](const std::uint16_t index, const std::uint8_t sub, const std::uint32_t expected) {
+      |                                                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1675:22: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1675 |                   << std::endl;
+      |                      ^~~~~~~~~
+      |                      '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1709:102: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1709 |                           << load_u32(std::as_bytes(std::span{tpdo.raw.payload}.subspan(4U, 4U))) << std::endl;
+      |                                                                                                      ^~~~~~~~~
+      |                                                                                                      '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1730:47: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1730 |         std::cout << "MANUAL_ROTATION_END" << std::endl;
+      |                                               ^~~~~~~~~
+      |                                               '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+Suppressed 49 warnings (49 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.

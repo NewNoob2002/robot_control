@@ -1,0 +1,8 @@
+{
+  "disable_request_to_zero_request_ms": 100.998,
+  "last_tpdo_to_zero_request_ms": 100.656,
+  "tpdo_between_request_and_ack": 1,
+  "tpdo_after_ack_before_zero": 0,
+  "offline_check_history": "Initial zero-frames-after-request assertion failed: one TPDO precedes the SDO acknowledgement. Refined to acknowledgement boundary after inspecting exact dual-capture evidence; no physical retry.",
+  "timing_basis": "target candump wire timestamps, not internal detection timestamps"
+}

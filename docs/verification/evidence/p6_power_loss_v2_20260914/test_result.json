@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source_revision": "f3d88d4766c80ae5a35784b4f883e3f549b1c06d",
+  "artifact_sha256": "fc77b14e78c60ad00f3fcda704889d0c913be60ef416e77c7ba5cd9a688b6fa4",
+  "inhibitor_sha256": "c2425001cbe583e3bb1e3307d4145e95cafd722d150154ff727fe519a80b1a5b",
+  "level": "hil",
+  "target": "RK3588 robot-dev can0 node1",
+  "command": "python3 docs/verification/evidence/p6_power_loss_v2_20260914/local_trial.py",
+  "attempts": 1,
+  "passed": true,
+  "counts": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "classified_failures": [],
+  "test_harness_defects": [
+    "The runner returned nonzero after product success because it required an internal successful Status context in stdout. Successful main prints interface_inhibitor_released and qualification_complete instead. Frozen raw evidence passes analyze_result.py."
+  ],
+  "safety_preflight": "safety_preflight.json",
+  "current_authorization": "authorization.json",
+  "analysis": "analysis.json",
+  "operator_observation": "operator_observation.json",
+  "bus_validation": "bus_validation.json",
+  "log": "target/executor.log",
+  "application_exit_code": 0,
+  "process_cleanup_passed": true,
+  "drive_cleanup_verified": true,
+  "final_drive_power_off": true,
+  "final_can0_down": true,
+  "requirements": [
+    "P6.6 drive-only power loss/restoration",
+    "P6.7 evidence"
+  ]
+}

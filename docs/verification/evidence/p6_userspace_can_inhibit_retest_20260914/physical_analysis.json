@@ -1,0 +1,33 @@
+{
+  "status": "PASS_USERSPACE_CAN_INHIBITOR_PHYSICAL",
+  "retry_required": false,
+  "target_frames": 172,
+  "target_error_frames": 1,
+  "target_normal_frames": 171,
+  "jcan_frames": 100004,
+  "target_normal_frames_matched_in_jcan": 171,
+  "can_error_timestamp": 1789377758.304241,
+  "interface_down_wall_time": 1789377758.316804,
+  "error_to_interface_down_ms": 12.562990188598633,
+  "motion_prompt_to_interface_down_ms": 1223.5448360443115,
+  "target_requests_after_error": 0,
+  "jcan_host_requests_after_error_anchor": 0,
+  "coordinator_host_requests_after_down_plus_250ms": 0,
+  "post_error_jcan_frames": 99833,
+  "post_error_jcan_ids": [
+    385
+  ],
+  "estimated_jcan_capture_after_down_s": 26.265507459640503,
+  "conservative_jcan_capture_after_down_s": 24.190142393112183,
+  "historical_delayed_tx_window_s": 4.360145,
+  "left_nonzero_tpdo_samples": 0,
+  "right_nonzero_tpdo_samples": 26,
+  "right_tpdo_min": 0,
+  "right_tpdo_max": 54,
+  "application_external_bus_error": true,
+  "inhibitor_armed": true,
+  "inhibitor_down": true,
+  "jcan_config_unchanged": true,
+  "target_wrapper_pass": true,
+  "coordinator_exit_note": "The coordinator stopped at the fixed 100000-frame validation bound after the required observation window; retained frames and live counters satisfy the delayed-TX acceptance condition."
+}

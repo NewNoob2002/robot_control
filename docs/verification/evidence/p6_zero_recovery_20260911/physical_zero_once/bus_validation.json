@@ -1,0 +1,50 @@
+{
+  "protocol_and_cleanup_passed": true,
+  "attempts": 1,
+  "elf_sha256": "31d2d0848e9330f6f910e642d47bccb6552ca112cefa36214defa646c524b7e3",
+  "frames": 122,
+  "capture_pairs_equal": true,
+  "sdo_transactions": 52,
+  "transitions": [
+    {
+      "controlword": "0x0",
+      "dual_statusword": "0x1440",
+      "command_to_tpdo_ms": 26.107
+    },
+    {
+      "controlword": "0x6",
+      "dual_statusword": "0x1421",
+      "command_to_tpdo_ms": 42.051
+    },
+    {
+      "controlword": "0x7",
+      "dual_statusword": "0x1423",
+      "command_to_tpdo_ms": 41.996
+    },
+    {
+      "controlword": "0xf",
+      "dual_statusword": "0x1427",
+      "command_to_tpdo_ms": 41.943
+    },
+    {
+      "controlword": "0x6",
+      "dual_statusword": "0x1421",
+      "command_to_tpdo_ms": 33.895
+    }
+  ],
+  "nonzero_targets": 0,
+  "all_speed_readbacks_zero": true,
+  "all_tpdo_speeds_zero": true,
+  "heartbeat_restored": 0,
+  "can_errors_drops": 0,
+  "final_status_raw": "21142114",
+  "physical_observation": {
+    "date": "2026-09-11",
+    "accepted": true,
+    "user_confirmation": "确认两轮始终未转动，无异常声响或再次启动",
+    "both_wheels_stationary": true,
+    "abnormal_sound": false,
+    "restart": false
+  },
+  "nmt_stop_executed": false
+}

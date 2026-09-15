@@ -1,0 +1,18 @@
+{
+  "authorized": true,
+  "stimulus": "nmt_stop",
+  "elf_sha256": "31d2d0848e9330f6f910e642d47bccb6552ca112cefa36214defa646c524b7e3",
+  "operator_ready": true,
+  "user_confirmation": "授权; 确认两轮始终未转动，无异常声响或再次启动",
+  "authorization_context": "Authorization after repair covers new zero recovery and NMT Stop. Operator has now accepted zero recovery. Same RK3588/node1, right +5 rpm and left zero for 1000 ms, then one NMT Stop and verified zero cleanup. Raised wheels/emergency stop/on-site conditions remain as agreed.",
+  "date": "2026-09-11",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--nmt-stop-once",
+    "2:5",
+    "--duration-ms",
+    "1000"
+  ]
+}

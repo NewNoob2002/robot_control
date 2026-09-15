@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "interface": "can",
+  "target": "RK3588 can0 node1",
+  "observer_serial": "207F346D5650",
+  "nominal_bitrate": 500000,
+  "observer_silent": false,
+  "observer_link_layer_ack": true,
+  "observer_data_frame_commands": 0,
+  "stimulus": "authorization.json",
+  "raw_capture": [
+    "jcan_session.jsonl",
+    "target/rk3588_can.log"
+  ],
+  "frames_each": 352,
+  "capture_sequences_equal": true,
+  "can_errors": 0,
+  "nonzero_target_requests": 1,
+  "post_motion_drive_boot_observed": true,
+  "boot_to_first_packed_zero_ms": 2.4938583374023438,
+  "first_host_request_after_boot": "601#23FF600300000000",
+  "post_boot_nonzero_or_enable_requests": 0,
+  "final_dual_status_raw": "0x14401440",
+  "final_speed_views_zero": true,
+  "jcan_config_unchanged": true,
+  "passed": true,
+  "limitation": "JCAN normal mode actively supplied CAN ACK; it did not transmit a data frame and is not a passive observer for this trial.",
+  "report": "test_result.json"
+}

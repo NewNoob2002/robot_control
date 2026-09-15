@@ -1,0 +1,1 @@
+{"rc": 0, "stdout": " (1789120784.054498)  vcan0  123   [1]  01\n (1789120784.312270)  vcan0  123   [1]  02\n", "stderr": "vcan0: interface down\n"}

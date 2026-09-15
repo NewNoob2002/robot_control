@@ -340,12 +340,19 @@ Acceptance:
 
 ### P6.7 — Regression, evidence, and closure
 
-Current status: the 2026-09-10 closure preparation passes fresh qualification
-Debug and sanitizer suites (48/48 each), default Debug/Release (28/28 each),
-P5.6 (36/36), artifact isolation, clean-source RK3588 Debug/Release and a
-separate qualification cross build. Remaining physical requirements prevent
-phase closure. See `docs/verification/P6_7_CLOSURE_BASELINE.md` for the
-requirement dispositions, packed-feedback restriction and source provenance.
+Current status: the 2026-09-11 NMT Stop repair passes host qualification and
+ASan/UBSan (60/60 each), default Debug/Release (28/28 each), P5.6 (36/36),
+clean locked-sysroot cross/ELF, target isolated vcan, and one operator-accepted
+physical NMT Stop trial with verified SDO cleanup. Earlier failed trials remain
+preserved. Moving SIGTERM and the 2026-09-14 drive-only power-loss V2 trial pass
+physical qualification. V2 used normal-mode JCAN link-layer ACK with zero JCAN
+data-frame commands; the runner's false result is retained as a post-run
+assertion defect. Composite X1 behavior also passes. Soak is deferred by the
+operator on 2026-09-15 until SBUS and full-chain integration are ready; v3 failed
+after five cycles and v4 never started. Fault/electrical bus-off methods remain
+unavailable. These residuals still prevent final phase closure.
+See the NMT repair, external-loss record and current checkpoint in
+docs/verification.
 
 Run the applicable local and target qualification and publish one Phase 6
 baseline. Preserve failures and distinguish software, simulated-bus, passive,
@@ -364,7 +371,10 @@ Acceptance:
 
 ## Slice order and authorization rule
 
-Implement P6.1 through P6.7 in order. P6.1 through P6.3 do not authorize later
+Implement P6.1 through P6.7 in order. The operator-approved September 15
+exception allows later SBUS/component development while P6.7 soak remains
+explicitly deferred. Retain short unit/vcan/integration regressions; run both
+CANopen lifecycle and full-chain soak before final system acceptance. P6.1 through P6.3 do not authorize later
 physical writes. P6.4, every P6.5 trial, and every P6.6 stimulus require fresh
 dated authorization after review of the exact preflight. Stop on `ok=false`,
 warning, mismatch, unexpected traffic, timeout, cleanup error, motion outside

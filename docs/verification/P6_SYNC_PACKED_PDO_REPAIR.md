@@ -61,7 +61,16 @@ command synchronization remains distinct from CANopen SYNC transmission.
 |---|---|---|
 | Initial synchronous SDO trial | 3885a78bda2d | Host 57/57, sanitizer 57/57, clean cross build, ELF audit, target isolated vcan, physical left trial |
 | RPDO left/right trial | 0e835fd8a9bc | Host 60/60, sanitizer 60/60, clean cross build, ELF audit, target isolated vcan, both physical trials |
-| Synchronous stop/loss remainder | fa1944fdba2d | Host 60/60, sanitizer 60/60, clean cross build, ELF audit, target isolated vcan; physical tests pending |
+| Synchronous stop/loss remainder | fa1944fdba2d | Host 60/60, sanitizer 60/60, clean cross build, ELF audit, target isolated vcan; six revised physical tests pass, NMT trial fails at zero-target startup |
+
+The remainder watchdog trial subsequently passed protocol, cleanup and operator
+checks on 2026-09-11: 168 identical dual-capture frames and 1503.019 ms TX quiet.
+First zero-speed TPDO arrived 634.003 ms after the last request; the first resumed
+TX was packed zero. The operator observed no restart. This bounded result does
+not establish a latched inhibit or qualify automatic motion reauthorization.
+The subsequent heartbeat-loss trial passes protocol/cleanup checks with 195
+matching frames and operator confirmation of normal stopping without restart. See the current
+[checkpoint](PHASE6_CHECKPOINT.md) and per-trial remainder evidence.
 
 Latest software logs and manifest are in
 [remainder evidence](evidence/p6_sync_remainder_20260911/manifest.json).
@@ -72,12 +81,21 @@ deceleration fixture needed a subsequent zero TPDO, and the RPDO test peer
 needed an explicit 0x201 receive filter. These were software-test failures,
 not physical test retries.
 
-Remaining gates include synchronous stop/loss physical requalification,
-physical cable/power-loss tests, and any production or simultaneous-wheel
-operation. Do not infer those passes from the three successful trials.
+NMT Stop startup recovery and feedback/cleanup requalification subsequently
+passed; see [the NMT repair record](P6_NMT_STOP_REPAIR.md). Moving SIGTERM and
+physical cable/power-loss and applicable fault/soak gates remain open. Production
+and simultaneous-wheel operation are not qualified by these bounded trials.
 
 The first watchdog execution request and its one permitted request retry
 both timed out in automatic approval before process creation. Local one-shot
 markers confirm no remainder trial began. Test authorization remains recorded;
-the blocker is execution permission review, not an HIL failure. See
+that historical blocker was execution permission review, not an HIL failure. See
 [the blocker record](evidence/p6_sync_remainder_20260911/execution_blocker.json).
+
+After explicit renewed authorization, six remainder trials passed, including
+operator confirmation. The seventh (NMT Stop) failed before motion while trying
+to leave the Quick Stop Active state retained by the prior trial. Two Shutdown
+requests did not change that state; startup and cleanup timed out. Both captures
+agree on 172 frames, zero velocities and no nonzero target/NMT Stop stimulus.
+The operator confirms no wheel movement and a safe site. No retry or recovery
+command was sent. See the current checkpoint and remainder RESULT.md.

@@ -3175,6 +3175,84 @@
       ],
       "sha256": "4fb6629dc711248911c97ebe54f28790f5426c74dbde9a41aad863e4d562ba0e",
       "reason": "Software build/test/static logs consolidated; raw CAN, operator observations, failures and approval blockers retained."
+    },
+    {
+      "path": "archives/p6_followup-large-evidence-20260915.tar.gz",
+      "directories": [
+        "p6_cable_loss_20260914",
+        "p6_cable_retest_20260914",
+        "p6_driver_review_20260914",
+        "p6_emergency_input_v2_20260915",
+        "p6_external_loss_20260911",
+        "p6_interface_v5_20260914",
+        "p6_power_loss_20260914",
+        "p6_userspace_can_inhibit_retest_20260914",
+        "p6_zero_motion_soak_v3_20260915"
+      ],
+      "sha256": "4e8d6c26c9b95555613916a1bf8116280e345b7633060ae3580455ba562ce932",
+      "reason": "Large follow-up captures and software logs retained byte-for-byte; extract original paths for offline analysis.",
+      "files": [
+        {
+          "path": "p6_cable_loss_20260914/jcan_session.jsonl",
+          "bytes": 992677,
+          "sha256": "bb41de1ffd3aa9502c7a30386601b3698f15ee92172cd31c6e8d073b5626b9c7"
+        },
+        {
+          "path": "p6_cable_loss_20260914/offline_repro/build.log",
+          "bytes": 327676,
+          "sha256": "56d07774175dd855859e685f61d2f35433344febde750e776ec75d6d9af7630f"
+        },
+        {
+          "path": "p6_cable_retest_20260914/jcan_session.jsonl",
+          "bytes": 2570565,
+          "sha256": "f512b5d8516cd12780ef5d32ef2e361fe735b6ead2082f65cf6c3381854994dc"
+        },
+        {
+          "path": "p6_driver_review_20260914/makefile_history.json",
+          "bytes": 455739,
+          "sha256": "7109abcd9342305495462ce03334536814a84421c72c940866c939c5f2eb9d8c"
+        },
+        {
+          "path": "p6_emergency_input_v2_20260915/jcan_session.jsonl",
+          "bytes": 298085,
+          "sha256": "6211c8b41ea327b323144d5c6ac8591f5a714cd2656371bace8650b099ffc611"
+        },
+        {
+          "path": "p6_external_loss_20260911/external_host_fixture_failure.log",
+          "bytes": 7702008,
+          "sha256": "6c82b3c06e1777f1542040f56b710edeeef02517e3abe9c867f245536fcd49c3"
+        },
+        {
+          "path": "p6_external_loss_20260911/external_sanitizer_fixture_failure.log",
+          "bytes": 4681791,
+          "sha256": "53ffd2ffadf8ed3a0d33d1335cd40025c4fa30e301f5b46eef69586e8cf23bc3"
+        },
+        {
+          "path": "p6_external_loss_20260911/interface_loss_manual_v3_once/jcan_session.jsonl",
+          "bytes": 1614891,
+          "sha256": "2211c55bed3179767ec1d5139431e2db5f104a0c998d0d14f45947fa32e2a582"
+        },
+        {
+          "path": "p6_interface_v5_20260914/jcan_session.jsonl",
+          "bytes": 1751867,
+          "sha256": "20b9570f865431e7d1f67b3a22189df6b3e3c1a509842193fa0d309536f4d5b5"
+        },
+        {
+          "path": "p6_power_loss_20260914/jcan_session.jsonl",
+          "bytes": 21365769,
+          "sha256": "c116f7817cb87a900875b876799b0aed830e847630e53f6b15ba39fe5af5577e"
+        },
+        {
+          "path": "p6_userspace_can_inhibit_retest_20260914/jcan_session.jsonl",
+          "bytes": 15200721,
+          "sha256": "05e3c335046fe9291deb87ba4a74cd278b4556cc62ed759780bc6ba464638a01"
+        },
+        {
+          "path": "p6_zero_motion_soak_v3_20260915/jcan_ack_keeper_once/jcan_session.jsonl",
+          "bytes": 1490257,
+          "sha256": "6df6c6912bb4ca2fd28e6aa510713d47d8edd866f0c73b155d551866fd838cce"
+        }
+      ]
     }
   ],
   "removed_duplicates": [

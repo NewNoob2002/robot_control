@@ -1,0 +1,7 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "授权这四项各一次，现场保持就绪",
+  "scope": "Sequential Shutdown 0x0006, Disable Voltage 0x0000, Quick Stop 0x0002, node1 NMT Stop 0x02; each once on RK3588 can0 node1, right +5 rpm and left zero for 1000 ms before stop stimulus; verify zero and cleanup; raised wheels, emergency stop and operator present; confirm each physical result before next trial; stop on any failure, no automatic retry",
+  "trial": "quick_stop",
+  "artifact_sha256": "fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205"
+}

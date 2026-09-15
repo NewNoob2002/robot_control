@@ -1,0 +1,44 @@
+{
+  "base": "/tmp/robot-control-qualifications/interface-v5-2304c1c9892d",
+  "elf_sha256": "2304c1c9892d327f73c65304601adfd4ced30e81fb2d4f3bfd1e2c5966ae857c",
+  "files": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/interface-v5-qualification/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "2304c1c9892d327f73c65304601adfd4ced30e81fb2d4f3bfd1e2c5966ae857c"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/interface-v5-qualification/review_qualification_vcan_tests",
+      "sha256": "899c4c6edecc7e90fd8a84a92e853caa2a4ce32dcf0bd741d6745611b9a544ff"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    },
+    "authorization_interface_loss_manual_v5_once.json": {
+      "source": "docs/verification/evidence/p6_interface_v5_20260914/authorization.json",
+      "sha256": "df9039db74283cbc961bb6a1228bcbd8a1de23489f63321291154bc2812eeb46"
+    },
+    "remote_interface_loss_manual_v5_once.py": {
+      "source": "docs/verification/evidence/p6_interface_v5_20260914/remote_trial.py",
+      "sha256": "1f1d65895c065b90a07739d9e343ed26cc409624e899a2457f466d0b6f03b9b3"
+    },
+    "interface_toggle_manual_v5_once.py": {
+      "source": "docs/verification/evidence/p6_interface_v5_20260914/interface_toggle.py",
+      "sha256": "69aa30f5e62a29693160ced6651220a9324b6e2a3a574588ca69f4f17272cd42"
+    }
+  },
+  "runner_hashes": {
+    "local_trial.py": "75b6c9aede18f04bd6c733273d8e59980fbd95c69ee64790bb7da866def16b1b",
+    "remote_trial.py": "1f1d65895c065b90a07739d9e343ed26cc409624e899a2457f466d0b6f03b9b3",
+    "interface_toggle.py": "69aa30f5e62a29693160ced6651220a9324b6e2a3a574588ca69f4f17272cd42",
+    "test_capture_bound.py": "4a2cdcf892e59a6751f808b09081d9a7f0e06e3dfcced8e141a787c6f875afa3",
+    "test_interface_toggle.py": "296dcd9b9aa57ec13db0f6a1ab256f568f08ce4c0943a430317901c4f0ca9cc6",
+    "authorization.json": "df9039db74283cbc961bb6a1228bcbd8a1de23489f63321291154bc2812eeb46"
+  },
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "62c90b361be46242062b973e0b3f397d67eba5b285f125c99078c791e4b2d02d",
+    "communication/canopen/qualification.hpp": "996977ccfbbd5418bc2c71bd2a65db577858de60ad1161891241f7161b654e2a",
+    "tools/zlac_qualification/main.cpp": "4e7b25f8c1a125586f20226a39b99a6c605bab358dee112e2f08da890675662a",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "abd49c527e790fe315713e14b633e2b60e1924895a24d8e01fb644b0de3cae89"
+  }
+}

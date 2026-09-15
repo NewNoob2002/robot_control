@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "scope": "NMT Stop wait and Pre-operational cleanup repair",
+  "source_artifact": "manifest.json",
+  "host": {
+    "passed": true,
+    "counts": {
+      "total": 60,
+      "passed": 60,
+      "failed": 0,
+      "skipped": 0
+    },
+    "log": "final_host_ctest.log"
+  },
+  "sanitizer": {
+    "passed": true,
+    "counts": {
+      "total": 60,
+      "passed": 60,
+      "failed": 0,
+      "skipped": 0
+    },
+    "log": "final_sanitizer_ctest.log"
+  },
+  "default_debug": {
+    "passed": true,
+    "tests": 28,
+    "log": "default-debug.log"
+  },
+  "default_release": {
+    "passed": true,
+    "tests": 28,
+    "log": "default-release.log"
+  },
+  "p56": {
+    "passed": true,
+    "tests": 36,
+    "log": "commissioning.log"
+  },
+  "cross": {
+    "passed": true,
+    "variants": [
+      "qualification Debug",
+      "default Debug",
+      "default Release"
+    ],
+    "elf_audits": true,
+    "log": "cross_final.log"
+  },
+  "target_vcan": {
+    "passed": true,
+    "frames": 12826,
+    "failures": 0,
+    "prohibited": 0,
+    "log": "target_vcan.log"
+  },
+  "static": {
+    "tool": "LLVM 22.1.8 clang-tidy",
+    "checks": "clang-analyzer-*,bugprone-*,performance-*",
+    "exit": 0,
+    "warnings": 19,
+    "errors": 0,
+    "new_nmt_path_findings": 0,
+    "log": "clang_tidy.log"
+  },
+  "failures_preserved": {
+    "red_vcan.log": "Old production code fails after cached nonzero TPDO, before Stopped heartbeat.",
+    "host_ctest.log": "First timeout fixture delayed all replies 250 ms despite 30 ms SDO timeout, also obstructing subsequent heartbeat restoration.",
+    "sanitizer_ctest.log": "Same timeout-fixture defect. Fix withholds only the selected SDO response and immediately services the next request; production timeout unchanged."
+  },
+  "physical": {
+    "passed": true,
+    "attempts": 1,
+    "operator_accepted": true,
+    "matched_frames": 140,
+    "analysis": "physical_nmt_stop_once/analysis.json",
+    "preflight": "physical_nmt_stop_once/safety_preflight.json",
+    "owned_process_cleanup": "physical_nmt_stop_once/process_cleanup_result.json"
+  },
+  "commands": {
+    "narrow": "bash scripts/test/test_socketcan_vcan.sh out/build/review-fixes/tests/unit/robot_control_canopen_qualification_vcan_tests",
+    "host": "ctest --test-dir out/build/review-fixes --output-on-failure",
+    "sanitizer": "ctest --test-dir out/build/review-fixes-sanitizer --output-on-failure",
+    "cross": "python3 out/hil/nmt-stop-repair/run_cross.py",
+    "static": "clang-tidy -p out/build/review-fixes --checks=-*,clang-analyzer-*,bugprone-*,performance-* communication/canopen/qualification.cpp",
+    "physical": "python3 docs/verification/evidence/p6_nmt_stop_repair_20260911/physical_nmt_stop_once/local_trial.py"
+  },
+  "cross_script_locations": {
+    "cross_runner.py": "out/hil/nmt-stop-repair/run_cross.py",
+    "cross_build.py": "out/hil/nmt-stop-repair/cross.py",
+    "cross_CMakeLists.txt": "out/hil/nmt-stop-repair/CMakeLists.txt"
+  },
+  "post_hil_documentation_only": "manifest.json"
+}

@@ -1,0 +1,11 @@
+{
+  "authorized": true,
+  "attempts": 1,
+  "date_utc": "2026-09-14",
+  "user_confirmation": "确认并授权单次复测",
+  "qualification_sha256": "fc77b14e78c60ad00f3fcda704889d0c913be60ef416e77c7ba5cd9a688b6fa4",
+  "inhibitor_sha256": "c2425001cbe583e3bb1e3307d4145e95cafd722d150154ff727fe519a80b1a5b",
+  "target": "RK3588 robot-dev machine-id 6923ab3301fb4a8d816759b04ec6bf0a can0 node1",
+  "scope": "First run target-only non-actuating checks with the drive power OFF. If they pass, perform exactly one raised-wheel physical cable-loss trial: right wheel +5 rpm, left wheel zero, 200 ms lead before the operator disconnects and reconnects only the RK3588 CAN branch. Use target candump and silent JCAN 207F346D5650. No automatic retry, production deployment, persistent drive write, kernel change, SDK change, JCAN transmit, or automatic can0 recovery.",
+  "safety_confirmation": "Drive power OFF; both wheels raised and stopped; site safe; emergency stop immediately available."
+}

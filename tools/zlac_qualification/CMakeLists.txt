@@ -2,7 +2,8 @@ add_executable(robot-control-zlac-qualification main.cpp qualification_log.c)
 target_link_libraries(
   robot-control-zlac-qualification
   PRIVATE robot_control_communication_canopen_qualification
-          robot_control_project_options robot_control_project_warnings)
+          robot_control_platform_linux robot_control_project_options
+          robot_control_project_warnings)
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
   foreach(arguments IN ITEMS "--interface;vcan0;--manual-tpdo;--duration-ms;1000"
@@ -31,6 +32,13 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
                              "--interface;vcan0;--watchdog-once;--duration-ms;1500"
                              "--interface;vcan0;--heartbeat-loss-once;2:5"
                              "--interface;vcan0;--tpdo-loss-once;--watchdog-once"
+                             "--interface;vcan0;--external-loss-once;--duration-ms;1000"
+                             "--interface;vcan0;--external-loss-once;--watchdog-once"
+                             "--interface;can0;--external-loss-once"
+                             "--interface;can0;--external-loss-once;--interface-inhibitor;relative-helper"
+                             "--interface;vcan0;--external-loss-once;--interface-inhibitor;/tmp/helper"
+                             "--interface;vcan0;--watchdog-once;--interface-inhibitor;/tmp/helper"
+                             "--interface;can0;--external-loss-once;--interface-inhibitor;/tmp/a;--interface-inhibitor;/tmp/b"
                              "--interface;vcan0;--zero-sequence;--zero-targets"
                              "--interface;vcan0;--zero-sequence;--duration-ms;10")
     string(MAKE_C_IDENTIFIER "${arguments}" suffix)

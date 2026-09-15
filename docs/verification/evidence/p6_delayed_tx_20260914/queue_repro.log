@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p6_delayed_tx_20260914/reproduce_queue.py", line 29, in <module>
+    assert arrived - closed >= 200_000_000, 'No delayed transmission was demonstrated'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: No delayed transmission was demonstrated

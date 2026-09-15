@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-15",
+  "status": "AUTHORIZED_NOT_EXECUTED",
+  "duration_hours": 3,
+  "hardware": "raised stationary wheels; X1 locked; independent drive power disconnect available",
+  "traffic": "repeated disabled manual-tpdo lifecycle; no target, RPDO or controlword",
+  "capture": "continuous candump plus per-cycle application logs and CAN link statistics",
+  "stop_conditions": "cycle failure, nonzero sampled speed, CAN error, error/drop counter increase, signal",
+  "final_state": "X1 remains locked until drive power OFF and can0 DOWN",
+  "authorization_required": false
+}

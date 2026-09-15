@@ -4,6 +4,7 @@
 
 unsigned canopen_test_send_diagnostics = 0;
 unsigned canopen_test_epoll_diagnostics = 0;
+unsigned canopen_test_socket_initializations = 0;
 
 /** Satisfy the pinned CANopenLinux logging contract without production code. */
 __attribute__((format(printf, 2, 3))) void log_printf(int priority, const char* format, ...) {
@@ -13,6 +14,9 @@ __attribute__((format(printf, 2, 3))) void log_printf(int priority, const char* 
     va_start(args, format);
     vsnprintf(message, sizeof(message), format, args);
     va_end(args);
+    if (strstr(message, "RX buffer set") != NULL) {
+        ++canopen_test_socket_initializations;
+    }
     if (strstr(message, "(CO_CANsend)") != NULL) {
         ++canopen_test_send_diagnostics;
     }

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-15",
+  "status": "DEFERRED_NOT_STARTED",
+  "duration_hours": 3,
+  "hardware": "raised stationary wheels; X1 locked; independent drive power disconnect available",
+  "jcan": {
+    "serial": "207F346D5650",
+    "mode": "normal",
+    "link_layer_ack": true,
+    "data_frame_commands_allowed": 0
+  },
+  "traffic": "repeated disabled manual-tpdo lifecycle; no target, RPDO or controlword",
+  "stop_conditions": "cycle failure, nonzero sampled speed, CAN error, error/drop counter increase, signal",
+  "final_state": "X1 remains locked until drive power OFF and can0 DOWN; JCAN session stopped",
+  "target_machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "script_sha256": "b3473b8fe9b19e3a6e36d3f540bd65aa6ae1fbe5753f192ba75a34a77e5b0f08",
+  "elf_sha256": "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7",
+  "authorization_source": "Current user request and physical confirmation on 2026-09-15",
+  "jcan_preparation": "FAILED_USB_RECEIVE_LENGTH",
+  "power_off_confirmed": false
+}

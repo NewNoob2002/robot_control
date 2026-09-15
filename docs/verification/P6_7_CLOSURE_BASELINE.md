@@ -1,28 +1,34 @@
 # Phase 6 closure baseline
 
-Review date: 2026-09-10. Status: **OPEN — VERIFIED CHECKPOINT, NOT FINAL PHASE ACCEPTANCE**.
+Review date: 2026-09-15. **OPEN — CHECKPOINT, NOT FINAL PHASE ACCEPTANCE**.
 
-The current requirement table, operator-accepted TPDO result and software test
-counts are consolidated in [PHASE6_CHECKPOINT.md](PHASE6_CHECKPOINT.md). Use that
-record instead of the superseded chronological summaries.
+Use [PHASE6_CHECKPOINT.md](PHASE6_CHECKPOINT.md) for the accepted bounded trials
+and their limits, [the evidence index](evidence/README.md) for original records,
+and [the review/CI record](P6_CHECKPOINT_REVIEW_20260915.md) for final-source checks.
 
 ## Remaining closure requirements
 
-- Measure watchdog response using the reviewed passive TPDO stream and qualify
-  recovery without assuming a latched inhibit. Preserve trial 2's confirmed
-  stop/restart and trial 4's corrected initial-motion evidence.
-- Qualify physical heartbeat/TPDO loss, moving SIGTERM and controlled interface
-  loss/reopen as separate bounded stimuli after the checkpoint's remote CI passes.
-- Record applicability decisions for emergency inputs, brake outputs, gated fault
-  reset and electrical bus-off; do not silently mark untested requirements PASS.
-- Complete final-source regression and artifact/isolation review after remaining
-  implementation. This checkpoint's software pass is not final HIL acceptance.
+- Soak is deferred by the operator until SBUS/full-chain integration. V3 failed
+  after 309 s / five cycles; V4 never started and its authorization is retired.
+  Both isolated CANopen lifecycle and full-chain endurance remain required.
+- Resolve JCAN USB receive framing before a new independent capture, then
+  regenerate the exact artifact/preflight and obtain new bounded authorization.
+- New inhibitor protocol validation is software-tested; historical HIL and
+  cross results apply only to their recorded artifacts. Current cross/target
+  limitations are explicitly recorded with this checkpoint's CI.
+- Non-destructive fault-reset/electrical bus-off stimuli are unavailable.
+  Mechanical brake output is not applicable to this fixture (September 14
+  operator confirmation). Composite X1 stop/reset behavior is accepted within
+  its two recorded trials; this is not general system safety certification.
+- Exact rockchip_canfd retry-worker/stop concurrency and matching full kernel
+  commit remain unresolved. The accepted userspace inhibitor is a mitigation.
+- Complete outstanding evidence and final-source acceptance before declaring
+  Phase 6 or the integrated system complete. Subsequent component development
+  is a scheduling exception, not authorization for motion or production use.
 
-The manual TPDO speed test is **PASS by operator acceptance**. Small left-speed
-excursions are accepted for that test; chassis vibration remains a hypothesis.
-The three-packet/24-byte kernel RX discrepancy is tracked separately and does not
-negate the accepted functional TPDO result. Neither observation establishes
-production feedback eligibility or safe automatic motion reauthorization.
+The accepted TPDO feedback trial retains small operator-accepted speed
+excursions. Vibration remains a hypothesis. Later passes never erase failed
+NMT, cable-loss, power/X1 wrapper or soak attempts.
 
 ## Historical provenance
 

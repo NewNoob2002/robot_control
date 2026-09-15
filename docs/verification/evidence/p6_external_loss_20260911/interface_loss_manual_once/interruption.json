@@ -1,0 +1,6 @@
+{
+  "execution_started": false,
+  "reason": "automatic approval review timeout; no local consumed marker, remote trial or interface event",
+  "replacement": "interface_loss_manual_v2_once",
+  "change": "fresh terminal gate; readiness wait15minutes; motion and disconnect bounds unchanged"
+}

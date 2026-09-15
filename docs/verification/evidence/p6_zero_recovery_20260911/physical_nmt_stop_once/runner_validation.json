@@ -1,0 +1,6 @@
+{
+  "syntax": "pass",
+  "permitted_right_target_stop_zero": "pass",
+  "repeated_target_repeated_stop_wrong_axis_repeated_recovery": "rejected",
+  "physical_operations": 0
+}

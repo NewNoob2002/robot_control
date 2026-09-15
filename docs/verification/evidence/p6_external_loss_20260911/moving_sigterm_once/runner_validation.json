@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "syntax": true,
+  "exact_stimulus": "SIGTERM once after nonzero TPDO and 300ms target observation; no NMT Stop or post-motion enable",
+  "expected_executor_exit": 1,
+  "expected_diagnostic": "qualification_owner_exit + cleanup=verified + Operation canceled"
+}

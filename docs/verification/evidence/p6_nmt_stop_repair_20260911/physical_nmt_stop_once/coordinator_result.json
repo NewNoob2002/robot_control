@@ -1,0 +1,15 @@
+{
+  "go_sent": true,
+  "executor_started": true,
+  "error": null,
+  "frames": 140,
+  "downloads": 12,
+  "uploads": 37,
+  "nmt_frames": 3,
+  "nonzero_requests": 1,
+  "cleanup_shutdown_requests": 1,
+  "disable_voltage_requests": 1,
+  "nmt_stop_requests": 1,
+  "startup_recovery_requests": 0,
+  "cleanup_disable_requests": 1
+}

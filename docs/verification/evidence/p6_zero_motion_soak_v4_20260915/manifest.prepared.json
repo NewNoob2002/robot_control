@@ -1,0 +1,14 @@
+{
+  "base": "/tmp/robot-control-qualifications/zero-motion-soak-v4-bb4f44251672",
+  "status": "PREPARED_NOT_STARTED",
+  "files": {
+    "phase6_zero_motion_soak.py": "b3473b8fe9b19e3a6e36d3f540bd65aa6ae1fbe5753f192ba75a34a77e5b0f08",
+    "run_once.py": "4df37c96518f3b4e8fc0ecaa11a57948566bcee5863a261930196315e1e57b36",
+    "jcan_ack_keeper.py": "07f56c949b2716b7dd6e29cc19e3913b4eeda6566ee38d3579fa02a842cb455b",
+    "finalize_can0_down.py": "f41c6b51c2c18ed3738f2469c168979074640479a3bdf7fddad8e150186d820e",
+    "authorization.json": "4895deb932f5aa171141af6bfded5c47ceed5e41ae989a692ce1b5b55631c550",
+    "safety_preflight.json": "6ff92732a3642e329acc1f6cf317921302170b47f8174e952527cc2d42658091",
+    "v3_failed_archive.tar.gz": "1416f8b1ff29f1036cc909d0427dcf4033539444ceb70a938e4d64b32957bec0",
+    "test_phase6_zero_motion_soak.py": "d81fccbd7ff00d6a76f9e35b246623f064ca5d519065dee24bb55acb917b8293"
+  }
+}

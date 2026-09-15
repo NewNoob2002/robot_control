@@ -1,0 +1,5 @@
+
+=== cycle 1 start_utc=2026-09-15T03:11:44.805106+00:00 ===
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+qualification_wait_online node=1 timeout_s=1
+qualification_manual_baseline: interface=can0 remote=1: Protocol error

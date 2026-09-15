@@ -1,0 +1,16 @@
+{
+  "authorized": true,
+  "stimulus": "cable_loss",
+  "elf_sha256": "2304c1c9892d327f73c65304601adfd4ced30e81fb2d4f3bfd1e2c5966ae857c",
+  "operator_ready": true,
+  "date": "2026-09-14",
+  "user_confirmation": "继续剩余的其他项测试",
+  "previous_sequence_acceptance": "../p6_external_loss_20260911/manual_sequence_acceptance.json",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--external-loss-once"
+  ],
+  "authorization_context": "Single RK3588 CAN-branch disconnect/reconnect; same machine6923ab3301fb4a8d816759b04ec6bf0a/node1/can0 500000. Drive and silent JCAN207F346D5650 stay connected and powered. Same verified v5 program; right+5rpm packed target once, leftzero; 8second absolute pre-loss deadline, 1000ms watchdog, 10second passive recovery. Operator at the RK3588 branch connector before READY; after observed right motion and about1second lead disconnect that branch, confirm wheel stops, restore at approximately3seconds after disconnection; no restart permitted. If stop is abnormal use independent power cut and do not restore. No administrative link changes, drive power changes, JCAN TX, repeat, or persistent parameter changes. First recovery request must be packedzero, then verified disabled/zero and heartbeat/watchdog baseline restoration. Dual capture40seconds/100000frames. Fresh connector/site readiness required before launch; timeout or cleanup error stops this test and later physical tests."
+}

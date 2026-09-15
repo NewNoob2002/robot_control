@@ -1,0 +1,7 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "两轮始终未转动，目前已停止且现场安全",
+  "both_wheels_never_moved": true,
+  "operator_confirms_safe": true,
+  "trial_passed": false
+}

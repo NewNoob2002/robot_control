@@ -1,0 +1,15 @@
+{
+  "authorized": true,
+  "stimulus": "cable_loss",
+  "elf_sha256": "acc9f8828f657d968cb2c56a586b1f9e1f2c50250f6c1385d3e6b7439abed46f",
+  "operator_ready": true,
+  "user_confirmation": "好的可以开始进行目标机和物理复测",
+  "args": [
+    "--interface",
+    "can0",
+    "--external-loss-once"
+  ],
+  "attempts": 1,
+  "scope": "Same RK3588/node1/can0 500000; new repair artifact. One right +5rpm target, left zero. Fixed 8s motion deadline, 1000ms watchdog, 10s passive recovery. Unplug only RK3588 CAN branch after confirmed motion; reconnect about3s later only after normal stop. Observe no restart then power off. Fresh raised/unloaded/stopped wheels and emergency-stop readiness required. Silent JCAN207F346D5650 and target captures40s/100000frames. No automatic retry, persistent writes or JCAN TX.",
+  "fresh_confirmation": "READY; local operator_watch active and conditions acknowledged"
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-15",
+  "status": "AUTHORIZED_NOT_RUN",
+  "initial_state": "operator-confirmed drive power OFF, wheels stopped, site safe, can0 DOWN",
+  "repair": "Accept packed CiA402 Not Ready to Switch On mask 0x00 as non-enabled in manual TPDO preflight and observation",
+  "qualification_sha256": "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7",
+  "target_preflight": {
+    "elf_owner_group_mode": "root cat 750",
+    "elf_size": 1810760,
+    "can0_up": false,
+    "can0_state": "STOPPED",
+    "berr_tx": 0,
+    "berr_rx": 0,
+    "runner_consumed": false
+  },
+  "traffic": {
+    "target_commands": 0,
+    "controlword_commands": 0,
+    "jcan_mode": "silent",
+    "jcan_ack": false,
+    "jcan_data_frame_commands": 0,
+    "qualification_operation": "--manual-tpdo"
+  },
+  "attempts": 1,
+  "automatic_retry": false,
+  "final_safe_state": "drive power OFF and can0 DOWN"
+}

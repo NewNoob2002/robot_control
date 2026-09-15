@@ -1,0 +1,6 @@
+{
+  "syntax": "pass",
+  "zero_and_disabled_frames": "accepted",
+  "second_recovery_nonzero_target_moving_feedback_nmt_stop": "all rejected",
+  "physical_operations": 0
+}

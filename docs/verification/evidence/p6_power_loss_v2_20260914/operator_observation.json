@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-14",
+  "raw_user_reply": "确认无异常",
+  "prompt_context": "Confirm right wheel normal stop, left wheel stationary, no restart or abnormal sound after power restoration, both wheels stopped and site safe after final drive power-off.",
+  "right_wheel_normal_stop": true,
+  "left_wheel_stationary": true,
+  "restart_after_power_restore": false,
+  "abnormal_sound": false,
+  "final_wheels_stopped": true,
+  "site_safe": true,
+  "final_drive_power_off": true
+}

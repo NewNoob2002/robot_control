@@ -1,0 +1,6 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "授权本次 heartbeat-loss，现场条件保持就绪",
+  "scope": "RK3588 can0 node1; right +5 rpm, left zero; 200 ms lead then disable heartbeat; observation bounded to 750 ms, zero and restore temporary parameters; raised wheels, emergency stop and operator present; one attempt, no automatic retry",
+  "artifact_sha256": "fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205"
+}

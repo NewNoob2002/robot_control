@@ -1,0 +1,11 @@
+[1/11] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/lifecycle.cpp.o
+[2/11] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/lifecycle.cpp.o
+[3/11] Linking CXX static library communication/canopen/librobot_control_communication_canopen.a
+[4/11] Linking CXX executable tools/canopen_observer/robot-control-canopen-observer
+[5/11] Linking CXX executable tests/unit/robot_control_canopen_stack_tests
+[6/11] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/qualification.cpp.o
+[7/11] Linking CXX executable tests/unit/robot_control_canopen_vcan_tests
+[8/11] Linking CXX static library communication/canopen/librobot_control_communication_canopen_qualification.a
+[9/11] Linking CXX executable tools/zlac_qualification/robot-control-zlac-qualification
+[10/11] Building CXX object tests/unit/CMakeFiles/robot_control_canopen_qualification_vcan_tests.dir/canopen_qualification_vcan_tests.cpp.o
+[11/11] Linking CXX executable tests/unit/robot_control_canopen_qualification_vcan_tests

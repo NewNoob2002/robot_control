@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/external-recovery-a8040dc1a783/remote_interface_loss_manual_v4_once.py", line 116, in <module>
+    assert signal_sent and link_restored and child.returncode == 0 and len(expected) == 1, 'expected external loss/recovery absent'
+AssertionError: expected external loss/recovery absent

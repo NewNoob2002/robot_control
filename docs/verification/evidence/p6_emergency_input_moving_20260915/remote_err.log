@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/emergency-input-moving-bb4f44251672/remote_trial.py", line 91, in <module>
+    assert motion.poll() is None, "motion ended before X1 was locked"
+AssertionError: motion ended before X1 was locked

@@ -29,6 +29,7 @@
 extern "C" {
 extern unsigned canopen_test_send_diagnostics;
 extern unsigned canopen_test_epoll_diagnostics;
+extern unsigned canopen_test_socket_initializations;
 void __real_CO_epoll_wait(CO_epoll_t* ep);
 }
 
@@ -488,6 +489,13 @@ int main() {
     snapshot = owner->observation_snapshot(std::chrono::steady_clock::now());
     CHECK("P55-LINK-004", !snapshot.boot_observed);
     CHECK("P55-LINK-004", !snapshot.heartbeat.frame.current);
+    const auto initializations_before_retry = canopen_test_socket_initializations;
+    for (unsigned retry = 0U; retry < 3U; ++retry) {
+        const auto unavailable = owner->reopen();
+        CHECK("P55-LINK-DOWN-REOPEN", !unavailable.ok());
+        CHECK("P55-LINK-DOWN-REOPEN", unavailable.error.value() == ENETDOWN);
+    }
+    CHECK("P55-LINK-DOWN-NO-SOCKET", canopen_test_socket_initializations == initializations_before_retry);
     CHECK("P55-LINK-004", snapshot.generation.transport > generation_before_link_loss.transport);
     CHECK("P55-LINK-005", set_interface_up(interface_name, true));
 

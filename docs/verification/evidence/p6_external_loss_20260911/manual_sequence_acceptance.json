@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "可以按此顺序操作",
+  "scope": [
+    "RK3588 CAN branch disconnect/reconnect",
+    "drive-only power loss/restoration"
+  ],
+  "sequence": "Ready at connector/switch before start; disconnect upon visible right-wheel motion; after confirming stop restore at approximately 3 seconds after disconnect; observe no automatic restart. Each trial separate; await explicit start notification.",
+  "accepted": true
+}

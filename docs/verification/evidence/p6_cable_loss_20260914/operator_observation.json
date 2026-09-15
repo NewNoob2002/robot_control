@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-14",
+  "user_confirmation": "无异常, 拔掉了大约几秒后接回，拔掉后如期停止但是接回没有再次启动",
+  "physical_disconnect_reconnect_confirmed": true,
+  "normal_stop_after_disconnect_confirmed": true,
+  "no_restart_after_reconnect_confirmed": true,
+  "no_abnormality_reported": true,
+  "full_protocol_qualification_accepted": false,
+  "drive_power_off_confirmed": true,
+  "previous_power_confirmation": "没有切断驱动器电源，现在还是上电状态",
+  "latest_power_confirmation": "已经断电",
+  "latest_power_state_operator_reported": "powered_off",
+  "retry_authorized": false
+}

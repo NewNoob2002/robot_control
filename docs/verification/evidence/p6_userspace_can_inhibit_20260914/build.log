@@ -1,0 +1,138 @@
+[1/93] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/cia402.cpp.o
+[2/93] Building CXX object domain/safety/CMakeFiles/robot_control_domain_safety.dir/safety_manager.cpp.o
+[3/93] Building CXX object domain/control/CMakeFiles/robot_control_domain_control.dir/control_arbiter.cpp.o
+[4/93] Linking CXX static library domain/control/librobot_control_domain_control.a
+[5/93] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/zlac8015d.cpp.o
+[6/93] Linking CXX static library domain/drive/librobot_control_domain_drive.a
+[7/93] Linking CXX static library domain/safety/librobot_control_domain_safety.a
+[8/93] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/classic_frame.cpp.o
+[9/93] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/process/termination_event.cpp.o
+[10/93] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/interface_inhibitor.cpp.o
+FAILED: platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/interface_inhibitor.cpp.o 
+/usr/bin/c++  -I/home/gtc/Desktop/workspace/Linux_PROJ/robot_control -g -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wformat=2 -Wundef -Werror -MD -MT platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/interface_inhibitor.cpp.o -MF platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/interface_inhibitor.cpp.o.d -o platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/interface_inhibitor.cpp.o -c /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/interface_inhibitor.cpp
+In file included from /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/interface_inhibitor.cpp:8:
+/usr/include/net/if.h:44:14: error: ‘IFF_UP’ conflicts with a previous declaration
+   44 |     IFF_UP = 0x1,               /* Interface is up.  */
+      |              ^~~
+In file included from /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/interface_inhibitor.cpp:7:
+/usr/include/linux/if.h:83:9: note: previous declaration ‘net_device_flags IFF_UP’
+   83 |         IFF_UP                          = 1<<0,  /* sysfs */
+      |         ^~~~~~
+/usr/include/net/if.h:46:21: error: ‘IFF_BROADCAST’ conflicts with a previous declaration
+   46 |     IFF_BROADCAST = 0x2,        /* Broadcast address valid.  */
+      |                     ^~~
+/usr/include/linux/if.h:84:9: note: previous declaration ‘net_device_flags IFF_BROADCAST’
+   84 |         IFF_BROADCAST                   = 1<<1,  /* __volatile__ */
+      |         ^~~~~~~~~~~~~
+/usr/include/net/if.h:48:17: error: ‘IFF_DEBUG’ conflicts with a previous declaration
+   48 |     IFF_DEBUG = 0x4,            /* Turn on debugging.  */
+      |                 ^~~
+/usr/include/linux/if.h:85:9: note: previous declaration ‘net_device_flags IFF_DEBUG’
+   85 |         IFF_DEBUG                       = 1<<2,  /* sysfs */
+      |         ^~~~~~~~~
+/usr/include/net/if.h:50:20: error: ‘IFF_LOOPBACK’ conflicts with a previous declaration
+   50 |     IFF_LOOPBACK = 0x8,         /* Is a loopback net.  */
+      |                    ^~~
+/usr/include/linux/if.h:86:9: note: previous declaration ‘net_device_flags IFF_LOOPBACK’
+   86 |         IFF_LOOPBACK                    = 1<<3,  /* __volatile__ */
+      |         ^~~~~~~~~~~~
+/usr/include/net/if.h:52:23: error: ‘IFF_POINTOPOINT’ conflicts with a previous declaration
+   52 |     IFF_POINTOPOINT = 0x10,     /* Interface is point-to-point link.  */
+      |                       ^~~~
+/usr/include/linux/if.h:87:9: note: previous declaration ‘net_device_flags IFF_POINTOPOINT’
+   87 |         IFF_POINTOPOINT                 = 1<<4,  /* __volatile__ */
+      |         ^~~~~~~~~~~~~~~
+/usr/include/net/if.h:54:22: error: ‘IFF_NOTRAILERS’ conflicts with a previous declaration
+   54 |     IFF_NOTRAILERS = 0x20,      /* Avoid use of trailers.  */
+      |                      ^~~~
+/usr/include/linux/if.h:88:9: note: previous declaration ‘net_device_flags IFF_NOTRAILERS’
+   88 |         IFF_NOTRAILERS                  = 1<<5,  /* sysfs */
+      |         ^~~~~~~~~~~~~~
+/usr/include/net/if.h:56:19: error: ‘IFF_RUNNING’ conflicts with a previous declaration
+   56 |     IFF_RUNNING = 0x40,         /* Resources allocated.  */
+      |                   ^~~~
+/usr/include/linux/if.h:89:9: note: previous declaration ‘net_device_flags IFF_RUNNING’
+   89 |         IFF_RUNNING                     = 1<<6,  /* __volatile__ */
+      |         ^~~~~~~~~~~
+/usr/include/net/if.h:58:17: error: ‘IFF_NOARP’ conflicts with a previous declaration
+   58 |     IFF_NOARP = 0x80,           /* No address resolution protocol.  */
+      |                 ^~~~
+/usr/include/linux/if.h:90:9: note: previous declaration ‘net_device_flags IFF_NOARP’
+   90 |         IFF_NOARP                       = 1<<7,  /* sysfs */
+      |         ^~~~~~~~~
+/usr/include/net/if.h:60:19: error: ‘IFF_PROMISC’ conflicts with a previous declaration
+   60 |     IFF_PROMISC = 0x100,        /* Receive all packets.  */
+      |                   ^~~~~
+/usr/include/linux/if.h:91:9: note: previous declaration ‘net_device_flags IFF_PROMISC’
+   91 |         IFF_PROMISC                     = 1<<8,  /* sysfs */
+      |         ^~~~~~~~~~~
+/usr/include/net/if.h:64:20: error: ‘IFF_ALLMULTI’ conflicts with a previous declaration
+   64 |     IFF_ALLMULTI = 0x200,       /* Receive all multicast packets.  */
+      |                    ^~~~~
+/usr/include/linux/if.h:92:9: note: previous declaration ‘net_device_flags IFF_ALLMULTI’
+   92 |         IFF_ALLMULTI                    = 1<<9,  /* sysfs */
+      |         ^~~~~~~~~~~~
+/usr/include/net/if.h:67:18: error: ‘IFF_MASTER’ conflicts with a previous declaration
+   67 |     IFF_MASTER = 0x400,         /* Master of a load balancer.  */
+      |                  ^~~~~
+/usr/include/linux/if.h:93:9: note: previous declaration ‘net_device_flags IFF_MASTER’
+   93 |         IFF_MASTER                      = 1<<10, /* __volatile__ */
+      |         ^~~~~~~~~~
+/usr/include/net/if.h:69:17: error: ‘IFF_SLAVE’ conflicts with a previous declaration
+   69 |     IFF_SLAVE = 0x800,          /* Slave of a load balancer.  */
+      |                 ^~~~~
+/usr/include/linux/if.h:94:9: note: previous declaration ‘net_device_flags IFF_SLAVE’
+   94 |         IFF_SLAVE                       = 1<<11, /* __volatile__ */
+      |         ^~~~~~~~~
+/usr/include/net/if.h:72:21: error: ‘IFF_MULTICAST’ conflicts with a previous declaration
+   72 |     IFF_MULTICAST = 0x1000,     /* Supports multicast.  */
+      |                     ^~~~~~
+/usr/include/linux/if.h:95:9: note: previous declaration ‘net_device_flags IFF_MULTICAST’
+   95 |         IFF_MULTICAST                   = 1<<12, /* sysfs */
+      |         ^~~~~~~~~~~~~
+/usr/include/net/if.h:75:19: error: ‘IFF_PORTSEL’ conflicts with a previous declaration
+   75 |     IFF_PORTSEL = 0x2000,       /* Can set media type.  */
+      |                   ^~~~~~
+/usr/include/linux/if.h:96:9: note: previous declaration ‘net_device_flags IFF_PORTSEL’
+   96 |         IFF_PORTSEL                     = 1<<13, /* sysfs */
+      |         ^~~~~~~~~~~
+/usr/include/net/if.h:77:21: error: ‘IFF_AUTOMEDIA’ conflicts with a previous declaration
+   77 |     IFF_AUTOMEDIA = 0x4000,     /* Auto media select active.  */
+      |                     ^~~~~~
+/usr/include/linux/if.h:97:9: note: previous declaration ‘net_device_flags IFF_AUTOMEDIA’
+   97 |         IFF_AUTOMEDIA                   = 1<<14, /* sysfs */
+      |         ^~~~~~~~~~~~~
+/usr/include/net/if.h:79:19: error: ‘IFF_DYNAMIC’ conflicts with a previous declaration
+   79 |     IFF_DYNAMIC = 0x8000        /* Dialup device with changing addresses.  */
+      |                   ^~~~~~
+/usr/include/linux/if.h:98:9: note: previous declaration ‘net_device_flags IFF_DYNAMIC’
+   98 |         IFF_DYNAMIC                     = 1<<15, /* sysfs */
+      |         ^~~~~~~~~~~
+/usr/include/net/if.h:111:8: error: redefinition of ‘struct ifmap’
+  111 | struct ifmap
+      |        ^~~~~
+/usr/include/linux/if.h:194:8: note: previous definition of ‘struct ifmap’
+  194 | struct ifmap {
+      |        ^~~~~
+/usr/include/net/if.h:126:8: error: redefinition of ‘struct ifreq’
+  126 | struct ifreq
+      |        ^~~~~
+/usr/include/linux/if.h:232:8: note: previous definition of ‘struct ifreq’
+  232 | struct ifreq {
+      |        ^~~~~
+/usr/include/net/if.h:176:8: error: redefinition of ‘struct ifconf’
+  176 | struct ifconf
+      |        ^~~~~~
+/usr/include/linux/if.h:284:8: note: previous definition of ‘struct ifconf’
+  284 | struct ifconf  {
+      |        ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/interface_inhibitor.cpp: In static member function ‘static robot_control::platform::linux::can::InterfaceInhibitor::LaunchResult robot_control::platform::linux::can::InterfaceInhibitor::launch(std::string, std::string, std::chrono::milliseconds)’:
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/interface_inhibitor.cpp:165:106: error: invalid conversion from ‘const char*’ to ‘char*’ [-fpermissive]
+  165 |     std::array<char*, 6> arguments{helper_path.data(), const_cast<char*>("--control-fd"), descriptor.data(),
+      |                                                                                           ~~~~~~~~~~~~~~~^~
+      |                                                                                                          |
+      |                                                                                                          const char*
+[11/93] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/io/poll_wait.cpp.o
+[12/93] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/socket.cpp.o
+[13/93] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/time/monotonic_timer.cpp.o
+ninja: build stopped: subcommand failed.

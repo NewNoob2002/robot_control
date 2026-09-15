@@ -1,0 +1,93 @@
+{
+  "flags": [
+    "NOARP",
+    "UP",
+    "LOWER_UP",
+    "ECHO"
+  ],
+  "group": "default",
+  "gso_max_segs": 65535,
+  "gso_max_size": 65536,
+  "ifindex": 2,
+  "ifname": "can0",
+  "link_type": "can",
+  "linkinfo": {
+    "info_data": {
+      "berr_counter": {
+        "rx": 0,
+        "tx": 0
+      },
+      "bittiming": {
+        "bitrate": 500000,
+        "phase_seg1": 32,
+        "phase_seg2": 10,
+        "prop_seg": 32,
+        "sample_point": 0.866,
+        "sjw": 1,
+        "tq": 26
+      },
+      "bittiming_const": {
+        "brp": {
+          "max": 256,
+          "min": 1
+        },
+        "brp_inc": 2,
+        "name": "rockchip_canfd",
+        "sjw": {
+          "max": 128,
+          "min": 1
+        },
+        "tseg1": {
+          "max": 128,
+          "min": 1
+        },
+        "tseg2": {
+          "max": 128,
+          "min": 1
+        }
+      },
+      "clock": 150000000,
+      "restart_ms": 100,
+      "state": "ERROR-PASSIVE"
+    },
+    "info_kind": "can",
+    "info_xstats": {
+      "arbitration_lost": 0,
+      "bus_error": 0,
+      "bus_off": 0,
+      "error_passive": 7,
+      "error_warning": 6,
+      "restarts": 0
+    }
+  },
+  "linkmode": "DEFAULT",
+  "max_mtu": 0,
+  "min_mtu": 0,
+  "mtu": 16,
+  "num_rx_queues": 1,
+  "num_tx_queues": 1,
+  "operstate": "UP",
+  "parentbus": "platform",
+  "parentdev": "fea60000.can",
+  "promiscuity": 0,
+  "qdisc": "pfifo_fast",
+  "stats64": {
+    "rx": {
+      "bytes": 178859,
+      "dropped": 0,
+      "errors": 0,
+      "multicast": 0,
+      "over_errors": 0,
+      "packets": 25304
+    },
+    "tx": {
+      "bytes": 15062,
+      "carrier_errors": 0,
+      "collisions": 0,
+      "dropped": 2,
+      "errors": 0,
+      "packets": 1903
+    }
+  },
+  "txqlen": 10
+}

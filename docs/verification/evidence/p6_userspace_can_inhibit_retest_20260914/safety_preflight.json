@@ -1,0 +1,30 @@
+{
+  "status": "VALID_FOR_ONE_NEW_PHYSICAL_ATTEMPT",
+  "date_utc": "2026-09-14",
+  "target": "RK3588 robot-dev machine-id 6923ab3301fb4a8d816759b04ec6bf0a can0 node1",
+  "artifacts": {
+    "qualification_sha256": "fc77b14e78c60ad00f3fcda704889d0c913be60ef416e77c7ba5cd9a688b6fa4",
+    "inhibitor_sha256": "c2425001cbe583e3bb1e3307d4145e95cafd722d150154ff727fe519a80b1a5b",
+    "inhibitor_capability": "cap_net_admin=ep"
+  },
+  "operator_conditions": {
+    "both_wheels_raised": true,
+    "both_wheels_stopped": true,
+    "site_safe": true,
+    "emergency_stop_available": true,
+    "drive_power_before_interface_restore": "OFF"
+  },
+  "stimulus": {
+    "attempts": 1,
+    "right_rpm": 5,
+    "left_rpm": 0,
+    "lead_ms": 200,
+    "maximum_external_loss_window_s": 8,
+    "disconnect": "RK3588 CAN branch only",
+    "reconnect_delay_s_approx": 3,
+    "observer": "JCAN 207F346D5650 silent receive only"
+  },
+  "acceptance": "Timely can0 DOWN before the no-loss timeout, no automatic interface recovery or motion restart, and no RK3588 request observed by silent JCAN more than 250 ms after interface-down notification.",
+  "recovery": "Keep can0 DOWN. Power the drive OFF after the trial. Any later interface restoration requires a separate powered-off procedure.",
+  "authorization": "确认并授权新的单次复测"
+}

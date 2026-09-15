@@ -1,0 +1,6 @@
+{
+  "user_confirmation": "右轮转动正常，也正常停止，是我没有及时按回车，再授权执行一次",
+  "normal_right_motion_and_stop": true,
+  "late_operator_trigger": true,
+  "new_attempt_authorized": true
+}

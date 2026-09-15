@@ -1,0 +1,11 @@
+{
+  "pass": false,
+  "outcome": "FAILED",
+  "interface_down": false,
+  "executor_rc": 0,
+  "executor_stopped": true,
+  "capture_stopped": true,
+  "raw_can_error": false,
+  "post_error_requests": 0,
+  "final_drive_power_off": true
+}

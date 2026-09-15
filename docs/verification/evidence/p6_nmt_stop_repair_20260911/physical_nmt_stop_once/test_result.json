@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "level": "hil",
+  "passed": true,
+  "attempts": 1,
+  "target": "RK3588/node1",
+  "artifact_sha256": "202bab381749c0418a61d727a7de02490d4a625594bba3e98346c6f96d3f175d",
+  "safety_preflight": "safety_preflight.json",
+  "analysis": "analysis.json",
+  "operator": "operator_observation.json",
+  "counts": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "cleanup": {
+    "verified": true,
+    "final_nmt": "Pre-operational",
+    "dual_status": "0x14601460",
+    "speeds": [
+      0,
+      0,
+      0
+    ]
+  },
+  "limits": "This is one bounded stop/recovery acceptance, not complete Phase 6 or NMT-only stopping-time qualification."
+}

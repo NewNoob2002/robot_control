@@ -1,0 +1,11 @@
+{
+  "status": "NOT_QUALIFIED_EXPECTED_LOSS_ABSENT",
+  "matching_frames": 301,
+  "target_to_zero_request_ms": 2913.009,
+  "cleanup_verified": true,
+  "fresh_three_zero_sdo_views": true,
+  "final_status": "0x1421/0x1421",
+  "operator_confirmation": "右轮转动正常，也正常停止，是我没有及时按回车，再授权执行一次",
+  "retry": false,
+  "cause": "operator did not press Enter in time"
+}

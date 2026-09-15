@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/external-recovery-a8040dc1a783/remote_interface_loss_manual_v3_once.py", line 109, in <module>
+    raise RuntimeError('local abort or control pipe closed: ' + sys.stdin.readline().strip())
+RuntimeError: local abort or control pipe closed: 

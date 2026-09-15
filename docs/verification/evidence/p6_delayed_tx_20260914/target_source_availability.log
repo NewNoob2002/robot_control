@@ -1,0 +1,3 @@
+ls: cannot access '/usr/src/linux-headers-6.1.84/drivers/net/can/rockchip/rockchip_canfd.c': No such file or directory
+lrwxrwxrwx 1 root root 29 Jul  3 09:51 /lib/modules/6.1.84/build -> /usr/src/linux-headers-6.1.84
+ls: cannot access '/lib/modules/6.1.84/source': No such file or directory

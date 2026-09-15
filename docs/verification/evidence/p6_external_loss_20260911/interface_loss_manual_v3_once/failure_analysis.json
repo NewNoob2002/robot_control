@@ -1,0 +1,17 @@
+{
+  "status": "FAILED_CAPTURE_BOUND_CLEANUP_UNVERIFIED",
+  "interface_down_up_completed": true,
+  "down_completion_to_up_start_ms": 3001.581953,
+  "archived_jcan_frames": 10624,
+  "dominant_frame": {
+    "id": "0x181",
+    "payload": "27 14 27 44 00 00 33 00",
+    "count": 10380
+  },
+  "executor_stopped": true,
+  "cleanup_verified": false,
+  "can_restored_error_active": true,
+  "operator_reports_normal": true,
+  "no_retry": true,
+  "interpretation": "Repeated identical drive TPDO may be retransmissions without an ACKing peer while RK3588 is down and JCAN silent; this is a hypothesis, not proven by JCAN timestamps (all zero). Capture bound triggered cancellation before interface recovery; no final fresh zero/state verification."
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "5d075b2d1792c8dcbf93cbb4b1dbc61457031f16f19b08b7bff66a009b948e2f",
+    "communication/canopen/qualification.hpp": "9a5a99f43550366ad947a3b8753d571fe45747de10f774712b448822191ed60e",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "46142ed7e20877d51aa7193d71f9a875aac89b0fd001a22905e727f2dd841137"
+  },
+  "scope": [
+    "wait_nmt_state and all six caller locations",
+    "run_nmt_stop_interval",
+    "restore_zero_after_nmt_stop",
+    "qualify_stop_cia402 cleanup ownership",
+    "managed-vcan peer scenarios"
+  ],
+  "findings": [],
+  "invariants": [
+    "Default startup zero TPDO checks remain enabled.",
+    "NMT wait requires matching heartbeat newer than command and clean generation.",
+    "NMT cleanup uses correlated deadline-bounded SDOs in Pre-operational; no dependence on stopped PDO production.",
+    "One Disable Voltage after zero targets, both current status halves disabled and all three fresh speed views zero required for success.",
+    "No Operational, Switch On or Enable Operation after Stop.",
+    "NMT-specific cleanup is not repeated by generic cleanup; missing heartbeat, SDO abort/timeout and fault remain failures."
+  ],
+  "limitations": [
+    "SDO recovered zero does not establish physical NMT Stop latency or continuous standstill.",
+    "Operator observation remains required."
+  ]
+}

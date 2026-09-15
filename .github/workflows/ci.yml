@@ -70,6 +70,8 @@ jobs:
         run: |
           python3 scripts/test/test_phase6_evidence.py
           python3 scripts/test/test_qualification_elf_audit.py
+          python3 scripts/test/test_phase6_emergency_input.py
+          python3 scripts/test/test_phase6_zero_motion_soak.py
 
       - name: Run P5.1 non-SocketCAN host qualification
         run: ./scripts/build/build_p5_1_host.sh
@@ -142,7 +144,8 @@ jobs:
           import xml.etree.ElementTree as ET
           report = ET.parse(Path('out/build/phase6-ci/results.xml'))
           cases = {case.attrib['name']: case for case in report.iter('testcase')}
-          for name in ('canopen_qualification_gate', 'canopen_qualification_vcan_managed'):
+          for name in ('canopen_qualification_gate', 'canopen_qualification_vcan_managed',
+                       'can_interface_inhibitor_vcan_managed'):
               assert name in cases, f'Missing qualification test: {name}'
           skipped = [name for name, case in cases.items() if case.find('skipped') is not None]
           assert not skipped, f'Required tests skipped: {skipped}'

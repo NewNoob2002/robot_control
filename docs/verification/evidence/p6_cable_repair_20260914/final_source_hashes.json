@@ -1,0 +1,10 @@
+{
+  "communication/canopen/sdo_client.hpp": "4de9d0ef6bdac4a75b259fdbbddd1ff35846520fb36549e5b07fce8947840cc9",
+  "communication/canopen/qualification.cpp": "ba3ce58fc5225e45362c5e4b058ccf8684693c8851867cbf8d2b8ed26dfa1394",
+  "communication/canopen/commissioning.cpp": "bf6fd6039628b213d4ef7a07f6f3718ed20ce90cb70b981f90935ddd7316541a",
+  "communication/canopen/lifecycle.cpp": "c3667d0e993b0148d6f4e1f5a3cc2dda2f6af73f615e2438e98eeed01a48807e",
+  "tests/unit/canopen_qualification_vcan_tests.cpp": "ab36509eac9c405651f064fed3e179220846535a9a2e2b3a5fc76a91b9c47d11",
+  "tests/unit/canopen_commissioning_vcan_tests.cpp": "f6e8d37749cb4abfc63931e7d49e8d8ec71a99e5359b31dbdf9a74716cb3c70a",
+  "tests/unit/canopen_vcan_tests.cpp": "7ffa1275b765bfc836d439ca53bf82e6c173ec003c90fb49dcfce5f6cc673a0b",
+  "tests/unit/canopen_test_log_stub.c": "05c50b0a939d0e1074f3bdfb9b53d94a209c002a18b2451fe7d12b1bc24569a5"
+}

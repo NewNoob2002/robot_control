@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-14",
+  "source": "operator_confirmation",
+  "verbatim": "已断电、双轮停止且现场安全；拔线后正常停止、接回无重启，左轮始终保持静止",
+  "drive_power": "off",
+  "both_wheels_stopped": true,
+  "site_safe": true,
+  "normal_stop_after_disconnect": true,
+  "no_restart_after_reconnect": true,
+  "left_wheel_stationary": true,
+  "protocol_result": "FAIL_POST_ERROR_PHYSICAL_REQUEST",
+  "retry_authorized": false
+}

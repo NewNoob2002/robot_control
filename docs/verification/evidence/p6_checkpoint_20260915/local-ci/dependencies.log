@@ -1,0 +1,9 @@
+dependency=CANopenLinux revision=f1348d4072cdabea4c3435a13c721ac29ab4cc91 dirty=false
+dependency=CANopenNode revision=ef9ac3a2279e34855a20c787fc1bc48bc995ec22 dirty=false
+relationship=nested-gitlink result=pass
+Cloning into '/tmp/tmp.vNIlqWOLK1/fixture-source/components/CANopenLinux'...
+done.
+Submodule 'components/CANopenLinux' (/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/components/CANopenLinux) registered for path 'components/CANopenLinux'
+Cloning into '/tmp/tmp.vNIlqWOLK1/fixture-checkout/components/CANopenLinux'...
+done.
+CANopen dependency regression checks passed

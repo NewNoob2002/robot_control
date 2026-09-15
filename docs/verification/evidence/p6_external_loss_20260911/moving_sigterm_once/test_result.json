@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "matching_frames": 135,
+  "sigterm_to_zero_request_ms": 0.384253,
+  "sigterm_to_shutdown_ms": 11.412253,
+  "sigterm_to_final_zero_sdo_ms": 234.709253,
+  "cleanup_verified": true,
+  "operator_accepted": true,
+  "limits": "Cross-clock wire timing is approximate; sampled speed includes signed deceleration rebound and does not establish continuous zero."
+}

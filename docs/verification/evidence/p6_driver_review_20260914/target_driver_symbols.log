@@ -1,0 +1,34 @@
+ffff8000089ed2e8 t rockchip_canfd_runtime_resume
+ffff8000089ed36c t rockchip_canfd_runtime_suspend
+ffff8000089ed3b4 t rockchip_canfd_read.isra.0
+ffff8000089ed45c t rockchip_canfd_stop.isra.0
+ffff8000089ed4f4 t rockchip_canfd_rx
+ffff8000089ed720 t rockchip_canfd_get_rx_fifo_cnt
+ffff8000089ed7f0 t rockchip_canfd_rx_poll
+ffff8000089ed87c t rockchip_canfd_set_bittiming
+ffff8000089eda58 t rockchip_canfd_start
+ffff8000089edcbc t rockchip_canfd_close
+ffff8000089edd7c t rockchip_canfd_interrupt
+ffff8000089ee128 t rockchip_canfd_resume
+ffff8000089ee1b0 t rockchip_canfd_probe
+ffff8000089ee600 t rockchip_canfd_start_xmit
+ffff8000089ee948 t rockchip_canfd_tx_err_delay_work
+ffff8000089eea18 t rockchip_canfd_remove
+ffff8000089eea78 t rockchip_canfd_set_mode
+ffff8000089eeae0 t rockchip_canfd_get_berr_counter
+ffff8000089eebd0 t rockchip_canfd_open
+ffff8000089eecc8 t rockchip_canfd_suspend
+ffff80000970a1e4 d rockchip_canfd_bittiming_const
+ffff80000970a214 d rockchip_canfd_data_bittiming_const
+ffff80000970a248 d rockchip_canfd_netdev_ops
+ffff80000970a528 d rockchip_canfd_of_match
+ffff80000970a848 d rockchip_canfd_dev_pm_ops
+ffff800009e55b78 t rockchip_canfd_driver_init
+ffff800009e7a6f0 t rockchip_canfd_driver_exit
+ffff800009f05dec d __initcall__kmod_rockchip_canfd__665_1206_rockchip_canfd_driver_init6
+ffff80000a5e6808 d rockchip_canfd_driver
+/boot/vmlinuz-6.1.84: Linux kernel ARM64 boot executable Image, little-endian, 4K pages
+CONFIG_LOCALVERSION=""
+# CONFIG_LOCALVERSION_AUTO is not set
+# CONFIG_CAN_VXCAN is not set
+CONFIG_CANFD_ROCKCHIP=y

@@ -1,0 +1,14 @@
+{
+  "base": "/tmp/robot-control-qualifications/zero-motion-soak-v4-bb4f44251672",
+  "status": "DEFERRED_NOT_STARTED_AUTHORIZATION_RETIRED",
+  "files": {
+    "phase6_zero_motion_soak.py": "b3473b8fe9b19e3a6e36d3f540bd65aa6ae1fbe5753f192ba75a34a77e5b0f08",
+    "run_once.py": "4df37c96518f3b4e8fc0ecaa11a57948566bcee5863a261930196315e1e57b36",
+    "jcan_ack_keeper.py": "07f56c949b2716b7dd6e29cc19e3913b4eeda6566ee38d3579fa02a842cb455b",
+    "finalize_can0_down.py": "f41c6b51c2c18ed3738f2469c168979074640479a3bdf7fddad8e150186d820e",
+    "authorization.json": "30b885a2d93793b5004cf5d2e1e78e7a3efdd2dc5c233be11fb50b20f698b59f",
+    "safety_preflight.json": "1a7868194b8b163479f379596e76f385f38c0ee006b6ef2dce866f8e590f688a",
+    "v3_failed_archive.tar.gz": "1416f8b1ff29f1036cc909d0427dcf4033539444ceb70a938e4d64b32957bec0",
+    "test_phase6_zero_motion_soak.py": "d81fccbd7ff00d6a76f9e35b246623f064ca5d519065dee24bb55acb917b8293"
+  }
+}

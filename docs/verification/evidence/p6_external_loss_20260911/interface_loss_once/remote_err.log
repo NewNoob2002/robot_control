@@ -1,0 +1,7 @@
+RTNETLINK answers: Operation not permitted
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/external-recovery-a8040dc1a783/remote_interface_loss_once.py", line 83, in <module>
+    subprocess.run(['ip','link','set','dev','can0','down'],check=True,timeout=2)
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ip', 'link', 'set', 'dev', 'can0', 'down']' returned non-zero exit status 2.

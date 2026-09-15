@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/cable-repair-acc9f8828f65/remote_cable_loss_once.py", line 128, in <module>
+    assert post_error_requests == 0, 'host request transmitted after CAN error'
+AssertionError: host request transmitted after CAN error

@@ -1,0 +1,9 @@
+{
+  "error": "remote_err: Traceback (most recent call last):\n",
+  "motion_started": true,
+  "manual_started": false,
+  "jcan_mode": "silent",
+  "jcan_data_frame_commands": 0,
+  "jcan_frames": 225,
+  "target_and_jcan_exact_sequence_match": true
+}

@@ -1,0 +1,14 @@
+{
+  "status": "PREPARED_NOT_AUTHORIZED",
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "base": "/tmp/robot-control-qualifications/emergency-input-zero-fc77b14ec242",
+  "files": {
+    "authorization.json": "bfa2e7c6aeb7210fd1b1e9cfb5ab0900b2eb9cdd78dcd87632b0b4ff8cafcb08",
+    "remote_trial.py": "26a34dca203411bb4803ce7adb6dfe1a6ea1928942f9a05634ba5917a1ab8fed",
+    "trial_checks.py": "682cfa3bbd4c671f2c343154d7c473a0693f04cfd3a25c8b458e83969981c6a2",
+    "operator_watch.py": "1dc2ec568e8bce7d10390fb5700d9dac0d6e13c90093c8a36911974120673844",
+    "restore_pretrial_can0.py": "19902cadc423eac484af098d21ccf9bcbc119a0e1040c16bfc25a649e0356a91",
+    "finalize_can0_down.py": "d6936e0b5b6e2974b78eb085f28741740312d084464e48146989744ae10e416f",
+    "phase6_zero_motion_soak.py": "37448d5010d5525dea895044a00d375f7aad2411fd95d504def225ed28c4da95"
+  }
+}

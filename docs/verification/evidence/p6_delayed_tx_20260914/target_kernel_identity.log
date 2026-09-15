@@ -1,0 +1,8 @@
+Linux lubancat 6.1.84 #1 SMP Fri Jul  3 10:19:32 CST 2026 aarch64 aarch64 aarch64 GNU/Linux
+Linux version 6.1.84 (root@lubancat) (aarch64-linux-gnu-gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #1 SMP Fri Jul  3 10:19:32 CST 2026
+name:           rockchip_canfd
+filename:       (builtin)
+description:    Rockchip CANFD Drivers
+license:        GPL
+file:           drivers/net/can/rockchip/rockchip_canfd
+author:         Elaine Zhang <zhangqing@rock-chips.com>

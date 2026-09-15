@@ -1,0 +1,8 @@
+{
+  "pid": 41039,
+  "monotonic_before_ns": 106741166326301,
+  "wall_before_ns": 1789118603454716747,
+  "moving_tpdo_observed": true,
+  "monotonic_after_ns": 106741166357510,
+  "wall_after_ns": 1789118603454745622
+}

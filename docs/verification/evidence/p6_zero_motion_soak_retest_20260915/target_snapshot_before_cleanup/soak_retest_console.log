@@ -1,0 +1,13 @@
+SETTLING: keep both raised wheels untouched for 5 seconds.
+{
+  "status": "FAIL",
+  "requested_hours": 3,
+  "elapsed_s": 1.371263603999978,
+  "cycles": 0,
+  "failure": "AssertionError: missing or repeated ready marker",
+  "capture_stopped": true,
+  "executor_stopped": true,
+  "x1_must_remain_locked_until_drive_power_off": true,
+  "drive_power_off_confirmed": false
+}
+ARCHIVE=/tmp/robot-control-qualifications/zero-motion-soak-bb4f44251672/overnight_retest_once.tar.gz

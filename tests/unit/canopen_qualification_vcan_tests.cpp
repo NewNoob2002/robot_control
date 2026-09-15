@@ -1,9 +1,11 @@
 #include "communication/canopen/qualification.hpp"
+#include "communication/canopen/sdo_client.hpp"
 #include "platform/linux/can/socket.hpp"
 #include "platform/linux/process/termination_event.hpp"
 #include "platform/linux/unique_fd.hpp"
 
 #include <linux/can.h>
+#include <linux/can/error.h>
 #include <net/if.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
@@ -23,6 +25,8 @@
 #include <string>
 #include <string_view>
 #include <thread>
+
+extern "C" unsigned canopen_test_send_diagnostics;
 
 namespace {
 
@@ -62,8 +66,17 @@ ClassicCanFrame frame(const canid_t identifier, const std::initializer_list<std:
 
 /** Return whether two complete Classical CAN frames match. */
 bool same(const ClassicCanFrame& actual, const ClassicCanFrame& expected) {
-    return actual.raw_can_id == expected.raw_can_id && actual.payload_length == expected.payload_length
-           && actual.data == expected.data;
+    const bool equal = actual.raw_can_id == expected.raw_can_id && actual.payload_length == expected.payload_length
+                       && actual.data == expected.data;
+    if (!equal) {
+        std::cerr << "frame mismatch actual_id=" << actual.raw_can_id << " expected_id=" << expected.raw_can_id;
+        for (std::size_t i = 0; i < actual.data.size(); ++i) {
+            std::cerr << " byte" << i << '=' << std::to_integer<unsigned>(actual.data[i])
+                      << '/' << std::to_integer<unsigned>(expected.data[i]);
+        }
+        std::cerr << std::endl;
+    }
+    return equal;
 }
 
 /** Receive one required frame within a bounded wait. */
@@ -259,9 +272,61 @@ void answer_cleanup(CanSocket& peer) {
     CHECK(same(receive(peer), frame(0U, {0x80U, 1U})));
 }
 
+/** Answer the zero-only Quick Stop recovery, optionally injecting a failure before further activation. */
+bool answer_quick_stop_recovery(CanSocket& peer, const unsigned fault) {
+    if (fault == 1U) {
+        answer_upload(peer, 0x606CU, 1U, {1U, 0U, 0U, 0U});
+        return false;
+    }
+    if (fault == 8U) {
+        answer_upload(peer, 0x606CU, 1U, {0U, 0U, 0U, 0U});
+        answer_upload(peer, 0x606CU, 2U, {0U, 0U, 0U, 0U});
+        auto moving = tpdo1(0x1407U);
+        moving.data[6] = std::byte{1U};
+        CHECK(peer.send(moving, 100ms).ok());
+        answer_upload(peer, 0x606CU, 3U, {0U, 0U, 0U, 0U});
+        return false;
+    }
+    answer_zero_feedback(peer);
+    if (fault == 2U) {
+        CHECK(same(receive(peer), download_request(0x2BU, 0x6040U, 0U, {0U, 0U})));
+        CHECK(peer.send(frame(0x581U, {0x80U, 0x40U, 0x60U, 0U, 0U, 0U, 2U, 6U}), 100ms).ok());
+        return false;
+    }
+    answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {0U, 0U}), 0x6040U, 0U, {});
+    if (fault == 3U) {
+        return false;  // No post-command TPDO: old state cannot authorize Shutdown or enable.
+    }
+    auto disabled = tpdo1(0x1440U);
+    if (fault == 4U) {
+        disabled.data[2] = std::byte{0x07U};
+        CHECK(peer.send(disabled, 100ms).ok());
+        disabled.data[0] = std::byte{0x07U};
+        disabled.data[2] = std::byte{0x40U};
+    } else if (fault == 5U) {
+        disabled.data[4] = std::byte{1U};
+    } else if (fault == 6U) {
+        disabled = frame(0x701U, {0U});
+    }
+    CHECK(peer.send(disabled, 100ms).ok());
+    if (fault >= 4U && fault <= 6U) {
+        return false;
+    }
+    if (fault == 7U) {
+        answer_upload(peer, 0x606CU, 1U, {1U, 0U, 0U, 0U});
+        return false;
+    }
+    answer_zero_feedback(peer);
+    return true;
+}
+
+/** Select the owned sequence boundary at which the peer is already in Quick Stop. */
+enum class QuickStopPhase : std::uint8_t { none, startup, cleanup };
+
 /** Exercise the complete zero sequence and failures before further enabling. */
 void test_zero_sequence(const std::string_view interface_name, CanSocket& peer, const unsigned scenario,
-                        const bool online = false) {
+                        const bool online = false, const QuickStopPhase quick_stop_phase = QuickStopPhase::none,
+                        const unsigned recovery_fault = 0U) {
     auto termination = TerminationEvent::create();
     CHECK(termination.ok());
     if (!termination.ok()) {
@@ -288,7 +353,16 @@ void test_zero_sequence(const std::string_view interface_name, CanSocket& peer, 
         answer_target(peer, {.subindex = 2U, .value = 0, .readback = 0});
         CHECK(same(receive(peer), frame(0U, {1U, 1U})));
         CHECK(peer.send(frame(0x701U, {5U}), 100ms).ok());
+        if (quick_stop_phase == QuickStopPhase::startup) {
+            CHECK(peer.send(tpdo1(0x1407U), 100ms).ok());
+        }
         answer_verified(peer, download_request(0x2FU, 0x6060U, 0U, {3U}), 0x6060U, 0U, {3U});
+        if (quick_stop_phase == QuickStopPhase::startup) {
+            if (!answer_quick_stop_recovery(peer, recovery_fault)) {
+                answer_cleanup(peer);
+                return;
+            }
+        }
         const std::array<std::uint8_t, 3> commands{6U, 7U, 15U};
         const std::array<std::uint16_t, 3> states{0x1421U, 0x1423U, 0x1427U};
         for (std::size_t i = 0; i < commands.size(); ++i) {
@@ -323,8 +397,18 @@ void test_zero_sequence(const std::string_view interface_name, CanSocket& peer, 
             CHECK(peer.send(tpdo1(states[i]), 100ms).ok());
             answer_zero_feedback(peer);
         }
+        if (quick_stop_phase == QuickStopPhase::cleanup) {
+            CHECK(peer.send(tpdo1(0x1407U), 100ms).ok());
+        }
         answer_target(peer, {.subindex = 1U, .value = 0, .readback = 0});
         answer_target(peer, {.subindex = 2U, .value = 0, .readback = 0});
+        if (quick_stop_phase == QuickStopPhase::cleanup) {
+            if (!answer_quick_stop_recovery(peer, recovery_fault)) {
+                CHECK(same(receive(peer), frame(0U, {0x80U, 1U})));
+                CHECK(peer.send(frame(0x701U, {0x7FU}), 100ms).ok());
+                return;
+            }
+        }
         answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {6U, 0U}), 0x6040U, 0U, {});
         if (scenario != 8U) {
             CHECK(peer.send(tpdo1(0x1421U), 100ms).ok());
@@ -337,8 +421,8 @@ void test_zero_sequence(const std::string_view interface_name, CanSocket& peer, 
         }
     }};
     const auto qualified = session.qualify_zero_target_cia402(60ms);
-    CHECK(qualified.ok() == (scenario == 0U));
-    if (!qualified.ok() && scenario == 0U) {
+    CHECK(qualified.ok() == (scenario == 0U && recovery_fault == 0U));
+    if (!qualified.ok() && scenario == 0U && recovery_fault == 0U) {
         std::cerr << qualified.operation << " " << qualified.context << '\n';
     }
     responder.join();
@@ -443,7 +527,7 @@ void answer_rpdo_mapping(CanSocket& peer, const bool restore) {
 /** Exercise one complete per-channel first-motion sequence with verified volatile restoration. */
 void test_first_motion(const std::string_view interface_name, CanSocket& peer, const IndependentChannel channel,
                        const bool online = false, const unsigned velocity_probe = 0U, const bool rpdo = false,
-                       const bool restore_failure = false) {
+                       const bool restore_failure = false, const bool moving_sigterm = false) {
     auto termination = TerminationEvent::create();
     CHECK(termination.ok());
     auto owner_result = Lifecycle::create(config(interface_name, 2000ms, 500ms), termination.value());
@@ -500,6 +584,10 @@ void test_first_motion(const std::string_view interface_name, CanSocket& peer, c
         CHECK(
             peer.send(channel == IndependentChannel::subindex_1 ? tpdo1(0x1427U, 50, 0) : tpdo1(0x1427U, 0, 50), 100ms)
                 .ok());
+        if (moving_sigterm) {
+            std::this_thread::sleep_for(2ms);
+            CHECK(::kill(::getpid(), SIGTERM) == 0);
+        }
         if (velocity_probe != 0U) {
             CHECK(same(receive(peer), upload_request(0x606CU, 1U)));
             if (velocity_probe == 1U) {
@@ -526,6 +614,8 @@ void test_first_motion(const std::string_view interface_name, CanSocket& peer, c
         CHECK(peer.send(tpdo1(0x1421U, 16, 0), 100ms).ok());
         std::this_thread::sleep_for(2ms);
         CHECK(peer.send(tpdo1(0x1421U), 100ms).ok());
+        // Delay feedback before the fixed 50 ms zero-speed polling interval.
+        std::this_thread::sleep_for(15ms);
         if (channel == IndependentChannel::subindex_1) {
             answer_upload(peer, 0x606CU, 1U, {16U, 0U, 0U, 0U});
         } else {
@@ -547,8 +637,19 @@ void test_first_motion(const std::string_view interface_name, CanSocket& peer, c
             answer_verified(peer, download_request(0x2BU, 0x1017U, 0U, {0U, 0U}), 0x1017U, 0U, {0U, 0U});
         }
     }};
-    const auto result = session.qualify_first_motion_cia402(channel, 5, velocity_probe == 0U ? 20ms : 250ms, 60ms, rpdo);
-    CHECK(result.ok() == (velocity_probe < 2U && !restore_failure));
+    // Allow the injected 15 ms response delay, 50 ms poll and all three zero readbacks.
+    const auto result = session.qualify_first_motion_cia402(channel, 5, moving_sigterm ? 1000ms : (velocity_probe == 0U ? 20ms : 250ms), 200ms, rpdo);
+    CHECK(result.ok() == (velocity_probe < 2U && !restore_failure && !moving_sigterm));
+    if (result.ok() != (velocity_probe < 2U && !restore_failure && !moving_sigterm)) {
+        std::cerr << "first_motion online=" << online << " rpdo=" << rpdo << " probe=" << velocity_probe
+                  << " restore_failure=" << restore_failure << " result=" << result.operation
+                  << ':' << result.context << std::endl;
+    }
+    if (moving_sigterm) {
+        CHECK(result.operation == "qualification_owner_exit");
+        CHECK(result.error.value() == ECANCELED);
+        CHECK(result.context.find("cleanup=verified") != std::string::npos);
+    }
     responder.join();
     if (online) {
         CHECK(!owner->observation_snapshot(std::chrono::steady_clock::now()).boot_observed);
@@ -597,7 +698,7 @@ void test_rpdo_setup_failure(const std::string_view interface_name, CanSocket& p
 }
 
 /** Verify one bounded channel-2 motion is stopped by NMT Stopped before target cleanup. */
-void test_nmt_stop_motion(const std::string_view interface_name, CanSocket& peer) {
+void test_nmt_stop_motion(const std::string_view interface_name, CanSocket& peer, const unsigned scenario = 0U) {
     auto termination = TerminationEvent::create();
     CHECK(termination.ok());
     auto owner_result = Lifecycle::create(config(interface_name, 2000ms, 500ms), termination.value());
@@ -626,25 +727,51 @@ void test_nmt_stop_motion(const std::string_view interface_name, CanSocket& peer
             answer_zero_feedback(peer);
         }
         answer_target(peer, {.subindex = 3U, .value = 327680, .readback = 327680});
-        CHECK(peer.send(tpdo1(0x1427U), 100ms).ok());
+        CHECK(peer.send(tpdo1(0x1427U, 0, 52), 100ms).ok());
         CHECK(same(receive(peer), frame(0U, {2U, 1U})));
-        CHECK(peer.send(frame(0x701U, {4U}), 100ms).ok());
-        CHECK(same(receive(peer), frame(0U, {0x80U, 1U})));
+        expect_no_frame(peer);
+        if (scenario != 1U) {
+            CHECK(peer.send(frame(0x701U, {4U}), 100ms).ok());
+        }
+        CHECK(same(receive(peer, 300ms), frame(0U, {0x80U, 1U})));
         answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
         answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
         CHECK(peer.send(frame(0x701U, {0x7FU}), 100ms).ok());
-        CHECK(same(receive(peer), frame(0U, {1U, 1U})));
-        CHECK(peer.send(frame(0x701U, {5U}), 100ms).ok());
-        answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
-        answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
-        answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {6U, 0U}), 0x6040U, 0U, {});
-        CHECK(peer.send(tpdo1(0x1421U), 100ms).ok());
-        answer_zero_feedback(peer);
-        CHECK(same(receive(peer), frame(0U, {0x80U, 1U})));
-        CHECK(peer.send(frame(0x701U, {0x7FU}), 100ms).ok());
+        // No PDOs are emitted after Stop. Cleanup must use new SDO observations,
+        // issue Disable Voltage only once, and never return to Operational.
+        answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {0U, 0U}), 0x6040U, 0U, {});
+        if (scenario == 2U) {
+            answer_upload(peer, 0x6041U, 0U, {8U, 0U, 0x40U, 0x14U});
+        } else if (scenario == 6U) {
+            CHECK(same(receive(peer), upload_request(0x6041U, 0U)));
+            // Withhold the response; service the next cleanup request as soon as it arrives.
+        } else if (scenario == 5U) {
+            CHECK(same(receive(peer), upload_request(0x6041U, 0U)));
+            CHECK(peer.send(frame(0x581U, {0x80U, 0x41U, 0x60U, 0U, 0U, 0U, 2U, 6U}), 100ms).ok());
+        } else {
+            if (scenario == 4U) {
+                answer_upload(peer, 0x6041U, 0U, {0x40U, 0x14U, 0x27U, 0x14U});
+            }
+            answer_upload(peer, 0x6041U, 0U, {0x40U, 0x14U, 0x40U, 0x14U});
+            if (scenario == 3U) {
+                answer_upload(peer, 0x606CU, 1U, {});
+                answer_upload(peer, 0x606CU, 2U, {52U, 0U, 0U, 0U});
+                answer_upload(peer, 0x6041U, 0U, {0x40U, 0x14U, 0x40U, 0x14U});
+            }
+            answer_zero_feedback(peer);
+        }
         answer_verified(peer, download_request(0x2BU, 0x1017U, 0U, {0U, 0U}), 0x1017U, 0U, {0U, 0U});
     }};
-    CHECK(session.qualify_nmt_stop_cia402(IndependentChannel::subindex_2, 5, 20ms, 60ms).ok());
+    const auto result = session.qualify_nmt_stop_cia402(IndependentChannel::subindex_2, 5, 20ms, 200ms);
+    CHECK(result.ok() == (scenario == 0U || scenario == 3U || scenario == 4U));
+    if (scenario == 1U) {
+        CHECK(result.operation == "qualification_nmt_timeout");
+        CHECK(result.context.find("zero_restore=verified") != std::string::npos);
+    } else if (scenario == 2U) {
+        CHECK(result.operation == "qualification_drive_fault");
+    } else if (scenario == 5U || scenario == 6U) {
+        CHECK(result.operation == "qualification_upload");
+    }
     responder.join();
     CHECK(session.state() == QualificationState::cleanup_required);
     CHECK(!session.qualify_nmt_stop_cia402(IndependentChannel::subindex_2, 5, 20ms, 60ms).ok());
@@ -740,61 +867,9 @@ void test_controlword_stop_motion(const std::string_view interface_name, CanSock
     expect_no_frame(peer);
 }
 
-/** Keep the drive inhibited when the expected NMT Stopped heartbeat times out. */
-void test_nmt_stop_timeout_stays_preoperational(const std::string_view interface_name, CanSocket& peer) {
-    auto termination = TerminationEvent::create();
-    CHECK(termination.ok());
-    auto owner_result = Lifecycle::create(config(interface_name, 2000ms, 500ms), termination.value());
-    CHECK(owner_result.ok());
-    if (!termination.ok() || !owner_result.ok()) {
-        return;
-    }
-    auto owner = std::move(owner_result).value();
-    QualificationSession session{*owner};
-    std::jthread responder{[&] {
-        answer_upload(peer, 0x1017U, 0U, {0U, 0U});
-        answer_verified(peer, download_request(0x2BU, 0x1017U, 0U, {0xF4U, 0x01U}), 0x1017U, 0U, {0xF4U, 0x01U});
-        CHECK(peer.send(frame(0x701U, {0x7FU}), 100ms).ok());
-        answer_preflight(peer);
-        answer_upload(peer, 0x200FU, 0U, {1U, 0U});
-        answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
-        answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
-        CHECK(same(receive(peer), frame(0U, {1U, 1U})));
-        CHECK(peer.send(frame(0x701U, {5U}), 100ms).ok());
-        answer_verified(peer, download_request(0x2FU, 0x6060U, 0U, {3U}), 0x6060U, 0U, {3U});
-        for (const auto& [command, state] : std::array{std::pair{std::uint8_t{6U}, std::uint16_t{0x1421U}},
-                                                       std::pair{std::uint8_t{7U}, std::uint16_t{0x1423U}},
-                                                       std::pair{std::uint8_t{15U}, std::uint16_t{0x1427U}}}) {
-            answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {command, 0U}), 0x6040U, 0U, {});
-            CHECK(peer.send(tpdo1(state), 100ms).ok());
-            answer_zero_feedback(peer);
-        }
-        answer_target(peer, {.subindex = 3U, .value = 327680, .readback = 327680});
-        CHECK(peer.send(tpdo1(0x1427U), 100ms).ok());
-        CHECK(same(receive(peer), frame(0U, {2U, 1U})));
-        CHECK(same(receive(peer, 100ms), frame(0U, {0x80U, 1U})));
-        answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
-        answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
-        CHECK(peer.send(frame(0x701U, {0x7FU}), 100ms).ok());
-        answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
-        answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
-        answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {6U, 0U}), 0x6040U, 0U, {});
-        CHECK(peer.send(tpdo1(0x1421U), 100ms).ok());
-        answer_zero_feedback(peer);
-        CHECK(same(receive(peer), frame(0U, {0x80U, 1U})));
-        CHECK(peer.send(frame(0x701U, {0x7FU}), 100ms).ok());
-        answer_verified(peer, download_request(0x2BU, 0x1017U, 0U, {0U, 0U}), 0x1017U, 0U, {0U, 0U});
-    }};
-    const auto result = session.qualify_nmt_stop_cia402(IndependentChannel::subindex_2, 5, 20ms, 20ms);
-    CHECK(!result.ok());
-    CHECK(result.operation == "qualification_nmt_timeout");
-    responder.join();
-    CHECK(session.state() == QualificationState::cleanup_required);
-    expect_no_frame(peer);
-}
-
-/** Verify 0x200F restoration after an enabled-state transition timeout. */
-void test_first_motion_failure_restores_application(const std::string_view interface_name, CanSocket& peer) {
+/** Verify startup-failure cleanup preserves mode and cannot repeat a failed Quick Stop recovery. */
+void test_first_motion_failure_restores_application(const std::string_view interface_name, CanSocket& peer,
+                                                    const unsigned recovery_fault = 0U) {
     auto termination = TerminationEvent::create();
     auto owner_result = Lifecycle::create(config(interface_name, 2000ms, 500ms), termination.value());
     CHECK(termination.ok());
@@ -812,7 +887,18 @@ void test_first_motion_failure_restores_application(const std::string_view inter
         answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
         CHECK(same(receive(peer), frame(0U, {1U, 1U})));
         CHECK(peer.send(frame(0x701U, {5U}), 100ms).ok());
+        if (recovery_fault != 0U) {
+            CHECK(peer.send(tpdo1(0x1407U), 100ms).ok());
+        }
         answer_verified(peer, download_request(0x2FU, 0x6060U, 0U, {3U}), 0x6060U, 0U, {3U});
+        if (recovery_fault != 0U) {
+            CHECK(!answer_quick_stop_recovery(peer, recovery_fault));
+            answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
+            answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
+            CHECK(same(receive(peer), frame(0U, {0x80U, 1U})));
+            CHECK(peer.send(frame(0x701U, {0x7FU}), 100ms).ok());
+            return;
+        }
         answer_verified(peer, download_request(0x2BU, 0x6040U, 0U, {6U, 0U}), 0x6040U, 0U, {});
         answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
         answer_target(peer, {.subindex = 3U, .value = 0, .readback = 0});
@@ -824,7 +910,10 @@ void test_first_motion_failure_restores_application(const std::string_view inter
     }};
     const auto result = session.qualify_first_motion_cia402(IndependentChannel::subindex_1, 5, 20ms, 30ms);
     CHECK(!result.ok());
-    CHECK(result.operation == "qualification_dual_state_timeout");
+    CHECK(result.operation == (recovery_fault == 2U ? "CO_SDOclientDownload" : "qualification_dual_state_timeout"));
+    if (recovery_fault != 0U) {
+        CHECK(result.context.find("qualification_quick_stop_recovery_consumed") != std::string::npos);
+    }
     responder.join();
     CHECK(session.state() == QualificationState::cleanup_required);
     expect_no_frame(peer);
@@ -1091,6 +1180,50 @@ void test_target_deadline_forces_zero(const char* interface_name, CanSocket& pee
     CHECK(session.state() == QualificationState::cleanup_required);
 }
 
+/** Cancel only the client-owned pending buffer; repeated cancellation is harmless. */
+void test_sdo_cancel() {
+    CO_CANmodule_t module{};
+    CO_CANtx_t owned{};
+    CO_CANtx_t other{};
+    CO_SDOclient_t client{};
+    owned.bufferFull = true;
+    other.bufferFull = true;
+    module.CANtxCount = 2U;
+    client.CANdevTx = &module;
+    client.CANtxBuff = &owned;
+    CO_FLAG_SET(client.CANrxNew);
+    robot_control::communication::canopen::close_sdo_client(client);
+    robot_control::communication::canopen::close_sdo_client(client);
+    CHECK(!owned.bufferFull && other.bufferFull && module.CANtxCount == 1U);
+    CHECK(!CO_FLAG_READ(client.CANrxNew));
+    CHECK(client.state == CO_SDO_ST_IDLE);
+}
+
+/** Reject a response belonging to the generation preceding a remote reboot. */
+void test_sdo_generation(const char* interface_name, CanSocket& peer) {
+    auto termination = TerminationEvent::create();
+    CHECK(termination.ok());
+    if (!termination.ok()) { return; }
+    auto owner_result = Lifecycle::create(config(interface_name), termination.value());
+    CHECK(owner_result.ok());
+    if (!owner_result.ok()) { return; }
+    auto owner = std::move(owner_result).value();
+    bootstrap(peer, *owner);
+    QualificationSession session{*owner};
+    std::jthread responder{[&] {
+        CHECK(same(receive(peer), download_request(0x2BU, 0x6040U, 0U, {6U, 0U})));
+        CHECK(peer.send(frame(0x701U, {0U}), 100ms).ok());
+        CHECK(peer.send(download_response(0x6040U, 0U), 100ms).ok());
+    }};
+    const auto result = session.send_controlword(TransitionControlword::shutdown);
+    responder.join();
+    CHECK(!result.ok());
+    CHECK(result.operation == "qualification_sdo_generation_changed");
+    CHECK(session.state() == QualificationState::cleanup_required);
+    process(*owner);
+    expect_no_frame(peer);
+}
+
 /** Exercise timeout, no retry, late-response rejection, and permanent inhibit. */
 void test_timeout(const char* interface_name, CanSocket& peer) {
     auto termination = TerminationEvent::create();
@@ -1262,6 +1395,7 @@ void test_zero_both_after_failure(const std::string_view interface_name, CanSock
 /** Exercise wire loss, silence attribution and failed restoration without real hardware. */
 void test_communication_loss(const std::string_view interface_name, CanSocket& peer,
                              const CommunicationLossStimulus stimulus, const unsigned scenario) {
+    const bool external = stimulus == CommunicationLossStimulus::external;
     auto termination = TerminationEvent::create();
     auto owner = Lifecycle::create(config(interface_name, 500ms, 100ms), termination.value());
     CHECK(owner.ok());
@@ -1270,11 +1404,15 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
     }
     QualificationSession session{*owner.value()};
     unsigned nonzero = 0U;
+    unsigned recovery_zero_writes = 0U;
+    unsigned selected_speed_reads = 0U;
     bool zero_attempted = false;
     bool stopped_by_watchdog = false;
     bool watchdog_restored = false;
     bool suppression_seen = false;
     unsigned motion_probe_parts = 0U;
+    bool external_disconnected = false;
+    bool external_returned = false;
     std::jthread responder{[&](const std::stop_token stop) {
         std::map<std::pair<std::uint16_t, std::uint8_t>, std::uint32_t> values{
             {{0x1800U, 1U}, 0x181U},
@@ -1299,6 +1437,15 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
         bool injected = false;
         while (!stop.stop_requested()) {
             const auto now = std::chrono::steady_clock::now();
+            if (external && scenario == 20U && nonzero && !injected && now - target_readback >= 250ms) {
+                injected = true;
+                can_frame error{};
+                error.can_id = CAN_ERR_FLAG | CAN_ERR_CRTL;
+                error.can_dlc = CAN_ERR_DLC;
+                error.data[1] = CAN_ERR_CRTL_TX_PASSIVE;
+                error.data[6] = 128U;
+                CHECK(::write(peer.fd(), &error, CAN_MTU) == CAN_MTU);
+            }
             if (nonzero && !injected && now - target_readback >= 250ms && (scenario == 7U || scenario == 8U)) {
                 injected = true;
                 if (scenario == 7U) {
@@ -1311,6 +1458,33 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
                 moving = false;
                 stopped_by_watchdog = true;
             }
+            const auto disconnect_after = scenario == 19U ? 6000ms : 300ms;
+            if (external && nonzero && !zero_attempted && now - target_readback >= disconnect_after && scenario != 15U && scenario != 18U) {
+                if (!external_disconnected && scenario == 14U) {
+                    CHECK(set_interface_up(interface_name, false));
+                }
+                external_disconnected = true;
+                if (now - target_readback >= disconnect_after + 1400ms && !external_returned && scenario != 16U) {
+                    external_returned = true;
+                    if (scenario == 14U) {
+                        CHECK(set_interface_up(interface_name, true));
+                        const std::array filters{can_filter{.can_id = 0U, .can_mask = CAN_SFF_MASK},
+                                                 can_filter{.can_id = 0x601U, .can_mask = CAN_SFF_MASK},
+                                                 can_filter{.can_id = 0x201U, .can_mask = CAN_SFF_MASK}};
+                        auto reopened = CanSocket::open(std::string{interface_name}, CanSocketConfig{.filters = filters});
+                        CHECK(reopened.ok());
+                        if (!reopened.ok()) { return; }
+                        peer = std::move(reopened).value();
+                    }
+                    if (scenario == 13U) {
+                        moving = false;
+                        statusword = 0x1440U;
+                        nmt = 0x7FU;
+                        values[{0x2000U, 0U}] = values[{0x1017U, 0U}] = values[{0x60FFU, 3U}] = 0U;
+                        CHECK(peer.send(frame(0x701U, {0U}), 100ms).ok());
+                    }
+                }
+            }
             bool hb = values[{0x1017U, 0U}] != 0U;
             bool tpdo = values[{0x1800U, 5U}] != 0U;
             if (suppression_seen && scenario == 2U) {
@@ -1320,6 +1494,9 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
                 hb = stimulus != CommunicationLossStimulus::tpdo;
                 tpdo = stimulus != CommunicationLossStimulus::heartbeat;
             }
+            if (external_disconnected && !external_returned) {
+                hb = tpdo = false;
+            }
             if (hb && now - last_hb >= 20ms) {
                 CHECK(peer.send(frame(0x701U, {nmt}), 100ms).ok());
                 last_hb = now;
@@ -1328,13 +1505,24 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
                 CHECK(peer.send(tpdo1(statusword, 0, moving ? 50 : 0), 100ms).ok());
                 last_tpdo = now;
             }
+            if (scenario == 14U && external_disconnected && !external_returned) {
+                std::this_thread::sleep_for(1ms);
+                continue;
+            }
             const auto received = peer.receive(1ms);
             CHECK(received.ok());
             if (!received.ok() || !received.value()) {
                 continue;
             }
             const auto request = received.value()->frame;
+            if (external_disconnected && !external_returned) {
+                continue; // Cable/power loss: requests on the host branch receive no drive response.
+            }
+            if (external && external_returned && !zero_attempted) {
+                CHECK(same(request, download_request(0x23U, 0x60FFU, 3U, {0U, 0U, 0U, 0U})));
+            }
             if (request.raw_can_id == 0U) {
+                CHECK(!external || !external_returned || request.data[0] == std::byte{0x80U});
                 CHECK(request.data[0] == std::byte{1U} || request.data[0] == std::byte{0x80U});
                 nmt = request.data[0] == std::byte{1U} ? 5U : 0x7FU;
                 last_host = now;
@@ -1366,8 +1554,13 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
                     CHECK(++nonzero == 1U);
                     moving = scenario != 10U;
                 } else if (index == 0x60FFU && nonzero) {
+                    if (external && scenario == 15U && !zero_attempted) {
+                        CHECK(now - target_readback >= 7800ms);
+                        CHECK(now - target_readback < 8300ms);
+                    }
+                    ++recovery_zero_writes;
                     zero_attempted = true;
-                    if (sub == 3U && scenario == 6U) {
+                    if (sub == 3U && (scenario == 6U || (external && scenario == 17U))) {
                         continue; // Zero is not acknowledged or applied; retain protection.
                     }
                     if (sub == 3U) {
@@ -1375,8 +1568,8 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
                     }
                 }
                 if (index == 0x6040U) {
-                    CHECK(!nonzero || value == 6U);
-                    statusword = value == 15U ? 0x1427U : value == 7U ? 0x1423U : 0x1421U;
+                    CHECK(!nonzero || value == (external && external_returned ? 0U : 6U));
+                    statusword = value == 0U ? 0x1440U : value == 15U ? 0x1427U : value == 7U ? 0x1423U : 0x1421U;
                 }
                 if (nonzero && !zero_attempted && value == 0U && (index == 0x1017U || index == 0x1800U)) {
                     suppression_seen = true;
@@ -1395,9 +1588,18 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
                 CHECK(peer.send(download_response(index, sub), 100ms).ok());
             } else {
                 auto value = values[key];
+                if (index == 0x6041U) {
+                    value = static_cast<std::uint32_t>(statusword) | (static_cast<std::uint32_t>(statusword) << 16U);
+                }
                 if (index == 0x606CU) {
+                    if (external && nonzero && !zero_attempted && sub == 2U) {
+                        ++selected_speed_reads;
+                        if (scenario == 18U && selected_speed_reads == 2U) {
+                            continue; // One missing SDO while heartbeat/TPDO remain healthy is not external loss.
+                        }
+                    }
                     value = moving && sub == 2U ? 5U : 0U;
-                    if (nonzero && !zero_attempted && motion_probe_parts < 2U) {
+                    if (!external && nonzero && !zero_attempted && motion_probe_parts < 2U) {
                         CHECK(sub == ++motion_probe_parts);
                         CHECK(now - target_readback < 500ms);
                         motion_probe_completed = now;
@@ -1430,7 +1632,7 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
     const auto result = session.qualify_communication_loss_cia402(stimulus);
     std::cout << "communication stimulus=" << static_cast<unsigned>(stimulus) << " scenario=" << scenario
               << " result=" << result.operation << ':' << result.context << '\n';
-    CHECK(result.ok() == (scenario == 0U));
+    CHECK(result.ok() == (scenario == 0U || (external && (scenario == 13U || scenario == 14U || scenario == 19U))));
     if (scenario == 1U) {
         CHECK(result.operation == "qualification_nonzero_velocity");
     } else if (scenario == 2U) {
@@ -1439,7 +1641,7 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
         CHECK(result.operation == "qualification_unexpected_feedback_loss");
     } else if (scenario == 4U || scenario == 6U) {
         CHECK(result.operation == "CO_SDOclientDownload");
-    } else if (scenario == 5U) {
+    } else if (scenario == 5U || scenario == 6U) {
         CHECK(result.operation == "qualification_watchdog_baseline");
     } else if (scenario == 7U) {
         CHECK(result.operation == "qualification_owner_exit");
@@ -1459,22 +1661,36 @@ void test_communication_loss(const std::string_view interface_name, CanSocket& p
     }
     responder.request_stop();
     responder.join();
-    if (scenario >= 10U) {
+    if (external && (scenario == 15U || scenario == 18U)) {
+        CHECK(result.operation == "qualification_expected_external_loss_absent");
+    }
+    if (!external && scenario >= 10U) {
         CHECK(!suppression_seen);
         CHECK(!stopped_by_watchdog);
     }
-    if (scenario == 0U) {
+    if (!external && scenario == 0U) {
         CHECK(motion_probe_parts == 2U);
     }
     CHECK(nonzero == (scenario == 5U || scenario == 9U ? 0U : 1U));
-    CHECK(scenario == 5U || scenario == 9U || zero_attempted);
-    if (scenario == 6U || scenario == 8U || scenario == 3U) {
+    CHECK(scenario == 5U || scenario == 9U || (external && (scenario == 16U || scenario == 20U)) || zero_attempted);
+    if (external && scenario == 20U) {
+        CHECK(!watchdog_restored);
+        CHECK(recovery_zero_writes == 0U);
+        CHECK(result.context.find("operator_power_cut_required") != std::string::npos);
+    } else if (external && (scenario == 16U || scenario == 17U)) {
+        CHECK(!watchdog_restored);
+        CHECK(recovery_zero_writes == (scenario == 16U ? 0U : 1U));
+        CHECK(result.operation == (scenario == 16U ? "qualification_external_recovery_timeout" : "CO_SDOclientDownload"));
+    } else if (scenario == 6U || scenario == 8U || scenario == 3U) {
         CHECK(!watchdog_restored);
         CHECK(result.context.find("watchdog_retained=") != std::string::npos);
     } else {
         CHECK(scenario == 5U || scenario == 9U || watchdog_restored);
     }
     CHECK(stimulus != CommunicationLossStimulus::watchdog || scenario != 0U || stopped_by_watchdog);
+    if (external && result.ok()) {
+        CHECK(external_disconnected && external_returned);
+    }
     CHECK(!session.qualify_communication_loss_cia402(stimulus).ok());
     expect_no_frame(peer);
 }
@@ -1496,7 +1712,9 @@ void test_manual_tpdo(const std::string_view interface_name, CanSocket& peer, co
         {{0x1800U, 1U}, 0x181U},      {{0x1800U, 2U}, 255U},
         {{0x1800U, 5U}, 100U},        {{0x1A00U, 0U}, 2U},
         {{0x1A00U, 1U}, 0x60410020U}, {{0x1A00U, 2U}, 0x606C0320U},
-        {{0x1017U, 0U}, 0U},          {{0x6041U, 0U}, scenario == 10U ? 0x14271427U : 0x14211421U},
+        {{0x1017U, 0U}, 0U},          {{0x6041U, 0U}, scenario == 10U ? 0x14271427U
+                                                                       : scenario == 18U ? 0x14001400U
+                                                                                         : 0x14211421U},
         {{0x603FU, 0U}, 0U},          {{0x60FFU, 1U}, 0U},
         {{0x60FFU, 2U}, 0U},          {{0x606CU, 1U}, 0U},
         {{0x606CU, 2U}, 0U},          {{0x606CU, 3U}, 0U},
@@ -1526,7 +1744,7 @@ void test_manual_tpdo(const std::string_view interface_name, CanSocket& peer, co
             }
             if (nmt == 5U && now - last_tpdo >= 10ms && scenario != 12U) {
                 CHECK(values[std::make_pair(std::uint16_t{0x1A00U}, std::uint8_t{1U})] == 0x60410020U);
-                const auto state = static_cast<std::uint8_t>(scenario == 14U ? 0x27U : 0x21U);
+                const auto state = static_cast<std::uint8_t>(scenario == 14U ? 0x27U : scenario == 18U ? 0x00U : 0x21U);
                 CHECK(peer.send(frame(0x181U, {state, 0x14U, state, 0x14U, 0U, 0U, 50U, 0U}), 100ms).ok());
                 if (scenario == 13U && !signal_sent) {
                     CHECK(::kill(::getpid(), SIGTERM) == 0);
@@ -1594,7 +1812,7 @@ void test_manual_tpdo(const std::string_view interface_name, CanSocket& peer, co
     responder.request_stop();
     responder.join();
     std::cout << "manual_tpdo scenario=" << scenario << " result=" << result.operation << ':' << result.context << '\n';
-    CHECK(result.ok() == (scenario == 0U));
+    CHECK(result.ok() == (scenario == 0U || scenario == 18U));
     CHECK(starts == (scenario == 0U || scenario >= 12U ? 1U : 0U));
     if ((scenario >= 1U && scenario <= 7U) || scenario == 10U || scenario == 11U) {
         CHECK(writes == 0U);
@@ -1639,9 +1857,19 @@ int main() {
         return 1;
     }
     std::atomic<std::size_t> monitored{0U};
+    std::atomic<bool> expected_interface_loss{false};
     std::jthread capture{[&](const std::stop_token stop) {
         while (true) {
             const auto captured = monitor.receive(5ms);
+            if (!captured.ok() && captured.status().operation == "poll" && captured.status().error.value() == EIO
+                && expected_interface_loss.load()) {
+                std::this_thread::sleep_for(1ms);
+                auto reopened = CanSocket::open(interface_name, CanSocketConfig{});
+                if (reopened.ok()) {
+                    monitor = std::move(reopened).value();
+                }
+                continue;
+            }
             CHECK(captured.ok());
             if (!captured.ok()) {
                 return;
@@ -1658,8 +1886,15 @@ int main() {
         test_zero_sequence(interface_name, peer, scenario);
     }
     test_zero_sequence(interface_name, peer, 0U, true);
+    test_zero_sequence(interface_name, peer, 0U, true, QuickStopPhase::startup);
+    test_zero_sequence(interface_name, peer, 0U, false, QuickStopPhase::cleanup);
+    for (unsigned fault = 1U; fault <= 8U; ++fault) {
+        test_zero_sequence(interface_name, peer, 0U, false, QuickStopPhase::startup, fault);
+        test_zero_sequence(interface_name, peer, 0U, false, QuickStopPhase::cleanup, fault);
+    }
     test_first_motion(interface_name, peer, IndependentChannel::subindex_1, true);
     test_first_motion(interface_name, peer, IndependentChannel::subindex_2, true);
+    test_first_motion(interface_name, peer, IndependentChannel::subindex_2, true, 0U, false, false, true);
     test_first_motion(interface_name, peer, IndependentChannel::subindex_1, true, 0U, true);
     test_first_motion(interface_name, peer, IndependentChannel::subindex_2, true, 0U, true);
     test_first_motion(interface_name, peer, IndependentChannel::subindex_1, true, 2U, true);
@@ -1677,7 +1912,9 @@ int main() {
     for (const unsigned probe : {1U, 2U, 3U}) {
         test_first_motion(interface_name, peer, IndependentChannel::subindex_1, true, probe);
     }
-    test_nmt_stop_motion(interface_name, peer);
+    for (unsigned scenario = 0U; scenario < 7U; ++scenario) {
+        test_nmt_stop_motion(interface_name, peer, scenario);
+    }
     test_controlword_stop_motion(interface_name, peer, TransitionControlword::shutdown, true);
     test_controlword_stop_motion(interface_name, peer, TransitionControlword::shutdown, false);
     test_controlword_stop_motion(interface_name, peer, TransitionControlword::disable_voltage, true);
@@ -1685,8 +1922,9 @@ int main() {
     test_controlword_stop_motion(interface_name, peer, TransitionControlword::quick_stop, true);
     test_controlword_stop_motion(interface_name, peer, TransitionControlword::quick_stop, false);
     test_controlword_stop_motion(interface_name, peer, TransitionControlword::quick_stop, true, 6U);
-    test_nmt_stop_timeout_stays_preoperational(interface_name, peer);
     test_first_motion_failure_restores_application(interface_name, peer);
+    test_first_motion_failure_restores_application(interface_name, peer, 2U);
+    test_first_motion_failure_restores_application(interface_name, peer, 3U);
     test_target_requires_enabled(interface_name, peer);
     test_other_channel_motion_rejected(interface_name, peer);
     test_standalone_activation_rejected(interface_name, peer);
@@ -1698,6 +1936,8 @@ int main() {
     test_success(interface_name, peer);
     test_target_deadline_forces_zero(interface_name, peer);
     test_timeout(interface_name, peer);
+    test_sdo_cancel();
+    test_sdo_generation(interface_name, peer);
     test_partial_sequence(interface_name, peer);
     test_feedback_loss(interface_name, peer);
     test_stale(interface_name, peer);
@@ -1721,7 +1961,12 @@ int main() {
         }
     }
     test_communication_loss(interface_name, peer, CommunicationLossStimulus::tpdo, 9U);
-    for (const unsigned scenario : {0U, 1U, 2U, 3U, 4U, 5U, 6U, 7U, 8U, 10U, 11U, 12U, 13U, 14U, 15U, 16U, 17U}) {
+    for (const unsigned scenario : {0U, 7U, 8U, 13U, 14U, 15U, 16U, 17U, 18U, 19U, 20U}) {
+        expected_interface_loss.store(scenario == 14U);
+        test_communication_loss(interface_name, peer, CommunicationLossStimulus::external, scenario);
+        expected_interface_loss.store(false);
+    }
+    for (const unsigned scenario : {0U, 1U, 2U, 3U, 4U, 5U, 6U, 7U, 8U, 10U, 11U, 12U, 13U, 14U, 15U, 16U, 17U, 18U}) {
         test_manual_tpdo(interface_name, peer, scenario);
     }
     test_signal(interface_name, peer);
@@ -1729,6 +1974,7 @@ int main() {
     capture.join();
     CHECK(monitored >= 400U);
     test_link_loss(interface_name, peer);
+    CHECK(canopen_test_send_diagnostics == 0U);
     std::cout << "INFO: P6.3/P6.4 managed-vcan frames=" << monitored.load()
               << " prohibited=0 failures=" << failures.load() << '\n';
     return failures.load() == 0 ? 0 : 1;

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "operation": "one NMT Stop repair qualification",
+  "approved": true,
+  "authorization": {
+    "authorized": true,
+    "stimulus": "nmt_stop",
+    "elf_sha256": "202bab381749c0418a61d727a7de02490d4a625594bba3e98346c6f96d3f175d",
+    "operator_ready": true,
+    "user_confirmation": "进行修复并完成软件验证，授权进行实机测试。现场确认：上述条件均有效，现场就绪。",
+    "authorization_context": "Same RK3588/node1; right +5 rpm and left zero for 1000 ms once; one NMT Stop; bounded Stopped heartbeat wait, Pre-operational zero targets and one Disable Voltage cleanup with fresh SDO state/speeds; no Operational after Stop, retries, persistent settings or JCAN TX. A distinct startup quick-stop zero-only exit may issue at most one Disable Voltage before motion.",
+    "date": "2026-09-11",
+    "attempts": 1,
+    "args": [
+      "--interface",
+      "can0",
+      "--nmt-stop-once",
+      "2:5",
+      "--duration-ms",
+      "1000"
+    ]
+  },
+  "target": {
+    "board": "RK3588 robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+    "interface": "can0",
+    "node": 1,
+    "bitrate": 500000
+  },
+  "observer": {
+    "serial": "207F346D5650",
+    "mode": "silent",
+    "physical_tx": false
+  },
+  "limits": {
+    "attempts": 1,
+    "nonzero_targets": 1,
+    "disable_voltage_requests_max": 2,
+    "downloads_max": 24,
+    "uploads_max": 512,
+    "nmt_max": 6,
+    "per_transition_ms": 2000,
+    "executor_seconds": 30,
+    "capture_seconds": 40,
+    "frames_max": 10000,
+    "right_rpm": 5,
+    "left_rpm": 0,
+    "duration_ms": 1000,
+    "nmt_stop_max": 1,
+    "disable_voltage_bounds": "at most one zero-only startup recovery, at most one post-Stop cleanup; neither is retried"
+  },
+  "expected_sequence": "Same RK3588/node1; right +5 rpm and left zero for 1000 ms once; one NMT Stop; bounded Stopped heartbeat wait, Pre-operational zero targets and one Disable Voltage cleanup with fresh SDO state/speeds; no Operational after Stop, retries, persistent settings or JCAN TX. A distinct startup quick-stop zero-only exit may issue at most one Disable Voltage before motion.",
+  "recovery_plan": "Application bounded zero/inhibit cleanup; terminate capture and observer; stop on any timeout/error without retry; operator independent stop if uncertain",
+  "source_and_artifact_manifest": "../manifest.json",
+  "timestamp_utc": "2026-09-11T08:50:49.933101+00:00"
+}

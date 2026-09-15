@@ -20,7 +20,7 @@ enum class QualificationNmt : std::uint8_t {
 enum class QualificationState : std::uint8_t { ready, cleanup_required };
 
 /** Separately authorized physical communication stimuli; never combined in one trial. */
-enum class CommunicationLossStimulus : std::uint8_t { watchdog, heartbeat, tpdo };
+enum class CommunicationLossStimulus : std::uint8_t { watchdog, heartbeat, tpdo, external };
 
 /** Execute exact volatile ZLAC operations through the sole CANopen owner. */
 class QualificationSession final {
@@ -143,9 +143,9 @@ class QualificationSession final {
      *
      * @param channel Neutral independent subindex to command.
      * @param rpm Nonzero whole-rpm target with absolute value at most 10.
-     * @param duration Positive pre-stop interval no greater than ten seconds.
+     * @param duration Positive pre-stop interval no greater than two seconds.
      * @param transition_timeout Positive per-state deadline no greater than five seconds.
-     * @return Success only after observed Stopped, verified zero, Operational cleanup, and baseline restoration.
+     * @return Success after new Stopped heartbeat, disabled/zero SDO feedback in Pre-operational, and restoration.
      *
      * Thread safety: Qualification owner thread only; callable once per session.
      */
@@ -241,10 +241,10 @@ class QualificationSession final {
         bool require_fresh,
         std::chrono::steady_clock::time_point deadline = std::chrono::steady_clock::time_point::max()) noexcept;
 
-    /** Wait for a newer matching node-1 NMT heartbeat. */
+    /** Wait for a newer node-1 heartbeat; allow deceleration only during bounded NMT stop/recovery. */
     [[nodiscard]] platform::linux::Status wait_nmt_state(RemoteNmtState expected,
                                                          std::chrono::steady_clock::time_point previous,
-                                                         std::chrono::milliseconds timeout) noexcept;
+                                                         std::chrono::milliseconds timeout, bool allow_deceleration = false) noexcept;
 
     /** Start verified temporary heartbeat from a zero baseline without requiring historical boot-up.
      * Owner thread only; callers must restore the producer on every exit, including failure.
@@ -270,6 +270,16 @@ class QualificationSession final {
 
     /** Read back the exact status-first TPDO1 contract, mode, zero targets, faults and zero speeds. */
     [[nodiscard]] platform::linux::Status preflight_zero_target_cia402() noexcept;
+
+    /** Leave an observed Quick Stop through Disable Voltage after verified zero targets.
+     * Owner thread only. Requires fresh zero-speed evidence and a newer dual disabled
+     * TPDO; never enables or resets a fault. One recovery attempt per session;
+     * cleanup cannot retry a failed attempt. Other initial states use the existing path.
+     * @param transition_timeout Maximum wait for the disabled-state transition.
+     * @return Success when no recovery is needed or recovery is verified; otherwise an error.
+     */
+    [[nodiscard]] platform::linux::Status
+    recover_quick_stop_at_zero(std::chrono::milliseconds transition_timeout) noexcept;
 
     /** Enter Operation Enabled with both targets and all velocity feedback zero. */
     [[nodiscard]] platform::linux::Status
@@ -312,7 +322,8 @@ class QualificationSession final {
         quick_stop,
         watchdog,
         heartbeat_loss,
-        tpdo_loss
+        tpdo_loss,
+        external_loss
     };
 
     /** Write and verify one gate-approved U16 communication setting, without freshness prerequisites. */
@@ -321,6 +332,11 @@ class QualificationSession final {
 
     /** Observe a bounded quiet window or exactly one stale stream; never renew the target. */
     [[nodiscard]] platform::linux::Status observe_communication_loss(StopStimulus stimulus) noexcept;
+
+    /** Await one external loss until motion_deadline (8 s from before motion), then recover with zero first
+     *  and no re-enable. Owner-only; sets cleanup_owned on loss. Passive recovery is bounded to 10 s. */
+    [[nodiscard]] platform::linux::Status observe_external_loss(
+        bool& cleanup_owned, std::chrono::steady_clock::time_point motion_deadline) noexcept;
 
     /** Require nonzero selected-axis and zero other-axis independent velocity within one 100 ms deadline. */
     [[nodiscard]] platform::linux::Status
@@ -335,9 +351,8 @@ class QualificationSession final {
                                                               std::chrono::milliseconds transition_timeout,
                                                               StopStimulus stimulus) noexcept;
 
-    /** Enter Pre-operational, verify both targets zero, and optionally re-enter Operational for normal cleanup. */
-    [[nodiscard]] platform::linux::Status restore_zero_after_nmt_stop(std::chrono::milliseconds transition_timeout,
-                                                                      bool reenter_operational) noexcept;
+    /** Stay Pre-operational, clear targets, disable voltage once and verify fresh SDO state/speed. Owner only. */
+    [[nodiscard]] platform::linux::Status restore_zero_after_nmt_stop(std::chrono::milliseconds transition_timeout) noexcept;
 
     /** Run verified zero-state cleanup and restore the recorded synchronous application mode. */
     [[nodiscard]] platform::linux::Status
@@ -390,6 +405,8 @@ class QualificationSession final {
     [[nodiscard]] platform::linux::Status send_rpdo_target(std::uint32_t packed) noexcept;
     bool heartbeat_restore_required_{false};
     bool terminal_controlword_submitted_{false};
+    bool nmt_stop_submitted_{false}; ///< NMT recovery owns cleanup; never repeat it through generic cleanup.
+    bool quick_stop_recovery_attempted_{false};
     std::uint64_t request_generation_{0};
     std::uint64_t attempt_generation_{0};
 };

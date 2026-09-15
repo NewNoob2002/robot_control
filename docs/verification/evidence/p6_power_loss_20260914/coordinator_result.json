@@ -1,0 +1,15 @@
+{
+  "go_sent": true,
+  "executor_started": true,
+  "error": "capture frame bound remote cleanup unavailable; drive power must remain off",
+  "frames": 100001,
+  "downloads": 12,
+  "uploads": 176,
+  "nmt_frames": 2,
+  "nonzero_requests": 1,
+  "post_motion_boot_observed": true,
+  "first_host_after_boot": null,
+  "raw_can_error": false,
+  "host_requests_after_error": 0,
+  "remote_outcome": null
+}

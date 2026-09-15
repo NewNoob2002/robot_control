@@ -1,0 +1,10 @@
+{
+  "authorized": true,
+  "attempts": 1,
+  "date_utc": "2026-09-14",
+  "user_confirmation": "授权",
+  "qualification_sha256": "fc77b14e78c60ad00f3fcda704889d0c913be60ef416e77c7ba5cd9a688b6fa4",
+  "inhibitor_sha256": "c2425001cbe583e3bb1e3307d4145e95cafd722d150154ff727fe519a80b1a5b",
+  "target": "RK3588 robot-dev machine-id 6923ab3301fb4a8d816759b04ec6bf0a can0 node1",
+  "proposed_scope": "One raised-wheel drive-only power-loss/restoration trial. After verified passive captures and operator arm, command right wheel +5 rpm once with left wheel zero. On POWER OFF NOW remove only drive power, confirm POWER_OFF, wait at least 3 seconds after normal stop, restore drive power once, observe at least 5 seconds with no restart, then remove drive power again. Accept either verified zero-first application recovery with no motion reauthorization or fail-closed can0 DOWN after a CAN error with no later RK3588 request. Require target candump and silent JCAN 207F346D5650, a post-motion drive boot-up frame, final drive power OFF, no automatic retry, no persistent drive write, no kernel/SDK change, and no JCAN TX."
+}

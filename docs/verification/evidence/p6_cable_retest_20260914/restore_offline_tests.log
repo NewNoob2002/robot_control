@@ -1,0 +1,5 @@
+DONE: can0 ERROR-ACTIVE. Keep drive POWER OFF; no motor test started.
+PASS: success
+PASS: not_off
+PASS: post_error
+PASS: sender_active

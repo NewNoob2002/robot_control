@@ -1,0 +1,11 @@
+{
+  "capture_stopped": true,
+  "cycles": 0,
+  "drive_power_off_confirmed": false,
+  "elapsed_s": 0.4642038519959897,
+  "executor_stopped": true,
+  "failure": "AssertionError: missing or repeated ready marker",
+  "requested_hours": 3,
+  "status": "FAIL",
+  "x1_must_remain_locked_until_drive_power_off": true
+}

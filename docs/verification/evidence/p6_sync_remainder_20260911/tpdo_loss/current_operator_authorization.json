@@ -1,0 +1,6 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "授权本次 TPDO-loss，现场条件保持就绪",
+  "scope": "RK3588 can0 node1; right +5 rpm, left zero; 200 ms lead then disable TPDO1 event timer; observe at most 750 ms, zero targets and restore timer to 100 ms and other temporary parameters; raised wheels, emergency stop and operator present; once, no automatic retry",
+  "artifact_sha256": "fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205"
+}

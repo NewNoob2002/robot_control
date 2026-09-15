@@ -1,0 +1,92 @@
+{
+  "date": "2026-09-11",
+  "status": "software_verified_physical_recovery_open",
+  "manifest": "manifest_budget.json",
+  "source_attestation": "budget-source-attestation.json",
+  "host": {
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0,
+    "log": "final_host_ctest.log"
+  },
+  "asan_ubsan": {
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0,
+    "log": "final_sanitizer_ctest.log"
+  },
+  "default_debug_release": {
+    "passed_each": 28,
+    "logs": [
+      "default_debug_ctest.log",
+      "default_release_ctest.log"
+    ]
+  },
+  "commissioning": {
+    "passed": 36,
+    "log": "commissioning_ctest.log"
+  },
+  "cross": {
+    "qualification_and_elf": "pass",
+    "log": "cross_budget.log",
+    "default_debug_release_and_elf_log": "cross_once.log"
+  },
+  "static": {
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 44,
+    "prior_advisories": 42,
+    "failure_diagnostic_flush_advisories": 2,
+    "log": "clang_tidy_budget.yaml"
+  },
+  "target_isolated_vcan": {
+    "frames": 12318,
+    "prohibited": 0,
+    "failures": 0,
+    "log": "target_vcan_budget.log"
+  },
+  "review": {
+    "shared_boundaries": [
+      "enter_zero_target_operation_enabled",
+      "cleanup_zero_target_cia402"
+    ],
+    "verified": [
+      "zero target write/readback before recovery",
+      "fresh heartbeat/TPDO and unchanged generation",
+      "independent and packed zero speed before and after Disable Voltage",
+      "new single dual-disabled zero-speed TPDO required",
+      "one recovery attempt per session including failed startup cleanup",
+      "intentional stop-test terminal state preserved"
+    ],
+    "new_cases": {
+      "positive": 2,
+      "negative": 16,
+      "no_cleanup_retry": 2
+    },
+    "physical_vendor_transition_verification": "pending"
+  },
+  "sanitizer_diagnosis": {
+    "failures_preserved": [
+      "once_sanitizer_ctest.log",
+      "once_sanitizer_recheck.log",
+      "sanitizer_diagnostic.log"
+    ],
+    "cause": "Success fixture used 60 ms including 50 ms poll and repeated SDO reads; diagnostic shows deadline exhausted before third upload.",
+    "red": "red_zero_wait_budget.log",
+    "fix": "Retain injected 15 ms response delay and use 200 ms in this success fixture only; production deadlines unchanged.",
+    "green": "green_zero_wait_budget.log"
+  },
+  "deployment": {
+    "base": "/tmp/robot-control-qualifications/zero-recovery-31d2d0848e93",
+    "sha256_verified": true,
+    "executed": "test_socketcan_vcan.sh review_qualification_vcan_tests only",
+    "physical_app_executed": false,
+    "production_deployment": false
+  },
+  "remaining": [
+    "new explicitly authorized zero-target physical recovery",
+    "separately authorized NMT Stop trial",
+    "remaining Phase 6 physical fault/loss/soak gates"
+  ],
+  "old_one_shot_runner": "consumed; do not rerun"
+}

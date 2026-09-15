@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/interface-v5-2304c1c9892d/remote_cable_loss_once.py", line 85, in <module>
+    assert not any(word in line.lower() for word in ('error', 'warning', 'failed', 'permission denied')), 'application diagnostic: ' + line
+AssertionError: application diagnostic: (CO_CANsend) OS error "Permission denied" in send()

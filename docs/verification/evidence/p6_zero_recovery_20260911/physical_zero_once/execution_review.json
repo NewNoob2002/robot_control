@@ -1,0 +1,9 @@
+{
+  "user_confirmation": "授权",
+  "staging_first_attempt": "automatic approval deadline before process creation",
+  "staging_allowed_retry": "success",
+  "physical_execution_attempts": 1,
+  "physical_execution_exit": 0,
+  "operator_observation": "pending",
+  "next_nmt_trial": "authorized in context; waits for zero-trial operator confirmation"
+}

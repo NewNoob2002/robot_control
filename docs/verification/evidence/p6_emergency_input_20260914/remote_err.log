@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/emergency-input-zero-fc77b14ec242/remote_trial.py", line 75, in <module>
+    assert child.poll() is None and time.monotonic() < deadline, "manual TPDO readiness failed"
+AssertionError: manual TPDO readiness failed

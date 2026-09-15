@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/sync-remainder-fa1944fdba2d/remote_nmt_stop.py", line 76, in <module>
+    assert not any(any(word in line.lower() for word in ('error', 'warning', 'failed', 'permission denied')) for line in lines), 'application diagnostic at exit'
+AssertionError: application diagnostic at exit

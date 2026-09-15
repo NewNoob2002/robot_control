@@ -1,0 +1,15 @@
+{
+  "go_sent": true,
+  "executor_started": true,
+  "error": "remote_err: RTNETLINK answers: Operation not permitted\n",
+  "frames": 111,
+  "downloads": 9,
+  "uploads": 36,
+  "nmt_frames": 1,
+  "nonzero_requests": 1,
+  "cleanup_shutdown_requests": 1,
+  "disable_voltage_requests": 0,
+  "nmt_stop_requests": 0,
+  "startup_recovery_requests": 0,
+  "cleanup_disable_requests": 0
+}

@@ -1,0 +1,528 @@
+Start testing: Sep 14 09:13 BST
+----------------------------------------------------------
+1/28 Testing: platform_probe_help
+1/28 Test: platform_probe_help
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/platform_probe/robot-control-platform-probe" "--help"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"platform_probe_help" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-platform-probe [--help|--phase3-smoke]
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"platform_probe_help" end time: Sep 14 09:13 BST
+"platform_probe_help" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/28 Testing: platform_probe_run
+2/28 Test: platform_probe_run
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/platform_probe/robot-control-platform-probe"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"platform_probe_run" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+probe_version=1
+sysname=Linux
+release=7.0.0-31-generic
+machine=x86_64
+pid=349818
+monotonic_ns=25676859127845
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[probe_version=1.*machine=]
+"platform_probe_run" end time: Sep 14 09:13 BST
+"platform_probe_run" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/28 Testing: platform_probe_phase3_smoke
+3/28 Test: platform_probe_phase3_smoke
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/platform_probe/robot-control-platform-probe" "--phase3-smoke"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"platform_probe_phase3_smoke" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+I/elog     EasyLogger V2.2.0 is initialize success.
+I/platform_probe timestamp_unix_s=1789373600 severity=INFO event="phase3_smoke" result=pass
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"platform_probe_phase3_smoke" end time: Sep 14 09:13 BST
+"platform_probe_phase3_smoke" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/28 Testing: can_probe_help
+4/28 Test: can_probe_help
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "--help"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_help" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[Usage: robot-control-can-probe]
+"can_probe_help" end time: Sep 14 09:13 BST
+"can_probe_help" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/28 Testing: can_probe_missing_interface
+5/28 Test: can_probe_missing_interface
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_missing_interface" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="missing required argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_missing_interface" end time: Sep 14 09:13 BST
+"can_probe_missing_interface" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/28 Testing: can_probe_unknown_argument
+6/28 Test: can_probe_unknown_argument
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--unknown" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_unknown_argument" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="unknown argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_unknown_argument" end time: Sep 14 09:13 BST
+"can_probe_unknown_argument" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/28 Testing: can_probe_duration_zero
+7/28 Test: can_probe_duration_zero
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;0" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_duration_zero" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="duration-ms out of range value=0" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_zero" end time: Sep 14 09:13 BST
+"can_probe_duration_zero" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/28 Testing: can_probe_duration_nonnumeric
+8/28 Test: can_probe_duration_nonnumeric
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;abc" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_duration_nonnumeric" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="invalid duration-ms value=abc" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_nonnumeric" end time: Sep 14 09:13 BST
+"can_probe_duration_nonnumeric" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/28 Testing: can_probe_duration_overflow
+9/28 Test: can_probe_duration_overflow
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;9999999999999999999999999999999999999999" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_duration_overflow" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="duration-ms overflow value=9999999999999999999999999999999999999999" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_overflow" end time: Sep 14 09:13 BST
+"can_probe_duration_overflow" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/28 Testing: can_probe_duplicate_interface
+10/28 Test: can_probe_duplicate_interface
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--interface;unused1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_duplicate_interface" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duplicate_interface" end time: Sep 14 09:13 BST
+"can_probe_duplicate_interface" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/28 Testing: can_probe_duplicate_duration
+11/28 Test: can_probe_duplicate_duration
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;1;--duration-ms;2" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_duplicate_duration" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duplicate_duration" end time: Sep 14 09:13 BST
+"can_probe_duplicate_duration" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/28 Testing: can_probe_interface_missing_value
+12/28 Test: can_probe_interface_missing_value
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;--duration-ms;1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_interface_missing_value" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="missing value for --interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_interface_missing_value" end time: Sep 14 09:13 BST
+"can_probe_interface_missing_value" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/28 Testing: can_probe_duration_missing_value
+13/28 Test: can_probe_duration_missing_value
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_duration_missing_value" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="missing value for --duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_missing_value" end time: Sep 14 09:13 BST
+"can_probe_duration_missing_value" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/28 Testing: can_probe_duration_negative
+14/28 Test: can_probe_duration_negative
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;-1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release
+"can_probe_duration_negative" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="invalid duration-ms value=-1" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_negative" end time: Sep 14 09:13 BST
+"can_probe_duration_negative" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/28 Testing: canopen_observer_help
+15/28 Test: canopen_observer_help
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer/robot-control-canopen-observer" "--help"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer
+"canopen_observer_help" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[Usage:]
+"canopen_observer_help" end time: Sep 14 09:13 BST
+"canopen_observer_help" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/28 Testing: canopen_observer_invalid_
+16/28 Test: canopen_observer_invalid_
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer
+"canopen_observer_invalid_" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid_" end time: Sep 14 09:13 BST
+"canopen_observer_invalid_" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/28 Testing: canopen_observer_invalid___unknown
+17/28 Test: canopen_observer_invalid___unknown
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--unknown" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer
+"canopen_observer_invalid___unknown" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="missing value argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___unknown" end time: Sep 14 09:13 BST
+"canopen_observer_invalid___unknown" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/28 Testing: canopen_observer_invalid___interface_unused0
+18/28 Test: canopen_observer_invalid___interface_unused0
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--interface;unused0" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer
+"canopen_observer_invalid___interface_unused0" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___interface_unused0" end time: Sep 14 09:13 BST
+"canopen_observer_invalid___interface_unused0" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/28 Testing: canopen_observer_invalid___interface_unused0___interface_unused1
+19/28 Test: canopen_observer_invalid___interface_unused0___interface_unused1
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--interface;unused0;--interface;unused1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer
+"canopen_observer_invalid___interface_unused0___interface_unused1" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___interface_unused0___interface_unused1" end time: Sep 14 09:13 BST
+"canopen_observer_invalid___interface_unused0___interface_unused1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/28 Testing: canopen_observer_invalid___duration_ms_0
+20/28 Test: canopen_observer_invalid___duration_ms_0
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--duration-ms;0" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer
+"canopen_observer_invalid___duration_ms_0" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="invalid value argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___duration_ms_0" end time: Sep 14 09:13 BST
+"canopen_observer_invalid___duration_ms_0" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/28 Testing: canopen_observer_invalid___duration_ms_1___duration_ms_2
+21/28 Test: canopen_observer_invalid___duration_ms_1___duration_ms_2
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--duration-ms;1;--duration-ms;2" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tools/canopen_observer
+"canopen_observer_invalid___duration_ms_1___duration_ms_2" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___duration_ms_1___duration_ms_2" end time: Sep 14 09:13 BST
+"canopen_observer_invalid___duration_ms_1___duration_ms_2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/28 Testing: domain_behavior_lock
+22/28 Test: domain_behavior_lock
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit/robot_control_domain_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit
+"domain_behavior_lock" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+domain_behavior_lock passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"domain_behavior_lock" end time: Sep 14 09:13 BST
+"domain_behavior_lock" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/28 Testing: canopen_stack_build
+23/28 Test: canopen_stack_build
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit/robot_control_canopen_stack_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit
+"canopen_stack_build" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+canopen_stack_tests passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_stack_build" end time: Sep 14 09:13 BST
+"canopen_stack_build" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/28 Testing: canopen_vcan_managed
+24/28 Test: canopen_vcan_managed
+Command: "/usr/bin/bash" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_socketcan_vcan.sh" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit/robot_control_canopen_vcan_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit
+"canopen_vcan_managed" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+INFO: managed namespace vcan0 is up
+INFO: P5.5 observation service=boot raw_can_id=0x00000701 dlc=1 payload=0000000000000000 timestamp_ns=25677093082928 transport=1 boot=1
+INFO: P5.5 observation service=heartbeat raw_can_id=0x00000701 dlc=1 payload=0500000000000000 timestamp_ns=25677104056764 transport=1 boot=1
+INFO: P5.5 observation service=emcy raw_can_id=0x00000081 dlc=8 payload=34125678efcdab90 timestamp_ns=25677114983757 transport=1 boot=1
+INFO: P5.5 observation service=tpdo1 raw_can_id=0x00000181 dlc=8 payload=1122334455667788 timestamp_ns=25677125983750 transport=1 boot=1
+INFO: P5.5 observation service=tpdo2 raw_can_id=0x00000281 dlc=0 payload=0000000000000000 timestamp_ns=25677136990905 transport=1 boot=1
+INFO: P5.5 observation service=tpdo3 raw_can_id=0x00000381 dlc=0 payload=0000000000000000 timestamp_ns=25677147990387 transport=1 boot=1
+INFO: P5.5 observation service=tpdo4 raw_can_id=0x00000481 dlc=0 payload=0000000000000000 timestamp_ns=25677158071945 transport=1 boot=1
+INFO: P5.5 observation service=can_error raw_can_id=0x20000044 dlc=8 payload=0004123456789abc timestamp_ns=25677410018019 transport=1 boot=1
+INFO: P5.5 link loss operation=ioctl(SIOCGIFFLAGS) context="interface=vcan0 controller=127 remote=1 state=down" errno=100
+INFO: P5.5 managed-vcan receive evidence passed interface=vcan0 peer_frames=20 observer_tx_frames=0
+<end of output>
+Test time =   0.63 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_vcan_managed" end time: Sep 14 09:13 BST
+"canopen_vcan_managed" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/28 Testing: socketcan_frame_codec
+25/28 Test: socketcan_frame_codec
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit/robot_control_socketcan_frame_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit
+"socketcan_frame_codec" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+socketcan_frame_tests passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"socketcan_frame_codec" end time: Sep 14 09:13 BST
+"socketcan_frame_codec" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/28 Testing: socketcan_socket_lifecycle
+26/28 Test: socketcan_socket_lifecycle
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit/robot_control_socketcan_socket_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit
+"socketcan_socket_lifecycle" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing vcan interface for bind/filter/frame/metadata checks
+socketcan_socket_tests passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"socketcan_socket_lifecycle" end time: Sep 14 09:13 BST
+"socketcan_socket_lifecycle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/28 Testing: socketcan_vcan_managed
+27/28 Test: socketcan_vcan_managed
+Command: "/usr/bin/bash" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_socketcan_vcan.sh" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit/robot_control_socketcan_socket_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/unit
+"socketcan_vcan_managed" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+INFO: managed namespace vcan0 is up
+INFO: managed vcan RX overflow evidence requested_rcvbuf=1024 effective_rcvbuf=2304 frames_attempted=4096 frames_sent=4096 raw_overflow_counter=4093
+INFO: managed vcan CAN error-frame evidence raw_can_id=0x20000044 error_classes=0x00000044 payload=0004123456789abc
+INFO: managed vcan link-down/reopen evidence interface=vcan0 original_ifindex=2 reopened_ifindex=2 receive_operation=poll receive_context="interface=vcan0 socket failure" receive_errno=5 send_operation=write send_context="interface=vcan0" send_errno=100 raw_can_id=0x000006a5 dlc=8 len8_dlc=0 payload=a55adeadbeef4224
+INFO: managed vcan bidirectional frame and filter isolation checks passed
+socketcan_socket_tests passed
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Passed.
+"socketcan_vcan_managed" end time: Sep 14 09:13 BST
+"socketcan_vcan_managed" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/28 Testing: linux_platform_integration
+28/28 Test: linux_platform_integration
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/integration/robot_control_linux_platform_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-default-release/tests/integration
+"linux_platform_integration" start time: Sep 14 09:13 BST
+Output:
+----------------------------------------------------------
+linux_platform_integration passed
+<end of output>
+Test time =   0.20 sec
+----------------------------------------------------------
+Test Passed.
+"linux_platform_integration" end time: Sep 14 09:13 BST
+"linux_platform_integration" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 14 09:13 BST

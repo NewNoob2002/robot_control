@@ -1,0 +1,10 @@
+{
+  "base": "/tmp/robot-control-qualifications/zero-recovery-31d2d0848e93",
+  "files": {
+    "local_trial.py": "8505aed9c6e7db491025fa771cff79c479fde424a60c6995f756ae587f970834",
+    "remote_trial.py": "e65bf6bfec686dae1fd9e22ff7c1499311cd7ae28e45ca038163c08db9103360",
+    "authorization.json": "84300d4b8797d18970512162002cc7a33bbee6e75f395fe3d4de15382d84a1a5",
+    "safety_preflight.json": "e654fb92271a85c7208422317f1b0bdd06417d52a9395a1b7f4cca0bb67b3b3b",
+    "stage.py": "6f75e4af26826b8018e6a9793c21191dedf12cd45a449eafe3feb877275b2274"
+  }
+}

@@ -1,0 +1,3 @@
+manifest=/tmp/tmp.Y7H5589FVx/approved/recovery-failure/.robot-control/sysroot-content.jsonl
+checksum=/tmp/tmp.Y7H5589FVx/approved/recovery-failure/.robot-control/sysroot-content.sha256
+Sysroot content manifest regression tests passed

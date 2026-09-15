@@ -1,0 +1,24 @@
+{
+  "trial": "quick_stop",
+  "protocol_and_cleanup_passed": true,
+  "attempts": 1,
+  "frames": 151,
+  "capture_pairs_equal": true,
+  "sdo_transactions": 52,
+  "target_to_zero_ms": 1298.039,
+  "right_tpdo_raw_range": [
+    2,
+    54
+  ],
+  "left_tpdo_zero": true,
+  "zero_feedback_verified": true,
+  "can_errors_drops": 0,
+  "final_status_raw": "07140714",
+  "mode_kept": 1,
+  "physical_observation": {
+    "date": "2026-09-11",
+    "user_confirmation": "\u786e\u8ba4\u6b63\u5e38\uff0c\u53ef\u7ee7\u7eed\u4e0b\u4e00\u9879",
+    "confirmed_question": "Right wheel stopped normally, left stationary, no abnormal sound or unintended restart",
+    "accepted": true
+  }
+}

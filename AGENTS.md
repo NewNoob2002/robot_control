@@ -6,67 +6,30 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 
 ## Current State
 
-- Phases 0 through 4 are complete. Phase 2 provides pure command, arbitration,
-  safety, and CiA402 domain libraries; Phase 3 provides policy-free Linux fd,
-  poll, monotonic timer, signal, UART, and logging adapters. Host build, test,
-  and static-check CI is implemented. Phase 4 SocketCAN work provides the
-  policy-free Classical CAN frame codec, socket lifecycle, and basic frame
-  send/receive with monotonic timeout and cancellation, plus optional raw
-  kernel timestamp and RX queue overflow receive metadata, and receive-only
-  `can_probe`. Managed namespace-local bidirectional `vcan` frame evidence, raw
-  filter isolation, and nonzero raw cumulative `SO_RXQ_OVFL` evidence are
-  complete, along with namespace-local CAN error-frame runtime evidence and
-  interface down/up with explicit endpoint reopen evidence. RK3588 passive
-  target validation is complete. P5.1 is complete: it replaces the mixed
-  CANopenNode snapshot with the exact CANopenLinux/CANopenNode recursive
-  submodule pair selected by
-  ADR-0002 and verifies it before normal builds, recursive snapshots, and clean
-  RK3588 Debug/Release cross builds. P5.2 is complete: it builds the reviewed
-  minimal CANopenLinux/CANopenNode source subset, validates invalid-by-default
-  startup configuration, and owns one inactive fixed OD/stack allocation with
-  host Debug/Release and clean RK3588 Debug/Release evidence. P5.3 through P5.6
-  are complete: the single-owner lifecycle publishes immutable CANopen
-  observations, and managed namespace-local `vcan` proves boot, heartbeat,
-  EMCY, TPDO1..4, exact timeouts, error frames, link loss/reopen, signal exits,
-  same-socket single consumption, and zero normal-operation TX. P5.6 adds a
-  separately enabled Debug-only commissioning artifact whose sole transmit gate
-  permits fixed node-1 NMT inhibit commands and reviewed read-only expedited SDO
-  uploads, with request/attempt correlation, timeout quarantine, one explicit
-  retry, managed-vcan evidence, default-artifact isolation, sanitizers, LLVM, and
-  clean RK3588 cross evidence. P5.7 local, cross, target deployment,
-  deadline/SIGTERM, cleanup, and independent zero-transmit evidence pass. Three
-  separately authorized read-only SDO uploads received the same exact drive
-  response while target TX remained zero. The final error-enabled HIL run
-  preserved the exact 0x601 request and 0x581 response in the target raw
-  capture, and the normal observer published the response as the expected raw
-  `sdo_rejected` observation. RXF/RXMF advanced by two, target TX stayed zero,
-  no error frame was observed, and cleanup passed. Phase 5 is complete. Phase
-  6 is in progress. P6.1–P6.5 and the recorded NMT Stop, Shutdown, Disable
-  Voltage and Quick Stop unloaded trials pass. The operator accepted the
-  manual speed-first TPDO feedback test on 2026-09-10, including small
-  left-speed excursions; vibration is a proposed cause, not an established
-  hardware fact. Watchdog timing/recovery and the remaining physical loss
-  tests remain open. On 2026-09-11 the synchronous packed-target route restored
-  TPDO speed feedback. Single-RPDO left and right +5 rpm / 3 s trials passed;
-  the operator confirmed selected-wheel motion, normal stopping and no abnormal
-  sound. Original RPDO mappings were restored after each run. Current host and
-  sanitizer qualification suites pass 60/60; cross/ELF and target isolated-vcan
-  checks pass. Revised synchronous stop/loss physical tests have not started:
-  two execution-approval requests timed out before process creation. See
-  docs/verification/P6_SYNC_PACKED_PDO_REPAIR.md for exact scope and evidence.
-  Default Debug/Release and prior P5.6 isolation checks also pass.
-  See docs/verification/P6_REVIEW_SAFETY_IO_FIXES.md for the restricted standalone
-  activation API, live TPDO contract checks, receive/logging fixes and validation.
-  Diagnostic artifacts have been staged on RK3588; non-actuating target checks
-  pass, but physical requalification remains incomplete. The manual feedback
-  executor now runs in the RK3588 application with status-first mapping retained;
-  JCAN is a silent observer for the primary HIL flow. See
-  docs/verification/P6_REVIEW_HIL.md for the prepared run and aborted history.
-  Use docs/verification/PHASE6_CHECKPOINT.md for current disposition and
-  docs/verification/evidence/README.md to find direct or archived evidence.
-  Keep the qualification path Debug-only/default-OFF. No production daemon,
-  full SBUS/M4 pipeline, ROS2, persistent drive configuration or loaded
-  operation is added by this checkpoint.
+- Phases 0–5 are complete. Phase 6 remains open; use
+  docs/verification/PHASE6_CHECKPOINT.md for current acceptance and
+  docs/verification/evidence/README.md for direct or archived evidence.
+- Accepted bounded Phase 6 evidence covers zero-target transitions, independent
+  wheel/sign feedback, revised stop/communication-loss cases, moving SIGTERM,
+  userspace cable-loss inhibition, drive-power restoration and composite X1
+  behavior. Earlier failed/invalid trials remain failed/invalid.
+- On 2026-09-15 the operator deferred long-duration soak until SBUS and the
+  integrated command/safety pipeline are ready. This permits subsequent component
+  development, not Phase 6 closure, loaded operation or production acceptance.
+  The v3 three-hour attempt failed after 309 s / five passing cycles when candump
+  exited. V4 was staged but never started; its JCAN preparation failed on an
+  invalid USB receive packet. The SIGHUP/session repair passes offline host and
+  target tests; no successful physical soak is claimed.
+- All consumed runners remain consumed. V4 authorization is retired on deferral.
+  Archived authorizations are evidence only, never permission to run hardware.
+  Any later soak needs a new artifact/preflight and explicit authorization.
+- Keep qualification Debug-only/default-OFF. The independent can0 inhibitor is
+  a userspace mitigation, not a kernel repair; it never brings an interface up
+  or sends CAN. Exact rockchip_canfd worker/stop concurrency remains unresolved.
+- No production daemon, full SBUS/M4 pipeline, ROS2, persistent drive changes or
+  loaded operation is included. Latest physical power-off is not confirmed in
+  this checkpoint; use the timestamped disposition rather than older OFF/DOWN
+  statements from previous trials.
 - EasyLogger's checksum-pinned core subset remains integrated behind
   `service/logging`. CANopen dependency provenance and zero-local-patch status
   are recorded in `third_party/README.md`.
@@ -200,3 +163,9 @@ uses the bounded online heartbeat preparation; see
 4. Add tests and documentation with the implementation.
 5. Verify locally and report exact commands/results.
 6. Do not flash, move a motor, alter target device-tree/network configuration, deploy to production, or change persistent drive parameters without explicit authorization.
+
+## Latest powered-off CAN investigation
+
+The late read-only request appears after application exit (TX314 to315). Isolated host vxcan demonstrates delivery400ms after socket close; virtual link-down prevents delivery in that setup. Target vxcan is unavailable, and matching rockchip_canfd source is absent from the checked headers directory. Exact queue/stop behavior remains unresolved; no production or physical-interface change was made. Keep the drive powered off and preserve failed/consumed trials. See docs/verification/P6_DELAYED_TX_INVESTIGATION.md.
+
+The follow-up target-binary review confirms rockchip_canfd_tx_err_delay_work resubmits and self-schedules independently of socket lifetime. Supported ctrlmode mask0x17 excludes one-shot. Target ndo_stop cancels delayed work after controller stop/runtime-PM release; concurrency review is required. Disk-image notes match running kernel; exact full-tree commit remains unknown. No kernel/physical changes were made. See docs/verification/P6_ROCKCHIP_TX_WORKER_REVIEW.md.

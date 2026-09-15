@@ -1,0 +1,6 @@
+ (1789442750.667802)  can0  20000004   [8]  00 08 00 00 00 00 60 00   ERRORFRAME
+	controller-problem{tx-error-warning}
+	error-counter-tx-rx{{96}{0}}
+ (1789442750.694594)  can0  20000004   [8]  00 08 00 00 00 00 80 00   ERRORFRAME
+	controller-problem{tx-error-warning}
+	error-counter-tx-rx{{128}{0}}

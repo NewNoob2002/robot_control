@@ -1,0 +1,7 @@
+[1/7] Building C object tests/unit/CMakeFiles/robot_control_canopen_vcan_tests.dir/canopen_test_log_stub.c.o
+[2/7] Building C object tests/unit/CMakeFiles/robot_control_canopen_qualification_vcan_tests.dir/canopen_test_log_stub.c.o
+[3/7] Building C object tests/unit/CMakeFiles/robot_control_canopen_stack_tests.dir/canopen_test_log_stub.c.o
+[4/7] Linking CXX executable tests/unit/robot_control_canopen_stack_tests
+[5/7] Linking CXX executable tests/unit/robot_control_canopen_qualification_vcan_tests
+[6/7] Building CXX object tests/unit/CMakeFiles/robot_control_canopen_vcan_tests.dir/canopen_vcan_tests.cpp.o
+[7/7] Linking CXX executable tests/unit/robot_control_canopen_vcan_tests

@@ -1,0 +1,12 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "base": "/tmp/robot-control-qualifications/userspace-inhibit-fc77b14ec242",
+  "files": {
+    "authorization.json": "ebe500a4d3df096940d9dcd00d7bd77eb8ab79a56f49564a35845340a14e89b6",
+    "remote_trial.py": "63242b1643ae055261a89379786badb6875689fdb8ab788657384c76092d4f5e",
+    "trial_checks.py": "57cff03f678f163726bc536b60eedca4985e174f8356860c39acfabc2b26bfec",
+    "operator_watch.py": "a60101b9480003e824b27c5e40058ff80a9f386efb777b2bc79d64c4c47e347b",
+    "prepare_privileged.sh": "98739692ff0bdbf18fb623dccd7e7e84493fd3915e7cde650d26db28282582c5",
+    "restore_pretrial_can0.py": "8d61d341f6fb7b0c0a0702212279c98bb0324e300e883bcce11a3361cdf9fffb"
+  }
+}

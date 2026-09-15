@@ -1,0 +1,1 @@
+{"interface": "isolated vxcan pair", "sent_frames": 1, "received_frames": 1, "frame": "601#406c600200000000", "submit_us": 9.087, "close_after_submit_us": 3.787, "receive_after_close_ms": 400.070208, "result": "QUEUED_FRAME_DELIVERED_AFTER_SOCKET_CLOSE", "limit": "netem qdisc demonstration; not the RK3588 controller implementation"}

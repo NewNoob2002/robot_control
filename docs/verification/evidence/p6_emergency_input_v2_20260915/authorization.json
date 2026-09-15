@@ -1,0 +1,10 @@
+{
+  "authorized": true,
+  "attempts": 1,
+  "date_utc": "2026-09-15",
+  "user_confirmation": "授权",
+  "qualification_sha256": "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7",
+  "jcan_serial": "207F346D5650",
+  "jcan_mode": "silent",
+  "proposed_scope": "One new raised-wheel, zero-motion X1 emergency-input electrical/status pretest using the repaired qualification ELF. No target, RPDO or controlword. Hold the normally-open latching X1 input active for about three seconds, reset it, observe at least five seconds with no motion, and require both packed statusword halves to show bit 15 inactive-active-inactive while all velocity feedback stays zero. Final drive power OFF and can0 DOWN; no automatic retry."
+}

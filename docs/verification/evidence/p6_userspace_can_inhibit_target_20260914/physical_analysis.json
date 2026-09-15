@@ -1,0 +1,20 @@
+{
+  "status": "INVALID_NO_EXTERNAL_LOSS",
+  "physical_retry_authorized": false,
+  "target_frames": 597,
+  "target_error_frames": 0,
+  "jcan_frames": 597,
+  "target_normal_frames": 597,
+  "target_normal_matched_in_jcan": 597,
+  "nonzero_target_requests": 1,
+  "left_nonzero_tpdo_samples": 0,
+  "right_nonzero_tpdo_samples": 163,
+  "right_tpdo_min": -20,
+  "right_tpdo_max": 54,
+  "application_reported_external_loss_absent": true,
+  "inhibitor_armed": true,
+  "inhibitor_down": true,
+  "postflight_interface_down": true,
+  "capture_exit": "can0: interface down",
+  "interpretation": "No CAN error frame or communication loss occurred. The application timed out waiting for external loss, then explicitly requested the helper to set can0 DOWN. candump exited because can0 went down and the runner incorrectly treated that expected exit as a harness failure. This attempt does not validate the helper's physical CAN-error path or delayed-TX suppression."
+}

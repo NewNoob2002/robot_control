@@ -1,0 +1,33 @@
+{
+  "status": "VALID_FOR_AUTHORIZED_SINGLE_TRIAL",
+  "recorded_utc": "2026-09-14T08:27:08Z",
+  "target": {
+    "board": "RK3588 lubancat",
+    "ssh_alias": "robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+    "architecture": "aarch64",
+    "interface": "can0",
+    "bitrate": 500000,
+    "drive_node": 1,
+    "observer": "JTool-CAN serial 207F346D5650, silent receive only"
+  },
+  "artifacts": {
+    "qualification_sha256": "fc77b14e78c60ad00f3fcda704889d0c913be60ef416e77c7ba5cd9a688b6fa4",
+    "inhibitor_sha256": "c2425001cbe583e3bb1e3307d4145e95cafd722d150154ff727fe519a80b1a5b"
+  },
+  "bounds": {
+    "attempts": 1,
+    "right_rpm": 5,
+    "left_rpm": 0,
+    "motion_lead_ms": 200,
+    "disconnect_target": "RK3588 CAN branch only",
+    "automatic_retry": false
+  },
+  "preconditions": [
+    "Drive power OFF during deployment and non-actuating checks",
+    "Both wheels raised and stopped",
+    "Site safe",
+    "Emergency stop immediately available"
+  ],
+  "recovery": "On CAN error or process failure, the helper sets and verifies can0 DOWN. Reconnection must not restore the interface or motion. Keep the drive powered OFF before any later explicit can0 restoration."
+}

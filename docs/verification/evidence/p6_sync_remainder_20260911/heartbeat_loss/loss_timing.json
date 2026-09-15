@@ -1,0 +1,6 @@
+{
+  "loss_disable_request_to_zero_request_ms": 397.0,
+  "last_affected_frame_to_zero_request_ms": 505.203,
+  "affected_frames_after_disable_before_zero": 0,
+  "timing_basis": "target candump receive timestamps; these are wire-observed intervals, not internal detection timestamps"
+}

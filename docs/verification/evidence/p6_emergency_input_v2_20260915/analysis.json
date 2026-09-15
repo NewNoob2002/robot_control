@@ -1,0 +1,32 @@
+{
+  "classification": "PASS_WITH_RUNNER_STATUS_HALF_EXPECTATION_DEFECT",
+  "x1_zero_motion_pretest_pass": true,
+  "runner_wrapper_pass": false,
+  "runner_defect": "The runner required statusword bit 15 on both packed halves; physical X1 changed only the low half.",
+  "target_and_jcan_exact_sequence_match": true,
+  "frames_each": 1989,
+  "can_errors": 0,
+  "rpdo_target_controlword_requests": 0,
+  "tpdo1_samples": 1206,
+  "nonzero_velocity_samples": 0,
+  "status_values": [
+    "0x14001400",
+    "0x14009400"
+  ],
+  "x1_status_half": "low",
+  "low_half_bit15_active_samples": 316,
+  "high_half_bit15_active_samples": 0,
+  "observed_bit15_active_ms": 15784.523010253906,
+  "operator_locked_to_reset_ms": 13004.989385604858,
+  "operator_reset_to_no_motion_ms": 13312.278509140015,
+  "application_exit_code": 0,
+  "operator_acceptance": {
+    "pid": 47247,
+    "wall_time": 1789436185.8088284,
+    "wheels_stayed_still": true,
+    "abnormal_sound": false,
+    "final_drive_power_off": true
+  },
+  "final_can0_down": true,
+  "scope_limit": "Validates X1 electrical/status and reset behavior at zero motion; does not establish moving stop time or distance."
+}

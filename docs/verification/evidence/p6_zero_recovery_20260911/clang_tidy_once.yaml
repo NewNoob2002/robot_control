@@ -1,0 +1,509 @@
+---
+MainSourceFile:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+Diagnostics:
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/lifecycle.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/observation.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''clean'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      3551
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''ready'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      4290
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''ready'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      4919
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''sent'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      19644
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''ready'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      31179
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''clean'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      32726
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''ready'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      34265
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''preop'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      43651
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''zero'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      47801
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''operational'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      54429
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''restored'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      57065
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  bugprone-easily-swappable-parameters
+    DiagnosticMessage:
+      Message:         '2 adjacent parameters of ''run_controlword_stop_interval'' of similar type (''const std::chrono::milliseconds'') are easily swapped by mistake'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      57371
+      Replacements:    []
+      Ranges:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+          FileOffset:      57371
+          Length:          144
+    Notes:
+      - Message:         'the first parameter in the range is ''duration'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      57403
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+            FileOffset:      57403
+            Length:          8
+      - Message:         'the last parameter in the range is ''transition_timeout'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      57497
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+            FileOffset:      57497
+            Length:          18
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  bugprone-easily-swappable-parameters
+    DiagnosticMessage:
+      Message:         '2 adjacent parameters of ''set_communication_setting'' of convertible types are easily swapped by mistake'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      60999
+      Replacements:    []
+      Ranges:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+          FileOffset:      60999
+          Length:          133
+    Notes:
+      - Message:         'the first parameter in the range is ''object_subindex'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      61018
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+            FileOffset:      61018
+            Length:          15
+      - Message:         'the last parameter in the range is ''value'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      61127
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+            FileOffset:      61127
+            Length:          5
+      - Message:         ''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      60999
+        Replacements:    []
+      - Message:         '''const std::uint8_t'' and ''const std::uint16_t'' may be implicitly converted: ''const std::uint8_t'' (as ''unsigned char'') -> ''const std::uint16_t'' (as ''unsigned short''), ''const std::uint16_t'' (as ''unsigned short'') -> ''const std::uint8_t'' (as ''unsigned char'')'
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      61107
+        Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''status'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      61771
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-no-automatic-move
+    DiagnosticMessage:
+      Message:         'constness of ''clean'' prevents automatic move'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      64128
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  bugprone-easily-swappable-parameters
+    DiagnosticMessage:
+      Message:         '2 adjacent parameters of ''operator()'' of convertible types are easily swapped by mistake'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      77281
+      Replacements:    []
+      Ranges:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+          FileOffset:      77281
+          Length:          52
+    Notes:
+      - Message:         'the first parameter in the range is ''sub'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      77300
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+            FileOffset:      77300
+            Length:          3
+      - Message:         'the last parameter in the range is ''expected'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      77325
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+            FileOffset:      77325
+            Length:          8
+      - Message:         ''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      77281
+        Replacements:    []
+      - Message:         '''const std::uint8_t'' and ''const std::uint32_t'' may be implicitly converted: ''const std::uint8_t'' (as ''unsigned char'') -> ''const std::uint32_t'' (as ''unsigned int''), ''const std::uint32_t'' (as ''unsigned int'') -> ''const std::uint8_t'' (as ''unsigned char'')'
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+        FileOffset:      77305
+        Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-avoid-endl
+    DiagnosticMessage:
+      Message:         'do not use ''std::endl'' with streams; use ''\n'' instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      83496
+      Replacements:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+          Offset:          83496
+          Length:          9
+          ReplacementText: '''\n'''
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-avoid-endl
+    DiagnosticMessage:
+      Message:         'do not use ''std::endl'' with streams; use ''\n'' instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      85726
+      Replacements:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+          Offset:          85726
+          Length:          9
+          ReplacementText: '''\n'''
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-avoid-endl
+    DiagnosticMessage:
+      Message:         'do not use ''std::endl'' with streams; use ''\n'' instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+      FileOffset:      86811
+      Replacements:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp'
+          Offset:          86811
+          Length:          9
+          ReplacementText: '''\n'''
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification_gate.h'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/stack_config.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/stack_storage.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/cia402.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/zlac8015d.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/time/monotonic_time.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/classic_frame.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/socket.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  bugprone-unchecked-optional-access
+    DiagnosticMessage:
+      Message:         unchecked access to optional value
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp'
+      FileOffset:      2465
+      Replacements:    []
+      Ranges:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp'
+          FileOffset:      2465
+          Length:          6
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  bugprone-unchecked-optional-access
+    DiagnosticMessage:
+      Message:         unchecked access to optional value
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp'
+      FileOffset:      2702
+      Replacements:    []
+      Ranges:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp'
+          FileOffset:      2702
+          Length:          6
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  bugprone-unchecked-optional-access
+    DiagnosticMessage:
+      Message:         unchecked access to optional value
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp'
+      FileOffset:      2911
+      Replacements:    []
+      Ranges:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp'
+          FileOffset:      2911
+          Length:          6
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/process/termination_event.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  portability-avoid-pragma-once
+    DiagnosticMessage:
+      Message:         'avoid ''pragma once'' directive; use include guards instead'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/unique_fd.hpp'
+      FileOffset:      0
+      Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  bugprone-easily-swappable-parameters
+    DiagnosticMessage:
+      Message:         '3 adjacent parameters of ''tpdo1'' of convertible types are easily swapped by mistake'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+      FileOffset:      11113
+      Replacements:    []
+      Ranges:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+          FileOffset:      11113
+          Length:          127
+    Notes:
+      - Message:         'the first parameter in the range is ''statusword'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+        FileOffset:      11133
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+            FileOffset:      11133
+            Length:          10
+      - Message:         'the last parameter in the range is ''high_velocity'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+        FileOffset:      11223
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+            FileOffset:      11223
+            Length:          13
+      - Message:         ''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+        FileOffset:      11113
+        Replacements:    []
+      - Message:         '''const std::uint16_t'' and ''const std::int16_t'' may be implicitly converted: ''const std::uint16_t'' (as ''unsigned short'') -> ''const std::int16_t'' (as ''short''), ''const std::int16_t'' (as ''short'') -> ''const std::uint16_t'' (as ''unsigned short'')'
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+        FileOffset:      11145
+        Replacements:    []
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  bugprone-easily-swappable-parameters
+    DiagnosticMessage:
+      Message:         '2 adjacent parameters of ''test_mapping_preflight'' of similar type (''const unsigned int'') are easily swapped by mistake'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+      FileOffset:      50251
+      Replacements:    []
+      Ranges:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+          FileOffset:      50251
+          Length:          44
+    Notes:
+      - Message:         'the first parameter in the range is ''path'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+        FileOffset:      50266
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+            FileOffset:      50266
+            Length:          4
+      - Message:         'the last parameter in the range is ''mismatch'''
+        FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+        FileOffset:      50287
+        Replacements:    []
+        Ranges:
+          - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+            FileOffset:      50287
+            Length:          8
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-unnecessary-value-param
+    DiagnosticMessage:
+      Message:         'the const qualified parameter ''stop'' of type ''const std::stop_token'' is copied for each invocation; consider making it a reference'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+      FileOffset:      50745
+      Replacements:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+          Offset:          50744
+          Length:          0
+          ReplacementText: '&'
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-unnecessary-value-param
+    DiagnosticMessage:
+      Message:         'the const qualified parameter ''stop'' of type ''const std::stop_token'' is copied for each invocation; consider making it a reference'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+      FileOffset:      66380
+      Replacements:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+          Offset:          66379
+          Length:          0
+          ReplacementText: '&'
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-unnecessary-value-param
+    DiagnosticMessage:
+      Message:         'the const qualified parameter ''stop'' of type ''const std::stop_token'' is copied for each invocation; consider making it a reference'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+      FileOffset:      78094
+      Replacements:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+          Offset:          78093
+          Length:          0
+          ReplacementText: '&'
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+  - DiagnosticName:  performance-unnecessary-value-param
+    DiagnosticMessage:
+      Message:         'the const qualified parameter ''stop'' of type ''const std::stop_token'' is copied for each invocation; consider making it a reference'
+      FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+      FileOffset:      84631
+      Replacements:
+        - FilePath:        '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp'
+          Offset:          84630
+          Length:          0
+          ReplacementText: '&'
+    Level:           Warning
+    BuildDirectory:  '/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes'
+...

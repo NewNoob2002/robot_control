@@ -1,0 +1,15 @@
+{
+  "authorized": true,
+  "stimulus": "zero",
+  "elf_sha256": "31d2d0848e9330f6f910e642d47bccb6552ca112cefa36214defa646c524b7e3",
+  "operator_ready": true,
+  "user_confirmation": "授权",
+  "authorization_context": "User authorizes physical zero-target recovery and subsequent NMT Stop verification after software repair; this runner executes only zero-target recovery once. Raised wheels, emergency stop and on-site conditions carry forward from operator confirmations; prior NMT failure was confirmed stationary and safe.",
+  "date": "2026-09-11",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--zero-sequence"
+  ]
+}

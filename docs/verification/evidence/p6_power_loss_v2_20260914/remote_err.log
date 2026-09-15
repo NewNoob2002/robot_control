@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/power-loss-v2-fc77b14ec242/remote_trial.py", line 151, in <module>
+    assert "external_loss=observed cleanup=verified" in executor
+AssertionError

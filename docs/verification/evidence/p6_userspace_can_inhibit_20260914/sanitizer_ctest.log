@@ -1,0 +1,1323 @@
+Start testing: Sep 14 09:11 BST
+----------------------------------------------------------
+1/68 Testing: platform_probe_help
+1/68 Test: platform_probe_help
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/platform_probe/robot-control-platform-probe" "--help"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"platform_probe_help" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-platform-probe [--help|--phase3-smoke]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"platform_probe_help" end time: Sep 14 09:11 BST
+"platform_probe_help" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/68 Testing: platform_probe_run
+2/68 Test: platform_probe_run
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/platform_probe/robot-control-platform-probe"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"platform_probe_run" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+probe_version=1
+sysname=Linux
+release=7.0.0-31-generic
+machine=x86_64
+pid=346623
+monotonic_ns=25547984947536
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[probe_version=1.*machine=]
+"platform_probe_run" end time: Sep 14 09:11 BST
+"platform_probe_run" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/68 Testing: platform_probe_phase3_smoke
+3/68 Test: platform_probe_phase3_smoke
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/platform_probe/robot-control-platform-probe" "--phase3-smoke"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"platform_probe_phase3_smoke" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+I/elog     EasyLogger V2.2.0 is initialize success.
+I/platform_probe timestamp_unix_s=1789373471 severity=INFO event="phase3_smoke" result=pass
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"platform_probe_phase3_smoke" end time: Sep 14 09:11 BST
+"platform_probe_phase3_smoke" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/68 Testing: can_probe_help
+4/68 Test: can_probe_help
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "--help"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_help" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[Usage: robot-control-can-probe]
+"can_probe_help" end time: Sep 14 09:11 BST
+"can_probe_help" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/68 Testing: can_probe_missing_interface
+5/68 Test: can_probe_missing_interface
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_missing_interface" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="missing required argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_missing_interface" end time: Sep 14 09:11 BST
+"can_probe_missing_interface" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/68 Testing: can_probe_unknown_argument
+6/68 Test: can_probe_unknown_argument
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--unknown" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_unknown_argument" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="unknown argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_unknown_argument" end time: Sep 14 09:11 BST
+"can_probe_unknown_argument" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/68 Testing: can_probe_duration_zero
+7/68 Test: can_probe_duration_zero
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;0" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_duration_zero" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="duration-ms out of range value=0" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_zero" end time: Sep 14 09:11 BST
+"can_probe_duration_zero" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/68 Testing: can_probe_duration_nonnumeric
+8/68 Test: can_probe_duration_nonnumeric
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;abc" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_duration_nonnumeric" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="invalid duration-ms value=abc" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_nonnumeric" end time: Sep 14 09:11 BST
+"can_probe_duration_nonnumeric" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/68 Testing: can_probe_duration_overflow
+9/68 Test: can_probe_duration_overflow
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;9999999999999999999999999999999999999999" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_duration_overflow" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="duration-ms overflow value=9999999999999999999999999999999999999999" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_overflow" end time: Sep 14 09:11 BST
+"can_probe_duration_overflow" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/68 Testing: can_probe_duplicate_interface
+10/68 Test: can_probe_duplicate_interface
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--interface;unused1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_duplicate_interface" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duplicate_interface" end time: Sep 14 09:11 BST
+"can_probe_duplicate_interface" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/68 Testing: can_probe_duplicate_duration
+11/68 Test: can_probe_duplicate_duration
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;1;--duration-ms;2" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_duplicate_duration" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duplicate_duration" end time: Sep 14 09:11 BST
+"can_probe_duplicate_duration" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/68 Testing: can_probe_interface_missing_value
+12/68 Test: can_probe_interface_missing_value
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;--duration-ms;1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_interface_missing_value" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="missing value for --interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_interface_missing_value" end time: Sep 14 09:11 BST
+"can_probe_interface_missing_value" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/68 Testing: can_probe_duration_missing_value
+13/68 Test: can_probe_duration_missing_value
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_duration_missing_value" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="missing value for --duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_missing_value" end time: Sep 14 09:11 BST
+"can_probe_duration_missing_value" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/68 Testing: can_probe_duration_negative
+14/68 Test: can_probe_duration_negative
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_probe/robot-control-can-probe" "-DPROGRAM_ARGUMENTS=--interface;unused0;--duration-ms;-1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san
+"can_probe_duration_negative" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation="parse_arguments" context="invalid duration-ms value=-1" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface <ifname> [--duration-ms <milliseconds>]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"can_probe_duration_negative" end time: Sep 14 09:11 BST
+"can_probe_duration_negative" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/68 Testing: canopen_observer_help
+15/68 Test: canopen_observer_help
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer/robot-control-canopen-observer" "--help"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer
+"canopen_observer_help" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[Usage:]
+"canopen_observer_help" end time: Sep 14 09:11 BST
+"canopen_observer_help" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/68 Testing: canopen_observer_invalid_
+16/68 Test: canopen_observer_invalid_
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer
+"canopen_observer_invalid_" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid_" end time: Sep 14 09:11 BST
+"canopen_observer_invalid_" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/68 Testing: canopen_observer_invalid___unknown
+17/68 Test: canopen_observer_invalid___unknown
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--unknown" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer
+"canopen_observer_invalid___unknown" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="missing value argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___unknown" end time: Sep 14 09:11 BST
+"canopen_observer_invalid___unknown" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/68 Testing: canopen_observer_invalid___interface_unused0
+18/68 Test: canopen_observer_invalid___interface_unused0
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--interface;unused0" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer
+"canopen_observer_invalid___interface_unused0" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___interface_unused0" end time: Sep 14 09:11 BST
+"canopen_observer_invalid___interface_unused0" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/68 Testing: canopen_observer_invalid___interface_unused0___interface_unused1
+19/68 Test: canopen_observer_invalid___interface_unused0___interface_unused1
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--interface;unused0;--interface;unused1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer
+"canopen_observer_invalid___interface_unused0___interface_unused1" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___interface_unused0___interface_unused1" end time: Sep 14 09:11 BST
+"canopen_observer_invalid___interface_unused0___interface_unused1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/68 Testing: canopen_observer_invalid___duration_ms_0
+20/68 Test: canopen_observer_invalid___duration_ms_0
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--duration-ms;0" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer
+"canopen_observer_invalid___duration_ms_0" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="invalid value argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___duration_ms_0" end time: Sep 14 09:11 BST
+"canopen_observer_invalid___duration_ms_0" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/68 Testing: canopen_observer_invalid___duration_ms_1___duration_ms_2
+21/68 Test: canopen_observer_invalid___duration_ms_1___duration_ms_2
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer/robot-control-canopen-observer" "-DPROGRAM_ARGUMENTS=--duration-ms;1;--duration-ms;2" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/canopen_observer
+"canopen_observer_invalid___duration_ms_1___duration_ms_2" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+event=error operation=parse_arguments context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_observer_invalid___duration_ms_1___duration_ms_2" end time: Sep 14 09:11 BST
+"canopen_observer_invalid___duration_ms_1___duration_ms_2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/68 Testing: zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000
+22/68 Test: zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--manual-tpdo;--duration-ms;1000" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/68 Testing: zlac_qualification_invalid___interface_vcan0___nmt_operational
+23/68 Test: zlac_qualification_invalid___interface_vcan0___nmt_operational
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--nmt;operational" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___nmt_operational" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___nmt_operational" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___nmt_operational" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/68 Testing: zlac_qualification_invalid___interface_vcan0___velocity_mode
+24/68 Test: zlac_qualification_invalid___interface_vcan0___velocity_mode
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--velocity-mode" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___velocity_mode" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___velocity_mode" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___velocity_mode" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/68 Testing: zlac_qualification_invalid___interface_vcan0___controlword_switch_on
+25/68 Test: zlac_qualification_invalid___interface_vcan0___controlword_switch_on
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--controlword;switch-on" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___controlword_switch_on" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___controlword_switch_on" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___controlword_switch_on" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/68 Testing: zlac_qualification_invalid___interface_vcan0___controlword_enable_operation
+26/68 Test: zlac_qualification_invalid___interface_vcan0___controlword_enable_operation
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--controlword;enable-operation" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___controlword_enable_operation" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___controlword_enable_operation" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___controlword_enable_operation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/68 Testing: zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once
+27/68 Test: zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--manual-tpdo;--watchdog-once" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/68 Testing: zlac_qualification_invalid_
+28/68 Test: zlac_qualification_invalid_
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid_" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid_" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid_" time elapsed: 00:00:00
+----------------------------------------------------------
+
+29/68 Testing: zlac_qualification_invalid___unknown
+29/68 Test: zlac_qualification_invalid___unknown
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--unknown" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___unknown" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___unknown" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___unknown" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/68 Testing: zlac_qualification_invalid___interface_vcan0
+30/68 Test: zlac_qualification_invalid___interface_vcan0
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/68 Testing: zlac_qualification_invalid___interface_vcan0___nmt_reset_node
+31/68 Test: zlac_qualification_invalid___interface_vcan0___nmt_reset_node
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--nmt;reset-node" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___nmt_reset_node" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___nmt_reset_node" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___nmt_reset_node" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/68 Testing: zlac_qualification_invalid___interface_vcan0___controlword_quick_stop
+32/68 Test: zlac_qualification_invalid___interface_vcan0___controlword_quick_stop
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--controlword;quick-stop" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___controlword_quick_stop" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___controlword_quick_stop" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___controlword_quick_stop" time elapsed: 00:00:00
+----------------------------------------------------------
+
+33/68 Testing: zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10
+33/68 Test: zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--target-once;1:11;--duration-ms;10" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10" time elapsed: 00:00:00
+----------------------------------------------------------
+
+34/68 Testing: zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001
+34/68 Test: zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--target-once;1:5;--duration-ms;3001" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001" time elapsed: 00:00:00
+----------------------------------------------------------
+
+35/68 Testing: zlac_qualification_invalid___interface_vcan0___target_once_1_1
+35/68 Test: zlac_qualification_invalid___interface_vcan0___target_once_1_1
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--target-once;1:1" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___target_once_1_1" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___target_once_1_1" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___target_once_1_1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+36/68 Testing: zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10
+36/68 Test: zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--rpdo-once;1:11;--duration-ms;10" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10" time elapsed: 00:00:00
+----------------------------------------------------------
+
+37/68 Testing: zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001
+37/68 Test: zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--rpdo-once;2:5;--duration-ms;3001" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001" time elapsed: 00:00:00
+----------------------------------------------------------
+
+38/68 Testing: zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10
+38/68 Test: zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--rpdo-once;1:5;--target-once;1:5;--duration-ms;10" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10" time elapsed: 00:00:00
+----------------------------------------------------------
+
+39/68 Testing: zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001
+39/68 Test: zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--nmt-stop-once;2:5;--duration-ms;2001" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001" time elapsed: 00:00:00
+----------------------------------------------------------
+
+40/68 Testing: zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5
+40/68 Test: zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--nmt-stop-once;2:5" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5" time elapsed: 00:00:00
+----------------------------------------------------------
+
+41/68 Testing: zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5
+41/68 Test: zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--shutdown-once;2:5" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5" time elapsed: 00:00:00
+----------------------------------------------------------
+
+42/68 Testing: zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001
+42/68 Test: zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--shutdown-once;2:5;--duration-ms;10001" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001" time elapsed: 00:00:00
+----------------------------------------------------------
+
+43/68 Testing: zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5
+43/68 Test: zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--disable-voltage-once;2:5" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5" time elapsed: 00:00:00
+----------------------------------------------------------
+
+44/68 Testing: zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001
+44/68 Test: zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--disable-voltage-once;2:5;--duration-ms;10001" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001" time elapsed: 00:00:00
+----------------------------------------------------------
+
+45/68 Testing: zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5
+45/68 Test: zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--quick-stop-once;2:5" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5" time elapsed: 00:00:00
+----------------------------------------------------------
+
+46/68 Testing: zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001
+46/68 Test: zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--quick-stop-once;2:5;--duration-ms;10001" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001" time elapsed: 00:00:00
+----------------------------------------------------------
+
+47/68 Testing: zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500
+47/68 Test: zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--watchdog-once;--duration-ms;1500" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500" time elapsed: 00:00:00
+----------------------------------------------------------
+
+48/68 Testing: zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5
+48/68 Test: zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--heartbeat-loss-once;2:5" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5" time elapsed: 00:00:00
+----------------------------------------------------------
+
+49/68 Testing: zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once
+49/68 Test: zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--tpdo-loss-once;--watchdog-once" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once" time elapsed: 00:00:00
+----------------------------------------------------------
+
+50/68 Testing: zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000
+50/68 Test: zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--external-loss-once;--duration-ms;1000" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000" time elapsed: 00:00:00
+----------------------------------------------------------
+
+51/68 Testing: zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once
+51/68 Test: zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--external-loss-once;--watchdog-once" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once" time elapsed: 00:00:00
+----------------------------------------------------------
+
+52/68 Testing: zlac_qualification_invalid___interface_can0___external_loss_once
+52/68 Test: zlac_qualification_invalid___interface_can0___external_loss_once
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;can0;--external-loss-once" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_can0___external_loss_once" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_can0___external_loss_once" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_can0___external_loss_once" time elapsed: 00:00:00
+----------------------------------------------------------
+
+53/68 Testing: zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper
+53/68 Test: zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;can0;--external-loss-once;--interface-inhibitor;relative-helper" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper" time elapsed: 00:00:00
+----------------------------------------------------------
+
+54/68 Testing: zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper
+54/68 Test: zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--external-loss-once;--interface-inhibitor;/tmp/helper" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper" time elapsed: 00:00:00
+----------------------------------------------------------
+
+55/68 Testing: zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper
+55/68 Test: zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--watchdog-once;--interface-inhibitor;/tmp/helper" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper" time elapsed: 00:00:00
+----------------------------------------------------------
+
+56/68 Testing: zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b
+56/68 Test: zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;can0;--external-loss-once;--interface-inhibitor;/tmp/a;--interface-inhibitor;/tmp/b" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b" time elapsed: 00:00:00
+----------------------------------------------------------
+
+57/68 Testing: zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets
+57/68 Test: zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--zero-sequence;--zero-targets" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets" time elapsed: 00:00:00
+----------------------------------------------------------
+
+58/68 Testing: zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10
+58/68 Test: zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10
+Command: "/opt/st/stm32cubeclt_1.21.0/CMake/bin/cmake" "-DPROGRAM=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification" "-DPROGRAM_ARGUMENTS=--interface;vcan0;--zero-sequence;--duration-ms;10" "-DEXPECTED_EXIT_CODE=2" "-P" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/cmake/assert_exit_code.cmake"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification
+"zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+Usage: robot-control-zlac-qualification --interface IFACE (--nmt stopped|pre-operational | --controlword shutdown | --zero-targets | --zero-sequence | --target-once SUBINDEX:RPM --duration-ms 1..3000 | --rpdo-once SUBINDEX:RPM --duration-ms 1..3000 | --nmt-stop-once SUBINDEX:RPM --duration-ms 1..2000 | --shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | --disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | --quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | --watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)
+Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.
+External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10" end time: Sep 14 09:11 BST
+"zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10" time elapsed: 00:00:00
+----------------------------------------------------------
+
+59/68 Testing: domain_behavior_lock
+59/68 Test: domain_behavior_lock
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_domain_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"domain_behavior_lock" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+domain_behavior_lock passed
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"domain_behavior_lock" end time: Sep 14 09:11 BST
+"domain_behavior_lock" time elapsed: 00:00:00
+----------------------------------------------------------
+
+60/68 Testing: canopen_stack_build
+60/68 Test: canopen_stack_build
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_canopen_stack_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"canopen_stack_build" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+canopen_stack_tests passed
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_stack_build" end time: Sep 14 09:11 BST
+"canopen_stack_build" time elapsed: 00:00:00
+----------------------------------------------------------
+
+61/68 Testing: canopen_vcan_managed
+61/68 Test: canopen_vcan_managed
+Command: "/usr/bin/bash" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_socketcan_vcan.sh" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_canopen_vcan_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"canopen_vcan_managed" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+INFO: managed namespace vcan0 is up
+INFO: P5.5 observation service=boot raw_can_id=0x00000701 dlc=1 payload=0000000000000000 timestamp_ns=25548859609268 transport=1 boot=1
+INFO: P5.5 observation service=heartbeat raw_can_id=0x00000701 dlc=1 payload=0500000000000000 timestamp_ns=25548870904541 transport=1 boot=1
+INFO: P5.5 observation service=emcy raw_can_id=0x00000081 dlc=8 payload=34125678efcdab90 timestamp_ns=25548881653586 transport=1 boot=1
+INFO: P5.5 observation service=tpdo1 raw_can_id=0x00000181 dlc=8 payload=1122334455667788 timestamp_ns=25548892596275 transport=1 boot=1
+INFO: P5.5 observation service=tpdo2 raw_can_id=0x00000281 dlc=0 payload=0000000000000000 timestamp_ns=25548903638592 transport=1 boot=1
+INFO: P5.5 observation service=tpdo3 raw_can_id=0x00000381 dlc=0 payload=0000000000000000 timestamp_ns=25548914631556 transport=1 boot=1
+INFO: P5.5 observation service=tpdo4 raw_can_id=0x00000481 dlc=0 payload=0000000000000000 timestamp_ns=25548925763471 transport=1 boot=1
+INFO: P5.5 observation service=can_error raw_can_id=0x20000044 dlc=8 payload=0004123456789abc timestamp_ns=25549176584718 transport=1 boot=1
+INFO: P5.5 link loss operation=ioctl(SIOCGIFFLAGS) context="interface=vcan0 controller=127 remote=1 state=down" errno=100
+INFO: P5.5 managed-vcan receive evidence passed interface=vcan0 peer_frames=20 observer_tx_frames=0
+<end of output>
+Test time =   0.65 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_vcan_managed" end time: Sep 14 09:11 BST
+"canopen_vcan_managed" time elapsed: 00:00:00
+----------------------------------------------------------
+
+62/68 Testing: socketcan_frame_codec
+62/68 Test: socketcan_frame_codec
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_socketcan_frame_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"socketcan_frame_codec" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+socketcan_frame_tests passed
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"socketcan_frame_codec" end time: Sep 14 09:11 BST
+"socketcan_frame_codec" time elapsed: 00:00:00
+----------------------------------------------------------
+
+63/68 Testing: socketcan_socket_lifecycle
+63/68 Test: socketcan_socket_lifecycle
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_socketcan_socket_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"socketcan_socket_lifecycle" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing vcan interface for bind/filter/frame/metadata checks
+socketcan_socket_tests passed
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"socketcan_socket_lifecycle" end time: Sep 14 09:11 BST
+"socketcan_socket_lifecycle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+64/68 Testing: socketcan_vcan_managed
+64/68 Test: socketcan_vcan_managed
+Command: "/usr/bin/bash" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_socketcan_vcan.sh" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_socketcan_socket_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"socketcan_vcan_managed" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+INFO: managed namespace vcan0 is up
+INFO: managed vcan RX overflow evidence requested_rcvbuf=1024 effective_rcvbuf=2304 frames_attempted=4096 frames_sent=4096 raw_overflow_counter=4093
+INFO: managed vcan CAN error-frame evidence raw_can_id=0x20000044 error_classes=0x00000044 payload=0004123456789abc
+INFO: managed vcan link-down/reopen evidence interface=vcan0 original_ifindex=2 reopened_ifindex=2 receive_operation=poll receive_context="interface=vcan0 socket failure" receive_errno=5 send_operation=write send_context="interface=vcan0" send_errno=100 raw_can_id=0x000006a5 dlc=8 len8_dlc=0 payload=a55adeadbeef4224
+INFO: managed vcan bidirectional frame and filter isolation checks passed
+socketcan_socket_tests passed
+<end of output>
+Test time =   0.18 sec
+----------------------------------------------------------
+Test Passed.
+"socketcan_vcan_managed" end time: Sep 14 09:11 BST
+"socketcan_vcan_managed" time elapsed: 00:00:00
+----------------------------------------------------------
+
+65/68 Testing: can_interface_inhibitor_vcan_managed
+65/68 Test: can_interface_inhibitor_vcan_managed
+Command: "/usr/bin/bash" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_can_inhibitor_vcan.sh" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_can_interface_inhibitor_tests" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/can_interface_inhibitor/robot-control-can-interface-inhibitor" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tools/zlac_qualification/robot-control-zlac-qualification"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"can_interface_inhibitor_vcan_managed" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   1.59 sec
+----------------------------------------------------------
+Test Passed.
+"can_interface_inhibitor_vcan_managed" end time: Sep 14 09:11 BST
+"can_interface_inhibitor_vcan_managed" time elapsed: 00:00:01
+----------------------------------------------------------
+
+66/68 Testing: canopen_qualification_gate
+66/68 Test: canopen_qualification_gate
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_canopen_qualification_gate_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"canopen_qualification_gate" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_qualification_gate" end time: Sep 14 09:11 BST
+"canopen_qualification_gate" time elapsed: 00:00:00
+----------------------------------------------------------
+
+67/68 Testing: canopen_qualification_vcan_managed
+67/68 Test: canopen_qualification_vcan_managed
+Command: "/usr/bin/bash" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_socketcan_vcan.sh" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit/robot_control_canopen_qualification_vcan_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/unit
+"canopen_qualification_vcan_managed" start time: Sep 14 09:11 BST
+Output:
+----------------------------------------------------------
+INFO: managed namespace vcan0 is up
+communication stimulus=0 scenario=0 result=:
+communication stimulus=0 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=0 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=0 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 second_zero_failed=CO_SDOclientDownload:Connection timed out watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=0 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=0 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=1 result=qualification_nonzero_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=0 result=:
+communication stimulus=1 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=1 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=1 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 second_zero_failed=CO_SDOclientDownload:Connection timed out watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=1 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=1 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=2 result=qualification_expected_feedback_loss_absent:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=3 result=qualification_unexpected_feedback_loss:interface=vcan0 remote=1 cleanup_failed=qualification_dual_state_timeout:Connection timed out interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=0 result=:
+communication stimulus=2 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=2 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=2 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 second_zero_failed=CO_SDOclientDownload:Connection timed out watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=2 result=qualification_expected_feedback_loss_absent:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=3 result=qualification_unexpected_feedback_loss:interface=vcan0 remote=1 cleanup_failed=qualification_precondition:Transport endpoint is not connected interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=9 result=qualification_tpdo_timer_baseline:interface=vcan0 remote=1
+communication stimulus=3 scenario=0 result=: external_loss=observed cleanup=verified
+communication stimulus=3 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=3 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=3 scenario=13 result=: external_loss=observed cleanup=verified
+communication stimulus=3 scenario=14 result=: external_loss=observed cleanup=verified
+communication stimulus=3 scenario=15 result=qualification_expected_external_loss_absent:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=3 scenario=16 result=qualification_external_recovery_timeout:interface=vcan0 remote=1
+communication stimulus=3 scenario=17 result=CO_SDOclientDownload:interface=vcan0 remote=1 external_cleanup_unverified watchdog_retained=1000_or_unverified
+communication stimulus=3 scenario=18 result=qualification_expected_external_loss_absent:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=3 scenario=19 result=: external_loss=observed cleanup=verified
+communication stimulus=3 scenario=20 result=qualification_external_bus_error:interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=0 result=:
+manual_tpdo scenario=1 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=2 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=3 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=4 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=5 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=6 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=7 result=qualification_manual_bounds:interface=vcan0 remote=1
+manual_tpdo scenario=8 result=CO_SDOclientDownload:interface=vcan0 remote=1
+manual_tpdo scenario=10 result=qualification_manual_drive_enabled:interface=vcan0 remote=1
+manual_tpdo scenario=11 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=12 result=qualification_manual_tpdo_missing:interface=vcan0 remote=1
+manual_tpdo scenario=13 result=qualification_owner_exit:interface=vcan0 remote=1
+manual_tpdo scenario=14 result=qualification_manual_drive_enabled:interface=vcan0 remote=1
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=15 result=CO_SDOclientDownload:interface=vcan0 remote=1 manual_cleanup_unverified original=
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=16 result=qualification_upload:interface=vcan0 remote=1
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=17 result=qualification_manual_baseline:interface=vcan0 remote=1 manual_cleanup_unverified original=
+INFO: P6.3/P6.4 managed-vcan frames=18220 prohibited=0 failures=0
+<end of output>
+Test time =  81.90 sec
+----------------------------------------------------------
+Test Passed.
+"canopen_qualification_vcan_managed" end time: Sep 14 09:12 BST
+"canopen_qualification_vcan_managed" time elapsed: 00:01:21
+----------------------------------------------------------
+
+68/68 Testing: linux_platform_integration
+68/68 Test: linux_platform_integration
+Command: "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/integration/robot_control_linux_platform_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/userspace-inhibit-san/tests/integration
+"linux_platform_integration" start time: Sep 14 09:12 BST
+Output:
+----------------------------------------------------------
+linux_platform_integration passed
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"linux_platform_integration" end time: Sep 14 09:12 BST
+"linux_platform_integration" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 14 09:12 BST

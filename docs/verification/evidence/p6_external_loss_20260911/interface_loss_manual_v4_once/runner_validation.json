@@ -1,0 +1,9 @@
+{
+  "python_syntax_pass": true,
+  "actual_validator_accepts_100000_frames": true,
+  "rejects_100001": true,
+  "candump_bound": 100000,
+  "time_limit_seconds": 40,
+  "motion_limits_unchanged": true,
+  "hardware_executed": false
+}

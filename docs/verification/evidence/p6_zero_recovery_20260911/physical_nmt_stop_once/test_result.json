@@ -1,0 +1,9 @@
+{
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "failure_analysis": "failure_analysis.json",
+  "artifact_manifest": "../manifest_budget.json",
+  "physical_observation": "operator_observation.json",
+  "operator_confirmed_stopped_and_safe": true
+}

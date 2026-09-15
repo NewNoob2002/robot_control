@@ -1,0 +1,1220 @@
+[
+  {
+    "sha": "4b82c4e6018fb928afbd92719735b2acbd22363b",
+    "node_id": "C_kwDOIhzcdtoAKDRiODJjNGU2MDE4ZmI5MjhhZmJkOTI3MTk3MzViMmFjYmQyMjM2M2I",
+    "commit": {
+      "author": {
+        "name": "hejiawencc",
+        "email": "hjw0415@outlook.com",
+        "date": "2026-07-24T03:25:08Z"
+      },
+      "committer": {
+        "name": "hejiawencc",
+        "email": "hjw0415@outlook.com",
+        "date": "2026-07-24T03:37:52Z"
+      },
+      "message": "drivers can RK3568部分批次CAN驱动兼容性补丁#642482\n\ncommit 30ce62bbe27bc62318ec1e34ac26a10d3b6aac4d\nAuthor: Elaine Zhang <zhangqing@rock-chips.com>\nDate:   Mon Jun 15 15:01:24 2026 +0800\n\n    net: can: rockchip: rk3568: extend CPU version compatibility\n\n    Change the CPU version check from exact match (== 3) to\n    greater-or-equal(>= 3) to support higher CPU versions.\n\n    Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>\n    Change-Id: I8fe6161e5c48022478d60203d23c3e14e30d7317",
+      "tree": {
+        "sha": "dd5e78200ca2ba071b4f431d3c418f6c3baf0afb",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/dd5e78200ca2ba071b4f431d3c418f6c3baf0afb"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/4b82c4e6018fb928afbd92719735b2acbd22363b",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/4b82c4e6018fb928afbd92719735b2acbd22363b",
+    "html_url": "https://github.com/LubanCat/kernel/commit/4b82c4e6018fb928afbd92719735b2acbd22363b",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/4b82c4e6018fb928afbd92719735b2acbd22363b/comments",
+    "author": {
+      "login": "hejiawencc",
+      "id": 59357359,
+      "node_id": "MDQ6VXNlcjU5MzU3MzU5",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59357359?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/hejiawencc",
+      "html_url": "https://github.com/hejiawencc",
+      "followers_url": "https://api.github.com/users/hejiawencc/followers",
+      "following_url": "https://api.github.com/users/hejiawencc/following{/other_user}",
+      "gists_url": "https://api.github.com/users/hejiawencc/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/hejiawencc/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/hejiawencc/subscriptions",
+      "organizations_url": "https://api.github.com/users/hejiawencc/orgs",
+      "repos_url": "https://api.github.com/users/hejiawencc/repos",
+      "events_url": "https://api.github.com/users/hejiawencc/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/hejiawencc/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "hejiawencc",
+      "id": 59357359,
+      "node_id": "MDQ6VXNlcjU5MzU3MzU5",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59357359?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/hejiawencc",
+      "html_url": "https://github.com/hejiawencc",
+      "followers_url": "https://api.github.com/users/hejiawencc/followers",
+      "following_url": "https://api.github.com/users/hejiawencc/following{/other_user}",
+      "gists_url": "https://api.github.com/users/hejiawencc/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/hejiawencc/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/hejiawencc/subscriptions",
+      "organizations_url": "https://api.github.com/users/hejiawencc/orgs",
+      "repos_url": "https://api.github.com/users/hejiawencc/repos",
+      "events_url": "https://api.github.com/users/hejiawencc/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/hejiawencc/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "a9dc49732dd6df555a1e464aa2474edb3bcf270a",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/a9dc49732dd6df555a1e464aa2474edb3bcf270a",
+        "html_url": "https://github.com/LubanCat/kernel/commit/a9dc49732dd6df555a1e464aa2474edb3bcf270a"
+      }
+    ]
+  },
+  {
+    "sha": "b8489f3a1eb3285bb36e57f3d5e377aa40ca6d1c",
+    "node_id": "C_kwDOIhzcdtoAKGI4NDg5ZjNhMWViMzI4NWJiMzZlNTdmM2Q1ZTM3N2FhNDBjYTZkMWM",
+    "commit": {
+      "author": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2024-12-10T11:18:25Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2024-12-10T11:18:35Z"
+      },
+      "message": "net: can: rockchip: Fix typos in Rockchip copyright notices\n\nThere are many cases in which the company name is misspelled.\nThe patch fixes these typos.\n\nSigned-off-by: Tao Huang <huangtao@rock-chips.com>\nChange-Id: I6ea3c5eb92f7b9688a32613fe44ebbaa2b9d6c7e",
+      "tree": {
+        "sha": "7e44beabcb3280ccfce32bc1f59df90c22414fda",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/7e44beabcb3280ccfce32bc1f59df90c22414fda"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/b8489f3a1eb3285bb36e57f3d5e377aa40ca6d1c",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/b8489f3a1eb3285bb36e57f3d5e377aa40ca6d1c",
+    "html_url": "https://github.com/LubanCat/kernel/commit/b8489f3a1eb3285bb36e57f3d5e377aa40ca6d1c",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/b8489f3a1eb3285bb36e57f3d5e377aa40ca6d1c/comments",
+    "author": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "a4fe3c5d0c9777b76805c6a3ec92cbdd8f49159d",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/a4fe3c5d0c9777b76805c6a3ec92cbdd8f49159d",
+        "html_url": "https://github.com/LubanCat/kernel/commit/a4fe3c5d0c9777b76805c6a3ec92cbdd8f49159d"
+      }
+    ]
+  },
+  {
+    "sha": "a269396080e22d83283c445a8aeb44b90893e779",
+    "node_id": "C_kwDOIhzcdtoAKGEyNjkzOTYwODBlMjJkODMyODNjNDQ1YThhZWI0NGI5MDg5M2U3Nzk",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2024-04-22T06:46:01Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2024-04-22T07:24:36Z"
+      },
+      "message": "net: can: rockchip: Fix rockchip_canfd_start_xmit return type for GKI error\n\nrockchip_canfd_start_xmit is used as a callback function for the ndo_start_xmit\nfunction pointer. ndo_start_xmit's return type is netdev_tx_t but\nrockchip_canfd_start_xmit's return type is int.\n\nThis causes a failure with Control Flow Integrity (CFI), which requires\nfunction pointer prototypes and callback function definitions to match\nexactly. When CFI is in enforcing, the kernel panics. When booting a\nCFI kernel with WSL 2, the VM is immediately terminated because of this.\n\nThe splat when CONFIG_CFI_PERMISSIVE is used:\n\n[   82.432581][ T2211] CPU: 3 PID: 2211 Comm: cansend Tainted: G\nE      6.1.57-android14-11-gfc4b04d84027-ab11318753 #1\n[   82.433595][ T2211] Hardware name: Rockchip RK3568 EVB1 DDR4 V10\nBoard (DT)\n[   82.434206][ T2211] pstate: 30400005 (nzCV daif +PAN -UAO -TCO -DIT\n-SSBS BTYPE=--)\n[   82.434887][ T2211] pc : dev_hard_start_xmit+0xd0/0x260\n[   82.435367][ T2211] lr : sch_direct_xmit+0xf0/0x3d0\n[   82.435815][ T2211] sp : ffffffc0110f3a70\n[   82.436175][ T2211] x29: ffffffc0110f3a80 x28: ffffffc009f47000 x27:\nffffff800d078080\n[   82.436873][ T2211] x26: ffffffc009f2ed80 x25: ffffffc009f50550 x24:\n0000000000000010\n[   82.437567][ T2211] x23: ffffff807bfefc00 x22: ffffff800d078000 x21:\nffffff81f41b7200\n[   82.438261][ T2211] x20: 0000000000000000 x19: ffffffc0110f3ae4 x18:\nffffffc01075d070\n[   82.438954][ T2211] x17: 0000000044e57e43 x16: 00000000ab1f26f7 x15:\n0000007fec6a51b0\n[   82.439646][ T2211] x14: 0000000000000001 x13: 0000000008000000 x12:\nfffffffdeff6a120\n[   82.440340][ T2211] x11: 0000000000000000 x10: 0000000000000000 x9 :\nffffff81f9bf5d80\n[   82.441033][ T2211] x8 : ffffffc00262b620 x7 : 7f7f7f7f7f7f7f7f x6 :\nfefefefefefefeff\n[   82.441726][ T2211] x5 : 0000000000000001 x4 : 0000000000000000 x3 :\nffffffc0110f3ae4\n[   82.442418][ T2211] x2 : ffffff81f41b7200 x1 : ffffff800d078000 x0 :\nffffff807bfefc00\n[   82.443111][ T2211] Call trace:\n[   82.443393][ T2211]  dev_hard_start_xmit+0xd0/0x260\n[   82.443839][ T2211]  sch_direct_xmit+0xf0/0x3d0\n[   82.444247][ T2211]  __dev_queue_xmit+0x5f0/0xd40\n[   82.444667][ T2211]  can_send+0x22c/0x2b0 [can]\n[   82.445098][ T2211]  raw_sendmsg+0x1b4/0x3ac [can_raw]\n[   82.445585][ T2211]  sock_write_iter+0xdc/0x13c\n[   82.445997][ T2211]  vfs_write+0x1e0/0x2c8\n[   82.446375][ T2211]  ksys_write+0x78/0xe8\n[   82.446737][ T2211]  __arm64_sys_write+0x1c/0x2c\n[   82.447157][ T2211]  invoke_syscall+0x58/0x11c\n[   82.447557][ T2211]  el0_svc_common+0xb4/0xf4\n[   82.447954][ T2211]  do_el0_svc+0x2c/0xb0\n[   82.448316][ T2211]  el0_svc+0x2c/0xa4\n[   82.448661][ T2211]  el0t_64_sync_handler+0x68/0xb4\n[   82.449102][ T2211]  el0t_64_sync+0x1a4/0x1a8\n[   82.449504][ T2211] Code: 728fc871 72a89cb1 6b11021f 54000040\n(d4304500)\n[   82.450106][ T2211] ---[ end trace 0000000000000000 ]---\n[   82.468041][ T2211] Kernel panic - not syncing: Oops - CFI: Fatal\nexception in interrupt\n[   82.468776][ T2211] SMP: stopping secondary CPUs\n[   82.469267][ T2211] Kernel Offset: disabled\n[   82.469643][ T2211] CPU features: 0x00,00040000,00040184,6600721b\n[   82.470190][ T2211] Memory Limit: none\n[   82.470530][ T2211] PMU CRU:\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I62fa546e07984c7fd6acbd0bdf1278414b479829",
+      "tree": {
+        "sha": "e75cde7d446cb64d6d43a0b6e64fce02fc0c1c6f",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/e75cde7d446cb64d6d43a0b6e64fce02fc0c1c6f"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/a269396080e22d83283c445a8aeb44b90893e779",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/a269396080e22d83283c445a8aeb44b90893e779",
+    "html_url": "https://github.com/LubanCat/kernel/commit/a269396080e22d83283c445a8aeb44b90893e779",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/a269396080e22d83283c445a8aeb44b90893e779/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "70df1f691906104e83e9eb149f843e90bf4c2f8a",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/70df1f691906104e83e9eb149f843e90bf4c2f8a",
+        "html_url": "https://github.com/LubanCat/kernel/commit/70df1f691906104e83e9eb149f843e90bf4c2f8a"
+      }
+    ]
+  },
+  {
+    "sha": "c3b2ae5f10f771ce22ec66e09ea05cdb9ee10ff2",
+    "node_id": "C_kwDOIhzcdtoAKGMzYjJhZTVmMTBmNzcxY2UyMmVjNjZlMDllYTA1Y2RiOWVlMTBmZjI",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2024-01-23T09:50:42Z"
+      },
+      "committer": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2024-03-29T09:11:19Z"
+      },
+      "message": "net: can: rockchip: Fixed compilation errors caused by kernel update\n\ndrivers/net/can/rockchip/rockchip_canfd:24:24: fatal error:\nlinux/can/led.h: No such file or directory\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I275af809bc9287ba2b5855164166aebcb348e259",
+      "tree": {
+        "sha": "59f53252ad7e5f84fe1055a0b65c7db091abb6a7",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/59f53252ad7e5f84fe1055a0b65c7db091abb6a7"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/c3b2ae5f10f771ce22ec66e09ea05cdb9ee10ff2",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/c3b2ae5f10f771ce22ec66e09ea05cdb9ee10ff2",
+    "html_url": "https://github.com/LubanCat/kernel/commit/c3b2ae5f10f771ce22ec66e09ea05cdb9ee10ff2",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/c3b2ae5f10f771ce22ec66e09ea05cdb9ee10ff2/comments",
+    "author": null,
+    "committer": null,
+    "parents": [
+      {
+        "sha": "664c1ecc28c0aec1a6eeedfde0dcb4b487597e67",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/664c1ecc28c0aec1a6eeedfde0dcb4b487597e67",
+        "html_url": "https://github.com/LubanCat/kernel/commit/664c1ecc28c0aec1a6eeedfde0dcb4b487597e67"
+      }
+    ]
+  },
+  {
+    "sha": "64ab42efa552b21f5d9cd259f7f13c8b5125842d",
+    "node_id": "C_kwDOIhzcdtoAKDY0YWI0MmVmYTU1MmIyMWY1ZDljZDI1OWY3ZjEzYzhiNTEyNTg0MmQ",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2023-11-06T01:56:50Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2023-11-06T09:15:22Z"
+      },
+      "message": "net: can: rockchip: use soft reset for bus off\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I8950b7ee8fa677376600599922aa6c40d1af2d0a",
+      "tree": {
+        "sha": "f2640fcb73d9c2b6a4263e503a67595789191d43",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/f2640fcb73d9c2b6a4263e503a67595789191d43"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/64ab42efa552b21f5d9cd259f7f13c8b5125842d",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/64ab42efa552b21f5d9cd259f7f13c8b5125842d",
+    "html_url": "https://github.com/LubanCat/kernel/commit/64ab42efa552b21f5d9cd259f7f13c8b5125842d",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/64ab42efa552b21f5d9cd259f7f13c8b5125842d/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "9038fae6bddb6dd9c0af4cfde90d88a9ea021635",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/9038fae6bddb6dd9c0af4cfde90d88a9ea021635",
+        "html_url": "https://github.com/LubanCat/kernel/commit/9038fae6bddb6dd9c0af4cfde90d88a9ea021635"
+      }
+    ]
+  },
+  {
+    "sha": "9038fae6bddb6dd9c0af4cfde90d88a9ea021635",
+    "node_id": "C_kwDOIhzcdtoAKDkwMzhmYWU2YmRkYjZkZDljMGFmNGNmZGU5MGQ4OGE5ZWEwMjE2MzU",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2023-11-06T01:50:18Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2023-11-06T09:15:22Z"
+      },
+      "message": "net: can: rockchip: fix rx stuck and timeout\n\nIn some special applications, tx has read data from the fifo, rx to read\nthe fifo is 0 when there is no need to do timeout waiting.\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I7f4bc88ace026088228396da96d628bebb9e4b94",
+      "tree": {
+        "sha": "f895d576fbfeebf137c1baa7e67cb81b53f5406d",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/f895d576fbfeebf137c1baa7e67cb81b53f5406d"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/9038fae6bddb6dd9c0af4cfde90d88a9ea021635",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/9038fae6bddb6dd9c0af4cfde90d88a9ea021635",
+    "html_url": "https://github.com/LubanCat/kernel/commit/9038fae6bddb6dd9c0af4cfde90d88a9ea021635",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/9038fae6bddb6dd9c0af4cfde90d88a9ea021635/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "e903c656610598fda90716f232f64ad39bf32a49",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/e903c656610598fda90716f232f64ad39bf32a49",
+        "html_url": "https://github.com/LubanCat/kernel/commit/e903c656610598fda90716f232f64ad39bf32a49"
+      }
+    ]
+  },
+  {
+    "sha": "e903c656610598fda90716f232f64ad39bf32a49",
+    "node_id": "C_kwDOIhzcdtoAKGU5MDNjNjU2NjEwNTk4ZmRhOTA3MTZmMjMyZjY0YWQzOWJmMzJhNDk",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2023-11-06T01:49:15Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2023-11-06T09:15:22Z"
+      },
+      "message": "net: can: rockchip: support Listen-only mode\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I6b566f3f0834ff01e9cff1c1b7ef3934c2e5ec37",
+      "tree": {
+        "sha": "a340e356b1ae48b207144f6748656c5b26509302",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/a340e356b1ae48b207144f6748656c5b26509302"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/e903c656610598fda90716f232f64ad39bf32a49",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/e903c656610598fda90716f232f64ad39bf32a49",
+    "html_url": "https://github.com/LubanCat/kernel/commit/e903c656610598fda90716f232f64ad39bf32a49",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/e903c656610598fda90716f232f64ad39bf32a49/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4314dcc88fad787dfacdbab51ad9f135b2c550e7",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/4314dcc88fad787dfacdbab51ad9f135b2c550e7",
+        "html_url": "https://github.com/LubanCat/kernel/commit/4314dcc88fad787dfacdbab51ad9f135b2c550e7"
+      }
+    ]
+  },
+  {
+    "sha": "4314dcc88fad787dfacdbab51ad9f135b2c550e7",
+    "node_id": "C_kwDOIhzcdtoAKDQzMTRkY2M4OGZhZDc4N2RmYWNkYmFiNTFhZDlmMTM1YjJjNTUwZTc",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2023-10-13T02:21:20Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2023-11-06T09:15:22Z"
+      },
+      "message": "net: can: rockchip: fix tx error in special application\n\nadd wait tx req cmd.\nfix warning: \"BUG! echo_skb %d is occupied!\"\ndisable space_rx_mode when tx req to fix extended frame probability\nchange standard frame.\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I0b11d985224682700f43cb155f357b28622dc4be",
+      "tree": {
+        "sha": "ee78ec591facf9d4df2fb3cf3e41981dc69162bd",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/ee78ec591facf9d4df2fb3cf3e41981dc69162bd"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/4314dcc88fad787dfacdbab51ad9f135b2c550e7",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/4314dcc88fad787dfacdbab51ad9f135b2c550e7",
+    "html_url": "https://github.com/LubanCat/kernel/commit/4314dcc88fad787dfacdbab51ad9f135b2c550e7",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/4314dcc88fad787dfacdbab51ad9f135b2c550e7/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ecd2f7a8a0bf605b71e2e40bdfa2dd62fce2d2c4",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/ecd2f7a8a0bf605b71e2e40bdfa2dd62fce2d2c4",
+        "html_url": "https://github.com/LubanCat/kernel/commit/ecd2f7a8a0bf605b71e2e40bdfa2dd62fce2d2c4"
+      }
+    ]
+  },
+  {
+    "sha": "582cfd38c121900242ac54513c67e5517764884c",
+    "node_id": "C_kwDOIhzcdtoAKDU4MmNmZDM4YzEyMTkwMDI0MmFjNTQ1MTNjNjdlNTUxNzc2NDg4NGM",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2023-07-28T08:49:37Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2023-08-09T08:09:59Z"
+      },
+      "message": "net: can: rockchip: support rk3568 can v2\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I0d977d3c95e29b5f05e5e2c1681bdf2ad951e70a",
+      "tree": {
+        "sha": "61e2f99f51a614f21c030f688a21bcae02ba86cb",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/61e2f99f51a614f21c030f688a21bcae02ba86cb"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/582cfd38c121900242ac54513c67e5517764884c",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/582cfd38c121900242ac54513c67e5517764884c",
+    "html_url": "https://github.com/LubanCat/kernel/commit/582cfd38c121900242ac54513c67e5517764884c",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/582cfd38c121900242ac54513c67e5517764884c/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "46449e5334ffd1b21f1f509e8f4d55240d076581",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/46449e5334ffd1b21f1f509e8f4d55240d076581",
+        "html_url": "https://github.com/LubanCat/kernel/commit/46449e5334ffd1b21f1f509e8f4d55240d076581"
+      }
+    ]
+  },
+  {
+    "sha": "1377256d124214615d684e35383ca096b865eeef",
+    "node_id": "C_kwDOIhzcdtoAKDEzNzcyNTZkMTI0MjE0NjE1ZDY4NGUzNTM4M2NhMDk2Yjg2NWVlZWY",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2022-10-18T10:21:27Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2022-10-28T08:25:50Z"
+      },
+      "message": "net: can: rockchip: canfd: Add delay work to check tx errors\n\nFixes: aed0776380bd (\"canfd: Support extended frames transmit for rk3568\")\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I7d3ea5ca8ac501d81ec9f0ca15f6e3816080a4b5",
+      "tree": {
+        "sha": "805515a1b1d3a5044cb912adcd46dc6bfd220ba2",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/805515a1b1d3a5044cb912adcd46dc6bfd220ba2"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/1377256d124214615d684e35383ca096b865eeef",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/1377256d124214615d684e35383ca096b865eeef",
+    "html_url": "https://github.com/LubanCat/kernel/commit/1377256d124214615d684e35383ca096b865eeef",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/1377256d124214615d684e35383ca096b865eeef/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "4bf48294483f3ed5bff293c340afba1439886217",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/4bf48294483f3ed5bff293c340afba1439886217",
+        "html_url": "https://github.com/LubanCat/kernel/commit/4bf48294483f3ed5bff293c340afba1439886217"
+      }
+    ]
+  },
+  {
+    "sha": "aed0776380bd745052f2710933486ca2de887e63",
+    "node_id": "C_kwDOIhzcdtoAKGFlZDA3NzYzODBiZDc0NTA1MmYyNzEwOTMzNDg2Y2EyZGU4ODdlNjM",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2022-09-23T02:06:01Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2022-09-30T06:45:07Z"
+      },
+      "message": "net: can: rockchip: canfd: Support extended frames transmit for rk3568\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I097fd66d34b56d9e6104f21da40e5b41bf2b4109",
+      "tree": {
+        "sha": "2ca1c60823d2e247cf5771ab287aa128314289eb",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/2ca1c60823d2e247cf5771ab287aa128314289eb"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/aed0776380bd745052f2710933486ca2de887e63",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/aed0776380bd745052f2710933486ca2de887e63",
+    "html_url": "https://github.com/LubanCat/kernel/commit/aed0776380bd745052f2710933486ca2de887e63",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/aed0776380bd745052f2710933486ca2de887e63/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ce59362f58cf0bac63abb07acf9054270ec4f104",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/ce59362f58cf0bac63abb07acf9054270ec4f104",
+        "html_url": "https://github.com/LubanCat/kernel/commit/ce59362f58cf0bac63abb07acf9054270ec4f104"
+      }
+    ]
+  },
+  {
+    "sha": "b310fe79b2c3b3d0001210183e511ef265586424",
+    "node_id": "C_kwDOIhzcdtoAKGIzMTBmZTc5YjJjM2IzZDAwMDEyMTAxODNlNTExZWYyNjU1ODY0MjQ",
+    "commit": {
+      "author": {
+        "name": "Addy Ke",
+        "email": "addy.ke@rock-chips.com",
+        "date": "2022-06-02T07:38:26Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2022-09-01T02:57:22Z"
+      },
+      "message": "net: can: rockchip: fix up the canfd/can BUS_OFF_INT error\n\nBUS_OFF_INT is BIT(9), so 'isr' and 'isr_int' should NOT be u8.\nAlso err_int should add BUS_OFF_INT.\n\nSigned-off-by: Addy Ke <addy.ke@rock-chips.com>\nChange-Id: I7462bb68ca6a710c0b72179cc5440fce7067a0e8",
+      "tree": {
+        "sha": "5efd1a0f21fcfd34e79e4989c9ad8adc4ef63286",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/5efd1a0f21fcfd34e79e4989c9ad8adc4ef63286"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/b310fe79b2c3b3d0001210183e511ef265586424",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/b310fe79b2c3b3d0001210183e511ef265586424",
+    "html_url": "https://github.com/LubanCat/kernel/commit/b310fe79b2c3b3d0001210183e511ef265586424",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/b310fe79b2c3b3d0001210183e511ef265586424/comments",
+    "author": {
+      "login": "addyke",
+      "id": 46507781,
+      "node_id": "MDQ6VXNlcjQ2NTA3Nzgx",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46507781?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/addyke",
+      "html_url": "https://github.com/addyke",
+      "followers_url": "https://api.github.com/users/addyke/followers",
+      "following_url": "https://api.github.com/users/addyke/following{/other_user}",
+      "gists_url": "https://api.github.com/users/addyke/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/addyke/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/addyke/subscriptions",
+      "organizations_url": "https://api.github.com/users/addyke/orgs",
+      "repos_url": "https://api.github.com/users/addyke/repos",
+      "events_url": "https://api.github.com/users/addyke/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/addyke/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "e4ca020f8264403f398dda62d78984ffbd4493eb",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/e4ca020f8264403f398dda62d78984ffbd4493eb",
+        "html_url": "https://github.com/LubanCat/kernel/commit/e4ca020f8264403f398dda62d78984ffbd4493eb"
+      }
+    ]
+  },
+  {
+    "sha": "09b21de775cdc8b1477bdcffa2d9cfcd49e75c99",
+    "node_id": "C_kwDOIhzcdtoAKDA5YjIxZGU3NzVjZGM4YjE0NzdiZGNmZmEyZDljZmNkNDllNzVjOTk",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2021-11-29T11:40:10Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2021-12-02T03:16:56Z"
+      },
+      "message": "net: can: rockchip: fix up the canfd/can error\n\nTo classify errors:\nRX/TX error count < 128 is CAN_STATE_ERROR_WARNING,\nAn error frame is sent, enters the active error state.\nRX/TX error count < 256 is CAN_STATE_ERROR_PASSIVE,\nAn error frame is sent, enter passive error state.\nRX/TX error count >= 256 is CAN_STATE_BUS_OFF,\ncan bus off need to restart.\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I4a85af3c86c5dfd14e4274832b0fb55ac09c98f7",
+      "tree": {
+        "sha": "bec71f84202e4a7edae4b5ed1623d632e41f0e71",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/bec71f84202e4a7edae4b5ed1623d632e41f0e71"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/09b21de775cdc8b1477bdcffa2d9cfcd49e75c99",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/09b21de775cdc8b1477bdcffa2d9cfcd49e75c99",
+    "html_url": "https://github.com/LubanCat/kernel/commit/09b21de775cdc8b1477bdcffa2d9cfcd49e75c99",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/09b21de775cdc8b1477bdcffa2d9cfcd49e75c99/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "66586e0579ef0da00826217cfe6cabb8bb388652",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/66586e0579ef0da00826217cfe6cabb8bb388652",
+        "html_url": "https://github.com/LubanCat/kernel/commit/66586e0579ef0da00826217cfe6cabb8bb388652"
+      }
+    ]
+  },
+  {
+    "sha": "e1271eecd2d74b9b579bb02b01d2d53030a818b8",
+    "node_id": "C_kwDOIhzcdtoAKGUxMjcxZWVjZDJkNzRiOWI1NzliYjAyYjAxZDJkNTMwMzBhODE4Yjg",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2021-11-29T11:19:21Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2021-12-01T07:35:06Z"
+      },
+      "message": "net: can: rockchip: support can-2.0\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I8fee96d28118c635dcbaad79fa32c2397e1f1809",
+      "tree": {
+        "sha": "f47e3f938ca21d227c67245e413be2182b95c946",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/f47e3f938ca21d227c67245e413be2182b95c946"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/e1271eecd2d74b9b579bb02b01d2d53030a818b8",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/e1271eecd2d74b9b579bb02b01d2d53030a818b8",
+    "html_url": "https://github.com/LubanCat/kernel/commit/e1271eecd2d74b9b579bb02b01d2d53030a818b8",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/e1271eecd2d74b9b579bb02b01d2d53030a818b8/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "1403265a5ee6b92de1f83147df5d2df9777f54c6",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/1403265a5ee6b92de1f83147df5d2df9777f54c6",
+        "html_url": "https://github.com/LubanCat/kernel/commit/1403265a5ee6b92de1f83147df5d2df9777f54c6"
+      }
+    ]
+  },
+  {
+    "sha": "f075850bac79335276ac946ed4a5ab0fdc5898cd",
+    "node_id": "MDY6Q29tbWl0NTcyMzE2NzkwOmYwNzU4NTBiYWM3OTMzNTI3NmFjOTQ2ZWQ0YTVhYjBmZGM1ODk4Y2Q=",
+    "commit": {
+      "author": {
+        "name": "Andy Yan",
+        "email": "andy.yan@rock-chips.com",
+        "date": "2019-03-25T11:30:27Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2021-08-11T08:32:38Z"
+      },
+      "message": "net: can: add rockchip CAN driver\n\nChange-Id: I985eb81f4e06c085be66d2db2cd5c879bda0dd69\nSigned-off-by: Andy Yan <andy.yan@rock-chips.com>\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>",
+      "tree": {
+        "sha": "bcec53004f84104b9940e45a7d7d1074c2650fb2",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/bcec53004f84104b9940e45a7d7d1074c2650fb2"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/f075850bac79335276ac946ed4a5ab0fdc5898cd",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/f075850bac79335276ac946ed4a5ab0fdc5898cd",
+    "html_url": "https://github.com/LubanCat/kernel/commit/f075850bac79335276ac946ed4a5ab0fdc5898cd",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/f075850bac79335276ac946ed4a5ab0fdc5898cd/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "01ef0fdf338b68a980f5fce3def2aacee12a0622",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/01ef0fdf338b68a980f5fce3def2aacee12a0622",
+        "html_url": "https://github.com/LubanCat/kernel/commit/01ef0fdf338b68a980f5fce3def2aacee12a0622"
+      }
+    ]
+  },
+  {
+    "sha": "394d2ee04d9127d7724c5f1141f9e75ddf9a026f",
+    "node_id": "MDY6Q29tbWl0NTcyMzE2NzkwOjM5NGQyZWUwNGQ5MTI3ZDc3MjRjNWYxMTQxZjllNzVkZGY5YTAyNmY=",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2021-03-04T12:03:26Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2021-03-05T01:28:52Z"
+      },
+      "message": "net: can: rockchip: fix up the receiving filter ID\n\nID MASK bit is bit[28:0].\n\nChange-Id: Id8202e777c2b9daabe2b06335bfb20bb14cc7469\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>",
+      "tree": {
+        "sha": "0b4cbe1a4859059b099e72960314189247b1547d",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/0b4cbe1a4859059b099e72960314189247b1547d"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/394d2ee04d9127d7724c5f1141f9e75ddf9a026f",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/394d2ee04d9127d7724c5f1141f9e75ddf9a026f",
+    "html_url": "https://github.com/LubanCat/kernel/commit/394d2ee04d9127d7724c5f1141f9e75ddf9a026f",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/394d2ee04d9127d7724c5f1141f9e75ddf9a026f/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "1ae52baba352c22ba0d809c0de7673cc79fc321e",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/1ae52baba352c22ba0d809c0de7673cc79fc321e",
+        "html_url": "https://github.com/LubanCat/kernel/commit/1ae52baba352c22ba0d809c0de7673cc79fc321e"
+      }
+    ]
+  },
+  {
+    "sha": "9823a37f8049e638810d832fe81fba72401591e1",
+    "node_id": "MDY6Q29tbWl0NTcyMzE2NzkwOjk4MjNhMzdmODA0OWU2Mzg4MTBkODMyZmU4MWZiYTcyNDAxNTkxZTE=",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2021-01-05T09:49:12Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2021-01-05T11:28:21Z"
+      },
+      "message": "net: can: rockchip: canfd: fix up the bus error\n\nFix up tdc calculation rules.\nEnable auto retransmission mode.\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: Ia909a71572be768be6639455129ef5c8885f4720",
+      "tree": {
+        "sha": "518c8f300a29341a01bc1f1d35c624779cb89c17",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/518c8f300a29341a01bc1f1d35c624779cb89c17"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/9823a37f8049e638810d832fe81fba72401591e1",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/9823a37f8049e638810d832fe81fba72401591e1",
+    "html_url": "https://github.com/LubanCat/kernel/commit/9823a37f8049e638810d832fe81fba72401591e1",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/9823a37f8049e638810d832fe81fba72401591e1/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ec7b288bbc563e90f36d0021ddc5295c61048fb6",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/ec7b288bbc563e90f36d0021ddc5295c61048fb6",
+        "html_url": "https://github.com/LubanCat/kernel/commit/ec7b288bbc563e90f36d0021ddc5295c61048fb6"
+      }
+    ]
+  },
+  {
+    "sha": "ff1b15e1a65f6a881d9f9659559e2d6958d1b1fb",
+    "node_id": "MDY6Q29tbWl0NTcyMzE2NzkwOmZmMWIxNWUxYTY1ZjZhODgxZDlmOTY1OTU1OWUyZDY5NThkMWIxZmI=",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2020-08-24T07:16:13Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2020-08-25T10:44:16Z"
+      },
+      "message": "net: can: rockchip: modify the usleep to udelay\n\nusleep cannot be used in interrupts,\nuse udelay instead of usleep.\n\nGenerally, the reset time is 5 cycles(PCLK).\n\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>\nChange-Id: I7cf1cac018aa2b440ed79dcb4e8fb77607930bb0",
+      "tree": {
+        "sha": "4dc84faf3e43a5d696f56381b8e679c9f94eafdc",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/4dc84faf3e43a5d696f56381b8e679c9f94eafdc"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/ff1b15e1a65f6a881d9f9659559e2d6958d1b1fb",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/ff1b15e1a65f6a881d9f9659559e2d6958d1b1fb",
+    "html_url": "https://github.com/LubanCat/kernel/commit/ff1b15e1a65f6a881d9f9659559e2d6958d1b1fb",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/ff1b15e1a65f6a881d9f9659559e2d6958d1b1fb/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "917892f92afe73944db2596041b2cd5790b22f0b",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/917892f92afe73944db2596041b2cd5790b22f0b",
+        "html_url": "https://github.com/LubanCat/kernel/commit/917892f92afe73944db2596041b2cd5790b22f0b"
+      }
+    ]
+  },
+  {
+    "sha": "6d1fd05b9d66a4afc95381fe44ccf0e46026b689",
+    "node_id": "MDY6Q29tbWl0NTcyMzE2NzkwOjZkMWZkMDViOWQ2NmE0YWZjOTUzODFmZTQ0Y2NmMGU0NjAyNmI2ODk=",
+    "commit": {
+      "author": {
+        "name": "Elaine Zhang",
+        "email": "zhangqing@rock-chips.com",
+        "date": "2020-07-13T07:45:44Z"
+      },
+      "committer": {
+        "name": "Tao Huang",
+        "email": "huangtao@rock-chips.com",
+        "date": "2020-07-16T07:10:00Z"
+      },
+      "message": "net: can: add rockchip CANFD driver\n\nChange-Id: Ie49293531038583e7d0d4b8055dba3e8f026d734\nSigned-off-by: Elaine Zhang <zhangqing@rock-chips.com>",
+      "tree": {
+        "sha": "925e904c2b217a3ada201fdb81523ba67d9822af",
+        "url": "https://api.github.com/repos/LubanCat/kernel/git/trees/925e904c2b217a3ada201fdb81523ba67d9822af"
+      },
+      "url": "https://api.github.com/repos/LubanCat/kernel/git/commits/6d1fd05b9d66a4afc95381fe44ccf0e46026b689",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/LubanCat/kernel/commits/6d1fd05b9d66a4afc95381fe44ccf0e46026b689",
+    "html_url": "https://github.com/LubanCat/kernel/commit/6d1fd05b9d66a4afc95381fe44ccf0e46026b689",
+    "comments_url": "https://api.github.com/repos/LubanCat/kernel/commits/6d1fd05b9d66a4afc95381fe44ccf0e46026b689/comments",
+    "author": null,
+    "committer": {
+      "login": "rkhuangtao",
+      "id": 18049858,
+      "node_id": "MDQ6VXNlcjE4MDQ5ODU4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18049858?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rkhuangtao",
+      "html_url": "https://github.com/rkhuangtao",
+      "followers_url": "https://api.github.com/users/rkhuangtao/followers",
+      "following_url": "https://api.github.com/users/rkhuangtao/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rkhuangtao/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rkhuangtao/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rkhuangtao/subscriptions",
+      "organizations_url": "https://api.github.com/users/rkhuangtao/orgs",
+      "repos_url": "https://api.github.com/users/rkhuangtao/repos",
+      "events_url": "https://api.github.com/users/rkhuangtao/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rkhuangtao/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ebe6e465c43321571fdd0d38f99b69e8eebdc7bc",
+        "url": "https://api.github.com/repos/LubanCat/kernel/commits/ebe6e465c43321571fdd0d38f99b69e8eebdc7bc",
+        "html_url": "https://github.com/LubanCat/kernel/commit/ebe6e465c43321571fdd0d38f99b69e8eebdc7bc"
+      }
+    ]
+  }
+]

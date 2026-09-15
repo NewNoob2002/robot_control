@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-14",
+  "target": "RK3588 robot-dev can0 node1",
+  "operator_confirmed": {
+    "drive_power_initially_off": true,
+    "wheels_raised_and_stopped": true,
+    "site_safe": true,
+    "emergency_stop_available": true,
+    "rk3588_can_branch_connected": true,
+    "mechanical_brake_present": false
+  },
+  "stimulus": "One right +5 rpm target with left zero, one drive-only power cut, one power restoration, five-second minimum no-restart observation, final drive power-off",
+  "jcan": {
+    "serial": "207F346D5650",
+    "mode": "normal",
+    "link_layer_ack": true,
+    "data_frame_commands_allowed": 0
+  },
+  "attempts": 1,
+  "automatic_retry": false,
+  "final_safe_state": "drive power OFF and can0 DOWN"
+}

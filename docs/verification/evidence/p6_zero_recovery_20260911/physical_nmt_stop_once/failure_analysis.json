@@ -1,0 +1,31 @@
+{
+  "status": "failed",
+  "failure_stage": "NMT stop/recovery and cleanup verification",
+  "attempts": 1,
+  "frames": 147,
+  "capture_pairs_equal": true,
+  "target_to_nmt_stop_ms": 1000.889,
+  "nonzero_target_requests": 1,
+  "nmt_stop_requests": 1,
+  "stopped_heartbeat_observed": false,
+  "packed_target_final_readback": 0,
+  "heartbeat_final_readback": 0,
+  "final_tpdo": "2714274400003400",
+  "fresh_final_speed_verified": false,
+  "drive_state_cleanup_verified": false,
+  "executor_and_capture_processes_stopped": true,
+  "can_errors_drops": 0,
+  "sdo_transactions": 49,
+  "operator_safe_state_confirmation": {
+    "date": "2026-09-11",
+    "user_confirmation": "右轮逆时针旋转了一点然后停止了，两轮已停止、现场安全",
+    "right_wheel": "brief counterclockwise movement, then stopped (operator viewpoint unspecified)",
+    "both_wheels_stopped": true,
+    "site_safe": true,
+    "protocol_test_passed": false,
+    "drive_state_cleanup_verified": false,
+    "authorization_for_retry": false
+  },
+  "error": "qualification_nonzero_tpdo_velocity: interface=can0 remote=1 zero_restore_failed=qualification_nonzero_tpdo_velocity:Numerical result out of range cleanup_failed=qualification_dual_state_timeout:Connection timed out interface=can0 remote=1: Numerical result out of range",
+  "no_retry": true
+}

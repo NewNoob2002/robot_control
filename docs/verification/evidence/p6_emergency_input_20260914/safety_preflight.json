@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-15",
+  "status": "AUTHORIZED_NOT_RUN",
+  "target": "RK3588 robot-dev can0 node1",
+  "initial_state": "drive power OFF, wheels stopped, site safe, can0 DOWN",
+  "hardware": {
+    "wheels_raised": true,
+    "emergency_power_disconnect_available": true,
+    "input": "X1 / INPUT2",
+    "contact_normal_state": "normally open; open while button is not pressed",
+    "reset": "rotate or pull; maintained reset",
+    "mechanical_brake_present": false
+  },
+  "traffic": {
+    "target_commands": 0,
+    "controlword_commands": 0,
+    "jcan_mode": "silent",
+    "jcan_ack": false,
+    "jcan_data_frame_commands": 0,
+    "qualification_operation": "--manual-tpdo"
+  },
+  "attempts": 1,
+  "automatic_retry": false,
+  "final_safe_state": "drive power OFF and can0 DOWN"
+}

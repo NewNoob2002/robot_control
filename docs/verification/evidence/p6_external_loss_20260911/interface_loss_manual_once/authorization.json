@@ -1,0 +1,15 @@
+{
+  "authorized": true,
+  "stimulus": "interface_loss",
+  "elf_sha256": "a8040dc1a7837a481644a00ce48293aed7cf09ccb9ac4b31255f7cb71372d3e7",
+  "operator_ready": true,
+  "user_confirmation": "ok, 继续剩余项的前四项测试；SIGTERM现场全部符合，现场安全；可以在RK3588终端执行sudo命令",
+  "date": "2026-09-11",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--external-loss-once"
+  ],
+  "authorization_context": "Second of four authorized tests. Same RK3588/node1; unloaded raised wheels; right +5 rpm, left zero, <=3 second wait for external loss; watchdog1000ms. Administratively down can0 once after nonzero TPDO and >=300ms from target, restore same interface after3s without changing bitrate/network settings. Passive recovery <=10s; first resumed request packedzero then heartbeat500/Preop/DisableVoltage/freshzero/HB0/watchdog0. No re-enable or physical retry. JCAN silent observer, bounded40s/10000frames; CANopen requests standard Classical node1 only. Prior attempt aborted before interface change; cleanup and site safety confirmed. Operator has confirmed ability to execute sudo locally. New coordinated run uses a root terminal gate, Enter once after visible right motion; root helper waits for application arming and restores interface after3s. No unattended retry."
+}

@@ -1,0 +1,9 @@
+{
+  "drive_power": "OFF",
+  "both_wheels_stopped": true,
+  "site_safe": true,
+  "disconnect_prompt_seen": true,
+  "rk3588_branch_disconnected": false,
+  "rk3588_branch_reconnected": false,
+  "operator_statement": "没有拔下，刚准备拔下时你报告了错误"
+}

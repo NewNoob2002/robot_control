@@ -1,0 +1,39 @@
+{
+  "protocol_and_cleanup_passed": true,
+  "attempts": 1,
+  "matched_frames": 140,
+  "sdo_transactions": 49,
+  "target_to_stop_ms": 1000.939,
+  "stop_to_stopped_heartbeat_ms": 98.014,
+  "stop_to_preop_ms": 99.994,
+  "stop_to_disable_voltage_ms": 349.101,
+  "stop_to_recovered_zero_sdo_ms": 357.42,
+  "final_status_raw": "0x14601460",
+  "final_nmt": "Pre-operational",
+  "final_three_speed_readbacks": [
+    0,
+    0,
+    0
+  ],
+  "heartbeat_restored": 0,
+  "left_tpdo_zero": true,
+  "right_raw_speed_range": [
+    17,
+    54
+  ],
+  "post_stop_tpdo_count": 0,
+  "can_errors_drops": 0,
+  "limits": "Recovered SDO zero proves cleanup, not the time NMT alone stopped the wheel. No post-Stop PDO production is required. Physical response still needs operator observation.",
+  "operator": {
+    "date": "2026-09-11",
+    "user_confirmation": "\u5168\u90e8\u7b26\u5408\uff0c\u53cc\u8f6e\u5df2\u505c\u6b62\u4e14\u73b0\u573a\u5b89\u5168",
+    "accepted": true,
+    "right_wheel_brief_motion_then_normal_stop": true,
+    "left_wheel_stationary": true,
+    "no_restart": true,
+    "no_abnormal_sound": true,
+    "both_wheels_stopped": true,
+    "site_safe": true,
+    "limits": "Operator accepted this one bounded trial; no added physical axis/sign convention or NMT-only stop latency claim."
+  }
+}

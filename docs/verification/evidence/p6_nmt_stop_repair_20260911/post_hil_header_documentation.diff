@@ -1,0 +1,15 @@
+--- HIL snapshot/communication/canopen/qualification.hpp
++++ final tree/communication/canopen/qualification.hpp
+@@ -143,9 +143,9 @@
+      *
+      * @param channel Neutral independent subindex to command.
+      * @param rpm Nonzero whole-rpm target with absolute value at most 10.
+-     * @param duration Positive pre-stop interval no greater than ten seconds.
+-     * @param transition_timeout Positive per-state deadline no greater than five seconds.
+-     * @return Success only after observed Stopped, verified zero, Operational cleanup, and baseline restoration.
++     * @param duration Positive pre-stop interval no greater than two seconds.
++     * @param transition_timeout Positive per-state deadline no greater than five seconds.
++     * @return Success after new Stopped heartbeat, disabled/zero SDO feedback in Pre-operational, and restoration.
+      *
+      * Thread safety: Qualification owner thread only; callable once per session.
+      */

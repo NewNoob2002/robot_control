@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "source_revision": "f3d88d4766c80ae5a35784b4f883e3f549b1c06d",
+  "artifact_sha256": "fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205",
+  "level": "hil",
+  "target": "RK3588 robot-dev can0 node1",
+  "command": "rtk proxy python3 docs/verification/evidence/p6_sync_remainder_20260911/quick_stop/local_trial.py",
+  "attempts": 1,
+  "passed": true,
+  "counts": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "classified_failures": [],
+  "safety_preflight": "safety_preflight.json",
+  "current_authorization": "current_operator_authorization.json",
+  "analysis": "analysis.json",
+  "operator_observation": "operator_observation.json",
+  "log": "target/executor.log",
+  "process_cleanup_passed": true,
+  "drive_cleanup_verified": true,
+  "requirements": [
+    "P6.6 quick_stop",
+    "P6.7 evidence"
+  ]
+}

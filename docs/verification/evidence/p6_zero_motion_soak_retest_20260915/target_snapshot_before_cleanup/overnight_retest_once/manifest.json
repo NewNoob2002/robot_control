@@ -1,0 +1,37 @@
+{
+  "files": {
+    "can_health.jsonl": {
+      "bytes": 2562,
+      "sha256": "a4b4387b2b2aeffdfb8b02e0f88b32904ab30f8f5358f9d7ad65f62fede64ec9"
+    },
+    "candump.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cycle_results.jsonl": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "postflight.json": {
+      "bytes": 1735,
+      "sha256": "718a332db6574bb80fe549594ed7eb71b2536f0a3db33c428ac06cea7598f018"
+    },
+    "preflight.json": {
+      "bytes": 2248,
+      "sha256": "889f4bfa42e357bb975eaf84ad4f27f0b981030832aca595432518df3b9f2be3"
+    },
+    "result.json": {
+      "bytes": 309,
+      "sha256": "f28915376a4664a59d3b5c1fc1a7d334a81b3f2432db0181e1126921ffd6e6d5"
+    },
+    "rk3588_can.log": {
+      "bytes": 299,
+      "sha256": "0b9f28505d86a84ca611bf69d9192e4f1295d72628efb85f43a7192171ef062c"
+    },
+    "soak.log": {
+      "bytes": 321,
+      "sha256": "7920a50f9eca682bc281cbe590748f921a584d945cdb59548c3e63bf2285e9ba"
+    }
+  },
+  "schema_version": 1
+}

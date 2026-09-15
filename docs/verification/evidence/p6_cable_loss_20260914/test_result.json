@@ -1,0 +1,93 @@
+{
+  "status": "FAIL_CABLE_LOSS_CLEANUP_UNVERIFIED",
+  "elf_sha256": "2304c1c9892d327f73c65304601adfd4ced30e81fb2d4f3bfd1e2c5966ae857c",
+  "unchanged_source_and_binary": true,
+  "actual_runner_guard_test_passed": true,
+  "frame_bound_test_passed": true,
+  "python_syntax_passed": true,
+  "target_hashes_verified": true,
+  "target_can_state": "Preflight UP/ERROR-ACTIVE; failed-run postflight ERROR-PASSIVE; no later target access",
+  "physical_executor_started": true,
+  "retry": false,
+  "one_shot_consumed": true,
+  "operator_power_state": "powered_off",
+  "physical_result": {
+    "date": "2026-09-14",
+    "status": "FAIL_CABLE_LOSS_CLEANUP_UNVERIFIED",
+    "target_frames": 147,
+    "target_normal_frames": 145,
+    "jcan_frames": 6530,
+    "target_normal_frames_matched_in_order": 145,
+    "extra_jcan_frames": 6385,
+    "extra_payload_counts": {
+      "0x181#2714274400002e00": 6385
+    },
+    "can_error_frames": [
+      {
+        "timestamp": "1789354529.953293",
+        "can_id": "0x20000004",
+        "data_hex": "0008000000006000"
+      },
+      {
+        "timestamp": "1789354529.983295",
+        "can_id": "0x20000004",
+        "data_hex": "0008000000008000"
+      }
+    ],
+    "first_error_after_nonzero_ms": 976.562,
+    "zero_target_requests_seen_after_motion": [],
+    "permission_denied_log_lines": 4,
+    "postflight_can_state": "ERROR-PASSIVE",
+    "postflight_xstats": {
+      "restarts": 0,
+      "bus_error": 0,
+      "arbitration_lost": 0,
+      "error_warning": 1,
+      "error_passive": 1,
+      "bus_off": 0
+    },
+    "cleanup_verified": false,
+    "final_zero_speed_verified": false,
+    "temporary_settings_restored": false,
+    "operator_confirmation_pending": false,
+    "executor_and_capture_stopped": {
+      "executor_started": true,
+      "wrapper_exit": 1,
+      "capture_stopped": true,
+      "executor_stopped": true
+    },
+    "jcan_shutdown_confirmed": true,
+    "retry": false,
+    "later_physical_tests_blocked": true,
+    "limits": [
+      "Receive error/drop counters and instantaneous error counters do not override observed controller error frames or ERROR-PASSIVE status.",
+      "JCAN timestamps are zero; repeated payload timing and stopping during disconnection cannot be inferred.",
+      "Permission-denied logs alone do not identify which exact frame or authorization condition was rejected."
+    ],
+    "operator_power_state": "powered_off"
+  },
+  "offline_reproduction": {
+    "status": "REPRODUCED_GATE_REJECTED_TIMEOUT_ABORT",
+    "fixture_exit": 0,
+    "monitored_frames": 18142,
+    "prohibited_frames": 0,
+    "fixture_failures": 0,
+    "rejected_attempts": 38,
+    "rejected_payloads": {
+      "REJECTED_GATE can_id=601 dlc=8 data=80FF600100000405": 3,
+      "REJECTED_GATE can_id=601 dlc=8 data=806C600100000405": 6,
+      "REJECTED_GATE can_id=601 dlc=8 data=8000140100000405": 2,
+      "REJECTED_GATE can_id=601 dlc=8 data=8041600000000405": 1,
+      "REJECTED_GATE can_id=601 dlc=8 data=8040600000000405": 4,
+      "REJECTED_GATE can_id=601 dlc=8 data=8000200000000405": 3,
+      "REJECTED_GATE can_id=601 dlc=8 data=80FF600300000405": 11,
+      "REJECTED_GATE can_id=601 dlc=8 data=806C600200000405": 6,
+      "REJECTED_GATE can_id=601 dlc=8 data=8017100000000405": 2
+    },
+    "actual_hardware_rejected_payloads": "not identifiable from original logs",
+    "product_code_changed": false,
+    "physical_retry": false,
+    "command": "timeout 120s stdbuf -oL bash scripts/test/test_socketcan_vcan.sh out/build/cable-repro/cable_gate_repro"
+  },
+  "later_physical_tests_blocked": true
+}

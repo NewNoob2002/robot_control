@@ -74,6 +74,21 @@ if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
 endif()
 
 if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
+  add_executable(robot_control_can_interface_inhibitor_tests
+                 can_interface_inhibitor_tests.cpp)
+  target_link_libraries(
+    robot_control_can_interface_inhibitor_tests
+    PRIVATE robot_control_platform_linux robot_control_project_options
+            robot_control_project_warnings)
+  add_test(
+    NAME can_interface_inhibitor_vcan_managed
+    COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_can_inhibitor_vcan.sh
+            $<TARGET_FILE:robot_control_can_interface_inhibitor_tests>
+            $<TARGET_FILE:robot-control-can-interface-inhibitor>
+            $<TARGET_FILE:robot-control-zlac-qualification>)
+  set_tests_properties(can_interface_inhibitor_vcan_managed
+                       PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 10)
+
   add_executable(robot_control_canopen_qualification_gate_tests
                  canopen_qualification_gate_tests.cpp)
   target_link_libraries(
@@ -95,5 +110,5 @@ if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
     COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
             $<TARGET_FILE:robot_control_canopen_qualification_vcan_tests>)
   set_tests_properties(canopen_qualification_vcan_managed
-                       PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 60)
+                       PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 120)
 endif()

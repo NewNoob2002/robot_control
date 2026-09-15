@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "interface": "can",
+  "target": "RK3588 can0 node1",
+  "observer_serial": "207F346D5650",
+  "nominal_bitrate": 500000,
+  "observer_silent": true,
+  "stimulus": "authorization.json",
+  "current_authorization": "current_operator_authorization.json",
+  "raw_capture": [
+    "jcan_session.jsonl",
+    "target/rk3588_can.log"
+  ],
+  "frames": 168,
+  "capture_pairs_equal": true,
+  "kernel_counters_match": true,
+  "can_errors_drops": 0,
+  "passed": true,
+  "cleanup": {
+    "processes_stopped": true,
+    "drive_state_verified": true
+  },
+  "report": "test_result.json"
+}

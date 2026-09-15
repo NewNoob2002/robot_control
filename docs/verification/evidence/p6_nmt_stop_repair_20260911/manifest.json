@@ -1,0 +1,29 @@
+{
+  "base": "/tmp/robot-control-qualifications/nmt-repair-202bab381749",
+  "files": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/nmt-stop-repair-final-qualification/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "202bab381749c0418a61d727a7de02490d4a625594bba3e98346c6f96d3f175d"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/nmt-stop-repair-final-qualification/review_qualification_vcan_tests",
+      "sha256": "29100e97c7d040aa28f1199329e90d5e760cba701bffd1f6ce5aab1b149d478f"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    }
+  },
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "5d075b2d1792c8dcbf93cbb4b1dbc61457031f16f19b08b7bff66a009b948e2f",
+    "communication/canopen/qualification.hpp": "9a5a99f43550366ad947a3b8753d571fe45747de10f774712b448822191ed60e",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "46142ed7e20877d51aa7193d71f9a875aac89b0fd001a22905e727f2dd841137"
+  },
+  "post_hil_documentation_only": {
+    "file": "communication/canopen/qualification.hpp",
+    "tested_sha256": "9a5a99f43550366ad947a3b8753d571fe45747de10f774712b448822191ed60e",
+    "final_sha256": "f469c113c324ae84ce09a687f0ffbede8d0464c39ae5353392c47b488f1bc8ee",
+    "diff": "post_hil_header_documentation.diff",
+    "reason": "Correct public NMT duration bound and describe Pre-operational SDO cleanup. No declaration or implementation change."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "授权并开始",
+  "scope": "Explicit approval in response to exact watchdog motion and readiness question: raised wheels, emergency stop available, operator present; right +5 rpm and left zero, 200 ms lead then 1500 ms passive observation, zero/Shutdown cleanup, one attempt, no automatic retry.",
+  "artifact_sha256": "fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205",
+  "target": "robot-dev RK3588 can0 node1",
+  "observer_serial": "207F346D5650"
+}

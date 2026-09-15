@@ -1,0 +1,9 @@
+{
+  "base": "/tmp/robot-control-qualifications/nmt-repair-202bab381749",
+  "files": {
+    "local_trial.py": "fbf5a7b52f2a728c8b4b290a2560f9969001b6ec1937f1c289496e4f7c0f9b7d",
+    "remote_trial.py": "4273f08067d5628a41df8ae4eba827571bd53bc1b5c32b1efb1f07499da87d85",
+    "authorization.json": "c5f638f98b3a6efeff75ade9d603477e1a9024c38b4505bf715e6449f90b5ad2",
+    "safety_preflight.json": "af63b92d0fe94e412e4d5a65ae200d4d659d1c2da72ffb1e2f4bb0a15cf7a5a8"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "全部符合，双轮已停止且现场安全",
+  "accepted": true,
+  "right_wheel_brief_motion_then_normal_stop": true,
+  "left_wheel_stationary": true,
+  "no_restart": true,
+  "no_abnormal_sound": true,
+  "both_wheels_stopped": true,
+  "site_safe": true,
+  "limits": "Operator accepted this one bounded trial; no added physical axis/sign convention or NMT-only stop latency claim."
+}

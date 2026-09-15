@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-11",
+  "classification": "automatic_approval_rejection_before_process_creation",
+  "command": "rtk proxy python3 docs/verification/evidence/p6_sync_remainder_20260911/watchdog/local_trial.py",
+  "execution_requests": 1,
+  "processes_created": 0,
+  "physical_attempts": 0,
+  "reason": "Physical motor actuation while testing communication-loss protection requires current explicit approval for this exact motion trial and operator readiness; general continuation and stored authorization were not accepted by automatic approval review.",
+  "disposition": "Stopped; no workaround or physical retry. Await current explicit operator confirmation.",
+  "local_markers": {
+    "watchdog": false,
+    "heartbeat_loss": false,
+    "tpdo_loss": false,
+    "shutdown": false,
+    "disable_voltage": false,
+    "quick_stop": false,
+    "nmt_stop": false
+  },
+  "verified_source_commit": "f3d88d4766c80ae5a35784b4f883e3f549b1c06d",
+  "remote_ci": "Host CI completed success for current HEAD",
+  "manifest_source_and_available_artifact_hashes": "pass",
+  "jcan_binary": "present and not stale"
+}

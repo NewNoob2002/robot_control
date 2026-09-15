@@ -1,0 +1,31 @@
+{
+  "status": "PASS_BOUNDED_INTERFACE_LOSS",
+  "target_frames": 221,
+  "jcan_frames": 11525,
+  "target_frames_matched_in_order": 221,
+  "all_non_tpdo1_frames_identical": true,
+  "extra_jcan_tpdo1_frames": 11304,
+  "extra_payloads": {
+    "2714274400002e00": 11304
+  },
+  "target_to_interface_down_ms": 1378.298975,
+  "interface_hold_ms": 3003.579965,
+  "up_start_to_first_zero_request_ms": 53.912873,
+  "up_complete_to_first_zero_request_ms": 49.896845,
+  "up_start_to_final_zero_sdo_ms": 567.174873,
+  "final_status": "0x1460/0x1460",
+  "fresh_three_zero_sdo_views": true,
+  "first_resumed_request_packed_zero": true,
+  "no_reenable": true,
+  "watchdog_and_heartbeat_baseline_zero_verified": true,
+  "cleanup_verified": true,
+  "operator_accepted": true,
+  "capture_overflow": false,
+  "reopen_buffer_log_lines": 299,
+  "limitations": [
+    "JCAN timestamps are zero; extra TPDO timing and physical retransmission cause cannot be established from this trace.",
+    "RK3588 cannot capture the disconnected interval; final sampled speed proves recovery zero, not continuous zero or exact stopping time during loss.",
+    "Repeated receive-buffer initialization logs during reopen remain a diagnostic rate issue."
+  ],
+  "retry": false
+}

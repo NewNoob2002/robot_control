@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "owned_executor_and_capture_exited": true,
+  "unrelated_passive_process_preserved": 35900,
+  "can_counters_unchanged": true,
+  "initial_check_limitation": "The initial check rejected every candump, including this independently running pre-existing observer."
+}

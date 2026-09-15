@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "timestamp_utc": "2026-09-11T08:48:59.716624+00:00",
+  "operation": "stage diagnostic artifact and execute namespace-isolated target vcan only",
+  "approved": true,
+  "authorization": "User requested repair, software verification and hardware test; on-site raised wheels and emergency stop reconfirmed in this session.",
+  "target": {
+    "board": "RK3588 robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a"
+  },
+  "artifact_or_stimulus": "manifest.json",
+  "limits": {
+    "destination": "/tmp/robot-control-qualifications/nmt-repair-202bab381749",
+    "physical_can_access": false,
+    "test_timeout_seconds": 70
+  },
+  "recovery_plan": "Owned test process exits; new temporary directory only; no service/network/drive changes."
+}

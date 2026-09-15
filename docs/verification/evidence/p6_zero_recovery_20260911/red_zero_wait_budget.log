@@ -1,0 +1,391 @@
+Start testing: Sep 11 08:51 BST
+----------------------------------------------------------
+59/60 Testing: canopen_qualification_vcan_managed
+59/60 Test: canopen_qualification_vcan_managed
+Command: "/usr/bin/bash" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_socketcan_vcan.sh" "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes-sanitizer/tests/unit/robot_control_canopen_qualification_vcan_tests"
+Directory: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/review-fixes-sanitizer/tests/unit
+"canopen_qualification_vcan_managed" start time: Sep 11 08:51 BST
+Output:
+----------------------------------------------------------
+INFO: managed namespace vcan0 is up
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() == (velocity_probe < 2U && !restore_failure) failed line=633
+first_motion online=1 rpdo=0 probe=0 restore_failure=0 result=qualification_zero_velocity_timeout:interface=vcan0 remote=1
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() == (velocity_probe < 2U && !restore_failure) failed line=633
+first_motion online=1 rpdo=0 probe=0 restore_failure=0 result=qualification_zero_velocity_timeout:interface=vcan0 remote=1
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() == (velocity_probe < 2U && !restore_failure) failed line=633
+first_motion online=1 rpdo=1 probe=0 restore_failure=0 result=qualification_zero_velocity_timeout:interface=vcan0 remote=1 mapping_restore_failed=qualification_rpdo_not_preoperational
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/1 byte5=0/2 byte6=0/0 byte7=0/128
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/47 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/22 byte3=0/1 byte4=0/16 byte5=0/0 byte6=0/64 byte7=0/96
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/22 byte3=0/2 byte4=0/8 byte5=0/0 byte6=0/96 byte7=0/96
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/47 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/2 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/1 byte5=0/2 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() == (velocity_probe < 2U && !restore_failure) failed line=633
+first_motion online=1 rpdo=1 probe=0 restore_failure=0 result=qualification_zero_velocity_timeout:interface=vcan0 remote=1 mapping_restore_failed=qualification_rpdo_not_preoperational
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/1 byte5=0/2 byte6=0/0 byte7=0/128
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/47 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/22 byte3=0/1 byte4=0/16 byte5=0/0 byte6=0/64 byte7=0/96
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/22 byte3=0/2 byte4=0/8 byte5=0/0 byte6=0/96 byte7=0/96
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/47 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/2 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/1 byte5=0/2 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/1 byte5=0/2 byte6=0/0 byte7=0/128
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/47 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/22 byte3=0/1 byte4=0/16 byte5=0/0 byte6=0/64 byte7=0/96
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/22 byte3=0/2 byte4=0/8 byte5=0/0 byte6=0/96 byte7=0/96
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/47 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/2 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/22 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/1 byte5=0/2 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/35 byte1=0/0 byte2=0/20 byte3=0/1 byte4=0/1 byte5=0/2 byte6=0/0 byte7=0/128
+same(receive(peer), download_request(0x23U, 0x1400U, 1U, {1U, 2U, 0U, 128U})) failed line=622
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+result.ok() == (velocity_probe < 2U && !restore_failure) failed line=633
+first_motion online=0 rpdo=0 probe=0 restore_failure=0 result=qualification_zero_velocity_timeout:interface=vcan0 remote=1
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() == (velocity_probe < 2U && !restore_failure) failed line=633
+first_motion online=0 rpdo=0 probe=frame mismatch actual_id=0 restore_failure=0 result=qualification_zero_velocity_timeout:interface=vcan0 remote=1
+0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() == (velocity_probe < 2U && !restore_failure) failed line=633
+first_motion online=1 rpdo=0 probe=1 restore_failure=0 result=qualification_zero_velocity_timeout:interface=vcan0 remote=1
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+frame mismatch actual_id=0 expected_id=1537 byte0=128/64 byte1=1/108 byte2=0/96 byte3=0/1 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+frame mismatch actual_id=1537 expected_id=1537 byte0=43/64 byte1=23/108 byte2=16/96 byte3=0/2 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/108 byte2=0/96 byte3=0/3 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index, subindex)) failed line=220
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=0 byte0=0/128 byte1=0/1 byte2=0/0 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), frame(0U, {0x80U, 1U})) failed line=618
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/43 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), request) failed line=181
+result.ok() && result.value().has_value() failed line=82
+frame mismatch actual_id=0 expected_id=1537 byte0=0/64 byte1=0/23 byte2=0/16 byte3=0/0 byte4=0/0 byte5=0/0 byte6=0/0 byte7=0/0
+same(receive(peer), upload_request(index == 0x6060U ? 0x6061U : index, subindex)) failed line=186
+result.ok() && !result.value().has_value() failed line=90
+communication stimulus=0 scenario=0 result=:
+communication stimulus=0 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=0 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=0 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 second_zero_failed=CO_SDOclientDownload:Connection timed out watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=0 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=0 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=0 scenario=1 result=qualification_nonzero_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=0 result=:
+communication stimulus=1 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=1 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=1 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 second_zero_failed=CO_SDOclientDownload:Connection timed out watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=1 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=1 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=2 result=qualification_expected_feedback_loss_absent:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=1 scenario=3 result=qualification_unexpected_feedback_loss:interface=vcan0 remote=1 cleanup_failed=qualification_dual_state_timeout:Connection timed out interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=0 result=:
+communication stimulus=2 scenario=4 result=CO_SDOclientDownload:interface=vcan0 remote=1
+communication stimulus=2 scenario=5 result=qualification_watchdog_baseline:interface=vcan0 remote=1
+communication stimulus=2 scenario=6 result=CO_SDOclientDownload:interface=vcan0 remote=1 second_zero_failed=CO_SDOclientDownload:Connection timed out watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=7 result=qualification_owner_exit:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=8 result=qualification_sequence_generation_or_bus_error:interface=vcan0 remote=1 cleanup_failed=qualification_sequence_generation_or_bus_error:Input/output error interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=10 result=qualification_motion_not_observed:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=11 result=qualification_other_channel_velocity:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=12 result=qualification_upload:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=2 result=qualification_expected_feedback_loss_absent:interface=vcan0 remote=1 cleanup=verified
+communication stimulus=2 scenario=3 result=qualification_unexpected_feedback_loss:interface=vcan0 remote=1 cleanup_failed=qualification_precondition:Transport endpoint is not connected interface=vcan0 remote=1 watchdog_retained=1000_or_unverified operator_power_cut_required
+communication stimulus=2 scenario=9 result=qualification_tpdo_timer_baseline:interface=vcan0 remote=1
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=0 result=:
+manual_tpdo scenario=1 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=2 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=3 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=4 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=5 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=6 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=7 result=qualification_manual_bounds:interface=vcan0 remote=1
+manual_tpdo scenario=8 result=CO_SDOclientDownload:interface=vcan0 remote=1
+manual_tpdo scenario=10 result=qualification_manual_drive_enabled:interface=vcan0 remote=1
+manual_tpdo scenario=11 result=qualification_manual_baseline:interface=vcan0 remote=1
+manual_tpdo scenario=12 result=qualification_manual_tpdo_missing:interface=vcan0 remote=1
+manual_tpdo scenario=13 result=qualification_owner_exit:interface=vcan0 remote=1
+manual_tpdo scenario=14 result=qualification_manual_drive_enabled:interface=vcan0 remote=1
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=15 result=CO_SDOclientDownload:interface=vcan0 remote=1 manual_cleanup_unverified original=
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=16 result=qualification_upload:interface=vcan0 remote=1
+MANUAL_ROTATION_READY duration_ms=100 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=337712161 tpdo_velocity_raw=3276800
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=50
+manual_velocity sub=3 raw=3276800
+MANUAL_ROTATION_END
+manual_tpdo scenario=17 result=qualification_manual_baseline:interface=vcan0 remote=1 manual_cleanup_unverified original=
+INFO: P6.3/P6.4 managed-vcan frames=12233 prohibited=0 failures=194
+<end of output>
+Test time =  53.30 sec
+----------------------------------------------------------
+Test Failed.
+"canopen_qualification_vcan_managed" end time: Sep 11 08:51 BST
+"canopen_qualification_vcan_managed" time elapsed: 00:00:53
+----------------------------------------------------------
+
+End testing: Sep 11 08:51 BST

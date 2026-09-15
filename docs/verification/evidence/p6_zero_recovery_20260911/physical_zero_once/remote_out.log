@@ -1,0 +1,7 @@
+CAPTURE_READY
+EXECUTOR_STARTED
+APP CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+APP qualification_wait_online node=1 timeout_s=1
+APP qualification_online_probe node=1 object=0x1017:00
+APP qualification_complete node=1 operation=5
+TRIAL_FINISHED rc=0

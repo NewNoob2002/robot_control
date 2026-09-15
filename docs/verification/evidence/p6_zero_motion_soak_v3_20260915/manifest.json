@@ -1,0 +1,16 @@
+{
+  "status": "AUTHORIZED_ACK_SOAK_STAGED",
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "base": "/tmp/robot-control-qualifications/zero-motion-soak-v3-bb4f44251672",
+  "installed_elf": {
+    "path": "/opt/robot-control/staging/emergency-input-zero-v2-bb4f44251672/robot-control-zlac-qualification",
+    "sha256": "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7"
+  },
+  "files": {
+    "authorization.json": "3d50bb7e4af5a576ce6a49320ee5497cd5800457f7b126213c746de579320637",
+    "run_once.py": "e9a4983077dd6ce8b686821ac884142b0e2337e4af6731b8a3d3cfd3cb6fc44b",
+    "restore_pretrial_can0.py": "3b9720a681ad7ce7026e66501cd5c8c28655101ca2d44228c8c19f6c540d3a21",
+    "finalize_can0_down.py": "f829f78f9d3ed08ecedff97389cda8ead09147c75c0d1228616ef38ae217fb14",
+    "phase6_zero_motion_soak.py": "4f2fddc9cce66001f7fffedd0ed2483ae0b332efe9ca702b0d223c07e16e93a6"
+  }
+}

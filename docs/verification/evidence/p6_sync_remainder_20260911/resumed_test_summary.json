@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-11",
+  "physical_attempts": 7,
+  "passed": 6,
+  "startup_failed": 1,
+  "failed_trial": "nmt_stop",
+  "failed_trial_nonzero_commands": 0,
+  "phase6_complete": false,
+  "application_source_changed": false,
+  "artifact_sha256": "fa1944fdba2dd98cbe8ebbeebc34174baafe1eba0d930b33ae306fbd47091205",
+  "operator_confirms_safe": true,
+  "automatic_physical_retries": 0,
+  "fresh_verification": "Current source/artifact hashes, current HEAD Host CI success, seven HIL captures and per-trial analyzers. Firmware builds and software suites were not rerun; their matching-artifact baseline remains referenced.",
+  "remaining": [
+    "Quick Stop Active zero-target startup/cleanup recovery",
+    "new separately authorized NMT Stop trial",
+    "moving SIGTERM",
+    "controlled interface/cable/power loss",
+    "applicable fault/soak decisions",
+    "final regression and phase acceptance"
+  ]
+}

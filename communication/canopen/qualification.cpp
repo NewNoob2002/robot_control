@@ -1,4 +1,5 @@
 #include "communication/canopen/qualification.hpp"
+#include "communication/canopen/sdo_client.hpp"
 
 #include "communication/canopen/qualification_gate.h"
 
@@ -12,6 +13,7 @@
 #include <linux/can.h>
 #include <string>
 #include <sys/socket.h>
+#include <thread>
 
 namespace robot_control::communication::canopen {
 namespace {
@@ -207,32 +209,46 @@ platform::linux::Status QualificationSession::download(const std::uint16_t index
     });
     if (initiated != CO_SDO_RT_ok_communicationEnd
         || CO_SDOclientDownloadBufWrite(client, bytes.data(), data.size()) != data.size()) {
-        CO_SDOclientClose(client);
+        close_sdo_client(*client);
         robot_control_canopen_qualification_clear_authorization();
         return failure("CO_SDOclientDownloadInitiate", lifecycle_->storage_->config(), EPROTO);
     }
 
+    const auto transaction_deadline = std::min(deadline, std::chrono::steady_clock::now() + sdo_timeout);
+    const auto transaction_generation = lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation;
     CO_SDO_abortCode_t abort_code = CO_SDO_AB_NONE;
     auto previous = std::chrono::steady_clock::now();
     CO_SDO_return_t result = CO_SDOclientDownload(client, 0U, false, false, &abort_code, nullptr, nullptr);
     while (result > CO_SDO_RT_ok_communicationEnd) {
-        const auto run = lifecycle_->run_until(std::min(deadline, std::chrono::steady_clock::now() + 1ms));
+        const auto run = lifecycle_->run_until(std::min(transaction_deadline, std::chrono::steady_clock::now() + 1ms));
         if (!run.ok() || run.value() != LifecycleExit::deadline) {
-            CO_SDOclientClose(client);
+            close_sdo_client(*client);
             robot_control_canopen_qualification_clear_authorization();
             return run.ok() ? failure("qualification_owner_exit", lifecycle_->storage_->config(), ECANCELED)
                             : run.status();
+        }
+        if (lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation != transaction_generation) {
+            lifecycle_->observations_.cancel_sdo_upload();
+            close_sdo_client(*client);
+            robot_control_canopen_qualification_clear_authorization();
+            return failure("qualification_sdo_generation_changed", lifecycle_->storage_->config(), ENOTCONN);
         }
         if (require_fresh && sequence_generation_.transport != 0U) {
             const auto supervised = require_fresh_remote();
             if (!supervised.ok()) {
                 lifecycle_->observations_.cancel_sdo_upload();
-                CO_SDOclientClose(client);
+                close_sdo_client(*client);
                 robot_control_canopen_qualification_clear_authorization();
                 return supervised;
             }
         }
         const auto now = std::chrono::steady_clock::now();
+        if (now >= transaction_deadline) {
+            // Stop locally before upstream converts its timeout into an unapproved Abort frame.
+            abort_code = CO_SDO_AB_TIMEOUT;
+            result = CO_SDO_RT_endedWithClientAbort;
+            break;
+        }
         const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(now - previous).count();
         previous = now;
         result =
@@ -242,7 +258,7 @@ platform::linux::Status QualificationSession::download(const std::uint16_t index
                                  false, false, &abort_code, nullptr, nullptr);
     }
     robot_control_canopen_qualification_clear_authorization();
-    CO_SDOclientClose(client);
+    close_sdo_client(*client);
     if (result == CO_SDO_RT_ok_communicationEnd) {
         return platform::linux::Status::success();
     }
@@ -281,35 +297,49 @@ QualificationSession::upload(const std::uint16_t index, const std::uint8_t objec
             != CO_SDO_RT_ok_communicationEnd
         || !robot_control_canopen_qualification_authorize_upload(object)) {
         lifecycle_->observations_.cancel_sdo_upload();
-        CO_SDOclientClose(client);
+        close_sdo_client(*client);
         robot_control_canopen_qualification_clear_authorization();
         return platform::linux::Result<SdoObservation>::failure(
             failure("CO_SDOclientUploadInitiate", lifecycle_->storage_->config(), EPROTO));
     }
 
+    const auto transaction_deadline = std::min(deadline, std::chrono::steady_clock::now() + sdo_timeout);
+    const auto transaction_generation = lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation;
     CO_SDO_abortCode_t abort_code = CO_SDO_AB_NONE;
     auto previous = std::chrono::steady_clock::now();
     CO_SDO_return_t result = CO_SDOclientUpload(client, 0U, false, &abort_code, nullptr, nullptr, nullptr);
     while (result > CO_SDO_RT_ok_communicationEnd) {
-        const auto run = lifecycle_->run_until(std::min(deadline, std::chrono::steady_clock::now() + 1ms));
+        const auto run = lifecycle_->run_until(std::min(transaction_deadline, std::chrono::steady_clock::now() + 1ms));
         if (!run.ok() || run.value() != LifecycleExit::deadline) {
             lifecycle_->observations_.cancel_sdo_upload();
-            CO_SDOclientClose(client);
+            close_sdo_client(*client);
             robot_control_canopen_qualification_clear_authorization();
             return platform::linux::Result<SdoObservation>::failure(
                 run.ok() ? failure("qualification_owner_exit", lifecycle_->storage_->config(), ECANCELED)
                          : run.status());
         }
+        if (lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).generation != transaction_generation) {
+            lifecycle_->observations_.cancel_sdo_upload();
+            close_sdo_client(*client);
+            robot_control_canopen_qualification_clear_authorization();
+            return platform::linux::Result<SdoObservation>::failure(failure("qualification_sdo_generation_changed", lifecycle_->storage_->config(), ENOTCONN));
+        }
         if (require_fresh && sequence_generation_.transport != 0U) {
             const auto supervised = require_fresh_remote();
             if (!supervised.ok()) {
                 lifecycle_->observations_.cancel_sdo_upload();
-                CO_SDOclientClose(client);
+                close_sdo_client(*client);
                 robot_control_canopen_qualification_clear_authorization();
                 return platform::linux::Result<SdoObservation>::failure(supervised);
             }
         }
         const auto now = std::chrono::steady_clock::now();
+        if (now >= transaction_deadline) {
+            // Stop locally before upstream converts its timeout into an unapproved Abort frame.
+            abort_code = CO_SDO_AB_TIMEOUT;
+            result = CO_SDO_RT_endedWithClientAbort;
+            break;
+        }
         const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(now - previous).count();
         previous = now;
         result =
@@ -320,7 +350,7 @@ QualificationSession::upload(const std::uint16_t index, const std::uint8_t objec
     }
     robot_control_canopen_qualification_clear_authorization();
     const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
-    CO_SDOclientClose(client);
+    close_sdo_client(*client);
     if (result != CO_SDO_RT_ok_communicationEnd || !snapshot.sdo_result.frame.current
         || snapshot.sdo_result.outcome != SdoOutcome::expedited_upload
         || snapshot.sdo_result.request_generation != request_generation_
@@ -603,7 +633,8 @@ QualificationSession::require_zero_velocity_feedback(const bool require_fresh,
 
 platform::linux::Status QualificationSession::wait_nmt_state(const RemoteNmtState expected,
                                                              const std::chrono::steady_clock::time_point previous,
-                                                             const std::chrono::milliseconds timeout) noexcept {
+                                                             const std::chrono::milliseconds timeout,
+                                                             const bool allow_deceleration) noexcept {
     const auto deadline = previous + timeout;
     while (std::chrono::steady_clock::now() < deadline) {
         const auto ready = require_fresh_remote();
@@ -611,7 +642,7 @@ platform::linux::Status QualificationSession::wait_nmt_state(const RemoteNmtStat
             return ready;
         }
         const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
-        if (snapshot.tpdo[0].current) {
+        if (!allow_deceleration && snapshot.tpdo[0].current) {
             const auto& bytes = snapshot.tpdo[0].raw.payload;
             if (std::any_of(bytes.begin() + 4, bytes.end(), [](const auto value) {
                     return value != 0U;
@@ -738,6 +769,55 @@ platform::linux::Status QualificationSession::preflight_zero_target_cia402() noe
     return require_zero_velocity_feedback(true);
 }
 
+/** Recover an observed Quick Stop without enabling either axis; callers have verified both targets zero. */
+platform::linux::Status
+QualificationSession::recover_quick_stop_at_zero(const std::chrono::milliseconds transition_timeout) noexcept {
+    const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
+    const auto& tpdo = snapshot.tpdo[0];
+    const auto& bytes = tpdo.raw.payload;
+    const auto decoded = domain::drive::decode_dual_axis_status(
+        static_cast<std::uint32_t>(bytes[0]) | (static_cast<std::uint32_t>(bytes[1]) << 8U)
+        | (static_cast<std::uint32_t>(bytes[2]) << 16U) | (static_cast<std::uint32_t>(bytes[3]) << 24U));
+    if (!tpdo.present || (decoded.low_half.state != domain::drive::Cia402State::quick_stop_active
+                         && decoded.high_half.state != domain::drive::Cia402State::quick_stop_active)) {
+        return platform::linux::Status::success();
+    }
+    if (quick_stop_recovery_attempted_) {
+        return failure("qualification_quick_stop_recovery_consumed", lifecycle_->storage_->config(), EACCES);
+    }
+    quick_stop_recovery_attempted_ = true;
+    auto status = require_motion_feedback();
+    if (!status.ok()) {
+        return status;
+    }
+    if (decoded.low_half.state == domain::drive::Cia402State::fault
+        || decoded.high_half.state == domain::drive::Cia402State::fault) {
+        return failure("qualification_drive_fault", lifecycle_->storage_->config(), EIO);
+    }
+    if (std::any_of(bytes.begin() + 4, bytes.end(), [](const auto value) { return value != 0U; })) {
+        return failure("qualification_nonzero_tpdo_velocity", lifecycle_->storage_->config(), ERANGE);
+    }
+    status = require_zero_velocity_feedback(true);
+    if (status.ok()) {
+        status = require_motion_feedback();
+    }
+    if (status.ok()) {
+        const auto latest = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
+        const auto& velocity = latest.tpdo[0].raw.payload;
+        if (std::any_of(velocity.begin() + 4, velocity.end(), [](const auto value) { return value != 0U; })) {
+            status = failure("qualification_nonzero_tpdo_velocity", lifecycle_->storage_->config(), ERANGE);
+        }
+    }
+    const auto disabled_at = std::chrono::steady_clock::now();
+    if (status.ok()) {
+        status = send_controlword_raw(TransitionControlword::disable_voltage, true);
+    }
+    if (status.ok()) {
+        status = wait_dual_state(domain::drive::Cia402State::switch_on_disabled, disabled_at, transition_timeout);
+    }
+    return status.ok() ? require_zero_velocity_feedback(true) : status;
+}
+
 platform::linux::Status
 QualificationSession::enter_zero_target_operation_enabled(const std::chrono::milliseconds transition_timeout) noexcept {
     auto status = verify_target(IndependentChannel::subindex_1, 0, true);
@@ -753,6 +833,9 @@ QualificationSession::enter_zero_target_operation_enabled(const std::chrono::mil
     }
     if (status.ok()) {
         status = set_velocity_mode();
+    }
+    if (status.ok()) {
+        status = recover_quick_stop_at_zero(transition_timeout);
     }
     constexpr std::array commands{TransitionControlword::shutdown, TransitionControlword::switch_on,
                                   TransitionControlword::enable_operation};
@@ -780,6 +863,9 @@ platform::linux::Status
 QualificationSession::cleanup_zero_target_cia402(const std::chrono::milliseconds transition_timeout) noexcept {
     state_ = QualificationState::cleanup_required;
     auto status = set_zero_targets();
+    if (status.ok() && !terminal_controlword_submitted_) {
+        status = recover_quick_stop_at_zero(transition_timeout);
+    }
     const auto shutdown_at = std::chrono::steady_clock::now();
     if (status.ok() && !terminal_controlword_submitted_) {
         status = send_controlword_raw(TransitionControlword::shutdown, false);
@@ -1018,27 +1104,56 @@ QualificationSession::qualify_first_motion_cia402(const IndependentChannel chann
 }
 
 platform::linux::Status
-QualificationSession::restore_zero_after_nmt_stop(const std::chrono::milliseconds transition_timeout,
-                                                  const bool reenter_operational) noexcept {
+QualificationSession::restore_zero_after_nmt_stop(const std::chrono::milliseconds transition_timeout) noexcept {
     const auto preop_at = std::chrono::steady_clock::now();
     auto status = send_nmt_raw(QualificationNmt::pre_operational, false);
     if (!status.ok()) {
         return status;
     }
     status = set_zero_targets();
+    if (status.ok()) {
+        status = wait_nmt_state(RemoteNmtState::pre_operational, preop_at, transition_timeout, true);
+    }
+    if (status.ok()) {
+        status = send_controlword_raw(TransitionControlword::disable_voltage, false);
+    }
     if (!status.ok()) {
         return status;
     }
-    status = wait_nmt_state(RemoteNmtState::pre_operational, preop_at, transition_timeout);
-    if (!status.ok() || !reenter_operational) {
-        return status;
+    // Stopped/Pre-operational suppress PDOs. Correlated SDO responses prove recovery,
+    // not the physical stop instant. Never restore Operational or retry the inhibit.
+    const auto deadline = std::chrono::steady_clock::now() + transition_timeout;
+    while (std::chrono::steady_clock::now() < deadline) {
+        status = require_fresh_remote();
+        if (!status.ok()) {
+            return status;
+        }
+        const auto value = upload(0x6041U, 0U, true, deadline);
+        if (!value.ok()) {
+            return value.status();
+        }
+        const auto& bytes = value.value().data;
+        const auto decoded = domain::drive::decode_dual_axis_status(
+            static_cast<std::uint32_t>(bytes[0]) | (static_cast<std::uint32_t>(bytes[1]) << 8U)
+            | (static_cast<std::uint32_t>(bytes[2]) << 16U) | (static_cast<std::uint32_t>(bytes[3]) << 24U));
+        if (decoded.low_half.state == domain::drive::Cia402State::fault
+            || decoded.high_half.state == domain::drive::Cia402State::fault) {
+            return failure("qualification_drive_fault", lifecycle_->storage_->config(), EIO);
+        }
+        if (decoded.low_half.state == domain::drive::Cia402State::switch_on_disabled
+            && decoded.high_half.state == domain::drive::Cia402State::switch_on_disabled) {
+            status = require_zero_velocity_feedback(true, deadline);
+            if (status.ok() || status.operation != "qualification_nonzero_velocity") {
+                return status;
+            }
+        }
+        const auto run = lifecycle_->run_until(std::min(deadline, std::chrono::steady_clock::now() + 10ms));
+        if (!run.ok() || run.value() != LifecycleExit::deadline) {
+            return run.ok() ? failure("qualification_owner_exit", lifecycle_->storage_->config(), ECANCELED)
+                            : run.status();
+        }
     }
-    const auto operational_at = std::chrono::steady_clock::now();
-    const auto operational = send_nmt_raw(QualificationNmt::operational, false);
-    if (!operational.ok()) {
-        return operational;
-    }
-    return wait_nmt_state(RemoteNmtState::operational, operational_at, transition_timeout);
+    return failure("qualification_nmt_cleanup_timeout", lifecycle_->storage_->config(), ETIMEDOUT);
 }
 
 platform::linux::Status QualificationSession::run_motion_interval(const IndependentChannel channel,
@@ -1080,14 +1195,13 @@ QualificationSession::run_nmt_stop_interval(const IndependentChannel channel, co
     }
 
     const auto stopped_at = std::chrono::steady_clock::now();
+    nmt_stop_submitted_ = true;
     status = send_nmt_raw(QualificationNmt::stopped, true);
-    if (!status.ok()) {
-        static_cast<void>(verify_target(channel, 0, false));
-        return status;
-    }
     const auto stopped_timeout = std::min(transition_timeout, qualification_duration_limit - duration);
-    status = wait_nmt_state(RemoteNmtState::stopped, stopped_at, stopped_timeout);
-    const auto restored = restore_zero_after_nmt_stop(transition_timeout, status.ok());
+    if (status.ok()) {
+        status = wait_nmt_state(RemoteNmtState::stopped, stopped_at, stopped_timeout, true);
+    }
+    const auto restored = restore_zero_after_nmt_stop(transition_timeout);
     if (!status.ok()) {
         status.context += restored.ok() ? " zero_restore=verified"
                                         : " zero_restore_failed=" + restored.operation + ":" + restored.error.message();
@@ -1266,6 +1380,131 @@ platform::linux::Status QualificationSession::observe_communication_loss(const S
                 : failure("qualification_nonzero_velocity", lifecycle_->storage_->config(), ERANGE);
 }
 
+/** Keep the one-shot target bounded; after loss only zero/disabled recovery is permitted. */
+platform::linux::Status QualificationSession::observe_external_loss(
+    bool& cleanup_owned, const std::chrono::steady_clock::time_point motion_deadline) noexcept {
+    const auto& config = lifecycle_->storage_->config();
+    auto next_probe = std::chrono::steady_clock::now();
+    bool endpoint_ready = true;
+    bool loss = false;
+    while (std::chrono::steady_clock::now() < motion_deadline) {
+        const auto run = lifecycle_->run_until(std::chrono::steady_clock::now() + 10ms);
+        if (!run.ok()) {
+            if (run.status().error.value() != ENETDOWN && run.status().error.value() != ENODEV) {
+                return run.status();
+            }
+            endpoint_ready = false;
+            loss = true;
+            break;
+        }
+        if (run.value() != LifecycleExit::deadline) {
+            return failure("qualification_owner_exit", config, ECANCELED);
+        }
+        const auto now = std::chrono::steady_clock::now();
+        const auto snapshot = lifecycle_->observation_snapshot(now);
+        if (snapshot.emergency.frame.present || snapshot.can_error.present || snapshot.malformed_count != 0U) {
+            return failure("qualification_sequence_generation_or_bus_error", config, EIO);
+        }
+        if (snapshot.generation != sequence_generation_ || !snapshot.heartbeat.frame.current
+            || !snapshot.tpdo[0].current) {
+            loss = true;
+            break;
+        }
+        const auto supervised = require_operation_enabled_feedback(IndependentChannel::subindex_2);
+        if (!supervised.ok()) {
+            return supervised;
+        }
+        if (now >= next_probe) {
+            // Bounded read-only supervision keeps the 1 s watchdog alive only before loss.
+            const auto speed = upload(0x606CU, 2U, true, std::min(motion_deadline, now + 20ms));
+            if (!speed.ok()) {
+                if (speed.status().error.value() != ETIMEDOUT && speed.status().error.value() != ENETDOWN
+                    && speed.status().error.value() != ENODEV && speed.status().error.value() != ENOTCONN) {
+                    return speed.status();
+                }
+                if (speed.status().error.value() == ETIMEDOUT) {
+                    // A missed SDO alone does not establish external loss. Stop probing and
+                    // require actual stream expiry/generation loss within the motion bound.
+                    next_probe = motion_deadline;
+                    continue;
+                }
+                endpoint_ready = speed.status().error.value() != ENETDOWN && speed.status().error.value() != ENODEV;
+                loss = true;
+                break;
+            }
+            next_probe = now + 50ms;
+        }
+    }
+    if (!loss) {
+        return failure("qualification_expected_external_loss_absent", config, ETIMEDOUT);
+    }
+    cleanup_owned = true;
+    static_cast<void>(inhibit(platform::linux::Status::success()));
+    const auto lost_at = std::chrono::steady_clock::now();
+    const auto recovery_deadline = lost_at + 10s;
+    while (std::chrono::steady_clock::now() < recovery_deadline) {
+        if (!endpoint_ready) {
+            const auto signal = lifecycle_->termination_->consume();
+            if (!signal.ok()) {
+                return signal.status();
+            }
+            if (signal.value() != 0) {
+                return failure("qualification_owner_exit", config, ECANCELED);
+            }
+            const auto reopened = lifecycle_->reopen();
+            if (!reopened.ok()) {
+                if (reopened.error.value() != ENETDOWN && reopened.error.value() != ENODEV) {
+                    return reopened;
+                }
+                std::this_thread::sleep_for(10ms);
+                continue;
+            }
+            endpoint_ready = true;
+        }
+        const auto run = lifecycle_->run_until(std::chrono::steady_clock::now() + 10ms);
+        if (!run.ok()) {
+            return run.status();
+        }
+        if (run.value() != LifecycleExit::deadline) {
+            return failure("qualification_owner_exit", config, ECANCELED);
+        }
+        const auto now = std::chrono::steady_clock::now();
+        const auto snapshot = lifecycle_->observation_snapshot(now);
+        if (snapshot.emergency.frame.present || snapshot.can_error.present || snapshot.malformed_count != 0U) {
+            return failure("qualification_sequence_generation_or_bus_error", config, EIO);
+        }
+        const bool returned = (snapshot.boot.present && snapshot.boot.raw.received_at > lost_at)
+            || (snapshot.heartbeat.frame.present && snapshot.heartbeat.frame.raw.received_at > lost_at)
+            || (snapshot.tpdo[0].present && snapshot.tpdo[0].raw.received_at > lost_at);
+        if (!returned) {
+            continue;
+        }
+        // A new generation authorizes cleanup only. No upload/NMT may precede this packed zero.
+        sequence_generation_ = snapshot.generation;
+        auto status = verify_target(IndependentChannel::subindex_2, 0, false);
+        if (status.ok()) {
+            const auto heartbeat_at = std::chrono::steady_clock::now();
+            status = set_heartbeat_producer_raw(500U, false);
+            if (status.ok()) {
+                status = wait_heartbeat(heartbeat_at, 2000ms);
+            }
+        }
+        if (status.ok()) {
+            status = restore_zero_after_nmt_stop(2000ms);
+        }
+        if (status.ok()) {
+            status = set_communication_setting(0x2000U, 0U, 0U);
+        }
+        if (status.ok()) {
+            status = restore_heartbeat_producer();
+        }
+        status.context += status.ok() ? " external_loss=observed cleanup=verified"
+                                     : " external_cleanup_unverified watchdog_retained=1000_or_unverified";
+        return status;
+    }
+    return failure("qualification_external_recovery_timeout", config, ETIMEDOUT);
+}
+
 platform::linux::Status
 QualificationSession::qualify_communication_loss_cia402(const CommunicationLossStimulus stimulus) noexcept {
     if (lifecycle_->storage_->config().heartbeat_timeout != 500ms
@@ -1279,6 +1518,9 @@ QualificationSession::qualify_communication_loss_cia402(const CommunicationLossS
             break;
         case CommunicationLossStimulus::heartbeat:
             selected = StopStimulus::heartbeat_loss;
+            break;
+        case CommunicationLossStimulus::external:
+            selected = StopStimulus::external_loss;
             break;
         case CommunicationLossStimulus::tpdo:
             selected = StopStimulus::tpdo_loss;
@@ -1316,7 +1558,8 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
         return inhibit(status);
     }
     const bool communication_loss = stimulus == StopStimulus::watchdog || stimulus == StopStimulus::heartbeat_loss
-                                    || stimulus == StopStimulus::tpdo_loss;
+                                    || stimulus == StopStimulus::tpdo_loss || stimulus == StopStimulus::external_loss;
+    bool external_cleanup_owned = false;
     bool watchdog_restore_required = false;
     bool feedback_restore_required = false;
     if (communication_loss) {
@@ -1368,6 +1611,7 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
     synchronous_targets_ = true;
     status = enter_zero_target_operation_enabled(transition_timeout);
     if (status.ok()) {
+        const auto external_motion_deadline = std::chrono::steady_clock::now() + 8s;
         switch (stimulus) {
             case StopStimulus::nmt_stopped:
                 status = run_nmt_stop_interval(channel, rpm, duration, transition_timeout);
@@ -1390,6 +1634,7 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
             case StopStimulus::watchdog:
             case StopStimulus::heartbeat_loss:
             case StopStimulus::tpdo_loss:
+            case StopStimulus::external_loss:
                 watchdog_restore_required = true;
                 status = set_communication_setting(0x2000U, 0U, 1000U);
                 if (status.ok()) {
@@ -1397,6 +1642,10 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
                 }
                 if (status.ok()) {
                     status = require_independent_motion_feedback(channel);
+                }
+                if (status.ok() && stimulus == StopStimulus::external_loss) {
+                    status = observe_external_loss(external_cleanup_owned, external_motion_deadline);
+                    break;
                 }
                 if (status.ok() && stimulus != StopStimulus::watchdog) {
                     feedback_restore_required = true;
@@ -1408,6 +1657,24 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
                 }
                 break;
         }
+    }
+    if (stimulus == StopStimulus::external_loss
+        && lifecycle_->observation_snapshot(std::chrono::steady_clock::now()).can_error.present) {
+        status = failure("qualification_external_bus_error", lifecycle_->storage_->config(), EIO);
+        status.context += " watchdog_retained=1000_or_unverified operator_power_cut_required";
+        return inhibit(status);
+    }
+    if (external_cleanup_owned) {
+        return inhibit(status);
+    }
+    if (nmt_stop_submitted_) {
+        const auto heartbeat_restored = restore_heartbeat_producer();
+        if (!status.ok()) {
+            status.context += heartbeat_restored.ok() ? " heartbeat_restore=verified"
+                : " heartbeat_restore_failed=" + heartbeat_restored.operation;
+            return inhibit(status);
+        }
+        return inhibit(heartbeat_restored);
     }
     auto feedback_restored = platform::linux::Status::success();
     if (feedback_restore_required) {
@@ -1470,7 +1737,7 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
     const auto disabled = [&](const std::uint32_t raw) {
         for (const unsigned shift : {0U, 16U}) {
             const auto state = (raw >> shift) & 0x6FU;
-            if (state != 0x21U && state != 0x40U && state != 0x60U) {
+            if (state != 0x00U && state != 0x21U && state != 0x40U && state != 0x60U) {
                 return false;
             }
         }

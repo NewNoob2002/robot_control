@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-15",
+  "status": "AUTHORIZED_NOT_EXECUTED",
+  "target": "RK3588 machine-id 6923ab3301fb4a8d816759b04ec6bf0a",
+  "bus": "can0 Classical CAN 500000 bit/s; JCAN 207F346D5650 silent receive",
+  "actuation": "right wheel +5 rpm for at most 3000 ms; left wheel zero; unloaded raised wheels",
+  "operator_sequence": "hand on X1 before ARMED; press on PRESS X1 NOW; keep locked until SAFE TO RESET X1",
+  "emergency_path": "X1 plus independent drive-power disconnect immediately available",
+  "stop_conditions": "unexpected wheel motion, sound, CAN error, unreviewed request, capture loss, cleanup failure",
+  "final_state": "drive power OFF, both wheels stopped, X1 reset, can0 DOWN",
+  "authorization_required": false
+}

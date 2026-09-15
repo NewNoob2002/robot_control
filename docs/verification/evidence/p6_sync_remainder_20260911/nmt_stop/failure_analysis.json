@@ -1,0 +1,26 @@
+{
+  "trial": "nmt_stop",
+  "passed": false,
+  "attempts": 1,
+  "classification": "startup_state_transition_timeout_and_cleanup_state_timeout",
+  "nmt_stop_stimulus_sent": false,
+  "nonzero_requests": 0,
+  "frames": 172,
+  "capture_pairs_equal": true,
+  "all_tpdo_velocity_zero": true,
+  "observed_status_raw": [
+    "07140714"
+  ],
+  "can_errors_drops": 0,
+  "kernel_counters_match": true,
+  "executor_and_capture_stopped": true,
+  "drive_cleanup_verified": false,
+  "explanation": "Prepared trial inherited Quick Stop Active. Shutdown request acknowledged but expected dual state was not observed; no new motion or NMT Stop stimulus was sent. No retry.",
+  "operator_observation": {
+    "date": "2026-09-11",
+    "user_confirmation": "两轮始终未转动，目前已停止且现场安全",
+    "both_wheels_never_moved": true,
+    "operator_confirms_safe": true,
+    "trial_passed": false
+  }
+}

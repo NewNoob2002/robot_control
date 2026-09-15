@@ -1,0 +1,17 @@
+{
+  "status": "PREPARED_NOT_AUTHORIZED",
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "base": "/tmp/robot-control-qualifications/emergency-input-moving-bb4f44251672",
+  "installed_elf": {
+    "path": "/opt/robot-control/staging/emergency-input-zero-v2-bb4f44251672/robot-control-zlac-qualification",
+    "sha256": "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7"
+  },
+  "files": {
+    "authorization.json": "b80ccaacd54bd5a547474dd15ce4501a8d5a77484c43dab6f768b2a22f87f95f",
+    "remote_trial.py": "52debce54345396ccdce582c7d8d8571c02a0d37c5280007825259b12333710d",
+    "trial_checks.py": "6a31caa9025dc4b64c717e785151fa061e9d191ae7179af77021f7b05a39ad95",
+    "operator_watch.py": "6e1a27afedaa965436c64aaf82d349349fb952d848efc611c31ace940034cc90",
+    "restore_pretrial_can0.py": "26d75867d0be6228ebfcf19a2f13112f0e05e2af1b1856761cbc9cb9cfe62b37",
+    "finalize_can0_down.py": "6d3fb4046df0e98e7cfb19c03fee7bd2e4f1dd983c44c6e840c904bd93562527"
+  }
+}

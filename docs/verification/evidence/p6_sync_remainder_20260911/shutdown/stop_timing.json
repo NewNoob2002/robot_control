@@ -1,0 +1,13 @@
+{
+  "trial": "shutdown",
+  "target_to_stop_command_ms": 1001.063,
+  "stop_to_first_zero_tpdo_ms": 40.186,
+  "stop_to_trailing_zero_tpdo_ms": 240.099,
+  "right_speed_raw_after_stop_range": [
+    -27,
+    10
+  ],
+  "nonzero_feedback_after_first_zero": true,
+  "expected_protocol_state_observed": true,
+  "limits": "Wire timestamps and finite sampled feedback only; trailing zero does not prove continuous zero between samples. NMT Stop suppresses TPDO, so recovered feedback cannot establish the physical stop instant."
+}

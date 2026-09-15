@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/robot-control-qualifications/userspace-inhibit-fc77b14ec242/remote_trial.py", line 111, in <module>
+    assert capture.poll() is None and not (OUT / "capture.stderr").read_text()
+AssertionError

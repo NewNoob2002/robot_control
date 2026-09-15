@@ -1,0 +1,1 @@
+{"interface": "isolated vxcan pair", "sent_frames": 1, "result": "NO_FRAME_AFTER_LINK_DOWN", "receive_timeout_seconds": 2, "limit": "netem qdisc only; real controller cancellation is unverified"}

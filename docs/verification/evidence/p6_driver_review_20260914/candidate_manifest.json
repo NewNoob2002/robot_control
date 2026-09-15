@@ -1,0 +1,32 @@
+{
+  "repository": "LubanCat/kernel",
+  "branch": "lbc-develop-6.1",
+  "commit": "17ae1445226e5b3ebd76c15ce30b8f894ab79a84",
+  "target_match": "UNVERIFIED",
+  "files": {
+    "Makefile": {
+      "url": "https://raw.githubusercontent.com/LubanCat/kernel/17ae1445226e5b3ebd76c15ce30b8f894ab79a84/Makefile",
+      "sha256": "87ef2f5b4ec1cd534e35ef867fe073fc03fbb32fac5b9f545808c700e908e339"
+    },
+    "drivers/net/can/rockchip/rockchip_canfd.c": {
+      "url": "https://raw.githubusercontent.com/LubanCat/kernel/17ae1445226e5b3ebd76c15ce30b8f894ab79a84/drivers/net/can/rockchip/rockchip_canfd.c",
+      "sha256": "2878a4b45efe0f96dab4b4574aae316c378e733854a3f851aa3ad34fff8446b2"
+    },
+    "drivers/net/can/dev/netlink.c": {
+      "url": "https://raw.githubusercontent.com/LubanCat/kernel/17ae1445226e5b3ebd76c15ce30b8f894ab79a84/drivers/net/can/dev/netlink.c",
+      "sha256": "ecae532466ef0adefe8164103090f99ce58f3b170a073fd8c9990fda3284216a"
+    },
+    "drivers/net/can/dev/skb.c": {
+      "url": "https://raw.githubusercontent.com/LubanCat/kernel/17ae1445226e5b3ebd76c15ce30b8f894ab79a84/drivers/net/can/dev/skb.c",
+      "sha256": "3dd8c67d33e8cad70bd3de6a10d47bf936858196c383a9a2d1850d4d52c74dd3"
+    },
+    "net/can/raw.c": {
+      "url": "https://raw.githubusercontent.com/LubanCat/kernel/17ae1445226e5b3ebd76c15ce30b8f894ab79a84/net/can/raw.c",
+      "sha256": "6888b966ae2350b01ed90491be18e7fc060c326037f51238a70a2c32e783e83d"
+    },
+    "net/can/af_can.c": {
+      "url": "https://raw.githubusercontent.com/LubanCat/kernel/17ae1445226e5b3ebd76c15ce30b8f894ab79a84/net/can/af_can.c",
+      "sha256": "fdff3671e9dbbb44731b6b0d0854c77728bfc6165e9d3d8a0a0bd8f9960f6b64"
+    }
+  }
+}

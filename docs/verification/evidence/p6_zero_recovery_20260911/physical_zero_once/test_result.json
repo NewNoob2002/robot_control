@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "command": [
+    "robot-control-zlac-qualification",
+    "--interface",
+    "can0",
+    "--zero-sequence"
+  ],
+  "target": "RK3588/node1",
+  "requirements": [
+    "single Quick Stop zero recovery",
+    "no nonzero targets",
+    "dual disabled feedback before startup",
+    "verified zero cleanup"
+  ],
+  "analysis": "analysis.json",
+  "passed": 1,
+  "failed": 0,
+  "skipped": 0,
+  "operator_observation": "operator_observation.json"
+}

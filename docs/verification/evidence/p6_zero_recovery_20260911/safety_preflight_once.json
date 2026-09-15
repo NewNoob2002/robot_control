@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "operation": "storage-write and isolated software test",
+  "approved": true,
+  "authorization": "User requested repair of zero-target recovery; project requires target smoke verification. No physical drive commands authorized or executed by this staging step.",
+  "target": {
+    "board": "RK3588 robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a"
+  },
+  "destination": "/tmp/robot-control-qualifications/zero-recovery-7dcb656a56d2",
+  "artifact_manifest": "manifest_once.json",
+  "limits": "New exclusive /tmp directory, SHA256-verified copies; only namespace-isolated vcan test executable is run, timeout 60 seconds. Real CAN and motion executor are not run.",
+  "recovery_plan": "Test process and namespace terminate; no production files or services changed; stop on errors without retry"
+}

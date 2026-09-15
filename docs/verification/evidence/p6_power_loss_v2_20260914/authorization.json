@@ -1,0 +1,12 @@
+{
+  "authorized": true,
+  "attempts": 1,
+  "date_utc": "2026-09-14",
+  "user_confirmation": "确认并授权",
+  "qualification_sha256": "fc77b14e78c60ad00f3fcda704889d0c913be60ef416e77c7ba5cd9a688b6fa4",
+  "inhibitor_sha256": "c2425001cbe583e3bb1e3307d4145e95cafd722d150154ff727fe519a80b1a5b",
+  "jcan_serial": "207F346D5650",
+  "jcan_mode": "normal",
+  "target": "RK3588 robot-dev machine-id 6923ab3301fb4a8d816759b04ec6bf0a can0 node1",
+  "proposed_scope": "One new raised-wheel drive-only power-loss/restoration attempt. JCAN serial 207F346D5650 runs normal --receive so its controller acknowledges valid CAN frames but the runner submits no JCAN data-frame send command. After passive captures and operator arm, command right wheel +5 rpm once with left wheel zero. The operator watches only the target terminal and removes drive power immediately on POWER OFF NOW, within the existing absolute 8-second loss window. Confirm POWER_OFF, hold at least 3 seconds, restore drive power once, require a post-motion boot and first RK3588 request packed zero, observe at least 5 seconds with no restart, then remove drive power again. Require successful zero/disabled cleanup, no CAN error, no re-enable after motion, target candump plus JCAN capture, final drive power OFF, no automatic retry, persistent drive write, kernel/SDK change, or JCAN data-frame TX."
+}

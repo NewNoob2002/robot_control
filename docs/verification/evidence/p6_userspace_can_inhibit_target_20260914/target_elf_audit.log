@@ -1,0 +1,15 @@
+/tmp/robot-control-qualifications/userspace-inhibit-fc77b14ec242/robot-control-can-interface-inhibitor: ELF 64-bit LSB pie executable, ARM aarch64, version 1 (GNU/Linux), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, BuildID[sha1]=e2e6f5fc4d0e103a8b94dc4aacb336ffd697578c, for GNU/Linux 3.7.0, with debug_info, not stripped
+/tmp/robot-control-qualifications/userspace-inhibit-fc77b14ec242/robot-control-zlac-qualification:      ELF 64-bit LSB pie executable, ARM aarch64, version 1 (GNU/Linux), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, BuildID[sha1]=12649f569fde1e984f17bab4dce40d0aa560d3ac, for GNU/Linux 3.7.0, with debug_info, not stripped
+/tmp/robot-control-qualifications/userspace-inhibit-fc77b14ec242/target_vcan_smoke.sh:                  Bourne-Again shell script, ASCII text executable
+	linux-vdso.so.1 (0x0000ffffb0a35000)
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000ffffb0760000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000ffffb0730000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000ffffb0580000)
+	/lib/ld-linux-aarch64.so.1 (0x0000ffffb09fd000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000ffffb04e0000)
+	linux-vdso.so.1 (0x0000ffff82ebf000)
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000ffff82c20000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000ffff82bf0000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000ffff82a40000)
+	/lib/ld-linux-aarch64.so.1 (0x0000ffff82e87000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000ffff829a0000)

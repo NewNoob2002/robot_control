@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "authorized": true,
+  "attempts": 1,
+  "date_utc": "2026-09-15",
+  "user_confirmation": "好的已经删除, 重新开始配置然后开始soak",
+  "hours": 3,
+  "interface": "can0",
+  "output": "/tmp/robot-control-qualifications/zero-motion-soak-v3-bb4f44251672/overnight_once",
+  "script_sha256": "4f2fddc9cce66001f7fffedd0ed2483ae0b332efe9ca702b0d223c07e16e93a6",
+  "elf_sha256": "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7",
+  "jcan": {
+    "serial": "207F346D5650",
+    "mode": "normal",
+    "link_layer_ack": true,
+    "data_frame_commands_allowed": 0
+  },
+  "limits": "raised stationary wheels, X1 locked throughout, no target/RPDO/controlword, one attempt",
+  "cleanup": "keep X1 locked, drive power OFF, can0 DOWN, stop JCAN, then reset X1"
+}

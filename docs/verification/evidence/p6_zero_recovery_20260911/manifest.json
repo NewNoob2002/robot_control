@@ -1,0 +1,22 @@
+{
+  "base": "/tmp/robot-control-qualifications/zero-recovery-f299615e750c",
+  "files": {
+    "robot-control-zlac-qualification": {
+      "source": "out/build/cross/zero-recovery-qualification/robot-control/tools/zlac_qualification/robot-control-zlac-qualification",
+      "sha256": "f299615e750cefe761c275c6e22e8d16dac0a2359204888b47fb78a0942e0cf0"
+    },
+    "review_qualification_vcan_tests": {
+      "source": "out/build/cross/zero-recovery-qualification/review_qualification_vcan_tests",
+      "sha256": "e5291d52162e9297e45bc8dbc1412a34e676e894522372751186ab9c4ebb9260"
+    },
+    "test_socketcan_vcan.sh": {
+      "source": "scripts/test/test_socketcan_vcan.sh",
+      "sha256": "2e0db005a357641c553ec28b3b5fdda23338ad19fc990dc646175ad92cfadea7"
+    }
+  },
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "aece4c2dcbd1c29843fa67e5292b994a477b4f039047b3928b66c3d0df6a5138",
+    "communication/canopen/qualification.hpp": "26a1ed5f2bf59e199ed1094653a56f13fa0eb484a5e2642b84989b5c7c0d9be1",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "c337cd72bdaf91d310019352fa4a2468d9dce264af151af1628c1477d8d91c8e"
+  }
+}

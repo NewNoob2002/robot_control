@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-14",
+  "status": "software_pass_target_physical_open",
+  "drive_power": "off",
+  "host_qualification": {"passed": 68, "failed": 0},
+  "sanitizer_qualification": {"passed": 68, "failed": 0},
+  "default_debug": {"passed": 28, "failed": 0},
+  "default_release": {"passed": 28, "failed": 0},
+  "static_analysis": "pass",
+  "format": "pass",
+  "shellcheck": "pass",
+  "rk3588_cross_build": "pass",
+  "elf_audit": "pass",
+  "target_deployment": "not_run",
+  "physical_can": "not_run",
+  "motor_test": "not_run"
+}

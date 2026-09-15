@@ -1,0 +1,27 @@
+{
+  "trial": "heartbeat_loss",
+  "protocol_and_cleanup_passed": true,
+  "attempts": 1,
+  "frames": 195,
+  "capture_pairs_equal": true,
+  "sdo_transactions": 76,
+  "target_to_zero_ms": 601.994,
+  "right_tpdo_raw_range": [
+    13,
+    54
+  ],
+  "left_tpdo_zero": true,
+  "zero_feedback_verified": true,
+  "can_errors_drops": 0,
+  "final_status_raw": "21142114",
+  "mode_kept": 1,
+  "physical_observation": {
+    "date": "2026-09-11",
+    "user_confirmation": "\u662f\uff0c\u53f3\u8f6e\u8f6c\u52a8\u540e\u505c\u6b62\uff0c\u5de6\u8f6e\u4e0d\u52a8\uff0c\u65e0\u5f02\u5e38\u6216\u518d\u542f\u52a8",
+    "right_motion_then_stop": true,
+    "left_stationary": true,
+    "abnormal_sound": false,
+    "unintended_restart": false,
+    "accepted": true
+  }
+}

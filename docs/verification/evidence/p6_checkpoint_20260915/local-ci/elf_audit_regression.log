@@ -1,0 +1,1 @@
+PASS: qualification ELF audit accepts no runtime path and rejects RPATH/RUNPATH

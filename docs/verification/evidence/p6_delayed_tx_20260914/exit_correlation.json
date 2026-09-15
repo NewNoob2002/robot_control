@@ -1,0 +1,17 @@
+{
+  "executor_exit_capture_bytes": 10979,
+  "capture_bytes_at_end": 19669,
+  "last_captured_lines_at_exit": [
+    " (1789365523.492623)  can0  181   [8]  27 14 27 44 00 00 30 00",
+    " (1789365523.595459)  can0  20000004   [8]  00 08 00 00 00 00 60 00   ERRORFRAME",
+    "\tcontroller-problem{tx-error-warning}",
+    "\terror-counter-tx-rx{{96}{0}}"
+  ],
+  "requests_recorded_after_exit_snapshot": [
+    " (1789365527.955604)  can0  601   [8]  40 6C 60 02 00 00 00 00"
+  ],
+  "tx_packets_at_executor_exit": 314,
+  "tx_packets_at_end": 315,
+  "evidence": "The wrapper samples counters/file length only after child.poll() has reported exit. The extra read-only request and TX counter increment are recorded later.",
+  "limit": "No send syscall trace or controller register capture exists; queue location and enqueue time are not directly measured."
+}

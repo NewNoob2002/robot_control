@@ -1,0 +1,246 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+qualification_wait_online node=1 timeout_s=1
+qualification_online_probe node=1 object=0x1017:00
+MANUAL_ROTATION_READY duration_ms=60000 no_motor_commands=1 mapping=status_first schedule_seconds=0-10:stationary,10-25:left,25-35:stationary,35-50:right,50-60:stationary
+manual_sample elapsed_ms=10 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=1015 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=2021 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=3027 phase=stationary tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=4034 phase=stationary tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=5040 phase=stationary tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=6046 phase=stationary tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=7053 phase=stationary tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=8059 phase=stationary tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=9066 phase=stationary tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=10072 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=11078 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=12085 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=13090 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=14097 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=15103 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=16109 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=17116 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=18123 phase=left tpdo_status_raw=335582208 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=19130 phase=left tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=20135 phase=left tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=21142 phase=left tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=22149 phase=left tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=23155 phase=left tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=24162 phase=left tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=25168 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=26174 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=27180 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=28186 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=29192 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=30198 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=31204 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=32210 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=33215 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=34222 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=35229 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=36235 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=37241 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=38248 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=39255 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=40262 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=41267 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=42272 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=43279 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=44285 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=45292 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=46297 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=47303 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=48310 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=49317 phase=right tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=50324 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=51330 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=52335 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=53341 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=54348 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=55355 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=56361 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=57367 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=58374 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+manual_sample elapsed_ms=59381 phase=stationary tpdo_status_raw=335549440 tpdo_velocity_raw=0
+manual_velocity sub=1 raw=0
+manual_velocity sub=2 raw=0
+manual_velocity sub=3 raw=0
+MANUAL_ROTATION_END
+qualification_complete node=1 operation=14

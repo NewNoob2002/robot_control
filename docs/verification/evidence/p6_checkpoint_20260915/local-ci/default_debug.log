@@ -1,0 +1,139 @@
+dependency=CANopenLinux revision=f1348d4072cdabea4c3435a13c721ac29ab4cc91 dirty=false
+dependency=CANopenNode revision=ef9ac3a2279e34855a20c787fc1bc48bc995ec22 dirty=false
+relationship=nested-gitlink result=pass
+-- The C compiler identification is GNU 16.2.1
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/host-test
+[1/61] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/cia402.cpp.o
+[2/61] Building CXX object domain/control/CMakeFiles/robot_control_domain_control.dir/control_arbiter.cpp.o
+[3/61] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/classic_frame.cpp.o
+[4/61] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/zlac8015d.cpp.o
+[5/61] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/interface_inhibitor.cpp.o
+[6/61] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/socket.cpp.o
+[7/61] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/process/termination_event.cpp.o
+[8/61] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/io/poll_wait.cpp.o
+[9/61] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/time/monotonic_timer.cpp.o
+[10/61] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/__/__/components/EasyLogger/easylogger/src/elog.c.o
+[11/61] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/__/__/components/EasyLogger/easylogger/src/elog_utils.c.o
+[12/61] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/easylogger_port.c.o
+[13/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_transmit_gate.dir/transmit_gate.c.o
+[14/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_driver.c.o
+[15/61] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/uart/serial_port.cpp.o
+[16/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_epoll_interface.c.o
+[17/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/CANopen.c.o
+[18/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_ODinterface.c.o
+[19/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_NMT_Heartbeat.c.o
+[20/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_HBconsumer.c.o
+[21/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_Emergency.c.o
+[22/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOserver.c.o
+[23/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOclient.c.o
+[24/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_PDO.c.o
+[25/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/od/OD.c.o
+[26/61] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_fifo.c.o
+[27/61] Linking CXX static library domain/control/librobot_control_domain_control.a
+[28/61] Linking CXX static library domain/drive/librobot_control_domain_drive.a
+[29/61] Linking CXX static library platform/linux/librobot_control_platform_linux.a
+[30/61] Linking C static library service/logging/librobot_control_easylogger.a
+[31/61] Building CXX object domain/safety/CMakeFiles/robot_control_domain_safety.dir/safety_manager.cpp.o
+[32/61] Linking C static library communication/canopen/librobot_control_canopen_upstream.a
+[33/61] Building CXX object service/logging/CMakeFiles/robot_control_service_logging.dir/logger.cpp.o
+[34/61] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/lifecycle.cpp.o
+[35/61] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/observation.cpp.o
+[36/61] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_config.cpp.o
+[37/61] Linking CXX static library domain/safety/librobot_control_domain_safety.a
+[38/61] Linking CXX static library service/logging/librobot_control_service_logging.a
+[39/61] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_storage.cpp.o
+[40/61] Linking CXX static library communication/canopen/librobot_control_communication_canopen.a
+[41/61] Building CXX object tools/can_probe/CMakeFiles/robot-control-can-probe.dir/main.cpp.o
+[42/61] Building C object tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/observer_log.c.o
+[43/61] Building CXX object tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/main.cpp.o
+[44/61] Building CXX object tools/platform_probe/CMakeFiles/robot-control-platform-probe.dir/main.cpp.o
+[45/61] Building CXX object tests/unit/CMakeFiles/robot_control_domain_tests.dir/domain_tests.cpp.o
+[46/61] Building C object tests/unit/CMakeFiles/robot_control_canopen_stack_tests.dir/canopen_test_log_stub.c.o
+[47/61] Building CXX object tests/unit/CMakeFiles/robot_control_canopen_stack_tests.dir/canopen_stack_tests.cpp.o
+[48/61] Building C object tests/unit/CMakeFiles/robot_control_canopen_vcan_tests.dir/canopen_test_log_stub.c.o
+[49/61] Building CXX object tests/unit/CMakeFiles/robot_control_socketcan_frame_tests.dir/socketcan_frame_tests.cpp.o
+[50/61] Building CXX object tests/unit/CMakeFiles/robot_control_canopen_vcan_tests.dir/canopen_vcan_tests.cpp.o
+[51/61] Building CXX object tests/unit/CMakeFiles/robot_control_socketcan_socket_tests.dir/socketcan_socket_tests.cpp.o
+[52/61] Linking CXX executable tools/can_probe/robot-control-can-probe
+[53/61] Linking CXX executable tools/canopen_observer/robot-control-canopen-observer
+[54/61] Building CXX object tests/integration/CMakeFiles/robot_control_linux_platform_tests.dir/linux_platform_tests.cpp.o
+[55/61] Linking CXX executable tests/unit/robot_control_domain_tests
+[56/61] Linking CXX executable tools/platform_probe/robot-control-platform-probe
+[57/61] Linking CXX executable tests/unit/robot_control_canopen_stack_tests
+[58/61] Linking CXX executable tests/unit/robot_control_canopen_vcan_tests
+[59/61] Linking CXX executable tests/unit/robot_control_socketcan_frame_tests
+[60/61] Linking CXX executable tests/unit/robot_control_socketcan_socket_tests
+[61/61] Linking CXX executable tests/integration/robot_control_linux_platform_tests
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/host-test
+      Start  1: platform_probe_help
+ 1/26 Test  #1: platform_probe_help ................................................   Passed    0.00 sec
+      Start  2: platform_probe_run
+ 2/26 Test  #2: platform_probe_run .................................................   Passed    0.00 sec
+      Start  3: platform_probe_phase3_smoke
+ 3/26 Test  #3: platform_probe_phase3_smoke ........................................   Passed    0.00 sec
+      Start  4: can_probe_help
+ 4/26 Test  #4: can_probe_help .....................................................   Passed    0.00 sec
+      Start  5: can_probe_missing_interface
+ 5/26 Test  #5: can_probe_missing_interface ........................................   Passed    0.01 sec
+      Start  6: can_probe_unknown_argument
+ 6/26 Test  #6: can_probe_unknown_argument .........................................   Passed    0.01 sec
+      Start  7: can_probe_duration_zero
+ 7/26 Test  #7: can_probe_duration_zero ............................................   Passed    0.01 sec
+      Start  8: can_probe_duration_nonnumeric
+ 8/26 Test  #8: can_probe_duration_nonnumeric ......................................   Passed    0.01 sec
+      Start  9: can_probe_duration_overflow
+ 9/26 Test  #9: can_probe_duration_overflow ........................................   Passed    0.01 sec
+      Start 10: can_probe_duplicate_interface
+10/26 Test #10: can_probe_duplicate_interface ......................................   Passed    0.01 sec
+      Start 11: can_probe_duplicate_duration
+11/26 Test #11: can_probe_duplicate_duration .......................................   Passed    0.01 sec
+      Start 12: can_probe_interface_missing_value
+12/26 Test #12: can_probe_interface_missing_value ..................................   Passed    0.01 sec
+      Start 13: can_probe_duration_missing_value
+13/26 Test #13: can_probe_duration_missing_value ...................................   Passed    0.01 sec
+      Start 14: can_probe_duration_negative
+14/26 Test #14: can_probe_duration_negative ........................................   Passed    0.01 sec
+      Start 15: canopen_observer_help
+15/26 Test #15: canopen_observer_help ..............................................   Passed    0.00 sec
+      Start 16: canopen_observer_invalid_
+16/26 Test #16: canopen_observer_invalid_ ..........................................   Passed    0.01 sec
+      Start 17: canopen_observer_invalid___unknown
+17/26 Test #17: canopen_observer_invalid___unknown .................................   Passed    0.01 sec
+      Start 18: canopen_observer_invalid___interface_unused0
+18/26 Test #18: canopen_observer_invalid___interface_unused0 .......................   Passed    0.01 sec
+      Start 19: canopen_observer_invalid___interface_unused0___interface_unused1
+19/26 Test #19: canopen_observer_invalid___interface_unused0___interface_unused1 ...   Passed    0.01 sec
+      Start 20: canopen_observer_invalid___duration_ms_0
+20/26 Test #20: canopen_observer_invalid___duration_ms_0 ...........................   Passed    0.01 sec
+      Start 21: canopen_observer_invalid___duration_ms_1___duration_ms_2
+21/26 Test #21: canopen_observer_invalid___duration_ms_1___duration_ms_2 ...........   Passed    0.01 sec
+      Start 22: domain_behavior_lock
+22/26 Test #22: domain_behavior_lock ...............................................   Passed    0.00 sec
+      Start 23: canopen_stack_build
+23/26 Test #23: canopen_stack_build ................................................   Passed    0.00 sec
+      Start 24: canopen_vcan_managed
+24/26 Test #24: canopen_vcan_managed ...............................................   Passed    0.63 sec
+      Start 25: socketcan_frame_codec
+25/26 Test #25: socketcan_frame_codec ..............................................   Passed    0.00 sec
+      Start 26: linux_platform_integration
+26/26 Test #26: linux_platform_integration .........................................   Passed    0.19 sec
+
+100% tests passed out of 26
+
+Total Test time (real) =   0.99 sec

@@ -1,0 +1,16 @@
+{
+  "status": "PREPARED_NOT_AUTHORIZED",
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "base": "/tmp/robot-control-qualifications/emergency-input-zero-v2-bb4f44251672",
+  "files": {
+    "authorization.json": "33ca9480478390404a8987102ed7fb452e2ce1fdcd9da87af05df94bd91a606f",
+    "remote_trial.py": "09a67e275d23f8bc4ae2492472e66ba7bf45875a469f0ccfd90c59932cbecc2d",
+    "trial_checks.py": "682cfa3bbd4c671f2c343154d7c473a0693f04cfd3a25c8b458e83969981c6a2",
+    "operator_watch.py": "6a56d1de005438e298ebacee09e5b4d89bbc753c7e62db7ca6ddda0254be3a26",
+    "restore_pretrial_can0.py": "cc2d8f931948303ba63c2eaac3257c98d95a54832315ef9f462b8523c5c59bc6",
+    "finalize_can0_down.py": "ef80f2aab6a8fa37dfa44ea298ff24dd4efff7042d1d0ba9982070c2dd6ea059",
+    "prepare_privileged.sh": "babfc3d09a6746c4ea82bbf922463432e7702e4d2d1f5e173cc09cd2cb61d4f6",
+    "phase6_zero_motion_soak.py": "f1ceb12049d867b38dffbf4ea58d45a70a3016bbd932f1e10ebb39a28aa2aa67",
+    "robot-control-zlac-qualification": "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7"
+  }
+}

@@ -66,6 +66,8 @@ def main():
         ast.parse(path.read_text(), filename=str(path))
     ast.parse(Path(__file__).read_text())
     for relative in ('README.md', 'docs/verification/PHASE6_CHECKPOINT.md',
+                     'docs/verification/P6_SOAK_SESSION_REPAIR.md',
+                     'docs/verification/P6_CHECKPOINT_REVIEW_20260915.md',
                      'docs/verification/P6_7_CLOSURE_BASELINE.md',
                      'docs/verification/P6_SYNC_PACKED_PDO_REPAIR.md',
                      'docs/verification/P6_TPDO_FEEDBACK_DIAGNOSIS.md',
@@ -80,6 +82,8 @@ def main():
                 path = (document.parent / target).resolve()
                 archived_link = path.is_relative_to(EVIDENCE) and path.relative_to(EVIDENCE).as_posix() in archived_data
                 assert path.exists() or archived_link, (relative, target)
+    retired = json.loads((EVIDENCE / 'p6_zero_motion_soak_v4_20260915/authorization.json').read_text())
+    assert retired['authorized'] is False and retired['new_authorization_required'] is True
     print(f'PASS: {archived} archived files, {retained} retained checksums, duplicate replacements, syntax and checkpoint links')
 
 

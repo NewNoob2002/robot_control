@@ -1,0 +1,15 @@
+{
+  "test": "controlled_interface_loss",
+  "status": "ABORTED_NOT_QUALIFIED",
+  "reason": "ip link set dev can0 down returned Operation not permitted; external stimulus not applied",
+  "matching_frames": 142,
+  "one_nonzero_target": true,
+  "executor_cleanup_verified": true,
+  "fresh_zero_sdo_all_three": true,
+  "last_tpdo_dual_status": "0x1421/0x1421",
+  "last_tpdo_zero": true,
+  "heartbeat_and_watchdog_baseline_restored": true,
+  "operator_acceptance": true,
+  "retry_performed": false,
+  "coordinator_counts_are_partial": "Live coordinator stopped counting at111 frames on error; both archived captures contain142 matching frames including complete cleanup."
+}

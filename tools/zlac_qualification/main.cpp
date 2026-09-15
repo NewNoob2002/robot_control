@@ -1,4 +1,5 @@
 #include "communication/canopen/qualification.hpp"
+#include "platform/linux/can/interface_inhibitor.hpp"
 #include "platform/linux/process/termination_event.hpp"
 
 #include <algorithm>
@@ -10,6 +11,7 @@
 #include <optional>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace {
 
@@ -23,6 +25,7 @@ using robot_control::communication::canopen::StackConfig;
 using robot_control::domain::drive::zlac8015d::IndependentChannel;
 using robot_control::domain::drive::zlac8015d::TransitionControlword;
 using robot_control::platform::linux::Status;
+using robot_control::platform::linux::can::InterfaceInhibitor;
 using robot_control::platform::linux::process::TerminationEvent;
 
 enum class Operation : std::uint8_t {
@@ -39,6 +42,7 @@ enum class Operation : std::uint8_t {
     watchdog_once,
     heartbeat_loss_once,
     tpdo_loss_once,
+    external_loss_once,
     manual_tpdo
 };
 
@@ -50,6 +54,7 @@ struct Arguments {
     IndependentChannel channel{IndependentChannel::subindex_1};
     std::int32_t rpm{0};
     std::chrono::milliseconds duration{0};
+    std::string interface_inhibitor_path;
     bool use_rpdo{false};
 };
 
@@ -64,9 +69,11 @@ void usage() {
                  "--shutdown-once SUBINDEX:RPM --duration-ms 1..10000 | "
                  "--disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | "
                  "--quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | "
-                 "--watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | --manual-tpdo)\n"
+                 "--watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | "
+                 "--external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)\n"
                  "Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; "
-                 "watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.\n";
+                 "watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.\n"
+                 "External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.\n";
 }
 
 /** Parse one complete integer token. */
@@ -154,6 +161,8 @@ std::optional<Arguments> parse_arguments(const int argc, char** argv) {
             result.operation = Operation::watchdog_once;
         } else if (argument == "--heartbeat-loss-once" && result.operation == Operation::none) {
             result.operation = Operation::heartbeat_loss_once;
+        } else if (argument == "--external-loss-once" && result.operation == Operation::none) {
+            result.operation = Operation::external_loss_once;
         } else if (argument == "--tpdo-loss-once" && result.operation == Operation::none) {
             result.operation = Operation::tpdo_loss_once;
         } else if (argument == "--manual-tpdo" && result.operation == Operation::none) {
@@ -165,6 +174,8 @@ std::optional<Arguments> parse_arguments(const int argc, char** argv) {
             }
             result.duration = std::chrono::milliseconds{duration};
             duration_seen = true;
+        } else if (argument == "--interface-inhibitor" && index + 1 < argc && result.interface_inhibitor_path.empty()) {
+            result.interface_inhibitor_path = argv[++index];
         } else {
             return std::nullopt;
         }
@@ -173,9 +184,12 @@ std::optional<Arguments> parse_arguments(const int argc, char** argv) {
         result.operation == Operation::target_once || result.operation == Operation::nmt_stop_once
         || result.operation == Operation::shutdown_once || result.operation == Operation::disable_voltage_once
         || result.operation == Operation::quick_stop_once;
+    const bool external_loss = result.operation == Operation::external_loss_once;
     if (result.interface_name.empty() || result.operation == Operation::none || bounded_motion != duration_seen
         || (result.operation == Operation::target_once && result.duration > 3000ms)
-        || (result.operation == Operation::nmt_stop_once && result.duration > 2000ms)) {
+        || (result.operation == Operation::nmt_stop_once && result.duration > 2000ms)
+        || external_loss != !result.interface_inhibitor_path.empty()
+        || (external_loss && (result.interface_name != "can0" || result.interface_inhibitor_path.front() != '/'))) {
         return std::nullopt;
     }
     return result;
@@ -223,14 +237,38 @@ int main(const int argc, char** argv) {
         usage();
         return 2;
     }
+    std::optional<InterfaceInhibitor> interface_inhibitor;
+    if (arguments->operation == Operation::external_loss_once) {
+        auto launched = InterfaceInhibitor::launch(arguments->interface_inhibitor_path, arguments->interface_name, 1s);
+        if (!launched.ok()) {
+            report(launched.status());
+            return 1;
+        }
+        interface_inhibitor.emplace(std::move(launched).value());
+        std::cout << "interface_inhibitor_armed interface=can0\n" << std::flush;
+    }
+    const auto inhibit_interface = [&interface_inhibitor]() {
+        if (!interface_inhibitor) {
+            return Status::success();
+        }
+        const auto status = interface_inhibitor->inhibit(1s);
+        if (status.ok()) {
+            std::cerr << "interface_inhibitor_down interface=can0\n" << std::flush;
+        }
+        return status;
+    };
     auto termination = TerminationEvent::create();
     if (!termination.ok()) {
         report(termination.status());
+        const auto inhibited = inhibit_interface();
+        if (!inhibited.ok()) {
+            report(inhibited);
+        }
         return 1;
     }
-    const bool communication_loss = arguments->operation == Operation::watchdog_once
-                                    || arguments->operation == Operation::heartbeat_loss_once
-                                    || arguments->operation == Operation::tpdo_loss_once;
+    const bool communication_loss =
+        arguments->operation == Operation::watchdog_once || arguments->operation == Operation::heartbeat_loss_once
+        || arguments->operation == Operation::tpdo_loss_once || arguments->operation == Operation::external_loss_once;
     auto configuration = config(arguments->interface_name);
     if (communication_loss) {
         configuration.heartbeat_timeout = 500ms;
@@ -238,6 +276,10 @@ int main(const int argc, char** argv) {
     auto owner = Lifecycle::create(configuration, termination.value());
     if (!owner.ok()) {
         report(owner.status());
+        const auto inhibited = inhibit_interface();
+        if (!inhibited.ok()) {
+            report(inhibited);
+        }
         return 1;
     }
     const bool online_probe_fallback =
@@ -246,14 +288,18 @@ int main(const int argc, char** argv) {
         || communication_loss || arguments->operation == Operation::manual_tpdo
         || arguments->operation == Operation::zero_sequence || arguments->operation == Operation::target_once;
     constexpr auto startup_timeout = 1s;
-    std::cout << "qualification_wait_online node=1 timeout_s=" << startup_timeout.count() << std::endl;
+    std::cout << "qualification_wait_online node=1 timeout_s=" << startup_timeout.count() << '\n' << std::flush;
     const auto ready = wait_ready(*owner.value(), startup_timeout, !online_probe_fallback);
     if (!ready.ok() && !(online_probe_fallback && ready.error.value() == ETIMEDOUT)) {
         report(ready);
+        const auto inhibited = inhibit_interface();
+        if (!inhibited.ok()) {
+            report(inhibited);
+        }
         return 1;
     }
     if (!ready.ok()) {
-        std::cout << "qualification_online_probe node=1 object=0x1017:00" << std::endl;
+        std::cout << "qualification_online_probe node=1 object=0x1017:00\n" << std::flush;
     }
 
     QualificationSession session{*owner.value()};
@@ -269,9 +315,8 @@ int main(const int argc, char** argv) {
             result = session.set_zero_targets();
             break;
         case Operation::target_once:
-            result =
-                session.qualify_first_motion_cia402(arguments->channel, arguments->rpm, arguments->duration, 2000ms,
-                                                     arguments->use_rpdo);
+            result = session.qualify_first_motion_cia402(arguments->channel, arguments->rpm, arguments->duration,
+                                                         2000ms, arguments->use_rpdo);
             break;
         case Operation::zero_sequence:
             result = session.qualify_zero_target_cia402(2000ms);
@@ -295,6 +340,9 @@ int main(const int argc, char** argv) {
         case Operation::heartbeat_loss_once:
             result = session.qualify_communication_loss_cia402(CommunicationLossStimulus::heartbeat);
             break;
+        case Operation::external_loss_once:
+            result = session.qualify_communication_loss_cia402(CommunicationLossStimulus::external);
+            break;
         case Operation::tpdo_loss_once:
             result = session.qualify_communication_loss_cia402(CommunicationLossStimulus::tpdo);
             break;
@@ -306,7 +354,19 @@ int main(const int argc, char** argv) {
     }
     if (!result.ok()) {
         report(result);
+        const auto inhibited = inhibit_interface();
+        if (!inhibited.ok()) {
+            report(inhibited);
+        }
         return 1;
+    }
+    if (interface_inhibitor) {
+        const auto released = interface_inhibitor->release(1s);
+        if (!released.ok()) {
+            report(released);
+            return 1;
+        }
+        std::cout << "interface_inhibitor_released interface=can0 cleanup=verified\n" << std::flush;
     }
     std::cout << "qualification_complete node=1 operation=" << static_cast<unsigned int>(arguments->operation) << '\n';
     return 0;

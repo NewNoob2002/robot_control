@@ -1,0 +1,9 @@
+{
+  "status": "AUTHORIZED_RETEST_STAGED",
+  "files": {
+    "authorization_retest.json": "59acece044c5727b26d9c6f8b594e5bdd64a593188e38d62a42359fbd6e59eff",
+    "run_retest_once.py": "88e477e6356e7ad69472c26c0e725747fadfa0fb42d76136ce14e9426f641786",
+    "restore_retest_can0.py": "cb4befa821860ba9367fa84f5f97c7822b3176d68c9cc8626f2318b4037b7eba",
+    "finalize_retest_can0_down.py": "912a3e202b5746d421a2c9c62685dd38b262320e5dda11dde8ba7ebaf090dee6"
+  }
+}

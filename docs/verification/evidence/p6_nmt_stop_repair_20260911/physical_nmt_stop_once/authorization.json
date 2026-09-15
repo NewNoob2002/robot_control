@@ -1,0 +1,18 @@
+{
+  "authorized": true,
+  "stimulus": "nmt_stop",
+  "elf_sha256": "202bab381749c0418a61d727a7de02490d4a625594bba3e98346c6f96d3f175d",
+  "operator_ready": true,
+  "user_confirmation": "进行修复并完成软件验证，授权进行实机测试。现场确认：上述条件均有效，现场就绪。",
+  "authorization_context": "Same RK3588/node1; right +5 rpm and left zero for 1000 ms once; one NMT Stop; bounded Stopped heartbeat wait, Pre-operational zero targets and one Disable Voltage cleanup with fresh SDO state/speeds; no Operational after Stop, retries, persistent settings or JCAN TX. A distinct startup quick-stop zero-only exit may issue at most one Disable Voltage before motion.",
+  "date": "2026-09-11",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--nmt-stop-once",
+    "2:5",
+    "--duration-ms",
+    "1000"
+  ]
+}

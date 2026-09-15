@@ -1,0 +1,17 @@
+{
+  "base": "/tmp/robot-control-qualifications/interface-v5-2304c1c9892d",
+  "elf_sha256": "2304c1c9892d327f73c65304601adfd4ced30e81fb2d4f3bfd1e2c5966ae857c",
+  "source_hashes": {
+    "communication/canopen/qualification.cpp": "62c90b361be46242062b973e0b3f397d67eba5b285f125c99078c791e4b2d02d",
+    "communication/canopen/qualification.hpp": "996977ccfbbd5418bc2c71bd2a65db577858de60ad1161891241f7161b654e2a",
+    "tools/zlac_qualification/main.cpp": "4e7b25f8c1a125586f20226a39b99a6c605bab358dee112e2f08da890675662a",
+    "tests/unit/canopen_qualification_vcan_tests.cpp": "abd49c527e790fe315713e14b633e2b60e1924895a24d8e01fb644b0de3cae89"
+  },
+  "software_evidence": "../p6_interface_v5_20260914/test_result.json",
+  "files": {
+    "local_trial.py": "eacfb6f393b42c98eff0335a18207b528ff913f9d76bf6ae07fc6816a102cea8",
+    "remote_trial.py": "e82bb2a803220b87514bb0501a266bfb84fa5954320192d06e2808c19fd166cf",
+    "test_capture_bound.py": "4a2cdcf892e59a6751f808b09081d9a7f0e06e3dfcced8e141a787c6f875afa3",
+    "authorization.json": "058140d8d66a3e512aedbcb0f57621f9eddf5c879b7b3440b257304c2421ffd7"
+  }
+}

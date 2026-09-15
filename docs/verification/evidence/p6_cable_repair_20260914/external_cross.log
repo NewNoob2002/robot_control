@@ -1,0 +1,249 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/aarch64-linux-gnu-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/aarch64-linux-gnu-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/out/build/cross/cable-repair-qualification
+[1/75] Building C object CMakeFiles/review_qualification_vcan_tests.dir/workspace/tests/unit/canopen_test_log_stub.c.o
+[2/75] Building C object CMakeFiles/review_lifecycle_vcan_tests.dir/workspace/tests/unit/canopen_test_log_stub.c.o
+[3/75] Building CXX object robot-control/domain/drive/CMakeFiles/robot_control_domain_drive.dir/cia402.cpp.o
+[4/75] Building CXX object robot-control/domain/drive/CMakeFiles/robot_control_domain_drive.dir/zlac8015d.cpp.o
+[5/75] Linking CXX static library robot-control/domain/drive/librobot_control_domain_drive.a
+[6/75] Building CXX object robot-control/domain/control/CMakeFiles/robot_control_domain_control.dir/control_arbiter.cpp.o
+[7/75] Building CXX object robot-control/domain/safety/CMakeFiles/robot_control_domain_safety.dir/safety_manager.cpp.o
+[8/75] Linking CXX static library robot-control/domain/control/librobot_control_domain_control.a
+[9/75] Linking CXX static library robot-control/domain/safety/librobot_control_domain_safety.a
+[10/75] Building CXX object robot-control/platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/classic_frame.cpp.o
+[11/75] Building CXX object CMakeFiles/review_lifecycle_vcan_tests.dir/workspace/tests/unit/canopen_vcan_tests.cpp.o
+[12/75] Building CXX object robot-control/platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/socket.cpp.o
+[13/75] Building CXX object robot-control/platform/linux/CMakeFiles/robot_control_platform_linux.dir/process/termination_event.cpp.o
+[14/75] Building CXX object robot-control/platform/linux/CMakeFiles/robot_control_platform_linux.dir/io/poll_wait.cpp.o
+[15/75] Building C object robot-control/service/logging/CMakeFiles/robot_control_easylogger.dir/workspace/components/EasyLogger/easylogger/src/elog.c.o
+[16/75] Building CXX object robot-control/platform/linux/CMakeFiles/robot_control_platform_linux.dir/time/monotonic_timer.cpp.o
+[17/75] Building C object robot-control/service/logging/CMakeFiles/robot_control_easylogger.dir/workspace/components/EasyLogger/easylogger/src/elog_utils.c.o
+[18/75] Building C object robot-control/service/logging/CMakeFiles/robot_control_easylogger.dir/easylogger_port.c.o
+[19/75] Linking C static library robot-control/service/logging/librobot_control_easylogger.a
+[20/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_transmit_gate.dir/transmit_gate.c.o
+[21/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CO_driver.c.o
+[22/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CO_epoll_interface.c.o
+[23/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/CANopen.c.o
+[24/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_ODinterface.c.o
+[25/75] Building CXX object robot-control/platform/linux/CMakeFiles/robot_control_platform_linux.dir/uart/serial_port.cpp.o
+[26/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_NMT_Heartbeat.c.o
+[27/75] Linking CXX static library robot-control/platform/linux/librobot_control_platform_linux.a
+[28/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_HBconsumer.c.o
+[29/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_Emergency.c.o
+[30/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_SDOserver.c.o
+[31/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_SDOclient.c.o
+[32/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_PDO.c.o
+[33/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_fifo.c.o
+[34/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/od/OD.c.o
+[35/75] Linking C static library robot-control/communication/canopen/librobot_control_canopen_upstream.a
+[36/75] Building CXX object robot-control/service/logging/CMakeFiles/robot_control_service_logging.dir/logger.cpp.o
+[37/75] Building CXX object CMakeFiles/review_qualification_vcan_tests.dir/workspace/tests/unit/canopen_qualification_vcan_tests.cpp.o
+[38/75] Linking CXX static library robot-control/service/logging/librobot_control_service_logging.a
+[39/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/observation.cpp.o
+[40/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_qualification_gate.dir/qualification_gate.c.o
+[41/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CO_driver.c.o
+[42/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_config.cpp.o
+[43/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CO_epoll_interface.c.o
+[44/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/CANopen.c.o
+[45/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_ODinterface.c.o
+[46/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/lifecycle.cpp.o
+[47/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_NMT_Heartbeat.c.o
+[48/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_HBconsumer.c.o
+[49/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_Emergency.c.o
+[50/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_SDOserver.c.o
+[51/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_SDOclient.c.o
+[52/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_PDO.c.o
+[53/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/workspace/components/CANopenLinux/CANopenNode/301/CO_fifo.c.o
+[54/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_storage.cpp.o
+[55/75] Building C object robot-control/communication/canopen/CMakeFiles/robot_control_canopen_upstream_qualification.dir/od/OD.c.o
+[56/75] Linking CXX static library robot-control/communication/canopen/librobot_control_communication_canopen.a
+[57/75] Linking C static library robot-control/communication/canopen/librobot_control_canopen_upstream_qualification.a
+[58/75] Linking CXX executable review_lifecycle_vcan_tests
+[59/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/observation.cpp.o
+[60/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/stack_config.cpp.o
+[61/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/lifecycle.cpp.o
+[62/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/qualification.cpp.o
+[63/75] Building C object robot-control/tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/observer_log.c.o
+[64/75] Building CXX object robot-control/communication/canopen/CMakeFiles/robot_control_communication_canopen_qualification.dir/stack_storage.cpp.o
+[65/75] Linking CXX static library robot-control/communication/canopen/librobot_control_communication_canopen_qualification.a
+[66/75] Building CXX object robot-control/tools/can_probe/CMakeFiles/robot-control-can-probe.dir/main.cpp.o
+[67/75] Linking CXX executable robot-control/tools/can_probe/robot-control-can-probe
+[68/75] Linking CXX executable review_qualification_vcan_tests
+[69/75] Building C object robot-control/tools/zlac_qualification/CMakeFiles/robot-control-zlac-qualification.dir/qualification_log.c.o
+[70/75] Building CXX object robot-control/tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/main.cpp.o
+[71/75] Linking CXX executable robot-control/tools/canopen_observer/robot-control-canopen-observer
+[72/75] Building CXX object robot-control/tools/platform_probe/CMakeFiles/robot-control-platform-probe.dir/main.cpp.o
+[73/75] Linking CXX executable robot-control/tools/platform_probe/robot-control-platform-probe
+[74/75] Building CXX object robot-control/tools/zlac_qualification/CMakeFiles/robot-control-zlac-qualification.dir/main.cpp.o
+[75/75] Linking CXX executable robot-control/tools/zlac_qualification/robot-control-zlac-qualification
+elf=/workspace/out/build/cross/cable-repair-qualification/robot-control/tools/zlac_qualification/robot-control-zlac-qualification
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+rpath=none
+elf=/workspace/out/build/cross/cable-repair-qualification/review_qualification_vcan_tests
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+rpath=none
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/aarch64-linux-gnu-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/aarch64-linux-gnu-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/out/build/cross/cable-repair-debug
+[1/46] Building CXX object domain/safety/CMakeFiles/robot_control_domain_safety.dir/safety_manager.cpp.o
+[2/46] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/cia402.cpp.o
+[3/46] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/zlac8015d.cpp.o
+[4/46] Linking CXX static library domain/drive/librobot_control_domain_drive.a
+[5/46] Building CXX object domain/control/CMakeFiles/robot_control_domain_control.dir/control_arbiter.cpp.o
+[6/46] Linking CXX static library domain/control/librobot_control_domain_control.a
+[7/46] Linking CXX static library domain/safety/librobot_control_domain_safety.a
+[8/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/classic_frame.cpp.o
+[9/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/socket.cpp.o
+[10/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/io/poll_wait.cpp.o
+[11/46] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/__/__/components/EasyLogger/easylogger/src/elog.c.o
+[12/46] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/__/__/components/EasyLogger/easylogger/src/elog_utils.c.o
+[13/46] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/easylogger_port.c.o
+[14/46] Linking C static library service/logging/librobot_control_easylogger.a
+[15/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/process/termination_event.cpp.o
+[16/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_transmit_gate.dir/transmit_gate.c.o
+[17/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_driver.c.o
+[18/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_epoll_interface.c.o
+[19/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/time/monotonic_timer.cpp.o
+[20/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/CANopen.c.o
+[21/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_ODinterface.c.o
+[22/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_NMT_Heartbeat.c.o
+[23/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_Emergency.c.o
+[24/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/uart/serial_port.cpp.o
+[25/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_HBconsumer.c.o
+[26/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOserver.c.o
+[27/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOclient.c.o
+[28/46] Linking CXX static library platform/linux/librobot_control_platform_linux.a
+[29/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_fifo.c.o
+[30/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_PDO.c.o
+[31/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/od/OD.c.o
+[32/46] Linking C static library communication/canopen/librobot_control_canopen_upstream.a
+[33/46] Building CXX object service/logging/CMakeFiles/robot_control_service_logging.dir/logger.cpp.o
+[34/46] Linking CXX static library service/logging/librobot_control_service_logging.a
+[35/46] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/observation.cpp.o
+[36/46] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_config.cpp.o
+[37/46] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/lifecycle.cpp.o
+[38/46] Building C object tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/observer_log.c.o
+[39/46] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_storage.cpp.o
+[40/46] Linking CXX static library communication/canopen/librobot_control_communication_canopen.a
+[41/46] Building CXX object tools/can_probe/CMakeFiles/robot-control-can-probe.dir/main.cpp.o
+[42/46] Linking CXX executable tools/can_probe/robot-control-can-probe
+[43/46] Building CXX object tools/platform_probe/CMakeFiles/robot-control-platform-probe.dir/main.cpp.o
+[44/46] Linking CXX executable tools/platform_probe/robot-control-platform-probe
+[45/46] Building CXX object tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/main.cpp.o
+[46/46] Linking CXX executable tools/canopen_observer/robot-control-canopen-observer
+elf=/workspace/out/build/cross/cable-repair-debug/tools/platform_probe/robot-control-platform-probe
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+phase3_symbols=validated
+rpath=none
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/aarch64-linux-gnu-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/aarch64-linux-gnu-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/out/build/cross/cable-repair-release
+[1/46] Building CXX object domain/safety/CMakeFiles/robot_control_domain_safety.dir/safety_manager.cpp.o
+[2/46] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/cia402.cpp.o
+[3/46] Building CXX object domain/drive/CMakeFiles/robot_control_domain_drive.dir/zlac8015d.cpp.o
+[4/46] Linking CXX static library domain/drive/librobot_control_domain_drive.a
+[5/46] Building CXX object domain/control/CMakeFiles/robot_control_domain_control.dir/control_arbiter.cpp.o
+[6/46] Linking CXX static library domain/control/librobot_control_domain_control.a
+[7/46] Linking CXX static library domain/safety/librobot_control_domain_safety.a
+[8/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/classic_frame.cpp.o
+[9/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/io/poll_wait.cpp.o
+[10/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/process/termination_event.cpp.o
+[11/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/can/socket.cpp.o
+[12/46] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/__/__/components/EasyLogger/easylogger/src/elog.c.o
+[13/46] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/__/__/components/EasyLogger/easylogger/src/elog_utils.c.o
+[14/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/time/monotonic_timer.cpp.o
+[15/46] Building C object service/logging/CMakeFiles/robot_control_easylogger.dir/easylogger_port.c.o
+[16/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_transmit_gate.dir/transmit_gate.c.o
+[17/46] Linking C static library service/logging/librobot_control_easylogger.a
+[18/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_epoll_interface.c.o
+[19/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CO_driver.c.o
+[20/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/CANopen.c.o
+[21/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_ODinterface.c.o
+[22/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_NMT_Heartbeat.c.o
+[23/46] Building CXX object platform/linux/CMakeFiles/robot_control_platform_linux.dir/uart/serial_port.cpp.o
+[24/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_HBconsumer.c.o
+[25/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_Emergency.c.o
+[26/46] Linking CXX static library platform/linux/librobot_control_platform_linux.a
+[27/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOserver.c.o
+[28/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_PDO.c.o
+[29/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_SDOclient.c.o
+[30/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/__/__/components/CANopenLinux/CANopenNode/301/CO_fifo.c.o
+[31/46] Building C object communication/canopen/CMakeFiles/robot_control_canopen_upstream.dir/od/OD.c.o
+[32/46] Linking C static library communication/canopen/librobot_control_canopen_upstream.a
+[33/46] Building CXX object service/logging/CMakeFiles/robot_control_service_logging.dir/logger.cpp.o
+[34/46] Linking CXX static library service/logging/librobot_control_service_logging.a
+[35/46] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_config.cpp.o
+[36/46] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/observation.cpp.o
+[37/46] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/stack_storage.cpp.o
+[38/46] Building C object tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/observer_log.c.o
+[39/46] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen.dir/lifecycle.cpp.o
+[40/46] Linking CXX static library communication/canopen/librobot_control_communication_canopen.a
+[41/46] Building CXX object tools/can_probe/CMakeFiles/robot-control-can-probe.dir/main.cpp.o
+[42/46] Linking CXX executable tools/can_probe/robot-control-can-probe
+[43/46] Building CXX object tools/platform_probe/CMakeFiles/robot-control-platform-probe.dir/main.cpp.o
+[44/46] Building CXX object tools/canopen_observer/CMakeFiles/robot-control-canopen-observer.dir/main.cpp.o
+[45/46] Linking CXX executable tools/platform_probe/robot-control-platform-probe
+[46/46] Linking CXX executable tools/canopen_observer/robot-control-canopen-observer
+elf=/workspace/out/build/cross/cable-repair-release/tools/platform_probe/robot-control-platform-probe
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+phase3_symbols=validated
+rpath=none

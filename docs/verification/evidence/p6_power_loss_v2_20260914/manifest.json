@@ -1,0 +1,13 @@
+{
+  "status": "PREPARED_NOT_AUTHORIZED",
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "base": "/tmp/robot-control-qualifications/power-loss-v2-fc77b14ec242",
+  "files": {
+    "authorization.json": "707ddde24af59dcc9f913ddd8bc2bf2eff3ee3fdeb73abbb2dfdb8a7b49f323b",
+    "remote_trial.py": "7b3317d3a53f442a06b27feab39a6e8cb4a4fee5b4a6321179b735274e74840e",
+    "trial_checks.py": "57cff03f678f163726bc536b60eedca4985e174f8356860c39acfabc2b26bfec",
+    "operator_watch.py": "1e70d758d49cd83a86787fa910b6e2f8cb09334e1d6c4801ce719a39c68b0a7b",
+    "restore_pretrial_can0.py": "1d271f6537fe14528b0a5f89cfd83c2490a6e9a5d2f2ac67bad608cfaf4dd501",
+    "finalize_can0_down.py": "4ab989a7e7580e90a587d3cfb72237ff4d6127c2f960644fd51b103bc92e5660"
+  }
+}

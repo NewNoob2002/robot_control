@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-15",
+  "source": "operator confirmation in qualification session",
+  "right_wheel_stopped_normally": true,
+  "left_wheel_stayed_still": true,
+  "restart_observed": false,
+  "abnormal_sound": false,
+  "final_drive_power_off": true,
+  "x1_was_pressed_and_locked_during_motion": true,
+  "x1_reset_after_drive_power_off": true,
+  "both_wheels_stopped_and_site_safe": true
+}

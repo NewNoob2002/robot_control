@@ -1,0 +1,11 @@
+{
+  "base": "/tmp/robot-control-qualifications/external-recovery-a8040dc1a783",
+  "elf_sha256": "a8040dc1a7837a481644a00ce48293aed7cf09ccb9ac4b31255f7cb71372d3e7",
+  "files": {
+    "local_trial.py": "c266626e1fa03231846260f343b4a5a6c38bac75f7f701028518354d56c8d4ad",
+    "remote_trial.py": "fdfd3693c45a6a5776888087f580695eef0cf2488d3091f5e5464ac56b9eeb52",
+    "authorization.json": "4f953f06ead963f39a8e23d846d88375e56b9e0bbf2b05bac117b9dd7da3118d",
+    "stage.py": "96034278ee3d98fd90ed659bbcbaac4058ed87ad70f60107499f555c10bd2554",
+    "interface_toggle.py": "2b1a7ea038cb990fb03165fa517e49aa64199aec02e040b807098dda49265a31"
+  }
+}

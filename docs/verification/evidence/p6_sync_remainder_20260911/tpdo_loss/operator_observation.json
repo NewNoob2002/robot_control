@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-11",
+  "user_confirmation": "是，右轮转动后停止，左轮不动，无异常或再启动",
+  "right_motion_then_stop": true,
+  "left_stationary": true,
+  "abnormal_sound": false,
+  "unintended_restart": false,
+  "accepted": true
+}

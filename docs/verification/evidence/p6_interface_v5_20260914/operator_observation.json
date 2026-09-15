@@ -1,0 +1,7 @@
+{
+  "date": "2026-09-14",
+  "user_confirmation": "无异常, DONE: can0 restored. Observe stopped wheels and no restart.",
+  "confirmation_question": "Right wheel moved then stopped normally, left stayed stationary, no abnormal sound or restart, both stopped and site safe; terminal DONE?",
+  "accepted": true,
+  "retry_authorized": false
+}

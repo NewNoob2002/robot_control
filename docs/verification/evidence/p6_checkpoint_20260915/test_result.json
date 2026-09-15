@@ -1,0 +1,51 @@
+{
+  "status": "LOCAL_CI_PASS_CROSS_UNAVAILABLE_PHASE6_OPEN",
+  "date": "2026-09-15",
+  "base_revision": "f3d88d4766c80ae5a35784b4f883e3f549b1c06d",
+  "tests": {
+    "qualification_debug": {
+      "passed": 68,
+      "failed": 0,
+      "skipped": 0
+    },
+    "qualification_sanitizer": {
+      "passed": 68,
+      "failed": 0,
+      "skipped": 0
+    },
+    "default_release": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "commissioning": {
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0
+    },
+    "default_debug": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "26 P5.1 cases plus two separately executed SocketCAN cases"
+    }
+  },
+  "clang_tidy": {
+    "exit_code": 0,
+    "reported_errors": 0,
+    "diagnostic_lines": 24,
+    "disposition": "nonblocking performance/API advisories; no broad refactor; Result::value callers retain documented ok() precondition"
+  },
+  "cross": {
+    "status": "UNAVAILABLE",
+    "reason": "locked image sha256:f2198e31e27c084bc2deff761e124fa9d7ce580a8d986c7885fd62bb1701e7dd absent from current Docker daemon",
+    "sysroot": "retained; not substituted"
+  },
+  "hardware": {
+    "new_physical_tests": false,
+    "soak": "DEFERRED_NOT_PASSED",
+    "v4": "NOT_STARTED_AUTHORIZATION_RETIRED",
+    "power_off_confirmed_after_preparation": false
+  },
+  "remote_ci": "inspect run attached to pushed commit; not claimed before execution"
+}

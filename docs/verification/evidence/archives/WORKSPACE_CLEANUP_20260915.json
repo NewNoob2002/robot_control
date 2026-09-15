@@ -1,0 +1,139 @@
+{
+  "date": "2026-09-15",
+  "archived_files": 12,
+  "archived_original_bytes": 58452046,
+  "archive_bytes": 277915,
+  "removed_python_caches": [
+    "scripts/test/__pycache__/test_phase6_zero_motion_soak.cpython-312.pyc",
+    "scripts/test/__pycache__/test_phase6_emergency_input.cpython-312.pyc",
+    "scripts/hil/__pycache__/phase6_zero_motion_soak.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_v3_20260915/__pycache__/jcan_ack_keeper.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_v3_20260915/__pycache__/stage.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_v3_20260915/__pycache__/finalize_can0_down.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_v3_20260915/__pycache__/phase6_zero_motion_soak.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_v3_20260915/__pycache__/run_once.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_v3_20260915/__pycache__/restore_pretrial_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/target_snapshot_before_cleanup/__pycache__/restore_pretrial_can0.cpython-310.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/target_snapshot_before_cleanup/__pycache__/phase6_zero_motion_soak.cpython-310.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/target_snapshot_before_cleanup/__pycache__/finalize_can0_down.cpython-310.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/target_snapshot_before_cleanup/__pycache__/run_once.cpython-310.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/target_snapshot_before_cleanup/__pycache__/finalize_retest_can0_down.cpython-310.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/target_snapshot_before_cleanup/__pycache__/run_retest_once.cpython-310.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/target_snapshot_before_cleanup/__pycache__/restore_retest_can0.cpython-310.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/__pycache__/restore_retest_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/__pycache__/run_retest_once.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/__pycache__/finalize_retest_can0_down.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_retest_20260915/__pycache__/stage_retest.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_20260915/__pycache__/stage_prepared.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_20260915/__pycache__/finalize_can0_down.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_20260915/__pycache__/run_once.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_20260915/__pycache__/restore_pretrial_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_zero_motion_soak_20260915/__pycache__/stage_authorization.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/__pycache__/stage_target.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/__pycache__/local_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/__pycache__/restore_pretrial_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/__pycache__/trial_checks.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/__pycache__/remote_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/__pycache__/operator_watch.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_target_20260914/__pycache__/stage_physical.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_retest_20260914/__pycache__/local_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_retest_20260914/__pycache__/restore_pretrial_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_retest_20260914/__pycache__/trial_checks.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_retest_20260914/__pycache__/remote_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_retest_20260914/__pycache__/stage_authorization.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_retest_20260914/__pycache__/operator_watch.cpython-312.pyc",
+    "docs/verification/evidence/p6_userspace_can_inhibit_retest_20260914/__pycache__/stage_retest.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/local_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/stage_prepared.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/finalize_can0_down.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/restore_pretrial_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/trial_checks.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/remote_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/analyze_result.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/operator_watch.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_v2_20260914/__pycache__/measure_clock_offset.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/local_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/stage_prepared.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/finalize_can0_down.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/analyze_attempt.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/restore_pretrial_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/trial_checks.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/remote_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/operator_watch.cpython-312.pyc",
+    "docs/verification/evidence/p6_power_loss_20260914/__pycache__/measure_clock_offset.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/local_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/stage_prepared.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/finalize_can0_down.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/restore_pretrial_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/analyze_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/trial_checks.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/remote_trial.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/stage_authorization.cpython-312.pyc",
+    "docs/verification/evidence/p6_emergency_input_20260914/__pycache__/operator_watch.cpython-312.pyc",
+    "docs/verification/evidence/p6_cable_retest_20260914/__pycache__/restore_can0.cpython-312.pyc",
+    "docs/verification/evidence/p6_cable_retest_20260914/__pycache__/trial_checks.cpython-312.pyc"
+  ],
+  "pre_cleanup_backup": "out/checkpoints/p6-deferred-soak-20260915/before-cleanup.tar.gz",
+  "build_cleanup": {
+    "removed_generated_builds": [
+      {
+        "path": "out/build/cable-repro",
+        "bytes": 16870955
+      },
+      {
+        "path": "out/build/host-debug",
+        "bytes": 37046110
+      },
+      {
+        "path": "out/build/host-release",
+        "bytes": 3151356
+      },
+      {
+        "path": "out/build/host-test",
+        "bytes": 25605755
+      },
+      {
+        "path": "out/build/review-commissioning",
+        "bytes": 34379222
+      },
+      {
+        "path": "out/build/review-default-debug",
+        "bytes": 25053904
+      },
+      {
+        "path": "out/build/review-default-release",
+        "bytes": 3149897
+      },
+      {
+        "path": "out/build/review-fixes",
+        "bytes": 39012296
+      },
+      {
+        "path": "out/build/review-fixes-sanitizer",
+        "bytes": 107464456
+      },
+      {
+        "path": "out/build/userspace-default",
+        "bytes": 26003600
+      },
+      {
+        "path": "out/build/userspace-default-release",
+        "bytes": 3246614
+      },
+      {
+        "path": "out/build/userspace-inhibit",
+        "bytes": 41341673
+      },
+      {
+        "path": "out/build/userspace-inhibit-san",
+        "bytes": 116533099
+      }
+    ],
+    "source_snapshot_files": 24823,
+    "source_snapshot_original_bytes": 1136911741,
+    "verified_snapshot_archive": "out/checkpoints/p6-deferred-soak-20260915/build-inputs.tar.gz",
+    "snapshot_archive_bytes": 78529846,
+    "snapshot_archive_sha256": "ebe12f998a774a245361fa8f7e56409cc6f0a82b1821cb5e02c350bd7493f4be",
+    "retained": "current checkpoint builds; old cross trees, artifacts, staging, sysroots and logs"
+  }
+}

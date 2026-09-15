@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "operation": "single NMT Stop after accepted zero recovery",
+  "approved": true,
+  "authorization": {
+    "authorized": true,
+    "stimulus": "nmt_stop",
+    "elf_sha256": "31d2d0848e9330f6f910e642d47bccb6552ca112cefa36214defa646c524b7e3",
+    "operator_ready": true,
+    "user_confirmation": "授权; 确认两轮始终未转动，无异常声响或再次启动",
+    "authorization_context": "Authorization after repair covers new zero recovery and NMT Stop. Operator has now accepted zero recovery. Same RK3588/node1, right +5 rpm and left zero for 1000 ms, then one NMT Stop and verified zero cleanup. Raised wheels/emergency stop/on-site conditions remain as agreed.",
+    "date": "2026-09-11",
+    "attempts": 1,
+    "args": [
+      "--interface",
+      "can0",
+      "--nmt-stop-once",
+      "2:5",
+      "--duration-ms",
+      "1000"
+    ]
+  },
+  "target": {
+    "board": "RK3588 robot-dev",
+    "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+    "interface": "can0",
+    "node": 1,
+    "bitrate": 500000
+  },
+  "observer": {
+    "serial": "207F346D5650",
+    "mode": "silent",
+    "physical_tx": false
+  },
+  "limits": {
+    "attempts": 1,
+    "nonzero_targets": 1,
+    "disable_voltage_requests_max": 1,
+    "downloads_max": 24,
+    "uploads_max": 512,
+    "nmt_max": 6,
+    "per_transition_ms": 2000,
+    "executor_seconds": 30,
+    "capture_seconds": 40,
+    "frames_max": 10000,
+    "right_rpm": 5,
+    "left_rpm": 0,
+    "duration_ms": 1000,
+    "nmt_stop_max": 1
+  },
+  "expected_sequence": "Verified zero startup, synchronous packed target 0x00050000 once for 1000 ms; NMT Stop node1 once; observe Stopped heartbeat; Pre-operational, zero target, restore observation, Shutdown at zero, verify speeds, final Pre-operational and restore heartbeat. No automatic retry.",
+  "recovery_plan": "Application bounded zero/inhibit cleanup; terminate capture and observer; stop on any timeout/error without retry; operator independent stop if uncertain",
+  "source_and_artifact_manifest": "../manifest_budget.json"
+}

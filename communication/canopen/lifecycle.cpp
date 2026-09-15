@@ -1,4 +1,5 @@
 #include "communication/canopen/lifecycle.hpp"
+#include "platform/linux/unique_fd.hpp"
 
 #include <linux/can.h>
 #include <linux/can/error.h>
@@ -174,6 +175,16 @@ platform::linux::Status Lifecycle::reopen() noexcept {
     if (interface_index == 0U) {
         return platform::linux::Status::from_errno("if_nametoindex", context + " upstream=not-called",
                                                    errno == 0 ? ENODEV : errno);
+    }
+
+    // Avoid rebuilding/logging a CAN socket on every retry while administratively down.
+    const platform::linux::UniqueFd control{::socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0)};
+    if (!control) {
+        return platform::linux::Status::from_errno("socket(interface_status)", context, errno);
+    }
+    auto before_open = require_interface_up(control.get(), config);
+    if (!before_open.ok()) {
+        return before_open;
     }
 
     CO_CANptrSocketCan_t endpoint{

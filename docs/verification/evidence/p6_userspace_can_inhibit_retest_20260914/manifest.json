@@ -1,0 +1,12 @@
+{
+  "status": "PREPARED_NOT_AUTHORIZED",
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "base": "/tmp/robot-control-qualifications/userspace-inhibit-retest-fc77b14ec242",
+  "files": {
+    "authorization.json": "a357bef83dc3123d22736fe3780177fe0609645d2376e418ae21689a8ff4462c",
+    "remote_trial.py": "5f510ca2dabe89e1617d1873840729cb9397ab09f5c69a7c1907b9886cf05789",
+    "trial_checks.py": "57cff03f678f163726bc536b60eedca4985e174f8356860c39acfabc2b26bfec",
+    "operator_watch.py": "86e8d4ecba9f0b6573b5323ad4dac5dc7b82b7b7b598234b42926ec509df9956",
+    "restore_pretrial_can0.py": "31fb8b05792ad14622542e1213488f11dced987d400cbe9fe6b3c5ae793a1d66"
+  }
+}

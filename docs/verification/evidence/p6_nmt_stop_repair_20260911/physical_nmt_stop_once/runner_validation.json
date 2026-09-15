@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "syntax": true,
+  "exact_hashes": true,
+  "bounded_sequence": true,
+  "rejected": [
+    "Operational after Stop",
+    "repeated Stop",
+    "enable after motion",
+    "repeated cleanup Disable Voltage",
+    "repeated motion",
+    "broadcast",
+    "adjacent target",
+    "persistent save"
+  ]
+}

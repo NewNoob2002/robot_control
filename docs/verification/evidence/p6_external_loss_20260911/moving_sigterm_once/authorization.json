@@ -1,0 +1,18 @@
+{
+  "authorized": true,
+  "stimulus": "moving_sigterm",
+  "elf_sha256": "dc639ff99b7031b2137c6e23eb235ec3e0a3c635d9781dd10923072c02306a38",
+  "operator_ready": true,
+  "user_confirmation": "ok, 继续剩余项的前四项测试；都可以进行操作",
+  "date": "2026-09-11",
+  "authorization_context": "First of four independent tests: same RK3588/node1, raised unloaded wheels, right +5 rpm and left zero, 1000 ms maximum command interval. One SIGTERM to exact owner PID about 300 ms after target observation and only after nonzero right TPDO, followed by bounded zero/Shutdown/Pre-operational cleanup. No retries.",
+  "attempts": 1,
+  "args": [
+    "--interface",
+    "can0",
+    "--target-once",
+    "2:5",
+    "--duration-ms",
+    "1000"
+  ]
+}

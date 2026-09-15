@@ -1,0 +1,39 @@
+{
+  "status": "FAIL_POST_ERROR_PHYSICAL_REQUEST",
+  "target_frames": 320,
+  "target_error_frames": 3,
+  "jcan_frames": 16914,
+  "target_normal_frames": 317,
+  "target_normal_matched_in_order": 317,
+  "raw_errors": [
+    {
+      "time": "1789365523.595459",
+      "id": "0x20000004",
+      "data": "0008000000006000"
+    },
+    {
+      "time": "1789365523.625651",
+      "id": "0x20000004",
+      "data": "0008000000008000"
+    },
+    {
+      "time": "1789365527.955607",
+      "id": "0x20000004",
+      "data": "0004000000000000"
+    }
+  ],
+  "requests_after_first_error": [
+    {
+      "time": "1789365527.955604",
+      "id": "0x601",
+      "data": "406c600200000000",
+      "delay_ms": "4360.145000"
+    }
+  ],
+  "nonzero_targets": 1,
+  "canopen_send_diagnostic_present": false,
+  "permission_denied_present": false,
+  "jcan_shutdown_verified": true,
+  "operator_observation": "CONFIRMED: powered off, stopped and safe; normal stop after disconnect, no restart after reconnect, left wheel stationary",
+  "interpretation": "A read-only 606C:02 upload appears after the controller error. Kernel/controller queued transmission is a hypothesis, not yet established. No new nonzero target is visible; operator confirms physical stop/no-restart and stationary left wheel."
+}

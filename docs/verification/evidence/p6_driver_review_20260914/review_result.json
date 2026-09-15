@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-14",
+  "status": "TARGET_DRIVER_RETRY_MECHANISM_CONFIRMED_REPAIR_OPEN",
+  "physical_can_operations": false,
+  "kernel_build_or_install": false,
+  "target_image_sha256": "f212c3c71bebc0d9c89e6951e5364d3a12bde8fe5deb06762ae0e968ec47a204",
+  "disk_image_notes_match_running_kernel": true,
+  "supported_can_ctrlmode_hex": "0x17",
+  "one_shot_advertised": false,
+  "target_worker": "rockchip_canfd_tx_err_delay_work",
+  "worker_address": "0xffff8000089ee948",
+  "worker_behavior": "Writes TX request then reschedules itself; no socket lifetime/age/CAN state guard in this worker",
+  "device_close_order": [
+    "stop_queue",
+    "stop_controller",
+    "close_candev",
+    "pm_runtime_put",
+    "cancel_delayed_work_sync"
+  ],
+  "concurrency_finding": "Cancellation after stop and runtime-PM release needs repair review; not dynamically reproduced",
+  "full_source_commit": "UNRESOLVED; candidate full tree is6.1.99 while target is6.1.84",
+  "trial_attribution_limit": "No trace identifies the precise retry invocation or hardware slot that completed the late frame",
+  "physical_trial_result": "FAIL_POST_ERROR_PHYSICAL_REQUEST retained"
+}
