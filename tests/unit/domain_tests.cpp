@@ -133,13 +133,13 @@ void test_arbitration() {
     CHECK("ARB-002", result.command.is_zero());
 
     result = arbiter.evaluate(pair(t0 + 2ms, 0, 0, 2, 3), t0 + 2ms);
-    CHECK("ARB-003-setup", result.source == Source::none);
+    CHECK("ARB-003-setup", result.source == Source::sbus && result.command.is_zero());
     result = arbiter.evaluate(pair(t0 + 151ms, 0, 0, 2, 4), t0 + 151ms);
-    CHECK("ARB-003", result.source == Source::none);
+    CHECK("ARB-003", result.source == Source::sbus && result.command.is_zero());
     result = arbiter.evaluate(pair(t0 + 152ms, 0, 0, 2, 5), t0 + 152ms);
-    CHECK("ARB-004-setup", result.source == Source::none);
+    CHECK("ARB-004-setup", result.source == Source::external && result.command.is_zero());
     result = arbiter.evaluate(pair(t0 + 153ms, 0, 200, 1, 6), t0 + 153ms);
-    CHECK("ARB-004", result.source == Source::none);
+    CHECK("ARB-004", result.source == Source::sbus && result.command.is_zero());
 
     ControlArbiter fresh_arbiter{ArbiterConfig{}};
     static_cast<void>(fresh_arbiter.evaluate(pair(t0, 100, 0, 1), t0));
@@ -174,6 +174,44 @@ void test_arbitration() {
     result = bounded_arbiter.evaluate(over_limit, t0);
     CHECK("ARB-limit-left", result.command.left_rpm == 1000);
     CHECK("ARB-limit-right", result.command.right_rpm == -1000);
+}
+
+/** Lock P10 neutral selection, continuous authorization and safe rearm. */
+void test_p10_regressions() {
+    const MonotonicTime t{};
+    ControlArbiter manual{ArbiterConfig{}};
+    auto input = pair(t, 0, 0, 1);
+    input.external = {};
+    auto selected = manual.evaluate(input, t);
+    CHECK("P10-neutral-SBUS-alone", selected.valid && selected.source == Source::sbus);
+    CHECK("P10-neutral-zero", selected.command.is_zero());
+    ControlArbiter external{ArbiterConfig{}};
+    static_cast<void>(external.evaluate(pair(t, 0, 0, 1), t));
+    static_cast<void>(external.evaluate(pair(t + 150ms, 0, 0, 2, 2), t + 150ms));
+    selected = external.evaluate(pair(t + 160ms, 0, 50, 2, 3), t + 160ms);
+    CHECK("P10-external-start", selected.source == Source::external);
+    selected = external.evaluate(pair(t + 170ms, 0, 50, 2, 4), t + 170ms);
+    CHECK("P10-external-continuous", selected.source == Source::external);
+    selected = external.evaluate(pair(t + 180ms, 0, 0, 2, 5), t + 180ms);
+    CHECK("P10-external-neutral-owner", selected.valid && selected.source == Source::external);
+    SafetyManager safety;
+    auto safe = safe_input();
+    safe.selected.command = {50, 50, false};
+    CHECK("P10-startup-nonzero", !safety.evaluate(safe).motion_approved);
+    safe.selected.command = {};
+    CHECK("P10-neutral-arm", !safety.evaluate(safe).motion_approved);
+    safe.selected.command = {50, 50, false};
+    CHECK("P10-motion-after-neutral", safety.evaluate(safe).motion_approved);
+    safe.high_half_state = Cia402State::fault;
+    CHECK("P10-one-axis-fault", safety.evaluate(safe).state == SafetyState::drive_fault);
+    safe.high_half_state = Cia402State::operation_enabled;
+    safe.system_authorization_generation = 2;
+    CHECK("P10-rearm-nonzero", !safety.evaluate(safe).motion_approved);
+    safe.shutdown_requested = true;
+    static_cast<void>(safety.evaluate(safe));
+    safe.shutdown_requested = false;
+    safe.selected.command = {};
+    CHECK("P10-shutdown-latched", safety.evaluate(safe).state == SafetyState::shutdown);
 }
 
 /** Exercise monotonic freshness and sample-structure invariants. */
@@ -239,7 +277,11 @@ void test_safety() {
     CHECK("SAFE-005", !decision.motion_approved);
     input.system_authorization_generation = 2;
     decision = recovery_manager.evaluate(input);
-    CHECK("SAFE-005-new-generation", decision.motion_approved);
+    CHECK("SAFE-005-new-generation-needs-neutral", !decision.motion_approved);
+    input.selected.command = {};
+    static_cast<void>(recovery_manager.evaluate(input));
+    input.selected.command = {100, 100, false};
+    CHECK("SAFE-005-new-generation", recovery_manager.evaluate(input).motion_approved);
 }
 
 /** Exercise CiA402 decoding, mode eligibility, and transition timeout vectors.
@@ -412,6 +454,7 @@ void test_zlac8015d() {
 int main() {
     test_time_and_sample_contract();
     test_arbitration();
+    test_p10_regressions();
     test_safety();
     test_cia402();
     test_zlac8015d();

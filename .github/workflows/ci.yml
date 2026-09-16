@@ -77,14 +77,14 @@ jobs:
           cmake --build out/build/sbus-ci --parallel 2 --target \
             robot_control_sbus_parser_tests robot_control_sbus_source_tests \
             robot_control_sbus_reader_tests robot-control-sbus-observer \
-            robot_control_linux_platform_tests
+            robot_control_linux_platform_tests robot_control_control_cycle_tests
       - name: Run SBUS contracts, PTY, observer and replay tests
         env:
           ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
           UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
         run: |
           ctest --test-dir out/build/sbus-ci --output-on-failure --no-tests=error \
-            --tests-regex '^(sbus_|linux_platform_integration$)'
+            --tests-regex '^(sbus_|linux_platform_integration$|control_cycle_contract$)'
 
   host-validation:
     needs: changes
@@ -274,7 +274,8 @@ jobs:
             -DROBOT_CONTROL_BUILD_CANOPEN_RUNTIME=ON \
             -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON "${flags[@]}"
           cmake --build out/build/runtime-ci --parallel 2 --target \
-            robot_control_canopen_runtime_policy_tests robot_control_canopen_runtime_vcan_tests
+            robot_control_canopen_runtime_policy_tests robot_control_canopen_runtime_vcan_tests \
+            robot_control_control_cycle_tests robot_control_domain_tests
 
       - name: Run runtime contracts and mandatory managed vcan
         env:
@@ -282,14 +283,15 @@ jobs:
           UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
         run: |
           ctest --test-dir out/build/runtime-ci --output-on-failure --no-tests=error \
-            --tests-regex '^canopen_runtime_' \
+            --tests-regex '^(canopen_runtime_|control_cycle_contract$|domain_behavior_lock$)' \
             --output-junit "$PWD/out/build/runtime-ci/results.xml"
           python3 - <<'PY'
           from pathlib import Path
           import xml.etree.ElementTree as ET
           report = ET.parse(Path('out/build/runtime-ci/results.xml'))
           cases = {case.attrib['name']: case for case in report.iter('testcase')}
-          for name in ('canopen_runtime_policy', 'canopen_runtime_vcan_managed'):
+          for name in ('canopen_runtime_policy', 'canopen_runtime_vcan_managed',
+                       'control_cycle_contract', 'domain_behavior_lock'):
               assert name in cases, f'Missing runtime test: {name}'
           skipped = [name for name, case in cases.items() if case.find('skipped') is not None]
           assert not skipped, f'Required tests skipped: {skipped}'

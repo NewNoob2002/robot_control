@@ -1,5 +1,7 @@
 #include "domain/safety/safety_manager.hpp"
 
+#include <limits>
+
 namespace robot_control::domain::safety {
 namespace {
 
@@ -34,8 +36,11 @@ bool SafetyManager::both_axes(const SafetyInput &input,
 }
 
 SafetyDecision SafetyManager::evaluate(const SafetyInput &input) noexcept {
-  ++decision_generation_;
-  if (input.shutdown_requested) {
+  if (decision_generation_ < std::numeric_limits<std::uint64_t>::max())
+    ++decision_generation_;
+  shutdown_ = shutdown_ || input.shutdown_requested ||
+              decision_generation_ == std::numeric_limits<std::uint64_t>::max();
+  if (shutdown_) {
     rearm_required_ = true;
     return inhibited(SafetyState::shutdown, DriveAction::disable_voltage,
                      decision_generation_);
@@ -58,7 +63,11 @@ SafetyDecision SafetyManager::evaluate(const SafetyInput &input) noexcept {
                          : DriveAction::hold_disabled,
                      decision_generation_);
   }
-  if (input.drive_fault_active || both_axes(input, drive::Cia402State::fault)) {
+  if (input.drive_fault_active ||
+      input.low_half_state == drive::Cia402State::fault ||
+      input.high_half_state == drive::Cia402State::fault ||
+      input.low_half_state == drive::Cia402State::fault_reaction_active ||
+      input.high_half_state == drive::Cia402State::fault_reaction_active) {
     rearm_required_ = true;
     const bool fresh_reset =
         input.fault_reset_requested && input.fault_cause_absent &&
@@ -87,11 +96,17 @@ SafetyDecision SafetyManager::evaluate(const SafetyInput &input) noexcept {
 
   const bool fresh_authorization =
       input.system_authorization_generation > last_authorization_generation_;
-  if (rearm_required_ && !fresh_authorization) {
+  if ((fresh_authorization && !input.selected.command.is_zero()) ||
+      (rearm_required_ && !fresh_authorization) ||
+      input.system_authorization_generation < last_authorization_generation_) {
     return inhibited(SafetyState::zero_hold, DriveAction::quick_stop,
                      decision_generation_);
   }
 
+  if (fresh_authorization && input.selected.command.is_zero()) {
+    last_authorization_generation_ = input.system_authorization_generation;
+    rearm_required_ = false;
+  }
   if (both_axes(input, drive::Cia402State::switch_on_disabled)) {
     return inhibited(SafetyState::zero_hold, DriveAction::shutdown,
                      decision_generation_);

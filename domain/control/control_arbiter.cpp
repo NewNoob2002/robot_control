@@ -33,7 +33,9 @@ bool ControlArbiter::sample_usable(const command::CommandSample &sample,
                                    ProducerHistory &history,
                                    std::uint32_t &reasons) noexcept {
   if (!command::structurally_valid(sample, expected) ||
-      !time::is_fresh(now, sample.captured_at, timeout)) {
+      (sample.captured_at < time::MonotonicTime{} || sample.captured_at > now ||
+       timeout <= time::Duration::zero() ||
+       now - sample.captured_at >= timeout)) {
     reasons |= flag(expected == command::Source::sbus
                         ? ArbiterReason::sbus_unavailable
                         : ArbiterReason::external_unavailable);
@@ -42,7 +44,12 @@ bool ControlArbiter::sample_usable(const command::CommandSample &sample,
 
   if (sample.session_generation < history.session_generation ||
       (history.session_generation == sample.session_generation &&
-       sample.sequence < history.sequence)) {
+       (sample.sequence < history.sequence ||
+        sample.authorization_generation <
+            history.sample.authorization_generation ||
+        sample.captured_at < history.sample.captured_at ||
+        (sample.sequence == history.sequence &&
+         !(sample == history.sample))))) {
     reasons |= flag(ArbiterReason::sequence_replay);
     return false;
   }
@@ -53,6 +60,7 @@ bool ControlArbiter::sample_usable(const command::CommandSample &sample,
   } else {
     history.sequence = std::max(history.sequence, sample.sequence);
   }
+  history.sample = sample;
   return true;
 }
 
@@ -99,11 +107,13 @@ SelectedCommand
 ControlArbiter::evaluate(const ArbiterInput &input,
                          const time::MonotonicTime now) noexcept {
   if (!input.coherent) {
+    both_zero_tracking_ = false;
     external_recovery_required_ = true;
     required_external_authorization_generation_ =
         std::max(required_external_authorization_generation_,
                  input.external.authorization_generation);
-    ++handover_generation_;
+    if (handover_generation_ < std::numeric_limits<std::uint64_t>::max())
+      ++handover_generation_;
     return inhibited(now, flag(ArbiterReason::input_incoherent));
   }
 
@@ -122,7 +132,8 @@ ControlArbiter::evaluate(const ArbiterInput &input,
 
   if (sbus_usable && !input.sbus.command.is_zero()) {
     if (!manual_was_authoritative_) {
-      ++handover_generation_;
+      if (handover_generation_ < std::numeric_limits<std::uint64_t>::max())
+        ++handover_generation_;
     }
     manual_was_authoritative_ = true;
     external_recovery_required_ = true;
@@ -141,29 +152,51 @@ ControlArbiter::evaluate(const ArbiterInput &input,
     };
   }
 
+  const auto manual_zero = [&] {
+    return SelectedCommand{
+        .source = command::Source::sbus,
+        .command = {},
+        .selected_at = now,
+        .source_session_generation = input.sbus.session_generation,
+        .authorization_generation = input.sbus.authorization_generation,
+        .handover_generation = handover_generation_,
+        .reason_flags = reasons,
+        .valid = true};
+  };
   if (!sbus_usable || !external_usable) {
     external_recovery_required_ = true;
     required_external_authorization_generation_ =
         std::max(required_external_authorization_generation_,
                  input.external.authorization_generation);
     if (manual_was_authoritative_) {
-      ++handover_generation_;
+      if (handover_generation_ < std::numeric_limits<std::uint64_t>::max())
+        ++handover_generation_;
       manual_was_authoritative_ = false;
     }
-    return inhibited(now, reasons | flag(ArbiterReason::no_valid_source));
+    return sbus_usable
+               ? manual_zero()
+               : inhibited(now, reasons | flag(ArbiterReason::no_valid_source));
   }
 
-  if (input.external.command.is_zero()) {
-    return inhibited(now, reasons | flag(ArbiterReason::zero_qualifying));
+  if (external_recovery_required_ && input.external.command.is_zero() &&
+      (!zero_was_qualified ||
+       input.external.authorization_generation <=
+           std::max(last_external_authorization_generation_,
+                    required_external_authorization_generation_))) {
+    return manual_zero();
   }
 
   if (external_recovery_required_ && !zero_was_qualified) {
     return inhibited(now, reasons | flag(ArbiterReason::rearm_required));
   }
 
-  if (input.external.authorization_generation <=
-      std::max(last_external_authorization_generation_,
-               required_external_authorization_generation_)) {
+  if ((external_recovery_required_ &&
+       input.external.authorization_generation <=
+           std::max(last_external_authorization_generation_,
+                    required_external_authorization_generation_)) ||
+      (!external_recovery_required_ &&
+       input.external.authorization_generation <
+           last_external_authorization_generation_)) {
     return inhibited(now, reasons | flag(ArbiterReason::rearm_replay));
   }
 

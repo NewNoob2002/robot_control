@@ -1,0 +1,5 @@
+add_library(robot_control_application_control control_cycle.cpp)
+target_include_directories(robot_control_application_control PUBLIC "${PROJECT_SOURCE_DIR}")
+target_link_libraries(robot_control_application_control
+  PUBLIC robot_control_domain_control robot_control_domain_safety robot_control_domain_drive
+  PRIVATE robot_control_project_warnings)

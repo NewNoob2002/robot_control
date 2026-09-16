@@ -228,6 +228,12 @@ RuntimeOutput RuntimePolicy::evaluate(const RuntimeRequest& r, time::MonotonicTi
         return status.low_half.state == expected && status.high_half.state == expected;
     };
     if (!newer_zero) {
+        // The owner may keep sending zero Shutdown while awaiting new feedback.
+        // Its transition deadline bounds this wait; enable/motion still reject.
+        if (zero && d.action == DriveAction::shutdown) {
+            last_request_at_ = r.issued_at;
+            return publish(TransitionControlword::shutdown, {}, RuntimeReason::zero_required);
+        }
         return reject(RuntimeReason::zero_required);
     }
     last_request_at_ = r.issued_at;

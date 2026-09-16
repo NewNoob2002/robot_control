@@ -1,0 +1,30 @@
+{
+  "source": {
+    "dirty": true,
+    "file_count": 3459,
+    "revision": "34789bba4505ba390609faa237a805ea4bf74ecd",
+    "schema_version": 1,
+    "snapshot_sha256": "6ecfafa33c2e683ffc792bb7ce962c7b8f1ba7b5c8890f337186dfee0648002b"
+  },
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/p101-reviewed-runtime",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_CANOPEN_RUNTIME=ON"
+  ],
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "sysroot_content": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911  sysroot-content.jsonl",
+  "artifacts": {
+    "robot_control_control_cycle_tests": "b843605bf0d11e5198d48f743cb0bcd2f8957a6f8c5ba26015ef6cc25174ebfe",
+    "robot_control_canopen_runtime_vcan_tests": "c5accffc8d7515ac31a5bb9d5e475c24451ea7182effb0069e34ae6663419c3d",
+    "robot_control_canopen_runtime_policy_tests": "5f8a459d0576240c6643afae0080c2a147d2c23b9969c7e8010c2e4e113e3216"
+  }
+}

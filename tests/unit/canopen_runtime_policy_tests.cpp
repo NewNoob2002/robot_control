@@ -224,6 +224,14 @@ void test_policy() {
     moving.status_raw = 0x14231427U;
     decelerating.observe(moving, t + 5ms);
     CHECK(!decelerating.state().armed);
+    RuntimePolicy waiting{config()};
+    waiting.observe(feedback(t), t);
+    CHECK(waiting.evaluate(request(waiting, t, 1), t).accepted);
+    auto wait_request = request(waiting, t + 1ms, 2);
+    wait_request.decision.action = safety::DriveAction::shutdown;
+    out = waiting.evaluate(wait_request, t + 1ms);
+    CHECK(out.accepted && out.command.is_zero() && out.payload[0] == std::byte{6} && waiting.state().armed);
+    CHECK(!waiting.evaluate(request(waiting, t + 2ms, 3, 1, 5, 0), t + 2ms).accepted);
     RuntimePolicy no_zero{config()};
     no_zero.observe(feedback(t), t);
     CHECK(no_zero.evaluate(request(no_zero, t, 1), t).accepted);

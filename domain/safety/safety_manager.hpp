@@ -94,6 +94,7 @@ private:
   std::uint64_t last_fault_reset_generation_{0};
   std::uint64_t decision_generation_{0};
   bool rearm_required_{true};
+  bool shutdown_{false};
 };
 
 } // namespace robot_control::domain::safety

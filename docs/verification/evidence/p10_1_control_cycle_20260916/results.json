@@ -1,0 +1,48 @@
+{
+  "debug": {
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0
+  },
+  "release": {
+    "passed": 35,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sanitizer": {
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0
+  },
+  "p6": {
+    "passed": 75,
+    "failed": 0,
+    "skipped": 0
+  },
+  "final-debug": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "final-release": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "final-sanitizer": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "cross": {
+    "steps": 74,
+    "exit_code": 0,
+    "elf_audit": "passed",
+    "compiled_sources_match_snapshot": true
+  },
+  "static": {
+    "exit_code": 0,
+    "scope": "7 translation units; domain_tests changed range 110-310; baseline pragma-once/enum-size checks excluded"
+  },
+  "hardware": "not executed; offline milestone only"
+}

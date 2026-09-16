@@ -1,0 +1,3 @@
+PASS: aarch64, interpreter, target dependencies/versions, no RPATH
+PASS: single-owner control, domain policies and SBUS source linked; device adapters and write gates absent
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1

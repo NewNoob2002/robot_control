@@ -1,0 +1,17 @@
+# Existing build configurations reused; Debug enables isolated runtime, Release disables it.
+cmake --build out/build/p8r-debug --parallel 2
+ctest --test-dir out/build/p8r-debug --output-on-failure --output-junit /tmp/p101-debug.xml
+cmake --build out/build/p8r-release --parallel 2
+ctest --test-dir out/build/p8r-release --output-on-failure --output-junit /tmp/p101-release.xml
+cmake --build out/build/p8r-sanitizer --parallel 2
+ASAN_OPTIONS=detect_leaks=0:halt_on_error=1 UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1 ctest --test-dir out/build/p8r-sanitizer --output-on-failure --output-junit /tmp/p101-sanitizer.xml
+cmake --build out/build/p8r-p6-regression --parallel 2
+ctest --test-dir out/build/p8r-p6-regression --output-on-failure --output-junit /tmp/p101-p6.xml
+# After the final local changes: rebuild robot_control_control_cycle_tests in each host configuration,
+# then run -R '^control_cycle_contract$' with the same sanitizer environment as applicable.
+clang-tidy -p out/build/p8r-debug application/control/control_cycle.cpp domain/control/control_arbiter.cpp domain/safety/safety_manager.cpp domain/drive/runtime.cpp tests/unit/control_cycle_tests.cpp tests/unit/domain_tests.cpp tests/unit/canopen_runtime_policy_tests.cpp --checks='-*,clang-analyzer-*,bugprone-*,performance-*,portability-*,-portability-avoid-pragma-once,-performance-enum-size' --header-filter='.*(application/control|domain/(command|control|safety|drive/runtime)).*' --line-filter='[{"name":"control_cycle"},{"name":"control_arbiter"},{"name":"safety_manager"},{"name":"command_sample"},{"name":"runtime"},{"name":"domain_tests.cpp","lines":[[110,310]]}]' --warnings-as-errors='*' --quiet
+python3 scripts/test/test_ci_scope.py
+actionlint .github/workflows/ci.yml
+# Final source cross build ran the identical recipe staged in /tmp/p101-cross-final.py.
+python3 docs/verification/evidence/p10_1_control_cycle_20260916/cross-control-cycle.py
+python3 docs/verification/evidence/p10_1_control_cycle_20260916/audit-control-cycle.py

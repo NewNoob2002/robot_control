@@ -17,6 +17,9 @@ struct MotionCommand {
   std::int32_t right_rpm{0};
   bool stop_requested{true};
 
+  /** Compare immutable command contents; pure and reentrant. */
+  [[nodiscard]] bool operator==(const MotionCommand &) const = default;
+
   /**
    * Return whether this command requests no motion.
    *
@@ -41,6 +44,10 @@ struct CommandSample {
   bool enabled{false};
   bool lost{false};
   bool failsafe{false};
+
+  /** Compare a producer revision without refreshing its identity or timestamp.
+   */
+  [[nodiscard]] bool operator==(const CommandSample &) const = default;
 };
 
 /**

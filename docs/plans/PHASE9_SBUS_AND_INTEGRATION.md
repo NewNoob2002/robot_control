@@ -11,7 +11,7 @@
 - P6 的有界验收、失败记录、失效授权及长稳延期保持原状态，见
   [当前检查点](../verification/PHASE6_CHECKPOINT.md)。
 
-SBUS 与 P8-R 软件已验收；下一步推进 P10 整链。检查点已经允许在长稳延期期间推进 SBUS 与完整链路。
+SBUS、P8-R 与 P10.1 离线整链已验收；下一步推进 P10.2 vcan 整链。检查点已经允许在长稳延期期间推进 SBUS 与完整链路。
 现有 `platform/linux/uart/serial_port.hpp` 提供非阻塞串口、超时和取消；
 `domain/control/control_arbiter.hpp` 与 `domain/safety/safety_manager.hpp`
 已有仲裁和安全领域接口。复用这些模块，补齐输入生产者和应用编排。
@@ -42,7 +42,7 @@ P9.2 已实现 UART reader 和独立只读观察入口，软件验证与物理�
 电气独立测量、USB拔插和完整标定未执行，不外推为通过，也不新增为 P9.2 关闭门槛；正式标定属于 P9.3。
 P9.3 健康／映射／快照、方向标定及第二轮真实输入无运动验收已通过，在输入范围 CLOSED；第一轮仍为 FAILED；
 见 [P9.3 验证记录](../verification/P9_3_SBUS_SOURCE_BASELINE.md)。
-P8-R 已完成软件范围验收，见 [运行管线计划](P8_R_RUNTIME_PIPELINE.md) 与 [验证基线](../verification/P8_R_RUNTIME_BASELINE.md)。P10 各节点待实施。测试先后顺序由左至右；
+P8-R 已完成软件范围验收，见 [运行管线计划](P8_R_RUNTIME_PIPELINE.md) 与 [验证基线](../verification/P8_R_RUNTIME_BASELINE.md)。P10.1 离线整链已通过，见 [P10.1基线](../verification/P10_1_CONTROL_CYCLE_BASELINE.md)；P10.2／P10.3待实施。测试先后顺序由左至右；
 任何不适用或无法执行的项目记录原因，不能将跳过计为通过。
 
 | 节点 | 实现／交付范围 | 测试流程 | 验收门槛 |

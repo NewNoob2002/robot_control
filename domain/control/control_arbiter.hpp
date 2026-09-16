@@ -91,6 +91,7 @@ private:
   struct ProducerHistory {
     std::uint64_t session_generation{0};
     std::uint64_t sequence{0};
+    command::CommandSample sample{};
   };
 
   /** Validate freshness, structure, session, and sequence for one producer. */
