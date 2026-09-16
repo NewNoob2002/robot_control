@@ -1,8 +1,8 @@
 {
-  "authorized": true,
+  "authorized": false,
   "authorization_source": "User: 授权P10.3实机HIL; 继续",
   "attempts": 1,
-  "artifact_sha256": "f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878",
+  "artifact_sha256": "bd98635ba9668a3f1bbea36a3faeb05ff28cfa47e1416eff61192083f2e12c3a",
   "arguments": [
     "--interface",
     "can0",
@@ -12,7 +12,7 @@
     "20000",
     "--zero-only"
   ],
-  "staging": "/home/cat/.cache/robot-control/staging/p103-zero-f60685c2-20260916",
+  "staging": "/home/cat/.cache/robot-control/staging/p103-zero-bd98635b-20260916",
   "operator_readiness_required": true,
   "scope": "Zero-only actual ControlLoop with neutral CH6 authorization; enable permitted only at zero",
   "excluded": [
@@ -23,5 +23,5 @@
     "interface reconfiguration",
     "loaded operation"
   ],
-  "supersedes_unrun_artifact": "bd98635ba9668a3f1bbea36a3faeb05ff28cfa47e1416eff61192083f2e12c3a"
+  "retired_reason": "CI35091917436 exposed UART read/queue inspection race; never physically started"
 }

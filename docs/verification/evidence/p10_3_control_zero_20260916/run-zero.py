@@ -7,8 +7,8 @@ import sys
 
 BASE = Path(__file__).resolve().parent
 CAPTURE = BASE / 'zero-jcan-once'
-REMOTE = '/home/cat/.cache/robot-control/staging/p103-zero-bd98635b-20260916'
-SHA = 'bd98635ba9668a3f1bbea36a3faeb05ff28cfa47e1416eff61192083f2e12c3a'
+REMOTE = '/home/cat/.cache/robot-control/staging/p103-zero-f60685c2-20260916'
+SHA = 'f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878'
 
 
 def main():

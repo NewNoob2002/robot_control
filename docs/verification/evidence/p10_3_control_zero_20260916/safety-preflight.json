@@ -7,8 +7,8 @@
   "bitrate": 500000,
   "uart_serial": "586D017868",
   "jcan_serial": "207F346D5650",
-  "artifact_sha256": "bd98635ba9668a3f1bbea36a3faeb05ff28cfa47e1416eff61192083f2e12c3a",
-  "staging": "/home/cat/.cache/robot-control/staging/p103-zero-bd98635b-20260916",
+  "artifact_sha256": "f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878",
+  "staging": "/home/cat/.cache/robot-control/staging/p103-zero-f60685c2-20260916",
   "power": "operator last confirmed OFF; fresh powered readiness required",
   "operator_confirmed": [
     "unchanged wiring",

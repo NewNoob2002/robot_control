@@ -44,10 +44,33 @@ archived under p10_3_hil_20260916.
   Actionlint/CI selector checks pass; CI now requires the HIL virtual suite.
 - cross-zero.py uses the locked Docker image and real target sysroot; metadata
   and source attestation are archived. All77 compiled units match the snapshot.
-  ELF audit passes. stage-smoke.log records exact remote hashes and pure tests.
+  ELF audit passes. stage-smoke-v2.log records current remote hashes and pure tests;
+  stage-smoke.log retains the earlier never-run staging record.
 - HIL Release and mixed-write-mode configurations reject before building. An
   initial assertion failed only because CMake wrapped its diagnostic over lines;
   whitespace-normalized checks verify both failures.
+
+## CI-discovered UART race and replacement artifact
+
+CI35091917436/0ee8a44 failed its sanitizer whole-executable case after safe
+revocation/cleanup. Local diagnostic reproduction identifies Source discontinuity
+with no cycle miss. The Reader previously classified a fresh fragment arriving
+between read and FIONREAD as backlog. The added syscall-boundary PTY test fails
+deterministically before the fix and passes afterward. Reader now drains fresh
+fragments without waiting within its existing256-byte batch budget. A full budget
+still rejects/flushes the whole batch, and service-gap/partial expiry, error
+handling and fresh authorization rules are preserved. No physical thresholds
+were relaxed, and this is not treated as a sanitizer memory error.
+
+Ten consecutive sanitizer executable trials and ten PTY checks pass after the
+fix. Final Debug39/39, sanitizer39/39, runtime37/37, Release35/35 and P678/78 pass
+again. Static checks and the new locked cross/ELF/source comparison pass. Current
+artifact f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878 is staged
+under p103-zero-f60685c2-20260916. bd98635b was never physically executed and its
+remote authorization is explicitly false (retire-v1.log). Historical failed CI,
+reproduction logs and older source attestations remain preserved. v2 metadata
+identifies the replacement compiled source snapshot; remote CI is checked on the
+corrected source commit separately.
 
 ## Preserved failures and execution state
 

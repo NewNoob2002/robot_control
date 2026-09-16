@@ -34,7 +34,7 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   P10.3 remains OPEN. Initial receive-only and no-motion TPDO2 layout HIL pass:
   252 matched dual-capture frames, mode3/fault0, exact volatile restoration;
   operator confirms no motion/no abnormal sound and drive power OFF. Full
-  ControlLoop zero-only Debug artifact is offline-verified and staged (bd98635b),
+  ControlLoop zero-only Debug artifact is offline-verified and staged (f60685c2),
   with an independent nonzero-target rejection gate, per-event X1 inhibition and
   standstill Disable Voltage recovery. Its new runner remains unconsumed; fresh
   operator powered readiness is required. Physical zero/enable/motion HIL is

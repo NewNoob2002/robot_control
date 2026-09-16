@@ -3,6 +3,8 @@
 
 #include <fcntl.h>
 #include <sys/eventfd.h>
+#include <sys/ioctl.h>
+#include <poll.h>
 #include <unistd.h>
 
 #include <algorithm>
@@ -29,6 +31,8 @@ namespace uart = robot_control::platform::linux::uart;
     } while (false)
 
 std::span<const std::uint8_t> injected{};
+std::span<const std::uint8_t> arriving_after_read{};
+int arrival_master = -1;
 
 /** Own a test-only PTY pair and retain the slave while reopening the reader. */
 struct Pty {
@@ -188,6 +192,33 @@ void test_markers() {
     CHECK(!result.ok() && result.status().error.value() == EILSEQ);
 }
 
+/** Bytes arriving between read and queue inspection must share the same bounded batch. */
+void test_arrival_during_read() {
+    Pty pty;
+    Reader reader;
+    CHECK(reader.open(pty.path.data(), pty_config()).ok());
+    const auto session = receive(reader, 0ms).session;
+    std::array<std::uint8_t, 25> first{}, second{};
+    first[0] = second[0] = 0x0f;
+    second[23] = 4;
+    arrival_master = pty.master.get();
+    arriving_after_read = second;
+    pty.send(first);
+    const auto batch = receive(reader);
+    CHECK(batch.session == session && batch.discontinuity == Discontinuity::none);
+    CHECK(batch.raw_size == 50 && batch.event_count == 2);
+    CHECK(!batch.events[0].frame.frame_lost && batch.events[1].frame.frame_lost);
+    std::array<std::uint8_t, 256> overflow{};
+    overflow.fill(0x0f);
+    arriving_after_read = overflow;
+    pty.send(first);
+    const auto rejected = receive(reader);
+    CHECK(rejected.raw_size == 256 && rejected.discontinuity == Discontinuity::backlog);
+    CHECK(rejected.event_count == 0 && rejected.session > session);
+    CHECK(receive(reader, 0ms).raw_size == 0);
+    arrival_master = -1;
+}
+
 /** Exercise backlog, caller stalls, old partial frames, cancellation and hangup. */
 void test_discontinuities() {
     Pty pty;
@@ -335,6 +366,15 @@ extern "C" ssize_t __real_read(int fd, void* buffer, size_t size);
 // NOLINTNEXTLINE(bugprone-reserved-identifier)
 extern "C" ssize_t __wrap_read(int fd, void* buffer, size_t size) {
     const auto count = __real_read(fd, buffer, size);
+    if (count > 0 && !arriving_after_read.empty()) {
+        const auto pending = arriving_after_read;
+        arriving_after_read = {};
+        CHECK(::write(arrival_master, pending.data(), pending.size()) == static_cast<ssize_t>(pending.size()));
+        pollfd next{fd, POLLIN, 0};
+        CHECK(::poll(&next, 1, 20) == 1);
+        int available = 0;
+        CHECK(::ioctl(fd, FIONREAD, &available) == 0 && available > 0);
+    }
     if (count > 0 && !injected.empty()) {
         CHECK(injected.size() <= size);
         std::memcpy(buffer, injected.data(), injected.size());
@@ -350,6 +390,7 @@ int main() {
     test_uart();
     test_frames();
     test_markers();
+    test_arrival_during_read();
     test_discontinuities();
     test_source_pipeline();
     std::puts("SBUS reader PTY tests passed");

@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
-SHA = 'bd98635ba9668a3f1bbea36a3faeb05ff28cfa47e1416eff61192083f2e12c3a'
+SHA = 'f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878'
 BINARY = BASE / 'robot-control-hil'
 ARGS = ['--interface', 'can0', '--device', '/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00', '--duration-ms', '20000', '--zero-only']
 

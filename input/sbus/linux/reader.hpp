@@ -49,6 +49,8 @@ class Reader final {
 
     /**
      * Read at most 256 kernel bytes and return all ordered parser events.
+     * Fresh fragments racing with queue inspection share this byte budget;
+     * additional reads never wait. A full budget still rejects the entire batch.
      * @param timeout Wait in [0, 20] ms, also bounded by maximum_service_gap.
      * @param cancellation_fd Borrowed pollable cancellation fd, or -1.
      * @return Owned batch (empty on timeout), or error after closing the reader.

@@ -92,12 +92,21 @@ oracle passes virtual replay and rejects target/restoration tampering. Scoped
 clang-tidy, actionlint and CI routing pass. Locked cross/ELF audit and comparison
 of all77 compiled translation units against the frozen snapshot pass. Target
 hash verification, --help and pure ControlCycle smoke pass without CAN/UART test
-execution. This source checkpoint's remote CI is tracked separately.
+execution. CI35091917436 for0ee8a44 failed the sanitizer HIL case: a fresh UART
+fragment arriving between read and FIONREAD was misclassified as backlog. The
+deterministic PTY reproduction fails before the Reader fix and passes afterward.
+Reader now drains such arrivals without waiting within the original256-byte
+budget; full-budget backlog, service-gap, partial-frame expiry and error/rearm
+rules remain enforced. The unchanged physical timing limits pass ten consecutive
+sanitizer whole-executable/PTY runs. All five suites above pass again after the
+fix. Original CI/reproduction failures are retained, never changed to passes.
+The corrected source checkpoint's remote CI is tracked separately.
 
 Staged artifact SHA256:
-bd98635ba9668a3f1bbea36a3faeb05ff28cfa47e1416eff61192083f2e12c3a.
-Directory: /home/cat/.cache/robot-control/staging/p103-zero-bd98635b-20260916.
-The new one-shot runner is unconsumed and requires a fresh powered-ready statement;
+f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878.
+Directory: /home/cat/.cache/robot-control/staging/p103-zero-f60685c2-20260916.
+The earlier bd98635b artifact was never physically run; its target authorization
+is now explicitly retired. The replacement one-shot runner is unconsumed and requires a fresh powered-ready statement;
 current operator-confirmed disposition remains drive OFF. JCAN silent capture and
 target candump precede stimulus; capture failure requests abort and every failed
 trial remains failed. No movement, physical zero-enable acceptance, new emergency

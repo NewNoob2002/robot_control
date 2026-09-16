@@ -92,7 +92,17 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
                 if (!state.healthy || (enabled_samples > 0 && !state.armed) || state.left_tenths_rpm != 0
                     || state.right_tenths_rpm != 0 || result.source.candidate.left_rpm != 0
                     || result.source.candidate.right_rpm != 0)
-                    status = Status::from_errno("control_hil_zero_envelope", interface, EACCES);
+                    status = Status::from_errno(
+                        "control_hil_zero_envelope",
+                        interface + " healthy=" + std::to_string(state.healthy)
+                            + " armed=" + std::to_string(state.armed)
+                            + " reason=" + std::to_string(static_cast<unsigned>(state.output.reason))
+                            + " status=" + std::to_string(state.feedback.status_raw) + " source_fault="
+                            + std::to_string(static_cast<unsigned>(result.source.fault)) + " source_age_ms="
+                            + std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(
+                                                 Clock::now() - result.source.sample.captured_at)
+                                                 .count()),
+                        EACCES);
                 const auto axes = domain::drive::decode_dual_axis_status(state.feedback.status_raw);
                 if (state.armed && axes.low_half.state == domain::drive::Cia402State::operation_enabled
                     && axes.high_half.state == domain::drive::Cia402State::operation_enabled)

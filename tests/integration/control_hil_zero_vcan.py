@@ -148,7 +148,9 @@ def trial(scenario):
                     injected = True
         output.extend(process.stdout.read() or b'')
         text = output.decode(errors='replace')
-        assert process.returncode == (0 if scenario == 'happy' else 1), text
+        assert process.returncode == (0 if scenario == 'happy' else 1), (
+            text + '\nLAST CAN FRAMES:\n' + '\n'.join(
+                f'{stamp:.6f} {ident:03x} {payload.hex()}' for stamp,ident,payload in trace[-60:]))
         assert 'restore_ok=1' in text, text
         assert values == baseline, (scenario, values, text)
         if scenario != 'missing_diagnostics':

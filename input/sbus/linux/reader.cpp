@@ -62,16 +62,30 @@ Result<ReadBatch> Reader::read(const std::chrono::milliseconds timeout, const in
     auto received = port_.read_some(batch.raw, std::min(timeout, config_.maximum_service_gap), cancellation_fd);
     if (!received.ok())
         return fail(received.status());
-    batch.captured_at = std::chrono::steady_clock::now();
     batch.raw_size = received.value();
-    last_service_ = batch.captured_at;
     auto pending = port_.pending_bytes();
     if (!pending.ok())
         return fail(pending.status());
+    // A fresh fragment may arrive between read and FIONREAD. Drain it without
+    // waiting, within the same 256-byte budget; never infer backlog from that
+    // race alone. Every continuing iteration consumes at least one byte.
+    while (pending.value() != 0 && batch.raw_size < batch.raw.size()) {
+        auto more = port_.read_some(std::span{batch.raw}.subspan(batch.raw_size), 0ms, cancellation_fd);
+        if (!more.ok())
+            return fail(more.status());
+        if (more.value() == 0)
+            break;
+        batch.raw_size += more.value();
+        pending = port_.pending_bytes();
+        if (!pending.ok())
+            return fail(pending.status());
+    }
+    batch.captured_at = std::chrono::steady_clock::now();
+    last_service_ = batch.captured_at;
     if (batch.captured_at - previous_service >= config_.maximum_service_gap) {
         batch.discontinuity = Discontinuity::service_gap;
     } else if (batch.raw_size == batch.raw.size() || pending.value() != 0) {
-        // Conservatively reject even a small queue left behind this read.
+        // Reject a full batch or a queue that could not be drained without waiting.
         batch.discontinuity = Discontinuity::backlog;
     } else if ((marker_pending_ || parser_.statistics().buffered_bytes != 0)
                && batch.captured_at - last_byte_ >= config_.maximum_service_gap) {
