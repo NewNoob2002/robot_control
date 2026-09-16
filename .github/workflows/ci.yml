@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - main
-      - codex/phase6-development
-      - codex/phase9-sbus-development
+      - "codex/**"
   pull_request:
   merge_group:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,7 +17,77 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: Select affected suites
+    runs-on: ubuntu-22.04
+    outputs:
+      full: ${{ steps.scope.outputs.full }}
+      sbus: ${{ steps.scope.outputs.sbus }}
+      phase6: ${{ steps.scope.outputs.phase6 }}
+    steps:
+      - name: Check out complete change history
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Verify suite selection rules
+        run: python3 scripts/test/test_ci_scope.py
+      - name: Select suites
+        id: scope
+        run: python3 scripts/ci/select_scope.py
+
+  sbus-validation:
+    name: SBUS validation (${{ matrix.variant }})
+    needs: changes
+    if: needs.changes.outputs.sbus == 'true' && needs.changes.outputs.full != 'true'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [debug, release, sanitizer]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.0.2
+        with:
+          persist-credentials: false
+          submodules: recursive
+      - name: Install host dependencies
+        run: sudo apt-get update && sudo apt-get install --yes --no-install-recommends ninja-build clang
+      - name: Build SBUS and UART test targets
+        env:
+          VARIANT: ${{ matrix.variant }}
+        run: |
+          build_type=Debug
+          flags=()
+          if [[ "${VARIANT}" == release ]]; then
+            build_type=Release
+          elif [[ "${VARIANT}" == sanitizer ]]; then
+            flags+=(
+              -DCMAKE_C_COMPILER=clang
+              -DCMAKE_CXX_COMPILER=clang++
+              "-DCMAKE_C_FLAGS=-fsanitize=address,undefined -fno-omit-frame-pointer"
+              "-DCMAKE_CXX_FLAGS=-fsanitize=address,undefined -fno-omit-frame-pointer"
+            )
+          fi
+          cmake -S . -B out/build/sbus-ci -G Ninja \
+            -DCMAKE_BUILD_TYPE="${build_type}" -DBUILD_TESTING=ON \
+            -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON "${flags[@]}"
+          cmake --build out/build/sbus-ci --parallel 2 --target \
+            robot_control_sbus_parser_tests robot_control_sbus_source_tests \
+            robot_control_sbus_reader_tests robot-control-sbus-observer \
+            robot_control_linux_platform_tests
+      - name: Run SBUS contracts, PTY, observer and replay tests
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+        run: |
+          ctest --test-dir out/build/sbus-ci --output-on-failure --no-tests=error \
+            --tests-regex '^(sbus_|linux_platform_integration$)'
+
   host-validation:
+    needs: changes
+    if: needs.changes.outputs.full == 'true'
     name: Host build, tests, and static checks
     runs-on: ubuntu-22.04
     timeout-minutes: 15
@@ -67,13 +137,6 @@ jobs:
       - name: Verify CANopen dependency pair
         run: ./scripts/test/test_canopen_dependencies.sh
 
-      - name: Verify Phase 6 evidence archives and current manifests
-        run: |
-          python3 scripts/test/test_phase6_evidence.py
-          python3 scripts/test/test_qualification_elf_audit.py
-          python3 scripts/test/test_phase6_emergency_input.py
-          python3 scripts/test/test_phase6_zero_motion_soak.py
-
       - name: Run P5.1 non-SocketCAN host qualification
         run: ./scripts/build/build_p5_1_host.sh
 
@@ -93,6 +156,8 @@ jobs:
         run: ./scripts/test/test_sysroot_manifest.sh
 
   phase6-qualification:
+    needs: changes
+    if: needs.changes.outputs.phase6 == 'true'
     name: Phase 6 qualification (${{ matrix.variant }})
     runs-on: ubuntu-22.04
     timeout-minutes: 15
@@ -113,6 +178,14 @@ jobs:
           sudo apt-get install --yes --no-install-recommends ninja-build clang iproute2
           sudo apt-get install --yes --no-install-recommends "linux-modules-extra-$(uname -r)"
           sudo modprobe vcan
+
+      - name: Verify Phase 6 evidence archives and current manifests
+        if: matrix.variant == 'debug'
+        run: |
+          python3 scripts/test/test_phase6_evidence.py
+          python3 scripts/test/test_qualification_elf_audit.py
+          python3 scripts/test/test_phase6_emergency_input.py
+          python3 scripts/test/test_phase6_zero_motion_soak.py
 
       - name: Build the isolated Debug qualification artifact
         env:
@@ -137,8 +210,13 @@ jobs:
         env:
           ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
           UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+          FULL_SUITE: ${{ needs.changes.outputs.full }}
         run: |
-          ctest --test-dir out/build/phase6-ci --output-on-failure \
+          selection=()
+          if [[ "${FULL_SUITE}" != true ]]; then
+            selection+=(--tests-regex '^(canopen_|socketcan_|can_interface_|can_probe_)')
+          fi
+          ctest --test-dir out/build/phase6-ci --output-on-failure --no-tests=error "${selection[@]}" \
             --output-junit "$PWD/out/build/phase6-ci/results.xml"
           python3 - <<'PY'
           from pathlib import Path
@@ -152,3 +230,30 @@ jobs:
           assert not skipped, f'Required tests skipped: {skipped}'
           print(f'PASS: {len(cases)} tests executed without skips')
           PY
+
+  ci-result:
+    name: CI result
+    needs: [changes, host-validation, sbus-validation, phase6-qualification]
+    if: always()
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Require every selected suite to succeed
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PYTHON'
+          import json
+          import os
+          jobs = json.loads(os.environ['NEEDS_JSON'])
+          assert jobs['changes']['result'] == 'success', 'Suite selection failed'
+          scope = jobs['changes']['outputs']
+          expected = {
+              'host-validation': scope['full'] == 'true',
+              'sbus-validation': scope['sbus'] == 'true' and scope['full'] != 'true',
+              'phase6-qualification': scope['phase6'] == 'true',
+          }
+          for job, selected in expected.items():
+              required = 'success' if selected else 'skipped'
+              assert jobs[job]['result'] == required, (job, jobs[job]['result'], required)
+          print('PASS: all selected suites succeeded; other suites skipped')
+          PYTHON

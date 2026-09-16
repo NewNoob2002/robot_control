@@ -53,11 +53,27 @@ status and the [evidence index](docs/verification/evidence/README.md) for accept
 trials and archived history. The qualification executor remains Debug-only and
 default-OFF; production motion, persistent configuration and loaded operation
 remain outside this checkpoint.
-The GitHub Actions host CI baseline runs the host build and CTest suite, Phase
-1 and sysroot-manifest script regressions, ShellCheck, Hadolint, and Python
-syntax checks on Ubuntu 22.04. Real RK3588 cross builds are intentionally not
-run on public runners because they require the checksum-locked sysroot
-collected from the authorized target and the locally locked toolchain image.
+GitHub Actions selects tests from the complete push diff or PR merge-base diff
+on development branches (pushes to main and codex/** are enabled). Branch names
+never suppress tests for changed dependencies:
+
+| Change scope | CI checks |
+| --- | --- |
+| SBUS, UART, SBUS tests or P9 evidence | SBUS Debug/Release/ASan+UBSan: contracts, PTY, observer, archived replay and Linux platform tests; no vcan |
+| CAN/CANopen, Phase6 tools/tests or P6 evidence | CAN/Phase6 Debug and ASan+UBSan regression, evidence checks and mandatory vcan; no SBUS tests |
+| Mixed SBUS and CAN changes | Both scoped suites |
+| README/AGENTS or ordinary documentation only | Selection regression and CI result; builds skipped |
+| Shared code/build configuration, CI itself or unclassified code | Full existing host and Phase6 regression, including SBUS |
+| Push/PR to main, merge queue, manual run, new branch or unavailable base history | Full regression |
+
+Full host validation retains Phase1/sysroot script regressions, ShellCheck,
+Hadolint and Python syntax checks on Ubuntu 22.04. The stable **CI result** job
+fails if a selected suite fails, is cancelled or unexpectedly skipped; it is
+the aggregate check to use for branch protection. Selection rules and executable
+regressions live in scripts/ci/select_scope.py and scripts/test/test_ci_scope.py.
+Real RK3588 cross builds remain local because they require the checksum-locked
+sysroot collected from the authorized target and the locally locked toolchain
+image; workflow routing does not replace milestone hardware acceptance.
 
 Read these documents before implementation:
 
