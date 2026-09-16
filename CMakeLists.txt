@@ -23,19 +23,22 @@ option(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION
        "Build the Debug-only bounded ZLAC qualification tool" OFF)
 option(ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME
        "Build the Debug-only PDO runtime library and virtual-bus checks" OFF)
+option(ROBOT_CONTROL_BUILD_CONTROL_HIL
+       "Build the Debug-only bounded control-loop qualification artifact" OFF)
 set(canopen_write_modes 0)
 foreach(mode ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING
-             ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME)
+             ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME
+             ROBOT_CONTROL_BUILD_CONTROL_HIL)
   if(${mode})
     math(EXPR canopen_write_modes "${canopen_write_modes} + 1")
   endif()
 endforeach()
 if(canopen_write_modes GREATER 1)
-  message(FATAL_ERROR "CANopen commissioning, qualification and runtime are mutually exclusive")
+  message(FATAL_ERROR "CANopen commissioning, qualification, runtime and control HIL are mutually exclusive")
 endif()
 if(canopen_write_modes GREATER 0)
   if(CMAKE_CONFIGURATION_TYPES OR NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
-    message(FATAL_ERROR "CANopen commissioning/qualification/runtime requires a single-config Debug build")
+    message(FATAL_ERROR "CANopen commissioning/qualification/runtime/control HIL requires a single-config Debug build")
   endif()
 endif()
 
@@ -76,6 +79,9 @@ endif()
 if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
   add_subdirectory(tools/can_interface_inhibitor)
   add_subdirectory(tools/zlac_qualification)
+endif()
+if(ROBOT_CONTROL_BUILD_CONTROL_HIL)
+  add_subdirectory(tools/control_hil)
 endif()
 
 # This pure contract executable can also be staged for a no-device target smoke.

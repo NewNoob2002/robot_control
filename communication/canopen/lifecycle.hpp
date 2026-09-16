@@ -88,6 +88,7 @@ class Lifecycle final {
   private:
     friend class CommissioningSession;
     friend class QualificationSession;
+    friend class ControlQualification;
 #ifdef ROBOT_CONTROL_CANOPEN_RUNTIME
     friend class RuntimeSession;
     RuntimeSession* runtime_{nullptr};

@@ -1,8 +1,9 @@
 # P10.3 HIL checkpoint — 2026-09-16
 
 **P10.3 remains OPEN.** Receive-only SBUS and the stationary TPDO2 layout
-prerequisite passed; actual ControlLoop zero/enable/motion HIL remains to be
-implemented and accepted. This is not full remote-control acceptance.
+prerequisite passed. The actual zero-only ControlLoop artifact now passes offline
+verification and is staged; physical zero/enable and motion HIL remain unaccepted.
+This is not full remote-control acceptance.
 
 ## Completed physical prerequisite
 
@@ -43,8 +44,11 @@ actionlint, locked-container cross and real-sysroot ELF audit pass. Cross snapsh
 matches final compiled sources. Nineteen virtual scenarios cover foreign/active
 baseline, missing/wrong/fault diagnostics, nonzero speed, SIGTERM, boot change,
 each applied setup write with lost ACK and restore ACK loss. Existing P6 tests
-are retained. CI requires the new managed-vcan test; remote CI is checked for
-the pushed commit separately.
+are retained. CI requires the new managed-vcan test. Remote CI run35086866920
+passed for commit2489e5df6794f40b5125cf48a42114419f657bf6 on2026-09-16,
+including qualification Debug/sanitizer, PDO runtime Debug/sanitizer and host
+checks; the unrelated SBUS suite was not selected. This result covers the
+committed prerequisite, not the subsequent uncommitted ControlLoop HIL prototype.
 
 The first independent capture window expired during separate approval/dispatch
 steps. The target freshness gate rejected launch before invocation: no driver
@@ -58,14 +62,56 @@ the corrected oracle preserves restore-failed state. Initial static findings
 and successful reruns are retained. An analyzer parsing typo was corrected
 without repeating hardware. These failures are not rewritten as passes.
 
+## Prepared actual zero-only ControlLoop (not physically run)
+
+An isolated Debug/default-OFF ROBOT_CONTROL_BUILD_CONTROL_HIL build combines the
+existing bounded qualification bootstrap with one Lifecycle and the actual
+ControlLoop/Reader/Source/RuntimeSession. Correlated live layout readbacks qualify
+only that owner generation. Bootstrap establishes zero/Ready without enabling;
+fresh neutral SBUS authorization owns subsequent zero enable. GNU ld send wrapping
+rejects every nonzero SDO/RPDO target, unreviewed controlword and persistent write.
+The source retains real calibrated samples; rejected targets are never clamped to
+make a trial appear successful. The trial is bounded to20s, with10s setup/cleanup
+budgets, temporary1000ms drive watchdog, explicit runtime detachment before SDO
+cleanup, zero/Disabled verification and restoration of owned volatile settings.
+
+Partial setup cleanup no longer waits for Operational TPDOs while still in
+Pre-operational. Twenty-nine virtual scenarios include all18 applied setup writes
+with lost ACK, bad/absent diagnostics, motion contradictions, boot change, SIGTERM,
+restore ACK loss and an attached runtime preventing SDO cleanup. A configured
+status mask observes low-half X1 bit15 on every runtime event; a pulse followed by
+clear cannot revive the old authority. Quick Stop recovery now sends Disable
+Voltage only at verified standstill, then Shutdown after Disabled feedback. The
+independent virtual peer rejects the former Shutdown shortcut.
+
+Verification: HIL Debug39/39, ASan/UBSan39/39 (local detect_leaks=0), existing runtime
+37/37, Release35/35 and P6 qualification78/78 pass without skips. Final scoped
+checks6/6 and sanitizer4/4 pass. Five real-executable virtual cases cover zero
+enable, nonzero rejection, X1 pulse, SIGTERM and missing diagnostics. The capture
+oracle passes virtual replay and rejects target/restoration tampering. Scoped
+clang-tidy, actionlint and CI routing pass. Locked cross/ELF audit and comparison
+of all77 compiled translation units against the frozen snapshot pass. Target
+hash verification, --help and pure ControlCycle smoke pass without CAN/UART test
+execution. This source checkpoint's remote CI is tracked separately.
+
+Staged artifact SHA256:
+bd98635ba9668a3f1bbea36a3faeb05ff28cfa47e1416eff61192083f2e12c3a.
+Directory: /home/cat/.cache/robot-control/staging/p103-zero-bd98635b-20260916.
+The new one-shot runner is unconsumed and requires a fresh powered-ready statement;
+current operator-confirmed disposition remains drive OFF. JCAN silent capture and
+target candump precede stimulus; capture failure requests abort and every failed
+trial remains failed. No movement, physical zero-enable acceptance, new emergency
+stop acceptance or production readiness is claimed.
+
+[Prepared trial, software logs and hashes](evidence/p10_3_control_zero_20260916/README.md).
+
 ## Remaining gates
 
-- Compose current-generation RPDO/TPDO readbacks with one RuntimeSession and the
-  actual ControlLoop. This standalone capture is not reusable proof for a later
-  session. Prepare a bounded full-chain zero-target entry, including send errors,
-  stop/restore order and X1 observation.
-- P6 physical quick-stop recovery uses Disable Voltage after verified zero.
-  A virtual peer accepting Shutdown does not qualify that physical shortcut.
+- Run and accept the staged zero-only ControlLoop against fresh physical feedback,
+  operator neutral/button steps, independent captures and post-trial disposition.
+  The earlier TPDO2 capture is never reusable layout proof for a later session.
+- Physically qualify integrated X1 and quick-stop recovery. Software regressions
+  and earlier isolated P6 evidence do not close the new whole-chain HIL gates.
 - Then prepare positive single-wheel low-speed bounds and operator-visible phases
   for signs, SBUS loss/failsafe, nonneutral recovery, emergency stop and SIGTERM.
   Negative/simultaneous-wheel motion and CAN loss need their separate scope.

@@ -10,6 +10,8 @@ import subprocess
 
 SUITES = {"full", "sbus", "phase6", "runtime"}
 RUNTIME_PATHS = (
+    "tools/control_hil/", "tests/integration/control_hil_", "tests/unit/control_hil_",
+    "tests/unit/control_qualification_",
     "tests/integration/control_loop_", "docs/verification/evidence/p10_2_",
     "application/control/", "tests/unit/control_cycle_tests.cpp", "docs/verification/evidence/p10_1_",
     "domain/drive/runtime.", "communication/canopen/runtime.",

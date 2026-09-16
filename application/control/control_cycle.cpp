@@ -156,7 +156,7 @@ CycleResult ControlCycle::prepare(const CycleInput& input, const drive::RuntimeS
                       .issued_at = now};
     if (active_.source != command::Source::none && expected_ != drive::Cia402State::unknown) {
         result.request.decision.action =
-            expected_ == drive::Cia402State::ready_to_switch_on
+            (expected_ == drive::Cia402State::ready_to_switch_on || expected_ == drive::Cia402State::switch_on_disabled)
                 ? safety::DriveAction::shutdown
                 : (expected_ == drive::Cia402State::switched_on ? safety::DriveAction::switch_on
                                                                 : safety::DriveAction::enable_operation);
@@ -188,6 +188,8 @@ void ControlCycle::complete(CycleResult& result, const drive::RuntimeState& afte
         const auto word = result.output.payload[0];
         const auto status = drive::decode_dual_axis_status(after.feedback.status_raw);
         auto next = drive::Cia402State::unknown;
+        if (word == std::byte{0})
+            next = drive::Cia402State::switch_on_disabled;
         if (word == std::byte{6})
             next = drive::Cia402State::ready_to_switch_on;
         if (word == std::byte{7})

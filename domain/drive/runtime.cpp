@@ -115,7 +115,7 @@ void RuntimePolicy::observe(const RuntimeFeedback& f, time::MonotonicTime now) n
                      && fresh(f.heartbeat_at, now, config_.heartbeat_timeout)
                      && fresh(f.status_at, now, config_.feedback_timeout)
                      && fresh(f.diagnostics_at, now, config_.feedback_timeout) && f.mode_raw == 3 && f.fault_raw == 0
-                     && !bad_status(status);
+                     && !bad_status(status) && (f.status_raw & config_.emergency_status_mask) == 0;
     if (state_.armed && state_.healthy && f.status_at > zero_at_ && stationary(state_, config_.standstill_tenths_rpm)) {
         zero_confirmed_ = true;
     }
@@ -197,6 +197,12 @@ RuntimeOutput RuntimePolicy::evaluate(const RuntimeRequest& r, time::MonotonicTi
         return reject(RuntimeReason::feedback_invalid);
     }
     const bool zero = d.approved_command.left_rpm == 0 && d.approved_command.right_rpm == 0;
+    const auto feedback_status = decode_dual_axis_status(state_.feedback.status_raw);
+    // ZLAC physical recovery: verified standstill, Disable Voltage, then Shutdown
+    // after a newer Disabled status. Never rely on a virtual Quick Stop shortcut.
+    const auto shutdown_word = feedback_status.low_half.state == Cia402State::quick_stop_active
+                                  || feedback_status.high_half.state == Cia402State::quick_stop_active
+                              ? TransitionControlword::disable_voltage : TransitionControlword::shutdown;
     const bool transition = d.action == DriveAction::shutdown || d.action == DriveAction::switch_on
                             || d.action == DriveAction::enable_operation;
     const bool compatible_state = d.state == safety::SafetyState::zero_hold || d.state == safety::SafetyState::normal;
@@ -217,7 +223,7 @@ RuntimeOutput RuntimePolicy::evaluate(const RuntimeRequest& r, time::MonotonicTi
         zero_confirmed_ = false;
         enabled_seen_ = false;
         last_request_at_ = r.issued_at;
-        return publish(TransitionControlword::shutdown, {}, RuntimeReason::zero_required);
+        return publish(shutdown_word, {}, RuntimeReason::zero_required);
     }
     if (!state_.armed || r.authorization == 0 || r.authorization != state_.authorization) {
         return reject(RuntimeReason::rearm_required);
@@ -230,9 +236,9 @@ RuntimeOutput RuntimePolicy::evaluate(const RuntimeRequest& r, time::MonotonicTi
     if (!newer_zero) {
         // The owner may keep sending zero Shutdown while awaiting new feedback.
         // Its transition deadline bounds this wait; enable/motion still reject.
-        if (zero && d.action == DriveAction::shutdown) {
+        if (zero && d.action == DriveAction::shutdown && stationary(state_, config_.standstill_tenths_rpm)) {
             last_request_at_ = r.issued_at;
-            return publish(TransitionControlword::shutdown, {}, RuntimeReason::zero_required);
+            return publish(shutdown_word, {}, RuntimeReason::zero_required);
         }
         return reject(RuntimeReason::zero_required);
     }
@@ -249,7 +255,7 @@ RuntimeOutput RuntimePolicy::evaluate(const RuntimeRequest& r, time::MonotonicTi
             if (enabled_seen_) {
                 inhibit(RuntimeReason::rearm_required);
             }
-            return publish(TransitionControlword::shutdown, {}, RuntimeReason::none);
+            return publish(shutdown_word, {}, RuntimeReason::none);
         }
         if (d.action == DriveAction::switch_on
             && (both(Cia402State::ready_to_switch_on) || both(Cia402State::switched_on))) {

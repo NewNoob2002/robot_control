@@ -276,6 +276,12 @@ jobs:
           cmake --build out/build/runtime-ci --parallel 2 --target \
             robot_control_canopen_runtime_policy_tests robot_control_canopen_runtime_vcan_tests \
             robot_control_control_cycle_tests robot_control_domain_tests robot_control_control_loop_vcan_tests
+          cmake -S . -B out/build/control-hil-ci -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON \
+            -DROBOT_CONTROL_BUILD_CONTROL_HIL=ON \
+            -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON "${flags[@]}"
+          cmake --build out/build/control-hil-ci --parallel 2 --target \
+            robot-control-hil robot_control_hil_zero_gate_tests robot_control_control_qualification_vcan_tests
 
       - name: Run runtime contracts and mandatory managed vcan
         env:
@@ -297,6 +303,22 @@ jobs:
           assert not skipped, f'Required tests skipped: {skipped}'
           print(f'PASS: {len(cases)} tests executed without skips')
           PY
+
+      - name: Run zero-only control HIL artifact on managed vcan and PTY
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+        run: |
+          ctest --test-dir out/build/control-hil-ci --output-on-failure --no-tests=error \
+            --tests-regex '^(control_hil_|control_qualification_)' \
+            --output-junit "$PWD/out/build/control-hil-ci/results.xml"
+          python3 - <<'PYTEST'
+          import xml.etree.ElementTree as ET
+          cases = {c.attrib['name']: c for c in ET.parse('out/build/control-hil-ci/results.xml').iter('testcase')}
+          for name in ('control_hil_zero_gate', 'control_hil_zero_vcan_managed', 'control_qualification_vcan_managed'):
+              assert name in cases, f'Missing control HIL test: {name}'
+          assert all(c.find('skipped') is None for c in cases.values()), 'HIL virtual test skipped'
+          PYTEST
 
   ci-result:
     name: CI result

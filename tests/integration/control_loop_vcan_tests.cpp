@@ -219,10 +219,12 @@ struct Fixture {
             }
             const auto word = std::to_integer<unsigned>(f.data[0]);
             CHECK(f.data[1] == std::byte{0});
-            if (word == 6) {
+            if (word == 6 && status != 0x07) {
                 CHECK(zero(f));
                 stage = 1;
                 status = 0x21;
+            } else if (word == 6 && status == 0x07) {
+                CHECK(zero(f)); // Physical peer retains Quick Stop until Disable Voltage.
             } else if (word == 7) {
                 CHECK(zero(f) && stage >= 1);
                 stage = 2;

@@ -399,6 +399,7 @@ class QualificationSession final {
     [[nodiscard]] platform::linux::Status
     send_controlword_raw(domain::drive::zlac8015d::TransitionControlword controlword, bool require_fresh) noexcept;
 
+    friend class ControlQualification;
     ObservationGeneration sequence_generation_{};
     Lifecycle* lifecycle_{nullptr};
     QualificationState state_{QualificationState::ready};
@@ -410,7 +411,8 @@ class QualificationSession final {
     /** Verify the fixed factory RPDO1 baseline before any temporary mapping writes. */
     [[nodiscard]] platform::linux::Status preflight_rpdo_mapping() noexcept;
     /** Set or restore the fixed RPDO1 mapping while Pre-operational; verify each write. */
-    [[nodiscard]] platform::linux::Status configure_rpdo_mapping(bool restore) noexcept;
+    [[nodiscard]] platform::linux::Status configure_rpdo_mapping(bool restore,
+        std::chrono::steady_clock::time_point deadline = std::chrono::steady_clock::time_point::max()) noexcept;
     /** Send one exact RPDO through the owner's CAN socket; no queue or automatic retry. */
     [[nodiscard]] platform::linux::Status send_rpdo_target(std::uint32_t packed) noexcept;
     bool heartbeat_restore_required_{false};

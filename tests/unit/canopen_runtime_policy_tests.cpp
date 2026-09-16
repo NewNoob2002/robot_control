@@ -86,6 +86,38 @@ void test_policy() {
     c = config();
     c.decision_timeout = 0ms;
     CHECK(!drive::valid_runtime_config(c));
+    // A transient configured emergency bit must retire the armed authority even
+    // when the next status sample clears before the control-cycle tick.
+    c = config();
+    c.emergency_status_mask = 0x8000;
+    RuntimePolicy emergency{c};
+    arm(emergency, t);
+    const auto before = emergency.state().epoch;
+    auto x1 = feedback(t+2ms);
+    x1.version = 3;
+    x1.status_raw |= 0x8000;
+    emergency.observe(x1, t+2ms);
+    CHECK(!emergency.state().healthy && !emergency.state().armed && emergency.state().epoch > before);
+    x1.status_raw &= ~0x8000U;
+    x1.version = 4;
+    emergency.observe(x1, t+3ms);
+    CHECK(emergency.state().healthy && !emergency.state().armed);
+    CHECK(!emergency.evaluate(request(emergency, t+3ms, 2, 1, 5, 0), t+3ms).accepted);
+    // Physical Quick Stop Active cannot be recovered by Shutdown alone.
+    RuntimePolicy recovery{config()};
+    auto stopped = feedback(t);
+    stopped.status_raw = 0x00070007;
+    recovery.observe(stopped, t);
+    auto recover = request(recovery, t, 1);
+    recover.decision.action = safety::DriveAction::shutdown;
+    CHECK(recovery.evaluate(recover, t).payload[0] == std::byte{0});
+    stopped.status_raw = 0x00400040;
+    stopped.version = 2;
+    stopped.status_at = t+1ms;
+    recovery.observe(stopped, t+1ms);
+    recover = request(recovery, t+1ms, 2);
+    recover.decision.action = safety::DriveAction::shutdown;
+    CHECK(recovery.evaluate(recover, t+1ms).payload[0] == std::byte{6});
     RuntimePolicy invalid{{}};
     CHECK(!invalid.evaluate({}, t).accepted);
     RuntimePolicy p{config()};

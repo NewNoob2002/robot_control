@@ -23,6 +23,7 @@ struct RuntimeConfig {
     time::Duration heartbeat_timeout{};
     time::Duration feedback_timeout{};
     time::Duration decision_timeout{};
+    std::uint32_t emergency_status_mask{0}; // Deployment-confirmed active-high bits; zero leaves binding external.
 };
 
 /** Identify one transport lifetime and remote boot, including online boot zero. */

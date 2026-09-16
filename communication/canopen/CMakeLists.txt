@@ -83,7 +83,7 @@ if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING)
             robot_control_project_warnings)
 endif()
 
-if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
+if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION OR ROBOT_CONTROL_BUILD_CONTROL_HIL)
   add_library(robot_control_canopen_qualification_gate OBJECT
               qualification_gate.c)
   target_include_directories(robot_control_canopen_qualification_gate
@@ -120,13 +120,21 @@ if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
             robot_control_project_options robot_control_project_warnings)
 endif()
 
-if(ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME)
+if(ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME OR ROBOT_CONTROL_BUILD_CONTROL_HIL)
   add_library(robot_control_communication_canopen_runtime
     lifecycle.cpp observation.cpp stack_config.cpp stack_storage.cpp runtime.cpp)
   target_compile_definitions(robot_control_communication_canopen_runtime
     PUBLIC ROBOT_CONTROL_CANOPEN_RUNTIME)
   target_include_directories(robot_control_communication_canopen_runtime PUBLIC "${PROJECT_SOURCE_DIR}")
+  if(ROBOT_CONTROL_BUILD_CONTROL_HIL)
+    target_sources(robot_control_communication_canopen_runtime PRIVATE
+      qualification.cpp qualification_runtime_layout.cpp control_qualification.cpp)
+    target_compile_definitions(robot_control_communication_canopen_runtime PUBLIC ROBOT_CONTROL_CONTROL_HIL)
+    target_link_libraries(robot_control_communication_canopen_runtime PUBLIC robot_control_canopen_upstream_qualification)
+  else()
+    target_link_libraries(robot_control_communication_canopen_runtime PUBLIC robot_control_canopen_upstream)
+  endif()
   target_link_libraries(robot_control_communication_canopen_runtime
-    PUBLIC robot_control_canopen_upstream robot_control_domain_drive
+    PUBLIC robot_control_domain_drive
     PRIVATE robot_control_platform_linux robot_control_project_options robot_control_project_warnings)
 endif()

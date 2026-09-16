@@ -443,7 +443,8 @@ platform::linux::Status QualificationSession::preflight_rpdo_mapping() noexcept 
     return platform::linux::Status::success();
 }
 
-platform::linux::Status QualificationSession::configure_rpdo_mapping(const bool restore) noexcept {
+platform::linux::Status QualificationSession::configure_rpdo_mapping(const bool restore,
+    const std::chrono::steady_clock::time_point deadline) noexcept {
     const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
     if (!snapshot.nmt.current || snapshot.nmt.state != RemoteNmtState::pre_operational) {
         return failure("qualification_rpdo_not_preoperational", lifecycle_->storage_->config(), EACCES);
@@ -459,7 +460,7 @@ platform::linux::Status QualificationSession::configure_rpdo_mapping(const bool 
             std::byte{static_cast<std::uint8_t>(entry.value >> 16U)},
             std::byte{static_cast<std::uint8_t>(entry.value >> 24U)}};
         const auto data = std::span{bytes}.first(entry.size);
-        const auto status = verify_download(entry.index, entry.sub, data, entry.index, entry.sub, data, false);
+        const auto status = verify_download(entry.index, entry.sub, data, entry.index, entry.sub, data, false, deadline);
         if (!status.ok()) {
             return status;
         }

@@ -1,0 +1,74 @@
+# P10.3 actual zero-only ControlLoop preparation — 2026-09-16
+
+**Physical trial NOT RUN. Drive last confirmed OFF. P10.3 remains OPEN.**
+
+This directory records the new isolated zero-only HIL artifact, offline checks,
+fresh staging and unconsumed one-shot preparation. It does not authorize future
+reuse of a consumed marker. The previous TPDO2 prerequisite remains separately
+archived under p10_3_hil_20260916.
+
+## Bounds and operator sequence
+
+- Target robot-dev, machine-id6923ab3301fb4a8d816759b04ec6bf0a, can0/node1,
+  Classical500000; original raised-wheel ZLAC8015D/SBUS wiring.
+- UART by-id serial586D017868, calibrated steering200/1000/1800 and
+  throttle200/993/1800, unreversed, channels0/2/5/6,1000008E2.
+- Actual ControlLoop may enable both axes **only with zero targets**. Independent
+  syscall gate rejects any nonzero target. No physical movement trial, reset,
+  persistent parameter write, interface change or cable-loss stimulus.
+- New powered readiness must confirm neutral sticks, CH6 released, raised wheels,
+  physical emergency stop and operator present. After application CONTROL_READY,
+  press CH6 once then release, keeping sticks neutral throughout the20s window.
+  No precise chat timing or manual wheel order is needed for this zero-only stage.
+  Missing the fresh button edge produces a failed trial, not automatic replay.
+- Setup and cleanup each have10s budgets; outer runner allows45s before SIGTERM
+  and12s cleanup grace. JCAN silent capture is bounded70s and10000frames. Target
+  candump begins first and remains through1s after application exit. Capture
+  failure requests abort; inspect evidence before any new trial. Final operator
+  no-motion/no-abnormal-sound and power-OFF confirmation is required separately.
+
+## Reproducible verification
+
+- Configure HIL: cmake -S . -B out/build/p103-control-hil -G Ninja
+  -DCMAKE_BUILD_TYPE=Debug -DROBOT_CONTROL_BUILD_CONTROL_HIL=ON; build then ctest.
+- Debug39/39 and Clang ASan/UBSan39/39, no skips; local ASan detect_leaks=0.
+- Original runtime37/37, default Release35/35, P6 qualification78/78, no skips.
+- Final HIL scoped6/6, sanitizer4/4. Bootstrap29 scenarios; actual executable five
+  vcan/PTY cases. The Python peer models Quick Stop as requiring Disable Voltage.
+- The actual final-send wrapper rejects all tested nonzero target bytes, invalid
+  controlwords/widths/CAN flags. Physical-capture oracle is checked with virtual
+  records and deliberate target/restoration tampering.
+- Scoped clang-tidy uses clang-analyzer/bugprone/performance/portability, preserves
+  project pragma-once/diagnostic enum width, and excludes unrelated header bodies.
+  Local annotations explain CANopen parameter order and GNU ld-required symbols.
+  Actionlint/CI selector checks pass; CI now requires the HIL virtual suite.
+- cross-zero.py uses the locked Docker image and real target sysroot; metadata
+  and source attestation are archived. All77 compiled units match the snapshot.
+  ELF audit passes. stage-smoke.log records exact remote hashes and pure tests.
+- HIL Release and mixed-write-mode configurations reject before building. An
+  initial assertion failed only because CMake wrapped its diagnostic over lines;
+  whitespace-normalized checks verify both failures.
+
+## Preserved failures and execution state
+
+The initial sandbox vcan check skipped; its explicitly permitted namespace run
+reproduced partial-setup cleanup failures. The next run exposed inconsistent
+TPDO-nonzero/SDO-zero cleanup; the fixed implementation refuses restoration in
+that contradiction. Original failed logs remain failed. Initial static invocation
+had no configured checks; the broad follow-up found project/header conventions
+and local issues. Scoped final checks passed after documenting intended API
+ordering, GNU symbols and explicit nonblocking log flushes. Initial Docker access
+was denied in the sandbox; the approved locked-image build passed without image
+updates. None of these failures caused a physical retry.
+
+authorization.json records the user's current P10.3 scope, exact binary hash,
+arguments and one attempt. safety-preflight.json retains electrical limitations,
+recovery and last-known physical state. operator-confirmation.json and
+operator-ready.json **do not yet exist**. run-zero.py must not be invoked until
+the fresh operator statement has been recorded. zero-once.py is staged but has
+not opened CAN or UART; only --help and the pure control-cycle test were run.
+
+analyze-zero.py checks identical target/JCAN frames, correlated SDOs, exact36
+volatile writes, zero targets/speeds, zero-enable feedback, NMT order and mapping
+restoration. It does not invent operator confirmation. Logs/metadata are compressed;
+SHA256SUMS covers the current directory excluding itself and Python caches.

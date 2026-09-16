@@ -92,7 +92,7 @@ Read these documents before implementation:
 - [P8-R PDO runtime and drive binding](docs/verification/P8_R_RUNTIME_BASELINE.md) — software/vcan accepted; physical layout and remote control remain P10 work.
 - [P10.1 offline control cycle](docs/verification/P10_1_CONTROL_CYCLE_BASELINE.md) — SBUS snapshots, arbitration, safety and guarded PDO output; no hardware entry point.
 - [P10.2 vcan control loop](docs/verification/P10_2_CONTROL_LOOP_BASELINE.md) — PTY to actual RPDO/independent feedback, failure injection and bounded shutdown reporting; physical acceptance remains P10.3.
-- [P10.3 HIL checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md) — receive-only and stationary TPDO2 prerequisites pass; full-chain HIL remains open.
+- [P10.3 HIL checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md) — receive-only and stationary TPDO2 prerequisites pass; actual zero-only ControlLoop artifact is offline-verified/staged, awaiting fresh powered readiness. Full-chain physical acceptance remains open.
 - [P6.1 contract, fixture, and read-only baseline](docs/verification/P6_1_CONTRACT_FIXTURE_READ_ONLY_BASELINE.md)
 - [P6.2 ZLAC protocol semantics baseline](docs/verification/P6_2_ZLAC_PROTOCOL_SEMANTICS_BASELINE.md)
 - [P6.3 bounded qualification executor baseline](docs/verification/P6_3_BOUNDED_QUALIFICATION_EXECUTOR_BASELINE.md)

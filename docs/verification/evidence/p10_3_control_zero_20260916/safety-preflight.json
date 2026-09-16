@@ -1,0 +1,31 @@
+{
+  "target": "robot-dev",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "architecture": "aarch64",
+  "can": "can0",
+  "node": 1,
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "artifact_sha256": "bd98635ba9668a3f1bbea36a3faeb05ff28cfa47e1416eff61192083f2e12c3a",
+  "staging": "/home/cat/.cache/robot-control/staging/p103-zero-bd98635b-20260916",
+  "power": "operator last confirmed OFF; fresh powered readiness required",
+  "operator_confirmed": [
+    "unchanged wiring",
+    "raised wheels",
+    "physical emergency stop",
+    "on-site assistance"
+  ],
+  "electrical": "Existing unchanged SBUS wiring; receiver/module 5V setting confirmed previously; voltage amplitude/tolerance not measured",
+  "limits": {
+    "left_rpm": 0,
+    "right_rpm": 0,
+    "control_window_ms": 20000,
+    "setup_deadline_ms": 10000,
+    "cleanup_deadline_ms": 10000,
+    "watchdog_ms": 1000
+  },
+  "recovery": "Stop/detach RPDO owner; zero both SDO targets; Disable Voltage and verify zero/Disabled; PreOp; restore RPDO/TPDO2/watchdog/heartbeat. Failure remains failed and requires operator power OFF.",
+  "startup": "JCAN silent capture then target candump, fresh readiness, one-shot marker; no automatic retry",
+  "disposition": "PREPARED, NOT RUN"
+}
