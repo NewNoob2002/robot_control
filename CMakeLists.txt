@@ -21,14 +21,21 @@ option(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING
        "Build the Debug-only read-only CANopen commissioning tool" OFF)
 option(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION
        "Build the Debug-only bounded ZLAC qualification tool" OFF)
-if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING AND
-   ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
-  message(FATAL_ERROR "CANopen commissioning and ZLAC qualification are mutually exclusive")
+option(ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME
+       "Build the Debug-only PDO runtime library and virtual-bus checks" OFF)
+set(canopen_write_modes 0)
+foreach(mode ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING
+             ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME)
+  if(${mode})
+    math(EXPR canopen_write_modes "${canopen_write_modes} + 1")
+  endif()
+endforeach()
+if(canopen_write_modes GREATER 1)
+  message(FATAL_ERROR "CANopen commissioning, qualification and runtime are mutually exclusive")
 endif()
-if(ROBOT_CONTROL_BUILD_CANOPEN_COMMISSIONING OR
-   ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
+if(canopen_write_modes GREATER 0)
   if(CMAKE_CONFIGURATION_TYPES OR NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
-    message(FATAL_ERROR "CANopen commissioning/qualification requires a single-config Debug build")
+    message(FATAL_ERROR "CANopen commissioning/qualification/runtime requires a single-config Debug build")
   endif()
 endif()
 
@@ -77,6 +84,29 @@ if(BUILD_TESTING)
     PRIVATE robot_control_input_sbus_source robot_control_project_warnings)
   if(NOT CMAKE_CROSSCOMPILING)
     add_test(NAME sbus_source_contract COMMAND robot_control_sbus_source_tests)
+  endif()
+endif()
+
+# These contract/link fixtures are also cross-built; CTest registration is host-only.
+if(BUILD_TESTING)
+  add_executable(robot_control_canopen_runtime_policy_tests tests/unit/canopen_runtime_policy_tests.cpp)
+  target_link_libraries(robot_control_canopen_runtime_policy_tests
+    PRIVATE robot_control_domain_drive robot_control_project_warnings)
+  if(NOT CMAKE_CROSSCOMPILING)
+    add_test(NAME canopen_runtime_policy COMMAND robot_control_canopen_runtime_policy_tests)
+  endif()
+  if(ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME)
+    add_executable(robot_control_canopen_runtime_vcan_tests
+      tests/unit/canopen_runtime_vcan_tests.cpp tests/unit/canopen_test_log_stub.c)
+    target_link_libraries(robot_control_canopen_runtime_vcan_tests
+      PRIVATE robot_control_communication_canopen_runtime robot_control_platform_linux robot_control_project_warnings)
+    target_link_options(robot_control_canopen_runtime_vcan_tests PRIVATE "-Wl,--wrap=send")
+    if(NOT CMAKE_CROSSCOMPILING)
+      add_test(NAME canopen_runtime_vcan_managed
+        COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+          $<TARGET_FILE:robot_control_canopen_runtime_vcan_tests>)
+      set_tests_properties(canopen_runtime_vcan_managed PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 15)
+    endif()
   endif()
 endif()
 

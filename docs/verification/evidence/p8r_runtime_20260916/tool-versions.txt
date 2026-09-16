@@ -1,0 +1,6 @@
+c++ (GCC) 16.2.1 20260810
+clang version 22.1.8
+cmake version 4.4.3
+1.13.2
+LLVM (http://llvm.org/):
+clang-format version 22.1.8

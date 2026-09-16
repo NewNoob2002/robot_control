@@ -24,6 +24,7 @@ jobs:
       full: ${{ steps.scope.outputs.full }}
       sbus: ${{ steps.scope.outputs.sbus }}
       phase6: ${{ steps.scope.outputs.phase6 }}
+      runtime: ${{ steps.scope.outputs.runtime }}
     steps:
       - name: Check out complete change history
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.0.2
@@ -231,9 +232,73 @@ jobs:
           print(f'PASS: {len(cases)} tests executed without skips')
           PY
 
+  runtime-validation:
+    needs: changes
+    if: needs.changes.outputs.runtime == 'true'
+    name: PDO runtime (${{ matrix.variant }})
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [debug, sanitizer]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.0.2
+        with:
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Install host dependencies and enable vcan support
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ninja-build clang iproute2
+          sudo apt-get install --yes --no-install-recommends "linux-modules-extra-$(uname -r)"
+          sudo modprobe vcan
+
+      - name: Build the isolated Debug runtime targets
+        env:
+          VARIANT: ${{ matrix.variant }}
+        run: |
+          flags=()
+          if [[ "${VARIANT}" == sanitizer ]]; then
+            flags+=(
+              -DCMAKE_C_COMPILER=clang
+              -DCMAKE_CXX_COMPILER=clang++
+              "-DCMAKE_C_FLAGS=-fsanitize=address,undefined -fno-omit-frame-pointer"
+              "-DCMAKE_CXX_FLAGS=-fsanitize=address,undefined -fno-omit-frame-pointer"
+            )
+          fi
+          cmake -S . -B out/build/runtime-ci -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON \
+            -DROBOT_CONTROL_BUILD_CANOPEN_RUNTIME=ON \
+            -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON "${flags[@]}"
+          cmake --build out/build/runtime-ci --parallel 2 --target \
+            robot_control_canopen_runtime_policy_tests robot_control_canopen_runtime_vcan_tests
+
+      - name: Run runtime contracts and mandatory managed vcan
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+        run: |
+          ctest --test-dir out/build/runtime-ci --output-on-failure --no-tests=error \
+            --tests-regex '^canopen_runtime_' \
+            --output-junit "$PWD/out/build/runtime-ci/results.xml"
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          report = ET.parse(Path('out/build/runtime-ci/results.xml'))
+          cases = {case.attrib['name']: case for case in report.iter('testcase')}
+          for name in ('canopen_runtime_policy', 'canopen_runtime_vcan_managed'):
+              assert name in cases, f'Missing runtime test: {name}'
+          skipped = [name for name, case in cases.items() if case.find('skipped') is not None]
+          assert not skipped, f'Required tests skipped: {skipped}'
+          print(f'PASS: {len(cases)} tests executed without skips')
+          PY
+
   ci-result:
     name: CI result
-    needs: [changes, host-validation, sbus-validation, phase6-qualification]
+    needs: [changes, host-validation, sbus-validation, phase6-qualification, runtime-validation]
     if: always()
     runs-on: ubuntu-22.04
     steps:
@@ -251,6 +316,7 @@ jobs:
               'host-validation': scope['full'] == 'true',
               'sbus-validation': scope['sbus'] == 'true' and scope['full'] != 'true',
               'phase6-qualification': scope['phase6'] == 'true',
+              'runtime-validation': scope['runtime'] == 'true',
           }
           for job, selected in expected.items():
               required = 'success' if selected else 'skipped'

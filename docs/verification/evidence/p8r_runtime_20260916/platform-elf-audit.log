@@ -1,0 +1,6 @@
+elf=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/cross/p8r-runtime/tools/platform_probe/robot-control-platform-probe
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+phase3_symbols=validated
+rpath=none

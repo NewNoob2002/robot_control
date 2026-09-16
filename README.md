@@ -60,10 +60,11 @@ never suppress tests for changed dependencies:
 | Change scope | CI checks |
 | --- | --- |
 | SBUS, UART, SBUS tests or P9 evidence | SBUS Debug/Release/ASan+UBSan: contracts, PTY, observer, archived replay and Linux platform tests; no vcan |
-| CAN/CANopen, Phase6 tools/tests or P6 evidence | CAN/Phase6 Debug and ASan+UBSan regression, evidence checks and mandatory vcan; no SBUS tests |
-| Mixed SBUS and CAN changes | Both scoped suites |
+| CAN/CANopen, Phase6 tools/tests or P6 evidence | CAN/Phase6 Debug and ASan+UBSan regression, evidence checks and mandatory vcan; shared CAN transport changes also run PDO runtime |
+| P8-R runtime policy/adapter/tests or evidence | Independent PDO runtime Debug/ASan+UBSan contracts and managed vcan; no Phase6 or SBUS suite |
+| Mixed subsystem changes | All affected scoped suites |
 | README/AGENTS or ordinary documentation only | Selection regression and CI result; builds skipped |
-| Shared code/build configuration, CI itself or unclassified code | Full existing host and Phase6 regression, including SBUS |
+| Shared code/build configuration, CI itself or unclassified code | Full host, Phase6 and PDO runtime regression, including SBUS |
 | Push/PR to main, merge queue, manual run, new branch or unavailable base history | Full regression |
 
 Full host validation retains Phase1/sysroot script regressions, ShellCheck,
@@ -88,6 +89,7 @@ Read these documents before implementation:
 - [Phase 9 SBUS → P8 runtime completion → P10 integration plan](docs/plans/PHASE9_SBUS_AND_INTEGRATION.md) — next development from the September 15 archive; Phase 6 remains open.
 - [P9.2 SBUS UART and receive-only observer](docs/verification/P9_2_SBUS_UART_BASELINE.md) — accepted within the UART/receive-only scope.
 - [P9.3 SBUS health, mapping and snapshots](docs/verification/P9_3_SBUS_SOURCE_BASELINE.md) — CLOSED within receive-only input scope; calibrated Source HIL passed, with the first failed attempt preserved.
+- [P8-R PDO runtime and drive binding](docs/verification/P8_R_RUNTIME_BASELINE.md) — software/vcan accepted; physical layout and remote control remain P10 work.
 - [P6.1 contract, fixture, and read-only baseline](docs/verification/P6_1_CONTRACT_FIXTURE_READ_ONLY_BASELINE.md)
 - [P6.2 ZLAC protocol semantics baseline](docs/verification/P6_2_ZLAC_PROTOCOL_SEMANTICS_BASELINE.md)
 - [P6.3 bounded qualification executor baseline](docs/verification/P6_3_BOUNDED_QUALIFICATION_EXECUTOR_BASELINE.md)

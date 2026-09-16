@@ -1,0 +1,29 @@
+{
+  "source": {
+    "dirty": true,
+    "file_count": 3423,
+    "revision": "5c8d13c68c0feba06a7f021c41850760074a86bf",
+    "schema_version": 1,
+    "snapshot_sha256": "45845ddc073daad2414aeca15a34f41c7fcbd17a9e3a3fd2634c6ba4938ab1fd"
+  },
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/p8r-runtime",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_CANOPEN_RUNTIME=ON"
+  ],
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "sysroot_content": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911  sysroot-content.jsonl",
+  "artifacts": {
+    "robot_control_canopen_runtime_vcan_tests": "d8866d56d54e76a1074278a89f937c2d6cbc23cceeb5ad181f318d3e8f09af6e",
+    "robot_control_canopen_runtime_policy_tests": "dbcb94a3736b5bad1b832e11392431867081849fa91e310a4af7282d6062be5b"
+  }
+}

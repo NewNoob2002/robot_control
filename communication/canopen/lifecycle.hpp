@@ -16,6 +16,7 @@ namespace robot_control::communication::canopen {
 
 class CommissioningSession;
 class QualificationSession;
+class RuntimeSession;
 
 /** Reason a bounded CANopen owner loop returned without an error. */
 enum class LifecycleExit : std::uint8_t { deadline, sigint, sigterm, application_reset, quit };
@@ -87,6 +88,11 @@ class Lifecycle final {
   private:
     friend class CommissioningSession;
     friend class QualificationSession;
+#ifdef ROBOT_CONTROL_CANOPEN_RUNTIME
+    friend class RuntimeSession;
+    RuntimeSession* runtime_{nullptr};
+    std::uint64_t runtime_generation_{0};
+#endif
     /** Construct an inactive owner from already claimed resources. */
     Lifecycle(std::unique_ptr<StackStorage> storage, platform::linux::process::TerminationEvent& termination) noexcept;
 

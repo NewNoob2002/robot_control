@@ -29,8 +29,15 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   archived-event replay and an initial no-device target smoke pass. An authorized
   30-second calibration captured 4284 healthy frames: steering 200/1000/1800 and
   throttle 200/993/1800, neither reversed, with operator-confirmed forward/right
-  logical signs. Final Source HIL attempt2 passes with 6434 frames, 6431 snapshots, three fresh authorizations and SIGTERM zero/invalid within 33.3009 ms. Operator confirmation is recorded. Attempt1 remains FAILED; attempt2 startup oracle correction and original report are preserved. All runners/authorizations are consumed, not future test permits. P8-R/P10 remain unimplemented.
+  logical signs. Final Source HIL attempt2 passes with 6434 frames, 6431 snapshots, three fresh authorizations and SIGTERM zero/invalid within 33.3009 ms. Operator confirmation is recorded. Attempt1 remains FAILED; attempt2 startup oracle correction and original report are preserved. All runners/authorizations are consumed, not future test permits. P8-R is accepted within its software/vcan scope; P10 remains unimplemented.
   See docs/verification/P9_3_SBUS_SOURCE_BASELINE.md.
+- P8-R adds a separate Debug-only/default-OFF CANopen runtime library, guarded
+  dual-axis RPDO output and per-event feedback inhibition. Runtime sessions require
+  caller-verified current-generation layout readbacks; TPDO2 mode/fault mapping is
+  software-only and awaits P10 physical acceptance. No SDO/NMT configuration,
+  physical control, automatic fault reset or production entry point was added.
+  See docs/verification/P8_R_RUNTIME_BASELINE.md. Remote SBUS control still requires
+  P10.1 policy integration, P10.2 virtual closure and separately authorized P10.3 HIL.
 - Phases 0–5 are complete. Phase 6 remains open; use
   docs/verification/PHASE6_CHECKPOINT.md for current acceptance and
   docs/verification/evidence/README.md for direct or archived evidence.

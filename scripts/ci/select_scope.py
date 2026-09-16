@@ -8,7 +8,11 @@ import re
 import subprocess
 
 
-SUITES = {"full", "sbus", "phase6"}
+SUITES = {"full", "sbus", "phase6", "runtime"}
+RUNTIME_PATHS = (
+    "domain/drive/runtime.", "communication/canopen/runtime.",
+    "tests/unit/canopen_runtime_", "docs/verification/evidence/p8r_",
+)
 SBUS_PATHS = (
     "input/sbus/", "tools/sbus_observer/", "platform/linux/uart/",
     "tests/unit/sbus_", "tests/integration/sbus_", "scripts/test/test_sbus_",
@@ -27,10 +31,14 @@ def classify(paths):
     """Return affected suites; unclassified non-documentation changes run all."""
     suites = set()
     for path in paths:
-        if path.startswith(SBUS_PATHS):
+        if path.startswith(RUNTIME_PATHS):
+            suites.add("runtime")
+        elif path.startswith(SBUS_PATHS):
             suites.add("sbus")
         elif path.startswith(CAN_PATHS):
             suites.add("phase6")
+            if path.startswith(("communication/canopen/", "platform/linux/can/")):
+                suites.add("runtime")
         elif path in ("README.md", "AGENTS.md") or (
             path.startswith("docs/") and path.endswith(".md")
         ):

@@ -21,9 +21,12 @@ def main():
         (["platform/linux/uart/serial_port.cpp"], {"sbus"}),
         (["tests/unit/sbus_parser_tests.cpp", "README.md"], {"sbus"}),
         (["docs/verification/evidence/p9_2_sbus_manual_20260916/capture.gz"], {"sbus"}),
-        (["communication/canopen/lifecycle.cpp"], {"phase6"}),
-        (["platform/linux/can/socket.cpp"], {"phase6"}),
+        (["communication/canopen/lifecycle.cpp"], {"phase6", "runtime"}),
+        (["platform/linux/can/socket.cpp"], {"phase6", "runtime"}),
         (["scripts/test/test_phase6_evidence.py"], {"phase6"}),
+        (["domain/drive/runtime.cpp"], {"runtime"}),
+        (["communication/canopen/runtime.hpp"], {"runtime"}),
+        (["tests/unit/canopen_runtime_vcan_tests.cpp"], {"runtime"}),
         (["input/sbus/source/source.cpp", "tools/zlac_qualification/main.cpp"], {"sbus", "phase6"}),
         (["README.md", "docs/plans/PHASE9_SBUS_AND_INTEGRATION.md"], set()),
         ([], set()),
@@ -78,12 +81,12 @@ def main():
         git("commit", "-qm", "rename across scopes")
         renamed = git("rev-parse", "HEAD")
         with patch.object(scope.subprocess, "run", side_effect=run_here):
-            assert scope.select("push", {"before": head, "after": renamed}, "dev") == {"sbus", "phase6"}
+            assert scope.select("push", {"before": head, "after": renamed}, "dev") == {"sbus", "phase6", "runtime"}
         git("rm", "-q", "communication/canopen/example.cpp")
         git("commit", "-qm", "delete")
         deleted = git("rev-parse", "HEAD")
         with patch.object(scope.subprocess, "run", side_effect=run_here):
-            assert scope.select("push", {"before": renamed, "after": deleted}, "dev") == {"phase6"}
+            assert scope.select("push", {"before": renamed, "after": deleted}, "dev") == {"phase6", "runtime"}
         git("checkout", "-q", "--detach", base)
         (root / "shared.cpp").write_text("base-only change\n")
         git("add", ".")

@@ -1,5 +1,8 @@
 #include "communication/canopen/lifecycle.hpp"
 #include "platform/linux/unique_fd.hpp"
+#ifdef ROBOT_CONTROL_CANOPEN_RUNTIME
+#include "communication/canopen/runtime.hpp"
+#endif
 
 #include <linux/can.h>
 #include <linux/can/error.h>
@@ -166,6 +169,14 @@ Lifecycle::~Lifecycle() {
 
 platform::linux::Status Lifecycle::reopen() noexcept {
     observations_.begin_transport();
+#ifdef ROBOT_CONTROL_CANOPEN_RUNTIME
+    if (runtime_ != nullptr) {
+        const auto status = runtime_->refresh(std::chrono::steady_clock::now());
+        if (!status.ok()) {
+            return status;
+        }
+    }
+#endif
     storage_->prepare_communication_reset();
     const auto& config = storage_->config();
     const auto context = identity_context(config);
@@ -313,13 +324,32 @@ Lifecycle::process_receive_event(const std::chrono::steady_clock::time_point rec
     }
 
     observations_.ingest(raw_frame(peeked, received_at, observations_.generation()), received_at);
+#ifdef ROBOT_CONTROL_CANOPEN_RUNTIME
+    if (runtime_ != nullptr) {
+        return runtime_->refresh(received_at);
+    }
+#endif
     return platform::linux::Status::success();
 }
 
 Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_point deadline) noexcept {
+    /** Finish without leaving an expired or terminated command active. */
+    const auto finish = [&](RunResult result) {
+#ifdef ROBOT_CONTROL_CANOPEN_RUNTIME
+        if (runtime_ != nullptr) {
+            const auto status = result.ok() && result.value() == LifecycleExit::deadline
+                                    ? runtime_->refresh(std::chrono::steady_clock::now())
+                                    : runtime_->stop();
+            if (!status.ok() && result.ok()) {
+                return RunResult::failure(status);
+            }
+        }
+#endif
+        return result;
+    };
     while (true) {
         if (std::chrono::steady_clock::now() >= deadline) {
-            return RunResult::success(LifecycleExit::deadline);
+            return finish(RunResult::success(LifecycleExit::deadline));
         }
 
         CO_epoll_wait(&epoll_);
@@ -329,13 +359,13 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
             CO_epoll_processLast(&epoll_);
             auto signal = termination_->consume();
             if (!signal.ok()) {
-                return RunResult::failure(signal.status());
+                return finish(RunResult::failure(signal.status()));
             }
             if (signal.value() == SIGINT) {
-                return RunResult::success(LifecycleExit::sigint);
+                return finish(RunResult::success(LifecycleExit::sigint));
             }
             if (signal.value() == SIGTERM) {
-                return RunResult::success(LifecycleExit::sigterm);
+                return finish(RunResult::success(LifecycleExit::sigterm));
             }
         }
 
@@ -344,7 +374,7 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
             // the next run, rather than report an unprocessed event as unknown.
             epoll_.epoll_new = false;
             CO_epoll_processLast(&epoll_);
-            return RunResult::success(LifecycleExit::deadline);
+            return finish(RunResult::success(LifecycleExit::deadline));
         }
 
         if (endpoint_lost()) {
@@ -352,7 +382,7 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
             CO_epoll_processLast(&epoll_);
             const auto status = reopen();
             if (!status.ok()) {
-                return RunResult::failure(status);
+                return finish(RunResult::failure(status));
             }
             continue;
         }
@@ -371,7 +401,7 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
                 CO_epoll_processLast(&epoll_);
                 const auto status = reopen();
                 if (!status.ok()) {
-                    return RunResult::failure(status);
+                    return finish(RunResult::failure(status));
                 }
                 continue;
             }
@@ -380,9 +410,17 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
         const auto receive_status = process_receive_event(std::chrono::steady_clock::now());
         if (!receive_status.ok()) {
             CO_epoll_processLast(&epoll_);
-            return RunResult::failure(receive_status);
+            return finish(RunResult::failure(receive_status));
         }
         observations_.advance_time(std::chrono::steady_clock::now());
+#ifdef ROBOT_CONTROL_CANOPEN_RUNTIME
+        if (runtime_ != nullptr) {
+            const auto status = runtime_->refresh(std::chrono::steady_clock::now());
+            if (!status.ok()) {
+                return finish(RunResult::failure(status));
+            }
+        }
+#endif
 
         CO_epoll_processRT(&epoll_, storage_->stack(), false);
         CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
@@ -392,12 +430,12 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
         if (reset == CO_RESET_COMM) {
             const auto status = reopen();
             if (!status.ok()) {
-                return RunResult::failure(status);
+                return finish(RunResult::failure(status));
             }
         } else if (reset == CO_RESET_APP) {
-            return RunResult::success(LifecycleExit::application_reset);
+            return finish(RunResult::success(LifecycleExit::application_reset));
         } else if (reset == CO_RESET_QUIT) {
-            return RunResult::success(LifecycleExit::quit);
+            return finish(RunResult::success(LifecycleExit::quit));
         }
     }
 }

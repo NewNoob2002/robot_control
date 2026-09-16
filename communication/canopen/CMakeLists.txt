@@ -119,3 +119,14 @@ if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
     PRIVATE robot_control_domain_drive robot_control_platform_linux
             robot_control_project_options robot_control_project_warnings)
 endif()
+
+if(ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME)
+  add_library(robot_control_communication_canopen_runtime
+    lifecycle.cpp observation.cpp stack_config.cpp stack_storage.cpp runtime.cpp)
+  target_compile_definitions(robot_control_communication_canopen_runtime
+    PUBLIC ROBOT_CONTROL_CANOPEN_RUNTIME)
+  target_include_directories(robot_control_communication_canopen_runtime PUBLIC "${PROJECT_SOURCE_DIR}")
+  target_link_libraries(robot_control_communication_canopen_runtime
+    PUBLIC robot_control_canopen_upstream robot_control_domain_drive
+    PRIVATE robot_control_platform_linux robot_control_project_options robot_control_project_warnings)
+endif()
