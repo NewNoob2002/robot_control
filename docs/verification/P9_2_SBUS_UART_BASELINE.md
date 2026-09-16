@@ -1,14 +1,15 @@
 # P9.2 — Linux UART 与 SBUS 只读观察验证
 
-日期：2026-09-16。状态：**软件实现与离线验证通过；P9.2 部分完成，实机验收待完成**。
+日期：2026-09-16。状态：**软件实现与离线验证通过；P9.2 部分完成，首次实机静态采集通过，其余物理验收待完成**。
 基点 `bf5b34053732209be5dd62ad3c510f6b4429996f`，分支 `codex/phase9-sbus-development`。
 本节点不实现 P9.3 健康／命令快照，也不关闭 P6 或授予运动权限。
 
 ## 输入与交付
 
 操作员确认 R8FM、已完成反相、沿用 CH1/CH3/CH6/CH7 角色；
-2026-09-16 补充串口路径 `/dev/ttyACM0`。未探测或打开该设备。
-适配器身份、是否透明输出原始 SBUS、接线电压、稳定设备命名和实测格式仍待确认。
+2026-09-16 补充串口路径 `/dev/ttyACM0`。随后操作员授权适配器采集，已在目标完成 10 秒有界只读观察。
+已识别适配器与 by-id 稳定链接，100000/8E2 配置回读与原始帧解码成功；
+具体接线／电压和各通道实际动作对应仍待确认，见下方首次采集记录。
 
 - `platform/linux/uart/SerialPort` 增加 100000、termios2 TCGETS2/TCSETS2、
   严格的 8-bit raw 配置回读、队列查询和输入清空。不支持或回读不符明确报错。
@@ -48,7 +49,7 @@
   不静默丢记录。输出应由持续读取的管道或正常文件接收。普通 Linux 调度及
   设备／文件系统内核阻塞不构成硬实时保证；PTY 不能证明电平、反相、波特率或奇偶校验。
 - 链接检查确认 observer 包含 reader/parser/UART，没有 CANopen、CanSocket 或
-  socket/send/sendto/sendmsg 符号；不连接 CAN 发送路径。未访问实体 CAN/UART。
+  socket/send/sendto/sendmsg 符号；不连接 CAN 发送路径。本次只访问授权 UART，未访问实体 CAN。
 
 ## 实际验证
 
@@ -63,7 +64,8 @@
 | 锁定 Docker 全工程 aarch64 Debug | 53 个构建步骤 PASS；原始已验证目标 sysroot；不是容器文件系统替代 |
 | platform-probe ELF 审计 | PASS：解释器、依赖、符号版本、更新后的 UART 链接、无 RPATH |
 | SBUS observer 独立 ELF／链接检查 | PASS：aarch64、解释器、依赖、GLIBC/GLIBCXX/CXXABI、无 RPATH、无 CAN 发送符号 |
-| RK3588／R8FM 实际采集、通道对应、物理格式与反相验证 | **未执行，待单独授权** |
+| RK3588／R8FM 首次 10 秒静态采集 | PASS：1428 帧，默认 100000/8E2 回读，独立原始解码匹配，正常退出 |
+| 通道动作对应、失联／恢复、目标 SIGTERM、物理电气验证 | **未执行，P9.2 尚未完整验收** |
 
 完整 host CTest 在沙箱外运行已有的隔离 managed-vcan 回归，无实体 CAN 接口操作。
 PTY 配置使用显式 100000 8N2；另测试默认 8E2 被 PTY 清除 PARENB 后必须拒绝。
@@ -138,14 +140,25 @@ GNU ld `--wrap` 要求的两个保留名称；不关闭其他代码的同类检�
 | `scripts/test/test_sbus_observer.py` | `201b7645ca8e3cb70d649b9cebc709745d4e3a0752a21e1a77f378ac6a1069b7` |
 | `out/build/cross/rk3588-debug/tools/sbus_observer/robot-control-sbus-observer` | `6d6cb2fb9bb040cfbac28dc7ad516e939a48ef583ef9e6b81ab973298adc3b45` |
 
-## 剩余实机验收流程（尚未授权／执行）
+## 首次已授权实机采集
+
+操作员于 2026-09-16 明确授权适配器采集，10:44:42–10:44:52（Asia/Shanghai）
+完成默认 100000/8E2 的 10 秒观察：1428 帧，raw flags 全 0，无 rejected／
+discontinuity／error，退出码 0，接收间隔中位数约 7 ms。原始 35700 bytes
+独立解码与工具逐帧相符。CH1=1006..1007、CH3=994..995、CH6=200、CH7=1000。
+这仅证明该次静态输入可读，尚未确认实际操纵和通道的对应关系。
+
+完整 [结果及原始证据](evidence/p9_2_sbus_capture_20260916/RESULT.md) 已保存；
+本次没有 CAN 发送、驱动操作或生产部署。远端使用独立用户 staging，进程已退出。
+
+## 剩余实机验收流程（静态采集已执行；其余待后续约定）
 
 1. 固定目标主机与 `/dev/ttyACM0` 的适配器身份、权限、接线／电平、反相链路、透明输出
    能力；确认独占读取、开关该适配器的影响和退出后恢复方式。不猜测本机同名设备。
 2. 单独授权上述目标的有界只读采集和开发 artifact staging 后，核验二进制哈希，
    运行默认 100000 8E2，保存开始配置回读、全部 raw／frame／error 和终止摘要。
    命令形态为 `robot-control-sbus-observer --device /dev/ttyACM0 --duration-ms 10000`。
-   这条命令是后续入口，不是本次已执行记录；不能以 `--parity none` 绕过 8E2 实机门槛。
+   首次已授权采集使用上述 10000 ms 参数；后续实验另行约定，不能以 `--parity none` 绕过 8E2 门槛。
 3. 依次操作已确认的 CH1/CH3/CH6/CH7，核对观察值与实际动作；记录发射机失联时
    flags、停止发送／断开和恢复现象。P9.2 仅观察，健康恢复／授权行为留给 P9.3/P10。
 4. 在单独约定的短采集中发送 SIGTERM，记录退出码 143、时间、完整日志和最终进程退出；

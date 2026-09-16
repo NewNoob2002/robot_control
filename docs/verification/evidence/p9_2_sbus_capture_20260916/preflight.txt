@@ -1,0 +1,17 @@
+UTC: 2026-09-16T02:41:09.334851+00:00
+P9.2 capture preflight
+Authorization: user said 授权适配器采集; bounded adapter receive only.
+Target: existing robot-dev SSH alias, observed hostname lubancat, aarch64.
+Device: /dev/ttyACM0; USB VID:PID 1a86:55d3; serial 586D017868; cdc_acm.
+Identity: /dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00.
+Observed lsof: no current holder; ModemManager active but reports no modems.
+Access: cat, dialout, device readable/writable; no privileged device access needed.
+Artifact: P9.2 observer, source 1c235cc, SHA256 6d6cb2fb9bb040cfbac28dc7ad516e939a48ef583ef9e6b81ab973298adc3b45.
+Destination: /home/cat/.cache/robot-control/staging/p92-1c235cc-6d6cb2fb.
+Capture: one 10-second default 100000 8E2 run, outer 15-second timeout + 2-second kill bound.
+Electrical: operator previously confirmed inverted signal ready for direct reading.
+No wiring, supply, voltage, pinmux, reset, explicit DTR/RTS ioctl, CAN or motion commands.
+Normal tty open/configure/close is within the requested serial capture; no separate reset action.
+Driver readback is not independent electrical measurement; bridge buffering remains a limitation.
+Recovery: bounded observer exit closes tty; stop on first configuration or read error; no automatic retry.
+Staging is new, user-owned and isolated; existing releases/services are untouched.

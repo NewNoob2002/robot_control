@@ -12,10 +12,11 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   docs/verification/P9_1_SBUS_PARSER_BASELINE.md.
 - P9.2 UART/source runtime and the receive-only observer are implemented.
   See docs/verification/P9_2_SBUS_UART_BASELINE.md for software verification;
-  P9.2 remains partially complete pending separately authorized physical capture.
-  The operator identified /dev/ttyACM0; adapter identity/electrical verification
-  remain open. P9.3 health/mapping/command snapshots are not implemented.
-  No new physical SBUS test or motion authority is included.
+  P9.2 remains partially complete: the authorized /dev/ttyACM0 static capture
+  passed on 2026-09-16 (10 s, 1428 frames, flags zero, normal exit). See
+  docs/verification/evidence/p9_2_sbus_capture_20260916/RESULT.md.
+  Operator channel correlation, loss/recovery and electrical verification remain open. P9.3 health/mapping/command snapshots are not implemented.
+  No motion authority is included; capture authorization is not a future test permit.
 - Phases 0–5 are complete. Phase 6 remains open; use
   docs/verification/PHASE6_CHECKPOINT.md for current acceptance and
   docs/verification/evidence/README.md for direct or archived evidence.

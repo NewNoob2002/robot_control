@@ -35,7 +35,7 @@ P9.0 的离线契约与当前硬件待确认项见
 P9.1 已通过 host Debug/Release、ASan/UBSan、静态检查和恢复后的锁定容器全工程 aarch64 Debug 构建，见
 [P9.1 验证记录](../verification/P9_1_SBUS_PARSER_BASELINE.md)。
 P9.2 已实现 UART reader 和独立只读观察入口，软件验证与物理门槛见
-[P9.2 验证记录](../verification/P9_2_SBUS_UART_BASELINE.md)；节点部分完成，实机验收待完成。
+[P9.2 验证记录](../verification/P9_2_SBUS_UART_BASELINE.md)；节点部分完成；首次已授权 10 秒静态采集通过（1428 帧），通道动作／失联等实机验收待完成。
 P9.3 及后续节点待实施。测试先后顺序由左至右；
 任何不适用或无法执行的项目记录原因，不能将跳过计为通过。
 
