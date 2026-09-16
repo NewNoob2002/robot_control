@@ -1,10 +1,20 @@
 # Third-Party Dependency Provenance
 
-Status date: 2026-08-25.
+Status date: 2026-09-16.
 
 Normal builds must not fetch mutable branches. A dependency is accepted only
 after its upstream URL, immutable commit, license, integration method, and local
 patch status are recorded here and in the applicable ADR.
+
+## Development-only ROS2 environment
+
+The official ROS Humble ros-base Jammy amd64 image is pinned by platform digest
+in [docker/ros2/image.lock](../docker/ros2/image.lock). Purpose, upstream source
+revision, package versions, per-package license locations, architecture limits
+and the non-root colcon smoke result are recorded in
+[its README](../docker/ros2/README.md). It is a host development environment only,
+with no new core CMake dependency or target ROS2 qualification claim. The
+official image layers are reused without local patches or package additions.
 
 ## Removed snapshots
 

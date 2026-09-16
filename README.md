@@ -94,6 +94,26 @@ Build or verify the checksum-pinned cross-toolchain image:
 ./scripts/build/verify_cross_image.sh
 ```
 
+If downloads require a local HTTP proxy, configure the Docker daemon for image
+pulls and export `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` for the build client.
+The script forwards these standard proxy arguments by name. When the proxy is
+bound to host loopback, use `ROBOT_CONTROL_BUILD_NETWORK=host` for image creation;
+normal middleware cross builds still run with networking disabled. For example,
+after setting the proxy environment:
+
+```bash
+ROBOT_CONTROL_BUILD_NETWORK=host ./scripts/build/build_cross_image.sh --update-lock
+```
+
+The September 16 restoration retained the pinned base, APT snapshot and full
+package manifest, verified GCC 11.4/CMake 3.22.1, and refreshed only the local
+image ID in `docker/cross/image.lock`. Docker buildx is required.
+
+For independent host ROS2 work, the pinned **Humble / Ubuntu 22.04 amd64** image
+is available as `robot-control-ros2:humble-20260916`. See the
+[ROS2 development image instructions](docker/ros2/README.md) for restore, non-root
+shell and the successful colcon smoke check. It is not an aarch64 cross image.
+
 `docker/cross/image.lock` schema 2 records the Ubuntu snapshot, base image
 digest, Dockerfile and package-lock digests, local image ID, tool versions, and
 installed-package manifest digest. The current local tag is the versioned

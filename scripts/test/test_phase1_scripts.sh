@@ -662,6 +662,8 @@ chmod +x "${image_fake_bin}/docker"
 readonly image_canonical_state="${temp}/image-canonical.state"
 printf 'sha256:old\n' >"${image_canonical_state}"
 if PATH="${image_fake_bin}:${PATH}" \
+  ROBOT_CONTROL_BUILD_NETWORK=host \
+  HTTP_PROXY=http://127.0.0.1:9 \
   FAKE_DOCKER_LOG="${image_docker_log}" \
   FAKE_CANONICAL_STATE="${image_canonical_state}" \
   "${image_fixture}/scripts/build/build_cross_image.sh" --update-lock \
@@ -677,6 +679,14 @@ if grep -q '^image tag .*rk3588-cross:stable$' "${image_docker_log}"; then
   exit 1
 fi
 grep -q '^build .*--tag rk3588-cross:candidate-' "${image_docker_log}"
+grep -q '^build .*--network host' "${image_docker_log}"
+for proxy_arg in HTTP_PROXY HTTPS_PROXY NO_PROXY; do
+  grep -q -- "--build-arg ${proxy_arg} " "${image_docker_log}"
+done
+if grep -q 'http://127.0.0.1:9' "${image_docker_log}"; then
+  echo "Proxy value was embedded in the Docker command instead of forwarded by name" >&2
+  exit 1
+fi
 
 cat >"${image_fixture}/scripts/build/verify_cross_image.sh" <<'EOF'
 #!/usr/bin/env bash

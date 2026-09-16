@@ -265,6 +265,10 @@ trap 'exit 143' TERM
 docker build \
   --platform linux/amd64 \
   --provenance=false \
+  --network "${ROBOT_CONTROL_BUILD_NETWORK:-default}" \
+  --build-arg HTTP_PROXY \
+  --build-arg HTTPS_PROXY \
+  --build-arg NO_PROXY \
   --build-arg "UBUNTU_IMAGE=${base_image}" \
   --build-arg "UBUNTU_SNAPSHOT=${ubuntu_snapshot}" \
   --build-arg "RECIPE_SHA256=${dockerfile_sha256}" \
