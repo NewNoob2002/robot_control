@@ -11,12 +11,12 @@
 - P6 的有界验收、失败记录、失效授权及长稳延期保持原状态，见
   [当前检查点](../verification/PHASE6_CHECKPOINT.md)。
 
-下一步是 SBUS。检查点已经允许在长稳延期期间推进 SBUS 与完整链路。
+当前推进 SBUS。检查点已经允许在长稳延期期间推进 SBUS 与完整链路。
 现有 `platform/linux/uart/serial_port.hpp` 提供非阻塞串口、超时和取消；
 `domain/control/control_arbiter.hpp` 与 `domain/safety/safety_manager.hpp`
 已有仲裁和安全领域接口。复用这些模块，补齐输入生产者和应用编排。
 P9.1 已交付纯解析器，P9.2 已实现 100000 波特率及严格配置回读；
-串口真实电气配置与接收机输出仍须单独物理验证。
+实机配置回读与接收机解码已通过，接线与模块电平设置已有现场确认；未独立测量电气波形。
 行为依据为 [旧工程行为基线](../architecture/LEGACY_BEHAVIOR_BASELINE.md)，
 旧 STM32 工程仅供只读核对，不复制 HAL、DMA、线程机制。
 
@@ -31,14 +31,15 @@ P9.0 的离线契约与当前硬件待确认项见
 [SBUS 输入契约](../architecture/SBUS_INPUT_CONTRACT.md)，
 验收记录见 [P9.0 基线](../verification/P9_0_SBUS_CONTRACT_BASELINE.md)。
 操作员已确认 R8FM、已完成反相可直接读取、沿用旧工程通道角色；
-2026-09-16 操作员确认目标路径 `/dev/ttyACM0`；适配器／接线与实际标定仍待确认。
+2026-09-16 操作员确认目标路径 `/dev/ttyACM0`；适配器身份、RX 接线、共地及模块 5 V 设置已记录，正式标定留给 P9.3。
 P9.1 已通过 host Debug/Release、ASan/UBSan、静态检查和恢复后的锁定容器全工程 aarch64 Debug 构建，见
 [P9.1 验证记录](../verification/P9_1_SBUS_PARSER_BASELINE.md)。
 P9.2 已实现 UART reader 和独立只读观察入口，软件验证与物理门槛见
 [P9.2 验证记录](../verification/P9_2_SBUS_UART_BASELINE.md)；软件与本轮授权的只读功能验证已完成：10秒静态采集通过；
 30秒手动试验第一轮记录上限失败，修复后第二轮通道动作、失联／恢复和目标SIGTERM通过。
 详见 [30秒后续记录](../verification/evidence/p9_2_sbus_manual_20260916/RESULT.md)；
-电气独立测量、USB拔插和完整标定未执行，不外推为通过。
+源码提交 `c42e2a5` 的 CI 已通过，现场接线资料已补齐，P9.2 在 UART 与只读观察范围 CLOSED。
+电气独立测量、USB拔插和完整标定未执行，不外推为通过，也不新增为 P9.2 关闭门槛；正式标定属于 P9.3。
 P9.3 及后续节点待实施。测试先后顺序由左至右；
 任何不适用或无法执行的项目记录原因，不能将跳过计为通过。
 

@@ -12,7 +12,11 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   docs/verification/P9_1_SBUS_PARSER_BASELINE.md.
 - P9.2 UART/source runtime and the receive-only observer are implemented.
   See docs/verification/P9_2_SBUS_UART_BASELINE.md for software verification;
-  P9.2 has authorized static and 30-second target functional evidence.
+  P9.2 is CLOSED within its UART/receive-only scope, with authorized static and
+  30-second target functional evidence. Source CI passed for c42e2a5
+  (Actions run 35051777345). The operator confirmed inverted SBUS to module RX,
+  common ground, a current 5 V module setting (switchable to 3.3 V), and 5 V
+  receiver power. Signal amplitude and RX voltage tolerance were not measured.
   The first manual attempt failed at the old 4096-read limit; it remains failed.
   A byte-budget fix passes host Debug/Release/sanitizer 31/31 and locked cross.
   The second attempt records 4290 frames, operator-confirmed CH1/CH3/CH6/CH7,
