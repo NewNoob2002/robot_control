@@ -52,6 +52,7 @@ if(ROBOT_CONTROL_WARNINGS_AS_ERRORS)
 endif()
 
 add_subdirectory(domain)
+add_subdirectory(input/sbus/protocol)
 add_subdirectory(platform)
 add_subdirectory(service)
 add_subdirectory(communication/canopen)

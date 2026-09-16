@@ -6,6 +6,12 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
 
 ## Current State
 
+- P9.0's SBUS contract and P9.1's pure fixed-profile streaming parser are accepted.
+  P9.1 passes host Debug/Release, ASan/UBSan, scoped static checks and the restored
+  locked-container aarch64 Debug build. See
+  docs/verification/P9_1_SBUS_PARSER_BASELINE.md. UART/source runtime and
+  health/mapping/command snapshots remain P9.2/P9.3; no new physical SBUS test
+  or motion authority is included.
 - Phases 0–5 are complete. Phase 6 remains open; use
   docs/verification/PHASE6_CHECKPOINT.md for current acceptance and
   docs/verification/evidence/README.md for direct or archived evidence.

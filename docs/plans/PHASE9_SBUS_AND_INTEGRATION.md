@@ -32,6 +32,8 @@ P9.0 的离线契约与当前硬件待确认项见
 验收记录见 [P9.0 基线](../verification/P9_0_SBUS_CONTRACT_BASELINE.md)。
 操作员已确认 R8FM、已完成反相可直接读取、沿用旧工程通道角色；
 UART 设备／引脚与实际标定仍待确认。
+P9.1 已通过 host Debug/Release、ASan/UBSan、静态检查和恢复后的锁定容器全工程 aarch64 Debug 构建，见
+[P9.1 验证记录](../verification/P9_1_SBUS_PARSER_BASELINE.md)。
 其余节点均待实施／待验收。测试先后顺序由左至右；
 任何不适用或无法执行的项目记录原因，不能将跳过计为通过。
 
