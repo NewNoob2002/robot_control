@@ -1,0 +1,3 @@
+PASS: aarch64, interpreter, dependencies, GLIBC/GLIBCXX/CXXABI, no RPATH
+PASS: reader/parser/UART/Source/stop linked; no CANopen/CanSocket/socket/send symbols
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1

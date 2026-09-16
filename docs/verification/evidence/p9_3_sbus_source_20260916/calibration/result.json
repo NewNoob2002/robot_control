@@ -1,0 +1,9 @@
+{
+  "exit_code": 143,
+  "run_to_signal_ms": 30000.19382,
+  "signal_to_reaped_ms": 32.058151,
+  "observer_pid": 70888,
+  "start_mono_ns": 190217906401660,
+  "signal_sent_ns": 190247906595480,
+  "reaped_ns": 190247938653631
+}

@@ -1,4 +1,4 @@
-add_library(robot_control_input_sbus_linux reader.cpp)
+add_library(robot_control_input_sbus_linux reader.cpp source_bridge.cpp)
 target_link_libraries(robot_control_input_sbus_linux
-  PUBLIC robot_control_input_sbus_protocol robot_control_platform_linux
+  PUBLIC robot_control_input_sbus_source robot_control_input_sbus_protocol robot_control_platform_linux
   PRIVATE robot_control_project_warnings)

@@ -23,8 +23,14 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   flags 0->4->12->0 and SIGTERM exit 143 within 16 ms of signal/reap observation.
   Three startup candidates were rejected before resynchronization. See
   docs/verification/evidence/p9_2_sbus_manual_20260916/RESULT.md.
-  Electrical measurements, physical USB unplug and full calibration are not claimed. P9.3 health/mapping/command snapshots are not implemented.
+  Electrical measurements and physical USB unplug are not claimed. P9.3 health/mapping/command snapshots and the Reader bridge are implemented.
   No motion authority is included; capture authorization is not a future test permit.
+- P9.3 is CLOSED within receive-only input scope. Software,
+  archived-event replay and an initial no-device target smoke pass. An authorized
+  30-second calibration captured 4284 healthy frames: steering 200/1000/1800 and
+  throttle 200/993/1800, neither reversed, with operator-confirmed forward/right
+  logical signs. Final Source HIL attempt2 passes with 6434 frames, 6431 snapshots, three fresh authorizations and SIGTERM zero/invalid within 33.3009 ms. Operator confirmation is recorded. Attempt1 remains FAILED; attempt2 startup oracle correction and original report are preserved. All runners/authorizations are consumed, not future test permits. P8-R/P10 remain unimplemented.
+  See docs/verification/P9_3_SBUS_SOURCE_BASELINE.md.
 - Phases 0–5 are complete. Phase 6 remains open; use
   docs/verification/PHASE6_CHECKPOINT.md for current acceptance and
   docs/verification/evidence/README.md for direct or archived evidence.

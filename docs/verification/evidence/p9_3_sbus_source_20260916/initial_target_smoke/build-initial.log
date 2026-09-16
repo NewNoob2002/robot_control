@@ -1,0 +1,26 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/aarch64-linux-gnu-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/aarch64-linux-gnu-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/out/build/p93-cross-smoke
+[1/6] Building CXX object input/sbus/protocol/CMakeFiles/robot_control_input_sbus_protocol.dir/parser.cpp.o
+[2/6] Linking CXX static library input/sbus/protocol/librobot_control_input_sbus_protocol.a
+[3/6] Building CXX object input/sbus/source/CMakeFiles/robot_control_input_sbus_source.dir/source.cpp.o
+[4/6] Building CXX object CMakeFiles/robot_control_sbus_source_tests.dir/tests/unit/sbus_source_tests.cpp.o
+[5/6] Linking CXX static library input/sbus/source/librobot_control_input_sbus_source.a
+[6/6] Linking CXX executable robot_control_sbus_source_tests

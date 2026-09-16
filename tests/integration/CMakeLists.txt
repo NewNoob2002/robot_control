@@ -18,3 +18,8 @@ add_test(NAME sbus_observer_cli
   COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/scripts/test/test_sbus_observer.py"
           $<TARGET_FILE:robot-control-sbus-observer>)
 set_tests_properties(sbus_observer_cli PROPERTIES TIMEOUT 15)
+
+add_test(NAME sbus_source_archived_replay
+  COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/scripts/test/test_sbus_source_replay.py"
+          $<TARGET_FILE:robot_control_sbus_source_tests>)
+set_tests_properties(sbus_source_archived_replay PROPERTIES TIMEOUT 15)

@@ -1,0 +1,183 @@
+{
+  "capture_sha256": "2d4e6ef4784761df7a0e82891b0a6f3166d7f9dd03642913653372a74395ec7d",
+  "frames": 6434,
+  "reads": 6430,
+  "snapshots": 6431,
+  "rejected": 2,
+  "independent_decode_matches": true,
+  "all_snapshot_mapping_matches": true,
+  "valid_authorizations": [
+    1,
+    2,
+    3
+  ],
+  "gates": {
+    "startup_held_disabled": true,
+    "three_fresh_authorizations": true,
+    "normal_disable": true,
+    "nonneutral_press_inhibited": true,
+    "neutral_no_queued_rearm": true,
+    "lost_and_failsafe_inhibit": true,
+    "recovered_but_disabled": true,
+    "nonzero_before_sigterm": true,
+    "shutdown_zero": true,
+    "bounded_sigterm": true,
+    "desktop_notifications": true
+  },
+  "startup_qualified_held_seconds": [
+    0.022259177,
+    2.997298694
+  ],
+  "startup_prefix_buttons": [
+    200,
+    1800,
+    1800,
+    1800
+  ],
+  "gate_revision": "v2: preserve startup prefix; require zero/invalid for all startup and sustained held/disabled after recovery",
+  "passed": true,
+  "transitions": [
+    {
+      "second": 0.003316754,
+      "authorization": 0,
+      "valid": 0,
+      "health": 4,
+      "fault": "rejected",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 0.008248136,
+      "authorization": 0,
+      "valid": 0,
+      "health": 1,
+      "fault": "none",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 0.022259177,
+      "authorization": 0,
+      "valid": 0,
+      "health": 2,
+      "fault": "none",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 7.134455076,
+      "authorization": 1,
+      "valid": 1,
+      "health": 3,
+      "fault": "none",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 16.794731282,
+      "authorization": 1,
+      "valid": 0,
+      "health": 2,
+      "fault": "none",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 25.573039376,
+      "authorization": 2,
+      "valid": 1,
+      "health": 3,
+      "fault": "none",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 30.5711703,
+      "authorization": 2,
+      "valid": 0,
+      "health": 4,
+      "fault": "frame_lost",
+      "lost": 1,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 31.06829508,
+      "authorization": 2,
+      "valid": 0,
+      "health": 4,
+      "fault": "failsafe",
+      "lost": 1,
+      "failsafe": 1,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 35.779850106,
+      "authorization": 2,
+      "valid": 0,
+      "health": 1,
+      "fault": "none",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 35.793435638,
+      "authorization": 2,
+      "valid": 0,
+      "health": 2,
+      "fault": "none",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 40.903689491,
+      "authorization": 3,
+      "valid": 1,
+      "health": 3,
+      "fault": "none",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    },
+    {
+      "second": 44.998759502,
+      "authorization": 3,
+      "valid": 0,
+      "health": 4,
+      "fault": "shutdown",
+      "lost": 0,
+      "failsafe": 0,
+      "left_rpm": 0,
+      "right_rpm": 0
+    }
+  ],
+  "target_exit": {
+    "exit_code": 143,
+    "run_to_signal_ms": 45000.360717,
+    "signal_to_reaped_ms": 33.3009,
+    "observer_pid": 71936,
+    "start_mono_ns": 192285500975764,
+    "signal_sent_ns": 192330501336481,
+    "reaped_ns": 192330534637381
+  },
+  "first_phase_utc": "2026-09-16T06:28:28.552302+00:00"
+}

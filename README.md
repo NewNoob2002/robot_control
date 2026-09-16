@@ -70,7 +70,8 @@ Read these documents before implementation:
 - [Phase 5 non-actuating CANopen integration plan](docs/plans/PHASE5_CANOPEN_INTEGRATION.md)
 - [Phase 6 ZLAC8015D drive qualification plan](docs/plans/PHASE6_ZLAC8015D_QUALIFICATION.md)
 - [Phase 9 SBUS → P8 runtime completion → P10 integration plan](docs/plans/PHASE9_SBUS_AND_INTEGRATION.md) — next development from the September 15 archive; Phase 6 remains open.
-- [P9.2 SBUS UART and receive-only observer](docs/verification/P9_2_SBUS_UART_BASELINE.md) — software validation and pending physical acceptance.
+- [P9.2 SBUS UART and receive-only observer](docs/verification/P9_2_SBUS_UART_BASELINE.md) — accepted within the UART/receive-only scope.
+- [P9.3 SBUS health, mapping and snapshots](docs/verification/P9_3_SBUS_SOURCE_BASELINE.md) — CLOSED within receive-only input scope; calibrated Source HIL passed, with the first failed attempt preserved.
 - [P6.1 contract, fixture, and read-only baseline](docs/verification/P6_1_CONTRACT_FIXTURE_READ_ONLY_BASELINE.md)
 - [P6.2 ZLAC protocol semantics baseline](docs/verification/P6_2_ZLAC_PROTOCOL_SEMANTICS_BASELINE.md)
 - [P6.3 bounded qualification executor baseline](docs/verification/P6_3_BOUNDED_QUALIFICATION_EXECUTOR_BASELINE.md)

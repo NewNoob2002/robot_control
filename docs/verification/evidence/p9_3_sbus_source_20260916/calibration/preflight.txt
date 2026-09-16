@@ -1,0 +1,11 @@
+P9.3 calibration preflight, 2026-09-16
+Authorization: operator explicitly replied 授权且准备好 to the exact 30-second read-only calibration request and confirmed robot cannot move.
+Target robot-dev / lubancat, user cat, /dev/ttyACM0, adapter 1a86:55d3 serial 586D017868.
+R8FM inverted signal to USB UART RX; common ground; operator-reported 5 V module setting. No wiring or electrical setting change.
+Artifact SHA256 bd76d3fd3d77d2ade41c4ba5e28a884fca5ab24a8b53947fd44db5e11cc03fe8; previously validated 1 MiB-bounded P9.2 receive-only observer.
+New exclusive staging /home/cat/.cache/robot-control/staging/p93-calibration-bd76d3fd.
+10-second countdown, 30-second capture, default 100000 8E2/PARMRK; observer hard duration60s, wrapper50s, SIGTERM reap deadline1s.
+No CAN, motor, production service, persistent parameter, reset or explicit DTR/RTS operations. Normal tty open/configure/close may have driver line effects.
+User manually moves only sticks per desktop prompts; transmitter ON, CH6 released, CH7 middle, no trim adjustments. Restore sticks neutral at25s and retain until exit.
+Before/after: check adapter identity and exclusive reader; preserve raw log, errors, timeline, process result and holder status. No automatic retry.
+This authorizes calibration only, not new Source live HIL or motion.

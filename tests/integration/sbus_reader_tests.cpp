@@ -1,9 +1,11 @@
 #include "input/sbus/linux/reader.hpp"
+#include "input/sbus/linux/source_bridge.hpp"
 
 #include <fcntl.h>
 #include <sys/eventfd.h>
 #include <unistd.h>
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <cstdio>
@@ -236,6 +238,94 @@ void test_discontinuities() {
     CHECK(!reader.read(-1ms).ok());
     CHECK(!reader.read(21ms).ok());
 }
+
+struct WireValues {
+    std::uint16_t button{200};
+    std::uint16_t throttle{1000};
+    std::uint8_t flags{0};
+};
+/** Encode a neutral fixture with explicit channels; mapping oracles are in unit tests. */
+std::array<std::uint8_t, 25> source_wire(WireValues values = {}) {
+    const auto [button, throttle, flags] = values;
+    std::array<std::uint16_t, 16> channels{};
+    channels.fill(1000);
+    channels[5] = button;
+    channels[2] = throttle;
+    std::array<std::uint8_t, 25> wire{};
+    wire[0] = 0x0f;
+    wire[23] = flags;
+    for (std::size_t channel = 0; channel < channels.size(); ++channel)
+        for (std::size_t bit = 0; bit < 11; ++bit)
+            if ((channels[channel] & (1U << bit)) != 0)
+                wire[1 + (channel * 11 + bit) / 8] |= static_cast<std::uint8_t>(1U << ((channel * 11 + bit) % 8));
+    return wire;
+}
+
+/** Compose PTY, actual reader/parser, health and snapshot publication without CAN. */
+void test_source_pipeline() {
+    Pty pty;
+    Reader reader;
+    CHECK(reader.open(pty.path.data(), pty_config()).ok());
+    SourceConfig config;
+    config.steering = {200, 1000, 1800, false};
+    config.throttle = config.steering;
+    config.button_cooldown = 0ms;
+    Source source{config};
+    // Retain real reader timestamps but inject time for deterministic expiry.
+    const auto pump = [&]() {
+        const auto result = reader.read(20ms);
+        return update_source(source, result, std::chrono::steady_clock::now());
+    };
+    auto wire = source_wire();
+    std::array<std::uint8_t, 25> bad{};
+    bad[0] = 0x0f;
+    bad[24] = 1;
+    pty.send(bad);
+    CHECK(pump().last_fault == InputFault::rejected);
+    // Split a real frame; partial reception cannot count as health recovery.
+    pty.send(std::span{wire}.first(10));
+    CHECK(pump().recovery_count == 0);
+    pty.send(std::span{wire}.subspan(10));
+    CHECK(pump().recovery_count == 1);
+    pty.send(wire);
+    CHECK(pump().recovery_count == 2);
+    pty.send(wire);
+    CHECK(pump().health == Health::disabled);
+    pty.send(source_wire({.button = 1800}));
+    CHECK(pump().sample.valid);
+    pty.send(source_wire({.button = 1800, .throttle = 1800}));
+    const auto moving = pump();
+    CHECK(moving.sample.command.left_rpm == 60 && moving.sample.command.right_rpm == 60);
+    std::array<std::uint8_t, 100> merged{};
+    for (std::size_t i = 0; i < 4; ++i) {
+        const auto part = source_wire({.button = static_cast<std::uint16_t>(i == 3 ? 1800 : 200),
+                                       .flags = static_cast<std::uint8_t>(i == 0 ? 12 : 0)});
+        std::copy(part.begin(), part.end(), merged.begin() + static_cast<std::ptrdiff_t>(i * 25));
+    }
+    pty.send(merged);
+    const auto failed = pump();
+    CHECK(!failed.sample.valid && failed.last_fault == InputFault::failsafe && failed.recovery_count == 0);
+    for (int i = 0; i < 3; ++i) {
+        pty.send(wire);
+        CHECK(!pump().sample.valid);
+    }
+    pty.send(source_wire({.button = 1800}));
+    CHECK(pump().sample.valid);
+    const auto before = source.snapshot();
+    CHECK(!source.tick(before.sample.captured_at + 100ms).sample.valid);
+    CHECK(source.snapshot().sample.captured_at == before.sample.captured_at);
+    // A separate producer avoids rolling the injected future clock backwards.
+    Source reopened{config};
+    CHECK(reader.open(pty.path.data(), pty_config()).ok());
+    pty.send(wire);
+    const auto result = reader.read(20ms);
+    CHECK(update_source(reopened, result, std::chrono::steady_clock::now()).recovery_count == 1);
+    pty.master.reset();
+    const auto error = reader.read(20ms);
+    CHECK(!error.ok());
+    CHECK(update_source(reopened, error, std::chrono::steady_clock::now()).fault == InputFault::transport);
+    CHECK(!reopened.snapshot().sample.valid);
+}
 } // namespace
 
 // GNU ld --wrap requires these exact externally visible names.
@@ -261,5 +351,6 @@ int main() {
     test_frames();
     test_markers();
     test_discontinuities();
+    test_source_pipeline();
     std::puts("SBUS reader PTY tests passed");
 }

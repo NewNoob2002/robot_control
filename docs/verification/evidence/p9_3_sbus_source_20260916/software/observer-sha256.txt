@@ -1,0 +1,1 @@
+e7b4cdedb9511f4b92c93fb5d6dc9b7a853afbdd851a4ab2adb1de0ea4779999  out/build/cross/rk3588-debug/tools/sbus_observer/robot-control-sbus-observer

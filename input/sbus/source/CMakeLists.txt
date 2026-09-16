@@ -1,0 +1,5 @@
+find_package(Threads REQUIRED)
+add_library(robot_control_input_sbus_source source.cpp)
+target_link_libraries(robot_control_input_sbus_source
+  PUBLIC robot_control_input_sbus_protocol robot_control_domain_command Threads::Threads
+  PRIVATE robot_control_project_warnings)

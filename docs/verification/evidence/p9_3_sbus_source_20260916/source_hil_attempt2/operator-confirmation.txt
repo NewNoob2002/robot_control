@@ -1,0 +1,3 @@
+2026-09-16: operator explicitly requested retaining attempt1 as failed and starting a new test.
+After attempt2, operator replied 确认 to confirmation of initial CH6 held, nonneutral CH6 press, transmitter off/on, and final transmitterON, neutral sticks, CH6released, CH7middle.
+No subsequent capture authorization is inferred.

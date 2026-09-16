@@ -53,6 +53,7 @@ endif()
 
 add_subdirectory(domain)
 add_subdirectory(input/sbus/protocol)
+add_subdirectory(input/sbus/source)
 add_subdirectory(platform)
 add_subdirectory(input/sbus/linux)
 add_subdirectory(service)
@@ -67,6 +68,16 @@ endif()
 if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
   add_subdirectory(tools/can_interface_inhibitor)
   add_subdirectory(tools/zlac_qualification)
+endif()
+
+# This pure contract executable can also be staged for a no-device target smoke.
+if(BUILD_TESTING)
+  add_executable(robot_control_sbus_source_tests tests/unit/sbus_source_tests.cpp)
+  target_link_libraries(robot_control_sbus_source_tests
+    PRIVATE robot_control_input_sbus_source robot_control_project_warnings)
+  if(NOT CMAKE_CROSSCOMPILING)
+    add_test(NAME sbus_source_contract COMMAND robot_control_sbus_source_tests)
+  endif()
 endif()
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)

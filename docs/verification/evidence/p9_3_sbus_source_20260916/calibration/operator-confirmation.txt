@@ -1,0 +1,4 @@
+2026-09-16: operator explicitly authorized and confirmed readiness for this exact 30-second calibration.
+After findings and final-state question, operator replied: 确认
+Confirmed requested directional operations and final transmitter ON, neutral sticks, CH6 released, CH7 middle.
+Short return-to-neutral transients remain in the raw record; no specific cause is inferred from the short reply.

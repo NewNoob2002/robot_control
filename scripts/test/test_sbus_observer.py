@@ -16,12 +16,13 @@ def run(binary, args, expected):
     return result.stdout
 
 
-def start(binary, path, duration_ms=2000):
+def start(binary, path, duration_ms=2000, extra=()):
     """Start explicit 8N2 diagnostic mode and wait for its configured start record."""
     process = subprocess.Popen(
-        [binary, "--device", path, "--parity", "none", "--duration-ms", str(duration_ms)],
+        [binary, "--device", path, "--parity", "none", "--duration-ms", str(duration_ms), *extra],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+        bufsize=0 if extra else -1,
     )
     assert select.select([process.stdout], [], [], 2)[0], "missing start record"
     line = process.stdout.readline()
@@ -53,6 +54,56 @@ def check_capture_budget(binary, master, path):
             process.wait()
 
 
+def check_source(binary, master, path):
+    """Exercise explicit axes, real frame-to-snapshot flow, faults and shutdown zero."""
+    process = start(binary, path, extra=("--steering-axis", "200,1000,1800,0",
+                                       "--throttle-axis", "200,1000,1800,0"))
+
+    def send(button=200, throttle=1000, flags=0):
+        """Wait for the snapshot following this explicitly delivered frame."""
+        channels = [1000] * 16
+        channels[5], channels[2] = button, throttle
+        packed = sum(value << (11 * channel) for channel, value in enumerate(channels))
+        os.write(master, bytes([15]) + packed.to_bytes(22, "little") + bytes([flags, 0]))
+        seen_frame = False
+        deadline = time.monotonic() + 1
+        while True:
+            assert select.select([process.stdout], [], [], max(0, deadline - time.monotonic()))[0]
+            line = process.stdout.readline()
+            assert line, process.poll()
+            if line.startswith(b"event=frame "):
+                seen_frame = True
+            if seen_frame and line.startswith(b"event=source "):
+                return dict(part.split("=", 1) for part in line.decode().split())
+
+    try:
+        for _ in range(3):
+            assert send()["valid"] == "0"
+        enabled = send(button=1800)
+        assert enabled["valid"] == "1" and enabled["left_rpm"] == "0"
+        moving = send(button=1800, throttle=1800)
+        assert moving["left_rpm"] == moving["right_rpm"] == "60"
+        failed = send(button=1800, flags=12)
+        assert failed["valid"] == "0" and failed["last_fault_flags"] == "12"
+        for _ in range(6):
+            time.sleep(0.06)
+            assert send()["valid"] == "0"
+        assert send(button=1800)["valid"] == "1"
+        assert send(button=1800, throttle=1800)["left_rpm"] == "60"
+        process.send_signal(signal.SIGTERM)
+        output, errors = process.communicate(timeout=1)
+        snapshots = [dict(part.split("=", 1) for part in line.split())
+                     for line in output.decode().splitlines() if line.startswith("event=source ")]
+        assert process.returncode == 143 and snapshots, (output, errors)
+        last = snapshots[-1]
+        assert last["valid"] == last["enabled"] == last["left_rpm"] == last["right_rpm"] == "0", last
+        assert last["stop"] == "1" and last["fault"] == "shutdown", last
+    finally:
+        if process.poll() is None:
+            process.kill()
+            process.wait()
+
+
 def main(binary):
     """Check arguments, strict format rejection, frames, SIGTERM and output failure."""
     assert b"Usage:" in run(binary, ["--help"], 0)
@@ -67,6 +118,13 @@ def main(binary):
         run(binary, args, 2)
     for value in ("0", "-1", "60001", "1x", "abc", "9999999999999999999999"):
         run(binary, ["--device", "unused", "--duration-ms", value], 2)
+    for axis in ("", "200,1000,1800", "200,1000,1800,0,1", "200,1000,2048,0",
+                 "200,200,1800,0", "200,1000,1800,2", "-1,1000,1800,0", "200,1000,1800,0x"):
+        run(binary, ["--device", "unused", "--steering-axis", axis,
+                     "--throttle-axis", "200,1000,1800,0"], 2)
+    run(binary, ["--device", "unused", "--steering-axis", "200,1000,1800,0"], 2)
+    run(binary, ["--device", "unused", "--steering-axis", "200,1000,1800,0",
+                 "--steering-axis", "200,1000,1800,0", "--throttle-axis", "200,1000,1800,0"], 2)
     assert b"event=error" in run(binary, ["--device", "/missing/sbus"], 1)
     master, slave = os.openpty()
     path = os.ttyname(slave)
@@ -75,6 +133,9 @@ def main(binary):
         assert b"event=error" in run(binary, ["--device", path], 1)
         output = run(binary, ["--device", path, "--parity", "none", "--duration-ms", "40"], 0)
         assert b"reason=deadline frames=0" in output, output
+        deadline_output = run(binary, ["--device", path, "--parity", "none", "--duration-ms", "40",
+                                       "--steering-axis", "200,1000,1800,0", "--throttle-axis", "200,993,1800,0"], 0)
+        assert b"fault=shutdown" in deadline_output and b"reason=deadline frames=0" in deadline_output
         process = start(binary, path)
         try:
             frames = b"".join(bytes([15]) + bytes(22) + bytes([flag, 0]) for flag in (4, 8, 0))
@@ -94,6 +155,7 @@ def main(binary):
             if process.poll() is None:
                 process.kill()
                 process.wait()
+        check_source(binary, master, path)
         check_capture_budget(binary, master, path)
         process = start(binary, path)
         try:

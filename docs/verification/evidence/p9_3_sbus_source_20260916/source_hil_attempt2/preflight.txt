@@ -1,0 +1,13 @@
+P9.3 new Source receive-only HIL preflight — 2026-09-16
+Original attempt context: operator explicitly replied 授权且准备好 to the exact45-second new Source/no-motion acceptance request, including initial CH6 HELD and manual transmitter off/on. Prior same-target robot-cannot-move confirmation remains applicable; no intervening drive/device changes were made.
+Target: robot-dev / lubancat / aarch64 / user cat; /dev/ttyACM0, QinHeng1a86:55d3 serial586D017868.
+Artifact SHA256 e7b4cdedb9511f4b92c93fb5d6dc9b7a853afbdd851a4ab2adb1de0ea4779999.
+Destination: new exclusive /home/cat/.cache/robot-control/staging/p93-source-e7b4cded-attempt2.
+Profile: steering200/1000/1800 normal, throttle200/993/1800 normal; explicit compatibility observation policy in profile.json and startup record. Not a motion deployment profile.
+Bounds: 20-second countdown,45-second capture, SIGTERM reap<=1second, outer80second timeout; observer hard deadline60s and1MiB kernel input budget.
+No CAN/drive output by linkage audit; no production service, wiring/voltage, persistent setting, reset or explicit modem-line change. Normal tty open/configure/close may have driver line effects.
+Manual phases: startup CH6held; release; enable; forward; neutral; disable; nonneutral press; neutral without press; fresh enable; transmitterOFF; ON without press; fresh enable; forward until SIGTERM.
+Recovery: program exits/reaps; transmitterON, sticksneutral, CH6released, CH7middle. Preserve raw log, snapshots, timing, hashes and before/after holders. No automatic retry.
+This single new authorization does not permit later runs, CAN activity or robot motion.
+
+NEW AUTHORIZATION: user explicitly requested 这次保留为未通过，然后再开启一轮新测试. First attempt preserved FAILED, new runner/output and20s preparatory countdown; same45s capture, calibrated axes and artifact; no automatic retry.

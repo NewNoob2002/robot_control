@@ -1,0 +1,38 @@
+{
+  "artifact": {
+    "path": "robot-control-platform-probe",
+    "sha256": "39d2afd7f42152cfc4863898d2fc0bb36cec5b7825794507a570a799a1e8d29f"
+  },
+  "build": {
+    "cmake_presets_sha256": "1887ea2df519c3489b68ef54e9d3ccca6847a6f0f064b555f5052aa9eedc71b4",
+    "preset": "rk3588-debug",
+    "toolchain_sha256": "3823f4ca2a421b42e8238ee7d17472aee214f858ba464004dae7881e5075902f"
+  },
+  "container": {
+    "dockerfile_sha256": "43bac43c64d18275ec478388ecf596131ee258ef1046197beae183dca683f5cb",
+    "image": "rk3588-cross:phase1-20260814",
+    "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+    "image_lock_sha256": "45ee3c2f3de04545367115718eedec1ddbe8c9e7d74877c0dec47d6f32fb358a",
+    "packages_lock_sha256": "5bd92611e9f3857e545a4c54f0bf2ffe01c17a3ee0421bad159c686ddd3d81be"
+  },
+  "schema_version": 2,
+  "source": {
+    "dirty": true,
+    "file_count": 3335,
+    "revision": "866feaf1279cafa5ed6164b6d2e6eb60b83576f2",
+    "schema_version": 1,
+    "snapshot_sha256": "91a386d8028be45dae473f52001076961227832f42d23dee66d66ed075fe8a6b"
+  },
+  "sysroot": {
+    "artifact_id": "rk3588-ubuntu2204",
+    "content_sha256": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911",
+    "external_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+    "target_metadata_sha256": "ed106beba40637fb2606ed8d035f425daf8aea2294f1ff1b291319e1f84b7974"
+  },
+  "tools": {
+    "cmake": "cmake version 3.22.1",
+    "compiler": "aarch64-linux-gnu-g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+    "linker": "GNU ld (GNU Binutils for Ubuntu) 2.38",
+    "ninja": "1.10.1"
+  }
+}

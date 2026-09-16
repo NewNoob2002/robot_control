@@ -1,0 +1,18 @@
+{
+  "scope": "P9.3 receive-only input verification; not a motion deployment profile",
+  "channels_zero_based": {"steering": 0, "throttle": 2, "button": 5, "gear": 6},
+  "steering": {"minimum": 200, "center": 1000, "maximum": 1800, "reversed": false},
+  "throttle": {"minimum": 200, "center": 993, "maximum": 1800, "reversed": false},
+  "input_deadband_per_mille": 50,
+  "button_release": 500,
+  "button_press": 1500,
+  "gear_low": 500,
+  "gear_high": 1500,
+  "gear_rpm": [30, 60, 100],
+  "maximum_rpm": 100,
+  "output_deadband_rpm": 3,
+  "recovery_frames": 3,
+  "timeout_ms": 100,
+  "button_cooldown_ms": 300,
+  "provenance": "Axis centers: initial neutral plateau. Endpoints/signs: held directional plateaus and operator confirmation. Button/gear states: accepted P9.2 capture. Deadband, thresholds, speed and timing policy: explicit legacy-compatible diagnostic values, not motion authorization."
+}

@@ -1,0 +1,12 @@
+P9.3 no-device target smoke preflight — 2026-09-16
+Target: existing SSH alias robot-dev; verified hostname lubancat, aarch64, user cat, glibc 2.35.
+Artifact: out/build/p93-cross-smoke/robot_control_sbus_source_tests
+SHA256: 74553f71720d6e65892a21d54d1de8b7ad6ab373df457e7a6553b47b2e12d820
+Destination: /home/cat/.cache/robot-control/staging/p93-866feaf-74553f71/robot_control_sbus_source_tests
+Scope: new exclusive development directory, verify SHA256, run unit contracts with no arguments.
+Bound: timeout --signal=TERM --kill-after=1s 10s; no persistent service, installation, reset or device access.
+Link audit: Source logic only; no UART, Reader, CANopen, socket or send symbols.
+Electrical conditions: not applicable; no hardware I/O or physical operating-state assumption.
+Recovery: child exits or is killed by timeout; retain this isolated artifact/log; no preexisting files overwritten.
+Authorization scope: user requested continuing P9.3 development and its planned verification; remote write/run remains subject to current tool approval.
+Physical SBUS calibration/HIL is not covered by this smoke.
