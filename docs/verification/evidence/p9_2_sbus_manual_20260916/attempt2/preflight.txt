@@ -1,0 +1,14 @@
+UTC 2026-09-16T03:00:41.534529+00:00
+Authorization: user requested channel actions, transmitter loss/recovery, target SIGTERM and one 30 s capture; operator replied 准备好 and confirmed no robot motion.
+Target: robot-dev / lubancat; /dev/ttyACM0, adapter serial 586D017868; cdc_acm.
+Artifact: existing P9.2 observer SHA256 bd76d3fd3d77d2ade41c4ba5e28a884fca5ab24a8b53947fd44db5e11cc03fe8, source 6069505 plus byte-budget fix.
+Settings: 100000 8E2 with PARMRK; receive only; no CAN, drive or UART payload writes.
+Protocol: 10 s desktop-notified countdown, then 30 s observation; each phase is timed by the target monotonic clock and relayed as desktop notifications.
+Seconds: 0 neutral; 3 steering left/right/neutral; 8 throttle up/down/neutral; 13 CH6 twice; 16 CH7 low/mid/high/mid; 20 operator turns transmitter OFF only; 24 ON with neutral sticks; 30 targeted SIGTERM.
+Electrical: unchanged existing receiver/adapter connections; receiver stays powered; operator alone operates transmitter; no explicit DTR/RTS, reset, supply, pinmux or CAN changes.
+Bounds: observer internal fallback 60 s; targeted SIGTERM at 30 s; reaping limit 1 s; outer target runner 50 s with 3 s kill fallback; no automatic retry.
+Recovery: on failure stop observer and prompt operator to turn transmitter on and return sticks to neutral; retain failed evidence.
+Storage: new manual-30s-20260916 directory under the new p92-byte-budget-bd76d3fd isolated user staging. Old capture remains unchanged.
+Limits: prompt delivery is measured only through the local notification call; human phase timing needs post-run confirmation. Boot time may exceed recovery window. No health/authorization behavior is claimed for P9.3.
+
+Changed condition: failed first run hit 4096-read limit at about 28.7 s. New artifact uses 1 MiB raw-byte budget, tested at and above boundary. Old run remains failed. One retry only after renewed operator readiness. Operator confirmed notifications and transmitter OFF/ON; switch labels CH6/CH7 differ from observed CH5 response, to be rechecked.

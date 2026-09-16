@@ -35,7 +35,10 @@ P9.0 的离线契约与当前硬件待确认项见
 P9.1 已通过 host Debug/Release、ASan/UBSan、静态检查和恢复后的锁定容器全工程 aarch64 Debug 构建，见
 [P9.1 验证记录](../verification/P9_1_SBUS_PARSER_BASELINE.md)。
 P9.2 已实现 UART reader 和独立只读观察入口，软件验证与物理门槛见
-[P9.2 验证记录](../verification/P9_2_SBUS_UART_BASELINE.md)；节点部分完成；首次已授权 10 秒静态采集通过（1428 帧），通道动作／失联等实机验收待完成。
+[P9.2 验证记录](../verification/P9_2_SBUS_UART_BASELINE.md)；软件与本轮授权的只读功能验证已完成：10秒静态采集通过；
+30秒手动试验第一轮记录上限失败，修复后第二轮通道动作、失联／恢复和目标SIGTERM通过。
+详见 [30秒后续记录](../verification/evidence/p9_2_sbus_manual_20260916/RESULT.md)；
+电气独立测量、USB拔插和完整标定未执行，不外推为通过。
 P9.3 及后续节点待实施。测试先后顺序由左至右；
 任何不适用或无法执行的项目记录原因，不能将跳过计为通过。
 
@@ -87,6 +90,8 @@ recovering、disabled、enabled 语义；独立输入状态不替代机器人安
 测试必须覆盖同 read 中 lost→健康、精确超时、非中立零输出、按钮冷却、
 未释放按钮、重连及代际溢出。先运行纯逻辑测试，再 PTY→解析→快照组合回归，
 host/sanitizer/static/cross；以已确认 profile 完成真实输入无运动验收。
+真实采集已观察到启动碎片、合并帧和重同步拒绝；P9.3 须覆盖这些启动输入，
+不能仅靠同批连续帧数量推断发射机新鲜度或运动授权。
 纯 SBUS 中立授权到安全层的衔接保留给 P10，不能通过伪造 external 输入解决。
 
 ### Git 验收记录规则

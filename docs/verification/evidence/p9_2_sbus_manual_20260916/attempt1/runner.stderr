@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/cat/.cache/robot-control/staging/p92-1c235cc-6d6cb2fb/target_capture_30s.py", line 95, in <module>
+    main()
+  File "/home/cat/.cache/robot-control/staging/p92-1c235cc-6d6cb2fb/target_capture_30s.py", line 69, in main
+    raise RuntimeError(f'observer exited early: {process.returncode}')
+RuntimeError: observer exited early: 1

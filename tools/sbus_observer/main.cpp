@@ -62,7 +62,10 @@ int observe(const std::string& device, const std::chrono::milliseconds duration,
     if (!emit(start.str()))
         return 1;
     const auto deadline = std::chrono::steady_clock::now() + duration;
-    std::size_t records = 0;
+    // Bound input volume independently of read fragmentation. One MiB covers
+    // 60 s at 100000 8E2 even when PARMRK doubles every received byte.
+    constexpr std::size_t maximum_capture_bytes = 1'048'576;
+    std::size_t captured_bytes = 0;
     std::size_t frames = 0;
     while (std::chrono::steady_clock::now() < deadline) {
         const auto remaining =
@@ -83,8 +86,9 @@ int observe(const std::string& device, const std::chrono::milliseconds duration,
         const auto& batch = result.value();
         if (batch.raw_size == 0 && batch.discontinuity == robot_control::input::sbus::Discontinuity::none)
             continue;
-        if (++records > 4096)
-            return failure(Status::from_errno("capture record limit", device, EOVERFLOW));
+        if (batch.raw_size > maximum_capture_bytes - captured_bytes)
+            return failure(Status::from_errno("capture byte limit", device, EOVERFLOW));
+        captured_bytes += batch.raw_size;
         std::ostringstream output;
         output << "event=read session=" << batch.session << " received_ns="
                << std::chrono::duration_cast<std::chrono::nanoseconds>(batch.captured_at.time_since_epoch()).count()

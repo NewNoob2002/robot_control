@@ -16,10 +16,10 @@ def run(binary, args, expected):
     return result.stdout
 
 
-def start(binary, path):
+def start(binary, path, duration_ms=2000):
     """Start explicit 8N2 diagnostic mode and wait for its configured start record."""
     process = subprocess.Popen(
-        [binary, "--device", path, "--parity", "none", "--duration-ms", "2000"],
+        [binary, "--device", path, "--parity", "none", "--duration-ms", str(duration_ms)],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
@@ -27,6 +27,30 @@ def start(binary, path):
     line = process.stdout.readline()
     assert b"baud=100000 data_bits=8 parity=none stop_bits=2 parmrk=1" in line, line
     return process
+
+
+def check_capture_budget(binary, master, path):
+    """Cross 4096 reads, accept exactly 1 MiB, then reject the next byte."""
+    process = start(binary, path, duration_ms=10000)
+    try:
+        remaining = 1024 * 1024
+        reads = 0
+        while remaining:
+            size = min(250, remaining)
+            os.write(master, bytes([1]) * size)
+            assert select.select([process.stdout], [], [], 2)[0], "capture stalled"
+            line = process.stdout.readline()
+            assert b"event=read " in line and (b"kernel_raw=" + b"01" * size) in line, (reads, line)
+            remaining -= size
+            reads += 1
+        assert reads > 4096
+        os.write(master, bytes([1]))
+        output, errors = process.communicate(timeout=1)
+        assert process.returncode == 1 and b'operation="capture byte limit"' in output, (output, errors)
+    finally:
+        if process.poll() is None:
+            process.kill()
+            process.wait()
 
 
 def main(binary):
@@ -70,6 +94,7 @@ def main(binary):
             if process.poll() is None:
                 process.kill()
                 process.wait()
+        check_capture_budget(binary, master, path)
         process = start(binary, path)
         try:
             os.close(master)

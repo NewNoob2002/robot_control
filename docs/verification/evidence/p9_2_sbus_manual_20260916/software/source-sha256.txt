@@ -1,0 +1,2 @@
+b96d8273625e68eb7238633fa300cfdb978da5533f4dec762e722fe22af8c735  tools/sbus_observer/main.cpp
+29627de2a0e43c51cb9543ddf95c40fb638f83b6817ce3d761c1bad974f0bcfe  scripts/test/test_sbus_observer.py
