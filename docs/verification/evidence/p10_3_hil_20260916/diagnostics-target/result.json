@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "arguments": [
+    "--interface",
+    "can0",
+    "--runtime-diagnostics"
+  ],
+  "artifact_sha256": "757c232db0a391f75fdf3d84fb67290721bfb8b3d8e00a3d723316639c981f5a",
+  "application_exit": 0,
+  "application_elapsed_ms": 3872.597493987996
+}

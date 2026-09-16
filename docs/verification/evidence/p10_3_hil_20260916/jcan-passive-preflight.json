@@ -1,0 +1,10 @@
+{
+  "authorization": "User P10.3 HIL authorization; operator confirms drive OFF and unchanged wiring",
+  "adapter_serial": "207F346D5650",
+  "mode": "silent",
+  "duration_ms": 3000,
+  "max_frames": 1000,
+  "transmit": false,
+  "restore": "CLI CANStop and USB cleanup on completion",
+  "purpose": "Verify capture opens and exits before powered-device testing; idle capture does not qualify under-load reliability"
+}

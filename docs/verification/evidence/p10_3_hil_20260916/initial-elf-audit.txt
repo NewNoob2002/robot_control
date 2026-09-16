@@ -1,0 +1,1 @@
+PASS: initial smoke and receive-only observer contain no RuntimeSession, Lifecycle, qualification or commissioning transmit symbols.

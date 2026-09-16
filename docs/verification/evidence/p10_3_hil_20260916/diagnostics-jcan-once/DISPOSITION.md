@@ -1,0 +1,1 @@
+Preparation FAILED: 35-second passive window expired during separate tool approval/dispatch. Zero received frames; JCAN stopped cleanly (exit0). Target readiness assertion rejected launch before SCP/SSH or marker creation; no physical SDO/NMT/RPDO was sent. A new continuously orchestrated capture is prepared; this is not a retry of an executed driver trial.

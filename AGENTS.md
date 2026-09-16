@@ -31,7 +31,11 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   throttle 200/993/1800, neither reversed, with operator-confirmed forward/right
   logical signs. Final Source HIL attempt2 passes with 6434 frames, 6431 snapshots, three fresh authorizations and SIGTERM zero/invalid within 33.3009 ms. Operator confirmation is recorded. Attempt1 remains FAILED; attempt2 startup oracle correction and original report are preserved. All runners/authorizations are consumed, not future test permits. P8-R is accepted within its software/vcan scope. P10.1 is accepted within
   offline control-cycle scope; P10.2 software/vcan closure is implemented and verified;
-  P10.3 physical acceptance remains pending. See
+  P10.3 remains OPEN. Initial receive-only and no-motion TPDO2 layout HIL pass:
+  252 matched dual-capture frames, mode3/fault0, exact volatile restoration;
+  operator confirms no motion/no abnormal sound and drive power OFF. Full
+  ControlLoop zero/enable/motion HIL is still pending. See
+  docs/verification/P10_3_HIL_CHECKPOINT.md and
   docs/verification/P10_2_CONTROL_LOOP_BASELINE.md and
   docs/verification/P10_1_CONTROL_CYCLE_BASELINE.md.
   See docs/verification/P9_3_SBUS_SOURCE_BASELINE.md.

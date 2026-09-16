@@ -1,0 +1,3 @@
+757c232db0a391f75fdf3d84fb67290721bfb8b3d8e00a3d723316639c981f5a  robot-control-zlac-qualification
+2e6ca3f744d0b0264375882ee22cccb18ad9a139715c925c1e8ea47d2e268ec2  diagnostics-once.py
+1c8216cc7f65d04f9e43572c08b5503394c6f86962cdd36df17780266ca20dc0  authorization.json

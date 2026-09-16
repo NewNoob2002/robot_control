@@ -109,7 +109,7 @@ if(ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION)
            ${CMAKE_CURRENT_SOURCE_DIR}/od)
 
   add_library(robot_control_communication_canopen_qualification
-              lifecycle.cpp observation.cpp qualification.cpp stack_config.cpp
+              lifecycle.cpp observation.cpp qualification.cpp qualification_runtime_layout.cpp stack_config.cpp
               stack_storage.cpp)
   target_include_directories(robot_control_communication_canopen_qualification
                              PUBLIC ${PROJECT_SOURCE_DIR})

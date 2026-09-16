@@ -53,9 +53,11 @@ uint8_t robot_control_canopen_qualification_upload_size(const robot_control_cano
             return object.subindex == 0U ? 2U : 0U;
         case 0x1400U:
         case 0x1800U:
+        case 0x1801U:
             return object.subindex == 1U ? 4U : object.subindex == 2U ? 1U : object.subindex == 5U ? 2U : 0U;
         case 0x1600U:
         case 0x1A00U:
+        case 0x1A01U:
             return object.subindex == 0U ? 1U : object.subindex == 1U || object.subindex == 2U ? 4U : 0U;
         case 0x603FU:
         case 0x6041U:
@@ -146,8 +148,15 @@ bool robot_control_canopen_qualification_authorize_tpdo_event_timer(const uint16
 
 bool robot_control_canopen_qualification_authorize_tpdo_mapping(
     const robot_control_canopen_qualification_object_t object, const uint32_t value, const uint8_t size) {
+    const bool diagnostics =
+        (object.index == 0x1801U && object.subindex == 1U && size == 4U && (value == 0x281U || value == 0x80000281U))
+        || (object.index == 0x1801U && object.subindex == 5U && size == 2U && (value == 0U || value == 100U))
+        || (object.index == 0x1A01U && object.subindex == 0U && size == 1U && (value == 0U || value == 2U))
+        || (object.index == 0x1A01U && object.subindex == 1U && size == 4U && (value == 0U || value == 0x60610008U))
+        || (object.index == 0x1A01U && object.subindex == 2U && size == 4U && (value == 0U || value == 0x603F0020U));
     const bool valid =
-        (object.index == 0x1800U && object.subindex == 1U && size == 4U && (value == 0x181U || value == 0x80000181U))
+        diagnostics
+        || (object.index == 0x1800U && object.subindex == 1U && size == 4U && (value == 0x181U || value == 0x80000181U))
         || (object.index == 0x1800U && object.subindex == 2U && size == 1U && value == 255U)
         || (object.index == 0x1A00U && object.subindex == 0U && size == 1U && (value == 0U || value == 2U))
         || (object.index == 0x1A00U && (object.subindex == 1U || object.subindex == 2U) && size == 4U
@@ -156,8 +165,12 @@ bool robot_control_canopen_qualification_authorize_tpdo_mapping(
         robot_control_canopen_qualification_clear_authorization();
         return false;
     }
-    return authorize_frame(download_frame((qualification_download_t){
-        .command = size == 1U ? 0x2FU : 0x23U, .index = object.index, .subindex = object.subindex, .value = value}));
+    return authorize_frame(download_frame((qualification_download_t){.command = size == 1U   ? 0x2FU
+                                                                                : size == 2U ? 0x2BU
+                                                                                             : 0x23U,
+                                                                     .index = object.index,
+                                                                     .subindex = object.subindex,
+                                                                     .value = value}));
 }
 
 bool robot_control_canopen_qualification_authorize_target(const uint8_t subindex, const int32_t rpm) {

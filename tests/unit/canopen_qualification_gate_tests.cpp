@@ -88,6 +88,17 @@ int main() {
     CHECK(!robot_control_canopen_qualification_authorize_heartbeat_producer(1U));
     CHECK(!robot_control_canopen_qualification_authorize_heartbeat_producer(501U));
 
+    CHECK(robot_control_canopen_qualification_upload_size({0x1801U, 5U}) == 2U);
+    CHECK(robot_control_canopen_qualification_upload_size({0x1A01U, 2U}) == 4U);
+    CHECK(robot_control_canopen_qualification_authorize_tpdo_mapping({0x1801U, 5U}, 100U, 2U));
+    expect_sent(sockets, sdo(0x2BU, 0x1801U, 5U, 100U));
+    CHECK(!robot_control_canopen_qualification_authorize_tpdo_mapping({0x1801U, 5U}, 100U, 4U));
+    CHECK(!robot_control_canopen_qualification_authorize_tpdo_mapping({0x1801U, 5U}, 1U, 2U));
+    CHECK(!robot_control_canopen_qualification_authorize_tpdo_mapping({0x1A01U, 1U}, 0x603F0020U, 4U));
+    CHECK(!robot_control_canopen_qualification_authorize_tpdo_mapping({0x1A01U, 2U}, 0x60610008U, 4U));
+    CHECK(!robot_control_canopen_qualification_authorize_tpdo_mapping({0x1801U, 1U}, 0x282U, 4U));
+    expect_rejected(sockets[0], sdo(0x2BU, 0x1801U, 5U, 100U));
+
     for (const std::uint16_t value : std::array<std::uint16_t, 2>{0U, 1000U}) {
         CHECK(robot_control_canopen_qualification_authorize_watchdog(value));
         expect_sent(sockets, sdo(0x2BU, 0x2000U, 0U, value));

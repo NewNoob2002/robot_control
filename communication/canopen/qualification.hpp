@@ -91,6 +91,16 @@ class QualificationSession final {
     [[nodiscard]] platform::linux::Status capture_manual_tpdo(std::chrono::milliseconds duration) noexcept;
 
     /**
+     * Temporarily map TPDO2 to mode/fault and verify stationary disabled feedback.
+     * @param duration Observation window in [50ms, 2s]; CLI fixes two seconds.
+     * @return Success only after exact baseline, fresh diagnostics and verified restoration.
+     * No controlword, target, RPDO, mode or persistent write is issued. One use per
+     * session; owner thread only; borrowed Lifecycle must outlive the session.
+     */
+    [[nodiscard]] platform::linux::Status capture_runtime_diagnostics(std::chrono::milliseconds duration) noexcept;
+
+
+    /**
      * Execute and clean up one zero-target CiA402 qualification sequence.
      *
      * @param transition_timeout Positive per-state deadline no greater than five seconds.

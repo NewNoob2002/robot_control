@@ -225,7 +225,7 @@ jobs:
           report = ET.parse(Path('out/build/phase6-ci/results.xml'))
           cases = {case.attrib['name']: case for case in report.iter('testcase')}
           for name in ('canopen_qualification_gate', 'canopen_qualification_vcan_managed',
-                       'can_interface_inhibitor_vcan_managed'):
+                       'can_interface_inhibitor_vcan_managed', 'canopen_qualification_layout_vcan_managed'):
               assert name in cases, f'Missing qualification test: {name}'
           skipped = [name for name, case in cases.items() if case.find('skipped') is not None]
           assert not skipped, f'Required tests skipped: {skipped}'

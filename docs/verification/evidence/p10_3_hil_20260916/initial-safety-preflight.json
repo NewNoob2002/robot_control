@@ -1,0 +1,14 @@
+{
+  "scope": "P10.3 initial no-device smoke and receive-only SBUS; no CAN transmission",
+  "authorization": "User: 授权P10.3实机HIL; confirms unchanged wiring, drive power OFF, raised wheels, emergency stop available, operator present",
+  "target": "robot-dev; machine-id 6923ab3301fb4a8d816759b04ec6bf0a",
+  "uart": "QinHeng 1a86:55d3 serial586D017868 /dev/ttyACM0",
+  "destination": "/home/cat/.cache/robot-control/staging/p103-initial-60eb391-20260916",
+  "bounds": "one no-device control-cycle test and one 10-second SBUS receive-only capture; no automatic retry; no physical CAN open/transmit, no interface change",
+  "recovery": "exit/reap observer, preserve logs and UART holder checks; drive remains OFF",
+  "artifacts": {
+    "robot_control_control_cycle_tests": "9f8a15a2adacc1ad1ab6d25fe2200d0d1a932d48d08aaaad0fae51b493022972",
+    "robot-control-sbus-observer": "9c87ab4c4981d7ee3c8b5eef0aac7b8187d368a842946ae0260ab377284fdb54"
+  },
+  "remaining": "Physical powered zero/motion artifacts and locked bounds not yet prepared; no motion runner may start."
+}

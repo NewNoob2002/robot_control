@@ -1,0 +1,29 @@
+{
+  "source": {
+    "dirty": true,
+    "file_count": 3550,
+    "revision": "60eb391c35c6139fee34e386b8f5c93a6d11c58c",
+    "schema_version": 1,
+    "snapshot_sha256": "a1d870c486ce9fb98fd0f5f839f0924e767fdfbb5b3b368a175eab65438ed274"
+  },
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/p103-diagnostics-reviewed-runtime",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION=ON"
+  ],
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "sysroot_content": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911  sysroot-content.jsonl",
+  "artifacts": {
+    "tools/zlac_qualification/robot-control-zlac-qualification": "757c232db0a391f75fdf3d84fb67290721bfb8b3d8e00a3d723316639c981f5a",
+    "robot_control_control_cycle_tests": "382b37921b18c525d30eca83a21bc468eb32bbf65bf10696cf69bd5fa6c8d709"
+  }
+}

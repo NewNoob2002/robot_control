@@ -1,0 +1,30 @@
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 252,
+  "counts": {
+    "0x601": 73,
+    "0x581": 73,
+    "0x0": 3,
+    "0x701": 11,
+    "0x181": 45,
+    "0x281": 45,
+    "0x381": 1,
+    "0x481": 1
+  },
+  "tpdo2_frames": 45,
+  "tpdo2_span_ms": 2200.378894805908,
+  "tpdo2_interval_ms": [
+    49.90696907043457,
+    50.08196830749512
+  ],
+  "exact_volatile_writes": 15,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "no_controlword_target_rpdo_or_persistent_writes": true,
+  "baseline_restored": true,
+  "operator": "Confirmed no motion/no abnormal sound and drive power OFF",
+  "scope": "TPDO2 zero-motion prerequisite only; full ControlLoop HIL remains open"
+}

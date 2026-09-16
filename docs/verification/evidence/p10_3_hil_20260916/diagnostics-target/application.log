@@ -1,0 +1,46 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+qualification_wait_online node=1 timeout_s=1
+qualification_online_probe node=1 object=0x1017:00
+layout_read index=24672 sub=0 raw=3
+layout_read index=24673 sub=0 raw=3
+layout_read index=24639 sub=0 raw=0
+layout_read index=24831 sub=1 raw=0
+layout_read index=24831 sub=2 raw=0
+layout_read index=24684 sub=1 raw=0
+layout_read index=24684 sub=2 raw=0
+layout_read index=24684 sub=3 raw=0
+layout_read index=4119 sub=0 raw=0
+layout_read index=6144 sub=1 raw=385
+layout_read index=6144 sub=2 raw=255
+layout_read index=6144 sub=5 raw=100
+layout_read index=6656 sub=0 raw=2
+layout_read index=6656 sub=1 raw=1614872608
+layout_read index=6656 sub=2 raw=1617691424
+layout_read index=6145 sub=1 raw=641
+layout_read index=6145 sub=2 raw=255
+layout_read index=6145 sub=5 raw=0
+layout_read index=6657 sub=0 raw=0
+layout_read index=6657 sub=1 raw=0
+layout_read index=6657 sub=2 raw=0
+runtime_diagnostics samples=41 duration_ms=2000
+layout_read index=24672 sub=0 raw=3
+layout_read index=24673 sub=0 raw=3
+layout_read index=24639 sub=0 raw=0
+layout_read index=24831 sub=1 raw=0
+layout_read index=24831 sub=2 raw=0
+layout_read index=24684 sub=1 raw=0
+layout_read index=24684 sub=2 raw=0
+layout_read index=24684 sub=3 raw=0
+layout_read index=6144 sub=1 raw=385
+layout_read index=6144 sub=2 raw=255
+layout_read index=6144 sub=5 raw=100
+layout_read index=6656 sub=0 raw=2
+layout_read index=6656 sub=1 raw=1614872608
+layout_read index=6656 sub=2 raw=1617691424
+layout_read index=6145 sub=1 raw=641
+layout_read index=6145 sub=2 raw=255
+layout_read index=6145 sub=5 raw=0
+layout_read index=6657 sub=0 raw=0
+layout_read index=6657 sub=1 raw=0
+layout_read index=6657 sub=2 raw=0
+qualification_complete node=1 operation=15

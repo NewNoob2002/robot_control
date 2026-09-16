@@ -1,0 +1,3 @@
+User confirmed unchanged wiring, drive initially OFF, wheels raised, emergency stop available and operator present.
+User then confirmed 已上电就绪 for the no-motion diagnostics trial.
+After execution user confirmed no wheel movement, no abnormal sound and drive power OFF.

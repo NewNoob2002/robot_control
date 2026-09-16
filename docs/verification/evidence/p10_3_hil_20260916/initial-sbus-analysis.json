@@ -1,0 +1,17 @@
+{
+  "status": "PASS_receive_only_initial",
+  "frames": 1429,
+  "snapshots": 1431,
+  "healthy_disabled_observed": true,
+  "all_commands_zero": true,
+  "shutdown_invalid": true,
+  "duration_ms": 10000,
+  "operator": "Drive OFF, wiring unchanged, wheels raised, emergency stop available",
+  "not_covered": [
+    "CAN TX",
+    "PDO layout",
+    "drive enable",
+    "motion",
+    "full HIL faults"
+  ]
+}

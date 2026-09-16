@@ -43,7 +43,8 @@ enum class Operation : std::uint8_t {
     heartbeat_loss_once,
     tpdo_loss_once,
     external_loss_once,
-    manual_tpdo
+    manual_tpdo,
+    runtime_diagnostics
 };
 
 struct Arguments {
@@ -70,7 +71,7 @@ void usage() {
                  "--disable-voltage-once SUBINDEX:RPM --duration-ms 1..10000 | "
                  "--quick-stop-once SUBINDEX:RPM --duration-ms 1..10000 | "
                  "--watchdog-once | --heartbeat-loss-once | --tpdo-loss-once | "
-                 "--external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo)\n"
+                 "--external-loss-once --interface-inhibitor ABSOLUTE_PATH | --manual-tpdo | --runtime-diagnostics)\n"
                  "Communication trials are fixed at subindex 2, +5 rpm, 200 ms lead; "
                  "watchdog quiet window 1500 ms, feedback-loss observation limit 750 ms.\n"
                  "External loss: up to 8 s before zero/cleanup if not triggered; passive recovery up to 10 s.\n";
@@ -165,6 +166,8 @@ std::optional<Arguments> parse_arguments(const int argc, char** argv) {
             result.operation = Operation::external_loss_once;
         } else if (argument == "--tpdo-loss-once" && result.operation == Operation::none) {
             result.operation = Operation::tpdo_loss_once;
+        } else if (argument == "--runtime-diagnostics" && result.operation == Operation::none) {
+            result.operation = Operation::runtime_diagnostics;
         } else if (argument == "--manual-tpdo" && result.operation == Operation::none) {
             result.operation = Operation::manual_tpdo;
         } else if (argument == "--duration-ms" && index + 1 < argc && !duration_seen) {
@@ -273,6 +276,10 @@ int main(const int argc, char** argv) {
     if (communication_loss) {
         configuration.heartbeat_timeout = 500ms;
     }
+    if (arguments->operation == Operation::runtime_diagnostics) {
+        configuration.tpdo_expected_dlc[1] = 5U;
+        configuration.tpdo_timeout = 200ms;
+    }
     auto owner = Lifecycle::create(configuration, termination.value());
     if (!owner.ok()) {
         report(owner.status());
@@ -286,6 +293,7 @@ int main(const int argc, char** argv) {
         arguments->operation == Operation::nmt_stop_once || arguments->operation == Operation::shutdown_once
         || arguments->operation == Operation::disable_voltage_once || arguments->operation == Operation::quick_stop_once
         || communication_loss || arguments->operation == Operation::manual_tpdo
+        || arguments->operation == Operation::runtime_diagnostics
         || arguments->operation == Operation::zero_sequence || arguments->operation == Operation::target_once;
     constexpr auto startup_timeout = 1s;
     std::cout << "qualification_wait_online node=1 timeout_s=" << startup_timeout.count() << '\n' << std::flush;
@@ -345,6 +353,9 @@ int main(const int argc, char** argv) {
             break;
         case Operation::tpdo_loss_once:
             result = session.qualify_communication_loss_cia402(CommunicationLossStimulus::tpdo);
+            break;
+        case Operation::runtime_diagnostics:
+            result = session.capture_runtime_diagnostics(2000ms);
             break;
         case Operation::manual_tpdo:
             result = session.capture_manual_tpdo(60s);

@@ -1,0 +1,18 @@
+{
+  "authorized": true,
+  "source": "User explicitly authorized P10.3 HIL and confirmed unchanged wiring, raised wheels and emergency stop; operator power-on readiness remains REQUIRED separately",
+  "attempts": 1,
+  "scope": "Only no-motion TPDO2 diagnostics prerequisite; not full-chain motion acceptance",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--runtime-diagnostics"
+  ],
+  "artifact_sha256": "757c232db0a391f75fdf3d84fb67290721bfb8b3d8e00a3d723316639c981f5a",
+  "target_machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "capture": "silent JCAN serial207F346D5650 plus target candump; no JCAN sends",
+  "limits": "SDO read exact baseline; heartbeat0->500->0; TPDO2 disabled/remapped to6061:00/8+603f:00/32,type255,event100; NMTpreop/operational/preop; 2s observation;8s setup+5s cleanup;20s outer guard",
+  "prohibited": "No RPDO/controlword/target/mode/EEPROM writes; no network reconfiguration; no retry",
+  "recovery": "Restore verified TPDO2 zero-count/zero descriptors/event0 and heartbeat0 under same generation; on failure stop and request operator drive power OFF",
+  "destination": "/home/cat/.cache/robot-control/staging/p103-diag-757c232d-20260916"
+}

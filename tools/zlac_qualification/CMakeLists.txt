@@ -6,7 +6,8 @@ target_link_libraries(
           robot_control_project_warnings)
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
-  foreach(arguments IN ITEMS "--interface;vcan0;--manual-tpdo;--duration-ms;1000"
+  foreach(arguments IN ITEMS "--interface;vcan0;--runtime-diagnostics;--duration-ms;2000"
+                             "--interface;vcan0;--runtime-diagnostics;--zero-sequence" "--interface;vcan0;--manual-tpdo;--duration-ms;1000"
                              "--interface;vcan0;--nmt;operational"
                              "--interface;vcan0;--velocity-mode"
                              "--interface;vcan0;--controlword;switch-on"

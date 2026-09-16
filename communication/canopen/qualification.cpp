@@ -185,7 +185,7 @@ platform::linux::Status QualificationSession::download(const std::uint16_t index
     } else if (index == 0x1400U || index == 0x1600U) {
         authorized = robot_control_canopen_qualification_authorize_rpdo_mapping(
             {index, object_subindex}, value, static_cast<std::uint8_t>(data.size()));
-    } else if (index == 0x1800U || index == 0x1A00U) {
+    } else if (index == 0x1800U || index == 0x1A00U || index == 0x1801U || index == 0x1A01U) {
         authorized = robot_control_canopen_qualification_authorize_tpdo_mapping({index, object_subindex}, value,
                                                                                 static_cast<std::uint8_t>(data.size()));
     } else if (index == 0x6040U && object_subindex == 0U && data.size() == 2U) {
