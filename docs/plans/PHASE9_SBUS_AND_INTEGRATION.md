@@ -15,8 +15,8 @@
 现有 `platform/linux/uart/serial_port.hpp` 提供非阻塞串口、超时和取消；
 `domain/control/control_arbiter.hpp` 与 `domain/safety/safety_manager.hpp`
 已有仲裁和安全领域接口。复用这些模块，补齐输入生产者和应用编排。
-目前串口波特率枚举没有 100000，仓库尚无 `input/sbus` 实现；
-串口实际配置能力必须在接收机契约确认后补齐并验证。
+P9.1 已交付纯解析器，P9.2 已实现 100000 波特率及严格配置回读；
+串口真实电气配置与接收机输出仍须单独物理验证。
 行为依据为 [旧工程行为基线](../architecture/LEGACY_BEHAVIOR_BASELINE.md)，
 旧 STM32 工程仅供只读核对，不复制 HAL、DMA、线程机制。
 
@@ -31,10 +31,12 @@ P9.0 的离线契约与当前硬件待确认项见
 [SBUS 输入契约](../architecture/SBUS_INPUT_CONTRACT.md)，
 验收记录见 [P9.0 基线](../verification/P9_0_SBUS_CONTRACT_BASELINE.md)。
 操作员已确认 R8FM、已完成反相可直接读取、沿用旧工程通道角色；
-UART 设备／引脚与实际标定仍待确认。
+2026-09-16 操作员确认目标路径 `/dev/ttyACM0`；适配器／接线与实际标定仍待确认。
 P9.1 已通过 host Debug/Release、ASan/UBSan、静态检查和恢复后的锁定容器全工程 aarch64 Debug 构建，见
 [P9.1 验证记录](../verification/P9_1_SBUS_PARSER_BASELINE.md)。
-其余节点均待实施／待验收。测试先后顺序由左至右；
+P9.2 已实现 UART reader 和独立只读观察入口，软件验证与物理门槛见
+[P9.2 验证记录](../verification/P9_2_SBUS_UART_BASELINE.md)；节点部分完成，实机验收待完成。
+P9.3 及后续节点待实施。测试先后顺序由左至右；
 任何不适用或无法执行的项目记录原因，不能将跳过计为通过。
 
 | 节点 | 实现／交付范围 | 测试流程 | 验收门槛 |

@@ -48,11 +48,21 @@ for library in "${needed[@]}"; do
 done
 
 version_info="$("${readelf_bin}" --version-info "${binary}")"
-symbols="$("${readelf_bin}" --wide --symbols "${binary}")"
+symbols="$("${readelf_bin}" --wide --symbols --demangle "${binary}")"
 
-for symbol in pthread_sigmask signalfd ppoll clock_nanosleep tcsetattr elog_output; do
+# UART now uses termios2 ioctl for exact custom baud rates (including 100000).
+for symbol in pthread_sigmask signalfd ppoll clock_nanosleep ioctl elog_output; do
   grep -Eq "[[:space:]]${symbol}(@|$)" <<<"${symbols}" || {
     echo "Required Phase 3 symbol is not linked: ${symbol}" >&2
+    exit 8
+  }
+done
+
+# ioctl alone could be supplied by CAN; also require the actual UART adapter.
+for method in open configuration; do
+  grep -Fq "robot_control::platform::linux::uart::SerialPort::${method}(" \
+    <<<"${symbols}" || {
+    echo "Required UART method is not linked: ${method}" >&2
     exit 8
   }
 done

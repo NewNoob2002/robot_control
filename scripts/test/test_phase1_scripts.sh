@@ -51,6 +51,47 @@ fi
 
 grep -q '^export LC_ALL=C$' "${repo_root}/scripts/build/audit_elf.sh"
 
+
+# Verify the UART linkage gate without an installed cross SDK.
+readonly audit_fixture="${temp}/audit-fixture"
+mkdir -p "${audit_fixture}/bin" "${audit_fixture}/sysroot"
+touch "${audit_fixture}/probe"
+cat >"${audit_fixture}/bin/file" <<'MOCK'
+#!/usr/bin/env bash
+echo 'ELF ARM aarch64'
+MOCK
+cat >"${audit_fixture}/bin/readelf" <<'MOCK'
+#!/usr/bin/env bash
+case "$1" in
+  --program-headers) echo '[Requesting program interpreter: /lib/ld-linux-aarch64.so.1]' ;;
+  --dynamic | --version-info) ;;
+  --wide)
+    for symbol in pthread_sigmask signalfd ppoll clock_nanosleep ioctl elog_output; do
+      [[ "${AUDIT_OMIT:-}" == "${symbol}" ]] || echo " UND ${symbol}"
+    done
+    for method in open configuration; do
+      [[ "${AUDIT_OMIT:-}" == "${method}" ]] ||
+        echo " FUNC robot_control::platform::linux::uart::SerialPort::${method}()"
+    done
+    ;;
+esac
+MOCK
+chmod +x "${audit_fixture}/bin/file" "${audit_fixture}/bin/readelf"
+PATH="${audit_fixture}/bin:${PATH}" READELF="${audit_fixture}/bin/readelf" \
+  "${repo_root}/scripts/build/audit_elf.sh" "${audit_fixture}/probe" \
+  "${audit_fixture}/sysroot" >"${temp}/audit-pass.log"
+for omitted in ioctl open configuration; do
+  if PATH="${audit_fixture}/bin:${PATH}" READELF="${audit_fixture}/bin/readelf" \
+    AUDIT_OMIT="${omitted}" "${repo_root}/scripts/build/audit_elf.sh" \
+    "${audit_fixture}/probe" "${audit_fixture}/sysroot" \
+    >"${temp}/audit-missing.log" 2>&1; then
+    echo "ELF audit accepted missing UART requirement: ${omitted}" >&2
+    exit 1
+  else
+    [[ $? -eq 8 ]]
+  fi
+done
+
 grep -q -- '--provenance=false' \
   "${repo_root}/scripts/build/build_cross_image.sh"
 
