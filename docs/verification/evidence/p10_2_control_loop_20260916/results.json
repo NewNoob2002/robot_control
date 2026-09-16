@@ -1,0 +1,78 @@
+{
+  "scope": "P10.2 software and isolated PTY/vcan only",
+  "base_revision": "476a000a928b7d19d26bd98b19624309edd757e0",
+  "hardware_executed": false,
+  "ci": "Verify separately for the eventual pushed commit",
+  "suites": {
+    "focused-final": {
+      "name": "Linux-c++",
+      "tests": "4",
+      "failures": "0",
+      "disabled": "0",
+      "skipped": "0",
+      "hostname": "cathyLaptop",
+      "time": "5",
+      "timestamp": "2026-09-16T17:51:18"
+    },
+    "debug": {
+      "name": "Linux-c++",
+      "tests": "37",
+      "failures": "0",
+      "disabled": "0",
+      "skipped": "0",
+      "hostname": "cathyLaptop",
+      "time": "8",
+      "timestamp": "2026-09-16T17:52:23"
+    },
+    "release": {
+      "name": "Linux-c++",
+      "tests": "35",
+      "failures": "0",
+      "disabled": "0",
+      "skipped": "0",
+      "hostname": "cathyLaptop",
+      "time": "1",
+      "timestamp": "2026-09-16T17:53:04"
+    },
+    "sanitizer": {
+      "name": "Linux-clang++",
+      "tests": "37",
+      "failures": "1",
+      "disabled": "0",
+      "skipped": "0",
+      "hostname": "cathyLaptop",
+      "time": "8",
+      "timestamp": "2026-09-16T17:53:05"
+    },
+    "sanitizer-observer-retry": {
+      "name": "Linux-clang++",
+      "tests": "1",
+      "failures": "0",
+      "disabled": "0",
+      "skipped": "0",
+      "hostname": "cathyLaptop",
+      "time": "0",
+      "timestamp": "2026-09-16T17:54:59"
+    },
+    "sanitizer-final": {
+      "name": "Linux-clang++",
+      "tests": "37",
+      "failures": "0",
+      "disabled": "0",
+      "skipped": "0",
+      "hostname": "cathyLaptop",
+      "time": "8",
+      "timestamp": "2026-09-16T17:55:28"
+    },
+    "p6-regression": {
+      "name": "Linux-c++",
+      "tests": "75",
+      "failures": "0",
+      "disabled": "0",
+      "skipped": "0",
+      "hostname": "cathyLaptop",
+      "time": "85",
+      "timestamp": "2026-09-16T17:53:05"
+    }
+  }
+}

@@ -239,3 +239,11 @@ files (58,452,046 bytes) preserved byte-for-byte in a 277,915-byte archive, 68
 removed generated Python cache files, and verified local backups before old
 build/snapshot cleanup. Extract archived captures to a separate directory when
 rerunning historical analyzers; do not overwrite current evidence.
+
+## P10.2 software/vcan closure
+
+[Control-loop baseline](../P10_2_CONTROL_LOOP_BASELINE.md) and
+[raw evidence](p10_2_control_loop_20260916/README.md) record PTY-to-RPDO closure,
+independent virtual feedback, fault/restart/shutdown injection, P6 regression and
+locked aarch64 build. Initial failures remain preserved. No physical test or
+future hardware authorization is included.

@@ -10,7 +10,7 @@ namespace {
 using namespace std::chrono_literals;
 using namespace robot_control;
 using namespace domain;
-using application::control::ControlCycle;
+
 using application::control::CycleConfig;
 using application::control::CycleInput;
 using application::control::CycleResult;
@@ -35,6 +35,26 @@ command::CommandSample sample(command::Source source, time::MonotonicTime now, s
                               std::uint64_t auth = 1, int rpm = 0) {
     return {source, {rpm, rpm, false}, now, 1, auth, seq, true, true, true, false, false};
 }
+/** Offline composition mirrors the real adapter: one runtime guard and one submit. */
+struct ControlCycle {
+    drive::RuntimePolicy runtime;
+    application::control::ControlCycle cycle;
+    /** Own the sole offline guard, using the same configuration as the owner. */
+    explicit ControlCycle(CycleConfig c) : runtime{c.runtime}, cycle{c} {}
+    /** Feed every synthetic driver event into the sole guard. */
+    void observe(const drive::RuntimeFeedback& feedback, time::MonotonicTime now) {
+        runtime.observe(feedback, now);
+    }
+    /** Prepare once, evaluate once, then acknowledge the actual guarded result. */
+    CycleResult tick(const CycleInput& input, time::MonotonicTime now) {
+        runtime.observe(runtime.state().feedback, now);
+        auto result = cycle.prepare(input, runtime.state(), now);
+        static_cast<void>(runtime.evaluate(result.request, now));
+        cycle.complete(result, runtime.state(), now);
+        return result;
+    }
+};
+
 /** Fake-clock harness with explicit source and raw drive observations. */
 struct Rig {
     ControlCycle cycle{config()};
@@ -218,7 +238,7 @@ void handover_and_boundaries() {
     auto bad = config();
     bad.period = 0ms;
     ControlCycle invalid{bad};
-    check(!invalid.tick({}, {}).output.accepted, "invalid configuration");
+    check(invalid.tick({}, {}).output.command.is_zero(), "invalid configuration");
 }
 
 /** Invalidate each independent observation/input channel while actually moving. */
@@ -265,6 +285,21 @@ void independent_losses() {
         check(r.cycle.tick(input, r.now).output.command.is_zero(), "independent input or feedback loss");
         check(r.step(35, 1, 0x00270027).output.command.is_zero(), "loss cannot automatically restore motion");
     }
+}
+
+/** The two-phase owner cannot skip or replay acknowledgements. */
+void completion_contract() {
+    Rig f;
+    f.arm();
+    const auto saved = f.cycle.tick(f.input, f.now);
+    check(!f.cycle.runtime.evaluate(saved.request, f.now).accepted, "generated decision replay rejected");
+    check(f.step(35, 1, 0x00270027).output.command.is_zero(), "decision replay revokes owner");
+    application::control::ControlCycle owner{config()};
+    auto first = owner.prepare(f.input, f.cycle.runtime.state(), f.now);
+    const auto skipped = owner.prepare(f.input, f.cycle.runtime.state(), f.now);
+    check(skipped.request.decision.state == safety::SafetyState::shutdown, "unacknowledged decision inhibits");
+    owner.complete(first, f.cycle.runtime.state(), f.now);
+    check(!first.output.accepted, "out of order completion rejected");
 }
 
 /** Drive actual SBUS source snapshots through the cycle without an external source. */
@@ -322,6 +357,7 @@ int main() {
     invalidation();
     handover_and_boundaries();
     independent_losses();
+    completion_contract();
     sbus_snapshots();
     return failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }

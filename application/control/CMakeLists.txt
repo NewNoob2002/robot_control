@@ -3,3 +3,10 @@ target_include_directories(robot_control_application_control PUBLIC "${PROJECT_S
 target_link_libraries(robot_control_application_control
   PUBLIC robot_control_domain_control robot_control_domain_safety robot_control_domain_drive
   PRIVATE robot_control_project_warnings)
+
+if(ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME)
+  add_library(robot_control_application_loop linux_loop.cpp)
+  target_link_libraries(robot_control_application_loop
+    PUBLIC robot_control_application_control robot_control_communication_canopen_runtime robot_control_input_sbus_linux
+    PRIVATE robot_control_project_warnings)
+endif()

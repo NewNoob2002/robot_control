@@ -1,0 +1,26 @@
+# Reused build configuration values are in build-configurations.json.
+cmake --build out/build/p8r-debug --parallel 2
+ctest --test-dir out/build/p8r-debug -R '^(control_cycle_contract|control_loop_vcan_managed|canopen_runtime_policy|domain_behavior_lock)$' --output-on-failure --output-junit /tmp/p102-focused-final.xml
+ctest --test-dir out/build/p8r-debug --output-on-failure --output-junit /tmp/p102-debug.xml
+cmake --build out/build/p8r-release --parallel 2
+ctest --test-dir out/build/p8r-release --output-on-failure --output-junit /tmp/p102-release.xml
+cmake --build out/build/p8r-sanitizer --parallel 2
+ASAN_OPTIONS=detect_leaks=0:halt_on_error=1 UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1 ctest --test-dir out/build/p8r-sanitizer --output-on-failure --output-junit /tmp/p102-sanitizer.xml
+# Following initial observer CLI timeout, preserve first XML and isolate retry:
+ASAN_OPTIONS=detect_leaks=0:halt_on_error=1 UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1 ctest --test-dir out/build/p8r-sanitizer -R '^sbus_observer_cli$' --output-on-failure --output-junit /tmp/p102-sanitizer-observer-retry.xml
+ASAN_OPTIONS=detect_leaks=0:halt_on_error=1 UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1 ctest --test-dir out/build/p8r-sanitizer --output-on-failure --output-junit /tmp/p102-sanitizer-final.xml
+cmake --build out/build/p8r-p6-regression --parallel 2
+ctest --test-dir out/build/p8r-p6-regression --output-on-failure --output-junit /tmp/p102-p6-regression.xml
+clang-tidy -p out/build/p8r-debug application/control/control_cycle.cpp application/control/linux_loop.cpp tests/unit/control_cycle_tests.cpp tests/integration/control_loop_vcan_tests.cpp domain/safety/safety_manager.cpp --checks='-*,clang-analyzer-*,bugprone-*,performance-*,portability-*,-portability-avoid-pragma-once,-performance-enum-size' --header-filter='.*(application/control|domain/safety).*' --warnings-as-errors='*' --quiet
+# Repeated on final test after adding the 1ns timeout assertion:
+clang-tidy -p out/build/p8r-debug tests/integration/control_loop_vcan_tests.cpp --checks='-*,clang-analyzer-*,bugprone-*,performance-*,portability-*,-portability-avoid-pragma-once,-performance-enum-size' --header-filter='.*(application/control|domain/safety).*' --warnings-as-errors='*' --quiet
+# /tmp/p102-runtime-tidy/compile_commands.json contains the runtime-enabled Lifecycle entry from the Debug database.
+clang-tidy -p /tmp/p102-runtime-tidy communication/canopen/lifecycle.cpp --checks='-*,clang-analyzer-*,bugprone-*,performance-*,portability-*,-portability-avoid-pragma-once,-performance-enum-size' --line-filter='[{"name":"lifecycle.cpp","lines":[[335,377]]}]' --warnings-as-errors='*' --quiet
+clang-format --dry-run --Werror application/control/control_cycle.cpp application/control/control_cycle.hpp application/control/linux_loop.cpp application/control/linux_loop.hpp tests/unit/control_cycle_tests.cpp tests/integration/control_loop_vcan_tests.cpp
+python3 scripts/test/test_ci_scope.py
+actionlint .github/workflows/ci.yml
+python3 docs/verification/evidence/p10_2_control_loop_20260916/cross-control-loop.py
+python3 docs/verification/evidence/p10_2_control_loop_20260916/audit-control-loop.py
+git diff --check
+# Vcan CTest runs required sandbox escalation for private network namespaces.
+# Cross build required Docker socket permission; existing image only, container networking disabled.

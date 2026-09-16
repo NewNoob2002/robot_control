@@ -347,6 +347,15 @@ Lifecycle::RunResult Lifecycle::run_until(const std::chrono::steady_clock::time_
 #endif
         return result;
     };
+    // A late caller must not defer an already queued stop behind its deadline.
+    const auto pending_signal = termination_->consume();
+    if (!pending_signal.ok()) {
+        return finish(RunResult::failure(pending_signal.status()));
+    }
+    if (pending_signal.value() == SIGINT || pending_signal.value() == SIGTERM) {
+        return finish(RunResult::success(pending_signal.value() == SIGINT ? LifecycleExit::sigint
+                                                                        : LifecycleExit::sigterm));
+    }
     while (true) {
         if (std::chrono::steady_clock::now() >= deadline) {
             return finish(RunResult::success(LifecycleExit::deadline));

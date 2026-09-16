@@ -59,9 +59,9 @@ never suppress tests for changed dependencies:
 
 | Change scope | CI checks |
 | --- | --- |
-| SBUS, UART, SBUS tests or P9 evidence | SBUS Debug/Release/ASan+UBSan: contracts, PTY, observer, archived replay, offline control cycle and Linux platform tests; no vcan |
+| SBUS, UART, SBUS tests or P9 evidence | SBUS Debug/Release/ASan+UBSan: contracts, PTY, observer, archived replay, offline control cycle and Linux platform tests; input/sbus and platform/linux/uart code also run runtime/vcan closure |
 | CAN/CANopen, Phase6 tools/tests or P6 evidence | CAN/Phase6 Debug and ASan+UBSan regression, evidence checks and mandatory vcan; shared CAN transport changes also run PDO runtime |
-| P8-R runtime or P10.1 application/control/tests/evidence | PDO runtime, offline control cycle and domain Debug/ASan+UBSan contracts plus managed vcan; no Phase6 suite |
+| P8-R runtime or P10 application/control/tests/evidence | PDO runtime, offline control cycle and domain Debug/ASan+UBSan contracts plus managed vcan including PTY-to-RPDO closure; no Phase6 suite unless shared dependencies change |
 | Mixed subsystem changes | All affected scoped suites |
 | README/AGENTS or ordinary documentation only | Selection regression and CI result; builds skipped |
 | Shared code/build configuration, CI itself or unclassified code | Full host, Phase6 and PDO runtime regression, including SBUS |
@@ -91,6 +91,7 @@ Read these documents before implementation:
 - [P9.3 SBUS health, mapping and snapshots](docs/verification/P9_3_SBUS_SOURCE_BASELINE.md) — CLOSED within receive-only input scope; calibrated Source HIL passed, with the first failed attempt preserved.
 - [P8-R PDO runtime and drive binding](docs/verification/P8_R_RUNTIME_BASELINE.md) — software/vcan accepted; physical layout and remote control remain P10 work.
 - [P10.1 offline control cycle](docs/verification/P10_1_CONTROL_CYCLE_BASELINE.md) — SBUS snapshots, arbitration, safety and guarded PDO output; no hardware entry point.
+- [P10.2 vcan control loop](docs/verification/P10_2_CONTROL_LOOP_BASELINE.md) — PTY to actual RPDO/independent feedback, failure injection and bounded shutdown reporting; physical acceptance remains P10.3.
 - [P6.1 contract, fixture, and read-only baseline](docs/verification/P6_1_CONTRACT_FIXTURE_READ_ONLY_BASELINE.md)
 - [P6.2 ZLAC protocol semantics baseline](docs/verification/P6_2_ZLAC_PROTOCOL_SEMANTICS_BASELINE.md)
 - [P6.3 bounded qualification executor baseline](docs/verification/P6_3_BOUNDED_QUALIFICATION_EXECUTOR_BASELINE.md)

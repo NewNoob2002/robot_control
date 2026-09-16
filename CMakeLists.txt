@@ -107,6 +107,17 @@ if(BUILD_TESTING)
     add_test(NAME canopen_runtime_policy COMMAND robot_control_canopen_runtime_policy_tests)
   endif()
   if(ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME)
+    add_executable(robot_control_control_loop_vcan_tests
+      tests/integration/control_loop_vcan_tests.cpp tests/unit/canopen_test_log_stub.c)
+    target_link_libraries(robot_control_control_loop_vcan_tests PRIVATE
+      robot_control_application_loop robot_control_platform_linux robot_control_project_warnings)
+    target_link_options(robot_control_control_loop_vcan_tests PRIVATE "-Wl,--wrap=send")
+    if(NOT CMAKE_CROSSCOMPILING)
+      add_test(NAME control_loop_vcan_managed
+        COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+          $<TARGET_FILE:robot_control_control_loop_vcan_tests>)
+      set_tests_properties(control_loop_vcan_managed PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 30)
+    endif()
     add_executable(robot_control_canopen_runtime_vcan_tests
       tests/unit/canopen_runtime_vcan_tests.cpp tests/unit/canopen_test_log_stub.c)
     target_link_libraries(robot_control_canopen_runtime_vcan_tests

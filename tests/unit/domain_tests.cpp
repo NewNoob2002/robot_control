@@ -194,6 +194,10 @@ void test_p10_regressions() {
     CHECK("P10-external-continuous", selected.source == Source::external);
     selected = external.evaluate(pair(t + 180ms, 0, 0, 2, 5), t + 180ms);
     CHECK("P10-external-neutral-owner", selected.valid && selected.source == Source::external);
+    SafetyManager quick_stop_recovery;
+    auto stopped_drive = safe_input();
+    stopped_drive.low_half_state = stopped_drive.high_half_state = Cia402State::quick_stop_active;
+    CHECK("P10-quick-stop-rearm", quick_stop_recovery.evaluate(stopped_drive).action == DriveAction::shutdown);
     SafetyManager safety;
     auto safe = safe_input();
     safe.selected.command = {50, 50, false};

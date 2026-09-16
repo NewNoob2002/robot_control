@@ -35,10 +35,14 @@ struct CycleResult {
     drive::RuntimeOutput output{};
 };
 
+/** Validate all startup limits without resources; pure and reentrant. */
+[[nodiscard]] bool valid_cycle_config(const CycleConfig& config) noexcept;
+
 /**
  * Single control owner, no I/O, worker, wall clock, reset or automatic rearm.
- * Feed each ordered drive event to observe(), then tick() nominally every 10 ms.
- * Producers provide owned coherent snapshots; only tick publishes final bytes.
+ * The sole RuntimeSession observes every drive event. Prepare/submit/complete
+ * run synchronously on its owner, nominally every 10 ms.
+ * Producers provide owned coherent snapshots; only RuntimeSession publishes bytes.
  * This offline owner does not prove layout readbacks or physical send completion.
  * Instances are noncopyable; every method must run on the same owner thread.
  */
@@ -49,20 +53,24 @@ class ControlCycle final {
     ControlCycle(const ControlCycle&) = delete;
     ControlCycle& operator=(const ControlCycle&) = delete;
     /**
-     * Observe every ordered drive event, retaining transient inhibition.
-     * @param feedback Owned-value observation, including raw values and generation.
-     * @param now Injected nonnegative monotonic time. No resources are retained.
-     * Thread safety: Same owner as tick; no output or physical I/O occurs here.
+     * Prepare one decision against the sole runtime guard's current snapshot.
+     * @param input Immutable producer copies and explicit safety inputs.
+     * @param state RuntimeSession snapshot; caller must process events/deadlines first.
+     * @param now Injected monotonic time. Regressions permanently inhibit.
+     * @return Owned selection/request; output is populated only by complete().
+     * Thread safety: Same owner as RuntimeSession. Every prepare requires exactly
+     * one submit/evaluate followed by complete before the next prepare.
      */
-    void observe(const drive::RuntimeFeedback& feedback, time::MonotonicTime now) noexcept;
+    [[nodiscard]] CycleResult prepare(const CycleInput& input, const drive::RuntimeState& state,
+                                      time::MonotonicTime now) noexcept;
     /**
-     * Evaluate snapshots once and publish one guarded zero/target result.
-     * @param input Borrowed immutable copies; retained data is copied by value.
-     * @param now Injected monotonic time; regressions permanently inhibit.
-     * @return Owned selection, decision envelope and final encoded output.
-     * Thread safety: Single owner only. Caller must not replay output at a later time.
+     * Acknowledge the actual runtime outcome, including rejection/send failure.
+     * @param result Matching prepared result, updated with the actual output.
+     * @param state Same runtime guard after the submission, never a second guard.
+     * @param now Monotonic completion time. Borrowed arguments are not retained.
+     * Thread safety: Single owner; mismatched/out-of-order completion inhibits.
      */
-    [[nodiscard]] CycleResult tick(const CycleInput& input, time::MonotonicTime now) noexcept;
+    void complete(CycleResult& result, const drive::RuntimeState& state, time::MonotonicTime now) noexcept;
 
   private:
     /** Source authorization identity; session alone does not grant motion. */
@@ -85,7 +93,7 @@ class ControlCycle final {
     const CycleConfig config_;
     domain::control::ControlArbiter arbiter_;
     safety::SafetyManager safety_{};
-    drive::RuntimePolicy runtime_;
+    std::uint64_t awaiting_decision_{0};
     std::array<Authority, 2> consumed_{};
     Authority active_{};
     Authority pending_{};

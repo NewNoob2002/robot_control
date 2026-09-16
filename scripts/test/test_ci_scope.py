@@ -17,20 +17,21 @@ spec.loader.exec_module(scope)
 def main():
     """Check scoped, mixed, fallback and real multi-commit/rename/delete diffs."""
     for paths, expected in (
-        (["input/sbus/source/source.cpp"], {"sbus"}),
-        (["platform/linux/uart/serial_port.cpp"], {"sbus"}),
+        (["input/sbus/source/source.cpp"], {"sbus", "runtime"}),
+        (["platform/linux/uart/serial_port.cpp"], {"sbus", "runtime"}),
         (["tests/unit/sbus_parser_tests.cpp", "README.md"], {"sbus"}),
         (["docs/verification/evidence/p9_2_sbus_manual_20260916/capture.gz"], {"sbus"}),
         (["communication/canopen/lifecycle.cpp"], {"phase6", "runtime"}),
         (["platform/linux/can/socket.cpp"], {"phase6", "runtime"}),
         (["scripts/test/test_phase6_evidence.py"], {"phase6"}),
         (["application/control/control_cycle.cpp"], {"runtime"}),
+        (["tests/integration/control_loop_vcan_tests.cpp"], {"runtime"}),
         (["tests/unit/control_cycle_tests.cpp"], {"runtime"}),
         (["docs/verification/evidence/p10_1_control_cycle_20260916/results.xml.gz"], {"runtime"}),
         (["domain/drive/runtime.cpp"], {"runtime"}),
         (["communication/canopen/runtime.hpp"], {"runtime"}),
         (["tests/unit/canopen_runtime_vcan_tests.cpp"], {"runtime"}),
-        (["input/sbus/source/source.cpp", "tools/zlac_qualification/main.cpp"], {"sbus", "phase6"}),
+        (["input/sbus/source/source.cpp", "tools/zlac_qualification/main.cpp"], {"sbus", "phase6", "runtime"}),
         (["README.md", "docs/plans/PHASE9_SBUS_AND_INTEGRATION.md"], set()),
         ([], set()),
         (["domain/command/sample.hpp"], scope.SUITES),
@@ -74,9 +75,9 @@ def main():
             return original_run(*args, cwd=directory, **kwargs)
 
         with patch.object(scope.subprocess, "run", side_effect=run_here):
-            assert scope.select("push", {"before": base, "after": head}, "refs/heads/codex/phase9") == {"sbus"}
+            assert scope.select("push", {"before": base, "after": head}, "refs/heads/codex/phase9") == {"sbus", "runtime"}
             pr = {"pull_request": {"base": {"ref": "codex/phase9", "sha": base}, "head": {"sha": head}}}
-            assert scope.select("pull_request", pr, "") == {"sbus"}
+            assert scope.select("pull_request", pr, "") == {"sbus", "runtime"}
             assert scope.select("push", {"before": "0" * 40, "after": head}, "dev") == scope.SUITES
             assert scope.select("push", {"before": "1" * 40, "after": head}, "dev") == scope.SUITES
         (root / "communication/canopen").mkdir(parents=True)
@@ -96,7 +97,7 @@ def main():
         git("commit", "-qm", "base branch advanced")
         pr["pull_request"]["base"]["sha"] = git("rev-parse", "HEAD")
         with patch.object(scope.subprocess, "run", side_effect=run_here):
-            assert scope.select("pull_request", pr, "") == {"sbus"}
+            assert scope.select("pull_request", pr, "") == {"sbus", "runtime"}
     print("PASS: CI scope routing, event fallback, multi-commit, rename and deletion")
 
 

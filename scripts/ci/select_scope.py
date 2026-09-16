@@ -10,6 +10,7 @@ import subprocess
 
 SUITES = {"full", "sbus", "phase6", "runtime"}
 RUNTIME_PATHS = (
+    "tests/integration/control_loop_", "docs/verification/evidence/p10_2_",
     "application/control/", "tests/unit/control_cycle_tests.cpp", "docs/verification/evidence/p10_1_",
     "domain/drive/runtime.", "communication/canopen/runtime.",
     "tests/unit/canopen_runtime_", "docs/verification/evidence/p8r_",
@@ -36,6 +37,8 @@ def classify(paths):
             suites.add("runtime")
         elif path.startswith(SBUS_PATHS):
             suites.add("sbus")
+            if path.startswith(("input/sbus/", "platform/linux/uart/")):
+                suites.add("runtime")
         elif path.startswith(CAN_PATHS):
             suites.add("phase6")
             if path.startswith(("communication/canopen/", "platform/linux/can/")):

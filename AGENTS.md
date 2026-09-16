@@ -30,7 +30,9 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   30-second calibration captured 4284 healthy frames: steering 200/1000/1800 and
   throttle 200/993/1800, neither reversed, with operator-confirmed forward/right
   logical signs. Final Source HIL attempt2 passes with 6434 frames, 6431 snapshots, three fresh authorizations and SIGTERM zero/invalid within 33.3009 ms. Operator confirmation is recorded. Attempt1 remains FAILED; attempt2 startup oracle correction and original report are preserved. All runners/authorizations are consumed, not future test permits. P8-R is accepted within its software/vcan scope. P10.1 is accepted within
-  offline control-cycle scope; P10.2/P10.3 remain pending. See
+  offline control-cycle scope; P10.2 software/vcan closure is implemented and verified;
+  P10.3 physical acceptance remains pending. See
+  docs/verification/P10_2_CONTROL_LOOP_BASELINE.md and
   docs/verification/P10_1_CONTROL_CYCLE_BASELINE.md.
   See docs/verification/P9_3_SBUS_SOURCE_BASELINE.md.
 - P8-R adds a separate Debug-only/default-OFF CANopen runtime library, guarded
@@ -39,7 +41,9 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   software-only and awaits P10 physical acceptance. No SDO/NMT configuration,
   physical control, automatic fault reset or production entry point was added.
   See docs/verification/P8_R_RUNTIME_BASELINE.md. P10.1 offline policy integration is accepted. Remote SBUS control still requires
-  P10.2 virtual closure and separately authorized P10.3 HIL.
+  separately authorized P10.3 HIL. P10.2 connects PTY/Source, the single control
+  owner and one RuntimeSession to an independent vcan peer; no production entry
+  point, physical preflight or hardware authorization is added.
 - Phases 0–5 are complete. Phase 6 remains open; use
   docs/verification/PHASE6_CHECKPOINT.md for current acceptance and
   docs/verification/evidence/README.md for direct or archived evidence.

@@ -4,18 +4,17 @@
 
 namespace robot_control::application::control {
 
-ControlCycle::ControlCycle(CycleConfig config) noexcept
-    : config_{config}, arbiter_{config.arbiter}, runtime_{config.runtime} {
-    stopped_ = !drive::valid_runtime_config(config.runtime) || config.period <= time::Duration::zero()
-               || config.period >= config.runtime.decision_timeout
-               || config.arbiter.sbus_timeout <= time::Duration::zero()
-               || config.arbiter.external_timeout <= time::Duration::zero()
-               || config.arbiter.handover_zero_dwell < time::Duration::zero() || config.arbiter.max_abs_rpm <= 0
-               || config.arbiter.max_abs_rpm > config.runtime.max_abs_rpm
-               || config.transition_timeout <= time::Duration::zero();
-    if (stopped_)
-        runtime_.stop(drive::RuntimeReason::config_invalid);
-    runtime_epoch_ = runtime_.state().epoch;
+bool valid_cycle_config(const CycleConfig& config) noexcept {
+    return drive::valid_runtime_config(config.runtime) && config.period > time::Duration::zero()
+           && config.period < config.runtime.decision_timeout && config.arbiter.sbus_timeout > time::Duration::zero()
+           && config.arbiter.external_timeout > time::Duration::zero()
+           && config.arbiter.handover_zero_dwell >= time::Duration::zero() && config.arbiter.max_abs_rpm > 0
+           && config.arbiter.max_abs_rpm <= config.runtime.max_abs_rpm
+           && config.transition_timeout > time::Duration::zero();
+}
+
+ControlCycle::ControlCycle(CycleConfig config) noexcept : config_{config}, arbiter_{config.arbiter} {
+    stopped_ = !valid_cycle_config(config);
 }
 
 std::size_t ControlCycle::index(command::Source source) noexcept {
@@ -46,31 +45,23 @@ void ControlCycle::revoke() noexcept {
     expected_ = drive::Cia402State::unknown;
 }
 
-void ControlCycle::observe(const drive::RuntimeFeedback& feedback, time::MonotonicTime now) noexcept {
-    runtime_.observe(feedback, now);
-    const auto state = runtime_.state();
+CycleResult ControlCycle::prepare(const CycleInput& input, const drive::RuntimeState& state,
+                                  time::MonotonicTime now) noexcept {
+    if (now < time::MonotonicTime{} || (have_tick_ && now < last_tick_) || awaiting_decision_ != 0)
+        stopped_ = true;
     if (runtime_epoch_ != state.epoch || state.stopped) {
         revoke();
         runtime_epoch_ = state.epoch;
     }
     stopped_ = stopped_ || state.stopped;
-}
-
-CycleResult ControlCycle::tick(const CycleInput& input, time::MonotonicTime now) noexcept {
-    if (now < time::MonotonicTime{} || (have_tick_ && now < last_tick_)) {
-        stopped_ = true;
-        runtime_.stop(drive::RuntimeReason::clock_invalid);
-    }
     // Period is a scheduling contract, not a claim of a real-time scheduler.
     const bool cycle_gap = have_tick_ && now >= last_tick_ && now - last_tick_ >= config_.runtime.decision_timeout;
     last_tick_ = now;
     have_tick_ = true;
-    observe(runtime_.state().feedback, now);
     stopped_ = stopped_ || input.shutdown_requested;
     const domain::control::ArbiterInput commands{input.sbus, input.external, input.coherent};
     CycleResult result;
     result.selected = arbiter_.evaluate(commands, now);
-    const auto state = runtime_.state();
     const auto status = drive::decode_dual_axis_status(state.feedback.status_raw);
     const Authority candidate{result.selected.source, result.selected.source_session_generation,
                               result.selected.authorization_generation};
@@ -172,8 +163,22 @@ CycleResult ControlCycle::tick(const CycleInput& input, time::MonotonicTime now)
         result.request.decision.approved_command = {};
         result.request.decision.motion_approved = false;
     }
-    result.output = runtime_.evaluate(result.request, now);
-    const auto after = runtime_.state();
+    awaiting_decision_ = result.request.decision.decision_generation;
+    return result;
+}
+
+void ControlCycle::complete(CycleResult& result, const drive::RuntimeState& after, time::MonotonicTime now) noexcept {
+    if (awaiting_decision_ == 0 || result.request.decision.decision_generation != awaiting_decision_
+        || result.request.issued_at != last_tick_ || now < last_tick_) {
+        stopped_ = true;
+        revoke();
+        result.output = {};
+        result.output.reason = drive::RuntimeReason::decision_invalid;
+        return;
+    }
+    awaiting_decision_ = 0;
+    result.output = after.output;
+    stopped_ = stopped_ || after.stopped;
     // Expected safe zero publications can change the runtime epoch during dwell.
     // A rejected command or lost armed state retires the authorization instead.
     if (!result.output.accepted || (active_.source != command::Source::none && !after.armed))
@@ -181,6 +186,7 @@ CycleResult ControlCycle::tick(const CycleInput& input, time::MonotonicTime now)
     runtime_epoch_ = after.epoch;
     if (active_.source != command::Source::none && expected_ == drive::Cia402State::unknown) {
         const auto word = result.output.payload[0];
+        const auto status = drive::decode_dual_axis_status(after.feedback.status_raw);
         auto next = drive::Cia402State::unknown;
         if (word == std::byte{6})
             next = drive::Cia402State::ready_to_switch_on;
@@ -193,9 +199,8 @@ CycleResult ControlCycle::tick(const CycleInput& input, time::MonotonicTime now)
         if (next != drive::Cia402State::unknown) {
             expected_ = next;
             transition_since_ = now;
-            transition_status_at_ = state.feedback.status_at;
+            transition_status_at_ = after.feedback.status_at;
         }
     }
-    return result;
 }
 } // namespace robot_control::application::control

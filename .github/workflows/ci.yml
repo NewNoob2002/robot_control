@@ -275,7 +275,7 @@ jobs:
             -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON "${flags[@]}"
           cmake --build out/build/runtime-ci --parallel 2 --target \
             robot_control_canopen_runtime_policy_tests robot_control_canopen_runtime_vcan_tests \
-            robot_control_control_cycle_tests robot_control_domain_tests
+            robot_control_control_cycle_tests robot_control_domain_tests robot_control_control_loop_vcan_tests
 
       - name: Run runtime contracts and mandatory managed vcan
         env:
@@ -283,7 +283,7 @@ jobs:
           UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
         run: |
           ctest --test-dir out/build/runtime-ci --output-on-failure --no-tests=error \
-            --tests-regex '^(canopen_runtime_|control_cycle_contract$|domain_behavior_lock$)' \
+            --tests-regex '^(canopen_runtime_|control_cycle_contract$|domain_behavior_lock$|control_loop_vcan_managed$)' \
             --output-junit "$PWD/out/build/runtime-ci/results.xml"
           python3 - <<'PY'
           from pathlib import Path
@@ -291,7 +291,7 @@ jobs:
           report = ET.parse(Path('out/build/runtime-ci/results.xml'))
           cases = {case.attrib['name']: case for case in report.iter('testcase')}
           for name in ('canopen_runtime_policy', 'canopen_runtime_vcan_managed',
-                       'control_cycle_contract', 'domain_behavior_lock'):
+                       'control_cycle_contract', 'domain_behavior_lock', 'control_loop_vcan_managed'):
               assert name in cases, f'Missing runtime test: {name}'
           skipped = [name for name, case in cases.items() if case.find('skipped') is not None]
           assert not skipped, f'Required tests skipped: {skipped}'

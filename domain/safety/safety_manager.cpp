@@ -107,7 +107,8 @@ SafetyDecision SafetyManager::evaluate(const SafetyInput &input) noexcept {
     last_authorization_generation_ = input.system_authorization_generation;
     rearm_required_ = false;
   }
-  if (both_axes(input, drive::Cia402State::switch_on_disabled)) {
+  if (both_axes(input, drive::Cia402State::switch_on_disabled) ||
+      both_axes(input, drive::Cia402State::quick_stop_active)) {
     return inhibited(SafetyState::zero_hold, DriveAction::shutdown,
                      decision_generation_);
   }
