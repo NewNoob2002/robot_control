@@ -1,0 +1,7 @@
+{
+  "source": "User chat",
+  "statement": "再次增加这个启停波动的转速阈值到+-2rpm",
+  "new_tolerance_tenths_rpm": 20,
+  "scope": "Prospective HIL near-zero/standstill tolerance and explicit revised assessment of A5 raw evidence; preserve original15-band failure",
+  "hardware_trial_started": false
+}

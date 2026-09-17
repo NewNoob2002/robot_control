@@ -1,0 +1,103 @@
+INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 3095,
+  "counts": {
+    "0x601": 123,
+    "0x581": 123,
+    "0x701": 570,
+    "0x0": 3,
+    "0x181": 563,
+    "0x281": 563,
+    "0x201": 1150
+  },
+  "tpdo2_frames": 563,
+  "tpdo2_span_ms": 11537.7380000009,
+  "tpdo2_interval_ms": [
+    19.037000000025728,
+    21.981999998388346
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 1150,
+  "enabled_feedback": 62,
+  "enabled_samples": 126,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "sbus",
+    "zero_feedback_tenths_rpm": 0,
+    "phases": {
+      "fault_ready": 13334330444982,
+      "fault_observed": 13334391385034,
+      "release_fault": 13339401262631,
+      "neutral_ready": 13342401269220,
+      "rearm_ready": 13343420504208,
+      "zero_reenabled": 13343870435861,
+      "complete": 13344871299813
+    },
+    "targets_zero": true,
+    "nonneutral_inhibited": true,
+    "fresh_authorization": true,
+    "recovery_path": "quick_stop",
+    "first_rearm_state_order": true
+  },
+  "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+}
+recovery_uart_bounce: passed, zero_rpdo=1150, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 3171,
+  "counts": {
+    "0x601": 123,
+    "0x581": 123,
+    "0x701": 585,
+    "0x0": 3,
+    "0x181": 578,
+    "0x281": 578,
+    "0x201": 1181
+  },
+  "tpdo2_frames": 578,
+  "tpdo2_span_ms": 11846.301999999923,
+  "tpdo2_interval_ms": [
+    19.007999999303138,
+    22.21800000006624
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 1181,
+  "enabled_feedback": 62,
+  "enabled_samples": 127,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "sbus",
+    "zero_feedback_tenths_rpm": 0,
+    "phases": {
+      "fault_ready": 13346991746391,
+      "fault_observed": 13347061918081,
+      "release_fault": 13352071532719,
+      "neutral_ready": 13355411703530,
+      "rearm_ready": 13356431546299,
+      "zero_reenabled": 13356861555741,
+      "complete": 13357861700138
+    },
+    "targets_zero": true,
+    "nonneutral_inhibited": true,
+    "fresh_authorization": true,
+    "recovery_path": "quick_stop",
+    "first_rearm_state_order": true
+  },
+  "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+}
+recovery_uart_bounce_after_ready: passed, zero_rpdo=1181, restored=verified

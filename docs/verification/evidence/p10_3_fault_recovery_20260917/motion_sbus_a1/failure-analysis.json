@@ -1,0 +1,32 @@
+{
+  "status": "INCOMPLETE_F4_X1_INTERFERENCE_NO_SBUS_LOSS",
+  "sbus_audit_exit": 1,
+  "trace_records": 4445,
+  "flags_observed": [
+    0
+  ],
+  "source_fault_at_stop": 0,
+  "source_remained_enabled": true,
+  "x1_ns": 285260345348161,
+  "x1_to_zero_us": 12.251,
+  "nonzero_window_ms": 1524.229324,
+  "feedback": {
+    "zero_feedback_tenths_rpm": 15,
+    "first_nonzero_ns": 285258821131088,
+    "first_zero_ns": 285260345360412,
+    "stable_since_ns": 285260395312675,
+    "stable_verified_ns": 285260645051535,
+    "stop_to_verified_ms": 299.691123,
+    "raw_feedback_preserved": true
+  },
+  "matching_frames": 1512,
+  "rpdo_frames": 801,
+  "volatile_writes": 36,
+  "baseline_restored": true,
+  "counters_unchanged": true,
+  "trace_correlates_with_capture": true,
+  "operator_OFF_confirmed": true,
+  "actual_action_clarification": "User confirms transmitter stayed ON; X1 operated by mistake; one fresh retry requested",
+  "both_markers_consumed": true,
+  "automatic_retry": false
+}

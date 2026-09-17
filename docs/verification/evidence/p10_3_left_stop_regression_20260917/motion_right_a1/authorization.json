@@ -1,0 +1,29 @@
+{
+  "authorized": true,
+  "authorization_source": "User 2026-09-17: 完成单轮方向与停止验收；右轮尚未通过，进行右轮的运动测试；根据右轮测试验证一下右轮是否也会这样",
+  "attempts": 1,
+  "artifact_sha256": "9ac673e9b7b039467e346ac6595347c0da5e03cc37a01b8e90b1773df43fa7f2",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--single-right"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-right-held-9ac673e9-a1-20260917",
+  "operator_readiness_required": true,
+  "scope": "Right positive held-input automatic cutoff; <=5rpm, nonzero<3s, left zero; one invocation only",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation"
+  ],
+  "trial": "Right A1 comparison with left A1; retain original negative-feedback criterion and raw evidence",
+  "power_cycle_confirmation_required": false
+}

@@ -1,0 +1,3 @@
+Target identity and absence of writers verified; new stage created
+Usage: robot-control-hil --interface can0 --device /dev/tty... --duration-ms 2000..20000 (--zero-only|--single-left|--single-right)
+{"verified": {"robot-control-hil": "3c2d6a0fb35eac571e4a732731258e480e35925a9013ada6eca4d2a8dbd8d1f6", "robot_control_control_cycle_tests": "fe9d8ff6c3726f1c2da71f0618f74220d81ff6ec8054bcbe9efbdb28480879c1", "motion-once.py": "49149abaa92868331573313339ac49f60d7f2404c7341011541bc58d15f9b548", "authorization.json": "129197a5a67b6864721a6acaa4ba1638202dc741e29d5007754bfa6aae476a2d", "safety-preflight.json": "c6374a288704bf268ce55b229434323c096c22d7834d22809d3098b8f3681b07"}, "physical_started": false, "marker_unconsumed": true, "smoke": "help and pure control-cycle passed"}

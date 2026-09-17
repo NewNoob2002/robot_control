@@ -1,0 +1,29 @@
+{
+  "source": {
+    "dirty": true,
+    "file_count": 4647,
+    "revision": "4c7390ff7f00fe749fbfe60239d6b442bf5c28c1",
+    "schema_version": 1,
+    "snapshot_sha256": "223f33a30b33e0508ba5ad64368e4ffcde5b558089b5ca39f3e6f3d050f66564"
+  },
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/p103-startup-wait-v1-runtime",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_CONTROL_HIL=ON"
+  ],
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "sysroot_content": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911  sysroot-content.jsonl",
+  "artifacts": {
+    "tools/control_hil/robot-control-hil": "38800cfe2e4f9d7de1c338569a07b387ff15ca77b25e4737a4391c9ddaa7f513",
+    "robot_control_control_cycle_tests": "193f92e4d2e99066605b2b0354e87d3ceb6ebdd21cb3d3cf7b9a91433a4e4a48"
+  }
+}

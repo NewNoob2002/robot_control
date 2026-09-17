@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--zero-sbus-recovery",
+    "--zero-feedback-tenths-rpm",
+    "10"
+  ],
+  "artifact_sha256": "616e8ad3ec59c14985106c846c8f706b396617dc16b226b3012e3509fd821cea",
+  "operator_prompted": true,
+  "fault_ready": true,
+  "release_fault": true,
+  "neutral_ready": true,
+  "rearm_ready": true,
+  "zero_reenabled": true,
+  "stopping_prompted": true,
+  "application_exit": 0,
+  "application_elapsed_ms": 27108.33456402179
+}

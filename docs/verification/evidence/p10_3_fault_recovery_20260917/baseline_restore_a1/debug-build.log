@@ -1,0 +1,6 @@
+[1/6] Building CXX object communication/canopen/CMakeFiles/robot_control_communication_canopen_runtime.dir/control_qualification.cpp.o
+[2/6] Linking CXX static library communication/canopen/librobot_control_communication_canopen_runtime.a
+[3/6] Building CXX object tools/control_hil/CMakeFiles/robot-control-hil.dir/main.cpp.o
+[4/6] Linking CXX executable tools/control_hil/robot-control-hil
+[5/6] Building CXX object tools/control_hil/CMakeFiles/robot_control_control_qualification_vcan_tests.dir/__/__/tests/unit/control_qualification_vcan_tests.cpp.o
+[6/6] Linking CXX executable tools/control_hil/robot_control_control_qualification_vcan_tests

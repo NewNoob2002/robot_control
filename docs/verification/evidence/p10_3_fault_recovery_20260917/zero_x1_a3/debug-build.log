@@ -1,0 +1,5 @@
+[1/5] Building CXX object tools/control_hil/CMakeFiles/robot_control_hil_zero_gate_tests.dir/zero_gate.cpp.o
+[2/5] Linking CXX executable tools/control_hil/robot_control_hil_trace_tests
+[3/5] Linking CXX executable tools/control_hil/robot_control_hil_zero_gate_tests
+[4/5] Building CXX object tools/control_hil/CMakeFiles/robot-control-hil.dir/main.cpp.o
+[5/5] Linking CXX executable tools/control_hil/robot-control-hil

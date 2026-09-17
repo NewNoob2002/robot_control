@@ -1,0 +1,14 @@
+{
+  "matches": true,
+  "reference": "../motion_a/jcan-config-before.json",
+  "serial": "207F346D5650",
+  "scan": {
+    "bus": 1,
+    "address": 10,
+    "vid": "ffff",
+    "pid": "0004"
+  },
+  "self_test": "PASS",
+  "config_writes": 0,
+  "capture_started": false
+}

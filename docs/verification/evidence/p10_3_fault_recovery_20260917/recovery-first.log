@@ -1,0 +1,137 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p103-control-hil
+    Start 31: control_hil_recovery_vcan_managed
+1/1 Test #31: control_hil_recovery_vcan_managed ...***Failed    0.34 sec
+INFO: managed namespace vcan0 is up
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 385, in <module>
+    trial(case)
+    ~~~~~^^^^^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 244, in trial
+    assert process.returncode == (0 if success else 1), (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: CAN Interface "vcan0" RX buffer set to 477 messages (212992 Bytes)
+hil_read index=24641 sub=0 raw=4194368
+hil_read index=24672 sub=0 raw=3
+hil_read index=24673 sub=0 raw=3
+hil_read index=24639 sub=0 raw=0
+hil_read index=24831 sub=1 raw=0
+hil_read index=24831 sub=2 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=8207 sub=0 raw=1
+hil_read index=8192 sub=0 raw=0
+hil_read index=4119 sub=0 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5120 sub=5 raw=1000
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1616904200
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6144 sub=5 raw=100
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6145 sub=5 raw=0
+hil_read index=6657 sub=0 raw=0
+hil_read index=6657 sub=1 raw=0
+hil_read index=6657 sub=2 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1627325216
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6657 sub=0 raw=2
+hil_read index=6657 sub=1 raw=1616969736
+hil_read index=6657 sub=2 raw=1614741536
+hil_read index=8207 sub=0 raw=1
+event=control_start duration_ms=11000 targets=zero operator=neutral_release_then_press
+event=stop_cause code=0 signal_exit=4 at_ns=28287993008499
+phase=runtime_stop ok=1 operation= context= errno=0
+hil_read index=24641 sub=0 raw=4194368
+phase=control ok=0 operation=control_hil_recovery context=unexpected feedback, authority or phase errno=71
+phase=restore ok=1 operation= context= errno=0
+event=summary cycles=1 enabled_samples=0 missed_periods=0 maximum_lateness_us=61 maximum_cycle_us=51 shutdown_us=7 primary_ok=0 restore_ok=1
+event=trace_header version=1 count=271 overflow=0 feedback_bad=0 capacity=65536 timestamp=steady_receive_ns storage_bytes=9437184
+event=trace_end count=271
+LAST CAN FRAMES:
+28288.025876 601 4000140100000000
+28288.025879 581 4300140101020080
+28288.027876 601 2f00160000000000
+28288.027880 581 6000160000000000
+28288.029875 601 4000160000000000
+28288.029877 581 4f00160000000000
+28288.031894 601 2300160110004060
+28288.031903 581 6000160100000000
+28288.033893 601 4000160100000000
+28288.033902 581 4300160110004060
+28288.035874 601 2300160208006060
+28288.035880 581 6000160200000000
+28288.037890 601 4000160200000000
+28288.037899 581 4300160208006060
+28288.039886 601 2f00160002000000
+28288.039897 581 6000160000000000
+28288.041878 601 4000160000000000
+28288.041882 581 4f00160002000000
+28288.042955 701 7f
+28288.042991 601 2300140101020000
+28288.042997 581 6000140100000000
+28288.044874 601 4000140100000000
+28288.044877 581 4300140101020000
+28288.046881 601 2301180181020080
+28288.046885 581 6001180100000000
+28288.048874 601 4001180100000000
+28288.048877 581 4301180181020080
+28288.050877 601 2f011a0000000000
+28288.050881 581 60011a0000000000
+28288.052875 601 40011a0000000000
+28288.052877 581 4f011a0000000000
+28288.054875 601 23011a0100000000
+28288.054879 581 60011a0100000000
+28288.056876 601 40011a0100000000
+28288.056887 581 43011a0100000000
+28288.057901 601 23011a0200000000
+28288.057905 581 60011a0200000000
+28288.059883 601 40011a0200000000
+28288.059887 581 43011a0200000000
+28288.061881 601 2f011a0000000000
+28288.061886 581 60011a0000000000
+28288.062953 701 7f
+28288.062981 601 40011a0000000000
+28288.062983 581 4f011a0000000000
+28288.064882 601 2b01180500000000
+28288.064886 581 6001180500000000
+28288.066876 601 4001180500000000
+28288.066878 581 4b01180500000000
+28288.068878 601 2301180181020000
+28288.068882 581 6001180100000000
+28288.070879 601 4001180100000000
+28288.070886 581 4301180181020000
+28288.072909 601 2b00200000000000
+28288.072919 581 6000200000000000
+28288.074914 601 4000200000000000
+28288.074926 581 4b00200000000000
+28288.076906 601 2b17100000000000
+28288.076919 581 6017100000000000
+28288.078883 601 4017100000000000
+28288.078887 581 4b17100000000000
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.34 sec
+
+The following tests FAILED:
+	 31 - control_hil_recovery_vcan_managed (Failed)
+Errors while running CTest

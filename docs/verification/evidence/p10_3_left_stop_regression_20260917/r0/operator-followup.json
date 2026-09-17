@@ -1,0 +1,8 @@
+{
+  "operator_statement": "确认现在摇杆已回中、驱动仍断电",
+  "sticks_neutral": true,
+  "drive_power_off": true,
+  "preceding_operator_statement": "进行了回中，但是应该是在中间部分，因为我没看到停止操作的提示",
+  "timing": "Reported return timing relative to capture remains unresolved.",
+  "disposition": "R0 remains incomplete; no retry or motion started."
+}

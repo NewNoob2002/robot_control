@@ -1,0 +1,52 @@
+{
+  "status": "FAILED_post_stop_negative_feedback",
+  "matching_capture_frames": 6355,
+  "trace_complete": true,
+  "trace_records": 21178,
+  "stop_cause": 2,
+  "nonzero_window_ms": 2950.3002166748047,
+  "left_target_range": [
+    3,
+    5
+  ],
+  "right_targets_and_feedback_zero": true,
+  "negative_feedback": [
+    {
+      "after_stop_ms": 62.5309944152832,
+      "left_tenths_rpm": -15
+    },
+    {
+      "after_stop_ms": 112.5328540802002,
+      "left_tenths_rpm": -12
+    },
+    {
+      "after_stop_ms": 262.5739574432373,
+      "left_tenths_rpm": -1
+    },
+    {
+      "after_stop_ms": 312.58678436279297,
+      "left_tenths_rpm": -1
+    },
+    {
+      "after_stop_ms": 362.60199546813965,
+      "left_tenths_rpm": -1
+    }
+  ],
+  "stable_zero_first_ms": 412.6298427581787,
+  "stable_zero_span_ms": 200.0420093536377,
+  "exact_volatile_writes": 36,
+  "baseline_restored": true,
+  "last_second_raw_ranges": {
+    "ch1": [
+      1512,
+      1534
+    ],
+    "ch3": [
+      1636,
+      1666
+    ]
+  },
+  "input_interpretation": "Input ramped forward/right and remained positive through automatic cutoff; not perfectly constant. No active return-to-neutral or negative transmitted target is needed to reproduce this post-stop feedback.",
+  "cause": "Drive/mechanical origin not established; independent captures agree on feedback bytes.",
+  "operator": "Post-trial physical observation and OFF confirmation required separately"
+}

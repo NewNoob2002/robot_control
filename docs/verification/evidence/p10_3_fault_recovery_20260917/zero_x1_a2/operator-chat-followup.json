@@ -1,0 +1,10 @@
+{
+  "exit_statement": "确认，终端刚出现X1第二次就直接错误退出了",
+  "power_off_confirmed": true,
+  "x1_not_operated": true,
+  "observation_statement": "双轮始终静止，无异常声音",
+  "wheels_stationary": true,
+  "abnormal_sound": false,
+  "tolerance_request": "确认增加零目标时的速度反馈阈值，这是驱动器内部霍尔或者编码器读取速度的速度反馈数据的上下波动，之前的测试保存都可以说明",
+  "interpretation": "Operator attributes fluctuation to drive sensing; sensor root cause not independently proven. Existing failures unchanged."
+}

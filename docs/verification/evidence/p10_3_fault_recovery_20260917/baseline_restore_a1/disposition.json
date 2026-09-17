@@ -1,0 +1,10 @@
+{
+  "status": "PASS_DISABLED_ONLY_BASELINE_RESTORATION",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF confirmed by local OFF",
+  "wheels_stationary": true,
+  "abnormal_sound": false,
+  "baseline_restored": true,
+  "x1_recovery_accepted": false
+}

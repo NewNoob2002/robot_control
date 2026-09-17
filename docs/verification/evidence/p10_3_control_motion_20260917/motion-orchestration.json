@@ -1,0 +1,9 @@
+{
+  "passed": false,
+  "physical_started": true,
+  "target_invoked": true,
+  "operator_prompted": true,
+  "target_runner_exit": 1,
+  "error": "target or independent capture failed",
+  "capture_exit": 0
+}

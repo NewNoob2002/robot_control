@@ -1,0 +1,33 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 改善阶段提示衔接，再进行 X1 恢复验证; 确认增加零目标时的速度反馈阈值; +-1rpm",
+  "attempts": 1,
+  "artifact_sha256": "0d379ed8861c9c2fb06bc08502ea52cb8f6bfeaac4bdddc25515a328a094770e",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--zero-x1-recovery",
+    "--zero-feedback-tenths-rpm",
+    "10"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-faults-0d379ed8-x1-a3-20260917",
+  "operator_readiness_required": true,
+  "scope": "F1 only: zero-target X1 inhibition and nonneutral/no-auto-restart plus fresh neutral rearm; exactly one bounded invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO/RPDO target"
+  ],
+  "trial": "F1 zero X1 recovery A3, explicit ±1rpm feedback tolerance, one attempt",
+  "power_cycle_confirmation_required": false,
+  "zero_feedback_tenths_rpm": 10
+}

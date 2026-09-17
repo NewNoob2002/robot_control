@@ -1,0 +1,13 @@
+{
+  "python_syntax": "PASS",
+  "missing_fresh_confirmation": "REJECTED before any subprocess",
+  "hardware_started": false,
+  "source_hashes": "59 files and binary match verified v3",
+  "existing_validation": "Debug42/42, sanitizer42/42, shared runtime37/37 and locked cross/ELF; unchanged binary, right vcan case included",
+  "preparation_failures": [
+    "First host preparation command had quoting SyntaxError before execution; corrected",
+    "Sandbox SSH rejected system config ownership; escalated stage succeeded",
+    "Sandbox USB scan/config-get: Other error; escalated pkexec read-only scan/config-get passed"
+  ],
+  "target_stage": "identity/hash/help/pure-cycle PASS; marker unconsumed"
+}

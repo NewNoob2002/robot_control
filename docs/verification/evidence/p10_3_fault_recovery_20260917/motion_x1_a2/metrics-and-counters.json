@@ -1,0 +1,36 @@
+{
+  "clock": "application monotonic RX/TX (separate from candump timing)",
+  "nonzero_window_ms": 2950.012174,
+  "x1_after_zero_ms": 260.79094,
+  "stop_cause": 2,
+  "counter_deltas": {
+    "rx": {
+      "bytes": 3862,
+      "packets": 606,
+      "errors": 0,
+      "dropped": 0,
+      "over_errors": 0,
+      "multicast": 0
+    },
+    "tx": {
+      "bytes": 6916,
+      "packets": 1114,
+      "errors": 0,
+      "dropped": 0,
+      "carrier_errors": 0,
+      "collisions": 0
+    }
+  },
+  "extended_counters_unchanged": true,
+  "summary": {
+    "event": "summary",
+    "cycles": "988",
+    "enabled_samples": "804",
+    "missed_periods": "2",
+    "maximum_lateness_us": "29888",
+    "maximum_cycle_us": "107",
+    "shutdown_us": "8",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  }
+}

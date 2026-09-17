@@ -1,0 +1,3 @@
+CONTROL_READY: keep sticks neutral; press CH6 once; LEFT trial window60s; wait for MOTION_READY before stick input
+MOTION_READY: LEFT only; forward throttle plus right steering; max5rpm/3s
+{"passed": true, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--single-left"], "artifact_sha256": "00fe79835bc6134461352d98b6279a8f808967b3882322d3477052de7c2e77ff", "operator_prompted": true, "motion_prompted": true, "application_exit": 0, "application_elapsed_ms": 23362.96181299258}

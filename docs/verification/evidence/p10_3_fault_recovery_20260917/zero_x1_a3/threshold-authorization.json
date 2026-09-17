@@ -1,0 +1,6 @@
+{
+  "raw_user_statement": "+-1rpm",
+  "scope": "Prospective zero-target qualification only; explicitly selected CLI tolerance10 tenths rpm; stable hold>=150ms; targets exactly zero; old evidence and motion criteria unchanged",
+  "maximum_absolute_feedback_tenths_rpm": 10,
+  "operator_power_off_after_a2": true
+}

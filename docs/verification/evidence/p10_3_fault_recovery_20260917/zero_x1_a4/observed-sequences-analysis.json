@@ -1,0 +1,27 @@
+{
+  "status": "OBSERVED_SEQUENCES_VERIFIED_ORIGINAL_COMBINED_CLAIM_SUPERSEDED",
+  "sequences": [
+    {
+      "source_generation": 2,
+      "rearm_ns": 278127308710984,
+      "enabled_ns": 278127581887057,
+      "path": "native_x1_disabled",
+      "ordered_transition_and_one_second_enabled_hold": true
+    },
+    {
+      "source_generation": 3,
+      "rearm_ns": 278140608704620,
+      "enabled_ns": 278140929407766,
+      "path": "CH6_quick_stop",
+      "ordered_transition_and_one_second_enabled_hold": true
+    }
+  ],
+  "all_targets_zero": true,
+  "original_combined_oracle_rejected": true,
+  "scope": "Retrospective interval audit; corrected observer binary not physically tested",
+  "operator_confirmation": {
+    "operator_confirmation": "是，等待后又用 CH6 关、开了一次",
+    "interpretation": "After the first neutral CH6 rearm, the prompt stalled. Operator subsequently toggled CH6 off then on again. These are separate recovery events.",
+    "power_disposition": "OFF recorded in original operator-post-trial.json"
+  }
+}

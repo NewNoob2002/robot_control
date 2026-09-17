@@ -1,0 +1,241 @@
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 4722,
+  "counts": {
+    "0x601": 159,
+    "0x581": 159,
+    "0x701": 126,
+    "0x0": 3,
+    "0x181": 617,
+    "0x281": 617,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 3039
+  },
+  "tpdo2_frames": 617,
+  "tpdo2_span_ms": 30799.649000167847,
+  "tpdo2_interval_ms": [
+    49.736976623535156,
+    50.28200149536133
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 3039,
+  "enabled_feedback": 99,
+  "enabled_samples": 489,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "sbus",
+    "zero_feedback_tenths_rpm": 20,
+    "phases": {
+      "fault_ready": 294239007334045,
+      "fault_observed": 294242697339456,
+      "release_fault": 294247707477013,
+      "neutral_ready": 294261257316768,
+      "rearm_ready": 294264047393745,
+      "zero_reenabled": 294266467324824,
+      "complete": 294267467326023
+    },
+    "targets_zero": true,
+    "nonneutral_inhibited": true,
+    "fresh_authorization": true,
+    "recovery_path": "quick_stop",
+    "first_rearm_state_order": true
+  },
+  "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+}
+{
+  "status": "PASS_F5_WIRE_PENDING_OPERATOR",
+  "silence": {
+    "status": "PASS_READER_RAW_BYTE_SILENCE",
+    "last_frame_ns": 294242637242147,
+    "fault_observed_ns": 294242697339456,
+    "release_fault_ns": 294247707477013,
+    "last_raw_batch_ns": 294242637242147,
+    "first_restored_raw_ns": 294253067266231,
+    "raw_gap_ms": 10430.024084,
+    "timeout_after_last_frame_ms": 60.097309,
+    "required_hold_ms": 5010.137557,
+    "raw_bytes_in_hold": 0,
+    "expected_partial_boundaries": 1,
+    "stable_reconnection_count": 1,
+    "stable_windows": [
+      {
+        "start_ns": 294253097240948,
+        "end_ns": 294254097380641
+      }
+    ],
+    "rejected_candidates_retained": 1,
+    "restored_session": 3,
+    "first_valid_after_reconnection_ms": 0.0,
+    "scope": "No bytes delivered to Reader during hold; not a voltage-level or oscilloscope measurement"
+  },
+  "recovery": {
+    "status": "PASS_protocol_and_restoration",
+    "matching_frames": 4722,
+    "counts": {
+      "0x601": 159,
+      "0x581": 159,
+      "0x701": 126,
+      "0x0": 3,
+      "0x181": 617,
+      "0x281": 617,
+      "0x381": 1,
+      "0x481": 1,
+      "0x201": 3039
+    },
+    "tpdo2_frames": 617,
+    "tpdo2_span_ms": 30799.649000167847,
+    "tpdo2_interval_ms": [
+      49.736976623535156,
+      50.28200149536133
+    ],
+    "exact_volatile_writes": 36,
+    "nmt": [
+      "8001",
+      "0101",
+      "8001"
+    ],
+    "all_targets_zero": true,
+    "rpdo_frames": 3039,
+    "enabled_feedback": 99,
+    "enabled_samples": 489,
+    "baseline_restored": true,
+    "operator": "Separate post-trial confirmation required; not inferred from protocol",
+    "recovery": {
+      "kind": "sbus",
+      "zero_feedback_tenths_rpm": 20,
+      "phases": {
+        "fault_ready": 294239007334045,
+        "fault_observed": 294242697339456,
+        "release_fault": 294247707477013,
+        "neutral_ready": 294261257316768,
+        "rearm_ready": 294264047393745,
+        "zero_reenabled": 294266467324824,
+        "complete": 294267467326023
+      },
+      "targets_zero": true,
+      "nonneutral_inhibited": true,
+      "fresh_authorization": true,
+      "recovery_path": "quick_stop",
+      "first_rearm_state_order": true
+    },
+    "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+  }
+}
+{
+  "status": "PASS_F5_A4",
+  "silence": {
+    "status": "PASS_READER_RAW_BYTE_SILENCE",
+    "last_frame_ns": 294242637242147,
+    "fault_observed_ns": 294242697339456,
+    "release_fault_ns": 294247707477013,
+    "last_raw_batch_ns": 294242637242147,
+    "first_restored_raw_ns": 294253067266231,
+    "raw_gap_ms": 10430.024084,
+    "timeout_after_last_frame_ms": 60.097309,
+    "required_hold_ms": 5010.137557,
+    "raw_bytes_in_hold": 0,
+    "expected_partial_boundaries": 1,
+    "stable_reconnection_count": 1,
+    "stable_windows": [
+      {
+        "start_ns": 294253097240948,
+        "end_ns": 294254097380641
+      }
+    ],
+    "rejected_candidates_retained": 1,
+    "restored_session": 3,
+    "first_valid_after_reconnection_ms": 0.0,
+    "scope": "No bytes delivered to Reader during hold; not a voltage-level or oscilloscope measurement"
+  },
+  "recovery": {
+    "status": "PASS_protocol_and_restoration",
+    "matching_frames": 4722,
+    "counts": {
+      "0x601": 159,
+      "0x581": 159,
+      "0x701": 126,
+      "0x0": 3,
+      "0x181": 617,
+      "0x281": 617,
+      "0x381": 1,
+      "0x481": 1,
+      "0x201": 3039
+    },
+    "tpdo2_frames": 617,
+    "tpdo2_span_ms": 30799.649000167847,
+    "tpdo2_interval_ms": [
+      49.736976623535156,
+      50.28200149536133
+    ],
+    "exact_volatile_writes": 36,
+    "nmt": [
+      "8001",
+      "0101",
+      "8001"
+    ],
+    "all_targets_zero": true,
+    "rpdo_frames": 3039,
+    "enabled_feedback": 99,
+    "enabled_samples": 489,
+    "baseline_restored": true,
+    "operator": "Separate post-trial confirmation required; not inferred from protocol",
+    "recovery": {
+      "kind": "sbus",
+      "zero_feedback_tenths_rpm": 20,
+      "phases": {
+        "fault_ready": 294239007334045,
+        "fault_observed": 294242697339456,
+        "release_fault": 294247707477013,
+        "neutral_ready": 294261257316768,
+        "rearm_ready": 294264047393745,
+        "zero_reenabled": 294266467324824,
+        "complete": 294267467326023
+      },
+      "targets_zero": true,
+      "nonneutral_inhibited": true,
+      "fresh_authorization": true,
+      "recovery_path": "quick_stop",
+      "first_rearm_state_order": true
+    },
+    "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+  },
+  "operator": {
+    "raw_user_statement": "OFF",
+    "wheels_stationary": true,
+    "abnormal_sound": false,
+    "drive_power_off": true,
+    "signal_only_stimulus": true,
+    "usb_ground_power_unchanged": true,
+    "transmitter_stayed_on": true,
+    "confirmation_source": "Local terminal post-trial question including signal-only fixture confirmation",
+    "runner_exit": 0,
+    "actual_operation": ""
+  },
+  "can_counters_unchanged": true,
+  "trace_records": 13648,
+  "sbus_frames": 2848,
+  "feedback_bad": false,
+  "summary": {
+    "event": "summary",
+    "cycles": "3038",
+    "enabled_samples": "489",
+    "missed_periods": "0",
+    "maximum_lateness_us": "6854",
+    "maximum_cycle_us": "809",
+    "shutdown_us": "22",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  },
+  "runner_consumed": true,
+  "initial_withdrawal": "Immediate partial-timeout discontinuity; not a claimed100ms timeout trigger",
+  "measurement_scope": "Reader raw-byte silence plus zero-output recovery; no voltage-level measurement or moving test",
+  "historical_attempts": "A1/A2/A3 remain incomplete; no original record reclassified"
+}

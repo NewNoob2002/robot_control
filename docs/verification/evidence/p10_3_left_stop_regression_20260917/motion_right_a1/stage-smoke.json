@@ -1,0 +1,16 @@
+{
+  "target": "robot-dev",
+  "staging": "/home/cat/.cache/robot-control/staging/p103-right-held-9ac673e9-a1-20260917",
+  "identity": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "architecture": "aarch64",
+  "verified": {
+    "motion-once.py": "069ad2dc2bcc1a12729c3852c4f35cdeb6dc9f0d5884d31964bf5227b29f9fa7",
+    "authorization.json": "a7603841845135575f4657d0991f4a7629a559970451c2ecffc74114fae163f3",
+    "safety-preflight.json": "b324ee9b84ab81eee0b6c2408f35ae1b13a7e18fdbf4a15ab5ca6d887557f8bb",
+    "robot-control-hil": "9ac673e9b7b039467e346ac6595347c0da5e03cc37a01b8e90b1773df43fa7f2",
+    "robot_control_control_cycle_tests": "540d4fc97890583da41100cdcfe104916e3ba9b19894a6452d11cc3b7afc2fa2"
+  },
+  "smoke": "help and pure control-cycle passed",
+  "physical_started": false,
+  "marker_unconsumed": true
+}

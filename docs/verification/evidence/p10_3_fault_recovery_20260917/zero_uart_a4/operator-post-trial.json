@@ -1,0 +1,12 @@
+{
+  "raw_user_statement": "OFF",
+  "wheels_stationary": true,
+  "abnormal_sound": false,
+  "drive_power_off": true,
+  "signal_only_stimulus": true,
+  "usb_ground_power_unchanged": true,
+  "transmitter_stayed_on": true,
+  "confirmation_source": "Local terminal post-trial question including signal-only fixture confirmation",
+  "runner_exit": 0,
+  "actual_operation": ""
+}

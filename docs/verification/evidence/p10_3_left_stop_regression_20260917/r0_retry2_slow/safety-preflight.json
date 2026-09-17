@@ -1,0 +1,15 @@
+{
+  "target": "robot-dev",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "uart_serial": "586D017868",
+  "artifact_sha256": "9ac673e9b7b039467e346ac6595347c0da5e03cc37a01b8e90b1773df43fa7f2",
+  "power": "Operator explicitly confirmed current sticks neutral and drive OFF immediately before authorizing new capture",
+  "motion_authority": false,
+  "can": "none; no CAN open/configuration",
+  "duration_ms": 60000,
+  "outer_guard_ms": 75000,
+  "recovery": "Stop UART Source; bounded export; no automatic retry",
+  "operator_sequence": "Push forward/right together, hold2s, slowly return within5s, then remain neutral",
+  "electrical": "Unchanged wiring; amplitude/tolerance still unmeasured",
+  "status": "EXECUTED ONCE; marker consumed; see capture-once/result.json and analysis.json"
+}

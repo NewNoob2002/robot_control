@@ -1,0 +1,43 @@
+[1/2] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp.
+91 warnings generated.
+[2/2] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/control_qualification.cpp.
+165 warnings generated.
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/control_qualification.hpp:1:1: error: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once,-warnings-as-errors]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:110:20: error: 2 adjacent parameters of 'observe' of convertible types are easily swapped by mistake [bugprone-easily-swappable-parameters,-warnings-as-errors]
+  110 |                    unsigned enabled_samples, int zero_tolerance) {
+      |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:110:29: note: the first parameter in the range is 'enabled_samples'
+  110 |                    unsigned enabled_samples, int zero_tolerance) {
+      |                             ^~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:110:50: note: the last parameter in the range is 'zero_tolerance'
+  110 |                    unsigned enabled_samples, int zero_tolerance) {
+      |                                                  ^~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:110:46: note: 'unsigned int' and 'int' may be implicitly converted
+  110 |                    unsigned enabled_samples, int zero_tolerance) {
+      |                                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/motion_gate.hpp:1:1: error: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once,-warnings-as-errors]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:1:1: error: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once,-warnings-as-errors]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:31: error: 2 adjacent parameters of 'Trace' of convertible types are easily swapped by mistake [bugprone-easily-swappable-parameters,-warnings-as-errors]
+   33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0) noexcept
+      |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:43: note: the first parameter in the range is 'capacity'
+   33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0) noexcept
+      |                                           ^~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:75: note: the last parameter in the range is 'zero_tolerance_tenths_rpm'
+   33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0) noexcept
+      |                                                                           ^~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:31: note: 
+   33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0) noexcept
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:71: note: 'std::size_t' and 'int' may be implicitly converted: 'std::size_t' (as 'unsigned long') -> 'int', 'int' -> 'std::size_t' (as 'unsigned long')
+   33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0) noexcept
+      |                                                                       ^
+Suppressed 163 warnings (159 in non-user code, 4 NOLINT).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+5 warnings treated as errors

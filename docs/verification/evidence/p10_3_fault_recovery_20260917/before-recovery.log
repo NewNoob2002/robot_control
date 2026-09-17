@@ -1,0 +1,2 @@
+Cannot open netlink socket: Operation not permitted
+SKIP: namespace capabilities or kernel vcan support are unavailable

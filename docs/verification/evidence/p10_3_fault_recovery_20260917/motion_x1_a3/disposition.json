@@ -1,0 +1,10 @@
+{
+  "status": "PASS_F3_MOVING_X1_WITH_USER_APPROVED_15_TENTHS_RPM_TOLERANCE",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF; right direction/stop normal, left stationary, no sound, X1 locked",
+  "application_exit": 1,
+  "exit_interpretation": "Expected X1 revocation healthy0/armed0, independent causal/feedback/restoration audit passed",
+  "baseline_restored": true,
+  "automatic_retry": false
+}

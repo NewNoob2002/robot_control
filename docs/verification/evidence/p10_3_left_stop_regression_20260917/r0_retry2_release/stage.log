@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+AssertionError: robot-control-hil
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p10_3_left_stop_regression_20260917/r0_retry2_release/stage-r0.py", line 34, in <module>
+    subprocess.run(['ssh','-o','BatchMode=yes','-o','ConnectTimeout=5','robot-dev','python3 -'],input=preflight,text=True,check=True,timeout=12)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=5', 'robot-dev', 'python3 -']' returned non-zero exit status 1.

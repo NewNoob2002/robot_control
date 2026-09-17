@@ -1,0 +1,24 @@
+{
+  "passed": false,
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--right-throttle",
+    "--zero-feedback-tenths-rpm",
+    "15",
+    "--motion-window-ms",
+    "8000"
+  ],
+  "artifact_sha256": "38800cfe2e4f9d7de1c338569a07b387ff15ca77b25e4737a4391c9ddaa7f513",
+  "operator_prompted": true,
+  "motion_ready": true,
+  "power_off_prompted": true,
+  "stopping_prompted": true,
+  "application_exit": 1,
+  "application_elapsed_ms": 15351.903984032106,
+  "acceptance": "PENDING independent motion/SBUS-loss/feedback/restoration audit"
+}

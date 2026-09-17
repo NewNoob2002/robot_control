@@ -1,0 +1,5 @@
+{
+  "statement": "提示按了但是好像不在采集窗口了，授权再进行一次测试采集",
+  "interpretation": "Operator reports pressing CH6 but suspects the capture window had ended; no exact timing is established. Authorizes one new attempt.",
+  "power_off_confirmed": false
+}

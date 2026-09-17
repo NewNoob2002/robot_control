@@ -1,0 +1,2 @@
+motion_sigterm: passed, zero_rpdo=145, restored=verified
+motion_throttle_sigterm: passed, zero_rpdo=147, restored=verified

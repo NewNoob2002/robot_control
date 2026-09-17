@@ -1,0 +1,11 @@
+{
+  "statement": "重试已重新上电就绪",
+  "wall_time": 1789561105.5556104,
+  "power_cycled_after_failed_trial": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "scope": "Operator confirmation in response to the explicit retry2 readiness instructions"
+}

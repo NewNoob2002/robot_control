@@ -1,0 +1,34 @@
+{
+  "status": "INCOMPLETE_F4_AUTOMATIC_CUTOFF_NO_SBUS_LOSS_OBSERVED",
+  "sbus_audit_exit": 1,
+  "trace_records": 4166,
+  "frames": 1103,
+  "flags_observed": [
+    0
+  ],
+  "source_remained_enabled": true,
+  "x1_observed": false,
+  "stop_cause": 2,
+  "application_exit": 0,
+  "nonzero_window_ms": 2950.027072,
+  "last_sbus_frame_after_first_zero_ms": 256.946417,
+  "feedback": {
+    "zero_feedback_tenths_rpm": 15,
+    "first_nonzero_ns": 285898733550109,
+    "first_zero_ns": 285901683577181,
+    "stable_since_ns": 285901744360339,
+    "stable_verified_ns": 285901944367518,
+    "stop_to_verified_ms": 260.790337,
+    "raw_feedback_preserved": true
+  },
+  "matching_frames": 1435,
+  "rpdo_frames": 748,
+  "volatile_writes": 36,
+  "baseline_restored": true,
+  "counters_unchanged": true,
+  "trace_correlates_with_capture": true,
+  "operator_OFF_confirmed": true,
+  "both_markers_consumed": true,
+  "automatic_retry": false,
+  "limitation": "RF switch-off time is not measured; no flag loss/timeout inside captured UART window; cannot infer receiver behavior after capture ends"
+}

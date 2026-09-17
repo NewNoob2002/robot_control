@@ -1,0 +1,1631 @@
+[1/2] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp.
+19266 warnings generated.
+[2/2] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp.
+34802 warnings generated.
+warning: invalid configuration value 'camelCase' for option 'readability-identifier-naming.FunctionCase'; did you mean 'CamelCase'? [clang-tidy-config]
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:10:5: warning: function 'main' has cognitive complexity of 53 (threshold 25) [readability-function-cognitive-complexity]
+   10 | int main() {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:12:24: note: nesting level increased to 1
+   12 |     const auto check = [&](bool value) {
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:13:27: note: +2, including nesting penalty of 1, nesting level increased to 2
+   13 |         failures += value ? 0U : 1U;
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:28:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+   28 |     for (int value : {-32768, -11, -10, -1, 0, 1, 10, 11, 32767}) {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:29:9: note: +2, including nesting penalty of 1, nesting level increased to 2
+   29 |         for (unsigned offset : {4U, 6U}) {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:39:50: note: +1
+   39 |             check(trace.failed() == (value < -10 || value > 10));
+      |                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:42:50: note: +1
+   42 |             check(trace.failed() == (value < -10 || value > 10));
+      |                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:49:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+   49 |     for (int tolerance : {15, 20}) {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:50:9: note: +2, including nesting penalty of 1, nesting level increased to 2
+   50 |         for (const auto mode : {Trace::Mode::left, Trace::Mode::right}) {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:51:13: note: +3, including nesting penalty of 2, nesting level increased to 3
+   51 |             for (int stage : {0, 1, 2}) {
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:52:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+   52 |                 for (int speed : {-tolerance-1, -tolerance, -1, 0, tolerance, tolerance+1}) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:59:55: note: +5, including nesting penalty of 4, nesting level increased to 5
+   59 |                     tx.data[mode == Trace::Mode::left ? 2 : 4] = 5;
+      |                                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:60:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+   60 |                     if (stage > 0)
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:62:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+   62 |                     if (stage == 2) {
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:69:71: note: +5, including nesting penalty of 4, nesting level increased to 5
+   69 |                     const unsigned offset = mode == Trace::Mode::left ? 4U : 6U;
+      |                                                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:74:57: note: +5, including nesting penalty of 4, nesting level increased to 5
+   74 |                     check(trace.failed() == (stage == 0 ? (speed < -tolerance || speed > tolerance) : stage == 1 && speed < -tolerance));
+      |                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:74:79: note: +1
+   74 |                     check(trace.failed() == (stage == 0 ? (speed < -tolerance || speed > tolerance) : stage == 1 && speed < -tolerance));
+      |                                                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:74:114: note: +1
+   74 |                     check(trace.failed() == (stage == 0 ? (speed < -tolerance || speed > tolerance) : stage == 1 && speed < -tolerance));
+      |                                                                                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:79:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+   79 |     for (const auto mode : {Trace::Mode::left, Trace::Mode::right}) {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:86:43: note: +2, including nesting penalty of 1, nesting level increased to 2
+   86 |         tx.data[mode == Trace::Mode::left ? 2 : 4] = 5;
+      |                                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:91:59: note: +2, including nesting penalty of 1, nesting level increased to 2
+   91 |         const unsigned offset = mode == Trace::Mode::left ? 4U : 6U;
+      |                                                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:99:9: note: +2, including nesting penalty of 1, nesting level increased to 2
+   99 |         for (int value : {-10, -36, 9, -5, 0, 3, 0, 0, -6, -1, 0, 0, 0}) {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:128:62: note: +1
+  128 |         check(output.str().find("1200") != std::string::npos && output.str().find("800") != std::string::npos);
+      |                                                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:134:21: note: +1, including nesting penalty of 0, nesting level increased to 1
+  134 |     return failures ? 1 : 0;
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:10:5: warning: use a trailing return type for this function [modernize-use-trailing-return-type]
+   10 | int main() {
+      | ~~~ ^
+      | auto       -> int
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:12:24: warning: use a trailing return type for this lambda [modernize-use-trailing-return-type]
+   12 |     const auto check = [&](bool value) {
+      |                        ^
+      |                                        -> void
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:30:44: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   30 |             Trace trace{Trace::Mode::zero, 8, 10};
+      |                                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:30:47: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   30 |             Trace trace{Trace::Mode::zero, 8, 10};
+      |                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:32:23: warning: variable name 'rx' is too short, expected at least 3 characters [readability-identifier-length]
+   32 |             can_frame rx{};
+      |                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:33:25: warning: 0x181 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   33 |             rx.can_id = 0x181;
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:34:16: warning: do not access members of unions; consider using (boost::)variant instead [cppcoreguidelines-pro-type-union-access]
+   34 |             rx.can_dlc = 8;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:34:26: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   34 |             rx.can_dlc = 8;
+      |                          ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:36:13: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   36 |             rx.data[offset] = static_cast<unsigned char>(encoded & 255U);
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:36:68: warning: 255U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   36 |             rx.data[offset] = static_cast<unsigned char>(encoded & 255U);
+      |                                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:37:13: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   37 |             rx.data[offset + 1] = static_cast<unsigned char>(encoded >> 8U);
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:37:73: warning: 8U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   37 |             rx.data[offset + 1] = static_cast<unsigned char>(encoded >> 8U);
+      |                                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:39:47: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   39 |             check(trace.failed() == (value < -10 || value > 10));
+      |                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:39:61: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   39 |             check(trace.failed() == (value < -10 || value > 10));
+      |                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:40:13: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   40 |             rx.data[offset] = rx.data[offset + 1] = 0;
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:40:31: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   40 |             rx.data[offset] = rx.data[offset + 1] = 0;
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:42:47: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   42 |             check(trace.failed() == (value < -10 || value > 10));
+      |                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:42:61: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   42 |             check(trace.failed() == (value < -10 || value > 10));
+      |                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:45:36: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   45 |     check(Trace{Trace::Mode::zero, 8, 21}.failed());
+      |                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:45:39: warning: 21 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   45 |     check(Trace{Trace::Mode::zero, 8, 21}.failed());
+      |                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:46:37: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   46 |     check(!Trace{Trace::Mode::left, 8, 15}.failed());
+      |                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:46:40: warning: 15 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   46 |     check(!Trace{Trace::Mode::left, 8, 15}.failed());
+      |                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:47:38: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   47 |     check(!Trace{Trace::Mode::right, 8, 15}.failed());
+      |                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:47:41: warning: 15 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   47 |     check(!Trace{Trace::Mode::right, 8, 15}.failed());
+      |                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:48:42: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   48 |     check(Trace{Trace::Mode::input_only, 8, 10}.failed());
+      |                                          ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:48:45: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   48 |     check(Trace{Trace::Mode::input_only, 8, 10}.failed());
+      |                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:53:39: warning: 16 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   53 |                     Trace trace{mode, 16, tolerance};
+      |                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:55:31: warning: variable name 'tx' is too short, expected at least 3 characters [readability-identifier-length]
+   55 |                     can_frame tx{};
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:56:33: warning: 0x201 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   56 |                     tx.can_id = 0x201;
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:57:24: warning: do not access members of unions; consider using (boost::)variant instead [cppcoreguidelines-pro-type-union-access]
+   57 |                     tx.can_dlc = 6;
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:57:34: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   57 |                     tx.can_dlc = 6;
+      |                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:58:34: warning: 15 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   58 |                     tx.data[0] = 15;
+      |                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:59:21: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   59 |                     tx.data[mode == Trace::Mode::left ? 2 : 4] = 5;
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:59:66: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   59 |                     tx.data[mode == Trace::Mode::left ? 2 : 4] = 5;
+      |                                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:60:35: warning: statement should be inside braces [readability-braces-around-statements]
+   60 |                     if (stage > 0)
+      |                                   ^
+      |                                    {
+   61 |                         trace.can(Trace::Kind::can_tx, tx, now, CAN_MTU, 0);
+      |                                                                             
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:66:31: warning: variable name 'rx' is too short, expected at least 3 characters [readability-identifier-length]
+   66 |                     can_frame rx{};
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:67:33: warning: 0x181 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   67 |                     rx.can_id = 0x181;
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:68:24: warning: do not access members of unions; consider using (boost::)variant instead [cppcoreguidelines-pro-type-union-access]
+   68 |                     rx.can_dlc = 8;
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:68:34: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   68 |                     rx.can_dlc = 8;
+      |                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:71:21: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   71 |                     rx.data[offset] = static_cast<unsigned char>(encoded & 255U);
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:71:76: warning: 255U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   71 |                     rx.data[offset] = static_cast<unsigned char>(encoded & 255U);
+      |                                                                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:72:21: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   72 |                     rx.data[offset + 1] = static_cast<unsigned char>(encoded >> 8U);
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:72:81: warning: 8U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   72 |                     rx.data[offset + 1] = static_cast<unsigned char>(encoded >> 8U);
+      |                                                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:82:19: warning: variable name 'tx' is too short, expected at least 3 characters [readability-identifier-length]
+   82 |         can_frame tx{};
+      |                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:83:21: warning: 0x201 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   83 |         tx.can_id = 0x201;
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:84:12: warning: do not access members of unions; consider using (boost::)variant instead [cppcoreguidelines-pro-type-union-access]
+   84 |         tx.can_dlc = 6;
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:84:22: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   84 |         tx.can_dlc = 6;
+      |                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:85:22: warning: 15 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   85 |         tx.data[0] = 15;
+      |                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:86:9: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   86 |         tx.data[mode == Trace::Mode::left ? 2 : 4] = 5;
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:86:54: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   86 |         tx.data[mode == Trace::Mode::left ? 2 : 4] = 5;
+      |                                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:88:19: warning: variable name 'rx' is too short, expected at least 3 characters [readability-identifier-length]
+   88 |         can_frame rx{};
+      |                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:89:21: warning: 0x181 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   89 |         rx.can_id = 0x181;
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:90:12: warning: do not access members of unions; consider using (boost::)variant instead [cppcoreguidelines-pro-type-union-access]
+   90 |         rx.can_dlc = 8;
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:90:22: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   90 |         rx.can_dlc = 8;
+      |                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:92:9: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+   92 |         rx.data[offset] = 50;
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:92:27: warning: 50 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   92 |         rx.data[offset] = 50;
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:96:22: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   96 |         tx.data[0] = 6;
+      |                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:101:13: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+  101 |             rx.data[offset] = static_cast<unsigned char>(encoded & 255U);
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:101:68: warning: 255U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  101 |             rx.data[offset] = static_cast<unsigned char>(encoded & 255U);
+      |                                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:102:13: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+  102 |             rx.data[offset + 1] = static_cast<unsigned char>(encoded >> 8U);
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:102:73: warning: 8U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  102 |             rx.data[offset + 1] = static_cast<unsigned char>(encoded >> 8U);
+      |                                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:110:9: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+  110 |         rx.data[offset] = 0xb4; // -7.6rpm must still latch a hard failure.
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:110:27: warning: 0xb4 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  110 |         rx.data[offset] = 0xb4; // -7.6rpm must still latch a hard failure.
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:111:9: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+  111 |         rx.data[offset + 1] = 0xff;
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:111:31: warning: 0xff is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  111 |         rx.data[offset + 1] = 0xff;
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:119:25: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  119 |         batch.session = 7;
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:121:21: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  121 |         batch.events[0].kind = batch.events[1].kind = robot_control::input::sbus::protocol::EventKind::frame;
+      |                     ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:121:44: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  121 |         batch.events[0].kind = batch.events[1].kind = robot_control::input::sbus::protocol::EventKind::frame;
+      |                                            ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:122:21: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  122 |         batch.events[0].frame.channels[0] = 1200;
+      |                     ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:122:39: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  122 |         batch.events[0].frame.channels[0] = 1200;
+      |                                       ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:122:45: warning: 1200 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  122 |         batch.events[0].frame.channels[0] = 1200;
+      |                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:123:21: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  123 |         batch.events[1].frame.channels[0] = 800;
+      |                     ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:123:39: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  123 |         batch.events[1].frame.channels[0] = 800;
+      |                                       ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:123:45: warning: 800 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  123 |         batch.events[1].frame.channels[0] = 800;
+      |                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:134:12: warning: implicit conversion 'unsigned int' -> 'bool' [readability-implicit-bool-conversion]
+  134 |     return failures ? 1 : 0;
+      |            ^
+      |            (        != 0u)
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:30:6: warning: use a trailing return type for this function [modernize-use-trailing-return-type]
+   30 | bool export_trace(const hil::Trace& trace) {
+      | ~~~~ ^
+      | auto                                       -> bool
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:34:36: warning: statement should be inside braces [readability-braces-around-statements]
+   34 |         if (!trace.dump(formatted))
+      |                                    ^
+      |                                     {
+   35 |             return false;
+      |                          
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:37:27: warning: '*' has higher precedence than '+'; add parentheses to explicitly specify the order of operations [readability-math-missing-parentheses]
+   37 |         if (text.size() > hil::Trace::maximum_records * 512U + 4096U)
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                           (                                 )
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:37:57: warning: 512U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   37 |         if (text.size() > hil::Trace::maximum_records * 512U + 4096U)
+      |                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:37:64: warning: 4096U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   37 |         if (text.size() > hil::Trace::maximum_records * 512U + 4096U)
+      |                                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:37:70: warning: statement should be inside braces [readability-braces-around-statements]
+   37 |         if (text.size() > hil::Trace::maximum_records * 512U + 4096U)
+      |                                                                      ^
+      |                                                                       {
+   38 |             return false;
+      |                          
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:42:52: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+   42 |                 ::write(STDOUT_FILENO, text.data() + offset, std::min<std::size_t>(65536, text.size() - offset));
+      |                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:47:47: warning: statement should be inside braces [readability-braces-around-statements]
+   47 |             if (written < 0 && errno == EINTR)
+      |                                               ^
+      |                                                {
+   48 |                 continue;
+      |                          
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:49:75: warning: statement should be inside braces [readability-braces-around-statements]
+   49 |             if (written >= 0 || (errno != EAGAIN && errno != EWOULDBLOCK))
+      |                                                                           ^
+      |                                                                            {
+   50 |                 return false;
+      |                              
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:51:26: warning: use designated initializer list to initialize 'pollfd' [modernize-use-designated-initializers]
+   51 |             pollfd output{STDOUT_FILENO, POLLOUT, 0};
+      |                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                           .fd=           .events= .revents=
+/usr/include/sys/poll.h:36:1: note: aggregate type is defined here
+   36 | struct pollfd
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:53:34: warning: statement should be inside braces [readability-braces-around-statements]
+   53 |             if (remaining <= 0ms)
+      |                                  ^
+      |                                   {
+   54 |                 return false;
+      |                              
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:56:45: warning: statement should be inside braces [readability-braces-around-statements]
+   56 |             if (ready < 0 && errno == EINTR)
+      |                                             ^
+      |                                              {
+   57 |                 continue;
+      |                          
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:58:86: warning: statement should be inside braces [readability-braces-around-statements]
+   58 |             if (ready <= 0 || (output.revents & (POLLERR | POLLHUP | POLLNVAL)) != 0)
+      |                                                                                      ^
+      |                                                                                       {
+   59 |                 return false;
+      |                              
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:68:27: warning: use a trailing return type for this function [modernize-use-trailing-return-type]
+   68 | input::sbus::SourceConfig source_profile() {
+      | ~~~~~~~~~~~~~~~~~~~~~~~~~ ^
+      | auto                                       -> input::sbus::SourceConfig
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:70:24: warning: use designated initializer list to initialize 'AxisConfig' [modernize-use-designated-initializers]
+   70 |     profile.steering = {200, 1000, 1800, false};
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~
+      |                         .minimum= .center= .maximum= .reversed=
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/source/source.hpp:16:1: note: aggregate type is defined here
+   16 | struct AxisConfig {
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:70:25: warning: 200 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   70 |     profile.steering = {200, 1000, 1800, false};
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:70:30: warning: 1000 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   70 |     profile.steering = {200, 1000, 1800, false};
+      |                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:70:36: warning: 1800 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   70 |     profile.steering = {200, 1000, 1800, false};
+      |                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:71:24: warning: use designated initializer list to initialize 'AxisConfig' [modernize-use-designated-initializers]
+   71 |     profile.throttle = {200, 993, 1800, false};
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~
+      |                         .minimum= .center= .maximum= .reversed=
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/source/source.hpp:16:1: note: aggregate type is defined here
+   16 | struct AxisConfig {
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:71:25: warning: 200 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   71 |     profile.throttle = {200, 993, 1800, false};
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:71:30: warning: 993 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   71 |     profile.throttle = {200, 993, 1800, false};
+      |                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:71:35: warning: 1800 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   71 |     profile.throttle = {200, 993, 1800, false};
+      |                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:72:25: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   72 |     profile.gear_rpm = {5, 5, 5};
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:72:28: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   72 |     profile.gear_rpm = {5, 5, 5};
+      |                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:72:31: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   72 |     profile.gear_rpm = {5, 5, 5};
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:73:27: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+   73 |     profile.maximum_rpm = 5;
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:89:53: warning: implicit conversion 'bool' -> 'long' [readability-implicit-bool-conversion]
+   89 |          static_cast<std::int64_t>(request.action), source.sample.enabled, static_cast<std::int64_t>(source.health)});
+      |                                                     ^                    
+      |                                                     static_cast<long>(   )
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:97:28: warning: initializer for member 'since' is redundant [readability-redundant-member-init]
+   97 |     Clock::time_point since{};
+      |                            ^~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:109:12: warning: function 'observe' has cognitive complexity of 80 (threshold 25) [readability-function-cognitive-complexity]
+  109 |     Status observe(bool x1, const application::control::LoopResult& result, const domain::drive::RuntimeState& state,
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:112:27: note: nesting level increased to 1
+  112 |         const auto fail = [&] {
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:121:31: note: nesting level increased to 1
+  121 |         const auto announce = [&](const char* name) {
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:122:77: note: +2, including nesting penalty of 1, nesting level increased to 2
+  122 |             std::cout << "event=recovery phase=" << name << " kind=" << (x1 ? "x1" : "sbus")
+      |                                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:128:28: note: nesting level increased to 1
+  128 |         const auto fresh = [now](Clock::time_point stamp, Clock::duration timeout) {
+      |                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:129:65: note: +1
+  129 |             return stamp >= Clock::time_point{} && stamp <= now && now - stamp < timeout;
+      |                                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:132:33: note: nesting level increased to 1
+  132 |         const auto acceptable = [](domain::drive::Cia402State value) {
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:134:20: note: +1
+  134 |                    && value != domain::drive::Cia402State::fault_reaction_active;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:140:35: note: +1
+  140 |                                   || source.fault == input::sbus::InputFault::timeout;
+      |                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:141:34: note: +1, including nesting penalty of 0, nesting level increased to 1
+  141 |         const bool stimulus = x1 ? active_x1 : source_fault;
+      |                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:143:30: note: +1
+  143 |                              && axes.high_half.state == domain::drive::Cia402State::operation_enabled;
+      |                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:144:9: note: +1, including nesting penalty of 0, nesting level increased to 1
+  144 |         if (!state.feedback.current || !state.feedback.operational || state.feedback.mode_raw != 3
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:151:13: note: +1
+  151 |             || (phase != 0 && source.fault != input::sbus::InputFault::none && (x1 || !source_fault)))
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:150:71: note: +1
+  150 |             || (state.feedback.status_raw & 0x80000000U) != 0 || (!x1 && active_x1)
+      |                                                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:151:77: note: +1
+  151 |             || (phase != 0 && source.fault != input::sbus::InputFault::none && (x1 || !source_fault)))
+      |                                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:151:84: note: +1
+  151 |             || (phase != 0 && source.fault != input::sbus::InputFault::none && (x1 || !source_fault)))
+      |                                                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:153:9: note: +1, including nesting penalty of 0, nesting level increased to 1
+  153 |         if (phase == 0 && enabled && enabled_samples >= 20) {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:153:35: note: +1
+  153 |         if (phase == 0 && enabled && enabled_samples >= 20) {
+      |                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:159:9: note: +1, including nesting penalty of 0, nesting level increased to 1
+  159 |         if (phase == 1 && stimulus && !fault_seen) {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:159:36: note: +1
+  159 |         if (phase == 1 && stimulus && !fault_seen) {
+      |                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:166:9: note: +1, including nesting penalty of 0, nesting level increased to 1
+  166 |         if (fault_seen && phase < 4
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:167:13: note: +1
+  167 |             && (state.armed || (word != std::byte{0} && word != std::byte{2} && word != std::byte{6})))
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:167:29: note: +1
+  167 |             && (state.armed || (word != std::byte{0} && word != std::byte{2} && word != std::byte{6})))
+      |                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:167:78: note: +1
+  167 |             && (state.armed || (word != std::byte{0} && word != std::byte{2} && word != std::byte{6})))
+      |                                                                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:169:9: note: +1, including nesting penalty of 0, nesting level increased to 1
+  169 |         if (fault_seen && axes.low_half.state == domain::drive::Cia402State::quick_stop_active
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:170:13: note: +1
+  170 |             && axes.high_half.state == domain::drive::Cia402State::quick_stop_active) {
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:174:9: note: +1, including nesting penalty of 0, nesting level increased to 1
+  174 |         if (fault_seen && axes.low_half.state == domain::drive::Cia402State::switch_on_disabled
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:175:13: note: +1
+  175 |             && axes.high_half.state == domain::drive::Cia402State::switch_on_disabled)
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:177:9: note: +1, including nesting penalty of 0, nesting level increased to 1
+  177 |         if (phase == 1 && fault_seen) {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:177:24: note: +1
+  177 |         if (phase == 1 && fault_seen) {
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:178:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  178 |             if (!stimulus)
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:180:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  180 |             if (now - since >= 1s) {
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:185:16: note: +1, nesting level increased to 1
+  185 |         } else if (phase == 2) {
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:187:37: note: +1
+  187 |                                     && fresh(source.sample.captured_at, 100ms);
+      |                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:188:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  188 |             if (!stimulus && state.healthy && nonneutral) {
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:188:44: note: +1
+  188 |             if (!stimulus && state.healthy && nonneutral) {
+      |                                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:189:17: note: +3, including nesting penalty of 2, nesting level increased to 3
+  189 |                 if (since == Clock::time_point{})
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:191:43: note: +1
+  191 |                 button_seen = button_seen || source.raw.channels[5] >= 1500;
+      |                                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:192:17: note: +3, including nesting penalty of 2, nesting level increased to 3
+  192 |                 if (now - since >= 1s && button_seen && source.raw.channels[5] <= 500 && !source.sample.enabled) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:192:87: note: +1
+  192 |                 if (now - since >= 1s && button_seen && source.raw.channels[5] <= 500 && !source.sample.enabled) {
+      |                                                                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:197:15: note: +1, nesting level increased to 2
+  197 |             } else {
+      |               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:201:16: note: +1, nesting level increased to 1
+  201 |         } else if (phase == 3) {
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:202:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  202 |             if (stimulus)
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:204:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  204 |             if (state.healthy && source.fault == input::sbus::InputFault::none && source.steering == 0
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:206:17: note: +1
+  206 |                 && fresh(source.sample.captured_at, 100ms)) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:207:17: note: +3, including nesting penalty of 2, nesting level increased to 3
+  207 |                 if (since == Clock::time_point{})
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:209:17: note: +3, including nesting penalty of 2, nesting level increased to 3
+  209 |                 if (now - since >= 1s) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:213:15: note: +1, nesting level increased to 2
+  213 |             } else {
+      |               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:216:16: note: +1, nesting level increased to 1
+  216 |         } else if (phase >= 4) {
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:217:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  217 |             if (source.sample.authorization_generation > authorization && recovery_authorization == 0)
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:217:72: note: +1
+  217 |             if (source.sample.authorization_generation > authorization && recovery_authorization == 0)
+      |                                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:219:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  219 |             if (recovery_authorization != 0
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:220:17: note: +1
+  220 |                 && (source.sample.authorization_generation != recovery_authorization || !source.sample.enabled))
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:220:86: note: +1
+  220 |                 && (source.sample.authorization_generation != recovery_authorization || !source.sample.enabled))
+      |                                                                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:222:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  222 |             if (stimulus || !state.healthy || source.steering != 0 || source.throttle != 0
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:223:17: note: +1
+  223 |                 || (state.armed
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:224:21: note: +1
+  224 |                     && (source.sample.authorization_generation <= authorization
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:225:25: note: +1
+  225 |                         || result.control.request.authorization <= system_authorization)))
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:227:13: note: +2, including nesting penalty of 1, nesting level increased to 2
+  227 |             if (enabled && (x1 || quick_stop_seen) && disabled_seen) {
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:227:52: note: +1
+  227 |             if (enabled && (x1 || quick_stop_seen) && disabled_seen) {
+      |                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:227:32: note: +1
+  227 |             if (enabled && (x1 || quick_stop_seen) && disabled_seen) {
+      |                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:228:17: note: +3, including nesting penalty of 2, nesting level increased to 3
+  228 |                 if (phase == 4) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:232:24: note: +1, nesting level increased to 3
+  232 |                 } else if (now - since >= 1s) {
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:236:20: note: +1, nesting level increased to 2
+  236 |             } else if (phase == 5) {
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:240:33: note: +1, including nesting penalty of 0, nesting level increased to 1
+  240 |         return std::cout.good() ? Status::success() : fail();
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:109:12: warning: use a trailing return type for this function [modernize-use-trailing-return-type]
+  109 |     Status observe(bool x1, const application::control::LoopResult& result, const domain::drive::RuntimeState& state,
+      |     ~~~~~~ ^
+      |     auto
+  110 |                    unsigned enabled_samples) {
+      |                                              -> Status
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:109:25: warning: parameter name 'x1' is too short, expected at least 3 characters [readability-identifier-length]
+  109 |     Status observe(bool x1, const application::control::LoopResult& result, const domain::drive::RuntimeState& state,
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:112:27: warning: use a trailing return type for this lambda [modernize-use-trailing-return-type]
+  112 |         const auto fail = [&] {
+      |                           ^
+      |                               -> Status
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:118:104: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  118 |                     + " word=" + std::to_string(std::to_integer<unsigned>(result.control.output.payload[0])),
+      |                                                                                                        ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:121:31: warning: use a trailing return type for this lambda [modernize-use-trailing-return-type]
+  121 |         const auto announce = [&](const char* name) {
+      |                               ^
+      |                                                     -> void
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:128:28: warning: use a trailing return type for this lambda [modernize-use-trailing-return-type]
+  128 |         const auto fresh = [now](Clock::time_point stamp, Clock::duration timeout) {
+      |                            ^
+      |                                                                                    -> bool
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:132:33: warning: use a trailing return type for this lambda [modernize-use-trailing-return-type]
+  132 |         const auto acceptable = [](domain::drive::Cia402State value) {
+      |                                 ^
+      |                                                                      -> bool
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:150:45: warning: 0x80000000U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  150 |             || (state.feedback.status_raw & 0x80000000U) != 0 || (!x1 && active_x1)
+      |                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:151:103: warning: statement should be inside braces [readability-braces-around-statements]
+  151 |             || (phase != 0 && source.fault != input::sbus::InputFault::none && (x1 || !source_fault)))
+      |                                                                                                       ^
+      |                                                                                                        {
+  152 |             return fail();
+      |                           
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:153:57: warning: 20 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  153 |         if (phase == 0 && enabled && enabled_samples >= 20) {
+      |                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:164:56: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  164 |         const auto word = result.control.output.payload[0];
+      |                                                        ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:167:99: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  167 |             && (state.armed || (word != std::byte{0} && word != std::byte{2} && word != std::byte{6})))
+      |                                                                                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:167:104: warning: statement should be inside braces [readability-braces-around-statements]
+  167 |             && (state.armed || (word != std::byte{0} && word != std::byte{2} && word != std::byte{6})))
+      |                                                                                                        ^
+      |                                                                                                         {
+  168 |             return fail();
+      |                           
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:175:87: warning: statement should be inside braces [readability-braces-around-statements]
+  175 |             && axes.high_half.state == domain::drive::Cia402State::switch_on_disabled)
+      |                                                                                       ^
+      |                                                                                        {
+  176 |             disabled_seen = true;
+      |                                  
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:178:27: warning: statement should be inside braces [readability-braces-around-statements]
+  178 |             if (!stimulus)
+      |                           ^
+      |                            {
+  179 |                 return fail(); // The explicit physical hold must last at least one second.
+      |                                                                                            
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:189:50: warning: statement should be inside braces [readability-braces-around-statements]
+  189 |                 if (since == Clock::time_point{})
+      |                                                  ^
+      |                                                   {
+  190 |                     since = now;
+      |                                 
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:191:65: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  191 |                 button_seen = button_seen || source.raw.channels[5] >= 1500;
+      |                                                                 ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:191:66: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  191 |                 button_seen = button_seen || source.raw.channels[5] >= 1500;
+      |                                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:191:72: warning: 1500 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  191 |                 button_seen = button_seen || source.raw.channels[5] >= 1500;
+      |                                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:192:76: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  192 |                 if (now - since >= 1s && button_seen && source.raw.channels[5] <= 500 && !source.sample.enabled) {
+      |                                                                            ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:192:77: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  192 |                 if (now - since >= 1s && button_seen && source.raw.channels[5] <= 500 && !source.sample.enabled) {
+      |                                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:192:83: warning: 500 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  192 |                 if (now - since >= 1s && button_seen && source.raw.channels[5] <= 500 && !source.sample.enabled) {
+      |                                                                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:202:26: warning: statement should be inside braces [readability-braces-around-statements]
+  202 |             if (stimulus)
+      |                          ^
+      |                           {
+  203 |                 return fail();
+      |                               
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:205:63: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  205 |                 && source.throttle == 0 && source.raw.channels[5] <= 500 && !source.sample.enabled
+      |                                                               ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:205:64: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  205 |                 && source.throttle == 0 && source.raw.channels[5] <= 500 && !source.sample.enabled
+      |                                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:205:70: warning: 500 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  205 |                 && source.throttle == 0 && source.raw.channels[5] <= 500 && !source.sample.enabled
+      |                                                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:207:50: warning: statement should be inside braces [readability-braces-around-statements]
+  207 |                 if (since == Clock::time_point{})
+      |                                                  ^
+      |                                                   {
+  208 |                     since = now;
+      |                                 
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:217:103: warning: statement should be inside braces [readability-braces-around-statements]
+  217 |             if (source.sample.authorization_generation > authorization && recovery_authorization == 0)
+      |                                                                                                       ^
+      |                                                                                                        {
+  218 |                 recovery_authorization = source.sample.authorization_generation;
+      |                                                                                 
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:220:113: warning: statement should be inside braces [readability-braces-around-statements]
+  220 |                 && (source.sample.authorization_generation != recovery_authorization || !source.sample.enabled))
+      |                                                                                                                 ^
+      |                                                                                                                  {
+  221 |                 return fail(); // A later CH6 cycle cannot complete the first recovery attempt.
+      |                                                                                                
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:225:91: warning: statement should be inside braces [readability-braces-around-statements]
+  225 |                         || result.control.request.authorization <= system_authorization)))
+      |                                                                                           ^
+      |                                                                                            {
+  226 |                 return fail();
+      |                               
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:229:29: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  229 |                     phase = 5;
+      |                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:233:29: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  233 |                     phase = 6;
+      |                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:236:33: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  236 |             } else if (phase == 5) {
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:245:5: warning: use a trailing return type for this function [modernize-use-trailing-return-type]
+  245 | int observe_input(input::sbus::Reader& reader, platform::linux::process::TerminationEvent& termination,
+      | ~~~ ^
+      | auto
+  246 |                   hil::Trace& trace, std::chrono::milliseconds duration) {
+      |                                                                          -> int
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:257:24: warning: statement should be inside braces [readability-braces-around-statements]
+  257 |         if (batch.ok())
+      |                        ^
+      |                         {
+  258 |             trace.batch(batch.value());
+      |                                        
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:262:77: warning: statement should be inside braces [readability-braces-around-statements]
+  262 |         if (status.ok() && (trace.failed() || result.source.sample.enabled))
+      |                                                                             ^
+      |                                                                              {
+  263 |             status = Status::from_errno("control_hil_input_observation", "trace overflow or CH6 authorization", EACCES);
+      |                                                                                                                         
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:268:19: warning: statement should be inside braces [readability-braces-around-statements]
+  268 |     if (!captured)
+      |                   ^
+      |                    {
+  269 |         report("trace_export", Status::from_errno("trace_export", "incomplete bounded output", EIO));
+      |                                                                                                      
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:274:5: warning: function 'run' has cognitive complexity of 310 (threshold 25) [readability-function-cognitive-complexity]
+  274 | int run(const std::string& interface, std::chrono::milliseconds duration, const std::string& device,
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:277:56: note: +1
+  277 |     const bool recovery = mode == "--zero-x1-recovery" || mode == "--zero-sbus-recovery";
+      |                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:280:77: note: +1
+  280 |     const bool motion = mode == "--single-left" || mode == "--single-right" || throttle_only;
+      |                                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:281:68: note: +1, including nesting penalty of 0, nesting level increased to 1
+  281 |     hil::Trace trace{input_only                                    ? hil::Trace::Mode::input_only
+      |                                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:282:68: note: +2, including nesting penalty of 1, nesting level increased to 2
+  282 |                      : !motion                                     ? hil::Trace::Mode::zero
+      |                                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:283:68: note: +3, including nesting penalty of 2, nesting level increased to 3
+  283 |                      : (mode == "--single-right" || throttle_only) ? hil::Trace::Mode::right
+      |                                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:283:50: note: +1
+  283 |                      : (mode == "--single-right" || throttle_only) ? hil::Trace::Mode::right
+      |                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:286:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  286 |     if (trace.failed()) {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:290:49: note: +1
+  290 |     const bool right = mode == "--single-right" || throttle_only;
+      |                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:295:9: note: nesting level increased to 1
+  295 |         explicit Binding(hil::MotionGate* value, hil::Trace& recorder) {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:300:9: note: nesting level increased to 1
+  300 |         ~Binding() {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:293:12: note: nesting level increased to 1
+  293 |     struct Binding {
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:304:22: note: +1, including nesting penalty of 0, nesting level increased to 1
+  304 |     } binding{motion ? &gate : nullptr, trace};
+      |                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:306:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  306 |     if (!termination.ok()) {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:314:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  314 |     if (!status.ok()) {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:318:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  318 |     if (input_only)
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:328:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  328 |     if (!created.ok()) {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:334:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  334 |     if (mode == "--restore-zero-baseline") {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:339:61: note: +2, including nesting penalty of 1, nesting level increased to 2
+  339 |         return restored.ok() && !trace.failed() && captured ? 0 : 1;
+      |                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:339:49: note: +1
+  339 |         return restored.ok() && !trace.failed() && captured ? 0 : 1;
+      |                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:348:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  348 |     if (proof.ok()) {
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:369:9: note: +2, including nesting penalty of 1, nesting level increased to 2
+  369 |         if (attached.ok()) {
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:376:49: note: +3, including nesting penalty of 2, nesting level increased to 3
+  376 |                       << " targets=" << (motion ? (right ? "right_positive" : "left_positive") : "zero")
+      |                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:376:58: note: +4, including nesting penalty of 3, nesting level increased to 4
+  376 |                       << " targets=" << (motion ? (right ? "right_positive" : "left_positive") : "zero")
+      |                                                          ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:379:62: note: +3, including nesting penalty of 2, nesting level increased to 3
+  379 |                       << " input_profile=" << (throttle_only ? "right_throttle" : "differential")
+      |                                                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:385:13: note: +3, including nesting penalty of 2, nesting level increased to 3
+  385 |             while (status.ok() && Clock::now() - started < duration) {
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:385:32: note: +1
+  385 |             while (status.ok() && Clock::now() - started < duration) {
+      |                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:386:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  386 |                 if (motion && gate.done(Clock::now())) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:386:28: note: +1
+  386 |                 if (motion && gate.done(Clock::now())) {
+      |                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:388:79: note: +5, including nesting penalty of 4, nesting level increased to 5
+  388 |                     stop_cause = reason == hil::MotionGate::End::zero_target  ? 1U
+      |                                                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:389:79: note: +6, including nesting penalty of 5, nesting level increased to 6
+  389 |                                  : reason == hil::MotionGate::End::time_limit ? 2U
+      |                                                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:398:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  398 |                 if (captured_batch.session)
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:403:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  403 |                 if (result.finished) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:405:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  405 |                     if (status.ok())
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:409:51: note: +4, including nesting penalty of 3, nesting level increased to 4
+  409 |                 const auto selected_speed = right ? state.right_tenths_rpm : state.left_tenths_rpm;
+      |                                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:410:48: note: +4, including nesting penalty of 3, nesting level increased to 4
+  410 |                 const auto other_speed = right ? state.left_tenths_rpm : state.right_tenths_rpm;
+      |                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:412:27: note: +4, including nesting penalty of 3, nesting level increased to 4
+  412 |                     right ? result.source.candidate.right_rpm : result.source.candidate.left_rpm;
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:414:27: note: +4, including nesting penalty of 3, nesting level increased to 4
+  414 |                     right ? result.source.candidate.left_rpm : result.source.candidate.right_rpm;
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:415:83: note: +1
+  415 |                 const bool awaiting_input = throttle_only && enabled_samples == 0 && !result.source.sample.enabled;
+      |                                                                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:418:25: note: +4, including nesting penalty of 3, nesting level increased to 4
+  418 |                         ? other_speed >= -zero_tolerance && other_speed <= zero_tolerance
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:422:31: note: +1
+  422 |                               && (awaiting_input || ((throttle_only ? result.source.steering == 0 : other_candidate == 0)
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:420:39: note: +5, including nesting penalty of 4, nesting level increased to 5
+  420 |                                       ? (selected_speed >= -zero_tolerance && selected_speed <= 75)
+      |                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:422:50: note: +1
+  422 |                               && (awaiting_input || ((throttle_only ? result.source.steering == 0 : other_candidate == 0)
+      |                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:423:81: note: +1
+  423 |                                                      && selected_candidate >= 0 && selected_candidate <= 5))
+      |                                                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:422:69: note: +5, including nesting penalty of 4, nesting level increased to 5
+  422 |                               && (awaiting_input || ((throttle_only ? result.source.steering == 0 : other_candidate == 0)
+      |                                                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:426:72: note: +1
+  426 |                               && result.source.candidate.left_rpm == 0 && result.source.candidate.right_rpm == 0;
+      |                                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:427:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  427 |                 if (!recovery && (!state.healthy || (enabled_samples > 0 && !state.armed) || !envelope))
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:427:31: note: +1
+  427 |                 if (!recovery && (!state.healthy || (enabled_samples > 0 && !state.armed) || !envelope))
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:427:91: note: +1
+  427 |                 if (!recovery && (!state.healthy || (enabled_samples > 0 && !state.armed) || !envelope))
+      |                                                                                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:427:74: note: +1
+  427 |                 if (!recovery && (!state.healthy || (enabled_samples > 0 && !state.armed) || !envelope))
+      |                                                                          ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:429:32: note: +5, including nesting penalty of 4, nesting level increased to 5
+  429 |                         motion ? "control_hil_motion_envelope" : "control_hil_zero_envelope",
+      |                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:439:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  439 |                 if (!status.ok())
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:441:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  441 |                 if (status.ok() && trace.failed()) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:441:33: note: +1
+  441 |                 if (status.ok() && trace.failed()) {
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:446:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  446 |                 if (state.armed && axes.low_half.state == domain::drive::Cia402State::operation_enabled
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:447:21: note: +1
+  447 |                     && axes.high_half.state == domain::drive::Cia402State::operation_enabled)
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:449:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  449 |                 if (throttle_only && status.ok() && !motion_ready && enabled_samples == 0) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:449:67: note: +1
+  449 |                 if (throttle_only && status.ok() && !motion_ready && enabled_samples == 0) {
+      |                                                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:452:53: note: +5, including nesting penalty of 4, nesting level increased to 5
+  452 |                         source_state.sample.enabled ? "arming"
+      |                                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:453:80: note: +6, including nesting penalty of 5, nesting level increased to 6
+  453 |                         : source_state.health != input::sbus::Health::disabled ? "waiting_link"
+      |                                                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:454:84: note: +7, including nesting penalty of 6, nesting level increased to 7
+  454 |                         : source_state.steering != 0 || source_state.throttle != 0 ? "neutral_required"
+      |                                                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:454:54: note: +1
+  454 |                         : source_state.steering != 0 || source_state.throttle != 0 ? "neutral_required"
+      |                                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:455:99: note: +8, including nesting penalty of 7, nesting level increased to 8
+  455 |                         : source_state.raw.channels[profile.channels[2]] > profile.button_release ? "release_ch6"
+      |                                                                                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:457:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  457 |                     if (input_state != previous_input_state) {
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:465:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  465 |                 if (recovery && status.ok()) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:465:30: note: +1
+  465 |                 if (recovery && status.ok()) {
+      |                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:467:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  467 |                     if (!status.ok() || recovery_trial.phase == 6) {
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:467:38: note: +1
+  467 |                     if (!status.ok() || recovery_trial.phase == 6) {
+      |                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:468:50: note: +6, including nesting penalty of 5, nesting level increased to 6
+  468 |                         stop_cause = status.ok() ? 7U : 5U;
+      |                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:472:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  472 |                 if (motion && status.ok() && !motion_ready && enabled_samples >= 20 && selected_speed >= -zero_tolerance
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:473:57: note: +1
+  473 |                     && selected_speed <= zero_tolerance && selected_candidate == 0) {
+      |                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:476:72: note: +5, including nesting penalty of 4, nesting level increased to 5
+  476 |                     std::cout << "event=motion_ready wheel=" << (right ? "right" : "left")
+      |                                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:480:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  480 |                 if (motion && gate.started() && selected_speed > zero_tolerance
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:481:21: note: +1
+  481 |                     && state.feedback.status_at > last_moving_feedback) {
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:485:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  485 |                 if (Clock::now() >= next_log) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:497:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  497 |                     if (!std::cout.good())
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:502:13: note: +3, including nesting penalty of 2, nesting level increased to 3
+  502 |             if (recovery && status.ok() && recovery_trial.phase != 6)
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:502:41: note: +1
+  502 |             if (recovery && status.ok() && recovery_trial.phase != 6)
+      |                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:513:13: note: +3, including nesting penalty of 2, nesting level increased to 3
+  513 |             if (status.ok())
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:515:13: note: +3, including nesting penalty of 2, nesting level increased to 3
+  515 |             if (status.ok() && enabled_samples < 10)
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:515:29: note: +1
+  515 |             if (status.ok() && enabled_samples < 10)
+      |                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:518:13: note: +3, including nesting penalty of 2, nesting level increased to 3
+  518 |             if (motion && gate.started() && result.stop_status.ok()) {
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:518:42: note: +1
+  518 |             if (motion && gate.started() && result.stop_status.ok()) {
+      |                                          ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:525:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  525 |                 while (Clock::now() - stop_started < 1s) {
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:527:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  527 |                     if (!event.ok() || event.value() != communication::canopen::LifecycleExit::deadline)
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:527:37: note: +1
+  527 |                     if (!event.ok() || event.value() != communication::canopen::LifecycleExit::deadline)
+      |                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:529:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  529 |                     if (capture_uart) {
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:531:25: note: +6, including nesting penalty of 5, nesting level increased to 6
+  531 |                         if (batch.ok())
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:533:25: note: +1, nesting level increased to 6
+  533 |                         else {
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:535:29: note: +7, including nesting penalty of 6, nesting level increased to 7
+  535 |                             if (status.ok())
+      |                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:540:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  540 |                     if (status.ok() && trace.failed())
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:540:37: note: +1
+  540 |                     if (status.ok() && trace.failed())
+      |                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:545:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  545 |                     if (snapshot.generation != proof.value().generation || !feedback.current
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:546:25: note: +1
+  546 |                         || feedback.raw.received_at <= stop_started) {
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:552:54: note: nesting level increased to 5
+  552 |                     const auto in_standstill_range = [&](unsigned offset) {
+      |                                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:556:56: note: +6, including nesting penalty of 5, nesting level increased to 6
+  556 |                         const int speed = raw >= 32768 ? raw - 65536 : raw;
+      |                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:557:57: note: +1
+  557 |                         return speed >= -zero_tolerance && speed <= zero_tolerance;
+      |                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:559:21: note: +5, including nesting penalty of 4, nesting level increased to 5
+  559 |                     if (in_standstill_range(4) && in_standstill_range(6)) {
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:559:48: note: +1
+  559 |                     if (in_standstill_range(4) && in_standstill_range(6)) {
+      |                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:560:25: note: +6, including nesting penalty of 5, nesting level increased to 6
+  560 |                         if (zero_since == Clock::time_point{})
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:564:25: note: +6, including nesting penalty of 5, nesting level increased to 6
+  564 |                         if (verified_zero_at != Clock::time_point{} && feedback.raw.received_at > verified_zero_at) {
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:564:69: note: +1
+  564 |                         if (verified_zero_at != Clock::time_point{} && feedback.raw.received_at > verified_zero_at) {
+      |                                                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:568:25: note: +6, including nesting penalty of 5, nesting level increased to 6
+  568 |                         if (feedback.raw.received_at - zero_since >= 150ms && verified_zero_at == Clock::time_point{})
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:568:76: note: +1
+  568 |                         if (feedback.raw.received_at - zero_since >= 150ms && verified_zero_at == Clock::time_point{})
+      |                                                                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:570:23: note: +1, nesting level increased to 5
+  570 |                     } else {
+      |                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:579:17: note: +4, including nesting penalty of 3, nesting level increased to 4
+  579 |                 if (status.ok() && !stopped)
+      |                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:579:33: note: +1
+  579 |                 if (status.ok() && !stopped)
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:582:13: note: +3, including nesting penalty of 2, nesting level increased to 3
+  582 |             if (status.ok() && motion && (!gate.started() || moving_feedback < 2))
+      |             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:582:39: note: +1
+  582 |             if (status.ok() && motion && (!gate.started() || moving_feedback < 2))
+      |                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:582:59: note: +1
+  582 |             if (status.ok() && motion && (!gate.started() || moving_feedback < 2))
+      |                                                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:589:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  589 |     if (status.ok() && trace.failed())
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:589:21: note: +1
+  589 |     if (status.ok() && trace.failed())
+      |                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:603:5: note: +1, including nesting penalty of 0, nesting level increased to 1
+  603 |     if (!captured)
+      |     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:605:52: note: +1, including nesting penalty of 0, nesting level increased to 1
+  605 |     return status.ok() && cleanup.ok() && captured ? 0 : 1;
+      |                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:605:40: note: +1
+  605 |     return status.ok() && cleanup.ok() && captured ? 0 : 1;
+      |                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:274:5: warning: use a trailing return type for this function [modernize-use-trailing-return-type]
+  274 | int run(const std::string& interface, std::chrono::milliseconds duration, const std::string& device,
+      | ~~~ ^
+      | auto
+  275 |         std::string_view mode, int zero_tolerance, std::chrono::milliseconds motion_window) {
+      |                                                                                             -> int
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:282:24: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
+  282 |                      : !motion                                     ? hil::Trace::Mode::zero
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:281:22: note: parent conditional operator here
+  281 |     hil::Trace trace{input_only                                    ? hil::Trace::Mode::input_only
+      |                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:283:24: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
+  283 |                      : (mode == "--single-right" || throttle_only) ? hil::Trace::Mode::right
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:282:24: note: parent conditional operator here
+  282 |                      : !motion                                     ? hil::Trace::Mode::zero
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:293:12: warning: class 'Binding' defines a non-default destructor but does not define a copy constructor, a copy assignment operator, a move constructor or a move assignment operator [cppcoreguidelines-special-member-functions]
+  293 |     struct Binding {
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:318:20: warning: statement should be inside braces [readability-braces-around-statements]
+  318 |     if (input_only)
+      |                    ^
+      |                     {
+  319 |         return observe_input(reader, termination.value(), trace, duration);
+      |                                                                            
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:321:69: warning: 127 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  321 |                                               .controller_node_id = 127,
+      |                                                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:326:69: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  326 |                                               .tpdo_expected_dlc = {8, 5, 0, 0}};
+      |                                                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:326:72: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  326 |                                               .tpdo_expected_dlc = {8, 5, 0, 0}};
+      |                                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:354:26: warning: use designated initializer list to initialize 'RuntimeConfig' [modernize-use-designated-initializers]
+  354 |         config.runtime = {domain::drive::PackedHalf::low,
+      |                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                           .left_target=
+  355 |                           domain::drive::PackedHalf::low,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                           .left_feedback=
+  356 |                           1,
+      |                           ~~
+      |                           .left_sign=
+  357 |                           1,
+      |                           ~~
+      |                           .right_sign=
+  358 |                           5,
+      |                           ~~
+      |                           .max_abs_rpm=
+  359 |                           zero_tolerance,
+      |                           ~~~~~~~~~~~~~~~
+      |                           .standstill_tenths_rpm=
+  360 |                           1000ms,
+      |                           ~~~~~~~
+      |                           .heartbeat_timeout=
+  361 |                           200ms,
+      |                           ~~~~~~
+      |                           .feedback_timeout=
+  362 |                           50ms,
+      |                           ~~~~~
+      |                           .decision_timeout=
+  363 |                           0x8000};
+      |                           ~~~~~~~
+      |                           .emergency_status_mask=
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/runtime.hpp:16:1: note: aggregate type is defined here
+   16 | struct RuntimeConfig {
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:358:27: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  358 |                           5,
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:363:27: warning: 0x8000 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  363 |                           0x8000};
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:364:38: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  364 |         config.arbiter.max_abs_rpm = 5;
+      |                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:376:52: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
+  376 |                       << " targets=" << (motion ? (right ? "right_positive" : "left_positive") : "zero")
+      |                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:376:42: note: parent conditional operator here
+  376 |                       << " targets=" << (motion ? (right ? "right_positive" : "left_positive") : "zero")
+      |                                          ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:389:36: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
+  389 |                                  : reason == hil::MotionGate::End::time_limit ? 2U
+      |                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:388:34: note: parent conditional operator here
+  388 |                     stop_cause = reason == hil::MotionGate::End::zero_target  ? 1U
+      |                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:396:93: warning: 0x8000U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  396 |                                      .emergency_stop_active = (before.feedback.status_raw & 0x8000U) != 0},
+      |                                                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:398:21: warning: implicit conversion 'std::uint64_t' (aka 'unsigned long') -> 'bool' [readability-implicit-bool-conversion]
+  398 |                 if (captured_batch.session)
+      |                     ^                     
+      |                                            != 0u
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:398:44: warning: statement should be inside braces [readability-braces-around-statements]
+  398 |                 if (captured_batch.session)
+      |                                            ^
+      |                                             {
+  399 |                     trace.batch(captured_batch);
+      |                                                 
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:405:37: warning: statement should be inside braces [readability-braces-around-statements]
+  405 |                     if (status.ok())
+      |                                     ^
+      |                                      {
+  406 |                         status = Status::from_errno("control_hil_interrupted", interface, ECANCELED);
+      |                                                                                                      
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:427:105: warning: statement should be inside braces [readability-braces-around-statements]
+  427 |                 if (!recovery && (!state.healthy || (enabled_samples > 0 && !state.armed) || !envelope))
+      |                                                                                                         ^
+      |                                                                                                          {
+  428 |                     status = Status::from_errno(
+  429 |                         motion ? "control_hil_motion_envelope" : "control_hil_zero_envelope",
+  430 |                         interface + " healthy=" + std::to_string(state.healthy)
+  431 |                             + " armed=" + std::to_string(state.armed)
+  432 |                             + " reason=" + std::to_string(static_cast<unsigned>(state.output.reason))
+  433 |                             + " status=" + std::to_string(state.feedback.status_raw) + " source_fault="
+  434 |                             + std::to_string(static_cast<unsigned>(result.source.fault)) + " source_age_ms="
+  435 |                             + std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(
+  436 |                                                  Clock::now() - result.source.sample.captured_at)
+  437 |                                                  .count()),
+  438 |                         EACCES);
+      |                                 
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:430:66: warning: implicit conversion 'bool' -> 'int' [readability-implicit-bool-conversion]
+  430 |                         interface + " healthy=" + std::to_string(state.healthy)
+      |                                                                  ^            
+      |                                                                  static_cast<int>( )
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:431:58: warning: implicit conversion 'bool' -> 'int' [readability-implicit-bool-conversion]
+  431 |                             + " armed=" + std::to_string(state.armed)
+      |                                                          ^          
+      |                                                          static_cast<int>( )
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:439:34: warning: statement should be inside braces [readability-braces-around-statements]
+  439 |                 if (!status.ok())
+      |                                  ^
+      |                                   {
+  440 |                     stop_cause = 5;
+      |                                    
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:440:34: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  440 |                     stop_cause = 5;
+      |                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:442:34: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  442 |                     stop_cause = 6;
+      |                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:447:94: warning: statement should be inside braces [readability-braces-around-statements]
+  447 |                     && axes.high_half.state == domain::drive::Cia402State::operation_enabled)
+      |                                                                                              ^
+      |                                                                                               {
+  448 |                     ++enabled_samples;
+      |                                       
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:453:27: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
+  453 |                         : source_state.health != input::sbus::Health::disabled ? "waiting_link"
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:452:25: note: parent conditional operator here
+  452 |                         source_state.sample.enabled ? "arming"
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:454:27: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
+  454 |                         : source_state.steering != 0 || source_state.throttle != 0 ? "neutral_required"
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:453:27: note: parent conditional operator here
+  453 |                         : source_state.health != input::sbus::Health::disabled ? "waiting_link"
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:455:27: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
+  455 |                         : source_state.raw.channels[profile.channels[2]] > profile.button_release ? "release_ch6"
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:454:27: note: parent conditional operator here
+  454 |                         : source_state.steering != 0 || source_state.throttle != 0 ? "neutral_required"
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:455:27: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+  455 |                         : source_state.raw.channels[profile.channels[2]] > profile.button_release ? "release_ch6"
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:455:52: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  455 |                         : source_state.raw.channels[profile.channels[2]] > profile.button_release ? "release_ch6"
+      |                                                    ^~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:455:69: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  455 |                         : source_state.raw.channels[profile.channels[2]] > profile.button_release ? "release_ch6"
+      |                                                                     ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:467:65: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  467 |                     if (!status.ok() || recovery_trial.phase == 6) {
+      |                                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:468:52: warning: 7U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  468 |                         stop_cause = status.ok() ? 7U : 5U;
+      |                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:468:57: warning: 5U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  468 |                         stop_cause = status.ok() ? 7U : 5U;
+      |                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:472:82: warning: 20 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  472 |                 if (motion && status.ok() && !motion_ready && enabled_samples >= 20 && selected_speed >= -zero_tolerance
+      |                                                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:492:92: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  492 |                               << " word=" << std::to_integer<unsigned>(state.output.payload[0])
+      |                                                                                            ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:497:43: warning: statement should be inside braces [readability-braces-around-statements]
+  497 |                     if (!std::cout.good())
+      |                                           ^
+      |                                            {
+  498 |                         status = Status::from_errno("control_hil_output", interface, EIO);
+      |                                                                                           
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:502:68: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  502 |             if (recovery && status.ok() && recovery_trial.phase != 6)
+      |                                                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:502:70: warning: statement should be inside braces [readability-braces-around-statements]
+  502 |             if (recovery && status.ok() && recovery_trial.phase != 6)
+      |                                                                      ^
+      |                                                                       {
+  503 |                 status = Status::from_errno("control_hil_recovery_incomplete", interface, ENODATA);
+      |                                                                                                    
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:513:29: warning: statement should be inside braces [readability-braces-around-statements]
+  513 |             if (status.ok())
+      |                             ^
+      |                              {
+  514 |                 status = result.status;
+      |                                        
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:515:50: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  515 |             if (status.ok() && enabled_samples < 10)
+      |                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:515:53: warning: statement should be inside braces [readability-braces-around-statements]
+  515 |             if (status.ok() && enabled_samples < 10)
+      |                                                     ^
+      |                                                      {
+  516 |                 status = Status::from_errno("control_hil_no_zero_enable", interface, ENODATA);
+      |                                                                                               
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:527:105: warning: statement should be inside braces [readability-braces-around-statements]
+  527 |                     if (!event.ok() || event.value() != communication::canopen::LifecycleExit::deadline)
+      |                                                                                                         ^
+      |                                                                                                          {
+  528 |                         break;
+      |                               
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:531:40: warning: statement should be inside braces [readability-braces-around-statements]
+  531 |                         if (batch.ok())
+      |                                        ^
+      |                                         {
+  532 |                             trace.batch(batch.value());
+  533 |                         else {
+      |                         } 
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:531:40: warning: statement should have braces [readability-inconsistent-ifelse-braces]
+  531 |                         if (batch.ok())
+      |                                        ^
+      |                                         {
+  532 |                             trace.batch(batch.value());
+  533 |                         else {
+      |                         } 
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:535:45: warning: statement should be inside braces [readability-braces-around-statements]
+  535 |                             if (status.ok())
+      |                                             ^
+      |                                              {
+  536 |                                 status = batch.status();
+      |                                                         
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:540:55: warning: statement should be inside braces [readability-braces-around-statements]
+  540 |                     if (status.ok() && trace.failed())
+      |                                                       ^
+      |                                                        {
+  541 |                         status =
+  542 |                             Status::from_errno("control_hil_trace_failure", "stopping feedback or evidence", EPROTO);
+      |                                                                                                                      
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:544:57: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  544 |                     const auto& feedback = snapshot.tpdo[0];
+      |                                                         ^~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:552:54: warning: use a trailing return type for this lambda [modernize-use-trailing-return-type]
+  552 |                     const auto in_standstill_range = [&](unsigned offset) {
+      |                                                      ^
+      |                                                                           -> bool
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:553:36: warning: variable name 'lo' is too short, expected at least 3 characters [readability-identifier-length]
+  553 |                         const auto lo = static_cast<unsigned>(feedback.raw.payload[offset]);
+      |                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:553:63: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+  553 |                         const auto lo = static_cast<unsigned>(feedback.raw.payload[offset]);
+      |                                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:553:83: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  553 |                         const auto lo = static_cast<unsigned>(feedback.raw.payload[offset]);
+      |                                                                                   ^~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:554:36: warning: variable name 'hi' is too short, expected at least 3 characters [readability-identifier-length]
+  554 |                         const auto hi = static_cast<unsigned>(feedback.raw.payload[offset + 1]);
+      |                                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:554:63: warning: do not use array subscript when the index is not an integer constant expression [cppcoreguidelines-pro-bounds-constant-array-index]
+  554 |                         const auto hi = static_cast<unsigned>(feedback.raw.payload[offset + 1]);
+      |                                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:554:83: warning: possibly unsafe 'operator[]', consider bounds-safe alternatives [cppcoreguidelines-pro-bounds-avoid-unchecked-container-access]
+  554 |                         const auto hi = static_cast<unsigned>(feedback.raw.payload[offset + 1]);
+      |                                                                                   ^~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:559:71: warning: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  559 |                     if (in_standstill_range(4) && in_standstill_range(6)) {
+      |                                                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:560:63: warning: statement should be inside braces [readability-braces-around-statements]
+  560 |                         if (zero_since == Clock::time_point{})
+      |                                                               ^
+      |                                                                {
+  561 |                             zero_since = feedback.raw.received_at;
+      |                                                                   
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:568:119: warning: statement should be inside braces [readability-braces-around-statements]
+  568 |                         if (feedback.raw.received_at - zero_since >= 150ms && verified_zero_at == Clock::time_point{})
+      |                                                                                                                       ^
+      |                                                                                                                        {
+  569 |                             verified_zero_at = feedback.raw.received_at;
+      |                                                                         
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:579:45: warning: statement should be inside braces [readability-braces-around-statements]
+  579 |                 if (status.ok() && !stopped)
+      |                                             ^
+      |                                              {
+  580 |                     status = Status::from_errno("control_hil_motion_stop_deadline", interface, ETIMEDOUT);
+      |                                                                                                           
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:582:83: warning: statement should be inside braces [readability-braces-around-statements]
+  582 |             if (status.ok() && motion && (!gate.started() || moving_feedback < 2))
+      |                                                                                   ^
+      |                                                                                    {
+  583 |                 status = Status::from_errno("control_hil_no_motion_feedback", interface, ENODATA);
+      |                                                                                                   
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:589:39: warning: statement should be inside braces [readability-braces-around-statements]
+  589 |     if (status.ok() && trace.failed())
+      |                                       ^
+      |                                        {
+  590 |         status = Status::from_errno("control_hil_trace_failure", "feedback or evidence incomplete", EPROTO);
+      |                                                                                                             
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:603:19: warning: statement should be inside braces [readability-braces-around-statements]
+  603 |     if (!captured)
+      |                   ^
+      |                    {
+  604 |         report("trace_export", Status::from_errno("trace_export", "incomplete bounded output", EIO));
+      |                                                                                                      
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:610:5: warning: use a trailing return type for this function [modernize-use-trailing-return-type]
+  610 | int main(int argc, char* argv[]) {
+      | ~~~ ^
+      | auto                             -> int
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:621:39: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  621 |     if (argc == 2 && std::string_view{argv[1]} == "--help") {
+      |                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:625:18: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  625 |     if ((argc != 8 && argc != 10 && argc != 12) || std::string_view{argv[1]} != "--interface"
+      |                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:625:31: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  625 |     if ((argc != 8 && argc != 10 && argc != 12) || std::string_view{argv[1]} != "--interface"
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:625:45: warning: 12 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  625 |     if ((argc != 8 && argc != 10 && argc != 12) || std::string_view{argv[1]} != "--interface"
+      |                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:625:69: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  625 |     if ((argc != 8 && argc != 10 && argc != 12) || std::string_view{argv[1]} != "--interface"
+      |                                                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:626:29: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  626 |         || std::string_view{argv[3]} != "--device" || std::string_view{argv[5]} != "--duration-ms"
+      |                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:626:72: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  626 |         || std::string_view{argv[3]} != "--device" || std::string_view{argv[5]} != "--duration-ms"
+      |                                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:626:77: warning: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  626 |         || std::string_view{argv[3]} != "--device" || std::string_view{argv[5]} != "--duration-ms"
+      |                                                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:627:30: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  627 |         || (std::string_view{argv[7]} != "--zero-only" && std::string_view{argv[7]} != "--single-left"
+      |                              ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:627:35: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  627 |         || (std::string_view{argv[7]} != "--zero-only" && std::string_view{argv[7]} != "--single-left"
+      |                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:627:76: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  627 |         || (std::string_view{argv[7]} != "--zero-only" && std::string_view{argv[7]} != "--single-left"
+      |                                                                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:627:81: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  627 |         || (std::string_view{argv[7]} != "--zero-only" && std::string_view{argv[7]} != "--single-left"
+      |                                                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:628:33: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  628 |             && std::string_view{argv[7]} != "--single-right" && std::string_view{argv[7]} != "--right-throttle"
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:628:38: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  628 |             && std::string_view{argv[7]} != "--single-right" && std::string_view{argv[7]} != "--right-throttle"
+      |                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:628:82: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  628 |             && std::string_view{argv[7]} != "--single-right" && std::string_view{argv[7]} != "--right-throttle"
+      |                                                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:628:87: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  628 |             && std::string_view{argv[7]} != "--single-right" && std::string_view{argv[7]} != "--right-throttle"
+      |                                                                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:629:33: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  629 |             && std::string_view{argv[7]} != "--observe-input" && std::string_view{argv[7]} != "--zero-x1-recovery"
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:629:38: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  629 |             && std::string_view{argv[7]} != "--observe-input" && std::string_view{argv[7]} != "--zero-x1-recovery"
+      |                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:629:83: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  629 |             && std::string_view{argv[7]} != "--observe-input" && std::string_view{argv[7]} != "--zero-x1-recovery"
+      |                                                                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:629:88: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  629 |             && std::string_view{argv[7]} != "--observe-input" && std::string_view{argv[7]} != "--zero-x1-recovery"
+      |                                                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:630:33: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  630 |             && std::string_view{argv[7]} != "--zero-sbus-recovery"
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:630:38: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  630 |             && std::string_view{argv[7]} != "--zero-sbus-recovery"
+      |                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:631:33: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  631 |             && std::string_view{argv[7]} != "--restore-zero-baseline")) {
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:631:38: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  631 |             && std::string_view{argv[7]} != "--restore-zero-baseline")) {
+      |                                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:635:43: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  635 |     int zero_tolerance = std::string_view{argv[7]} == "--observe-input" ? 0 : 20;
+      |                                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:635:48: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  635 |     int zero_tolerance = std::string_view{argv[7]} == "--observe-input" ? 0 : 20;
+      |                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:635:79: warning: 20 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  635 |     int zero_tolerance = std::string_view{argv[7]} == "--observe-input" ? 0 : 20;
+      |                                                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:637:5: warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]
+  637 |     bool tolerance_set = false, window_set = false;
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:638:22: warning: 8 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  638 |     for (int index = 8; index < argc; index += 2) {
+      |                      ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:639:9: warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]
+  639 |         const std::string_view name{argv[index]}, value{argv[index + 1]}, mode{argv[7]};
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:639:37: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  639 |         const std::string_view name{argv[index]}, value{argv[index + 1]}, mode{argv[7]};
+      |                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:639:57: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  639 |         const std::string_view name{argv[index]}, value{argv[index + 1]}, mode{argv[7]};
+      |                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:639:80: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  639 |         const std::string_view name{argv[index]}, value{argv[index + 1]}, mode{argv[7]};
+      |                                                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:641:79: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  641 |         const auto parsed_option = std::from_chars(value.data(), value.data() + value.size(), number);
+      |                                                                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:648:82: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  648 |         if (parsed_option.ec != std::errc{} || parsed_option.ptr != value.data() + value.size()
+      |                                                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:661:5: warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]
+  661 |     const std::string interface{argv[2]}, device{argv[4]};
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:661:33: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  661 |     const std::string interface{argv[2]}, device{argv[4]};
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:661:50: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  661 |     const std::string interface{argv[2]}, device{argv[4]};
+      |                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:662:37: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  662 |     const std::string_view duration{argv[6]};
+      |                                     ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:664:74: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  664 |     const auto parsed = std::from_chars(duration.data(), duration.data() + duration.size(), milliseconds);
+      |                                                                          ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:666:67: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  666 |     if (parsed.ec != std::errc{} || parsed.ptr != duration.data() + duration.size() || milliseconds < 2000
+      |                                                                   ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:666:103: warning: 2000 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  666 |     if (parsed.ec != std::errc{} || parsed.ptr != duration.data() + duration.size() || milliseconds < 2000
+      |                                                                                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:667:45: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  667 |         || milliseconds > (std::string_view{argv[7]} == "--zero-only" ? 20000U : 60000U) || !device.starts_with("/dev/")
+      |                                             ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:667:50: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  667 |         || milliseconds > (std::string_view{argv[7]} == "--zero-only" ? 20000U : 60000U) || !device.starts_with("/dev/")
+      |                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:667:73: warning: 20000U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  667 |         || milliseconds > (std::string_view{argv[7]} == "--zero-only" ? 20000U : 60000U) || !device.starts_with("/dev/")
+      |                                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:667:82: warning: 60000U is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  667 |         || milliseconds > (std::string_view{argv[7]} == "--zero-only" ? 20000U : 60000U) || !device.starts_with("/dev/")
+      |                                                                                  ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:668:44: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  668 |         || (interface != (std::string_view{argv[7]} == "--observe-input" ? "none" : "can0")
+      |                                            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:668:49: warning: 7 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers]
+  668 |         || (interface != (std::string_view{argv[7]} == "--observe-input" ? "none" : "can0")
+      |                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:669:42: warning: implicit conversion 'const char *' -> 'bool' [readability-implicit-bool-conversion]
+  669 |             && !(interface == "vcan0" && fixture && std::string_view{fixture} == "vcan0"))) {
+      |                                          ^
+      |                                          (       != nullptr)
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:674:23: warning: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg]
+  674 |     const int flags = ::fcntl(STDOUT_FILENO, F_GETFL);
+      |                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:675:27: warning: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg]
+  675 |     const int err_flags = ::fcntl(STDERR_FILENO, F_GETFL);
+      |                           ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:676:39: warning: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg]
+  676 |     if (flags < 0 || err_flags < 0 || ::fcntl(STDOUT_FILENO, F_SETFL, flags | O_NONBLOCK) < 0
+      |                                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:677:12: warning: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg]
+  677 |         || ::fcntl(STDERR_FILENO, F_SETFL, err_flags | O_NONBLOCK) < 0 || ::signal(SIGPIPE, SIG_IGN) == SIG_ERR)
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:677:113: warning: statement should be inside braces [readability-braces-around-statements]
+  677 |         || ::fcntl(STDERR_FILENO, F_SETFL, err_flags | O_NONBLOCK) < 0 || ::signal(SIGPIPE, SIG_IGN) == SIG_ERR)
+      |                                                                                                                 ^
+      |                                                                                                                  {
+  678 |         return 1;
+      |                  
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:680:73: warning: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic]
+  680 |         run(interface, std::chrono::milliseconds{milliseconds}, device, argv[7], zero_tolerance, motion_window);
+      |                                                                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:681:23: warning: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg]
+  681 |     static_cast<void>(::fcntl(STDOUT_FILENO, F_SETFL, flags));
+      |                       ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp:682:23: warning: do not call c-style vararg functions [cppcoreguidelines-pro-type-vararg]
+  682 |     static_cast<void>(::fcntl(STDERR_FILENO, F_SETFL, err_flags));
+      |                       ^
+Suppressed 34382 warnings (34377 in non-user code, 5 NOLINT).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.

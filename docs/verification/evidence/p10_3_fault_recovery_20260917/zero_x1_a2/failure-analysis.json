@@ -1,0 +1,35 @@
+{
+  "status": "FAILED_zero_target_nonzero_feedback_and_incomplete_restoration",
+  "matching_overlap_frames": 913,
+  "independent_frames": 923,
+  "independent_extra_tail_frames": 10,
+  "full_capture_equal": false,
+  "trace_complete": true,
+  "trace_records": 2442,
+  "all_targets_zero": true,
+  "raw_input_neutral": true,
+  "x1_observed": false,
+  "right_feedback_zero": true,
+  "left_feedback_rpm": [
+    0.3,
+    0.2,
+    0.4
+  ],
+  "fault_ready_to_stop_ms": 710.002756,
+  "first_bad_feedback_to_shutdown_ms": 4.276037216186523,
+  "first_stable_zero_after_bad_ms": 149.9779224395752,
+  "observed_stable_zero_span_ms": 900.1569747924805,
+  "exact_volatile_writes": 21,
+  "zero_and_disable_voltage_readback": true,
+  "cleanup_606c_1_raw": "0xffffffff (-1 signed)",
+  "baseline_restored": false,
+  "unrestored": [
+    "RPDO mapping",
+    "TPDO2 mapping/timer",
+    "watchdog1000ms",
+    "heartbeat500ms"
+  ],
+  "timing_scope": "Target candump / application clocks only; JCAN supplies byte/order evidence",
+  "cause": "Measured drive feedback fluctuation; physical movement versus estimation error unresolved",
+  "mutation_rejections": 3
+}

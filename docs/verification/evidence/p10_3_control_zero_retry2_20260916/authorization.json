@@ -1,0 +1,28 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 是我刚刚不小心碰到右轮了导致有转速，重新进行测试",
+  "attempts": 1,
+  "artifact_sha256": "f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "20000",
+    "--zero-only"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-zero-f60685c2-r2-20260916",
+  "operator_readiness_required": true,
+  "scope": "Zero-only actual ControlLoop with neutral CH6 authorization; enable permitted only at zero",
+  "excluded": [
+    "nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation"
+  ],
+  "trial": "retry2; one invocation only; same immutable zero-only artifact",
+  "power_cycle_confirmation_required": true
+}

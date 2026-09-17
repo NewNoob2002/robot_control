@@ -1,0 +1,14 @@
+{
+  "status": "PASS_F6_A1",
+  "target_marker": "consumed",
+  "capture_marker": "consumed",
+  "drive_power": "OFF confirmed by local operator",
+  "automatic_retry": false,
+  "p103": "accepted within planned bounded unloaded HIL matrix",
+  "separate_open_work": [
+    "P6 remaining qualification",
+    "full-chain soak",
+    "rockchip delayed-TX concurrency"
+  ],
+  "historical_records": "All original failed/incomplete trials and F4 A6 pending feedback review remain unchanged"
+}

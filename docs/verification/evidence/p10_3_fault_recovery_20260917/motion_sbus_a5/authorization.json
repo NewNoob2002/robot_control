@@ -1,0 +1,34 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 修复这个问题再重新开始测试; larger window authorized; 遥控器刚刚没有开机，这个不应该也可以进行提醒吗，60s的窗口时间; fresh A5 local START required",
+  "attempts": 1,
+  "artifact_sha256": "38800cfe2e4f9d7de1c338569a07b387ff15ca77b25e4737a4391c9ddaa7f513",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--right-throttle",
+    "--zero-feedback-tenths-rpm",
+    "15",
+    "--motion-window-ms",
+    "8000"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-startup-wait-38800cfe-sbus-a5-20260917",
+  "operator_readiness_required": true,
+  "scope": "F4 A5 right positive <=5rpm/<8s with7950ms proactive cutoff, left zero; POWER_OFF_READY after1s positive feedback then long-press transmitter OFF, receiver continuously powered; one invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO target; any RPDO outside right-positive<=5rpm/<8s"
+  ],
+  "trial": "F4 A5 explicit8s window, CLI15, no auto-rearm or retry",
+  "power_cycle_confirmation_required": false
+}

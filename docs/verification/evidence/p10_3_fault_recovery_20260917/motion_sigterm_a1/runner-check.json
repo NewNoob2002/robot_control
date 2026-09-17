@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "rejected": [
+    "early_zero",
+    "late_zero",
+    "resume",
+    "wrong_exit",
+    "no_motion",
+    "not_revoked",
+    "flags"
+  ],
+  "child_identity_signal": "PASS",
+  "live_prompts": "PASS",
+  "missing_readiness": "PASS",
+  "physical_started": false
+}

@@ -1,0 +1,3 @@
+clang-tidy -p out/build/p103-control-hil --checks=-*,clang-analyzer-*,bugprone-*,performance-* --header-filter=tools/control_hil/.* tools/control_hil/main.cpp tools/control_hil/zero_gate.cpp tests/unit/control_hil_motion_gate_tests.cpp
+Exit0; no emitted project diagnostics.177 non-user warnings and18 NOLINT suppressed.
+Initial audit_elf.sh probe-specific check rejected missing clock_nanosleep; use the established audit_qualification_elf.sh for this tool.

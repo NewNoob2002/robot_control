@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p10_3_fault_recovery_20260917/motion_sbus_a1/analyze-sbus.py", line 78, in <module>
+    main()
+    ~~~~^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p10_3_fault_recovery_20260917/motion_sbus_a1/analyze-sbus.py", line 69, in main
+    result = check(trace, int(fault[1]))
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p10_3_fault_recovery_20260917/motion_sbus_a1/analyze-sbus.py", line 13, in check
+    assert fault in (3, 4, 5), 'Expected frame_lost, failsafe or valid-frame timeout'
+           ^^^^^^^^^^^^^^^^^^
+AssertionError: Expected frame_lost, failsafe or valid-frame timeout

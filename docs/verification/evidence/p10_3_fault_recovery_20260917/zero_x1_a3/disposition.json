@@ -1,0 +1,8 @@
+{
+  "status": "FAILED_READ_ONLY_BASELINE_MISMATCH",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF after A3 confirmed in chat",
+  "baseline_restored": false,
+  "next": "Separate known-residual zero/disable-only restoration, then fresh X1 trial; no automatic retry."
+}

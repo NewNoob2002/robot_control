@@ -1,0 +1,22 @@
+CONTROL_READY: keep sticks neutral; press CH6 once; RIGHT motion X1 window60s; wait for MOTION_READY
+WINDOW_REMAINING: 59
+WINDOW_REMAINING: 58
+WINDOW_REMAINING: 57
+MOTION_READY: right positive only; forward throttle ONLY, steering neutral, free hand on X1; press/lock X1 immediately when wheel moves; neutral after locking; keep X1 locked through power OFF
+WINDOW_REMAINING: 56
+WINDOW_REMAINING: 55
+WINDOW_REMAINING: 54
+WINDOW_REMAINING: 53
+WINDOW_REMAINING: 52
+WINDOW_REMAINING: 51
+WINDOW_REMAINING: 50
+APPLICATION_STOPPING: no further operator actions; neutral and wait for cleanup
+WINDOW_REMAINING: 49
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--right-throttle"], "artifact_sha256": "778b0a79b4985b1040f2eccee1fbe6e948c8084a61e3c645db7a2a537d7ac611", "operator_prompted": true, "motion_ready": true, "stopping_prompted": true, "application_exit": 1, "application_elapsed_ms": 11674.368601990864, "error": "application failed; inspect log before any retry"}
+Traceback (most recent call last):
+  File "/home/cat/.cache/robot-control/staging/p103-right-throttle-778b0a79-x1-a2-20260917/recovery-once.py", line 130, in <module>
+    main()
+  File "/home/cat/.cache/robot-control/staging/p103-right-throttle-778b0a79-x1-a2-20260917/recovery-once.py", line 107, in main
+    assert application.returncode == 0, 'application failed; inspect log before any retry'
+AssertionError: application failed; inspect log before any retry

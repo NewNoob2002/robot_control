@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "control_phase_observed": true,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 10063264715805
+    },
+    {
+      "phase": "INPUT_WAIT",
+      "remaining": 59,
+      "host_monotonic_ns": 10065383231745
+    },
+    {
+      "phase": "INPUT_WAIT",
+      "remaining": 58,
+      "host_monotonic_ns": 10066396271112
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 10066901769171
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 10067406243682
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 10068416973200
+    },
+    {
+      "phase": "ARMING",
+      "remaining": 56,
+      "host_monotonic_ns": 10068922364971
+    },
+    {
+      "phase": "ARMING",
+      "remaining": 55,
+      "host_monotonic_ns": 10069375842389
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 55,
+      "host_monotonic_ns": 10069426266314
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 54,
+      "host_monotonic_ns": 10070384724571
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 53,
+      "host_monotonic_ns": 10071394593934
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 10072403874078
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 10072858725738
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 51,
+      "host_monotonic_ns": 10073413153033
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 50,
+      "host_monotonic_ns": 10074372758878
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 49,
+      "host_monotonic_ns": 10075384184701
+    },
+    {
+      "phase": "STOP",
+      "remaining": 49,
+      "host_monotonic_ns": 10075434781381
+    }
+  ],
+  "last_display": "STOP",
+  "operator_prompted": true,
+  "target_runner_exit": 0,
+  "capture_exit": 0
+}

@@ -1,0 +1,272 @@
+[
+  {
+    "seconds": 29.217553252,
+    "ch1": 1800,
+    "ch3": 1560,
+    "normalized_steering": 1000,
+    "normalized_throttle": 702,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.224553455,
+    "ch1": 1800,
+    "ch3": 1560,
+    "normalized_steering": 1000,
+    "normalized_throttle": 702,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.231553658,
+    "ch1": 1800,
+    "ch3": 1521,
+    "normalized_steering": 1000,
+    "normalized_throttle": 654,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.238552111,
+    "ch1": 1800,
+    "ch3": 1521,
+    "normalized_steering": 1000,
+    "normalized_throttle": 654,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.245554648,
+    "ch1": 1800,
+    "ch3": 1446,
+    "normalized_steering": 1000,
+    "normalized_throttle": 561,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.252551351,
+    "ch1": 1800,
+    "ch3": 1446,
+    "normalized_steering": 1000,
+    "normalized_throttle": 561,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.259558262,
+    "ch1": 1800,
+    "ch3": 1446,
+    "normalized_steering": 1000,
+    "normalized_throttle": 561,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.266552923,
+    "ch1": 1783,
+    "ch3": 1296,
+    "normalized_steering": 978,
+    "normalized_throttle": 375,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": -3
+  },
+  {
+    "seconds": 29.273610584,
+    "ch1": 1783,
+    "ch3": 1296,
+    "normalized_steering": 978,
+    "normalized_throttle": 375,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": -3
+  },
+  {
+    "seconds": 29.280558579,
+    "ch1": 1783,
+    "ch3": 1296,
+    "normalized_steering": 978,
+    "normalized_throttle": 375,
+    "candidate_left_rpm": 5,
+    "candidate_right_rpm": -3
+  },
+  {
+    "seconds": 29.287558782,
+    "ch1": 1640,
+    "ch3": 939,
+    "normalized_steering": 800,
+    "normalized_throttle": -68,
+    "candidate_left_rpm": 3,
+    "candidate_right_rpm": -4
+  },
+  {
+    "seconds": 29.294554319,
+    "ch1": 1640,
+    "ch3": 939,
+    "normalized_steering": 800,
+    "normalized_throttle": -68,
+    "candidate_left_rpm": 3,
+    "candidate_right_rpm": -4
+  },
+  {
+    "seconds": 29.301502314,
+    "ch1": 1640,
+    "ch3": 939,
+    "normalized_steering": 800,
+    "normalized_throttle": -68,
+    "candidate_left_rpm": 3,
+    "candidate_right_rpm": -4
+  },
+  {
+    "seconds": 29.308555017,
+    "ch1": 794,
+    "ch3": 1015,
+    "normalized_steering": -257,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.315553178,
+    "ch1": 794,
+    "ch3": 1015,
+    "normalized_steering": -257,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.322624255,
+    "ch1": 794,
+    "ch3": 1015,
+    "normalized_steering": -257,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.32959675,
+    "ch1": 814,
+    "ch3": 997,
+    "normalized_steering": -232,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.336596078,
+    "ch1": 814,
+    "ch3": 997,
+    "normalized_steering": -232,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.343600073,
+    "ch1": 814,
+    "ch3": 997,
+    "normalized_steering": -232,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.350597068,
+    "ch1": 984,
+    "ch3": 998,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.357595521,
+    "ch1": 984,
+    "ch3": 998,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.364594849,
+    "ch1": 984,
+    "ch3": 998,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.371595635,
+    "ch1": 964,
+    "ch3": 995,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.37859613,
+    "ch1": 964,
+    "ch3": 995,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.385593999,
+    "ch1": 1034,
+    "ch3": 995,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.392598869,
+    "ch1": 1034,
+    "ch3": 995,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.399597614,
+    "ch1": 1034,
+    "ch3": 995,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.406596358,
+    "ch1": 1021,
+    "ch3": 995,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.413602103,
+    "ch1": 1021,
+    "ch3": 995,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  },
+  {
+    "seconds": 29.420595598,
+    "ch1": 1021,
+    "ch3": 995,
+    "normalized_steering": 0,
+    "normalized_throttle": 0,
+    "candidate_left_rpm": 0,
+    "candidate_right_rpm": 0
+  }
+]

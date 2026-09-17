@@ -1,3 +1,5 @@
+#include "tools/control_hil/motion_gate.hpp"
+
 #include <cerrno>
 #include <cstdint>
 #include <iostream>
@@ -56,6 +58,22 @@ int main() {
             check(sdo, false);
         }
     }
+    // Verify the actual wire decoder and borrowed-context lifetime, not only the pure predicate.
+    for (bool right : {false, true}) {
+        robot_control::hil::MotionGate gate{right};
+        robot_control::hil::bind_motion_gate(&gate);
+        gate.arm();
+        auto single = rpdo;
+        single.data[right ? 4 : 2] = 5;
+        check(single, true);
+        auto both = single;
+        both.data[right ? 2 : 4] = 1;
+        check(both, false);
+        check(single, false); // Terminal rejection.
+        check(rpdo, true);    // Stop remains possible.
+        robot_control::hil::bind_motion_gate(nullptr);
+        check(single, false); // No borrowed context means zero-only.
+    }
     if (__wrap_send(-1, nullptr, CAN_MTU, MSG_DONTWAIT) != -1)
         ++failures;
     if (__wrap_send(-1, &rpdo, CAN_MTU - 1, MSG_DONTWAIT) != -1)
@@ -64,4 +82,10 @@ int main() {
         ++failures;
     std::cout << "zero_gate_failures=" << failures << '\n';
     return failures == 0 ? 0 : 1;
+}
+
+/** Link-time receive stub for send-only gate tests; no real socket is accessed. */
+extern "C" ssize_t __real_recv(int, void*, size_t, int) {
+    errno = EAGAIN;
+    return -1;
 }

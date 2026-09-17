@@ -1,0 +1,30 @@
+{
+  "status": "CLOSED_REVISED_SINGLE_WHEEL_ACCEPTANCE",
+  "authority": "User confirms drive internal speed calculation fluctuation normal and explicitly closes item",
+  "tolerance_tenths_rpm": 15,
+  "historical_original_results_preserved": true,
+  "cases": {
+    "left": {
+      "zero_feedback_tenths_rpm": 15,
+      "first_nonzero_ns": 265201827298553,
+      "first_zero_ns": 265204777379248,
+      "stable_since_ns": 265204840465449,
+      "stable_verified_ns": 265205040474476,
+      "stop_to_verified_ms": 263.095228,
+      "raw_feedback_preserved": true,
+      "source": "docs/verification/evidence/p10_3_left_stop_regression_20260917/motion_a/motion-target/application.log",
+      "original_feedback_bad": true
+    },
+    "right": {
+      "zero_feedback_tenths_rpm": 15,
+      "first_nonzero_ns": 268156338704353,
+      "first_zero_ns": 268159288723116,
+      "stable_since_ns": 268159389387374,
+      "stable_verified_ns": 268159589424666,
+      "stop_to_verified_ms": 300.70155,
+      "raw_feedback_preserved": true,
+      "source": "docs/verification/evidence/p10_3_left_stop_regression_20260917/motion_right_a1/motion-target/application.log",
+      "original_feedback_bad": true
+    }
+  }
+}

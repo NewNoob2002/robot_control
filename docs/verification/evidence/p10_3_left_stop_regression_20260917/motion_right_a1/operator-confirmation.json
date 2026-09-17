@@ -1,0 +1,12 @@
+{
+  "statement": "右轮A1已上电就绪",
+  "wall_time": 1789615938.3280127,
+  "drive_power_on": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "unchanged_wiring": true,
+  "authorization_source": "Current user message: 右轮A1已上电就绪; confirms the requested physical readiness conditions"
+}

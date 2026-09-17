@@ -1,0 +1,12 @@
+{
+  "status": "FAILED_post_stop_negative_feedback",
+  "application_exit": 1,
+  "independent_capture_exit": 0,
+  "original_oracle": "FAILED selected positive feedback envelope",
+  "stable_stop_verified": true,
+  "volatile_baseline_restored": true,
+  "operator_confirmed_drive_off": true,
+  "target_marker_consumed": true,
+  "jcan_marker_consumed": true,
+  "next_trial_started": false
+}

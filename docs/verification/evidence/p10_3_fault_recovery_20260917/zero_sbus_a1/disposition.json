@@ -1,0 +1,9 @@
+{
+  "status": "PASS_F2_ZERO_TARGET_SBUS_TIMEOUT_RECOVERY",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF; stationary/no abnormal sound confirmed locally",
+  "flags_failsafe": "NOT_OBSERVED",
+  "f5_electrical_uart_silence": "NOT_CLAIMED",
+  "artifact_sha256": "616e8ad3ec59c14985106c846c8f706b396617dc16b226b3012e3509fd821cea"
+}

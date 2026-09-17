@@ -1,0 +1,6 @@
+{
+  "operator_statement": "第一次是缓慢回中，第二次是缓慢加自动松手",
+  "first_excursion": "slow return",
+  "second_excursion": "slow return followed by release; not a pure natural-release comparison",
+  "time_alignment": "Operator identifies the two excursions referenced at approximately7-17s and28-33s; exact release instant is not asserted."
+}

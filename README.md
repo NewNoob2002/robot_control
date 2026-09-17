@@ -38,21 +38,17 @@ observation. Target RXF/RXMF advanced by two, TX remained zero, no error frame
 was observed, and cleanup passed. Phase 5 is complete.
 See
 docs/verification/PHASE5_CANOPEN_BASELINE.md.
-Phase 6 checkpoint, September 11, 2026: synchronous packed-target feedback and
-single-RPDO left/right trials pass, with operator-confirmed normal stopping.
-TPDO1 carries both statuswords and packed speeds; the temporary RPDO1 carries
-the common controlword and packed targets, with its original mapping restored
-after each trial. Host and sanitizer qualification suites pass 60/60 tests.
-The revised synchronous stop/loss artifact passes cross-build and target vcan
-checks, but its physical requalification is blocked by execution-approval
-timeouts before process creation. Earlier NMT Stop, Shutdown, Disable Voltage
-and Quick Stop evidence remains historical; Phase 6 is not complete.
-See the [synchronous PDO repair record](docs/verification/P6_SYNC_PACKED_PDO_REPAIR.md).
-See the [Phase 6 checkpoint](docs/verification/PHASE6_CHECKPOINT.md) for current
-status and the [evidence index](docs/verification/evidence/README.md) for accepted
-trials and archived history. The qualification executor remains Debug-only and
-default-OFF; production motion, persistent configuration and loaded operation
-remain outside this checkpoint.
+Current checkpoint, September 17, 2026: P9 input, P8-R runtime and P10.1–P10.3
+bounded unloaded integration are accepted, including F1–F6 fault/recovery trials.
+P10.3 remains a Debug-only/default-OFF qualification tool, not a production daemon.
+Phase 6 final acceptance and both lifecycle/full-chain endurance remain open;
+userspace CAN inhibition does not resolve the kernel delayed-TX issue. Original
+failed/incomplete trials remain unchanged. The latest recorded operator disposition
+is drive OFF after F6 A1; any future run needs current readiness and authorization.
+See the [P10.3 checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md),
+[delivery record](docs/verification/P10_3_DELIVERY_BASELINE.md),
+[Phase 6 checkpoint](docs/verification/PHASE6_CHECKPOINT.md), and
+[evidence index](docs/verification/evidence/README.md).
 GitHub Actions selects tests from the complete push diff or PR merge-base diff
 on development branches (pushes to main and codex/** are enabled). Branch names
 never suppress tests for changed dependencies:
@@ -92,7 +88,7 @@ Read these documents before implementation:
 - [P8-R PDO runtime and drive binding](docs/verification/P8_R_RUNTIME_BASELINE.md) — software/vcan accepted; physical layout and remote control remain P10 work.
 - [P10.1 offline control cycle](docs/verification/P10_1_CONTROL_CYCLE_BASELINE.md) — SBUS snapshots, arbitration, safety and guarded PDO output; no hardware entry point.
 - [P10.2 vcan control loop](docs/verification/P10_2_CONTROL_LOOP_BASELINE.md) — PTY to actual RPDO/independent feedback, failure injection and bounded shutdown reporting; physical acceptance remains P10.3.
-- [P10.3 HIL checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md) — receive-only and stationary TPDO2 prerequisites pass; actual zero-only ControlLoop artifact is offline-verified/staged, awaiting fresh powered readiness. Full-chain physical acceptance remains open.
+- [P10.3 HIL checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md) — bounded unloaded HIL accepted: receive-only/zero start, single-wheel direction/stop and F1–F6 fault/recovery/SIGTERM; production, loaded operation and P6/soak remain separate.
 - [P6.1 contract, fixture, and read-only baseline](docs/verification/P6_1_CONTRACT_FIXTURE_READ_ONLY_BASELINE.md)
 - [P6.2 ZLAC protocol semantics baseline](docs/verification/P6_2_ZLAC_PROTOCOL_SEMANTICS_BASELINE.md)
 - [P6.3 bounded qualification executor baseline](docs/verification/P6_3_BOUNDED_QUALIFICATION_EXECUTOR_BASELINE.md)

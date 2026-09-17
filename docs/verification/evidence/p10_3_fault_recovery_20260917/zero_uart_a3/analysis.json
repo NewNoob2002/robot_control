@@ -1,0 +1,92 @@
+{
+  "status": "INCOMPLETE_F5_REJECTED_AFTER_HEALTHY_RECONNECTION",
+  "silence": {
+    "status": "PASS_READER_RAW_BYTE_SILENCE",
+    "last_frame_ns": 292992444287422,
+    "fault_observed_ns": 292992514308602,
+    "release_fault_ns": 292997524302998,
+    "last_raw_batch_ns": 292992454286989,
+    "first_restored_raw_ns": 293008804291588,
+    "raw_gap_ms": 16350.004599,
+    "timeout_after_last_frame_ms": 70.02118,
+    "required_hold_ms": 5009.994396,
+    "raw_bytes_in_hold": 0,
+    "expected_partial_boundaries": 1,
+    "restored_session": 3,
+    "first_valid_after_reconnection_ms": 0.0,
+    "scope": "No bytes delivered to Reader during hold; not a voltage-level or oscilloscope measurement"
+  },
+  "initial_withdrawal": "partial_timeout/discontinuity, not the100ms valid-frame timeout",
+  "restored_ns": 293008824310848,
+  "rejected_candidates_after_restored": 2,
+  "first_rejected_after_restored_ms": 470.022836,
+  "source_fault": 2,
+  "phase": 2,
+  "trace_records": 9534,
+  "sbus_frames": 1043,
+  "recorded_axes_neutral_and_authority_revoked_after_reconnect": true,
+  "protocol": {
+    "status": "INCOMPLETE_SCENARIO_protocol_and_restoration_verified",
+    "matching_frames": 3756,
+    "counts": {
+      "0x601": 159,
+      "0x581": 159,
+      "0x701": 100,
+      "0x0": 3,
+      "0x181": 483,
+      "0x281": 483,
+      "0x381": 1,
+      "0x481": 1,
+      "0x201": 2367
+    },
+    "tpdo2_frames": 483,
+    "tpdo2_span_ms": 24101.351976394653,
+    "tpdo2_interval_ms": [
+      49.74699020385742,
+      50.318002700805664
+    ],
+    "exact_volatile_writes": 36,
+    "nmt": [
+      "8001",
+      "0101",
+      "8001"
+    ],
+    "all_targets_zero": true,
+    "rpdo_frames": 2367,
+    "enabled_feedback": 83,
+    "enabled_samples": 413,
+    "baseline_restored": true,
+    "operator": "Separate post-trial confirmation required; not inferred from protocol",
+    "recovery": {
+      "kind": "sbus",
+      "status": "INCOMPLETE",
+      "phases": [
+        [
+          "fault_ready",
+          "sbus"
+        ],
+        [
+          "fault_observed",
+          "sbus"
+        ],
+        [
+          "release_fault",
+          "sbus"
+        ]
+      ]
+    },
+    "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+  },
+  "can_counters_unchanged": true,
+  "operator": {
+    "raw_user_statement": "OFF",
+    "wheels_stationary": true,
+    "abnormal_sound": false,
+    "drive_power_off": true,
+    "confirmation_source": "Local terminal post-trial question",
+    "runner_exit": 1,
+    "actual_operation": ""
+  },
+  "runner_consumed": true,
+  "conclusion": "Raw-byte silence and5s hold verified. After healthy Disabled input, new rejected candidates triggered protected exit. Not window exhaustion. Full challenge/rearm recovery incomplete; physical cause of stream defect not established. No retry."
+}

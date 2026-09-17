@@ -1,0 +1,9 @@
+{
+  "status": "OBSERVED_SEQUENCES_VERIFIED_ORIGINAL_COMBINED_CLAIM_SUPERSEDED",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF; wheels stationary, no abnormal sound (local operator-post-trial.json)",
+  "original_report": "recovery-analysis.json retained unchanged; combined causal claim superseded",
+  "current_audit": "observed-sequences-analysis.json",
+  "corrected_observer_hil": "NOT_RUN"
+}

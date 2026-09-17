@@ -1,0 +1,11 @@
+{
+  "statement": "左轮运动测试已上电就绪",
+  "wall_time": 1789607661.944996,
+  "drive_power_on": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "scope": "Operator reply to concrete left-only <=5rpm/<3s trial readiness instructions"
+}

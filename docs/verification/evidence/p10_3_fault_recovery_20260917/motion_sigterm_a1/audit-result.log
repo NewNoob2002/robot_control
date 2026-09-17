@@ -1,0 +1,196 @@
+{
+  "status": "PASS_motion_protocol_and_restoration_only_NOT_F6_acceptance",
+  "matching_frames": 1507,
+  "counts": {
+    "0x601": 158,
+    "0x581": 158,
+    "0x701": 38,
+    "0x0": 3,
+    "0x181": 175,
+    "0x281": 175,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 798
+  },
+  "tpdo2_frames": 175,
+  "tpdo2_span_ms": 8696.446895599365,
+  "tpdo2_interval_ms": [
+    49.70502853393555,
+    50.318002700805664
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "right",
+  "nonzero_window_ms": 439.7308826446533,
+  "stop_to_zero_ms": 52.963972091674805,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 798,
+  "enabled_feedback": 83,
+  "enabled_samples": 414,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}
+{
+  "first_nonzero_ns": 295388077811699,
+  "first_zero_ns": 295388517544495,
+  "signal_before_ns": 295388517231535,
+  "signal_after_ns": 295388517530787,
+  "signal_to_zero_upper_us": 312.96,
+  "signal_syscall_bracket_us": 299.252,
+  "no_restart": true,
+  "source_revoked": true,
+  "nonzero_window_ms": 439.732796,
+  "process_exit_after_signal_ms": 770.229627,
+  "internal_shutdown_us": 9736,
+  "feedback_review_pending": false,
+  "feedback": {
+    "zero_feedback_tenths_rpm": 20,
+    "first_nonzero_ns": 295388077811699,
+    "first_zero_ns": 295388517544495,
+    "stable_since_ns": 295388570741032,
+    "stable_verified_ns": 295388770810141,
+    "stop_to_verified_ms": 253.265646,
+    "raw_feedback_preserved": true
+  },
+  "protocol": {
+    "status": "PASS_motion_protocol_and_restoration_only_NOT_F6_acceptance",
+    "matching_frames": 1507,
+    "counts": {
+      "0x601": 158,
+      "0x581": 158,
+      "0x701": 38,
+      "0x0": 3,
+      "0x181": 175,
+      "0x281": 175,
+      "0x381": 1,
+      "0x481": 1,
+      "0x201": 798
+    },
+    "tpdo2_frames": 175,
+    "tpdo2_span_ms": 8696.446895599365,
+    "tpdo2_interval_ms": [
+      49.70502853393555,
+      50.318002700805664
+    ],
+    "exact_volatile_writes": 36,
+    "nmt": [
+      "8001",
+      "0101",
+      "8001"
+    ],
+    "selected_wheel": "right",
+    "nonzero_window_ms": 439.7308826446533,
+    "stop_to_zero_ms": 52.963972091674805,
+    "opposite_targets_and_feedback_zero": true,
+    "rpdo_frames": 798,
+    "enabled_feedback": 83,
+    "enabled_samples": 414,
+    "baseline_restored": true,
+    "operator": "Separate post-trial confirmation required; not inferred from protocol",
+    "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+  },
+  "status": "PASS_F6_SOFTWARE_WIRE_PENDING_OPERATOR"
+}
+{
+  "first_nonzero_ns": 295388077811699,
+  "first_zero_ns": 295388517544495,
+  "signal_before_ns": 295388517231535,
+  "signal_after_ns": 295388517530787,
+  "signal_to_zero_upper_us": 312.96,
+  "signal_syscall_bracket_us": 299.252,
+  "no_restart": true,
+  "source_revoked": true,
+  "nonzero_window_ms": 439.732796,
+  "process_exit_after_signal_ms": 770.229627,
+  "internal_shutdown_us": 9736,
+  "feedback_review_pending": false,
+  "feedback": {
+    "zero_feedback_tenths_rpm": 20,
+    "first_nonzero_ns": 295388077811699,
+    "first_zero_ns": 295388517544495,
+    "stable_since_ns": 295388570741032,
+    "stable_verified_ns": 295388770810141,
+    "stop_to_verified_ms": 253.265646,
+    "raw_feedback_preserved": true
+  },
+  "protocol": {
+    "status": "PASS_motion_protocol_and_restoration_only_NOT_F6_acceptance",
+    "matching_frames": 1507,
+    "counts": {
+      "0x601": 158,
+      "0x581": 158,
+      "0x701": 38,
+      "0x0": 3,
+      "0x181": 175,
+      "0x281": 175,
+      "0x381": 1,
+      "0x481": 1,
+      "0x201": 798
+    },
+    "tpdo2_frames": 175,
+    "tpdo2_span_ms": 8696.446895599365,
+    "tpdo2_interval_ms": [
+      49.70502853393555,
+      50.318002700805664
+    ],
+    "exact_volatile_writes": 36,
+    "nmt": [
+      "8001",
+      "0101",
+      "8001"
+    ],
+    "selected_wheel": "right",
+    "nonzero_window_ms": 439.7308826446533,
+    "stop_to_zero_ms": 52.963972091674805,
+    "opposite_targets_and_feedback_zero": true,
+    "rpdo_frames": 798,
+    "enabled_feedback": 83,
+    "enabled_samples": 414,
+    "baseline_restored": true,
+    "operator": "Separate post-trial confirmation required; not inferred from protocol",
+    "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+  },
+  "status": "PASS_F6_A1",
+  "operator": {
+    "raw_user_statement": "OFF",
+    "right_direction_and_stop_normal": true,
+    "left_always_stationary": true,
+    "drive_power_off": true,
+    "no_abnormal_sound": true,
+    "transmitter_stayed_on": true,
+    "no_external_fault_stimulus": true,
+    "receiver_stayed_powered": true,
+    "confirmation_source": "Local terminal post-trial question",
+    "runner_exit": 0,
+    "actual_operation": ""
+  },
+  "trace_records": 4408,
+  "sbus_frames": 1175,
+  "summary": {
+    "event": "summary",
+    "cycles": "797",
+    "enabled_samples": "414",
+    "missed_periods": "3",
+    "maximum_lateness_us": "39747",
+    "maximum_cycle_us": "132",
+    "shutdown_us": "9736",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  },
+  "feedback_bad": false,
+  "raw_right_stop_tenths_rpm": [
+    -4,
+    49
+  ],
+  "target_runner_consumed": true,
+  "independent_capture_consumed": true,
+  "can_counters_unchanged": true,
+  "expected_protective_exit": 1,
+  "timing_scope": "Target monotonic signal-operation-to-successful-zero-send upper bound; JCAN confirms bytes/order, not independent latency",
+  "scope": "One unloaded right-positive moving SIGTERM; no loaded/reverse/dual-wheel/soak/kernel acceptance"
+}

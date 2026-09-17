@@ -1,0 +1,69 @@
+{
+  "trace_records": 12721,
+  "feedback_bad": false,
+  "discontinuities": 0,
+  "flags_counts": {
+    "0": 2771,
+    "4": 71,
+    "12": 786
+  },
+  "flags_transitions": [
+    {
+      "ns": 281797489225976,
+      "flags": 0
+    },
+    {
+      "ns": 281805229238842,
+      "flags": 4
+    },
+    {
+      "ns": 281805729281267,
+      "flags": 12
+    },
+    {
+      "ns": 281811229297007,
+      "flags": 0
+    }
+  ],
+  "maximum_valid_frame_gap_ms": 10.920499,
+  "feedback_ranges_tenths_rpm": {
+    "left": [
+      0,
+      0
+    ],
+    "right": [
+      0,
+      0
+    ]
+  },
+  "counter_deltas": {
+    "rx": {
+      "bytes": 8134,
+      "packets": 1307,
+      "errors": 0,
+      "dropped": 0,
+      "over_errors": 0,
+      "multicast": 0
+    },
+    "tx": {
+      "bytes": 16530,
+      "packets": 2704,
+      "errors": 0,
+      "dropped": 0,
+      "carrier_errors": 0,
+      "collisions": 0
+    }
+  },
+  "extended_error_counters_unchanged": true,
+  "summary": {
+    "event": "summary",
+    "cycles": "2541",
+    "enabled_samples": "693",
+    "missed_periods": "3",
+    "maximum_lateness_us": "35904",
+    "maximum_cycle_us": "931",
+    "shutdown_us": "26",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  }
+}

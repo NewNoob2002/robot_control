@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-c++"
+	tests="1"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="cathyLaptop"
+	time="5"
+	timestamp="2026-09-17T19:30:57"
+	>
+	<testcase name="control_loop_vcan_managed" classname="control_loop_vcan_managed" time="5.24461" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+closed_loop_cycles=113 max_tick_to_peer_us=10932 max_lateness_us=1027 max_cycle_us=88 missed_periods=0
+loop=runtime_inactive errno=116
+loop=runtime_inactive errno=116
+loop=runtime_rpdo_send errno=5
+loop=runtime_rpdo_send errno=5
+</system-out>
+	</testcase>
+</testsuite>

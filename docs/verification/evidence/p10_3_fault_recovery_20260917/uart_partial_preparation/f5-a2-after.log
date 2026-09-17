@@ -1,0 +1,7 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p103-control-hil
+    Start 34: control_hil_uart_vcan_managed
+1/1 Test #34: control_hil_uart_vcan_managed ....   Passed   17.59 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  17.60 sec

@@ -1,0 +1,164 @@
+{
+  "trace_complete": true,
+  "frames": 8576,
+  "cycles": 8573,
+  "can_rx": 0,
+  "can_tx_attempts": 0,
+  "enabled": 0,
+  "flags": {
+    "0": 8576
+  },
+  "raw_ranges": {
+    "ch1": [
+      794,
+      1800
+    ],
+    "ch3": [
+      939,
+      1800
+    ],
+    "ch6": [
+      200,
+      200
+    ]
+  },
+  "completed_excursions": [
+    {
+      "start_s": 24.947289193,
+      "end_s": 29.350597068,
+      "frames": 629
+    }
+  ],
+  "ends_neutral": true,
+  "final_neutral_seconds": 30.661256213,
+  "negative_candidates": 6,
+  "right_nonzero_candidates": 6,
+  "normalized_ranges": [
+    [
+      -257,
+      1000
+    ],
+    [
+      -68,
+      1000
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      -4,
+      0
+    ]
+  ],
+  "operator_sequence": "Natural release requested; operator confirms no deliberate backward/left input. Current sticks neutral and drive OFF confirmed.",
+  "status": "INPUT_MIXER_ENVELOPE_EXCURSION_OBSERVED",
+  "negative_candidate_first_seconds": 29.266552923,
+  "negative_candidate_last_seconds": 29.301502314,
+  "negative_candidate_sample_span_ms": 34.949391,
+  "negative_candidate_cycles": [
+    {
+      "seconds": 29.266561965,
+      "source_sequence": 4182,
+      "steering": 978,
+      "throttle": 375,
+      "candidate_left": 5,
+      "candidate_right": -3,
+      "selected": [
+        0,
+        0
+      ],
+      "approved": [
+        0,
+        0
+      ],
+      "enabled": 0
+    },
+    {
+      "seconds": 29.273635375,
+      "source_sequence": 4183,
+      "steering": 978,
+      "throttle": 375,
+      "candidate_left": 5,
+      "candidate_right": -3,
+      "selected": [
+        0,
+        0
+      ],
+      "approved": [
+        0,
+        0
+      ],
+      "enabled": 0
+    },
+    {
+      "seconds": 29.280568204,
+      "source_sequence": 4184,
+      "steering": 978,
+      "throttle": 375,
+      "candidate_left": 5,
+      "candidate_right": -3,
+      "selected": [
+        0,
+        0
+      ],
+      "approved": [
+        0,
+        0
+      ],
+      "enabled": 0
+    },
+    {
+      "seconds": 29.287567824,
+      "source_sequence": 4185,
+      "steering": 800,
+      "throttle": -68,
+      "candidate_left": 3,
+      "candidate_right": -4,
+      "selected": [
+        0,
+        0
+      ],
+      "approved": [
+        0,
+        0
+      ],
+      "enabled": 0
+    },
+    {
+      "seconds": 29.29456336,
+      "source_sequence": 4186,
+      "steering": 800,
+      "throttle": -68,
+      "candidate_left": 3,
+      "candidate_right": -4,
+      "selected": [
+        0,
+        0
+      ],
+      "approved": [
+        0,
+        0
+      ],
+      "enabled": 0
+    },
+    {
+      "seconds": 29.301511356,
+      "source_sequence": 4187,
+      "steering": 800,
+      "throttle": -68,
+      "candidate_left": 3,
+      "candidate_right": -4,
+      "selected": [
+        0,
+        0
+      ],
+      "approved": [
+        0,
+        0
+      ],
+      "enabled": 0
+    }
+  ],
+  "decision": "Do not start motion A/B. No CAN attempt occurred. Raw input/mixer transient is observed; this does not establish the cause of previous left-wheel post-stop negative drive feedback."
+}

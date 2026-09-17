@@ -1,0 +1,38 @@
+CONTROL_READY: keep sticks neutral; press CH6 once; ZERO recovery window120s; wait for FAULT_READY
+WINDOW_REMAINING: 119
+WINDOW_REMAINING: 118
+WINDOW_REMAINING: 117
+FAULT_READY: disconnect SBUS SIGNAL ONLY; USB, GROUND AND POWER STAY CONNECTED; transmitter stays ON; keep X1 released; wait for RELEASE_FAULT
+WINDOW_REMAINING: 116
+WINDOW_REMAINING: 115
+WINDOW_REMAINING: 114
+WINDOW_REMAINING: 113
+WINDOW_REMAINING: 112
+WINDOW_REMAINING: 111
+WINDOW_REMAINING: 110
+WINDOW_REMAINING: 109
+WINDOW_REMAINING: 108
+RELEASE_FAULT: neutral sticks and CH6 released, reconnect SBUS SIGNAL to original port; USB, ground and power unchanged; 45s reconnect/challenge window; remain neutral and CH6 released; wait for INPUT_RESTORED
+WINDOW_REMAINING: 107
+WINDOW_REMAINING: 106
+WINDOW_REMAINING: 105
+WINDOW_REMAINING: 104
+WINDOW_REMAINING: 103
+WINDOW_REMAINING: 102
+WINDOW_REMAINING: 101
+WINDOW_REMAINING: 100
+WINDOW_REMAINING: 99
+WINDOW_REMAINING: 98
+WINDOW_REMAINING: 97
+WINDOW_REMAINING: 96
+INPUT_RESTORED: healthy input; hold forward throttle, press/release CH6 once; wait for NEUTRAL_READY
+APPLICATION_STOPPING: no further operator actions; neutral and wait for cleanup
+WINDOW_REMAINING: 95
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "120000", "--zero-uart-recovery", "--zero-feedback-tenths-rpm", "20"], "artifact_sha256": "bcd4cfe96b1e11b496a18fbe39b229764510f685ef29c5c0334a797690ef5dc4", "operator_prompted": true, "fault_ready": true, "release_fault": true, "input_restored": true, "stopping_prompted": true, "application_exit": 1, "application_elapsed_ms": 25334.304600022733, "error": "application failed; inspect log before any retry"}
+Traceback (most recent call last):
+  File "/home/cat/.cache/robot-control/staging/p103-uart-window-bcd4cfe9-uart-a3-20260917/recovery-once.py", line 134, in <module>
+    main()
+  File "/home/cat/.cache/robot-control/staging/p103-uart-window-bcd4cfe9-uart-a3-20260917/recovery-once.py", line 111, in main
+    assert application.returncode == 0, 'application failed; inspect log before any retry'
+AssertionError: application failed; inspect log before any retry

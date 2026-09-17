@@ -1,0 +1,7 @@
+{
+  "statement": "确认无异常",
+  "recorded_wall_time": 1789561230.699464,
+  "operator_reports_no_abnormality": true,
+  "power_off_confirmed": false,
+  "interpretation": "Operator confirmed no abnormality; the reply did not explicitly confirm drive power OFF."
+}

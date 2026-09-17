@@ -1,0 +1,30 @@
+{
+  "authorized": true,
+  "authorization_source": "User 2026-09-17: P10.3证据先进行保留，现在可以开始完成整链 X1/急停与 quick-stop 恢复、SBUS 失联/failsafe、非中立恢复、运动 SIGTERM 等实机工况",
+  "attempts": 1,
+  "artifact_sha256": "2f97bdbafdb370e70ae47231609cf1ee698e56af2652f6e12e6c041970389058",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--zero-x1-recovery"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-faults-2f97bdba-x1-a1-20260917",
+  "operator_readiness_required": true,
+  "scope": "F1 only: zero-target X1 inhibition and nonneutral/no-auto-restart plus fresh neutral rearm; exactly one bounded invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO/RPDO target"
+  ],
+  "trial": "F1 zero X1 recovery A1; no nonzero target; no automatic next trial",
+  "power_cycle_confirmation_required": false
+}

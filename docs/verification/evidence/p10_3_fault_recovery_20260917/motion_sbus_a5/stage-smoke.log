@@ -1,0 +1,6 @@
+Target identity and absence of writers verified; new stage created
+Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--zero-sbus-recovery|--restore-zero-baseline)
+Optional for control/restore: --zero-feedback-tenths-rpm 0..15 (default15); standstill only; moving direction/target bounds unchanged.
+Optional for motion: --motion-window-ms 3000..8000 (default3000); cutoff50ms before limit.
+MS: 2000..20000 for zero-only; 2000..60000 for other bounded trials.
+{"verified": {"robot-control-hil": "38800cfe2e4f9d7de1c338569a07b387ff15ca77b25e4737a4391c9ddaa7f513", "robot_control_control_cycle_tests": "193f92e4d2e99066605b2b0354e87d3ceb6ebdd21cb3d3cf7b9a91433a4e4a48", "recovery-once.py": "bf1758327edb0005c35d1eb0a143f5c4ee80b5f10dbca5b93617d412e5d02020", "authorization.json": "b21ae57cbb1e56121cd60b8b8ea29923806c06b2e2b31877c7481db314d583a7", "safety-preflight.json": "828530843e082a5f51e618b751f750fc795c4fc45a0910e384e46957bfa8cea0"}, "physical_started": false, "marker_unconsumed": true, "smoke": "help and pure control-cycle passed"}

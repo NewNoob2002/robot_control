@@ -1,0 +1,12 @@
+INFO: managed namespace vcan0 is up
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 385, in <module>
+    trial(case)
+    ~~~~~^^^^^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 244, in trial
+    assert process.returncode == (0 if success else 1), (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right|--observe-input)
+MS: 2000..20000 for zero-only; 2000..60000 for single-wheel operator wait or receive-only input.
+LAST CAN FRAMES:
+

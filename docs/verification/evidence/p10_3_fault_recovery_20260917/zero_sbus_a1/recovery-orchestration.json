@@ -1,0 +1,336 @@
+{
+  "passed": true,
+  "control_phase_observed": true,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 387777661619
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 59,
+      "host_monotonic_ns": 389946652896
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 391004862957
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 391961491955
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 392918752417
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 392969159426
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 55,
+      "host_monotonic_ns": 393976473436
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 54,
+      "host_monotonic_ns": 394986200778
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 53,
+      "host_monotonic_ns": 395944159766
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 396952570374
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 51,
+      "host_monotonic_ns": 397958750994
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 50,
+      "host_monotonic_ns": 398966416259
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 49,
+      "host_monotonic_ns": 399974397596
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 48,
+      "host_monotonic_ns": 401032654217
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 47,
+      "host_monotonic_ns": 401990690644
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 46,
+      "host_monotonic_ns": 402999575547
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 45,
+      "host_monotonic_ns": 403957092466
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 44,
+      "host_monotonic_ns": 404964977635
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 43,
+      "host_monotonic_ns": 405971702336
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 42,
+      "host_monotonic_ns": 406978646729
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 41,
+      "host_monotonic_ns": 407984838729
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 40,
+      "host_monotonic_ns": 408993036259
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 39,
+      "host_monotonic_ns": 409952544544
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 38,
+      "host_monotonic_ns": 411060521062
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 37,
+      "host_monotonic_ns": 411967637808
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 36,
+      "host_monotonic_ns": 412974824623
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 35,
+      "host_monotonic_ns": 413982949297
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 34,
+      "host_monotonic_ns": 414990403674
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 33,
+      "host_monotonic_ns": 415998507626
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 32,
+      "host_monotonic_ns": 416955291306
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 32,
+      "host_monotonic_ns": 417459234311
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 31,
+      "host_monotonic_ns": 417962627242
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 30,
+      "host_monotonic_ns": 418970370681
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 29,
+      "host_monotonic_ns": 420029976241
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 28,
+      "host_monotonic_ns": 420988573331
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 27,
+      "host_monotonic_ns": 421996417275
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 26,
+      "host_monotonic_ns": 422953645012
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 25,
+      "host_monotonic_ns": 423961496113
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 24,
+      "host_monotonic_ns": 424971233786
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 23,
+      "host_monotonic_ns": 425980243927
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 22,
+      "host_monotonic_ns": 426988975362
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 21,
+      "host_monotonic_ns": 427948803421
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 20,
+      "host_monotonic_ns": 429007193562
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 19,
+      "host_monotonic_ns": 429964237364
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 18,
+      "host_monotonic_ns": 430972187693
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 17,
+      "host_monotonic_ns": 431980601902
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 16,
+      "host_monotonic_ns": 432989387941
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 15,
+      "host_monotonic_ns": 433947524835
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 14,
+      "host_monotonic_ns": 434955651322
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 13,
+      "host_monotonic_ns": 435964291513
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 12,
+      "host_monotonic_ns": 436973354610
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 11,
+      "host_monotonic_ns": 437981317438
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 10,
+      "host_monotonic_ns": 438990024194
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "remaining": 9,
+      "host_monotonic_ns": 439999434415
+    },
+    {
+      "phase": "NEUTRAL_READY",
+      "remaining": 9,
+      "host_monotonic_ns": 440302105245
+    },
+    {
+      "phase": "NEUTRAL_READY",
+      "remaining": 8,
+      "host_monotonic_ns": 440957591162
+    },
+    {
+      "phase": "NEUTRAL_READY",
+      "remaining": 7,
+      "host_monotonic_ns": 442116798632
+    },
+    {
+      "phase": "NEUTRAL_READY",
+      "remaining": 6,
+      "host_monotonic_ns": 442973431423
+    },
+    {
+      "phase": "REARM_READY",
+      "remaining": 6,
+      "host_monotonic_ns": 443023885267
+    },
+    {
+      "phase": "REARM_READY",
+      "remaining": 5,
+      "host_monotonic_ns": 443984329709
+    },
+    {
+      "phase": "REARM_READY",
+      "remaining": 4,
+      "host_monotonic_ns": 444993437850
+    },
+    {
+      "phase": "REARM_READY",
+      "remaining": 3,
+      "host_monotonic_ns": 445951423230
+    },
+    {
+      "phase": "ZERO_REENABLED",
+      "remaining": 3,
+      "host_monotonic_ns": 446152805053
+    },
+    {
+      "phase": "ZERO_REENABLED",
+      "remaining": 2,
+      "host_monotonic_ns": 447010929156
+    },
+    {
+      "phase": "STOP",
+      "remaining": 2,
+      "host_monotonic_ns": 447162168812
+    }
+  ],
+  "last_display": "STOP",
+  "operator_prompted": true,
+  "target_runner_exit": 0,
+  "capture_exit": 0
+}

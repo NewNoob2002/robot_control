@@ -1,0 +1,9 @@
+{
+  "statement": "零目标试验已上电就绪",
+  "wall_time": 1789560401.5843534,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "source": "User response to the bounded zero-only trial readiness request"
+}

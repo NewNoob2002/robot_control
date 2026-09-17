@@ -1,0 +1,24 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p103-control-hil
+    Start 34: control_hil_uart_vcan_managed
+1/1 Test #34: control_hil_uart_vcan_managed ....***Failed    5.88 sec
+INFO: managed namespace vcan0 is up
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 595, in <module>
+    trial(case)
+    ~~~~~^^^^^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 397, in trial
+    check_trace(trace, full_text, scenario)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 465, in check_trace
+    assert phases['release_fault']-phases['fault_observed'] >= 5000000000
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   5.88 sec
+
+The following tests FAILED:
+	 34 - control_hil_uart_vcan_managed (Failed)
+Errors while running CTest

@@ -1,0 +1,2 @@
+target identity verified; prior attempt exited; fresh stage created
+{"verified": {"robot-control-hil": "f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878", "zero-once.py": "68660cbc0f59ec798c5db71a4a1670b14b87abaac8aa7816d3a2cfd1ca6e4359", "authorization.json": "8c74e8cb916256a0aa458369df309eb6863144b4f0d4ca606d9a5c8fc9a9acd9", "safety-preflight.json": "df18dc90975626a643063afe2d22fdafecf7bb0d3e8279230b8e5215d571ab9c"}, "physical_started": false, "new_marker_unconsumed": true}

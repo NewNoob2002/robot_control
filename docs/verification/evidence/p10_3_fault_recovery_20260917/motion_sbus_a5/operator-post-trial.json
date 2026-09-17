@@ -1,0 +1,12 @@
+{
+  "raw_user_statement": "OFF",
+  "right_direction_and_stop_normal": true,
+  "left_always_stationary": true,
+  "drive_power_off": true,
+  "no_abnormal_sound": true,
+  "transmitter_off": true,
+  "receiver_stayed_powered": true,
+  "confirmation_source": "Local terminal post-trial question",
+  "runner_exit": 0,
+  "actual_operation": "遥控器没有关机，等待提示正常，运动中按POWER_OFF_READY长按关机，关机前没有回中，接收机全供电，没有X1"
+}

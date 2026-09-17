@@ -1,0 +1,33 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 继续F5; 可以单独拔掉SBUS信号的端口",
+  "attempts": 1,
+  "artifact_sha256": "cd8bd1c594c9297a9036ff585cdc82e852f99795c3f8a8c27e6bdd453d5df7a1",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--zero-sbus-recovery",
+    "--zero-feedback-tenths-rpm",
+    "20"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-stop-review-cd8bd1c5-uart-a1-20260917",
+  "operator_readiness_required": true,
+  "scope": "F5 zero-target UART raw-byte silence and recovery; disconnect/reconnect SBUS signal only; USB, ground and receiver power remain connected, transmitter stays on; one invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO/RPDO target"
+  ],
+  "trial": "F5 A1 zero UART signal disconnect/reconnect,60s,CLI20",
+  "power_cycle_confirmation_required": false,
+  "zero_feedback_tenths_rpm": 20
+}

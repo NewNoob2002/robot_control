@@ -1,0 +1,6 @@
+{
+  "matches": true,
+  "reference": "../zero_x1_a2/jcan-config-before.json",
+  "configuration_writes": 0,
+  "capture_started": false
+}

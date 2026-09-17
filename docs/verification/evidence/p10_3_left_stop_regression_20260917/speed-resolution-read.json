@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-17",
+  "authorization": "User requested JCAN speed-resolution check; fresh readiness: 只读查询已上电就绪",
+  "serial": "207F346D5650",
+  "command": "pkexec /home/gtc/Desktop/workspace/JCAN/target/release/jcan --json --serial 207F346D5650 sdo-read 01 2026 05",
+  "exit_code": 0,
+  "attempts": 1,
+  "result": {
+    "ok": true,
+    "operation": "sdo-read",
+    "node": 1,
+    "index": 8230,
+    "subindex": 5,
+    "value_hex": "01 00",
+    "value_unsigned": 1,
+    "response_id_hex": "581",
+    "response_data_hex": "4B 26 20 05 01 00 00 00",
+    "warnings": []
+  },
+  "interpretation": "Manufacturer manual defines command resolution as1/value rpm. Current readback1 denotes1rpm per command unit; this object is distinct from0x606C feedback scaling0.1rpm. No parameter changed or motor enabled.",
+  "power": "Operator confirmed ON for read; subsequent OFF not yet confirmed."
+}

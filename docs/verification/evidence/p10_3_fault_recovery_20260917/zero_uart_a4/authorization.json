@@ -1,0 +1,33 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 优化一下恢复判定然后开启A4",
+  "attempts": 1,
+  "artifact_sha256": "91d3ce99c06b4f96148a1e8cc86412459d53fe1bce88a91ec41f1d64dc33430c",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "120000",
+    "--zero-uart-recovery",
+    "--zero-feedback-tenths-rpm",
+    "20"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-uart-stable-91d3ce99-uart-a4-20260917",
+  "operator_readiness_required": true,
+  "scope": "F5 zero-target UART raw-byte silence and recovery; disconnect/reconnect SBUS signal only; USB, ground and receiver power remain connected, transmitter stays on; one invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO/RPDO target"
+  ],
+  "trial": "F5 A4 single invocation;120s total/5s hold/45s recovery; continuous healthy neutral1s; repeated parser rejection resets stability while authority stays revoked; CLI20",
+  "power_cycle_confirmation_required": false,
+  "zero_feedback_tenths_rpm": 20
+}

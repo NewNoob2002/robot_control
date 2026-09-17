@@ -1,0 +1,35 @@
+[1/3] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp.
+66 warnings generated.
+[2/3] (1/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp.
+112 warnings generated.
+[2/3] (2/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp.
+158 warnings generated.
+[3/3] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/application/control/linux_loop.cpp.
+213 warnings generated.
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/motion_gate.hpp:14:16: error: enum 'End' uses a larger base type ('int', size: 4 bytes) than necessary for its value set, consider using 'std::uint8_t' (1 byte) as the base type to reduce its size [performance-enum-size,-warnings-as-errors]
+   14 |     enum class End { none, zero_target, rejected, closed, time_limit };
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:23:16: error: enum 'Mode' uses a larger base type ('int', size: 4 bytes) than necessary for its value set, consider using 'std::uint8_t' (1 byte) as the base type to reduce its size [performance-enum-size,-warnings-as-errors]
+   23 |     enum class Mode { input_only, zero, left, right };
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:24:16: error: enum 'Kind' uses a larger base type ('int', size: 4 bytes) than necessary for its value set, consider using 'std::uint8_t' (1 byte) as the base type to reduce its size [performance-enum-size,-warnings-as-errors]
+   24 |     enum class Kind { batch, frame, rejected, cycle, can_rx, can_tx, stop };
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:80:72: error: 2 adjacent parameters of 'can' of convertible types are easily swapped by mistake [bugprone-easily-swappable-parameters,-warnings-as-errors]
+   80 |     void can(Kind kind, const can_frame& frame, Clock::time_point now, std::int64_t result, int error) noexcept {
+      |                                                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:80:85: note: the first parameter in the range is 'result'
+   80 |     void can(Kind kind, const can_frame& frame, Clock::time_point now, std::int64_t result, int error) noexcept {
+      |                                                                                     ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:80:97: note: the last parameter in the range is 'error'
+   80 |     void can(Kind kind, const can_frame& frame, Clock::time_point now, std::int64_t result, int error) noexcept {
+      |                                                                                                 ^~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:80:72: note: 
+   80 |     void can(Kind kind, const can_frame& frame, Clock::time_point now, std::int64_t result, int error) noexcept {
+      |                                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:80:93: note: 'std::int64_t' and 'int' may be implicitly converted: 'std::int64_t' (as 'long') -> 'int', 'int' -> 'std::int64_t' (as 'long')
+   80 |     void can(Kind kind, const can_frame& frame, Clock::time_point now, std::int64_t result, int error) noexcept {
+      |                                                                                             ^
+Suppressed 212 warnings (201 in non-user code, 11 NOLINT).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+4 warnings treated as errors

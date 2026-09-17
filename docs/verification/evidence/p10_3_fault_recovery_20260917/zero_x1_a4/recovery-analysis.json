@@ -1,0 +1,51 @@
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 6159,
+  "counts": {
+    "0x601": 159,
+    "0x581": 159,
+    "0x701": 166,
+    "0x0": 3,
+    "0x181": 817,
+    "0x281": 817,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 4036
+  },
+  "tpdo2_frames": 817,
+  "tpdo2_span_ms": 40794.08001899719,
+  "tpdo2_interval_ms": [
+    49.74699020385742,
+    50.318002700805664
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 4036,
+  "enabled_feedback": 331,
+  "enabled_samples": 1640,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "x1",
+    "zero_feedback_tenths_rpm": 10,
+    "phases": {
+      "fault_ready": 278105678956381,
+      "fault_observed": 278109738771436,
+      "release_fault": 278110748763656,
+      "neutral_ready": 278120788691913,
+      "rearm_ready": 278123938691893,
+      "zero_reenabled": 278140938691048,
+      "complete": 278141938741243
+    },
+    "targets_zero": true,
+    "nonneutral_inhibited": true,
+    "fresh_authorization": true,
+    "quick_stop_disable_shutdown_enable_order": true
+  },
+  "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+}

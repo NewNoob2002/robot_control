@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-c++"
+	tests="46"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="cathyLaptop"
+	time="210"
+	timestamp="2026-09-17T18:06:56"
+	>
+	<testcase name="sbus_source_contract" classname="sbus_source_contract" time="0.0021978" status="run">
+		<properties/>
+		<system-out>P9.3 source contract: PASS
+</system-out>
+	</testcase>
+	<testcase name="control_cycle_contract" classname="control_cycle_contract" time="0.00191767" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_runtime_policy" classname="canopen_runtime_policy" time="0.000899374" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="platform_probe_help" classname="platform_probe_help" time="0.000832057" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-platform-probe [--help|--phase3-smoke]
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_run" classname="platform_probe_run" time="0.00081785" status="run">
+		<properties/>
+		<system-out>probe_version=1
+sysname=Linux
+release=7.2.6-1-cachyos
+machine=x86_64
+pid=66993
+monotonic_ns=11367373626417
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_phase3_smoke" classname="platform_probe_phase3_smoke" time="0.00147179" status="run">
+		<properties/>
+		<system-out>I/elog     EasyLogger V2.2.0 is initialize success.
+I/platform_probe timestamp_unix_s=1789639616 severity=INFO event="phase3_smoke" result=pass
+</system-out>
+	</testcase>
+	<testcase name="can_probe_help" classname="can_probe_help" time="0.000930913" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_missing_interface" classname="can_probe_missing_interface" time="0.00876989" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing required argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_unknown_argument" classname="can_probe_unknown_argument" time="0.00718868" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="unknown argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_zero" classname="can_probe_duration_zero" time="0.00644752" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms out of range value=0" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_nonnumeric" classname="can_probe_duration_nonnumeric" time="0.00800158" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=abc" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_overflow" classname="can_probe_duration_overflow" time="0.00739182" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms overflow value=9999999999999999999999999999999999999999" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_interface" classname="can_probe_duplicate_interface" time="0.00742082" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_duration" classname="can_probe_duplicate_duration" time="0.00821368" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_interface_missing_value" classname="can_probe_interface_missing_value" time="0.0068443" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_missing_value" classname="can_probe_duration_missing_value" time="0.0072177" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_negative" classname="can_probe_duration_negative" time="0.00712289" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=-1" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_help" classname="canopen_observer_help" time="0.00163937" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid_" classname="canopen_observer_invalid_" time="0.00749834" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___unknown" classname="canopen_observer_invalid___unknown" time="0.00685036" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing value argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0" classname="canopen_observer_invalid___interface_unused0" time="0.00701527" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0___interface_unused1" classname="canopen_observer_invalid___interface_unused0___interface_unused1" time="0.00714651" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_0" classname="canopen_observer_invalid___duration_ms_0" time="0.00675857" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="invalid value argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_1___duration_ms_2" classname="canopen_observer_invalid___duration_ms_1___duration_ms_2" time="0.00793798" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="control_hil_trace" classname="control_hil_trace" time="0.00528001" status="run">
+		<properties/>
+		<system-out>trace_failures=0
+</system-out>
+	</testcase>
+	<testcase name="control_hil_motion_gate" classname="control_hil_motion_gate" time="0.00151194" status="run">
+		<properties/>
+		<system-out>motion_gate_failures=0
+</system-out>
+	</testcase>
+	<testcase name="control_hil_zero_gate" classname="control_hil_zero_gate" time="0.00111488" status="run">
+		<properties/>
+		<system-out>zero_gate_failures=0
+</system-out>
+	</testcase>
+	<testcase name="control_hil_help" classname="control_hil_help" time="0.000837788" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--zero-sbus-recovery|--zero-uart-recovery|--restore-zero-baseline)
+Optional for control/restore: --zero-feedback-tenths-rpm 0..20 (default20); standstill only; moving direction/target bounds unchanged.
+Optional for motion: --motion-window-ms 3000..8000 (default3000); cutoff50ms before limit.
+MS: 2000..20000 for zero-only; 2000..60000 for other bounded trials.
+</system-out>
+	</testcase>
+	<testcase name="control_hil_zero_vcan_managed" classname="control_hil_zero_vcan_managed" time="8.00855" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 884,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 133,
+    "0x0": 3,
+    "0x181": 126,
+    "0x281": 126,
+    "0x201": 252
+  },
+  "tpdo2_frames": 126,
+  "tpdo2_span_ms": 2559.27900000097,
+  "tpdo2_interval_ms": [
+    18.990999999005,
+    21.95900000151596
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 252,
+  "enabled_feedback": 87,
+  "enabled_samples": 178,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "Zero-target ControlLoop only; motion and fault trials remain open"
+}
+happy: passed, zero_rpdo=252, restored=verified
+nonzero: passed, zero_rpdo=92, restored=verified
+x1_pulse: passed, zero_rpdo=97, restored=verified
+sigterm: passed, zero_rpdo=95, restored=verified
+missing_diagnostics: passed, zero_rpdo=0, restored=verified
+</system-out>
+	</testcase>
+	<testcase name="control_hil_motion_vcan_managed" classname="control_hil_motion_vcan_managed" time="84.0839" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+motion_throttle_tolerance: passed, zero_rpdo=196, restored=verified
+motion_throttle_tolerance_reject: passed, zero_rpdo=199, restored=verified
+motion_throttle: passed, zero_rpdo=198, restored=verified
+motion_throttle_x1: passed, zero_rpdo=148, restored=verified
+motion_throttle_steering: passed, zero_rpdo=116, restored=verified
+motion_throttle_reverse: passed, zero_rpdo=116, restored=verified
+motion_throttle_failsafe: passed, zero_rpdo=148, restored=verified
+motion_throttle_silence: passed, zero_rpdo=156, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 795,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 122,
+    "0x0": 3,
+    "0x181": 115,
+    "0x281": 115,
+    "0x201": 196
+  },
+  "tpdo2_frames": 115,
+  "tpdo2_span_ms": 2341.5919999988546,
+  "tpdo2_interval_ms": [
+    19.695999999385094,
+    21.31100000042352
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "left",...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="control_hil_window_vcan_managed" classname="control_hil_window_vcan_managed" time="16.2731" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+motion_throttle_long_failsafe: passed, zero_rpdo=518, restored=verified
+motion_throttle_long_deadline: passed, zero_rpdo=913, restored=verified
+</system-out>
+	</testcase>
+	<testcase name="control_hil_startup_vcan_managed" classname="control_hil_startup_vcan_managed" time="15.1902" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+motion_throttle_startup_failsafe: passed, zero_rpdo=346, restored=verified
+motion_throttle_startup_silence: passed, zero_rpdo=346, restored=verified
+motion_throttle_startup_nonneutral: passed, zero_rpdo=347, restored=verified
+motion_throttle_startup_timeout: passed, zero_rpdo=252, restored=verified
+</system-out>
+	</testcase>
+	<testcase name="control_hil_recovery_vcan_managed" classname="control_hil_recovery_vcan_managed" time="57.3832" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 1595,
+  "counts": {
+    "0x601": 123,
+    "0x581": 123,
+    "0x701": 273,
+    "0x0": 3,
+    "0x181": 266,
+    "0x281": 266,
+    "0x201": 541
+  },
+  "tpdo2_frames": 266,
+  "tpdo2_span_ms": 5435.7600000003,
+  "tpdo2_interval_ms": [
+    19.035999999687192,
+    22.075999999287887
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 541,
+  "enabled_feedback": 60,
+  "enabled_samples": 121,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "x1",
+    "zero_feedback_tenths_rpm": 0,
+    "phases": {
+      "fault_ready": 11492247826874,
+      "fault_observed": 11492257823740,
+      "release_fault": 11493257849865,
+      "neutral_ready": 11494277825550,
+      "rearm_ready": 11495287829388,
+      "zero_reenabled": 11495707844162,
+      "complete": 114...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="control_hil_uart_vcan_managed" classname="control_hil_uart_vcan_managed" time="18.6082" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 1628,
+  "counts": {
+    "0x601": 123,
+    "0x581": 123,
+    "0x701": 280,
+    "0x0": 3,
+    "0x181": 273,
+    "0x281": 273,
+    "0x201": 553
+  },
+  "tpdo2_frames": 273,
+  "tpdo2_span_ms": 5573.617000000013,
+  "tpdo2_interval_ms": [
+    19.170999999914784,
+    22.08000000064203
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 553,
+  "enabled_feedback": 63,
+  "enabled_samples": 128,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "sbus",
+    "zero_feedback_tenths_rpm": 0,
+    "phases": {
+      "fault_ready": 11549665946886,
+      "fault_observed": 11549735917125,
+      "release_fault": 11550745910955,
+      "neutral_ready": 11551755922829,
+      "rearm_ready": 11552775029842,
+      "zero_reenabled": 11553225920185,
+      "complete": ...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="control_qualification_vcan_managed" classname="control_qualification_vcan_managed" time="8.87981" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+hil_read index=24641 sub=0 raw=4194368
+hil_read index=24672 sub=0 raw=3
+hil_read index=24673 sub=0 raw=3
+hil_read index=24639 sub=0 raw=0
+hil_read index=24831 sub=1 raw=0
+hil_read index=24831 sub=2 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=8207 sub=0 raw=1
+hil_read index=8192 sub=0 raw=0
+hil_read index=4119 sub=0 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5120 sub=5 raw=1000
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1616904200
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6144 sub=5 raw=100
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6145 sub=5 raw=0
+hil_read index=6657 sub=0 raw=0
+hil_read index=6657 sub=...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="domain_behavior_lock" classname="domain_behavior_lock" time="0.0020976" status="run">
+		<properties/>
+		<system-out>domain_behavior_lock passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_parser_contract" classname="sbus_parser_contract" time="0.0120825" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_stack_build" classname="canopen_stack_build" time="0.00113423" status="run">
+		<properties/>
+		<system-out>canopen_stack_tests passed
+</system-out>
+	</testcase>
+	<testcase name="canopen_vcan_managed" classname="canopen_vcan_managed" time="0.63199" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: P5.5 observation service=boot raw_can_id=0x00000701 dlc=1 payload=0000000000000000 timestamp_ns=11576112392202 transport=1 boot=1
+INFO: P5.5 observation service=heartbeat raw_can_id=0x00000701 dlc=1 payload=0500000000000000 timestamp_ns=11576123426363 transport=1 boot=1
+INFO: P5.5 observation service=emcy raw_can_id=0x00000081 dlc=8 payload=34125678efcdab90 timestamp_ns=11576134388648 transport=1 boot=1
+INFO: P5.5 observation service=tpdo1 raw_can_id=0x00000181 dlc=8 payload=1122334455667788 timestamp_ns=11576145389657 transport=1 boot=1
+INFO: P5.5 observation service=tpdo2 raw_can_id=0x00000281 dlc=0 payload=0000000000000000 timestamp_ns=11576156386257 transport=1 boot=1
+INFO: P5.5 observation service=tpdo3 raw_can_id=0x00000381 dlc=0 payload=0000000000000000 timestamp_ns=11576167410639 transport=1 boot=1
+INFO: P5.5 observation service=tpdo4 raw_can_id=0x00000481 dlc=0 payload=0000000000000000 timestamp_ns=11576178411007 transport=1 boot=1
+INFO: P5.5 observation serv...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="socketcan_frame_codec" classname="socketcan_frame_codec" time="0.00239555" status="run">
+		<properties/>
+		<system-out>socketcan_frame_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_socket_lifecycle" classname="socketcan_socket_lifecycle" time="0.00223743" status="run">
+		<properties/>
+		<system-out>SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing vcan interface for bind/filter/frame/metadata checks
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_vcan_managed" classname="socketcan_vcan_managed" time="0.154907" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: managed vcan RX overflow evidence requested_rcvbuf=1024 effective_rcvbuf=2304 frames_attempted=4096 frames_sent=4096 raw_overflow_counter=4093
+INFO: managed vcan CAN error-frame evidence raw_can_id=0x20000044 error_classes=0x00000044 payload=0004123456789abc
+INFO: managed vcan link-down/reopen evidence interface=vcan0 original_ifindex=2 reopened_ifindex=2 receive_operation=poll receive_context="interface=vcan0 socket failure" receive_errno=5 send_operation=write send_context="interface=vcan0" send_errno=100 raw_can_id=0x000006a5 dlc=8 len8_dlc=0 payload=a55adeadbeef4224
+INFO: managed vcan bidirectional frame and filter isolation checks passed
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="linux_platform_integration" classname="linux_platform_integration" time="0.197322" status="run">
+		<properties/>
+		<system-out>linux_platform_integration passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_reader_pty" classname="sbus_reader_pty" time="0.10206" status="run">
+		<properties/>
+		<system-out>SBUS reader PTY tests passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_observer_cli" classname="sbus_observer_cli" time="0.624259" status="run">
+		<properties/>
+		<system-out>SBUS observer CLI, PTY, SIGTERM and output-backpressure tests passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_source_archived_replay" classname="sbus_source_archived_replay" time="0.0784554" status="run">
+		<properties/>
+		<system-out>p9_2_sbus_capture_20260916: frames/rejected/lost/failsafe=(1428, 0, 0, 0) PASS (offline replay)
+attempt1: frames/rejected/lost/failsafe=(4098, 2, 422, 351) PASS (offline replay)
+attempt2: frames/rejected/lost/failsafe=(4290, 3, 420, 348) PASS (offline replay)
+</system-out>
+	</testcase>
+</testsuite>

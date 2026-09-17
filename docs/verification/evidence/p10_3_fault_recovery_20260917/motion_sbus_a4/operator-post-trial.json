@@ -1,0 +1,12 @@
+{
+  "raw_user_statement": "",
+  "right_direction_and_stop_normal": null,
+  "left_always_stationary": null,
+  "drive_power_off": null,
+  "no_abnormal_sound": null,
+  "transmitter_off": null,
+  "receiver_stayed_powered": null,
+  "confirmation_source": "Local terminal post-trial question",
+  "runner_exit": 0,
+  "actual_operation": "什么都没干就退出来"
+}

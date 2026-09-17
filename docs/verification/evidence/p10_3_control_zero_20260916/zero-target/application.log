@@ -1,0 +1,181 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+hil_read index=24641 sub=0 raw=335549440
+hil_read index=24672 sub=0 raw=3
+hil_read index=24673 sub=0 raw=3
+hil_read index=24639 sub=0 raw=0
+hil_read index=24831 sub=1 raw=0
+hil_read index=24831 sub=2 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=8207 sub=0 raw=1
+hil_read index=8192 sub=0 raw=0
+hil_read index=4119 sub=0 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5120 sub=5 raw=1000
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1616904200
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6144 sub=5 raw=100
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6145 sub=5 raw=0
+hil_read index=6657 sub=0 raw=0
+hil_read index=6657 sub=1 raw=0
+hil_read index=6657 sub=2 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1627325216
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6657 sub=0 raw=2
+hil_read index=6657 sub=1 raw=1616969736
+hil_read index=6657 sub=2 raw=1614741536
+hil_read index=8207 sub=0 raw=1
+event=control_start duration_ms=20000 targets=zero operator=neutral_release_then_press
+event=control elapsed_ms=0 source_health=4 authorization=0 armed=0 status=337712161 word=2 enabled_samples=0
+event=control elapsed_ms=100 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=200 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=310 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=420 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=520 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=630 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=740 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=840 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=940 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1040 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1150 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1250 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1350 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1460 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1560 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1660 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1770 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1870 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=1970 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2080 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2190 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2290 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2390 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2500 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2610 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2710 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2820 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=2920 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3030 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3130 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3230 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3340 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3450 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3560 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3660 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3760 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3860 source_health=2 authorization=0 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=3970 source_health=3 authorization=1 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=4080 source_health=3 authorization=1 armed=0 status=341840992 word=2 enabled_samples=0
+event=control elapsed_ms=4180 source_health=3 authorization=1 armed=1 status=337712161 word=7 enabled_samples=0
+event=control elapsed_ms=4280 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=5
+event=control elapsed_ms=4390 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=16
+event=control elapsed_ms=4490 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=26
+event=control elapsed_ms=4590 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=36
+event=control elapsed_ms=4700 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=47
+event=control elapsed_ms=4800 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=57
+event=control elapsed_ms=4910 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=68
+event=control elapsed_ms=5020 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=79
+event=control elapsed_ms=5120 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=89
+event=control elapsed_ms=5220 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=99
+event=control elapsed_ms=5330 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=110
+event=control elapsed_ms=5440 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=121
+event=control elapsed_ms=5550 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=132
+event=control elapsed_ms=5650 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=142
+event=control elapsed_ms=5760 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=153
+event=control elapsed_ms=5860 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=163
+event=control elapsed_ms=5970 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=174
+event=control elapsed_ms=6070 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=184
+event=control elapsed_ms=6180 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=195
+event=control elapsed_ms=6280 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=205
+event=control elapsed_ms=6380 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=215
+event=control elapsed_ms=6490 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=226
+event=control elapsed_ms=6600 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=237
+event=control elapsed_ms=6710 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=248
+event=control elapsed_ms=6810 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=258
+event=control elapsed_ms=6920 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=269
+event=control elapsed_ms=7030 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=280
+event=control elapsed_ms=7140 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=291
+event=control elapsed_ms=7240 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=301
+event=control elapsed_ms=7350 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=312
+event=control elapsed_ms=7460 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=323
+event=control elapsed_ms=7560 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=333
+event=control elapsed_ms=7670 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=344
+event=control elapsed_ms=7780 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=355
+event=control elapsed_ms=7890 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=366
+event=control elapsed_ms=7990 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=376
+event=control elapsed_ms=8090 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=386
+event=control elapsed_ms=8200 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=397
+event=control elapsed_ms=8300 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=407
+event=control elapsed_ms=8400 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=417
+event=control elapsed_ms=8510 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=428
+event=control elapsed_ms=8610 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=438
+event=control elapsed_ms=8720 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=449
+event=control elapsed_ms=8820 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=459
+event=control elapsed_ms=8930 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=470
+event=control elapsed_ms=9030 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=480
+event=control elapsed_ms=9130 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=490
+event=control elapsed_ms=9230 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=500
+event=control elapsed_ms=9340 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=511
+event=control elapsed_ms=9450 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=522
+event=control elapsed_ms=9550 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=532
+event=control elapsed_ms=9660 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=543
+event=control elapsed_ms=9770 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=554
+event=control elapsed_ms=9870 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=564
+event=control elapsed_ms=9980 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=575
+event=control elapsed_ms=10080 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=585
+event=control elapsed_ms=10180 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=595
+event=control elapsed_ms=10280 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=605
+event=control elapsed_ms=10390 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=616
+event=control elapsed_ms=10500 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=627
+event=control elapsed_ms=10600 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=637
+event=control elapsed_ms=10700 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=647
+event=control elapsed_ms=10810 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=658
+event=control elapsed_ms=10910 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=668
+event=control elapsed_ms=11010 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=678
+event=control elapsed_ms=11120 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=689
+event=control elapsed_ms=11230 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=700
+event=control elapsed_ms=11330 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=710
+event=control elapsed_ms=11430 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=720
+event=control elapsed_ms=11540 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=731
+event=control elapsed_ms=11640 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=741
+event=control elapsed_ms=11750 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=752
+event=control elapsed_ms=11860 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=763
+event=control elapsed_ms=11970 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=774
+event=control elapsed_ms=12080 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=785
+event=control elapsed_ms=12180 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=795
+event=control elapsed_ms=12280 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=805
+event=control elapsed_ms=12390 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=816
+event=control elapsed_ms=12500 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=827
+event=control elapsed_ms=12600 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=837
+event=control elapsed_ms=12710 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=848
+event=control elapsed_ms=12810 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=858
+event=control elapsed_ms=12920 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=869
+event=control elapsed_ms=13020 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=879
+event=control elapsed_ms=13130 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=890
+event=control elapsed_ms=13230 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=900
+event=control elapsed_ms=13330 source_health=3 authorization=1 armed=1 status=338105383 word=15 enabled_samples=910
+phase=runtime_stop ok=1 operation= context= errno=0
+hil_read index=24641 sub=0 raw=341840992
+phase=control ok=0 operation=control_hil_zero_envelope context=can0 healthy=1 armed=1 reason=1 status=338105383 source_fault=0 source_age_ms=0 errno=13
+phase=restore ok=0 operation=control_hil_cleanup_moving context=interface=can0 node=1 control_hil_cleanup_unverified operator_power_off_required errno=34
+event=summary cycles=1340 enabled_samples=916 missed_periods=3 maximum_lateness_us=36469 maximum_cycle_us=116 shutdown_us=7 primary_ok=0 restore_ok=0

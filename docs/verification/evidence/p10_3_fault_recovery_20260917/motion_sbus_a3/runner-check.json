@@ -1,0 +1,10 @@
+{
+  "syntax": "PASS",
+  "ordered_live_prompts": "PASS",
+  "expired_and_cleanup_prompts_suppressed": "PASS",
+  "archived_a1_exit_suppressed": "PASS",
+  "missing_readiness_rejected_before_subprocess": "PASS",
+  "sbus_causal_positive_cases": 3,
+  "sbus_causal_rejections": 8,
+  "physical_started": false
+}

@@ -1,0 +1,62 @@
+{
+  "status": "INCOMPLETE_OPERATOR_SCENARIO",
+  "capture_integrity": "PASS",
+  "application_exit": 0,
+  "trace_records": 25721,
+  "frames": 8573,
+  "cycles": 8574,
+  "can_rx": 0,
+  "can_tx_attempts": 0,
+  "enabled_cycles": 0,
+  "flags": {
+    "0": 8573
+  },
+  "startup_discontinuities": 1,
+  "health_counts": {
+    "4": 1,
+    "1": 2,
+    "2": 8571
+  },
+  "max_frame_gap_ms": 7.953279,
+  "raw_ranges": {
+    "ch1": [
+      1010,
+      1465
+    ],
+    "ch3": [
+      993,
+      1554
+    ],
+    "ch6": [
+      200,
+      200
+    ]
+  },
+  "first_non_neutral_seconds": 41.210145269,
+  "last_frame": {
+    "ns": 263831923007528,
+    "session": 2,
+    "ch1": 1439,
+    "ch3": 1534,
+    "ch6": 200,
+    "flags": 0,
+    "mapped": [
+      548,
+      670,
+      5,
+      0
+    ]
+  },
+  "candidate_left_range": [
+    0,
+    5
+  ],
+  "candidate_right_range": [
+    0,
+    0
+  ],
+  "negative_candidate_frames": 0,
+  "complete_returns_to_neutral": 0,
+  "disposition": "R0 marker consumed; no automatic retry. A not staged or started. Operator confirms current sticks neutral and drive OFF; reported return timing unresolved.",
+  "conclusion": "No return-to-neutral captured. Cannot assess slow versus natural release or explain previous drive stop feedback."
+}

@@ -1,0 +1,58 @@
+{
+  "trace_records": 10678,
+  "trace_feedback_bad": false,
+  "trace_discontinuities": 0,
+  "feedback_range_tenths_rpm": {
+    "left": [
+      0,
+      0
+    ],
+    "right": [
+      0,
+      0
+    ]
+  },
+  "source_authorization": [
+    1,
+    2
+  ],
+  "system_authorization": [
+    1,
+    2
+  ],
+  "announcement_after_first_enabled_ms": 7.718974,
+  "standstill_holds_ms": [
+    161.019,
+    161.009
+  ],
+  "counter_deltas": {
+    "rx": {
+      "bytes": 7025,
+      "packets": 1122,
+      "errors": 0,
+      "dropped": 0,
+      "over_errors": 0,
+      "multicast": 0
+    },
+    "tx": {
+      "bytes": 14016,
+      "packets": 2285,
+      "errors": 0,
+      "dropped": 0,
+      "carrier_errors": 0,
+      "collisions": 0
+    }
+  },
+  "extended_error_counters_unchanged": true,
+  "summary": {
+    "event": "summary",
+    "cycles": "2121",
+    "enabled_samples": "482",
+    "missed_periods": "3",
+    "maximum_lateness_us": "33593",
+    "maximum_cycle_us": "757",
+    "shutdown_us": "22",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  }
+}

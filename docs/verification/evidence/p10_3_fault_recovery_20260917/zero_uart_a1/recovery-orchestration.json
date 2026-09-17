@@ -1,0 +1,97 @@
+{
+  "passed": false,
+  "control_phase_observed": true,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 10581202519445
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 59,
+      "host_monotonic_ns": 10583175944049
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 10584186824146
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 10585197082540
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 10586154642415
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 55,
+      "host_monotonic_ns": 10587162324922
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 54,
+      "host_monotonic_ns": 10588170726539
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 53,
+      "host_monotonic_ns": 10589180127191
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 10590190022591
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 10590290901339
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 51,
+      "host_monotonic_ns": 10591150499833
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 50,
+      "host_monotonic_ns": 10592159201056
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 49,
+      "host_monotonic_ns": 10593168851662
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 48,
+      "host_monotonic_ns": 10594178418125
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 47,
+      "host_monotonic_ns": 10595187822678
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 46,
+      "host_monotonic_ns": 10596147734754
+    },
+    {
+      "phase": "STOP",
+      "remaining": 46,
+      "host_monotonic_ns": 10596551370770
+    }
+  ],
+  "last_display": "STOP",
+  "operator_prompted": true,
+  "target_runner_exit": 1,
+  "error": "target or independent capture failed",
+  "capture_exit": 0
+}

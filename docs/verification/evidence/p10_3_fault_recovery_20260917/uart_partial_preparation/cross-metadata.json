@@ -1,0 +1,29 @@
+{
+  "source": {
+    "dirty": true,
+    "file_count": 4828,
+    "revision": "4c7390ff7f00fe749fbfe60239d6b442bf5c28c1",
+    "schema_version": 1,
+    "snapshot_sha256": "2e56fa00c4b29603897248bf5eb40e5c85f591b083febefd278e5234ee649b46"
+  },
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/p103-uart-partial-v1-runtime",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_CONTROL_HIL=ON"
+  ],
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "sysroot_content": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911  sysroot-content.jsonl",
+  "artifacts": {
+    "tools/control_hil/robot-control-hil": "13ccbd9db41a349fedf2131f6490fc779eed1054d77a4c0ba6fcef490ca6b933",
+    "robot_control_control_cycle_tests": "f4093297b226994ffff26de87bd1a0566a4b34e46335fec354a99598fd3eb271"
+  }
+}

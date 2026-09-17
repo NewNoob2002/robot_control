@@ -1,0 +1,20 @@
+{
+  "statement": "F6右轮运动SIGTERM已上电就绪",
+  "raw_user_statement": "START",
+  "confirmation_source": "Local terminal START after F6 A1 checklist",
+  "wall_time": 1789643198.183038,
+  "drive_power_on": true,
+  "x1_released": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "unchanged_wiring": true,
+  "operator_display_visible": true,
+  "receiver_stays_powered": true,
+  "transmitter_stays_on": true,
+  "signal_reconnected": true,
+  "automatic_sigterm_stimulus": true,
+  "motion_window_ms": 3000
+}

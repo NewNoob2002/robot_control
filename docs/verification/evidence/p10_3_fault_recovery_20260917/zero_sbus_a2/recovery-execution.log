@@ -1,0 +1,35 @@
+CONTROL_READY: keep sticks neutral; press CH6 once; ZERO recovery window60s; wait for FAULT_READY
+WINDOW_REMAINING: 59
+WINDOW_REMAINING: 58
+WINDOW_REMAINING: 57
+FAULT_READY: turn HANDHELD TRANSMITTER OFF; RECEIVER MUST STAY POWERED; keep X1 released; wait for RELEASE_FAULT
+WINDOW_REMAINING: 56
+WINDOW_REMAINING: 55
+WINDOW_REMAINING: 54
+WINDOW_REMAINING: 53
+WINDOW_REMAINING: 52
+WINDOW_REMAINING: 51
+RELEASE_FAULT: neutral sticks and CH6 released, turn HANDHELD TRANSMITTER ON; keep receiver powered; after reconnection hold forward throttle, press/release CH6 once; wait for NEUTRAL_READY
+WINDOW_REMAINING: 50
+WINDOW_REMAINING: 49
+WINDOW_REMAINING: 48
+WINDOW_REMAINING: 47
+WINDOW_REMAINING: 46
+WINDOW_REMAINING: 45
+WINDOW_REMAINING: 44
+WINDOW_REMAINING: 43
+WINDOW_REMAINING: 42
+WINDOW_REMAINING: 41
+WINDOW_REMAINING: 40
+NEUTRAL_READY: return sticks to neutral, keep CH6 released; wait for REARM_READY
+WINDOW_REMAINING: 39
+WINDOW_REMAINING: 38
+WINDOW_REMAINING: 37
+REARM_READY: neutral sticks; press/release CH6 once
+WINDOW_REMAINING: 36
+WINDOW_REMAINING: 35
+ZERO_REENABLED: maintain neutral; wait for cleanup
+WINDOW_REMAINING: 34
+APPLICATION_STOPPING: no further operator actions; neutral and wait for cleanup
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+{"passed": true, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--zero-sbus-recovery", "--zero-feedback-tenths-rpm", "10"], "artifact_sha256": "616e8ad3ec59c14985106c846c8f706b396617dc16b226b3012e3509fd821cea", "operator_prompted": true, "fault_ready": true, "release_fault": true, "neutral_ready": true, "rearm_ready": true, "zero_reenabled": true, "stopping_prompted": true, "application_exit": 0, "application_elapsed_ms": 27108.33456402179}

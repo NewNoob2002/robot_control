@@ -1,0 +1,2 @@
+Before fix, new control_hil_startup_vcan_managed reproduced control_loop_right_throttle failure with flags12/CH3=0 in0.39s.
+After fix, initial flags12, initial silence, initial nonneutral, release/new CH6 and bounded never-ready timeout passed in15.33s.

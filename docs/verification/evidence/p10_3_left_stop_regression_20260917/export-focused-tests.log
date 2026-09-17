@@ -1,0 +1,9 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p103-control-hil
+    Start 25: control_hil_trace
+1/2 Test #25: control_hil_trace .................   Passed    0.00 sec
+    Start 30: control_hil_motion_vcan_managed
+2/2 Test #30: control_hil_motion_vcan_managed ...   Passed   59.03 sec
+
+100% tests passed out of 2
+
+Total Test time (real) =  59.03 sec

@@ -1,0 +1,17 @@
+{
+  "status": "INCOMPLETE_F4_STARTUP_REJECTED_X1_ACTIVE",
+  "matching_frames": 2,
+  "sdo_reads": 1,
+  "sdo_writes": 0,
+  "nmt": 0,
+  "rpdo": 0,
+  "control_cycles": 0,
+  "configuration_changed": false,
+  "restore_ok": true,
+  "trace_records": 2,
+  "counters_unchanged": true,
+  "operator_actual_operation": "忘记复位X1了",
+  "operator_OFF_confirmed": true,
+  "both_markers_consumed": true,
+  "automatic_retry": false
+}

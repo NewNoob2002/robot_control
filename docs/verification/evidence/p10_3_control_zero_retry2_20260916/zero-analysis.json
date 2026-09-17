@@ -1,0 +1,34 @@
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 3149,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 84,
+    "0x0": 3,
+    "0x181": 407,
+    "0x281": 407,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 2002
+  },
+  "tpdo2_frames": 407,
+  "tpdo2_span_ms": 20294.874906539917,
+  "tpdo2_interval_ms": [
+    49.82709884643555,
+    50.31585693359375
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 2002,
+  "enabled_feedback": 312,
+  "enabled_samples": 1557,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "Zero-target ControlLoop only; motion and fault trials remain open"
+}

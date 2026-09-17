@@ -1,0 +1,5 @@
+elf=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/cross/p103-uart-stable-v1-runtime/tools/control_hil/robot-control-hil
+interpreter=validated
+needed=libstdc++.so.6 libgcc_s.so.1 libc.so.6 ld-linux-aarch64.so.1
+symbol_versions=validated
+rpath=none

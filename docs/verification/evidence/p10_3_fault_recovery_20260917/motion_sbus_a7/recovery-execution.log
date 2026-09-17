@@ -1,0 +1,21 @@
+INPUT_WAIT: waiting healthy neutral SBUS; turn transmitter ON if needed; release CH6; total window60s
+WINDOW_REMAINING: 59
+INPUT_WAIT: turn transmitter ON; neutral and release CH6; waiting healthy input
+WINDOW_REMAINING: 58
+CONTROL_READY: healthy neutral input; press CH6 once then release
+WINDOW_REMAINING: 57
+WINDOW_REMAINING: 56
+ARMING: new neutral authorization received; keep neutral until MOTION_READY
+WINDOW_REMAINING: 55
+MOTION_READY: right positive only; forward throttle ONLY, steering neutral; hold and wait for POWER_OFF_READY; maximum8s, keep receiver powered
+WINDOW_REMAINING: 54
+WINDOW_REMAINING: 53
+WINDOW_REMAINING: 52
+POWER_OFF_READY: positive right feedback observed for1s; long-press transmitter power OFF now; keep receiver powered; hold throttle until OFF then neutral
+WINDOW_REMAINING: 51
+WINDOW_REMAINING: 50
+WINDOW_REMAINING: 49
+APPLICATION_STOPPING: no further operator actions; neutral and wait for cleanup
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+event=feedback_review_summary count=0 verdict=none
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--right-throttle", "--zero-feedback-tenths-rpm", "20", "--motion-window-ms", "8000"], "artifact_sha256": "cd8bd1c594c9297a9036ff585cdc82e852f99795c3f8a8c27e6bdd453d5df7a1", "operator_prompted": true, "motion_ready": true, "power_off_prompted": true, "stopping_prompted": true, "application_exit": 1, "application_elapsed_ms": 11856.296640995424, "acceptance": "PENDING independent motion/SBUS-loss/feedback/restoration audit"}

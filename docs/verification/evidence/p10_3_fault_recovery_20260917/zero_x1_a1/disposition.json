@@ -1,0 +1,12 @@
+{
+  "status": "FAILED_INCOMPLETE_OPERATOR_SCENARIO",
+  "artifact_sha256": "2f97bdbafdb370e70ae47231609cf1ee698e56af2652f6e12e6c041970389058",
+  "current_operator_confirmed_power": "OFF after F1 A1",
+  "fresh_F1_readiness_received": true,
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "next": "Review phase coordination before a fresh F1 attempt; no automatic retry. F2/moving cases pending.",
+  "application_exit": 1,
+  "protocol_and_restoration_verified": true,
+  "recovery_accepted": false
+}

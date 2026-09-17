@@ -1,0 +1,17 @@
+{
+  "trace_records": 21178,
+  "frames": 6097,
+  "cycles": 4208,
+  "accepted_tx": 4334,
+  "feedback_bad": true,
+  "stops": [
+    {
+      "ns": 265204777358247,
+      "cause": 2,
+      "lifecycle_exit": 0,
+      "source_sequence": 4209,
+      "source_ns": 265204777253534
+    }
+  ],
+  "discontinuities": 0
+}

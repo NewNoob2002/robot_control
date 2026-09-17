@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "physical_started": true,
+  "target_invoked": true,
+  "operator_prompted": true,
+  "motion_prompted": true,
+  "target_runner_exit": 0,
+  "capture_exit": 0
+}

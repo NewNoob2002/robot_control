@@ -1,0 +1,7 @@
+{
+  "syntax": "PASS",
+  "missing_current_readiness": "REJECTED before any subprocess",
+  "mode": "--zero-x1-recovery",
+  "capture_started": false,
+  "control_started": false
+}

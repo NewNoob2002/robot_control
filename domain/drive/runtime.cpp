@@ -35,7 +35,7 @@ bool valid_runtime_config(const RuntimeConfig& c) noexcept {
     return (c.left_target == PackedHalf::low || c.left_target == PackedHalf::high)
            && (c.left_feedback == PackedHalf::low || c.left_feedback == PackedHalf::high)
            && (c.left_sign == 1 || c.left_sign == -1) && (c.right_sign == 1 || c.right_sign == -1) && c.max_abs_rpm > 0
-           && c.max_abs_rpm <= 1000 && c.standstill_tenths_rpm >= 0 && c.standstill_tenths_rpm <= 10
+           && c.max_abs_rpm <= 1000 && c.standstill_tenths_rpm >= 0 && c.standstill_tenths_rpm <= 20
            && c.heartbeat_timeout > time::Duration::zero() && c.feedback_timeout > time::Duration::zero()
            && c.decision_timeout > time::Duration::zero();
 }

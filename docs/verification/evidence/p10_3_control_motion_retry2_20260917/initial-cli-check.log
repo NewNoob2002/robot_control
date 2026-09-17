@@ -1,0 +1,1 @@
+Before change: single-left --duration-ms60000 rejects with exit2 (checked below). Existing motion wire gate remains unchanged.

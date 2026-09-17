@@ -1,0 +1,52 @@
+{
+  "status": "INCOMPLETE_SCENARIO_protocol_and_restoration_verified",
+  "matching_frames": 3756,
+  "counts": {
+    "0x601": 159,
+    "0x581": 159,
+    "0x701": 100,
+    "0x0": 3,
+    "0x181": 483,
+    "0x281": 483,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 2367
+  },
+  "tpdo2_frames": 483,
+  "tpdo2_span_ms": 24101.351976394653,
+  "tpdo2_interval_ms": [
+    49.74699020385742,
+    50.318002700805664
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 2367,
+  "enabled_feedback": 83,
+  "enabled_samples": 413,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "sbus",
+    "status": "INCOMPLETE",
+    "phases": [
+      [
+        "fault_ready",
+        "sbus"
+      ],
+      [
+        "fault_observed",
+        "sbus"
+      ],
+      [
+        "release_fault",
+        "sbus"
+      ]
+    ]
+  },
+  "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+}

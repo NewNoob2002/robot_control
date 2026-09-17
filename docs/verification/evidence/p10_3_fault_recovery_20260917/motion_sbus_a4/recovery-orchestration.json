@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "control_phase_observed": false,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 6777074811215
+    },
+    {
+      "phase": "STOP",
+      "remaining": 59,
+      "host_monotonic_ns": 6779146060007
+    }
+  ],
+  "last_display": "STOP",
+  "target_runner_exit": 0,
+  "capture_exit": 0
+}

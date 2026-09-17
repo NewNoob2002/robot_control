@@ -1,0 +1,34 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 修复这个问题再重新开始测试; 可以增大窗口吧不需要刚开始运动就要立马关机",
+  "attempts": 1,
+  "artifact_sha256": "82318b05b0bdeb24b3f94137c1f375929320ee63ca9a1c887829e1365b441048",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--right-throttle",
+    "--zero-feedback-tenths-rpm",
+    "15",
+    "--motion-window-ms",
+    "8000"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-window8-82318b05-sbus-a4-20260917",
+  "operator_readiness_required": true,
+  "scope": "F4 A4 right positive <=5rpm/<8s with7950ms proactive cutoff, left zero; POWER_OFF_READY after1s positive feedback then long-press transmitter OFF, receiver continuously powered; one invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO target; any RPDO outside right-positive<=5rpm/<8s"
+  ],
+  "trial": "F4 A4 explicit8s window, CLI15, no auto-rearm or retry",
+  "power_cycle_confirmation_required": false
+}

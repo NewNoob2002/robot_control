@@ -1,0 +1,23 @@
+{
+  "counter_deltas": {
+    "rx": {
+      "bytes": 16968,
+      "packets": 2790,
+      "errors": 0,
+      "dropped": 0,
+      "over_errors": 0,
+      "multicast": 0
+    },
+    "tx": {
+      "bytes": 37002,
+      "packets": 6128,
+      "errors": 0,
+      "dropped": 0,
+      "carrier_errors": 0,
+      "collisions": 0
+    }
+  },
+  "can_extended_counters_unchanged": true,
+  "bus_error_counters_zero": true,
+  "fault_ready_to_stop_ms": 5160.225119
+}

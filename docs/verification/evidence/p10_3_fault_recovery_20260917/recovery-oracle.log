@@ -1,0 +1,7 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p103-control-hil
+    Start 31: control_hil_recovery_vcan_managed
+1/1 Test #31: control_hil_recovery_vcan_managed ...   Passed   42.94 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =  42.94 sec

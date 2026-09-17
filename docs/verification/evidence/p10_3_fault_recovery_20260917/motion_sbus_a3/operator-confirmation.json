@@ -1,0 +1,17 @@
+{
+  "statement": "F4右轮运动SBUS失联已上电就绪",
+  "raw_user_statement": "START",
+  "confirmation_source": "Local terminal START plus typed X1已复位，关闭遥控器 after F4 A3 checklist",
+  "wall_time": 1789633711.8254697,
+  "drive_power_on": true,
+  "x1_released": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "unchanged_wiring": true,
+  "operator_display_visible": true,
+  "receiver_stays_powered": true,
+  "transmitter_only_stimulus": true
+}

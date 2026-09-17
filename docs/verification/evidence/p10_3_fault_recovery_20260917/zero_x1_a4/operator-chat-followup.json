@@ -1,0 +1,5 @@
+{
+  "operator_confirmation": "是，等待后又用 CH6 关、开了一次",
+  "interpretation": "After the first neutral CH6 rearm, the prompt stalled. Operator subsequently toggled CH6 off then on again. These are separate recovery events.",
+  "power_disposition": "OFF recorded in original operator-post-trial.json"
+}

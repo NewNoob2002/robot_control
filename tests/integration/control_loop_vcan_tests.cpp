@@ -263,7 +263,18 @@ struct Fixture {
                               .coherent = true,
                               .enabled = true};
         }
-        last = loop->step(input);
+        input::sbus::ReadBatch captured;
+        captured.session = 999999; // Never return stale caller data on an early exit.
+        last = loop->step(input, &captured);
+        CHECK(captured.session != 999999);
+        for (std::size_t i = 0; i < captured.event_count; ++i) {
+            if (captured.events[i].kind == input::sbus::protocol::EventKind::frame) {
+                CHECK(captured.events[i].frame.channels[0] == steering);
+                CHECK(captured.events[i].frame.channels[2] == throttle);
+                CHECK(captured.events[i].frame.channels[5] == button);
+                CHECK(captured.captured_at <= Clock::now());
+            }
+        }
         drain();
         maximum_to_wire =
             std::max(maximum_to_wire, std::chrono::duration_cast<std::chrono::microseconds>(Clock::now() - start));

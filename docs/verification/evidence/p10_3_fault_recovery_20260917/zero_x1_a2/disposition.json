@@ -1,0 +1,10 @@
+{
+  "status": "FAILED_ZERO_TARGET_FEEDBACK_AND_INCOMPLETE_RESTORATION",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power_off": true,
+  "wheels_stationary": true,
+  "abnormal_sound": false,
+  "baseline_restored": false,
+  "next": "User requested zero-target feedback tolerance; value pending. No new hardware run without new artifact/preflight/readiness."
+}

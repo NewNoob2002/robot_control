@@ -1,0 +1,29 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 进行运动测试",
+  "attempts": 1,
+  "artifact_sha256": "3c2d6a0fb35eac571e4a732731258e480e35925a9013ada6eca4d2a8dbd8d1f6",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "20000",
+    "--single-left"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-left-3c2d6a0f-20260917",
+  "operator_readiness_required": true,
+  "scope": "First left-positive single-wheel actual SBUS/ControlLoop trial; <=5rpm, <=3s nonzero; subsequent right trial separate",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation"
+  ],
+  "trial": "left attempt1, single invocation",
+  "power_cycle_confirmation_required": false
+}

@@ -1,0 +1,8 @@
+{
+  "operator_statement": "没有主动向后和向左，同时确认当前摇杆回中、驱动仍断电",
+  "no_deliberate_backward_or_left_input": true,
+  "sticks_neutral": true,
+  "drive_power_off": true,
+  "context": "Reply to the natural-release trial follow-up; exact mechanical release instant was not measured.",
+  "disposition": "Capture complete; input/mixer envelope excursion retained. No motion A/B started."
+}

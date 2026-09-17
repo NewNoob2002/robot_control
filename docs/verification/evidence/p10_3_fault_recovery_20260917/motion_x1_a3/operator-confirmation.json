@@ -1,0 +1,17 @@
+{
+  "statement": "F3右轮运动X1已上电就绪",
+  "raw_user_statement": "START",
+  "confirmation_source": "Local interactive terminal after displayed F3 A3 checklist",
+  "wall_time": 1789632175.6770668,
+  "drive_power_on": true,
+  "x1_released": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "unchanged_wiring": true,
+  "operator_display_visible": true,
+  "receiver_stays_powered": true,
+  "motion_x1_stimulus": true
+}

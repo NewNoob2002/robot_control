@@ -1,0 +1,7 @@
+{
+  "old_evidence": "docs/verification/evidence/p10_3_left_stop_regression_20260917",
+  "verified_files": 144,
+  "unchanged": true,
+  "left_and_right_feedback_criteria": "FAILED, unchanged",
+  "latest_operator_disposition": "drive OFF after right A1"
+}

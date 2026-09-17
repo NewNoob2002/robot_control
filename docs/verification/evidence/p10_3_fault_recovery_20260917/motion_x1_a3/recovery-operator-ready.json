@@ -1,0 +1,11 @@
+{
+  "wall_time": 1789632178.1093462,
+  "serial": "207F346D5650",
+  "artifact_sha256": "3652f15b31901995fce789df466b51147b9b59f49639ad4f27bc65f59ce27b55",
+  "drive_power_on": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "independent_capture_ready": true,
+  "operator_statement": "F3\u53f3\u8f6e\u8fd0\u52a8X1\u5df2\u4e0a\u7535\u5c31\u7eea",
+  "readiness_scope": "Unchanged operator-confirmed fixture; registered when independent capture ready"
+}

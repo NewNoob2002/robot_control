@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "control_phase_observed": true,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 9680521358829
+    },
+    {
+      "phase": "INPUT_WAIT",
+      "remaining": 59,
+      "host_monotonic_ns": 9682502097915
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 59,
+      "host_monotonic_ns": 9682806923449
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 9683512650666
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 9684521610160
+    },
+    {
+      "phase": "ARMING",
+      "remaining": 57,
+      "host_monotonic_ns": 9685428966780
+    },
+    {
+      "phase": "ARMING",
+      "remaining": 56,
+      "host_monotonic_ns": 9685579918978
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 9685934609957
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 55,
+      "host_monotonic_ns": 9686539898236
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 54,
+      "host_monotonic_ns": 9687500345428
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 53,
+      "host_monotonic_ns": 9688510557416
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 9689519532418
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 51,
+      "host_monotonic_ns": 9690529151728
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 51,
+      "host_monotonic_ns": 9690781533392
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 50,
+      "host_monotonic_ns": 9691538613355
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 49,
+      "host_monotonic_ns": 9692498321173
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 48,
+      "host_monotonic_ns": 9693507342017
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 47,
+      "host_monotonic_ns": 9694516886521
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 46,
+      "host_monotonic_ns": 9695526685939
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 45,
+      "host_monotonic_ns": 9696485606017
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 44,
+      "host_monotonic_ns": 9697495961450
+    },
+    {
+      "phase": "STOP",
+      "remaining": 44,
+      "host_monotonic_ns": 9697596805333
+    }
+  ],
+  "last_display": "STOP",
+  "operator_prompted": true,
+  "target_runner_exit": 0,
+  "capture_exit": 0
+}

@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "control_phase_observed": true,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 7801657262506
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 59,
+      "host_monotonic_ns": 7803676225849
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 7804686308528
+    },
+    {
+      "phase": "ARMING",
+      "remaining": 58,
+      "host_monotonic_ns": 7805343228034
+    },
+    {
+      "phase": "ARMING",
+      "remaining": 57,
+      "host_monotonic_ns": 7805696604500
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 7805797264794
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 7806704857098
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 55,
+      "host_monotonic_ns": 7807664308229
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 54,
+      "host_monotonic_ns": 7808672675416
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 53,
+      "host_monotonic_ns": 7809683382118
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 7810694419757
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 7811248992391
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 51,
+      "host_monotonic_ns": 7811703190709
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 50,
+      "host_monotonic_ns": 7812712553921
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 49,
+      "host_monotonic_ns": 7813771924518
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 48,
+      "host_monotonic_ns": 7814681621212
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 47,
+      "host_monotonic_ns": 7815741608134
+    },
+    {
+      "phase": "POWER_OFF_READY",
+      "remaining": 46,
+      "host_monotonic_ns": 7816702399537
+    },
+    {
+      "phase": "STOP",
+      "remaining": 46,
+      "host_monotonic_ns": 7817206438528
+    },
+    {
+      "phase": "STOP",
+      "remaining": 45,
+      "host_monotonic_ns": 7817711099293
+    }
+  ],
+  "last_display": "STOP",
+  "operator_prompted": true,
+  "target_runner_exit": 0,
+  "capture_exit": 0
+}

@@ -1,0 +1,38 @@
+{
+  "target": "robot-dev",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "architecture": "aarch64",
+  "can": "can0",
+  "node": 1,
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "artifact_sha256": "3c2d6a0fb35eac571e4a732731258e480e35925a9013ada6eca4d2a8dbd8d1f6",
+  "staging": "/home/cat/.cache/robot-control/staging/p103-left-3c2d6a0f-20260917",
+  "power": "Operator explicitly confirmed drive OFF after accepted zero retry2; fresh motion power-on readiness pending",
+  "operator_confirmed": [
+    "unchanged wiring",
+    "raised wheels",
+    "physical emergency stop",
+    "on-site assistance"
+  ],
+  "electrical": "Existing unchanged SBUS wiring; receiver/module 5V setting confirmed previously; voltage amplitude/tolerance not measured",
+  "limits": {
+    "right_rpm": 0,
+    "control_window_ms": 20000,
+    "setup_deadline_ms": 10000,
+    "cleanup_deadline_ms": 10000,
+    "watchdog_ms": 1000,
+    "left_rpm_max": 5,
+    "nonzero_window_ms": 3000,
+    "selected_feedback_tenths_rpm_max": 75,
+    "opposite_feedback_tenths_rpm": 0,
+    "stop_observation_ms": 1000,
+    "stable_zero_feedback_ms": 150
+  },
+  "recovery": "Close wire window; stop sole runtime writer; require fresh zero TPDO for150ms within1s; detach; existing zero-SDO/Disable Voltage and restore. On any failure no retry; operator emergency stop/power OFF.",
+  "startup": "JCAN silent capture then target candump, fresh readiness, one-shot marker; no automatic retry",
+  "disposition": "PREPARED left attempt1, NOT RUN",
+  "changed_condition": "New reviewed selected-wheel artifact; zero trial accepted. Do not touch either wheel.",
+  "operator_sequence": "Neutral sticks, CH6 released; after CONTROL_READY press/release CH6; after MOTION_READY smoothly advance forward throttle and right steering together, then neutral. Existing mixer left=throttle+steering/right=throttle-steering; any nonzero opposite wheel or negative target is rejected, never masked."
+}

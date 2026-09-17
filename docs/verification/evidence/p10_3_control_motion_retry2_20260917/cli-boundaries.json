@@ -1,0 +1,51 @@
+[
+  {
+    "mode": "--zero-only",
+    "duration_ms": 20000,
+    "exit": 1,
+    "stdout": "",
+    "stderr": "phase=uart ok=0 operation=open context=/dev/robot-control-test-missing errno=2\n"
+  },
+  {
+    "mode": "--zero-only",
+    "duration_ms": 20001,
+    "exit": 2,
+    "stdout": "",
+    "stderr": "Usage: robot-control-hil --interface can0 --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right)\nMS: 2000..20000 for zero-only; 2000..60000 for single-wheel operator wait.\n"
+  },
+  {
+    "mode": "--zero-only",
+    "duration_ms": 60000,
+    "exit": 2,
+    "stdout": "",
+    "stderr": "Usage: robot-control-hil --interface can0 --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right)\nMS: 2000..20000 for zero-only; 2000..60000 for single-wheel operator wait.\n"
+  },
+  {
+    "mode": "--single-left",
+    "duration_ms": 60000,
+    "exit": 1,
+    "stdout": "",
+    "stderr": "phase=uart ok=0 operation=open context=/dev/robot-control-test-missing errno=2\n"
+  },
+  {
+    "mode": "--single-right",
+    "duration_ms": 60000,
+    "exit": 1,
+    "stdout": "",
+    "stderr": "phase=uart ok=0 operation=open context=/dev/robot-control-test-missing errno=2\n"
+  },
+  {
+    "mode": "--single-left",
+    "duration_ms": 60001,
+    "exit": 2,
+    "stdout": "",
+    "stderr": "Usage: robot-control-hil --interface can0 --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right)\nMS: 2000..20000 for zero-only; 2000..60000 for single-wheel operator wait.\n"
+  },
+  {
+    "mode": "--single-right",
+    "duration_ms": 1999,
+    "exit": 2,
+    "stdout": "",
+    "stderr": "Usage: robot-control-hil --interface can0 --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right)\nMS: 2000..20000 for zero-only; 2000..60000 for single-wheel operator wait.\n"
+  }
+]

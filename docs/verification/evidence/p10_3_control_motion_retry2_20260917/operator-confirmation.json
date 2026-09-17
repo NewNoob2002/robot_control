@@ -1,0 +1,11 @@
+{
+  "statement": "左轮重试已上电就绪",
+  "wall_time": 1789608367.9927688,
+  "drive_power_on": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "scope": "Fresh operator reply to retry2 readiness instructions; left<=5rpm, nonzero<3s, operator window60s"
+}

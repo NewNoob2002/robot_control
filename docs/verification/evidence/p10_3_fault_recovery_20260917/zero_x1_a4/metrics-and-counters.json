@@ -1,0 +1,46 @@
+{
+  "trace_records": 19989,
+  "trace_feedback_bad": false,
+  "trace_discontinuities": 0,
+  "feedback_range_tenths_rpm": {
+    "left": [
+      0,
+      0
+    ],
+    "right": [
+      0,
+      0
+    ]
+  },
+  "source_authorization": [
+    1,
+    3
+  ],
+  "system_authorization": [
+    1,
+    3
+  ],
+  "standstill_holds_ms": [
+    162.0039939880371,
+    161.00287437438965
+  ],
+  "counter_deltas": {
+    "rx": {
+      "bytes": 12091,
+      "packets": 1965,
+      "errors": 0,
+      "dropped": 0,
+      "over_errors": 0,
+      "multicast": 0
+    },
+    "tx": {
+      "bytes": 25494,
+      "packets": 4198,
+      "errors": 0,
+      "dropped": 0,
+      "carrier_errors": 0,
+      "collisions": 0
+    }
+  },
+  "extended_error_counters_unchanged": true
+}

@@ -1,0 +1,9 @@
+{
+  "status": "INCOMPLETE_F3_LATE_X1_AND_FAILED_POST_STOP_NEGATIVE_FEEDBACK",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF, left stationary, right direction/stop normal, no sound; X1 locked",
+  "actual_stop": "automatic2.95s cutoff; X1 observed260.791ms later on application clock",
+  "baseline_restored": true,
+  "automatic_retry": false
+}

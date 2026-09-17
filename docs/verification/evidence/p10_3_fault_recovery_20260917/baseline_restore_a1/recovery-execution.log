@@ -1,0 +1,2 @@
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+{"passed": true, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "2000", "--restore-zero-baseline", "--zero-feedback-tenths-rpm", "10"], "artifact_sha256": "4c7a757f578f774c0788221bd5d46da3247f53e9ca898001ef41b7f15472256f", "application_exit": 0, "application_elapsed_ms": 939.3288819701411}

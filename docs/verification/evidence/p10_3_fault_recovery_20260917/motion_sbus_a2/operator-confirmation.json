@@ -1,0 +1,17 @@
+{
+  "statement": "F4右轮运动SBUS失联已上电就绪",
+  "raw_user_statement": "START",
+  "confirmation_source": "Local interactive terminal after displayed F4 A2 checklist",
+  "wall_time": 1789633354.914312,
+  "drive_power_on": true,
+  "x1_released": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "unchanged_wiring": true,
+  "operator_display_visible": true,
+  "receiver_stays_powered": true,
+  "transmitter_only_stimulus": true
+}

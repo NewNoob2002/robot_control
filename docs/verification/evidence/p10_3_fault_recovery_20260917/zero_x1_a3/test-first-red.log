@@ -1,0 +1,90 @@
+[1/4] Building CXX object tools/control_hil/CMakeFiles/robot_control_hil_trace_tests.dir/__/__/tests/unit/control_hil_trace_tests.cpp.o
+FAILED: [code=1] tools/control_hil/CMakeFiles/robot_control_hil_trace_tests.dir/__/__/tests/unit/control_hil_trace_tests.cpp.o 
+/usr/bin/c++  -I/home/gtc/Desktop/workspace/Linux_PROJ/robot_control -g -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wformat=2 -Wundef -Werror -MD -MT tools/control_hil/CMakeFiles/robot_control_hil_trace_tests.dir/__/__/tests/unit/control_hil_trace_tests.cpp.o -MF tools/control_hil/CMakeFiles/robot_control_hil_trace_tests.dir/__/__/tests/unit/control_hil_trace_tests.cpp.o.d -o tools/control_hil/CMakeFiles/robot_control_hil_trace_tests.dir/__/__/tests/unit/control_hil_trace_tests.cpp.o -c /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp: In function ‘int main()’:
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:30:49: error: no matching function for call to ‘robot_control::hil::Trace::Trace(<brace-enclosed initializer list>)’
+   30 |             Trace trace{Trace::Mode::zero, 8, 10};
+      |                                                 ^
+  • there are 2 candidates
+In file included from /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:1:
+    • candidate 1: ‘robot_control::hil::Trace::Trace(Mode, std::size_t)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:14:
+         33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records) noexcept
+            |              ^~~~~
+      • candidate expects 2 arguments, 3 provided
+    • candidate 2: ‘robot_control::hil::Trace::Trace(robot_control::hil::Trace&&)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:20:7:
+         20 | class Trace final {
+            |       ^~~~~
+      • candidate expects 1 argument, 3 provided
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:45:41: error: no matching function for call to ‘robot_control::hil::Trace::Trace(<brace-enclosed initializer list>)’
+   45 |     check(Trace{Trace::Mode::zero, 8, 11}.failed());
+      |                                         ^
+  • there are 2 candidates
+    • candidate 1: ‘robot_control::hil::Trace::Trace(Mode, std::size_t)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:14:
+         33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records) noexcept
+            |              ^~~~~
+      • candidate expects 2 arguments, 3 provided
+    • candidate 2: ‘robot_control::hil::Trace::Trace(robot_control::hil::Trace&&)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:20:7:
+         20 | class Trace final {
+            |       ^~~~~
+      • candidate expects 1 argument, 3 provided
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:46:41: error: no matching function for call to ‘robot_control::hil::Trace::Trace(<brace-enclosed initializer list>)’
+   46 |     check(Trace{Trace::Mode::left, 8, 10}.failed());
+      |                                         ^
+  • there are 2 candidates
+    • candidate 1: ‘robot_control::hil::Trace::Trace(Mode, std::size_t)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:14:
+         33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records) noexcept
+            |              ^~~~~
+      • candidate expects 2 arguments, 3 provided
+    • candidate 2: ‘robot_control::hil::Trace::Trace(robot_control::hil::Trace&&)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:20:7:
+         20 | class Trace final {
+            |       ^~~~~
+      • candidate expects 1 argument, 3 provided
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:47:42: error: no matching function for call to ‘robot_control::hil::Trace::Trace(<brace-enclosed initializer list>)’
+   47 |     check(Trace{Trace::Mode::right, 8, 10}.failed());
+      |                                          ^
+  • there are 2 candidates
+    • candidate 1: ‘robot_control::hil::Trace::Trace(Mode, std::size_t)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:14:
+         33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records) noexcept
+            |              ^~~~~
+      • candidate expects 2 arguments, 3 provided
+    • candidate 2: ‘robot_control::hil::Trace::Trace(robot_control::hil::Trace&&)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:20:7:
+         20 | class Trace final {
+            |       ^~~~~
+      • candidate expects 1 argument, 3 provided
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp:48:47: error: no matching function for call to ‘robot_control::hil::Trace::Trace(<brace-enclosed initializer list>)’
+   48 |     check(Trace{Trace::Mode::input_only, 8, 10}.failed());
+      |                                               ^
+  • there are 2 candidates
+    • candidate 1: ‘robot_control::hil::Trace::Trace(Mode, std::size_t)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:33:14:
+         33 |     explicit Trace(Mode mode, std::size_t capacity = maximum_records) noexcept
+            |              ^~~~~
+      • candidate expects 2 arguments, 3 provided
+    • candidate 2: ‘robot_control::hil::Trace::Trace(robot_control::hil::Trace&&)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/trace.hpp:20:7:
+         20 | class Trace final {
+            |       ^~~~~
+      • candidate expects 1 argument, 3 provided
+[2/4] Building CXX object tools/control_hil/CMakeFiles/robot_control_control_qualification_vcan_tests.dir/__/__/tests/unit/control_qualification_vcan_tests.cpp.o
+FAILED: [code=1] tools/control_hil/CMakeFiles/robot_control_control_qualification_vcan_tests.dir/__/__/tests/unit/control_qualification_vcan_tests.cpp.o 
+/usr/bin/c++ -DCO_DRIVER_CUSTOM -DCO_MULTIPLE_OD -DCO_SINGLE_THREAD -DROBOT_CONTROL_CANOPEN_QUALIFICATION -DROBOT_CONTROL_CANOPEN_RUNTIME -DROBOT_CONTROL_CONTROL_HIL -I/home/gtc/Desktop/workspace/Linux_PROJ/robot_control -I/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen -isystem /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/components/CANopenLinux -isystem /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/components/CANopenLinux/CANopenNode -isystem /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/od -g -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wformat=2 -Wundef -Werror -MD -MT tools/control_hil/CMakeFiles/robot_control_control_qualification_vcan_tests.dir/__/__/tests/unit/control_qualification_vcan_tests.cpp.o -MF tools/control_hil/CMakeFiles/robot_control_control_qualification_vcan_tests.dir/__/__/tests/unit/control_qualification_vcan_tests.cpp.o.d -o tools/control_hil/CMakeFiles/robot_control_control_qualification_vcan_tests.dir/__/__/tests/unit/control_qualification_vcan_tests.cpp.o -c /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_qualification_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_qualification_vcan_tests.cpp: In function ‘void {anonymous}::trial(unsigned int)’:
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_qualification_vcan_tests.cpp:169:40: error: no matching function for call to ‘robot_control::communication::canopen::ControlQualification::prepare(bool, int)’
+  169 |     const auto result = session.prepare(false, scenario >= 29 ? 10 : 0);
+      |                         ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  • there is 1 candidate
+In file included from /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_qualification_vcan_tests.cpp:1:
+    • candidate 1: ‘robot_control::platform::linux::Result<robot_control::communication::canopen::RuntimeLayoutProof> robot_control::communication::canopen::ControlQualification::prepare(bool)’
+      /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/control_qualification.hpp:22:63:
+         22 |     [[nodiscard]] platform::linux::Result<RuntimeLayoutProof> prepare(bool require_quick_stop_option = false);
+            |                                                               ^~~~~~~
+      • candidate expects 1 argument, 2 provided
+ninja: build stopped: subcommand failed.

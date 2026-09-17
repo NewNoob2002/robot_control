@@ -1,0 +1,30 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+hil_read index=24641 sub=0 raw=341840992
+hil_read index=24672 sub=0 raw=3
+hil_read index=24673 sub=0 raw=3
+hil_read index=24639 sub=0 raw=0
+hil_read index=24831 sub=1 raw=0
+hil_read index=24831 sub=2 raw=0
+hil_read index=8207 sub=0 raw=1
+hil_read index=8192 sub=0 raw=1000
+phase=control ok=0 operation=control_hil_baseline context=interface=can0 node=1 index=8192 sub=0 raw=1000 errno=71
+phase=restore ok=1 operation= context= errno=0
+event=summary cycles=0 enabled_samples=0 missed_periods=0 maximum_lateness_us=0 maximum_cycle_us=0 shutdown_us=0 primary_ok=0 restore_ok=1
+event=trace_header version=1 count=16 overflow=0 feedback_bad=0 capacity=65536 zero_feedback_tenths_rpm=10 timestamp=steady_receive_ns storage_bytes=9437184
+event=trace_row ordinal=0 kind=5 ns=275758263862055 fields=1537,8,64,65,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=1 kind=4 ns=275758264504912 fields=1409,8,67,65,96,0,96,20,96,20,16,0,0,0,0,0
+event=trace_row ordinal=2 kind=5 ns=275758265671037 fields=1537,8,64,96,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=3 kind=4 ns=275758266319436 fields=1409,8,79,96,96,0,3,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=4 kind=5 ns=275758267613024 fields=1537,8,64,97,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=5 kind=4 ns=275758268242172 fields=1409,8,79,97,96,0,3,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=6 kind=5 ns=275758269609554 fields=1537,8,64,63,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=7 kind=4 ns=275758270242494 fields=1409,8,67,63,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=8 kind=5 ns=275758271607835 fields=1537,8,64,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=9 kind=4 ns=275758272239608 fields=1409,8,67,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=10 kind=5 ns=275758273608157 fields=1537,8,64,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=11 kind=4 ns=275758274241388 fields=1409,8,67,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=12 kind=5 ns=275758275608187 fields=1537,8,64,15,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=13 kind=4 ns=275758276233543 fields=1409,8,75,15,32,0,1,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=14 kind=5 ns=275758277607926 fields=1537,8,64,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=15 kind=4 ns=275758278281409 fields=1409,8,75,0,32,0,232,3,0,0,16,0,0,0,0,0
+event=trace_end count=16

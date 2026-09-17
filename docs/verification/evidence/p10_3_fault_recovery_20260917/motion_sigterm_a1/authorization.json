@@ -1,0 +1,34 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 推进P10.3F6; existing F6 bounded motion SIGTERM plan; fresh local START required",
+  "attempts": 1,
+  "artifact_sha256": "91d3ce99c06b4f96148a1e8cc86412459d53fe1bce88a91ec41f1d64dc33430c",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--right-throttle",
+    "--zero-feedback-tenths-rpm",
+    "20"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-sigterm-91d3ce99-a1-20260917",
+  "operator_readiness_required": true,
+  "scope": "F6 A1: one right-wheel positive <=5rpm/<3s trial; runner SIGTERM once after observed positive feedback300ms; local START required; no automatic retry",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO target; any RPDO outside right-positive<=5rpm/<3s"
+  ],
+  "trial": "F6 A1 one-shot moving SIGTERM",
+  "power_cycle_confirmation_required": false,
+  "feedback_review": "Only selected-wheel negative stop-band excursions after successful zero RPDO are deferred; abs<=75 tenths rpm, opposite within20; runtime/startup guards and1s/150ms stop verification remain enforced. Pending is not acceptance.",
+  "motion_window_ms": 3000
+}

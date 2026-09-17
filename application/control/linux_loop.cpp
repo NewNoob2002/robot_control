@@ -16,14 +16,15 @@ using namespace std::chrono_literals;
 ControlLoop::ControlLoop(communication::canopen::Lifecycle& owner, input::sbus::Reader& reader,
                          input::sbus::Source& source, CycleConfig config,
                          std::unique_ptr<communication::canopen::RuntimeSession> runtime,
-                         time::Duration shutdown_timeout)
+                         time::Duration shutdown_timeout, bool right_throttle_only)
     : owner_{owner}, reader_{reader}, source_{source}, config_{config}, shutdown_timeout_{shutdown_timeout},
-      runtime_{std::move(runtime)}, cycle_{config}, next_cycle_{Clock::now()} {}
+      right_throttle_only_{right_throttle_only}, runtime_{std::move(runtime)}, cycle_{config},
+      next_cycle_{Clock::now()} {}
 
 ControlLoop::CreateResult ControlLoop::create(communication::canopen::Lifecycle& owner, input::sbus::Reader& reader,
                                               input::sbus::Source& source, CycleConfig config,
                                               const communication::canopen::RuntimeLayoutProof& proof,
-                                              time::Duration shutdown_timeout) {
+                                              time::Duration shutdown_timeout, bool right_throttle_only) {
     if (!valid_cycle_config(config) || config.period > 1s || shutdown_timeout <= time::Duration::zero()
         || shutdown_timeout > 1s || source.snapshot().config_error != input::sbus::ConfigError::none)
         return CreateResult::failure(Status::from_errno("control_loop_config", "startup", EINVAL));
@@ -33,8 +34,8 @@ ControlLoop::CreateResult ControlLoop::create(communication::canopen::Lifecycle&
     auto runtime = communication::canopen::RuntimeSession::create(owner, config.runtime, proof);
     if (!runtime.ok())
         return CreateResult::failure(runtime.status());
-    auto loop = std::unique_ptr<ControlLoop>{
-        new (std::nothrow) ControlLoop(owner, reader, source, config, std::move(runtime).value(), shutdown_timeout)};
+    auto loop = std::unique_ptr<ControlLoop>{new (std::nothrow) ControlLoop(
+        owner, reader, source, config, std::move(runtime).value(), shutdown_timeout, right_throttle_only)};
     if (!loop)
         return CreateResult::failure(Status::from_errno("control_loop_allocate", "startup", ENOMEM));
     // A previous loop's enabled sample cannot authorize its replacement.
@@ -72,7 +73,9 @@ LoopResult ControlLoop::stop() {
     return finish(Status::success(), LifecycleExit::quit, Clock::now());
 }
 
-LoopResult ControlLoop::step(CycleInput input) {
+LoopResult ControlLoop::step(CycleInput input, input::sbus::ReadBatch* captured_batch) {
+    if (captured_batch)
+        *captured_batch = {};
     if (result_.finished)
         return result_;
     if (input.shutdown_requested)
@@ -86,10 +89,19 @@ LoopResult ControlLoop::step(CycleInput input) {
     const auto start = Clock::now();
     result_.maximum_lateness = std::max(result_.maximum_lateness, start - next_cycle_);
     const auto batch = reader_.read(0ms);
+    if (captured_batch && batch.ok())
+        *captured_batch = batch.value();
     result_.source = input::sbus::update_source(source_, batch, Clock::now());
     if (!batch.ok())
         return finish(batch.status(), LifecycleExit::quit, start);
     input.sbus = result_.source.sample;
+    if (right_throttle_only_) {
+        if (input.sbus.valid && input.sbus.enabled && (result_.source.steering != 0 || result_.source.throttle < 0))
+            return finish(Status::from_errno("control_loop_right_throttle", "steering or reverse input", EACCES),
+                          LifecycleExit::quit, start);
+        // Preserve Source and all authority metadata; project only this qualification command.
+        input.sbus.command.left_rpm = 0;
+    }
     input.coherent = input.coherent && input.sbus.coherent;
     const auto now = Clock::now();
     result_.control = cycle_.prepare(input, runtime_->state(), now);

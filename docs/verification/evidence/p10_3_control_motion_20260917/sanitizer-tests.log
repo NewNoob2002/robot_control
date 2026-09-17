@@ -1,0 +1,87 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p103-control-hil-san
+      Start  1: sbus_source_contract
+ 1/41 Test  #1: sbus_source_contract ...............................................   Passed    0.03 sec
+      Start  2: control_cycle_contract
+ 2/41 Test  #2: control_cycle_contract .............................................   Passed    0.01 sec
+      Start  3: canopen_runtime_policy
+ 3/41 Test  #3: canopen_runtime_policy .............................................   Passed    0.01 sec
+      Start  4: platform_probe_help
+ 4/41 Test  #4: platform_probe_help ................................................   Passed    0.00 sec
+      Start  5: platform_probe_run
+ 5/41 Test  #5: platform_probe_run .................................................   Passed    0.00 sec
+      Start  6: platform_probe_phase3_smoke
+ 6/41 Test  #6: platform_probe_phase3_smoke ........................................   Passed    0.00 sec
+      Start  7: can_probe_help
+ 7/41 Test  #7: can_probe_help .....................................................   Passed    0.01 sec
+      Start  8: can_probe_missing_interface
+ 8/41 Test  #8: can_probe_missing_interface ........................................   Passed    0.01 sec
+      Start  9: can_probe_unknown_argument
+ 9/41 Test  #9: can_probe_unknown_argument .........................................   Passed    0.01 sec
+      Start 10: can_probe_duration_zero
+10/41 Test #10: can_probe_duration_zero ............................................   Passed    0.01 sec
+      Start 11: can_probe_duration_nonnumeric
+11/41 Test #11: can_probe_duration_nonnumeric ......................................   Passed    0.01 sec
+      Start 12: can_probe_duration_overflow
+12/41 Test #12: can_probe_duration_overflow ........................................   Passed    0.01 sec
+      Start 13: can_probe_duplicate_interface
+13/41 Test #13: can_probe_duplicate_interface ......................................   Passed    0.01 sec
+      Start 14: can_probe_duplicate_duration
+14/41 Test #14: can_probe_duplicate_duration .......................................   Passed    0.01 sec
+      Start 15: can_probe_interface_missing_value
+15/41 Test #15: can_probe_interface_missing_value ..................................   Passed    0.01 sec
+      Start 16: can_probe_duration_missing_value
+16/41 Test #16: can_probe_duration_missing_value ...................................   Passed    0.01 sec
+      Start 17: can_probe_duration_negative
+17/41 Test #17: can_probe_duration_negative ........................................   Passed    0.01 sec
+      Start 18: canopen_observer_help
+18/41 Test #18: canopen_observer_help ..............................................   Passed    0.01 sec
+      Start 19: canopen_observer_invalid_
+19/41 Test #19: canopen_observer_invalid_ ..........................................   Passed    0.01 sec
+      Start 20: canopen_observer_invalid___unknown
+20/41 Test #20: canopen_observer_invalid___unknown .................................   Passed    0.01 sec
+      Start 21: canopen_observer_invalid___interface_unused0
+21/41 Test #21: canopen_observer_invalid___interface_unused0 .......................   Passed    0.01 sec
+      Start 22: canopen_observer_invalid___interface_unused0___interface_unused1
+22/41 Test #22: canopen_observer_invalid___interface_unused0___interface_unused1 ...   Passed    0.01 sec
+      Start 23: canopen_observer_invalid___duration_ms_0
+23/41 Test #23: canopen_observer_invalid___duration_ms_0 ...........................   Passed    0.01 sec
+      Start 24: canopen_observer_invalid___duration_ms_1___duration_ms_2
+24/41 Test #24: canopen_observer_invalid___duration_ms_1___duration_ms_2 ...........   Passed    0.01 sec
+      Start 25: control_hil_motion_gate
+25/41 Test #25: control_hil_motion_gate ............................................   Passed    0.00 sec
+      Start 26: control_hil_zero_gate
+26/41 Test #26: control_hil_zero_gate ..............................................   Passed    0.00 sec
+      Start 27: control_hil_help
+27/41 Test #27: control_hil_help ...................................................   Passed    0.00 sec
+      Start 28: control_hil_zero_vcan_managed
+28/41 Test #28: control_hil_zero_vcan_managed ......................................   Passed    7.88 sec
+      Start 29: control_hil_motion_vcan_managed
+29/41 Test #29: control_hil_motion_vcan_managed ....................................   Passed   22.30 sec
+      Start 30: control_qualification_vcan_managed
+30/41 Test #30: control_qualification_vcan_managed .................................   Passed    6.12 sec
+      Start 31: domain_behavior_lock
+31/41 Test #31: domain_behavior_lock ...............................................   Passed    0.01 sec
+      Start 32: sbus_parser_contract
+32/41 Test #32: sbus_parser_contract ...............................................   Passed    0.03 sec
+      Start 33: canopen_stack_build
+33/41 Test #33: canopen_stack_build ................................................   Passed    0.01 sec
+      Start 34: canopen_vcan_managed
+34/41 Test #34: canopen_vcan_managed ...............................................   Passed    0.64 sec
+      Start 35: socketcan_frame_codec
+35/41 Test #35: socketcan_frame_codec ..............................................   Passed    0.01 sec
+      Start 36: socketcan_socket_lifecycle
+36/41 Test #36: socketcan_socket_lifecycle .........................................   Passed    0.01 sec
+      Start 37: socketcan_vcan_managed
+37/41 Test #37: socketcan_vcan_managed .............................................   Passed    0.17 sec
+      Start 38: linux_platform_integration
+38/41 Test #38: linux_platform_integration .........................................   Passed    0.21 sec
+      Start 39: sbus_reader_pty
+39/41 Test #39: sbus_reader_pty ....................................................   Passed    0.11 sec
+      Start 40: sbus_observer_cli
+40/41 Test #40: sbus_observer_cli ..................................................   Passed    0.80 sec
+      Start 41: sbus_source_archived_replay
+41/41 Test #41: sbus_source_archived_replay ........................................   Passed    0.12 sec
+
+100% tests passed out of 41
+
+Total Test time (real) =  38.71 sec

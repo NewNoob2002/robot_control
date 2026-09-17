@@ -1,0 +1,163 @@
+INFO: managed namespace vcan0 is up
+motion_throttle: passed, zero_rpdo=196, restored=verified
+motion_throttle_x1: passed, zero_rpdo=148, restored=verified
+motion_throttle_steering: passed, zero_rpdo=116, restored=verified
+motion_throttle_reverse: passed, zero_rpdo=115, restored=verified
+motion_throttle_failsafe: passed, zero_rpdo=148, restored=verified
+motion_throttle_silence: passed, zero_rpdo=155, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 800,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 123,
+    "0x0": 3,
+    "0x181": 116,
+    "0x281": 116,
+    "0x201": 198
+  },
+  "tpdo2_frames": 116,
+  "tpdo2_span_ms": 2360.262000000148,
+  "tpdo2_interval_ms": [
+    19.7849999999562,
+    22.075999999742635
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "left",
+  "nonzero_window_ms": 810.0039999999353,
+  "stop_to_zero_ms": 162.47100000009596,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 198,
+  "enabled_feedback": 60,
+  "enabled_samples": 122,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}
+motion_left: passed, zero_rpdo=198, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 803,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 124,
+    "0x0": 3,
+    "0x181": 117,
+    "0x281": 117,
+    "0x201": 198
+  },
+  "tpdo2_frames": 117,
+  "tpdo2_span_ms": 2380.721999999878,
+  "tpdo2_interval_ms": [
+    19.437999999809108,
+    21.345000000110304
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "right",
+  "nonzero_window_ms": 809.9870000000919,
+  "stop_to_zero_ms": 164.06899999992675,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 198,
+  "enabled_feedback": 60,
+  "enabled_samples": 122,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}
+motion_right: passed, zero_rpdo=198, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 1329,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 228,
+    "0x0": 3,
+    "0x181": 221,
+    "0x281": 221,
+    "0x201": 412
+  },
+  "tpdo2_frames": 221,
+  "tpdo2_span_ms": 4508.449999999812,
+  "tpdo2_interval_ms": [
+    18.94300000003568,
+    22.08199999995486
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "left",
+  "nonzero_window_ms": 2950.0490000000354,
+  "stop_to_zero_ms": 151.20900000010806,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 412,
+  "enabled_feedback": 164,
+  "enabled_samples": 336,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}
+motion_deadline: passed, zero_rpdo=412, restored=verified
+motion_both: passed, zero_rpdo=113, restored=verified
+motion_reverse: passed, zero_rpdo=113, restored=verified
+motion_no_feedback: passed, zero_rpdo=198, restored=verified
+motion_wrong_feedback: passed, zero_rpdo=116, restored=verified
+motion_stop_timeout: passed, zero_rpdo=198, restored=verified
+motion_sigterm: passed, zero_rpdo=145, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 5846,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 1122,
+    "0x0": 3,
+    "0x181": 1115,
+    "0x281": 1115,
+    "0x201": 2247
+  },
+  "tpdo2_frames": 1115,
+  "tpdo2_span_ms": 22869.69900000031,
+  "tpdo2_interval_ms": [
+    18.964999999752763,
+    23.655999999846244
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "left",
+  "nonzero_window_ms": 810.0380000000769,
+  "stop_to_zero_ms": 160.40800000018862,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 2247,
+  "enabled_feedback": 60,
+  "enabled_samples": 122,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}
+motion_late_authorization: passed, zero_rpdo=2247, restored=verified
+motion_stop_rebound: passed, zero_rpdo=197, restored=verified
+motion_x1: passed, zero_rpdo=148, restored=verified
+motion_failsafe: passed, zero_rpdo=148, restored=verified
+motion_silence: passed, zero_rpdo=155, restored=verified
+input_observation: passed, zero_rpdo=0, restored=verified
+input_export_timeout: passed, zero_rpdo=0, restored=verified

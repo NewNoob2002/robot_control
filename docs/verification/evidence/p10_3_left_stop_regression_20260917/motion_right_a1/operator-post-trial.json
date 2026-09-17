@@ -1,0 +1,9 @@
+{
+  "statement": "右轮实际方向及停止正常、左轮始终未转、无异常声音，以及驱动电源现在已关闭",
+  "wall_time": 1789616090.8891945,
+  "right_direction_and_stop_normal": true,
+  "left_always_stationary": true,
+  "no_abnormal_sound": true,
+  "drive_power_off": true,
+  "disposition": "Right A1 remains FAILED_post_stop_negative_feedback; both runners consumed; no retry authorized by this confirmation."
+}

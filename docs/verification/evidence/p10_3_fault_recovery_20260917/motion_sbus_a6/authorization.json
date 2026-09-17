@@ -1,0 +1,35 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 开启测试，另外我觉得超过阈值仍会拒绝这个可以再进行改进一下，测试过程中可以记录这些错误而不是直接判断错误退出，测试结束后再列出错误来进行判断是否是真实错误还是其他情况",
+  "attempts": 1,
+  "artifact_sha256": "cd8bd1c594c9297a9036ff585cdc82e852f99795c3f8a8c27e6bdd453d5df7a1",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--right-throttle",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "8000"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-stop-review-cd8bd1c5-sbus-a6-20260917",
+  "operator_readiness_required": true,
+  "scope": "F4 A6 right positive <=5rpm/<8s with7950ms proactive cutoff, left zero; POWER_OFF_READY after1s positive feedback then long-press transmitter OFF, receiver continuously powered; one invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO target; any RPDO outside right-positive<=5rpm/<8s"
+  ],
+  "trial": "F4 A6 CLI20; selected-wheel stop-band review; single invocation, no auto retry",
+  "power_cycle_confirmation_required": false,
+  "feedback_review": "Only selected-wheel negative stop-band excursions after successful zero RPDO are deferred; abs<=75 tenths rpm, opposite within20; runtime/startup guards and1s/150ms stop verification remain enforced. Pending is not acceptance."
+}

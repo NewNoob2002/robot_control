@@ -1,0 +1,11 @@
+{
+  "statement": "A工况已上电就绪",
+  "wall_time": 1789612977.1035306,
+  "drive_power_on": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "scope": "Explicit reply to immediately preceding A1 powered-readiness conditions; one trial only"
+}

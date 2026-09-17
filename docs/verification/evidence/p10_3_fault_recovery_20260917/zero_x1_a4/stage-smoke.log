@@ -1,0 +1,5 @@
+Target identity and absence of writers verified; new stage created
+Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right|--observe-input|--zero-x1-recovery|--zero-sbus-recovery|--restore-zero-baseline)
+Optional for zero-only/recovery/restore: --zero-feedback-tenths-rpm 0..10 (default0); targets stay exactly zero.
+MS: 2000..20000 for zero-only; 2000..60000 for other bounded trials.
+{"verified": {"robot-control-hil": "4c7a757f578f774c0788221bd5d46da3247f53e9ca898001ef41b7f15472256f", "robot_control_control_cycle_tests": "42ded5e5712c0236b6bc8ddee22acf8d2d5f55acaab2cb3dd5180f4d483a6e5e", "recovery-once.py": "742f710942cf444418841e25c338e14ef5b47d097baac8d71d04c778217a5a64", "authorization.json": "6f4860e03172e41d96e7c95c2087cfded57a851e888407059856dc3b5227c276", "safety-preflight.json": "543cffe5d9710a4dad2efe5e2e3f5204f280d3f35d92146e423b849651d78b4d"}, "physical_started": false, "marker_unconsumed": true, "smoke": "help and pure control-cycle passed"}

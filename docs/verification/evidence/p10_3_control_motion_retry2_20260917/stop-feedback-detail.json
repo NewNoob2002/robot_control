@@ -1,0 +1,82 @@
+{
+  "reference": "t=0 is first zero-target/Shutdown RPDO after motion",
+  "moving_feedback_frames": 59,
+  "moving_left_rpm_range": [
+    0.9,
+    5.5
+  ],
+  "moving_negative_frames": 0,
+  "post_stop_feedback": [
+    {
+      "after_stop_ms": 44.074,
+      "left_rpm": -1.0,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 94.076,
+      "left_rpm": -3.6,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 144.086,
+      "left_rpm": 0.9,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 194.052,
+      "left_rpm": -0.5,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 244.132,
+      "left_rpm": 0.0,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 294.09,
+      "left_rpm": 0.3,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 344.094,
+      "left_rpm": 0.0,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 394.151,
+      "left_rpm": 0.0,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 444.15,
+      "left_rpm": -0.6,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 494.16,
+      "left_rpm": -0.1,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 544.176,
+      "left_rpm": 0.0,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 594.185,
+      "left_rpm": 0.0,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 644.193,
+      "left_rpm": 0.0,
+      "right_rpm": 0.0
+    },
+    {
+      "after_stop_ms": 694.155,
+      "left_rpm": 0.0,
+      "right_rpm": 0.0
+    }
+  ],
+  "interpretation": "Five negative samples interspersed with positive/zero feedback during stopping, not a constant sign inversion during forward command. Actual micro-motion versus velocity-estimation behavior is not established by these captures."
+}

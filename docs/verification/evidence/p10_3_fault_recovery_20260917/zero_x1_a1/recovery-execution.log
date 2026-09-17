@@ -1,0 +1,10 @@
+CONTROL_READY: keep sticks neutral; press CH6 once; ZERO recovery window60s; wait for FAULT_READY
+FAULT_READY: press and lock X1; wait for RELEASE_FAULT
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--zero-x1-recovery"], "artifact_sha256": "2f97bdbafdb370e70ae47231609cf1ee698e56af2652f6e12e6c041970389058", "operator_prompted": true, "fault_ready": true, "application_exit": 1, "application_elapsed_ms": 61414.934353961144, "error": "application failed; inspect log before any retry"}
+Traceback (most recent call last):
+  File "/home/cat/.cache/robot-control/staging/p103-faults-2f97bdba-x1-a1-20260917/recovery-once.py", line 118, in <module>
+    main()
+  File "/home/cat/.cache/robot-control/staging/p103-faults-2f97bdba-x1-a1-20260917/recovery-once.py", line 95, in main
+    assert application.returncode == 0, 'application failed; inspect log before any retry'
+AssertionError: application failed; inspect log before any retry

@@ -1,0 +1,21 @@
+{
+  "passed": false,
+  "control_phase_observed": false,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 34816518043683
+    },
+    {
+      "phase": "STOP",
+      "remaining": null,
+      "host_monotonic_ns": 34817980579645
+    }
+  ],
+  "last_display": "STOP",
+  "target_runner_exit": 1,
+  "error": "target or independent capture failed",
+  "capture_exit": 0
+}

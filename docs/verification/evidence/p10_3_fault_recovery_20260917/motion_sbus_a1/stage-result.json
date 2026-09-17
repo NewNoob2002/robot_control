@@ -1,0 +1,11 @@
+{
+  "target": "robot-dev",
+  "identity_verified": true,
+  "competing_writers_absent": true,
+  "staged_hashes_verified": true,
+  "help_passed": true,
+  "pure_control_cycle_passed": true,
+  "physical_started": false,
+  "marker_unconsumed": true,
+  "source": "Observed stage-recovery.py successful output in this session"
+}

@@ -5,7 +5,17 @@ The operator accepted continuing SBUS and subsequent component development befor
 revisiting the CANopen lifecycle and full-chain soak. This scheduling exception
 does not waive short regressions, final acceptance, or hardware authorization.
 
-## Current disposition
+## Later integration status — 2026-09-17
+
+P9/P8-R/P10 bounded integration is now accepted; see [P10.3](P10_3_HIL_CHECKPOINT.md).
+The locked cross environment has been restored and the P10.3 artifact has current
+cross/ELF/source verification. This does not requalify a different P6 inhibitor
+artifact. Latest recorded operator disposition is drive OFF after F6 A1; the
+powered state and absent-cross notes below describe the September15 checkpoint.
+P6 remains OPEN: old309s soak is still failed, V4 remains retired, and short JCAN
+captures do not establish that its long-session USB framing defect is resolved.
+
+## Current disposition (September15 historical checkpoint)
 
 The bounded zero-target, independent-axis, revised stop/loss, moving SIGTERM,
 userspace cable-inhibitor, drive-power V2 and composite X1 results remain accepted

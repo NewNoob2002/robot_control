@@ -1,0 +1,19 @@
+INPUT_WAIT: waiting healthy neutral SBUS; turn transmitter ON if needed; release CH6; total window60s
+WINDOW_REMAINING: 59
+INPUT_WAIT: turn transmitter ON; neutral and release CH6; waiting healthy input
+CONTROL_READY: healthy neutral input; press CH6 once then release
+WINDOW_REMAINING: 58
+WINDOW_REMAINING: 57
+WINDOW_REMAINING: 56
+ARMING: new neutral authorization received; keep neutral until MOTION_READY
+WINDOW_REMAINING: 55
+MOTION_READY: forward throttle ONLY; steering neutral; hold until SIGNAL_SENT then neutral; automatic SIGTERM after300ms positive feedback; maximum3s; transmitter and receiver ON
+WINDOW_REMAINING: 54
+WINDOW_REMAINING: 53
+WINDOW_REMAINING: 52
+SIGNAL_SENT: SIGTERM delivered to verified child; neutral now; no CH6; wait for cleanup then drive OFF
+APPLICATION_STOPPING: no further operator actions; neutral and wait for cleanup
+WINDOW_REMAINING: 51
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+event=feedback_review_summary count=0 verdict=none
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--right-throttle", "--zero-feedback-tenths-rpm", "20"], "artifact_sha256": "91d3ce99c06b4f96148a1e8cc86412459d53fe1bce88a91ec41f1d64dc33430c", "operator_prompted": true, "motion_ready": true, "signal_event": {"pid": 117305, "process_start_ticks": 29537943, "artifact_sha256": "91d3ce99c06b4f96148a1e8cc86412459d53fe1bce88a91ec41f1d64dc33430c", "executable": "/home/cat/.cache/robot-control/staging/p103-sigterm-91d3ce99-a1-20260917/robot-control-hil", "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--right-throttle", "--zero-feedback-tenths-rpm", "20"], "positive_observed_ns": 295388204551273, "signal": 15, "monotonic_before_ns": 295388517231535, "wall_before_ns": 1789643211567569973, "monotonic_after_ns": 295388517530787, "wall_after_ns": 1789643211567867184, "sent": true}, "signal_sent": true, "stopping_prompted": true, "application_exit": 1, "application_reaped_ns": 295389287461162, "application_elapsed_ms": 9851.818181981798, "acceptance": "PENDING independent motion/SIGTERM/feedback/restoration audit"}

@@ -1,0 +1,83 @@
+{
+  "trace_complete": true,
+  "frames": 8578,
+  "cycles": 8573,
+  "can_rx": 0,
+  "can_tx_attempts": 0,
+  "enabled": 0,
+  "flags": {
+    "0": 8578
+  },
+  "raw_ranges": {
+    "ch1": [
+      1000,
+      1800
+    ],
+    "ch3": [
+      957,
+      1800
+    ],
+    "ch6": [
+      200,
+      200
+    ]
+  },
+  "completed_excursions": [
+    {
+      "start_s": 0.0,
+      "end_s": 0.0,
+      "frames": 4
+    },
+    {
+      "start_s": 7.124457542,
+      "end_s": 17.085876966,
+      "frames": 1423
+    },
+    {
+      "start_s": 28.244351153,
+      "end_s": 32.703531526,
+      "frames": 637
+    }
+  ],
+  "ends_neutral": true,
+  "final_neutral_seconds": 27.308175241,
+  "negative_candidates": 0,
+  "right_nonzero_candidates": 0,
+  "normalized_ranges": [
+    [
+      0,
+      1000
+    ],
+    [
+      0,
+      1000
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "zero_duration_startup_events": "First batch contains four off-neutral frames followed by neutral with the same receive timestamp; not counted as a timed operator excursion.",
+  "timed_excursions": [
+    {
+      "start_s": 7.124457542,
+      "end_s": 17.085876966,
+      "frames": 1423
+    },
+    {
+      "start_s": 28.244351153,
+      "end_s": 32.703531526,
+      "frames": 637
+    }
+  ],
+  "operator_sequence": [
+    "slow return",
+    "slow return followed by release"
+  ],
+  "status": "COMPLETE_CAPTURE_WITH_OPERATOR_IDENTIFIED_RETURNS",
+  "observation": "CH3 minimum957 is36 raw units below calibrated center993, within existing normalized50/1000 input deadband. No negative normalized input or candidate in this capture."
+}

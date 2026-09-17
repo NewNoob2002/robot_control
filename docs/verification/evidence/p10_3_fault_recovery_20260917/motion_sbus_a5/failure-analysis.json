@@ -1,0 +1,45 @@
+{
+  "status": "FAILED_F4_FEEDBACK_LIMIT_WITH_VALID_SBUS_WITHDRAWAL",
+  "original_band_tenths_rpm": 15,
+  "causal": {
+    "kind": "frame_lost",
+    "first_nonzero_ns": 288236309049978,
+    "loss_ns": 288243398893898,
+    "first_zero_ns": 288243398916065,
+    "loss_to_zero_ms": 0.022167,
+    "nonzero_window_ms": 7089.866087,
+    "flags_observed": [
+      0,
+      4
+    ],
+    "timing_scope": "Reader batch receive or valid-frame deadline to successful RPDO syscall"
+  },
+  "matching_frames": 2313,
+  "rpdo_frames": 1356,
+  "volatile_writes": 36,
+  "baseline_restored": true,
+  "trace_records": 7172,
+  "trace_correlates_with_capture": true,
+  "discontinuities": 0,
+  "feedback_bad": true,
+  "raw_outliers": [
+    [
+      288243474611875,
+      0,
+      -16
+    ]
+  ],
+  "outlier_after_first_zero_ms": 75.69581,
+  "stable_verified_after_first_zero_ms": 325.837201,
+  "counters_unchanged": true,
+  "both_markers_consumed": true,
+  "operator_OFF_confirmed": true,
+  "startup_prompts": [
+    "event=input_status state=waiting_link source_fault=14 flags=0",
+    "event=input_status state=ready source_fault=0 flags=0",
+    "event=input_status state=release_ch6 source_fault=0 flags=0",
+    "event=input_status state=arming source_fault=0 flags=0"
+  ],
+  "positive_motion_peak_tenths_rpm": 55,
+  "scope": "SBUS withdrawal timing verified; full F4 fails original feedback band; no threshold change or retry"
+}

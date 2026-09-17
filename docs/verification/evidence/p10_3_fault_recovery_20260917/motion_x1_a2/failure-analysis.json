@@ -1,0 +1,59 @@
+{
+  "status": "INCOMPLETE_F3_LATE_X1_AND_FAILED_POST_STOP_NEGATIVE_FEEDBACK",
+  "matching_capture_frames": 1716,
+  "trace_complete": true,
+  "trace_records": 5466,
+  "stop_cause": 2,
+  "selected_wheel": "right",
+  "nonzero_window_ms": 2950.2670764923096,
+  "right_target_range": [
+    3,
+    5
+  ],
+  "moving_feedback_tenths_rpm_range": [
+    0,
+    54
+  ],
+  "left_targets_and_feedback_zero": true,
+  "negative_feedback": [
+    {
+      "after_stop_ms": 60.22381782531738,
+      "right_tenths_rpm": -11
+    },
+    {
+      "after_stop_ms": 110.23592948913574,
+      "right_tenths_rpm": -1
+    },
+    {
+      "after_stop_ms": 160.25400161743164,
+      "right_tenths_rpm": -3
+    },
+    {
+      "after_stop_ms": 210.25586128234863,
+      "right_tenths_rpm": -1
+    },
+    {
+      "after_stop_ms": 260.2579593658447,
+      "right_tenths_rpm": -2
+    }
+  ],
+  "stable_zero_first_ms": 310.2140426635742,
+  "stable_zero_span_ms": 249.72987174987793,
+  "exact_volatile_writes": 36,
+  "baseline_restored": true,
+  "last_second_raw_ranges": {
+    "ch1": [
+      1006,
+      1007
+    ],
+    "ch3": [
+      1800,
+      1800
+    ]
+  },
+  "input_interpretation": "Single-throttle profile: raw Source candidates remain equal; qualification projection sends only right positive. Automatic cutoff occurs before X1. No negative transmitted target.",
+  "cause": "Drive/mechanical origin not established; independent captures agree on feedback bytes.",
+  "operator": "Right direction/stop normal, left stationary, no abnormal sound, drive OFF confirmed in operator-post-trial.json",
+  "timing_limit": "Candump timing only; JCAN timestamp is zero for every frame, so no independent JCAN latency measurement",
+  "counter_limit": "Counter evidence is in separate metrics-and-counters.json"
+}

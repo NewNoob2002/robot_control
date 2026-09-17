@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "control_phase_observed": true,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 5466086183656
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 59,
+      "host_monotonic_ns": 5468052660416
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 5469060712874
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 5469918380658
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 5470069741722
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 5471028834133
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 55,
+      "host_monotonic_ns": 5472039026944
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 54,
+      "host_monotonic_ns": 5473048507676
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 53,
+      "host_monotonic_ns": 5474057199242
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 5475066213746
+    },
+    {
+      "phase": "STOP",
+      "remaining": 52,
+      "host_monotonic_ns": 5475520795315
+    },
+    {
+      "phase": "STOP",
+      "remaining": 51,
+      "host_monotonic_ns": 5476075991853
+    }
+  ],
+  "last_display": "STOP",
+  "operator_prompted": true,
+  "target_runner_exit": 0,
+  "capture_exit": 0
+}

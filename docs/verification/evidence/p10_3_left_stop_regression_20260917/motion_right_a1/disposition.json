@@ -1,0 +1,14 @@
+{
+  "status": "FAILED_post_stop_negative_feedback",
+  "operator_confirmed_drive_power": "OFF",
+  "application_exit": 1,
+  "original_oracle_exit": 1,
+  "direction_observation": "right normal, left stationary",
+  "stop_observation": "stable zero and normal physical stop",
+  "restoration": "verified exact baseline",
+  "right_runner_consumed": true,
+  "capture_runner_consumed": true,
+  "retry_started": false,
+  "p10_3": "OPEN",
+  "cause": "unresolved; bilateral recurrence not proof of sensor estimation error"
+}

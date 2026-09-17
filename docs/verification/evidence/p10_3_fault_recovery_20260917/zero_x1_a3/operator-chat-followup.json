@@ -1,0 +1,9 @@
+{
+  "raw_user_statement": "确认",
+  "question": "请确认本次没有操作 CH6/X1、双轮始终静止且无异响，以及驱动电源现在已关闭。",
+  "drive_power_off": true,
+  "wheels_stationary": true,
+  "abnormal_sound": false,
+  "ch6_operated": false,
+  "x1_operated": false
+}

@@ -39,13 +39,17 @@ class ControlLoop final {
      * @param config Copied cycle and physical binding parameters.
      * @param proof Current layout readbacks; virtual tests must identify them as fixtures.
      * @param shutdown_timeout Positive reporting deadline, at most one second.
+     * @param right_throttle_only Debug qualification: retain raw Source, require neutral steering
+     * and nonnegative throttle for valid enabled samples, suppress left command before arbitration.
+     * Invalid/disabled input retains normal zero-output policy; default is unchanged.
      * @return Owned loop or contextual failure. No CAN send occurs during creation.
      * Thread safety: Single owner; all borrowed objects must outlive the result.
      */
     [[nodiscard]] static CreateResult create(communication::canopen::Lifecycle& owner, input::sbus::Reader& reader,
                                              input::sbus::Source& source, CycleConfig config,
                                              const communication::canopen::RuntimeLayoutProof& proof,
-                                             time::Duration shutdown_timeout = std::chrono::milliseconds{100});
+                                             time::Duration shutdown_timeout = std::chrono::milliseconds{100},
+                                             bool right_throttle_only = false);
     ControlLoop(const ControlLoop&) = delete;
     ControlLoop& operator=(const ControlLoop&) = delete;
     /** Detach the session without implicit I/O; explicit stop is required. */
@@ -53,10 +57,12 @@ class ControlLoop final {
     /**
      * Run CAN events until the next cycle, read one bounded UART batch, then submit.
      * @param input External command and safety inputs; sbus is always replaced by Source.
+     * @param captured_batch Optional caller-owned diagnostic copy of the exact read batch.
+     * Cleared on entry, filled only after a successful read, never retained or used for policy.
      * @return Owned diagnostic/result snapshot. Errors/signals finish the loop permanently.
      * Thread safety: Single owner, no callbacks. Late cycles skip catch-up publications.
      */
-    [[nodiscard]] LoopResult step(CycleInput input);
+    [[nodiscard]] LoopResult step(CycleInput input, input::sbus::ReadBatch* captured_batch = nullptr);
     /** Inhibit intake, stop Source and attempt one safe RPDO within the configured deadline. */
     [[nodiscard]] LoopResult stop();
     /** Return actual guard diagnostics without refreshing timestamps; owner only. */
@@ -66,7 +72,7 @@ class ControlLoop final {
     /** Bind already validated resources without I/O; caller owns borrowed lifetimes. */
     ControlLoop(communication::canopen::Lifecycle& owner, input::sbus::Reader& reader, input::sbus::Source& source,
                 CycleConfig config, std::unique_ptr<communication::canopen::RuntimeSession> runtime,
-                time::Duration shutdown_timeout);
+                time::Duration shutdown_timeout, bool right_throttle_only);
     /** Preserve the first failure, stop once and latch signal/deadline disposition. */
     [[nodiscard]] LoopResult finish(platform::linux::Status status, communication::canopen::LifecycleExit exit,
                                     time::MonotonicTime started);
@@ -76,6 +82,7 @@ class ControlLoop final {
     input::sbus::Source& source_;
     const CycleConfig config_;
     const time::Duration shutdown_timeout_;
+    const bool right_throttle_only_;
     std::unique_ptr<communication::canopen::RuntimeSession> runtime_;
     ControlCycle cycle_;
     time::MonotonicTime next_cycle_{};

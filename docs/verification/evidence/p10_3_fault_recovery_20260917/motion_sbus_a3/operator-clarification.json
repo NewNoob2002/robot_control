@@ -1,0 +1,38 @@
+{
+  "user_statement": "是的需要长按开关机键，那是我提前回中了？",
+  "source": "User chat after A3 audit",
+  "transmitter_requires_long_press": true,
+  "motion_raw_throttle_range": [
+    1498,
+    1800
+  ],
+  "motion_normalized_throttle_range": [
+    625,
+    1000
+  ],
+  "last_cycle_source_enabled": 1,
+  "last_cycle_source_health": 3,
+  "last_cycle_selected_targets": [
+    0,
+    5
+  ],
+  "last_cycle_approved_targets": [
+    0,
+    5
+  ],
+  "last_raw_frame": {
+    "ns": 285901940523598,
+    "session": 2,
+    "ch1": 1007,
+    "ch3": 1800,
+    "ch6": 200,
+    "flags": 0,
+    "mapped": [
+      0,
+      1000,
+      5,
+      5
+    ]
+  },
+  "conclusion": "No pre-stop neutral command in recorded motion; automatic cutoff triggered stop. Long-press shutdown may exceed available window, but actual RF-off time is unmeasured."
+}

@@ -1,0 +1,30 @@
+{
+  "authorized": true,
+  "authorization_source": "User: \u63a8\u8fdbF3; bounded F3 plan",
+  "attempts": 1,
+  "artifact_sha256": "616e8ad3ec59c14985106c846c8f706b396617dc16b226b3012e3509fd821cea",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--single-right"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-faults-616e8ad3-motion-x1-a1-20260917",
+  "operator_readiness_required": true,
+  "scope": "F3 right positive <=5rpm/<3s; left zero; press/lock X1 during actual motion and retain until power OFF; one invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO target; any RPDO outside right-positive<=5rpm/<3s"
+  ],
+  "trial": "F3 motion X1 A1; unchanged616e8ad3; strict original motion feedback criteria",
+  "power_cycle_confirmation_required": false
+}

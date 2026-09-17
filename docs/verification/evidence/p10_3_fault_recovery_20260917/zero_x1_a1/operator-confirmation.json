@@ -1,0 +1,16 @@
+{
+  "statement": "F1零目标X1恢复已上电就绪",
+  "raw_user_statement": "确认",
+  "normalization_note": "The user confirmed the immediately preceding complete F1 fixture/powered-readiness request. statement is the runner scope label, not a verbatim quotation.",
+  "wall_time": 1789619942.7935658,
+  "timestamp_semantics": "host registration immediately after the current user confirmation",
+  "drive_power_on": true,
+  "x1_released": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "unchanged_wiring": true,
+  "artifact_sha256": "2f97bdbafdb370e70ae47231609cf1ee698e56af2652f6e12e6c041970389058"
+}

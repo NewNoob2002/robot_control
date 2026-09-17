@@ -1,0 +1,14 @@
+{
+  "status": "PASS_F2_ZERO_TARGET_FRAME_LOST_FAILSAFE_RECOVERY",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF; stationary/no abnormal sound",
+  "actual_stimulus": "遥控器，接收机全程有电",
+  "flags_transitions": [
+    0,
+    4,
+    12,
+    0
+  ],
+  "scope": "Zero-target F2 only; moving and UART-silence cases not claimed"
+}

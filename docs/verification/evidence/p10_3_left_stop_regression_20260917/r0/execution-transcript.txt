@@ -1,0 +1,1 @@
+R0_READY observed before operator instructions. Application exit0; runner elapsed60133.3658ms. Result/capture fetched after exit. No automatic retry.

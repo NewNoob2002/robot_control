@@ -1,0 +1,9 @@
+{
+  "statement": "我观测的是左轮实际转向及停止正常、右轮是否始终未转、无异常声音，以及驱动电源已关闭，但是你说记录到负转速，是一条吗还是一个阶段，或者说左轮在油门向前的时候数值就是相反的，因为左右轮是对称着安装的",
+  "recorded_wall_time": 1789608819.8116877,
+  "left_motion_and_stop_normal": true,
+  "no_abnormal_sound": true,
+  "drive_power_off_confirmed": true,
+  "right_wheel_observation": "Original wording retained (右轮是否始终未转); no additional explicit physical-axis sign-off inferred. Capture feedback remains zero.",
+  "trial_status": "FAILED original post-stop feedback criterion; operator observation does not rewrite the oracle"
+}

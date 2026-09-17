@@ -1,0 +1,9 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+hil_read index=24641 sub=0 raw=341873760
+phase=control ok=0 operation=control_hil_x1_active context=interface=can0 node=1 errno=13
+phase=restore ok=1 operation= context= errno=0
+event=summary cycles=0 enabled_samples=0 missed_periods=0 maximum_lateness_us=0 maximum_cycle_us=0 shutdown_us=0 primary_ok=0 restore_ok=1
+event=trace_header version=1 count=2 overflow=0 feedback_bad=0 capacity=65536 zero_feedback_tenths_rpm=15 timestamp=steady_receive_ns storage_bytes=9437184
+event=trace_row ordinal=0 kind=5 ns=285535437965476 fields=1537,8,64,65,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=1 kind=4 ns=285535438574192 fields=1409,8,67,65,96,0,96,148,96,20,16,0,0,0,0,0
+event=trace_end count=2

@@ -1,0 +1,7 @@
+{
+  "actual_evidence_audit": "PASS while retaining FAILED trial classification",
+  "tampered_wrong_wheel": "REJECTED",
+  "tampered_restoration": "REJECTED",
+  "incomplete_trace": "REJECTED",
+  "hardware_repeated": false
+}

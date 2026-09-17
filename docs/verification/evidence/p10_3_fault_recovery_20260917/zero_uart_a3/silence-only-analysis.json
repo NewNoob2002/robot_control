@@ -1,0 +1,16 @@
+{
+  "status": "PASS_READER_RAW_BYTE_SILENCE",
+  "last_frame_ns": 292992444287422,
+  "fault_observed_ns": 292992514308602,
+  "release_fault_ns": 292997524302998,
+  "last_raw_batch_ns": 292992454286989,
+  "first_restored_raw_ns": 293008804291588,
+  "raw_gap_ms": 16350.004599,
+  "timeout_after_last_frame_ms": 70.02118,
+  "required_hold_ms": 5009.994396,
+  "raw_bytes_in_hold": 0,
+  "expected_partial_boundaries": 1,
+  "restored_session": 3,
+  "first_valid_after_reconnection_ms": 0.0,
+  "scope": "No bytes delivered to Reader during hold; not a voltage-level or oscilloscope measurement"
+}

@@ -1,0 +1,94 @@
+{
+  "status": "INCOMPLETE_F4_LOSS_AFTER_CUTOFF_WITH_PENDING_FEEDBACK_REVIEW",
+  "artifact_sha256": "cd8bd1c594c9297a9036ff585cdc82e852f99795c3f8a8c27e6bdd453d5df7a1",
+  "trace_records": 8026,
+  "sbus_frames": 2223,
+  "all_flags": [
+    0,
+    4,
+    12
+  ],
+  "moving_flags": [
+    0
+  ],
+  "nonzero_ms": 7950.034106,
+  "loss_after_zero_ms": 187.905601,
+  "stop_cause": "configured motion cutoff, not SBUS loss",
+  "feedback_review": [
+    {
+      "tenths_rpm": -35,
+      "after_zero_ms": 161.770494,
+      "verdict": "PENDING"
+    },
+    {
+      "tenths_rpm": -38,
+      "after_zero_ms": 211.82314,
+      "verdict": "PENDING"
+    }
+  ],
+  "stable_start_after_zero_ms": 261.827951,
+  "stable_verified_after_zero_ms": 611.899841,
+  "application_summary": {
+    "event": "summary",
+    "cycles": "1511",
+    "enabled_samples": "1188",
+    "missed_periods": "4",
+    "maximum_lateness_us": "41819",
+    "maximum_cycle_us": "283",
+    "shutdown_us": "20",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  },
+  "protocol": {
+    "status": "PASS_motion_protocol_and_restoration_only_NOT_F4_acceptance",
+    "matching_frames": 2544,
+    "counts": {
+      "0x601": 158,
+      "0x581": 158,
+      "0x701": 67,
+      "0x0": 3,
+      "0x181": 322,
+      "0x281": 322,
+      "0x381": 1,
+      "0x481": 1,
+      "0x201": 1512
+    },
+    "tpdo2_frames": 322,
+    "tpdo2_span_ms": 16038.769960403442,
+    "tpdo2_interval_ms": [
+      49.52692985534668,
+      50.36616325378418
+    ],
+    "exact_volatile_writes": 36,
+    "nmt": [
+      "8001",
+      "0101",
+      "8001"
+    ],
+    "selected_wheel": "right",
+    "nonzero_window_ms": 7950.271129608154,
+    "stop_to_zero_ms": 261.25502586364746,
+    "opposite_targets_and_feedback_zero": true,
+    "rpdo_frames": 1512,
+    "enabled_feedback": 238,
+    "enabled_samples": 1188,
+    "baseline_restored": true,
+    "operator": "Separate post-trial confirmation required; not inferred from protocol",
+    "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+  },
+  "counters_unchanged": true,
+  "operator": {
+    "raw_user_statement": "OFF",
+    "right_direction_and_stop_normal": true,
+    "left_always_stationary": true,
+    "drive_power_off": true,
+    "no_abnormal_sound": true,
+    "transmitter_off": true,
+    "receiver_stayed_powered": true,
+    "confirmation_source": "Local terminal post-trial question",
+    "runner_exit": 0,
+    "actual_operation": "启动时遥控器关机，等待提示正确，长按关机，没有提前回中，接收机全程供电，没用X1"
+  },
+  "runner_consumed": true,
+  "interpretation": "Selected stop feedback excursions with operator-normal stop; physical reversal or estimator artifact is not established by these samples alone. No automatic rerun."
+}

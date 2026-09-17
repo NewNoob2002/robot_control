@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "UART-only R0; no drive lifecycle",
+  "arguments": [
+    "--interface",
+    "none",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--observe-input"
+  ],
+  "artifact_sha256": "9ac673e9b7b039467e346ac6595347c0da5e03cc37a01b8e90b1773df43fa7f2",
+  "ready": true,
+  "application_exit": 0,
+  "elapsed_ms": 60139.60754900472
+}

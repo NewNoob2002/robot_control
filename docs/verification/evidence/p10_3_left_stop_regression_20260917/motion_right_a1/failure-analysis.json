@@ -1,0 +1,55 @@
+{
+  "status": "FAILED_post_stop_negative_feedback",
+  "matching_capture_frames": 2315,
+  "trace_complete": true,
+  "trace_records": 7484,
+  "stop_cause": 2,
+  "selected_wheel": "right",
+  "nonzero_window_ms": 2950.273036956787,
+  "right_target_range": [
+    3,
+    5
+  ],
+  "moving_feedback_tenths_rpm_range": [
+    0,
+    55
+  ],
+  "left_targets_and_feedback_zero": true,
+  "negative_feedback": [
+    {
+      "after_stop_ms": 100.09193420410156,
+      "right_tenths_rpm": -10
+    },
+    {
+      "after_stop_ms": 200.11496543884277,
+      "right_tenths_rpm": -2
+    },
+    {
+      "after_stop_ms": 250.12803077697754,
+      "right_tenths_rpm": -3
+    },
+    {
+      "after_stop_ms": 300.14610290527344,
+      "right_tenths_rpm": -1
+    }
+  ],
+  "stable_zero_first_ms": 350.14796257019043,
+  "stable_zero_span_ms": 200.0579833984375,
+  "exact_volatile_writes": 36,
+  "baseline_restored": true,
+  "last_second_raw_ranges": {
+    "ch1": [
+      304,
+      304
+    ],
+    "ch3": [
+      1800,
+      1800
+    ]
+  },
+  "input_interpretation": "Input ramped forward/left; final second CH1=304 and CH3=1800 constant. Right candidate remained positive with left zero through automatic cutoff. No pre-stop return-to-neutral or negative transmitted target.",
+  "cause": "Drive/mechanical origin not established; independent captures agree on feedback bytes.",
+  "operator": "Right direction/stop normal, left stationary, no abnormal sound, drive OFF confirmed in operator-post-trial.json",
+  "timing_limit": "Candump timing only; JCAN timestamp is zero for every frame, so no independent JCAN latency measurement",
+  "counter_limit": "Wrapper exits on application failure before can-after snapshot; no post-trial counter delta verified"
+}

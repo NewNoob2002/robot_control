@@ -1,0 +1,17 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 完善然后授权执行",
+  "attempts": 1,
+  "artifact_sha256": "9ac673e9b7b039467e346ac6595347c0da5e03cc37a01b8e90b1773df43fa7f2",
+  "arguments": [
+    "--interface",
+    "none",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--observe-input"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-r0-9ac673e9-20260917",
+  "scope": "Drive OFF, UART-only R0, no CAN lifecycle or sends; one slow return then one natural release, CH6 released"
+}

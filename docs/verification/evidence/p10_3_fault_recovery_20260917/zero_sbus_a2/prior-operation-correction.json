@@ -1,0 +1,6 @@
+{
+  "trial": "zero_sbus_a1",
+  "operator_statement": "是，关闭的是接收机",
+  "actual_stimulus": "receiver power OFF/ON; handheld transmitter remained ON",
+  "disposition": "Prior protocol timeout recovery remains valid; planned transmitter-loss scenario was not performed. Original evidence preserved."
+}

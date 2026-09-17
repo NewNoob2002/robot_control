@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "20000",
+    "--zero-only"
+  ],
+  "artifact_sha256": "f60685c2399fb45a60b288e11e3a3dce82194930b146d42d934679ab7e88c878",
+  "operator_prompted": true,
+  "application_exit": 0,
+  "application_elapsed_ms": 21125.17597101396
+}

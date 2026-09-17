@@ -1,0 +1,38 @@
+{
+  "status": "INCOMPLETE_F3_ZERO_TARGET_PROTOCOL_AND_RESTORATION_VERIFIED",
+  "matching_frames": 1882,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 49,
+    "0x0": 3,
+    "0x181": 232,
+    "0x281": 231,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 1121
+  },
+  "tpdo2_frames": 231,
+  "tpdo2_span_ms": 11493.854999542236,
+  "tpdo2_interval_ms": [
+    49.6981143951416,
+    50.26412010192871
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 1121,
+  "enabled_feedback": 199,
+  "enabled_samples": 992,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "x1",
+    "status": "NOT_EXERCISED_INPUT_GATE_REJECTED"
+  },
+  "scope": "Zero-only recovery scenario; physical operator confirmation remains separate"
+}

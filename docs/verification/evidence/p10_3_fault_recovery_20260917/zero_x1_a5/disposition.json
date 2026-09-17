@@ -1,0 +1,10 @@
+{
+  "status": "PASS_ZERO_TARGET_X1_RECOVERY",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF; stationary wheels and no abnormal sound confirmed in local terminal",
+  "artifact_sha256": "616e8ad3ec59c14985106c846c8f706b396617dc16b226b3012e3509fd821cea",
+  "recovery_path": "native_x1_disabled",
+  "scope": "F1 zero-only X1 and nonneutral rejection, neutral first rearm; no moving or SBUS failure acceptance",
+  "automatic_retry": false
+}

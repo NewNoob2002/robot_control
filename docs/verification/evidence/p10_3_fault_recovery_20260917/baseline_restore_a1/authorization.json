@@ -1,0 +1,33 @@
+{
+  "authorized": true,
+  "authorization_source": "User requested completion of X1 recovery; acknowledged separate residual restoration before retry; explicit +-1rpm feedback tolerance",
+  "attempts": 1,
+  "artifact_sha256": "4c7a757f578f774c0788221bd5d46da3247f53e9ca898001ef41b7f15472256f",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "2000",
+    "--restore-zero-baseline",
+    "--zero-feedback-tenths-rpm",
+    "10"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-restore-4c7a757f-a1-20260917",
+  "operator_readiness_required": true,
+  "scope": "Verify exact known A2 residuals, zero/Disable Voltage, restore original maps/timers, full readback; no enable, no persistent writes",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO/RPDO target"
+  ],
+  "trial": "One exact A2-residual baseline restoration, no enable/RPDO/control loop",
+  "power_cycle_confirmation_required": false,
+  "zero_feedback_tenths_rpm": 10
+}

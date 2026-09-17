@@ -1,0 +1,43 @@
+{
+  "target": "robot-dev",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "architecture": "aarch64",
+  "can": "can0",
+  "node": 1,
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "artifact_sha256": "9ac673e9b7b039467e346ac6595347c0da5e03cc37a01b8e90b1773df43fa7f2",
+  "staging": "/home/cat/.cache/robot-control/staging/p103-left-held-9ac673e9-a1-20260917",
+  "power": "Latest explicit operator confirmation OFF and sticks neutral. Fresh A powered readiness required before any CAN lifecycle.",
+  "operator_confirmed": [
+    "unchanged wiring",
+    "raised wheels",
+    "physical emergency stop",
+    "on-site assistance"
+  ],
+  "electrical": "Existing unchanged SBUS wiring; receiver/module 5V setting confirmed previously; voltage amplitude/tolerance not measured",
+  "limits": {
+    "right_rpm": 0,
+    "control_window_ms": 60000,
+    "setup_deadline_ms": 10000,
+    "cleanup_deadline_ms": 10000,
+    "watchdog_ms": 1000,
+    "left_rpm_max": 5,
+    "nonzero_window_ms": 3000,
+    "selected_feedback_tenths_rpm_max": 75,
+    "opposite_feedback_tenths_rpm": 0,
+    "stop_observation_ms": 1000,
+    "stable_zero_feedback_ms": 150,
+    "outer_guard_ms": 90000,
+    "cleanup_grace_ms": 12000,
+    "capture_window_ms": 120000,
+    "capture_max_frames": 20000,
+    "trace_export_deadline_ms": 5000
+  },
+  "recovery": "Close wire window; stop sole writer; fresh zero feedback150ms plus one fresh frame within1s; detach; zero-SDO/Disable Voltage and volatile restore. Any failure ends trial, no automatic retry; operator emergency stop/OFF.",
+  "startup": "JCAN silent capture then target candump, fresh readiness, one-shot marker; no automatic retry",
+  "disposition": "PREPARED A1, NOT RUN",
+  "changed_condition": "New user authorization after R0 review. Hold input through automatic cutoff; capture raw input and explicit cause. R0 natural return generated right-negative candidates; no return stimulus while motion is active. Guard rejects any opposite or negative command unchanged.",
+  "operator_sequence": "Neutral sticks/CH6 released; CONTROL_READY: press/release CH6 once, remain neutral. MOTION_READY: push forward/right smoothly together and HOLD until STOP_VERIFIED (or confirmed application exit); then neutral. If motion persists beyond3s, wrong wheel moves or abnormal sound: emergency stop/power OFF. No repeated push."
+}

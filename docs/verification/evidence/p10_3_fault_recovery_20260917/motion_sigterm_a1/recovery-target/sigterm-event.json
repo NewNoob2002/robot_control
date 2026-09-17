@@ -1,0 +1,24 @@
+{
+  "pid": 117305,
+  "process_start_ticks": 29537943,
+  "artifact_sha256": "91d3ce99c06b4f96148a1e8cc86412459d53fe1bce88a91ec41f1d64dc33430c",
+  "executable": "/home/cat/.cache/robot-control/staging/p103-sigterm-91d3ce99-a1-20260917/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--right-throttle",
+    "--zero-feedback-tenths-rpm",
+    "20"
+  ],
+  "positive_observed_ns": 295388204551273,
+  "signal": 15,
+  "monotonic_before_ns": 295388517231535,
+  "wall_before_ns": 1789643211567569973,
+  "monotonic_after_ns": 295388517530787,
+  "wall_after_ns": 1789643211567867184,
+  "sent": true
+}

@@ -1,9 +1,9 @@
 # P10.3 actual zero-only ControlLoop preparation — 2026-09-16
 
-**Physical trial NOT RUN. Drive last confirmed OFF. P10.3 remains OPEN.**
+**Physical attempt1 FAILED; consumed. Power-off not confirmed. P10.3 OPEN.**
 
 This directory records the new isolated zero-only HIL artifact, offline checks,
-fresh staging and unconsumed one-shot preparation. It does not authorize future
+fresh staging and the consumed first physical attempt. It does not authorize future
 reuse of a consumed marker. The previous TPDO2 prerequisite remains separately
 archived under p10_3_hil_20260916.
 
@@ -84,12 +84,22 @@ ordering, GNU symbols and explicit nonblocking log flushes. Initial Docker acces
 was denied in the sandbox; the approved locked-image build passed without image
 updates. None of these failures caused a physical retry.
 
-authorization.json records the user's current P10.3 scope, exact binary hash,
-arguments and one attempt. safety-preflight.json retains electrical limitations,
-recovery and last-known physical state. operator-confirmation.json and
-operator-ready.json **do not yet exist**. run-zero.py must not be invoked until
-the fresh operator statement has been recorded. zero-once.py is staged but has
-not opened CAN or UART; only --help and the pure control-cycle test were run.
+
+## Physical attempt1 disposition
+
+FAILED/operator-disturbed; one-shot runner consumed. Operator reports accidental
+right-wheel contact. All1341 RPDO targets were zero; measured right/high-half
+speed0.2 then0.5rpm triggered inhibition.1340 cycles included916 enabled samples.
+Cleanup wrote zero targets and Disable Voltage but could not verify restoration
+against recent nonzero TPDO feedback. Volatile mappings/watchdog/heartbeat remain
+unrestored. Last confirmed power state ON; subsequent power-off is not confirmed.
+All2138 target frames match the first2138 JCAN frames; eight extra JCAN frames are
+passive tail capture. See zero-failure-analysis.json and preserved raw captures.
+
+A separate retry2 is staged with the same binary and unchanged limits, authorized
+by the operator repeat request. It has NOT RUN and awaits explicit power OFF then
+ON confirmation, untouched raised wheels, neutral sticks, CH6 released and an
+available emergency stop. P10.3 remains OPEN.
 
 analyze-zero.py checks identical target/JCAN frames, correlated SDOs, exact36
 volatile writes, zero targets/speeds, zero-enable feedback, NMT order and mapping

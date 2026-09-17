@@ -1,0 +1,6 @@
+[0/1] Re-running CMake...
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p103-control-hil-san
+[1/3] Building CXX object tools/control_hil/CMakeFiles/robot-control-hil.dir/main.cpp.o
+[2/3] Linking CXX executable tools/control_hil/robot-control-hil

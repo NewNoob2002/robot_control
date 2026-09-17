@@ -1,0 +1,24 @@
+{
+  "status": "INCOMPLETE_F4_STARTUP_INVALID_SBUS_MISCLASSIFIED_AS_REVERSE",
+  "matching_frames": 350,
+  "rpdo_frames": 2,
+  "all_targets_zero": true,
+  "feedback_within_standstill_band": true,
+  "trace_records": 357,
+  "raw_flags": [
+    12,
+    12
+  ],
+  "raw_throttle": [
+    0,
+    0
+  ],
+  "control_cycles": 1,
+  "enabled_samples": 0,
+  "volatile_writes": 36,
+  "baseline_restored": true,
+  "operator_actual_operation": "什么都没干就退出来",
+  "operator_drive_OFF_chat": "已关闭",
+  "operator_stationary_and_sound_confirmation": null,
+  "both_markers_consumed": true
+}

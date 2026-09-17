@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <array>
+#include <bit>
 #include <cerrno>
 #include <iostream>
 #include <type_traits>
@@ -17,6 +18,16 @@ struct Entry {
     std::uint8_t sub;
     std::uint32_t value;
 };
+/** Compare signed independent32 or both packed16 feedback fields without changing raw evidence. */
+bool within_standstill(std::uint32_t raw, bool packed, int tolerance) noexcept {
+    const auto within = [tolerance](std::int32_t value) {
+        return value >= -tolerance && value <= tolerance;
+    };
+    if (!packed)
+        return within(std::bit_cast<std::int32_t>(raw));
+    return within(std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(raw)))
+           && within(std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(raw >> 16U)));
+}
 } // namespace
 ControlQualification::ControlQualification(Lifecycle& owner) noexcept : owner_{owner}, operations_{owner} {}
 Status ControlQualification::error(const char* operation, int code) const {
@@ -118,27 +129,32 @@ Status ControlQualification::mapping(bool diagnostics, bool restore) {
     }
     return status;
 }
-platform::linux::Result<RuntimeLayoutProof> ControlQualification::prepare() {
-    using Result = platform::linux::Result<RuntimeLayoutProof>;
+Status ControlQualification::begin(int zero_tolerance_tenths_rpm) {
     if (started_ || owner_.storage_->config().remote_node_id != 1 || owner_.runtime_ != nullptr
         || owner_.storage_->config().tpdo_expected_dlc != std::array<std::uint8_t, 4>{8, 5, 0, 0})
-        return Result::failure(error("control_hil_prepare_once", EACCES));
+        return error("control_hil_prepare_once", EACCES);
+    if (zero_tolerance_tenths_rpm < 0 || zero_tolerance_tenths_rpm > 20)
+        return error("control_hil_zero_tolerance", EINVAL);
+    zero_tolerance_ = zero_tolerance_tenths_rpm;
     started_ = true;
     generation_ = owner_.observation_snapshot(Clock::now()).generation;
     operations_.sequence_generation_ = generation_;
     deadline_ = Clock::now() + 10s;
     const auto initial = read(0x6041, 0);
     if (!initial.ok())
-        return Result::failure(initial.status());
+        return initial.status();
     const auto decoded = domain::drive::decode_dual_axis_status(initial.value());
     if ((initial.value() & 0x8000U) != 0)
-        return Result::failure(error("control_hil_x1_active", EACCES));
+        return error("control_hil_x1_active", EACCES);
     for (auto state : {decoded.low_half.state, decoded.high_half.state}) {
         if (state != domain::drive::Cia402State::not_ready_to_switch_on
             && state != domain::drive::Cia402State::switch_on_disabled
             && state != domain::drive::Cia402State::ready_to_switch_on)
-            return Result::failure(error("control_hil_initial_state", EACCES));
+            return error("control_hil_initial_state", EACCES);
     }
+    return Status::success();
+}
+Status ControlQualification::check_baseline(bool interrupted) {
     constexpr std::array baseline{Entry{0x6060, 0, 3},          Entry{0x6061, 0, 3},          Entry{0x603f, 0, 0},
                                   Entry{0x60ff, 1, 0},          Entry{0x60ff, 2, 0},          Entry{0x606c, 1, 0},
                                   Entry{0x606c, 2, 0},          Entry{0x606c, 3, 0},          Entry{0x200f, 0, 1},
@@ -150,9 +166,43 @@ platform::linux::Result<RuntimeLayoutProof> ControlQualification::prepare() {
                                   Entry{0x1801, 2, 255},        Entry{0x1801, 5, 0},          Entry{0x1a01, 0, 0},
                                   Entry{0x1a01, 1, 0},          Entry{0x1a01, 2, 0}};
     for (auto entry : baseline) {
+        if (interrupted) {
+            if (entry.index == 0x2000)
+                entry.value = 1000;
+            if (entry.index == 0x1017)
+                entry.value = 500;
+            if (entry.index == 0x1600 && entry.sub == 2)
+                entry.value = 0x60ff0320;
+            if (entry.index == 0x1801 && entry.sub == 5)
+                entry.value = 100;
+            if (entry.index == 0x1a01)
+                entry.value = entry.sub == 0 ? 2U : entry.sub == 1 ? 0x60610008U : 0x603f0020U;
+        }
+        if (zero_tolerance_ != 0 && entry.index == 0x606c)
+            continue;
         auto status = expect(entry.index, entry.sub, entry.value);
         if (!status.ok())
-            return Result::failure(status);
+            return status;
+    }
+    if (zero_tolerance_ != 0) {
+        const auto stationary = stable_standstill();
+        if (!stationary.ok())
+            return stationary;
+    }
+    return Status::success();
+}
+platform::linux::Result<RuntimeLayoutProof> ControlQualification::prepare(bool require_quick_stop_option,
+                                                                          int zero_tolerance_tenths_rpm) {
+    using Result = platform::linux::Result<RuntimeLayoutProof>;
+    auto initial = begin(zero_tolerance_tenths_rpm);
+    if (initial.ok())
+        initial = check_baseline(false);
+    if (!initial.ok())
+        return Result::failure(initial);
+    if (require_quick_stop_option) {
+        const auto option = expect(0x605a, 0, 5);
+        if (!option.ok())
+            return Result::failure(option);
     }
     auto status = operations_.require_clean_generation();
     if (!status.ok())
@@ -253,6 +303,58 @@ platform::linux::Result<RuntimeLayoutProof> ControlQualification::prepare() {
     proof.verified_at = Clock::now();
     return Result::success(proof);
 }
+Status ControlQualification::restore_interrupted(int zero_tolerance_tenths_rpm) {
+    auto status = begin(zero_tolerance_tenths_rpm);
+    if (status.ok())
+        status = expect(0x6040, 0, 0);
+    if (status.ok()) {
+        const auto state = read(0x6041, 0);
+        if (!state.ok())
+            return state.status();
+        const auto axes = domain::drive::decode_dual_axis_status(state.value());
+        if (axes.low_half.state != domain::drive::Cia402State::switch_on_disabled
+            || axes.high_half.state != domain::drive::Cia402State::switch_on_disabled)
+            return error("control_hil_restore_state", EACCES);
+    }
+    if (status.ok())
+        status = check_baseline(true);
+    if (status.ok())
+        status = expect(0x605a, 0, 5);
+    if (status.ok())
+        status = operations_.require_clean_generation();
+    if (!status.ok())
+        return status; // No ownership or write before the complete known residual matches.
+    heartbeat_owned_ = watchdog_owned_ = rpdo_owned_ = diagnostics_owned_ = motor_owned_ = true;
+    status = finish();
+    if (status.ok())
+        status = check_baseline(false);
+    finish_status_ = status;
+    return status;
+}
+Status ControlQualification::stable_standstill() {
+    auto started = Clock::time_point{};
+    // Every correlated SDO sample must be in range; an outlier does not restart the hold silently.
+    do {
+        for (std::uint8_t part : std::array<std::uint8_t, 3>{1, 2, 3}) {
+            const auto value = read(0x606c, part);
+            if (!value.ok())
+                return value.status();
+            if (!within_standstill(value.value(), part == 3, zero_tolerance_))
+                return error("control_hil_standstill_feedback", ERANGE);
+        }
+        if (started == Clock::time_point{})
+            started = Clock::now();
+        if (Clock::now() - started >= 150ms) {
+            std::cout << "event=standstill_verified tolerance_tenths_rpm=" << zero_tolerance_ << " elapsed_us="
+                      << std::chrono::duration_cast<std::chrono::microseconds>(Clock::now() - started).count() << '\n';
+            return Status::success();
+        }
+        const auto run = owner_.run_until(std::min(deadline_, Clock::now() + 20ms));
+        if (!run.ok() || run.value() != LifecycleExit::deadline)
+            return run.ok() ? error("control_hil_signal", ECANCELED) : run.status();
+    } while (Clock::now() < deadline_);
+    return error("control_hil_standstill_deadline", ETIMEDOUT);
+}
 Status ControlQualification::finish() {
     if (finished_)
         return finish_status_;
@@ -294,13 +396,14 @@ Status ControlQualification::finish() {
         }
     }
     if (status.ok())
-        status = operations_.require_zero_velocity_feedback(false, deadline_);
+        status =
+            zero_tolerance_ == 0 ? operations_.require_zero_velocity_feedback(false, deadline_) : stable_standstill();
     if (status.ok()) {
         const auto feedback = owner_.observation_snapshot(Clock::now()).tpdo[0];
-        if (feedback.current
-            && std::any_of(feedback.raw.payload.begin() + 4, feedback.raw.payload.end(), [](auto byte) {
-                   return byte != 0;
-               }))
+        std::uint32_t raw = 0;
+        for (unsigned i = 0; i < 4; ++i)
+            raw |= static_cast<std::uint32_t>(feedback.raw.payload[4 + i]) << (8U * i);
+        if (feedback.current && !within_standstill(raw, true, zero_tolerance_))
             status = error("control_hil_cleanup_moving", ERANGE);
     }
     if (status.ok() && (rpdo_owned_ || diagnostics_owned_))

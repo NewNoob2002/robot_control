@@ -1,0 +1,30 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 推进F3; 没有，需要单人操作方案",
+  "attempts": 1,
+  "artifact_sha256": "778b0a79b4985b1040f2eccee1fbe6e948c8084a61e3c645db7a2a537d7ac611",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--right-throttle"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-right-throttle-778b0a79-x1-a2-20260917",
+  "operator_readiness_required": true,
+  "scope": "F3 right positive <=5rpm/<3s; left zero; press/lock X1 during actual motion and retain until power OFF; one invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO target; any RPDO outside right-positive<=5rpm/<3s"
+  ],
+  "trial": "F3 A2 single-operator right-throttle input; one<=5rpm/<3s run, independent X1 causal review",
+  "power_cycle_confirmation_required": false
+}

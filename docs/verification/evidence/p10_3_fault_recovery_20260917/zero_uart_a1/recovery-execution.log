@@ -1,0 +1,25 @@
+CONTROL_READY: keep sticks neutral; press CH6 once; ZERO recovery window60s; wait for FAULT_READY
+WINDOW_REMAINING: 59
+WINDOW_REMAINING: 58
+WINDOW_REMAINING: 57
+WINDOW_REMAINING: 56
+WINDOW_REMAINING: 55
+WINDOW_REMAINING: 54
+WINDOW_REMAINING: 53
+WINDOW_REMAINING: 52
+FAULT_READY: disconnect SBUS SIGNAL ONLY; USB, GROUND AND POWER STAY CONNECTED; transmitter stays ON; keep X1 released; wait for RELEASE_FAULT
+WINDOW_REMAINING: 51
+WINDOW_REMAINING: 50
+WINDOW_REMAINING: 49
+WINDOW_REMAINING: 48
+WINDOW_REMAINING: 47
+WINDOW_REMAINING: 46
+APPLICATION_STOPPING: no further operator actions; neutral and wait for cleanup
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--zero-sbus-recovery", "--zero-feedback-tenths-rpm", "20"], "artifact_sha256": "cd8bd1c594c9297a9036ff585cdc82e852f99795c3f8a8c27e6bdd453d5df7a1", "operator_prompted": true, "fault_ready": true, "stopping_prompted": true, "application_exit": 1, "application_elapsed_ms": 14884.453600971028, "error": "application failed; inspect log before any retry"}
+Traceback (most recent call last):
+  File "/home/cat/.cache/robot-control/staging/p103-stop-review-cd8bd1c5-uart-a1-20260917/recovery-once.py", line 133, in <module>
+    main()
+  File "/home/cat/.cache/robot-control/staging/p103-stop-review-cd8bd1c5-uart-a1-20260917/recovery-once.py", line 110, in main
+    assert application.returncode == 0, 'application failed; inspect log before any retry'
+AssertionError: application failed; inspect log before any retry

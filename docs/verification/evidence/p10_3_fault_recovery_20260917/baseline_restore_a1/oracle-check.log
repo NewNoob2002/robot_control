@@ -1,0 +1,19 @@
+INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_DISABLED_ONLY_BASELINE_RESTORATION",
+  "matching_target_frames": 376,
+  "jcan_frames": 376,
+  "capture_offset": 0,
+  "exact_writes": 18,
+  "no_enable_or_rpdo": true,
+  "baseline_restored": true,
+  "trace_records": 373,
+  "standstill_holds_ms": [
+    159.91000000212807,
+    161.99899999628542,
+    161.06899999431334
+  ],
+  "operator": "Separate physical disposition required; no X1 recovery acceptance implied"
+}
+restore_baseline: passed, zero_rpdo=0, restored=verified
+restoration oracle: virtual replay and two mutation rejections PASS

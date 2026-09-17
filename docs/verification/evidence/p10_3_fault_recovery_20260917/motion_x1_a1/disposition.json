@@ -1,0 +1,10 @@
+{
+  "status": "INCOMPLETE_F3_INPUT_ENVELOPE_REJECTED_BEFORE_MOTION",
+  "target_trial_marker_consumed": true,
+  "capture_marker_consumed": true,
+  "operator_power": "OFF; user says wheel had not started moving",
+  "x1_stimulus": "not observed on bus",
+  "blocked_command": "both wheel candidates3rpm, send rejected with errno13",
+  "baseline_restored": true,
+  "automatic_retry": false
+}

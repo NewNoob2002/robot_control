@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p10_3_fault_recovery_20260917/motion_x1_a2/analyze-x1.py", line 42, in <module>
+    main()
+    ~~~~^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p10_3_fault_recovery_20260917/motion_x1_a2/analyze-x1.py", line 31, in main
+    assert not trace['feedback_bad'] and not trace['discontinuities']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

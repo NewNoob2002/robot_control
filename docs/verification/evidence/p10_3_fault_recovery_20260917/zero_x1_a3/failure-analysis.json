@@ -1,0 +1,13 @@
+{
+  "status": "FAILED_READ_ONLY_BASELINE_MISMATCH",
+  "watchdog_actual_ms": 1000,
+  "watchdog_required_ms": 0,
+  "read_requests": 8,
+  "writes": 0,
+  "trace_records": 16,
+  "control_started": false,
+  "matching_target_frames": 74,
+  "jcan_frames": 192,
+  "capture_offset": 110,
+  "restore_ok_interpretation": "No new ownership/writes to clean; does NOT restore A2 residual baseline"
+}

@@ -1,0 +1,52 @@
+{
+  "passed": false,
+  "control_phase_observed": true,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 32801323692430
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 59,
+      "host_monotonic_ns": 32803088217895
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 32804097566871
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 32805107154314
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 32806124609840
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 32806983375123
+    },
+    {
+      "phase": "FAULT_READY",
+      "remaining": 55,
+      "host_monotonic_ns": 32807134369627
+    },
+    {
+      "phase": "STOP",
+      "remaining": 55,
+      "host_monotonic_ns": 32807689129110
+    }
+  ],
+  "last_display": "STOP",
+  "operator_prompted": true,
+  "target_runner_exit": 1,
+  "error": "target or independent capture failed",
+  "capture_exit": 0
+}

@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "20000",
+    "--single-left"
+  ],
+  "artifact_sha256": "3c2d6a0fb35eac571e4a732731258e480e35925a9013ada6eca4d2a8dbd8d1f6",
+  "operator_prompted": true,
+  "application_exit": 1,
+  "application_elapsed_ms": 21131.101845996454,
+  "error": "application failed; inspect log before any retry"
+}

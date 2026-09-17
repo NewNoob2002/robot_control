@@ -1,0 +1,87 @@
+{
+  "passed": false,
+  "control_phase_observed": true,
+  "target_invoked": true,
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "remaining": null,
+      "host_monotonic_ns": 1926184352635
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 59,
+      "host_monotonic_ns": 1928401388415
+    },
+    {
+      "phase": "CONTROL_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 1929459961126
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 58,
+      "host_monotonic_ns": 1929862381667
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 57,
+      "host_monotonic_ns": 1930466946970
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 56,
+      "host_monotonic_ns": 1931424557208
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 55,
+      "host_monotonic_ns": 1932432246879
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 54,
+      "host_monotonic_ns": 1933440871376
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 53,
+      "host_monotonic_ns": 1934448313485
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 52,
+      "host_monotonic_ns": 1935457017289
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 51,
+      "host_monotonic_ns": 1936464322886
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 50,
+      "host_monotonic_ns": 1937422536196
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 49,
+      "host_monotonic_ns": 1938430599682
+    },
+    {
+      "phase": "MOTION_READY",
+      "remaining": 48,
+      "host_monotonic_ns": 1939437938968
+    },
+    {
+      "phase": "STOP",
+      "remaining": 48,
+      "host_monotonic_ns": 1939639578527
+    }
+  ],
+  "last_display": "STOP",
+  "operator_prompted": true,
+  "target_runner_exit": 1,
+  "error": "target or independent capture failed",
+  "capture_exit": 0
+}

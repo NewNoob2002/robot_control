@@ -1,0 +1,4 @@
+Command: isolated user/network namespace, vcan0, ROBOT_CONTROL_TEST_VCAN_INTERFACE=vcan0, CONTROL_HIL_PROGRAM=out/build/p103-control-hil/tools/control_hil/robot-control-hil; runpy trial(motion_sigterm), trial(motion_throttle_sigterm)
+motion_sigterm: passed, zero_rpdo=148, restored=verified
+motion_throttle_sigterm: passed, zero_rpdo=147, restored=verified
+Initial invocation failed due to omitted fixture environment variable; corrected invocation above passed.

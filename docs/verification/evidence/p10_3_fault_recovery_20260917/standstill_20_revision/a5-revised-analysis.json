@@ -1,0 +1,81 @@
+{
+  "status": "PASS_F4_A5_UNDER_EXPLICIT_REVISED_20_BAND",
+  "measured_artifact_sha256": "38800cfe2e4f9d7de1c338569a07b387ff15ca77b25e4737a4391c9ddaa7f513",
+  "recorded_tolerance_tenths_rpm": 15,
+  "revised_tolerance_tenths_rpm": 20,
+  "original_feedback_bad_preserved": true,
+  "original_failed_verdict_preserved": true,
+  "causal": {
+    "kind": "frame_lost",
+    "first_nonzero_ns": 288236309049978,
+    "loss_ns": 288243398893898,
+    "first_zero_ns": 288243398916065,
+    "loss_to_zero_ms": 0.022167,
+    "nonzero_window_ms": 7089.866087,
+    "flags_observed": [
+      0,
+      4
+    ],
+    "timing_scope": "Reader batch receive or valid-frame deadline to successful RPDO syscall"
+  },
+  "feedback": {
+    "zero_feedback_tenths_rpm": 20,
+    "first_nonzero_ns": 288236309049978,
+    "first_zero_ns": 288243398916065,
+    "stable_since_ns": 288243474611875,
+    "stable_verified_ns": 288243674711629,
+    "stop_to_verified_ms": 275.795564,
+    "raw_feedback_preserved": true
+  },
+  "protocol": {
+    "status": "PASS_revised20_protocol_and_restoration_only",
+    "matching_frames": 2313,
+    "counts": {
+      "0x601": 158,
+      "0x581": 158,
+      "0x701": 60,
+      "0x0": 3,
+      "0x181": 288,
+      "0x281": 288,
+      "0x381": 1,
+      "0x481": 1,
+      "0x201": 1356
+    },
+    "tpdo2_frames": 288,
+    "tpdo2_span_ms": 14338.325023651123,
+    "tpdo2_interval_ms": [
+      49.70502853393555,
+      50.316810607910156
+    ],
+    "exact_volatile_writes": 36,
+    "nmt": [
+      "8001",
+      "0101",
+      "8001"
+    ],
+    "selected_wheel": "right",
+    "nonzero_window_ms": 7089.807987213135,
+    "stop_to_zero_ms": 75.44994354248047,
+    "opposite_targets_and_feedback_zero": true,
+    "rpdo_frames": 1356,
+    "enabled_feedback": 233,
+    "enabled_samples": 1161,
+    "baseline_restored": true,
+    "operator": "Separate post-trial confirmation required; not inferred from protocol",
+    "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+  },
+  "operator": {
+    "raw_user_statement": "OFF",
+    "right_direction_and_stop_normal": true,
+    "left_always_stationary": true,
+    "drive_power_off": true,
+    "no_abnormal_sound": true,
+    "transmitter_off": true,
+    "receiver_stayed_powered": true,
+    "confirmation_source": "Local terminal post-trial question",
+    "runner_exit": 0,
+    "actual_operation": "遥控器没有关机，等待提示正常，运动中按POWER_OFF_READY长按关机，关机前没有回中，接收机全供电，没有X1"
+  },
+  "new_hardware_trial": false,
+  "limitation": "Retrospective acceptance of unchanged A5 captures, not execution of the new20-default artifact"
+}

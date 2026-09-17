@@ -1,0 +1,107 @@
+[1/2] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp.
+88 warnings generated.
+[2/2] (1/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp.
+122 warnings generated.
+[2/2] (2/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp.
+156 warnings generated.
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/application/control/control_cycle.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/application/control/linux_loop.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/control_qualification.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/lifecycle.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/observation.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification_gate.h:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/runtime.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/stack_config.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/stack_storage.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/command/command_sample.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/control/control_arbiter.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/control/control_arbiter.hpp:10:12: warning: enum 'ArbiterReason' uses a larger base type ('std::uint32_t' (aka 'unsigned int'), size: 4 bytes) than necessary for its value set, consider using 'std::uint8_t' (1 byte) as the base type to reduce its size [performance-enum-size]
+   10 | enum class ArbiterReason : std::uint32_t {
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/cia402.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/runtime.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/zlac8015d.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/safety/safety_manager.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/time/monotonic_time.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/linux/reader.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/linux/source_bridge.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/protocol/parser.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/source/source.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/process/termination_event.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/uart/serial_port.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/unique_fd.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/motion_gate.hpp:1:1: warning: avoid 'pragma once' directive; use include guards instead [portability-avoid-pragma-once]
+    1 | #pragma once
+      | ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/motion_gate.hpp:37:30: warning: 2 adjacent parameters of 'allow' of similar type ('int') are easily swapped by mistake [bugprone-easily-swappable-parameters]
+   37 |     [[nodiscard]] bool allow(int word, int left, int right, Clock::time_point now) noexcept {
+      |                              ^~~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/motion_gate.hpp:37:34: note: the first parameter in the range is 'word'
+   37 |     [[nodiscard]] bool allow(int word, int left, int right, Clock::time_point now) noexcept {
+      |                                  ^~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/motion_gate.hpp:37:44: note: the last parameter in the range is 'left'
+   37 |     [[nodiscard]] bool allow(int word, int left, int right, Clock::time_point now) noexcept {
+      |                                            ^~~~
+Suppressed 122 warnings (118 in non-user code, 4 NOLINT).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.

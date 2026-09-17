@@ -1,0 +1,3 @@
+APPLICATION_STOPPING: no further operator actions; neutral and wait for cleanup
+APPLICATION_EXIT: no further stick stimulus; remain neutral; inspect result
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--right-throttle", "--zero-feedback-tenths-rpm", "15"], "artifact_sha256": "3652f15b31901995fce789df466b51147b9b59f49639ad4f27bc65f59ce27b55", "stopping_prompted": true, "application_exit": 1, "application_elapsed_ms": 62.82930902671069, "acceptance": "PENDING independent motion/SBUS-loss/feedback/restoration audit"}

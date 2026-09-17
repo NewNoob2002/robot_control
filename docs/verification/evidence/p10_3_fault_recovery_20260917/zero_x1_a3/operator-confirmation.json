@@ -1,0 +1,15 @@
+{
+  "statement": "F1零目标X1恢复已上电就绪",
+  "raw_user_statement": "START",
+  "confirmation_source": "Local interactive terminal after displayed A3 checklist",
+  "wall_time": 1789623576.6826334,
+  "drive_power_on": true,
+  "x1_released": true,
+  "no_wheel_contact": true,
+  "sticks_neutral": true,
+  "button_released": true,
+  "wheels_raised": true,
+  "emergency_stop_available": true,
+  "unchanged_wiring": true,
+  "operator_display_visible": true
+}

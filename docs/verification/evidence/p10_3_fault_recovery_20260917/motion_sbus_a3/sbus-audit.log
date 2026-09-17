@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p10_3_fault_recovery_20260917/motion_sbus_a3/analyze-sbus.py", line 78, in <module>
+    main()
+    ~~~~^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/p10_3_fault_recovery_20260917/motion_sbus_a3/analyze-sbus.py", line 66, in main
+    assert len(failures) == 1 and 'control_hil_motion_envelope' in failures[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

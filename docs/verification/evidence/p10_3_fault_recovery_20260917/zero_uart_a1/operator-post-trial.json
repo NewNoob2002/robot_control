@@ -1,0 +1,9 @@
+{
+  "raw_user_statement": "OFF",
+  "wheels_stationary": true,
+  "abnormal_sound": false,
+  "drive_power_off": true,
+  "confirmation_source": "Local terminal post-trial question",
+  "runner_exit": 1,
+  "actual_operation": "是的"
+}

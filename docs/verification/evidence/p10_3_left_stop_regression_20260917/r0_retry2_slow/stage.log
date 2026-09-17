@@ -1,0 +1,4 @@
+Target identity and absence of writers verified; new stage created
+Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms MS (--zero-only|--single-left|--single-right|--observe-input)
+MS: 2000..20000 for zero-only; 2000..60000 for single-wheel operator wait or receive-only input.
+{"verified": {"robot-control-hil": "9ac673e9b7b039467e346ac6595347c0da5e03cc37a01b8e90b1773df43fa7f2", "robot_control_control_cycle_tests": "540d4fc97890583da41100cdcfe104916e3ba9b19894a6452d11cc3b7afc2fa2", "r0-once.py": "257ec378ac1f91956161f25d961006fe8348ee5724226b4445c045f9939c1f03", "authorization.json": "780bf71c6816efa575cb992f1029878314aabea5d707efce955f90d65f38d6bc", "safety-preflight.json": "a8b10911693a71c9f64a54f3af14b17d2fc888e9ee5c5f669ded7be7fb854b56"}, "physical_started": false, "marker_unconsumed": true, "smoke": "help and pure control-cycle passed"}

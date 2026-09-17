@@ -1,0 +1,7 @@
+{
+  "source": "User chat",
+  "statement": "我看错了，没有关闭遥控，使用了X1，再进行一次复测",
+  "transmitter_switched_off": false,
+  "x1_used": true,
+  "new_attempt_requested": true
+}

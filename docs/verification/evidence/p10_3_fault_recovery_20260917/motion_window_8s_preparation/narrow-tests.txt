@@ -1,0 +1,3 @@
+MotionGate extended/invalid-window cases added before implementation: expected compilation failure.
+After implementation: motion gate, zero gate, trace and help 4/4 passed.
+New isolated control_hil_window_vcan_managed passed (15.62s): fault at4s, 8s cutoff, default3s oracle rejects extended traces, malformed/duplicate/out-of-mode CLI rejected.

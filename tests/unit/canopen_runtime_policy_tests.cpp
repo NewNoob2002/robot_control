@@ -81,6 +81,13 @@ void test_policy() {
         CHECK(!drive::valid_runtime_config(c));
     }
     auto c = config();
+    c.standstill_tenths_rpm = 15;
+    CHECK(drive::valid_runtime_config(c));
+    c.standstill_tenths_rpm = 20;
+    CHECK(drive::valid_runtime_config(c));
+    c.standstill_tenths_rpm = 21;
+    CHECK(!drive::valid_runtime_config(c));
+    c = config();
     c.max_abs_rpm = 1001;
     CHECK(!drive::valid_runtime_config(c));
     c = config();

@@ -1,0 +1,11 @@
+{
+  "raw_user_statement": "OFF",
+  "right_direction_and_stop_normal": true,
+  "left_always_stationary": true,
+  "drive_power_off": true,
+  "no_abnormal_sound": true,
+  "x1_locked": true,
+  "confirmation_source": "Local terminal post-trial question",
+  "runner_exit": 0,
+  "actual_operation": "是"
+}

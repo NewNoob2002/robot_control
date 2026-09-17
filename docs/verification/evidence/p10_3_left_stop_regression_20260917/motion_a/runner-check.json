@@ -1,0 +1,6 @@
+{
+  "python_syntax": "PASS",
+  "missing_fresh_confirmation": "REJECTED before any subprocess",
+  "hardware_started": false,
+  "source_hashes": "59 files match previously verified v3; no application changes"
+}

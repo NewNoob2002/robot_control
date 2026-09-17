@@ -1,0 +1,61 @@
+{
+  "first_nonzero_ns": 295388077811699,
+  "first_zero_ns": 295388517544495,
+  "signal_before_ns": 295388517231535,
+  "signal_after_ns": 295388517530787,
+  "signal_to_zero_upper_us": 312.96,
+  "signal_syscall_bracket_us": 299.252,
+  "no_restart": true,
+  "source_revoked": true,
+  "nonzero_window_ms": 439.732796,
+  "process_exit_after_signal_ms": 770.229627,
+  "internal_shutdown_us": 9736,
+  "feedback_review_pending": false,
+  "feedback": {
+    "zero_feedback_tenths_rpm": 20,
+    "first_nonzero_ns": 295388077811699,
+    "first_zero_ns": 295388517544495,
+    "stable_since_ns": 295388570741032,
+    "stable_verified_ns": 295388770810141,
+    "stop_to_verified_ms": 253.265646,
+    "raw_feedback_preserved": true
+  },
+  "protocol": {
+    "status": "PASS_motion_protocol_and_restoration_only_NOT_F6_acceptance",
+    "matching_frames": 1507,
+    "counts": {
+      "0x601": 158,
+      "0x581": 158,
+      "0x701": 38,
+      "0x0": 3,
+      "0x181": 175,
+      "0x281": 175,
+      "0x381": 1,
+      "0x481": 1,
+      "0x201": 798
+    },
+    "tpdo2_frames": 175,
+    "tpdo2_span_ms": 8696.446895599365,
+    "tpdo2_interval_ms": [
+      49.70502853393555,
+      50.318002700805664
+    ],
+    "exact_volatile_writes": 36,
+    "nmt": [
+      "8001",
+      "0101",
+      "8001"
+    ],
+    "selected_wheel": "right",
+    "nonzero_window_ms": 439.7308826446533,
+    "stop_to_zero_ms": 52.963972091674805,
+    "opposite_targets_and_feedback_zero": true,
+    "rpdo_frames": 798,
+    "enabled_feedback": 83,
+    "enabled_samples": 414,
+    "baseline_restored": true,
+    "operator": "Separate post-trial confirmation required; not inferred from protocol",
+    "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+  },
+  "status": "PASS_F6_SOFTWARE_WIRE_PENDING_OPERATOR"
+}

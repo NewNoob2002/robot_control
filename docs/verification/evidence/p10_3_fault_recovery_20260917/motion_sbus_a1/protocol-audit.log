@@ -1,0 +1,37 @@
+{
+  "status": "PASS_motion_protocol_and_restoration_only_NOT_F4_acceptance",
+  "matching_frames": 1512,
+  "counts": {
+    "0x601": 158,
+    "0x581": 158,
+    "0x701": 38,
+    "0x0": 3,
+    "0x181": 176,
+    "0x281": 176,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 801
+  },
+  "tpdo2_frames": 176,
+  "tpdo2_span_ms": 8744.887828826904,
+  "tpdo2_interval_ms": [
+    49.688100814819336,
+    50.314903259277344
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "right",
+  "nonzero_window_ms": 1524.2259502410889,
+  "stop_to_zero_ms": 49.65710639953613,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 801,
+  "enabled_feedback": 117,
+  "enabled_samples": 579,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}

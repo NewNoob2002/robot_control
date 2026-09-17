@@ -1,0 +1,6 @@
+{
+  "artifact_sha256": "91d3ce99c06b4f96148a1e8cc86412459d53fe1bce88a91ec41f1d64dc33430c",
+  "matched_project_inputs": 109,
+  "reference": "../uart_stable_preparation/compiled-source-verification.json",
+  "reused": true
+}

@@ -1,0 +1,85 @@
+{
+  "trace_records": 4178,
+  "feedback_bad": false,
+  "discontinuities": 0,
+  "trace_capture_correlation": true,
+  "feedback_range_tenths_rpm": {
+    "left": [
+      0,
+      0
+    ],
+    "right": [
+      -5,
+      56
+    ]
+  },
+  "post_stop_feedback": [
+    {
+      "after_zero_ms": 49.960438,
+      "right_tenths_rpm": -5
+    },
+    {
+      "after_zero_ms": 99.888792,
+      "right_tenths_rpm": 0
+    },
+    {
+      "after_zero_ms": 149.862646,
+      "right_tenths_rpm": 1
+    },
+    {
+      "after_zero_ms": 199.814042,
+      "right_tenths_rpm": -2
+    },
+    {
+      "after_zero_ms": 249.819397,
+      "right_tenths_rpm": 2
+    },
+    {
+      "after_zero_ms": 299.740459,
+      "right_tenths_rpm": -3
+    },
+    {
+      "after_zero_ms": 349.601145,
+      "right_tenths_rpm": -2
+    },
+    {
+      "after_zero_ms": 399.677376,
+      "right_tenths_rpm": 2
+    },
+    {
+      "after_zero_ms": 449.601937,
+      "right_tenths_rpm": -2
+    }
+  ],
+  "counter_deltas": {
+    "rx": {
+      "bytes": 3453,
+      "packets": 527,
+      "errors": 0,
+      "dropped": 0,
+      "over_errors": 0,
+      "multicast": 0
+    },
+    "tx": {
+      "bytes": 5746,
+      "packets": 907,
+      "errors": 0,
+      "dropped": 0,
+      "carrier_errors": 0,
+      "collisions": 0
+    }
+  },
+  "extended_error_counters_unchanged": true,
+  "timing_scope": "Application RX observation to successful send syscall, not physical X1 switch latency; JCAN verifies bytes/order only",
+  "summary": {
+    "event": "summary",
+    "cycles": "744",
+    "enabled_samples": "574",
+    "missed_periods": "3",
+    "maximum_lateness_us": "35953",
+    "maximum_cycle_us": "277",
+    "shutdown_us": "20",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  }
+}

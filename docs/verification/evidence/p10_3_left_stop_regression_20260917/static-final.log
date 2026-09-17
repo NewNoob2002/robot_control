@@ -1,0 +1,10 @@
+[1/3] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp.
+62 warnings generated.
+[2/3] (1/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp.
+104 warnings generated.
+[2/3] (2/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp.
+146 warnings generated.
+[3/3] Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/application/control/linux_loop.cpp.
+201 warnings generated.
+Suppressed 215 warnings (201 in non-user code, 14 NOLINT).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.

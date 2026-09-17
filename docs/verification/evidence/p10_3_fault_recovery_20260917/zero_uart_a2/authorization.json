@@ -1,0 +1,33 @@
+{
+  "authorized": true,
+  "authorization_source": "User: 修正 F5 观察器对半帧中断的处理然后进行A2",
+  "attempts": 1,
+  "artifact_sha256": "13ccbd9db41a349fedf2131f6490fc779eed1054d77a4c0ba6fcef490ca6b933",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--zero-uart-recovery",
+    "--zero-feedback-tenths-rpm",
+    "20"
+  ],
+  "staging": "/home/cat/.cache/robot-control/staging/p103-uart-partial-13ccbd9d-uart-a2-20260917",
+  "operator_readiness_required": true,
+  "scope": "F5 zero-target UART raw-byte silence and recovery; disconnect/reconnect SBUS signal only; USB, ground and receiver power remain connected, transmitter stays on; one invocation",
+  "excluded": [
+    "negative targets",
+    "simultaneous-wheel nonzero targets",
+    "fault reset",
+    "persistent parameters",
+    "CAN loss",
+    "interface reconfiguration",
+    "loaded operation",
+    "any nonzero SDO/RPDO target"
+  ],
+  "trial": "F5 A2 explicit zero-uart-recovery; one60s invocation; expected partial timeout retained and revoked immediately; sustained raw silence and fresh rearm required",
+  "power_cycle_confirmation_required": false,
+  "zero_feedback_tenths_rpm": 20
+}

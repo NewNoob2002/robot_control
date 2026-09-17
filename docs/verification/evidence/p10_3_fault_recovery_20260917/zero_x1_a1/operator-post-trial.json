@@ -1,0 +1,10 @@
+{
+  "raw_user_statement": "只按了CH6",
+  "reported_action": "CH6 only; no X1 operation reported",
+  "wheels_stationary": true,
+  "abnormal_sound": false,
+  "drive_power_off": true,
+  "note": "Confirmation applies to the immediately preceding disposition question; no new powered readiness or retry.",
+  "disposition_raw_user_statement": "确认",
+  "disposition_question": "请确认双轮是否始终未转、有无异常声音，以及驱动电源现在是否已关闭。"
+}

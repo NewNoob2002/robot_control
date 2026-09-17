@@ -1,0 +1,49 @@
+{
+  "trace_records": 26675,
+  "feedback_bad": false,
+  "discontinuities": 0,
+  "observed_fault": "valid_frame_timeout",
+  "flags_counts": {
+    "0": 6648
+  },
+  "maximum_valid_frame_gap_ms": 10660.005313,
+  "gap_start_ns": 280842497925990,
+  "gap_end_ns": 280853157931303,
+  "reader_raw_bytes_inside_valid_frame_gap": 51,
+  "fault_observed_after_last_valid_frame_ms": 100.019841,
+  "counter_deltas": {
+    "rx": {
+      "bytes": 16556,
+      "packets": 2709,
+      "errors": 0,
+      "dropped": 0,
+      "over_errors": 0,
+      "multicast": 0
+    },
+    "tx": {
+      "bytes": 35604,
+      "packets": 5883,
+      "errors": 0,
+      "dropped": 0,
+      "carrier_errors": 0,
+      "collisions": 0
+    }
+  },
+  "extended_error_counters_unchanged": true,
+  "source_authorization": [
+    1,
+    2
+  ],
+  "summary": {
+    "event": "summary",
+    "cycles": "5720",
+    "enabled_samples": "2478",
+    "missed_periods": "3",
+    "maximum_lateness_us": "36149",
+    "maximum_cycle_us": "519",
+    "shutdown_us": "25",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  },
+  "limits": "No flags4/12 observed; no electrical UART silence or F5 acceptance claimed; partial bytes exist during valid-frame gap."
+}

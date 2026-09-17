@@ -1,0 +1,1 @@
+Initial virtual motion_left failed its 1s stop check: RuntimePolicy state stops updating after stop(). The drive peer stopped and restoration succeeded. The trial now reads live Lifecycle observations and requires 150ms of fresh zero TPDO timestamps. Original result remains FAILED; no physical trial occurred. The subsequent nine-scenario virtual suite passed.
