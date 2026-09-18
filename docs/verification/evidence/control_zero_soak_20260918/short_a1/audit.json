@@ -1,0 +1,16 @@
+{
+  "status": "FAILED_STARTUP_CAPTURE",
+  "application_cycles": 0,
+  "enabled_samples": 0,
+  "sdo_reads": 14,
+  "sdo_writes": 0,
+  "rpdo": 0,
+  "restoration": "reported successful; no parameter writes observed",
+  "cause": "candump rejects simultaneous -L and -x; supervisor terminated owner during read-only preflight",
+  "operator": {
+    "confirmed_at": 1789715428.781,
+    "response": "OFF",
+    "accepted_conditions": true
+  },
+  "target_archive_sha256": "f865e6b8660496eac0a02c520417b6074b5cb4d48e6f66d73129fa8adf904e56"
+}

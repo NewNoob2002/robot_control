@@ -15,6 +15,7 @@ from types import SimpleNamespace
 
 def trial(collector, scenario):
     """Run one isolated module instance; stub only physical interface/capture boundaries."""
+    sys.path.insert(0,str(Path(__file__).parents[1]/'hil'))
     spec=importlib.util.spec_from_file_location('soak',Path(__file__).parents[1]/'hil/control_zero_soak.py')
     soak=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(soak)
@@ -23,6 +24,7 @@ def trial(collector, scenario):
     read_fd,write_fd=os.pipe()
     finished=threading.Event()
     errors=[]
+    application_started=[]
     with tempfile.TemporaryDirectory() as tmp:
         root=Path(tmp)
         fake=root/'fake-control'
@@ -41,8 +43,12 @@ time.sleep(0.3)
         soak.interface_state=lambda _:state
         def popen(command,**kwargs):
             """Replace only candump with a harmless sleeping process."""
-            if command[0]=='candump':
+            if command[0] in ('candump','stdbuf'):
+                if scenario=='capture_failure':
+                    return original_popen([sys.executable,'-c','raise SystemExit(2)'],**kwargs)
                 command=[sys.executable,'-c','import signal,time; signal.signal(signal.SIGINT,lambda *_:exit(0)); time.sleep(30)']
+            elif command[0]==str(fake):
+                application_started.append(True)
             return original_popen(command,**kwargs)
         def lease():
             """Feed live leases or a deliberate abort while the mock child is alive."""
@@ -71,6 +77,7 @@ time.sleep(0.3)
             result=json.loads((root/'result/result.json').read_text())
             assert rc==(0 if scenario=='complete' else 1),result
             assert not result['forced_kill']
+            if scenario=='capture_failure': assert not application_started, 'application started before capture readiness'
             if scenario=='abort': assert result['lease_error'] and result['status']=='FAIL'
             assert (root/'result/CONSUMED').exists()
         finally:
@@ -83,6 +90,6 @@ time.sleep(0.3)
 
 if __name__=='__main__':
     program=Path(sys.argv[1]).resolve()
-    for case in ('complete','child_failure','abort'):
+    for case in ('capture_failure','complete','child_failure','abort'):
         trial(program,case)
     print('PASS: inert supervisor completion, child failure, live lease abort and bounded cleanup')

@@ -93,3 +93,11 @@ Raw evidence, counters and failure disposition survive unsuccessful trials.
 
 This software change prepares G1/G2. Real target acceptance must be recorded
 separately; it does not reopen old runners or certify ground motion.
+
+## Capture startup correction
+
+The first target short attempt exposed incompatible candump -L/-x options.
+The supervisor now imports the already validated Phase6 start_capture helper,
+which must be deployed alongside it, and checks capture startup before launching
+the control process. Original failed A1 is preserved in
+[the trial index](../verification/evidence/control_zero_soak_20260918/README.md).

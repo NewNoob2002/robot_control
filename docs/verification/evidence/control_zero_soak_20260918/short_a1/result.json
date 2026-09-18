@@ -1,0 +1,10 @@
+{
+  "status": "FAIL",
+  "error": "AssertionError: {'rc': 1, 'lease_error': None}",
+  "target_done": {
+    "rc": 1,
+    "lease_error": null
+  },
+  "elapsed_s": 2.1609381179987395,
+  "scope": "RK3588 continuous SBUS/ControlLoop zero-target soak; no moving/loaded acceptance"
+}

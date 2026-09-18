@@ -1,0 +1,10 @@
+PROGRESS {"rss_kib": 496, "threads": 1, "fds": 4, "cpu_ticks": 0, "clock_ticks": 100, "control_ready": false, "elapsed_s": 0.0010849459977180231, "free_bytes": 15460302848, "trace_bytes": 0, "can_bytes": 0, "lease_error": null, "cpu_percent": null, "can": {"flags": ["UP"], "linkinfo": {"info_data": {"state": "ERROR-ACTIVE", "bittiming": {"bitrate": 500000}}, "info_xstats": {"restarts": 0, "bus_error": 0, "error_warning": 0, "error_passive": 0, "bus_off": 0}}, "stats64": {"rx": {"errors": 0, "dropped": 0}, "tx": {"errors": 0, "dropped": 0}}}}
+DONE {"rc": 1, "lease_error": null}
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_control_soak_supervisor.py", line 93, in <module>
+    trial(program,case)
+    ~~~~~^^^^^^^^^^^^^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/test_control_soak_supervisor.py", line 79, in trial
+    if scenario=='capture_failure': assert not application_started, 'application started before capture readiness'
+                                           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: application started before capture readiness

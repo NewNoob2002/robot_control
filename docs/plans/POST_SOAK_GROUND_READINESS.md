@@ -129,3 +129,8 @@ Debug/sanitizer各48/48、静态与锁定cross/ELF通过。见
 [持续诊断接口](../development/CONTINUOUS_DIAGNOSTICS.md)和
 [软件证据](../verification/evidence/control_diagnostics_20260918/README.md)。
 目标监督支持资源/CAN/捕获存活和主机租约；真实短测及1小时物理结论另行记录。
+
+G2短测A1在candump启动参数校验阶段失败，控制周期/使能次数均为0，未进入一小时试验。
+操作员已确认断电。抓包启动修复及原始失败见
+[本轮试验索引](../verification/evidence/control_zero_soak_20260918/README.md)。
+修复不修改控制产物；后续使用新一次性目录及本地START，不复用A1。

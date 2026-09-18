@@ -13,6 +13,7 @@ import subprocess
 import sys
 import threading
 import time
+from phase6_zero_motion_soak import start_capture
 
 STOP = threading.Event()
 LEASE_ERROR = None
@@ -130,7 +131,14 @@ def run(args):
         with (args.output/'trace.bin').open('wb') as raw, (args.output/'diagnostics.log').open('wb') as log, \
              (args.output/'application.log').open('wb') as app, (args.output/'candump.log').open('wb') as wire, \
              (args.output/'candump.stderr').open('wb') as wire_error, (args.output/'resources.jsonl').open('w') as metrics:
-            capture=subprocess.Popen(['candump','-L','-e','-x',config['interface']],stdout=wire,stderr=wire_error)
+            capture=start_capture(config['interface'],wire,wire_error)
+            # Let immediate option/bind failures surface before the application can send.
+            deadline=time.monotonic()+0.5
+            while time.monotonic()<deadline:
+                assert not STOP.is_set(), LEASE_ERROR or 'operator stop'
+                assert capture.poll() is None and not wire_error.tell(), 'capture startup failed'
+                time.sleep(0.02)
+            assert capture.poll() is None and not wire_error.tell(), 'capture startup failed'
             read_fd,write_fd=os.pipe2(os.O_CLOEXEC)
             os.set_blocking(write_fd,False)
             # A bounded larger FIFO absorbs normal scheduler bursts, never an unbounded queue.
