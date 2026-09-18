@@ -1,0 +1,91 @@
+{
+  "units": "tenths_rpm",
+  "nonzero_frames": 9,
+  "pairs": [
+    {
+      "left": 0,
+      "right": -3,
+      "count": 1
+    },
+    {
+      "left": 0,
+      "right": -1,
+      "count": 5
+    },
+    {
+      "left": 0,
+      "right": 3,
+      "count": 2
+    },
+    {
+      "left": 0,
+      "right": 2,
+      "count": 1
+    }
+  ],
+  "samples": [
+    {
+      "capture_s": 1789701435.146925,
+      "since_first_frame_s": 4598.751046895981,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": -3,
+      "payload": "609460140000fdff"
+    },
+    {
+      "capture_s": 1789701435.446692,
+      "since_first_frame_s": 4599.050813913345,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": -1,
+      "payload": "609460140000ffff"
+    },
+    {
+      "capture_s": 1789701987.5722,
+      "since_first_frame_s": 5151.176321983337,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": 3,
+      "payload": "6094601400000300"
+    },
+    {
+      "capture_s": 1789701987.722044,
+      "since_first_frame_s": 5151.3261659145355,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": -1,
+      "payload": "609460140000ffff"
+    },
+    {
+      "capture_s": 1789702429.289127,
+      "since_first_frame_s": 5592.893249034882,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": -1,
+      "payload": "609460140000ffff"
+    },
+    {
+      "capture_s": 1789702429.339075,
+      "since_first_frame_s": 5592.943197011948,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": 3,
+      "payload": "6094601400000300"
+    },
+    {
+      "capture_s": 1789702978.325691,
+      "since_first_frame_s": 6141.929812908173,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": -1,
+      "payload": "609460140000ffff"
+    },
+    {
+      "capture_s": 1789704479.871532,
+      "since_first_frame_s": 7643.475653886795,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": 2,
+      "payload": "6094601400000200"
+    },
+    {
+      "capture_s": 1789706276.675915,
+      "since_first_frame_s": 9440.28003692627,
+      "left_tenths_rpm": 0,
+      "right_tenths_rpm": -1,
+      "payload": "609460140000ffff"
+    }
+  ]
+}

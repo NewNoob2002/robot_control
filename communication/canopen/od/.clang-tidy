@@ -1,0 +1,4 @@
+---
+# CANopenEditor owns OD.c/OD.h identifiers. Keep every inherited defect check.
+InheritParentConfig: true
+Checks: '-readability-identifier-naming'

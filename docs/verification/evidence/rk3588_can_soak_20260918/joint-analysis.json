@@ -1,0 +1,49 @@
+{
+  "jcan_traffic_window": "PASS",
+  "duration_s": 10807.298674208985,
+  "cycles": 175,
+  "manual_samples": 10500,
+  "sdo_velocity_samples": 31500,
+  "dual_capture_frames": 348246,
+  "exact_order_and_payload_match": true,
+  "jcan_events": {
+    "session_started": 1,
+    "connected": 1,
+    "status": 1078,
+    "frame": 348246,
+    "shutdown": 1
+  },
+  "jcan_config_restored": true,
+  "can_counter_increases": {},
+  "protocol_allowlist": "PASS; no RPDO/controlword/target writes; only heartbeat volatile writes and NMT",
+  "x1_and_disabled_states_all_tpdo": "PASS",
+  "strict_zero_feedback_audit": "FAIL",
+  "first_strict_failure_payload": "609460140000fdff",
+  "feedback_review": [
+    {
+      "left": 0,
+      "right": -3,
+      "count": 1
+    },
+    {
+      "left": 0,
+      "right": -1,
+      "count": 5
+    },
+    {
+      "left": 0,
+      "right": 3,
+      "count": 2
+    },
+    {
+      "left": 0,
+      "right": 2,
+      "count": 1
+    }
+  ],
+  "feedback_note": "9 raw TPDO samples on right at -0.3..+0.3 rpm; within previously approved +/-2 rpm band, strict original zero failure preserved",
+  "operator_power_off_confirmed": false,
+  "scope": "Disabled CANopen lifecycle and JCAN actual-traffic soak; not SBUS/ControlLoop or loaded-motion acceptance",
+  "source_archive_sha256": "20aad765aab6b5b31cf5c2cca74db56143a74e7b89204183a06f476b6cd0dd67",
+  "jcan_raw_sha256": "809cbc9c13d6c7c95ba2958695cd2820a6ddfebbd4a5d8a3fd0c88b6f9887907"
+}

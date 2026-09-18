@@ -1,0 +1,17 @@
+{
+  "tool": "clang-tidy 22.1.8",
+  "translation_units": 69,
+  "exit_code": 0,
+  "unique_diagnostics": 33,
+  "checks": {
+    "bugprone-reserved-identifier": 2,
+    "performance-no-automatic-move": 13,
+    "performance-avoid-endl": 6,
+    "bugprone-unchecked-optional-access": 7,
+    "performance-unnecessary-value-param": 4,
+    "bugprone-exception-escape": 1
+  },
+  "errors": [],
+  "root_config_sha256": "21a16ff932d62974ee438fd6bdff7f4ed73cc1e47df077f7f2259f0994d63871",
+  "generated_config_sha256": "4407dafc981bd093e57a8b76af653d4546cba8685985a8c842a48eed4afbc0a3"
+}

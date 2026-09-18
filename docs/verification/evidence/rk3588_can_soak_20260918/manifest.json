@@ -1,0 +1,20 @@
+{
+  "created_utc": "2026-09-18T01:58:31.681978+00:00",
+  "target_alias": "robot-dev",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "destination": "/home/cat/.cache/robot-control/staging/p6-can-soak-20260918",
+  "files": {
+    "phase6_zero_motion_soak.py": "8991c0d4147c188485a13b110c00a461f180a626631593e38716e1b2e8445604",
+    "target_once.py": "0e359daf2fea2bf7c3902e852a53a2cab040ccf5b7f67876ca23ad3c338072a1"
+  },
+  "elf": "/opt/robot-control/staging/emergency-input-zero-v2-bb4f44251672/robot-control-zlac-qualification",
+  "elf_sha256": "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7",
+  "operator_confirmation": "X1 locked; wheels raised; SBUS on; sticks neutral; CH6 released",
+  "authority": "Current request to stop idle test and perform RK3588 actual-traffic soak; no historical authorization reused",
+  "scope": "3h repeated 60s disabled CANopen lifecycle plus bounded final-cycle/cleanup; no SBUS/ControlLoop coverage",
+  "can": "can0 500000 bit/s; existing wiring/configuration; node1",
+  "allowed_traffic": "Application-owned SDO readback; NMT node1 pre-operational/operational; volatile heartbeat1017=500 then restore0; no RPDO/target/controlword writes, no persistent writes",
+  "jcan": "207F346D5650 normal mode hardware ACK, no data-frame sends",
+  "capture_loss": "Abort via host lease; keep X1 locked; no automatic retry",
+  "recovery": "Fresh staging files only; no production replacement. Application restores heartbeat0 and NMT pre-operational; operator keeps X1 locked and powers drive OFF after completion. Failed cleanup remains failed, never inferred safe."
+}

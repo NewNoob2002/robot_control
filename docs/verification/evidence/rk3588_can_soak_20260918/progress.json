@@ -1,0 +1,12 @@
+{
+  "elapsed_s": 10807.964717032039,
+  "lease_error": null,
+  "cycles": 175,
+  "capture_bytes": 21024423,
+  "jcan": {
+    "status": "RUNNING",
+    "elapsed_s": 10807.506008444001,
+    "frames": 348200,
+    "observed_utc": "2026-09-18T05:00:41.478783+00:00"
+  }
+}

@@ -1,0 +1,4 @@
+{"status": "AWAITING_DUAL_CAPTURE_AUDIT", "error": null, "target_done": {"rc": 0, "lease_error": null}, "elapsed_s": 0.9373294550000537, "scope": "RK3588 disabled CANopen lifecycle; not integrated SBUS/ControlLoop soak"}
+{"status": "FAIL", "error": "AssertionError: JCAN capture exited", "target_done": null, "elapsed_s": 0.9211581710001155, "scope": "RK3588 disabled CANopen lifecycle; not integrated SBUS/ControlLoop soak"}
+PROGRESS {"elapsed_s": 2.6569999590719817e-05, "lease_error": "host capture lease expired", "cycles": 0, "capture_bytes": 0}
+PASS: fake joint completion; capture-failure abort; target EOF/abort and stale-lease revocation; no hardware

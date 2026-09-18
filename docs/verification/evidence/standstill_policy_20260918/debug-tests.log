@@ -1,0 +1,161 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p8r-p6-regression
+      Start  1: sbus_source_contract
+ 1/78 Test  #1: sbus_source_contract .........................................................................................................   Passed    0.01 sec
+      Start  2: control_cycle_contract
+ 2/78 Test  #2: control_cycle_contract .......................................................................................................   Passed    0.00 sec
+      Start  3: canopen_runtime_policy
+ 3/78 Test  #3: canopen_runtime_policy .......................................................................................................   Passed    0.00 sec
+      Start  4: platform_probe_help
+ 4/78 Test  #4: platform_probe_help ..........................................................................................................   Passed    0.00 sec
+      Start  5: platform_probe_run
+ 5/78 Test  #5: platform_probe_run ...........................................................................................................   Passed    0.00 sec
+      Start  6: platform_probe_phase3_smoke
+ 6/78 Test  #6: platform_probe_phase3_smoke ..................................................................................................   Passed    0.00 sec
+      Start  7: can_probe_help
+ 7/78 Test  #7: can_probe_help ...............................................................................................................   Passed    0.00 sec
+      Start  8: can_probe_missing_interface
+ 8/78 Test  #8: can_probe_missing_interface ..................................................................................................   Passed    0.01 sec
+      Start  9: can_probe_unknown_argument
+ 9/78 Test  #9: can_probe_unknown_argument ...................................................................................................   Passed    0.01 sec
+      Start 10: can_probe_duration_zero
+10/78 Test #10: can_probe_duration_zero ......................................................................................................   Passed    0.01 sec
+      Start 11: can_probe_duration_nonnumeric
+11/78 Test #11: can_probe_duration_nonnumeric ................................................................................................   Passed    0.01 sec
+      Start 12: can_probe_duration_overflow
+12/78 Test #12: can_probe_duration_overflow ..................................................................................................   Passed    0.01 sec
+      Start 13: can_probe_duplicate_interface
+13/78 Test #13: can_probe_duplicate_interface ................................................................................................   Passed    0.01 sec
+      Start 14: can_probe_duplicate_duration
+14/78 Test #14: can_probe_duplicate_duration .................................................................................................   Passed    0.01 sec
+      Start 15: can_probe_interface_missing_value
+15/78 Test #15: can_probe_interface_missing_value ............................................................................................   Passed    0.01 sec
+      Start 16: can_probe_duration_missing_value
+16/78 Test #16: can_probe_duration_missing_value .............................................................................................   Passed    0.01 sec
+      Start 17: can_probe_duration_negative
+17/78 Test #17: can_probe_duration_negative ..................................................................................................   Passed    0.01 sec
+      Start 18: canopen_observer_help
+18/78 Test #18: canopen_observer_help ........................................................................................................   Passed    0.00 sec
+      Start 19: canopen_observer_invalid_
+19/78 Test #19: canopen_observer_invalid_ ....................................................................................................   Passed    0.01 sec
+      Start 20: canopen_observer_invalid___unknown
+20/78 Test #20: canopen_observer_invalid___unknown ...........................................................................................   Passed    0.01 sec
+      Start 21: canopen_observer_invalid___interface_unused0
+21/78 Test #21: canopen_observer_invalid___interface_unused0 .................................................................................   Passed    0.01 sec
+      Start 22: canopen_observer_invalid___interface_unused0___interface_unused1
+22/78 Test #22: canopen_observer_invalid___interface_unused0___interface_unused1 .............................................................   Passed    0.01 sec
+      Start 23: canopen_observer_invalid___duration_ms_0
+23/78 Test #23: canopen_observer_invalid___duration_ms_0 .....................................................................................   Passed    0.01 sec
+      Start 24: canopen_observer_invalid___duration_ms_1___duration_ms_2
+24/78 Test #24: canopen_observer_invalid___duration_ms_1___duration_ms_2 .....................................................................   Passed    0.01 sec
+      Start 25: zlac_qualification_invalid___interface_vcan0___runtime_diagnostics___duration_ms_2000
+25/78 Test #25: zlac_qualification_invalid___interface_vcan0___runtime_diagnostics___duration_ms_2000 ........................................   Passed    0.01 sec
+      Start 26: zlac_qualification_invalid___interface_vcan0___runtime_diagnostics___zero_sequence
+26/78 Test #26: zlac_qualification_invalid___interface_vcan0___runtime_diagnostics___zero_sequence ...........................................   Passed    0.01 sec
+      Start 27: zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000
+27/78 Test #27: zlac_qualification_invalid___interface_vcan0___manual_tpdo___duration_ms_1000 ................................................   Passed    0.01 sec
+      Start 28: zlac_qualification_invalid___interface_vcan0___nmt_operational
+28/78 Test #28: zlac_qualification_invalid___interface_vcan0___nmt_operational ...............................................................   Passed    0.01 sec
+      Start 29: zlac_qualification_invalid___interface_vcan0___velocity_mode
+29/78 Test #29: zlac_qualification_invalid___interface_vcan0___velocity_mode .................................................................   Passed    0.01 sec
+      Start 30: zlac_qualification_invalid___interface_vcan0___controlword_switch_on
+30/78 Test #30: zlac_qualification_invalid___interface_vcan0___controlword_switch_on .........................................................   Passed    0.01 sec
+      Start 31: zlac_qualification_invalid___interface_vcan0___controlword_enable_operation
+31/78 Test #31: zlac_qualification_invalid___interface_vcan0___controlword_enable_operation ..................................................   Passed    0.01 sec
+      Start 32: zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once
+32/78 Test #32: zlac_qualification_invalid___interface_vcan0___manual_tpdo___watchdog_once ...................................................   Passed    0.01 sec
+      Start 33: zlac_qualification_invalid_
+33/78 Test #33: zlac_qualification_invalid_ ..................................................................................................   Passed    0.01 sec
+      Start 34: zlac_qualification_invalid___unknown
+34/78 Test #34: zlac_qualification_invalid___unknown .........................................................................................   Passed    0.01 sec
+      Start 35: zlac_qualification_invalid___interface_vcan0
+35/78 Test #35: zlac_qualification_invalid___interface_vcan0 .................................................................................   Passed    0.01 sec
+      Start 36: zlac_qualification_invalid___interface_vcan0___nmt_reset_node
+36/78 Test #36: zlac_qualification_invalid___interface_vcan0___nmt_reset_node ................................................................   Passed    0.01 sec
+      Start 37: zlac_qualification_invalid___interface_vcan0___controlword_quick_stop
+37/78 Test #37: zlac_qualification_invalid___interface_vcan0___controlword_quick_stop ........................................................   Passed    0.01 sec
+      Start 38: zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10
+38/78 Test #38: zlac_qualification_invalid___interface_vcan0___target_once_1_11___duration_ms_10 .............................................   Passed    0.01 sec
+      Start 39: zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001
+39/78 Test #39: zlac_qualification_invalid___interface_vcan0___target_once_1_5___duration_ms_3001 ............................................   Passed    0.01 sec
+      Start 40: zlac_qualification_invalid___interface_vcan0___target_once_1_1
+40/78 Test #40: zlac_qualification_invalid___interface_vcan0___target_once_1_1 ...............................................................   Passed    0.01 sec
+      Start 41: zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10
+41/78 Test #41: zlac_qualification_invalid___interface_vcan0___rpdo_once_1_11___duration_ms_10 ...............................................   Passed    0.01 sec
+      Start 42: zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001
+42/78 Test #42: zlac_qualification_invalid___interface_vcan0___rpdo_once_2_5___duration_ms_3001 ..............................................   Passed    0.01 sec
+      Start 43: zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10
+43/78 Test #43: zlac_qualification_invalid___interface_vcan0___rpdo_once_1_5___target_once_1_5___duration_ms_10 ..............................   Passed    0.01 sec
+      Start 44: zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001
+44/78 Test #44: zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5___duration_ms_2001 ..........................................   Passed    0.01 sec
+      Start 45: zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5
+45/78 Test #45: zlac_qualification_invalid___interface_vcan0___nmt_stop_once_2_5 .............................................................   Passed    0.01 sec
+      Start 46: zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5
+46/78 Test #46: zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5 .............................................................   Passed    0.01 sec
+      Start 47: zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001
+47/78 Test #47: zlac_qualification_invalid___interface_vcan0___shutdown_once_2_5___duration_ms_10001 .........................................   Passed    0.01 sec
+      Start 48: zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5
+48/78 Test #48: zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5 ......................................................   Passed    0.01 sec
+      Start 49: zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001
+49/78 Test #49: zlac_qualification_invalid___interface_vcan0___disable_voltage_once_2_5___duration_ms_10001 ..................................   Passed    0.01 sec
+      Start 50: zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5
+50/78 Test #50: zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5 ...........................................................   Passed    0.01 sec
+      Start 51: zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001
+51/78 Test #51: zlac_qualification_invalid___interface_vcan0___quick_stop_once_2_5___duration_ms_10001 .......................................   Passed    0.01 sec
+      Start 52: zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500
+52/78 Test #52: zlac_qualification_invalid___interface_vcan0___watchdog_once___duration_ms_1500 ..............................................   Passed    0.01 sec
+      Start 53: zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5
+53/78 Test #53: zlac_qualification_invalid___interface_vcan0___heartbeat_loss_once_2_5 .......................................................   Passed    0.01 sec
+      Start 54: zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once
+54/78 Test #54: zlac_qualification_invalid___interface_vcan0___tpdo_loss_once___watchdog_once ................................................   Passed    0.01 sec
+      Start 55: zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000
+55/78 Test #55: zlac_qualification_invalid___interface_vcan0___external_loss_once___duration_ms_1000 .........................................   Passed    0.01 sec
+      Start 56: zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once
+56/78 Test #56: zlac_qualification_invalid___interface_vcan0___external_loss_once___watchdog_once ............................................   Passed    0.01 sec
+      Start 57: zlac_qualification_invalid___interface_can0___external_loss_once
+57/78 Test #57: zlac_qualification_invalid___interface_can0___external_loss_once .............................................................   Passed    0.01 sec
+      Start 58: zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper
+58/78 Test #58: zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor_relative_helper .......................   Passed    0.01 sec
+      Start 59: zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper
+59/78 Test #59: zlac_qualification_invalid___interface_vcan0___external_loss_once___interface_inhibitor__tmp_helper ..........................   Passed    0.01 sec
+      Start 60: zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper
+60/78 Test #60: zlac_qualification_invalid___interface_vcan0___watchdog_once___interface_inhibitor__tmp_helper ...............................   Passed    0.01 sec
+      Start 61: zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b
+61/78 Test #61: zlac_qualification_invalid___interface_can0___external_loss_once___interface_inhibitor__tmp_a___interface_inhibitor__tmp_b ...   Passed    0.01 sec
+      Start 62: zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets
+62/78 Test #62: zlac_qualification_invalid___interface_vcan0___zero_sequence___zero_targets ..................................................   Passed    0.01 sec
+      Start 63: zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10
+63/78 Test #63: zlac_qualification_invalid___interface_vcan0___zero_sequence___duration_ms_10 ................................................   Passed    0.01 sec
+      Start 64: domain_behavior_lock
+64/78 Test #64: domain_behavior_lock .........................................................................................................   Passed    0.00 sec
+      Start 65: sbus_parser_contract
+65/78 Test #65: sbus_parser_contract .........................................................................................................   Passed    0.01 sec
+      Start 66: canopen_stack_build
+66/78 Test #66: canopen_stack_build ..........................................................................................................   Passed    0.00 sec
+      Start 67: canopen_vcan_managed
+67/78 Test #67: canopen_vcan_managed .........................................................................................................   Passed    0.63 sec
+      Start 68: socketcan_frame_codec
+68/78 Test #68: socketcan_frame_codec ........................................................................................................   Passed    0.00 sec
+      Start 69: socketcan_socket_lifecycle
+69/78 Test #69: socketcan_socket_lifecycle ...................................................................................................   Passed    0.00 sec
+      Start 70: socketcan_vcan_managed
+70/78 Test #70: socketcan_vcan_managed .......................................................................................................   Passed    0.15 sec
+      Start 71: can_interface_inhibitor_vcan_managed
+71/78 Test #71: can_interface_inhibitor_vcan_managed .........................................................................................   Passed    1.54 sec
+      Start 72: canopen_qualification_gate
+72/78 Test #72: canopen_qualification_gate ...................................................................................................   Passed    0.01 sec
+      Start 73: canopen_qualification_layout_vcan_managed
+73/78 Test #73: canopen_qualification_layout_vcan_managed ....................................................................................   Passed    3.73 sec
+      Start 74: canopen_qualification_vcan_managed
+74/78 Test #74: canopen_qualification_vcan_managed ...........................................................................................   Passed   82.52 sec
+      Start 75: linux_platform_integration
+75/78 Test #75: linux_platform_integration ...................................................................................................   Passed    0.20 sec
+      Start 76: sbus_reader_pty
+76/78 Test #76: sbus_reader_pty ..............................................................................................................   Passed    0.11 sec
+      Start 77: sbus_observer_cli
+77/78 Test #77: sbus_observer_cli ............................................................................................................   Passed    0.63 sec
+      Start 78: sbus_source_archived_replay
+78/78 Test #78: sbus_source_archived_replay ..................................................................................................   Passed    0.08 sec
+
+100% tests passed, 0 tests failed out of 78
+
+Total Test time (real) =  90.06 sec

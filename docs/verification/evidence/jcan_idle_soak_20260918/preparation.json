@@ -1,0 +1,11 @@
+{
+  "runner_sha256": "e6661cb46def12091d9f75fc61eb4195a5b654c666082304437c4b0918d9b0a6",
+  "offline_checks": [
+    "event gate accepts expected events and rejects malformed JSON, disconnect/reconnect, errors and warnings",
+    "real fake child: bounded completion PASS_IDLE_WINDOW",
+    "real fake child: malformed length event FAIL followed by graceful shutdown",
+    "both fake runs: configuration unchanged, zero data-frame operations, only status/shutdown requests"
+  ],
+  "hardware_scope": "One normal-mode receive session on 207F346D5650, 10800 seconds; operator reports powered drive, X1 unlocked, no continuous CAN traffic",
+  "live_result_authority": "result.json supersedes the last progress.json once present; no result.json means incomplete"
+}

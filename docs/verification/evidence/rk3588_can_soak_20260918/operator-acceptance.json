@@ -1,0 +1,11 @@
+{
+  "recorded_utc": "2026-09-18T05:21:27.970920+00:00",
+  "operator_statement": "双轮静止、无异响、驱动已断电，批准通过，已经确认过后续测试全部±2 rpm容差，移除严格为0的限制",
+  "accepted": true,
+  "drive_power_off": true,
+  "wheels_stationary": true,
+  "no_abnormal_sound": true,
+  "standstill_tolerance_tenths_rpm": 20,
+  "scope": "This completed disabled CANopen/JCAN soak; future near-zero measured feedback uses +/-2rpm. Targets, transmitted safe outputs and unrelated protocol values remain exact.",
+  "historical_records": "Original strict-zero audit and raw archive remain unchanged; accepted analysis supersedes current verdict."
+}

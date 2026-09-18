@@ -29,10 +29,12 @@ class QualificationSession final {
      * Borrow one active qualification lifecycle owner.
      *
      * @param lifecycle Owner retained by reference for this session lifetime.
+     * @param standstill_tolerance_tenths_rpm Feedback-only band, 0..20; hardware tools use20.
+     * Targets and transmitted safety commands are always checked exactly.
      *
      * Thread safety: Construct and use only on the lifecycle owner thread.
      */
-    explicit QualificationSession(Lifecycle& lifecycle) noexcept;
+    explicit QualificationSession(Lifecycle& lifecycle, int standstill_tolerance_tenths_rpm = 0) noexcept;
 
     /**
      * Return the current fail-closed session state.
@@ -246,7 +248,7 @@ class QualificationSession final {
     [[nodiscard]] platform::linux::Status
     require_operation_enabled_feedback(domain::drive::zlac8015d::IndependentChannel channel) const noexcept;
 
-    /** Require exact zero independent and packed velocity readbacks before the supplied deadline. */
+    /** Require independent and packed velocity readbacks within the configured standstill band. */
     [[nodiscard]] platform::linux::Status require_zero_velocity_feedback(
         bool require_fresh,
         std::chrono::steady_clock::time_point deadline = std::chrono::steady_clock::time_point::max()) noexcept;
@@ -400,8 +402,11 @@ class QualificationSession final {
     send_controlword_raw(domain::drive::zlac8015d::TransitionControlword controlword, bool require_fresh) noexcept;
 
     friend class ControlQualification;
+    /** Decode signed32 or dual signed16 feedback; never apply this band to targets. */
+    [[nodiscard]] bool within_standstill(std::uint32_t raw, bool packed) const noexcept;
     ObservationGeneration sequence_generation_{};
     Lifecycle* lifecycle_{nullptr};
+    int standstill_tolerance_{0};
     QualificationState state_{QualificationState::ready};
     bool target_sequence_consumed_{false};
     bool synchronous_targets_{false}; ///< First-motion probe uses packed targets after verifying mode 1.

@@ -1,6 +1,24 @@
-# Phase 6 verified checkpoint — 2026-09-15
+# Phase 6 verified checkpoint
 
-**Phase 6 remains OPEN. Long-duration soak is DEFERRED, not passed.**
+## Current update — 2026-09-18
+
+The three-hour disabled CANopen lifecycle soak is now accepted under the
+user-approved +/-2rpm measured standstill band.175 cycles/10807.299s and
+348246 exact dual-capture frames pass; no counter increases or JCAN length
+error/disconnect/reconnect occurred. Nine right-feedback samples at-0.3..+0.3rpm
+are accepted; the original strict-zero audit and raw data remain unchanged.
+Operator confirms both wheels stationary, no abnormal sound and drive power OFF.
+See [the accepted trial](evidence/rk3588_can_soak_20260918/README.md).
+
+Future physical tests use +/-2rpm for near-zero measured feedback, never for
+targets, safety command payloads, fault bits or protocol fields. This test does
+not establish a permanent USB/kernel repair or integrated SBUS/ControlLoop,
+moving/loaded or production soak acceptance. Those remaining boundaries keep
+P6 OPEN. Earlier failed/retired trials remain unchanged.
+
+## Historical checkpoint — 2026-09-15
+
+**Historical disposition: Phase6 OPEN; long-duration soak DEFERRED, not passed.**
 The operator accepted continuing SBUS and subsequent component development before
 revisiting the CANopen lifecycle and full-chain soak. This scheduling exception
 does not waive short regressions, final acceptance, or hardware authorization.

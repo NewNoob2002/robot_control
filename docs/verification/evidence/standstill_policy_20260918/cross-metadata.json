@@ -1,0 +1,28 @@
+{
+  "source": {
+    "dirty": true,
+    "file_count": 5109,
+    "revision": "55617ec36a2f2447159fb7b59e73474366137ebf",
+    "schema_version": 1,
+    "snapshot_sha256": "31fab720afaaeedfc416ea95d0c7bf1428cd65d360d816735491a0302e35af59"
+  },
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/standstill20-20260918-v2-runtime",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION=ON"
+  ],
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "sysroot_content": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911  sysroot-content.jsonl",
+  "artifacts": {
+    "tools/zlac_qualification/robot-control-zlac-qualification": "54f2c820395057a24a39511c8f562d224fb05c0e8d4991cefa9419f769df71b3"
+  }
+}

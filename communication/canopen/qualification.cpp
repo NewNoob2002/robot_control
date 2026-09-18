@@ -69,13 +69,29 @@ std::chrono::milliseconds sdo_timeout_until(const std::chrono::milliseconds conf
 
 } // namespace
 
-QualificationSession::QualificationSession(Lifecycle& lifecycle) noexcept : lifecycle_{&lifecycle} {}
+QualificationSession::QualificationSession(Lifecycle& lifecycle, const int standstill_tolerance_tenths_rpm) noexcept
+    : lifecycle_{&lifecycle}, standstill_tolerance_{standstill_tolerance_tenths_rpm} {}
+
+bool QualificationSession::within_standstill(const std::uint32_t raw, const bool packed) const noexcept {
+    if (standstill_tolerance_ < 0 || standstill_tolerance_ > 20)
+        return false;
+    /** Compare signed bounds without overflowing on INT_MIN. */
+    const auto inside = [this](const std::int32_t value) {
+        return value >= -standstill_tolerance_ && value <= standstill_tolerance_;
+    };
+    return packed ? inside(std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(raw)))
+                        && inside(std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(raw >> 16U)))
+                  : inside(std::bit_cast<std::int32_t>(raw));
+}
 
 QualificationState QualificationSession::state() const noexcept {
     return state_;
 }
 
 platform::linux::Status QualificationSession::require_clean_generation() const noexcept {
+    if (standstill_tolerance_ < 0 || standstill_tolerance_ > 20) {
+        return failure("qualification_standstill_bounds", lifecycle_->storage_->config(), ERANGE);
+    }
     if (lifecycle_->storage_->config().remote_node_id != 1U) {
         return failure("qualification_precondition", lifecycle_->storage_->config(), EACCES);
     }
@@ -141,7 +157,7 @@ QualificationSession::require_operation_enabled_feedback(const IndependentChanne
     const auto low = std::bit_cast<std::int16_t>(low_raw);
     const auto high = std::bit_cast<std::int16_t>(high_raw);
     const auto other = channel == IndependentChannel::subindex_1 ? high : low;
-    return other == 0 ? platform::linux::Status::success()
+    return other >= -standstill_tolerance_ && other <= standstill_tolerance_ ? platform::linux::Status::success()
                       : failure("qualification_other_channel_velocity", lifecycle_->storage_->config(), ERANGE);
 }
 
@@ -625,7 +641,7 @@ QualificationSession::require_zero_velocity_feedback(const bool require_fresh,
         if (!value.ok()) {
             return value.status();
         }
-        if (value.value().data != std::array<std::uint8_t, 4>{}) {
+        if (!within_standstill(load_u32(std::as_bytes(std::span{value.value().data})), part == 3U)) {
             return failure("qualification_nonzero_velocity", lifecycle_->storage_->config(), ERANGE);
         }
     }
@@ -645,9 +661,7 @@ platform::linux::Status QualificationSession::wait_nmt_state(const RemoteNmtStat
         const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
         if (!allow_deceleration && snapshot.tpdo[0].current) {
             const auto& bytes = snapshot.tpdo[0].raw.payload;
-            if (std::any_of(bytes.begin() + 4, bytes.end(), [](const auto value) {
-                    return value != 0U;
-                })) {
+            if (!within_standstill(load_u32(std::as_bytes(std::span{bytes}).subspan(4)), true)) {
                 return failure("qualification_nonzero_tpdo_velocity", lifecycle_->storage_->config(), ERANGE);
             }
         }
@@ -703,9 +717,7 @@ platform::linux::Status QualificationSession::wait_dual_state(const domain::driv
         const auto& tpdo = snapshot.tpdo[0];
         if (tpdo.current && tpdo.raw.received_at > previous) {
             const auto& bytes = tpdo.raw.payload;
-            const bool moving = std::any_of(bytes.begin() + 4, bytes.end(), [](const auto value) {
-                return value != 0U;
-            });
+            const bool moving = !within_standstill(load_u32(std::as_bytes(std::span{bytes}).subspan(4)), true);
             if (!allow_deceleration && moving) {
                 return failure("qualification_nonzero_tpdo_velocity", lifecycle_->storage_->config(), ERANGE);
             }
@@ -795,7 +807,7 @@ QualificationSession::recover_quick_stop_at_zero(const std::chrono::milliseconds
         || decoded.high_half.state == domain::drive::Cia402State::fault) {
         return failure("qualification_drive_fault", lifecycle_->storage_->config(), EIO);
     }
-    if (std::any_of(bytes.begin() + 4, bytes.end(), [](const auto value) { return value != 0U; })) {
+    if (!within_standstill(load_u32(std::as_bytes(std::span{bytes}).subspan(4)), true)) {
         return failure("qualification_nonzero_tpdo_velocity", lifecycle_->storage_->config(), ERANGE);
     }
     status = require_zero_velocity_feedback(true);
@@ -805,7 +817,7 @@ QualificationSession::recover_quick_stop_at_zero(const std::chrono::milliseconds
     if (status.ok()) {
         const auto latest = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
         const auto& velocity = latest.tpdo[0].raw.payload;
-        if (std::any_of(velocity.begin() + 4, velocity.end(), [](const auto value) { return value != 0U; })) {
+        if (!within_standstill(load_u32(std::as_bytes(std::span{velocity}).subspan(4)), true)) {
             status = failure("qualification_nonzero_tpdo_velocity", lifecycle_->storage_->config(), ERANGE);
         }
     }
@@ -1313,7 +1325,7 @@ QualificationSession::require_independent_motion_feedback(const IndependentChann
         if (!value.ok()) {
             return value.status();
         }
-        const bool zero = value.value().data == std::array<std::uint8_t, 4>{};
+        const bool zero = within_standstill(load_u32(std::as_bytes(std::span{value.value().data})), false);
         if (part == static_cast<std::uint8_t>(channel) && zero) {
             return failure("qualification_motion_not_observed", lifecycle_->storage_->config(), ENODATA);
         }
@@ -1360,7 +1372,8 @@ platform::linux::Status QualificationSession::observe_communication_loss(const S
                 return failure("qualification_motion_not_enabled", lifecycle_->storage_->config(), EPROTO);
             }
         }
-        if (tpdo_current && (tpdo.raw.payload[4] != 0U || tpdo.raw.payload[5] != 0U)) {
+        if (tpdo_current && !within_standstill(
+                load_u32(std::as_bytes(std::span{tpdo.raw.payload}).subspan(4, 2)), true)) {
             return failure("qualification_other_channel_velocity", lifecycle_->storage_->config(), ERANGE);
         }
         if (!watchdog
@@ -1376,7 +1389,7 @@ platform::linux::Status QualificationSession::observe_communication_loss(const S
     // The loop above required continuously fresh TPDOs; the first subsequent TX is cleanup's packed zero.
     const auto snapshot = lifecycle_->observation_snapshot(std::chrono::steady_clock::now());
     const auto& bytes = snapshot.tpdo[0].raw.payload;
-    const bool zero = std::all_of(bytes.begin() + 4, bytes.end(), [](const auto value) { return value == 0U; });
+    const bool zero = within_standstill(load_u32(std::as_bytes(std::span{bytes}).subspan(4)), true);
     return zero ? platform::linux::Status::success()
                 : failure("qualification_nonzero_velocity", lifecycle_->storage_->config(), ERANGE);
 }
@@ -1713,7 +1726,8 @@ platform::linux::Status QualificationSession::qualify_stop_cia402(const Independ
 /** Configure the operator-supplied TPDO order without enabling or commanding either motor. */
 platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chrono::milliseconds duration) noexcept {
     using platform::linux::Status;
-    if (state_ != QualificationState::ready || duration <= 0ms || duration > 60s
+    if (state_ != QualificationState::ready || standstill_tolerance_ < 0 || standstill_tolerance_ > 20
+        || duration <= 0ms || duration > 60s
         || lifecycle_->storage_->config().tpdo_expected_dlc[0] != 8U) {
         return inhibit(failure("qualification_manual_bounds", lifecycle_->storage_->config(), EINVAL));
     }
@@ -1730,7 +1744,8 @@ platform::linux::Status QualificationSession::capture_manual_tpdo(const std::chr
         if (!value.ok()) {
             return value.status();
         }
-        return load_u32(std::as_bytes(std::span{value.value().data})) == expected
+        const auto raw = load_u32(std::as_bytes(std::span{value.value().data}));
+        return (index == 0x606CU ? within_standstill(raw, sub == 3U) : raw == expected)
                    ? Status::success()
                    : failure("qualification_manual_baseline", lifecycle_->storage_->config(), EPROTO);
     };

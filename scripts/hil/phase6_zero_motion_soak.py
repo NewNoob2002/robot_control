@@ -13,10 +13,12 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-DEFAULT_ELF = Path("/opt/robot-control/staging/emergency-input-zero-v2-bb4f44251672/robot-control-zlac-qualification")
-ELF_SHA256 = "bb4f442516722f34236cb0261850f2cd09e0cfb6d5c86129d6b75eca6251bfe7"
+DEFAULT_ELF = Path("/opt/robot-control/staging/standstill20-54f2c8203950/robot-control-zlac-qualification")
+ELF_SHA256 = "54f2c820395057a24a39511c8f562d224fb05c0e8d4991cefa9419f769df71b3"
 MACHINE_ID = "6923ab3301fb4a8d816759b04ec6bf0a"
 STOP_REQUESTED = False
+CYCLE_TIMEOUT_S = 90  # 60s observation plus bounded startup/preflight/restoration.
+STANDSTILL_TENTHS_RPM = 20  # User-approved near-zero feedback band; never a target allowance.
 
 
 def write_json(path, value):
@@ -53,14 +55,25 @@ def health_failures(baseline, current):
             for key, value in after.items() if value > before.get(key, 0)}
 
 
+def within_standstill(raw, packed=False):
+    """Decode signed 32-bit or dual signed 16-bit feedback and apply +/-2rpm."""
+    assert -(1 << 31) <= raw < (1 << 32), "velocity raw value outside 32-bit range"
+    raw &= 0xFFFFFFFF
+    values = ((raw & 0xFFFF, 16), (raw >> 16, 16)) if packed else ((raw, 32),)
+    return all(-STANDSTILL_TENTHS_RPM <= (value - (1 << bits) if value & (1 << (bits - 1)) else value)
+               <= STANDSTILL_TENTHS_RPM for value, bits in values)
+
+
 def validate_cycle_output(text):
     """Validate one complete manual-TPDO cycle log."""
     assert text.count("MANUAL_ROTATION_READY") == 1, "missing or repeated ready marker"
     assert text.count("MANUAL_ROTATION_END") == 1, "missing or repeated end marker"
     samples = [int(value) for value in re.findall(r"tpdo_velocity_raw=(-?\d+)", text)]
-    velocities = [int(value) for value in re.findall(r"manual_velocity sub=\d raw=(-?\d+)", text)]
+    velocities = [(int(part), int(value)) for part, value in re.findall(r"manual_velocity sub=(\d+) raw=(-?\d+)", text)]
     assert len(samples) >= 50 and len(velocities) >= 150, (len(samples), len(velocities))
-    assert not any(samples) and not any(velocities), "nonzero sampled velocity"
+    assert all(within_standstill(raw, True) for raw in samples), "packed feedback outside +/-2rpm"
+    assert all(part in (1, 2, 3) and within_standstill(raw, part == 3) for part, raw in velocities), \
+        "SDO feedback outside +/-2rpm"
     return {"manual_samples": len(samples), "sdo_velocity_samples": len(velocities)}
 
 
@@ -95,7 +108,7 @@ def validate_can_records(records):
         if ident == 0:
             assert payload in (bytes([0x80, 1]), bytes([1, 1])), payload.hex()
         elif ident == 0x181:
-            assert len(payload) == 8 and payload[4:] == bytes(4), payload.hex()
+            assert len(payload) == 8 and within_standstill(int.from_bytes(payload[4:], "little"), True), payload.hex()
             status = int.from_bytes(payload[:4], "little")
             assert status & 0x8000 and not status & 0x80000000, "X1 must set only the observed low-half status bit 15"
             tpdo += 1
@@ -103,6 +116,9 @@ def validate_can_records(records):
             assert len(payload) == 0, payload.hex()
         elif ident == 0x581:
             assert len(payload) == 8 and payload[0] != 0x80, payload.hex()
+            if int.from_bytes(payload[1:3], "little") == 0x606C:
+                assert payload[0] == 0x43 and payload[3] in (1, 2, 3), payload.hex()
+                assert within_standstill(int.from_bytes(payload[4:], "little"), payload[3] == 3), payload.hex()
         elif ident == 0x601:
             requests += 1
             assert len(payload) == 8
@@ -178,6 +194,11 @@ def assert_capture_running(capture):
     assert code is None, f"candump exited rc={code}"
 
 
+def assert_cycle_deadline(started):
+    """Reject a stalled cycle so existing bounded cleanup can terminate it."""
+    assert time.monotonic() - started < CYCLE_TIMEOUT_S, "qualification cycle exceeded 90-second limit"
+
+
 def run_soak(args):
     """Run repeated 60-second disabled observation cycles until the requested duration."""
     global STOP_REQUESTED
@@ -213,16 +234,19 @@ def run_soak(args):
                 offset = soak_log.tell()
                 soak_log.write(f"\n=== cycle {cycle} start_utc={datetime.now(timezone.utc).isoformat()} ===\n".encode())
                 soak_log.flush()
+                cycle_started = time.monotonic()
                 current = subprocess.Popen([str(args.elf), "--interface", args.interface, "--manual-tpdo"],
                                            stdin=subprocess.DEVNULL, stdout=soak_log,
                                            stderr=subprocess.STDOUT, start_new_session=True)
-                terminate_sent = False
                 while current.poll() is None:
                     assert_capture_running(capture)
-                    if STOP_REQUESTED and not terminate_sent:
-                        current.send_signal(signal.SIGTERM)
-                        terminate_sent = True
+                    assert_cycle_deadline(cycle_started)
+                    if STOP_REQUESTED:
+                        break
                     time.sleep(0.1)
+                # Use the bounded finally cleanup even if the child ignores TERM.
+                if STOP_REQUESTED:
+                    break
                 soak_log.flush()
                 end = soak_log.tell()
                 soak_log.seek(offset)
@@ -331,6 +355,7 @@ def analyze_soak(args):
     increased = health_failures(pre, post)
     assert not increased and "UP" in post["flags"] and post["linkinfo"]["info_data"]["state"] == "ERROR-ACTIVE"
     analysis = {"status": "PASS_PHASE6_ZERO_MOTION_SOAK", "cycles": len(cycles),
+                "standstill_tolerance_tenths_rpm": STANDSTILL_TENTHS_RPM,
                 "elapsed_s": result["elapsed_s"], "can": can, "counter_increases": increased,
                 "scope": "Repeated 60-second disabled/NMT/heartbeat/TPDO lifecycle soak; no motion or load claim.",
                 "operator_next_step": "Keep X1 locked, power the drive OFF, then restore X1 only after both wheels are stopped."}

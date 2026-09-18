@@ -1,0 +1,103 @@
+Running clang-tidy in 2 threads for 3 files out of 65 in compilation database ...
+[1/3][12.6s] /usr/bin/clang-tidy -p=out/build/p8r-p6-regression -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/zlac_qualification/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[2/3][51.2s] /usr/bin/clang-tidy -p=out/build/p8r-p6-regression -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:110:16: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+  110 |         return clean;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:128:16: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  128 |         return ready;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:142:16: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  142 |         return ready;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:423:24: warning: constness of 'sent' prevents automatic move [performance-no-automatic-move]
+  423 |                 return sent;
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:659:20: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  659 |             return ready;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:686:20: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+  686 |             return clean;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:713:20: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  713 |             return ready;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:896:16: warning: constness of 'preop' prevents automatic move [performance-no-automatic-move]
+  896 |         return preop;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:984:16: warning: constness of 'zero' prevents automatic move [performance-no-automatic-move]
+  984 |         return zero;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1223:12: warning: constness of 'restored' prevents automatic move [performance-no-automatic-move]
+ 1223 |     return restored;
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1305:20: warning: constness of 'status' prevents automatic move [performance-no-automatic-move]
+ 1305 |             return status;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1351:20: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+ 1351 |             return clean;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1429:20: warning: constness of 'supervised' prevents automatic move [performance-no-automatic-move]
+ 1429 |             return supervised;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1865:22: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1865 |                   << std::endl;
+      |                      ^~~~~~~~~
+      |                      '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1899:102: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1899 |                           << load_u32(std::as_bytes(std::span{tpdo.raw.payload}.subspan(4U, 4U))) << std::endl;
+      |                                                                                                      ^~~~~~~~~
+      |                                                                                                      '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1920:47: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1920 |         std::cout << "MANUAL_ROTATION_END" << std::endl;
+      |                                               ^~~~~~~~~
+      |                                               '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[3/3][70.8s] /usr/bin/clang-tidy -p=out/build/p8r-p6-regression -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:77:22: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+   77 |         std::cerr << std::endl;
+      |                      ^~~~~~~~~
+      |                      '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:651:47: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+  651 |                   << ':' << result.context << std::endl;
+      |                                               ^~~~~~~~~
+      |                                               '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:1038:54: warning: the const qualified parameter 'stop' of type 'const std::stop_token' is copied for each invocation; consider making it a reference [performance-unnecessary-value-param]
+ 1038 |     std::jthread responder{[&](const std::stop_token stop) {
+      |                                                      ^
+      |                                                     &
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:1421:54: warning: the const qualified parameter 'stop' of type 'const std::stop_token' is copied for each invocation; consider making it a reference [performance-unnecessary-value-param]
+ 1421 |     std::jthread responder{[&](const std::stop_token stop) {
+      |                                                      ^
+      |                                                     &
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:1751:54: warning: the const qualified parameter 'stop' of type 'const std::stop_token' is copied for each invocation; consider making it a reference [performance-unnecessary-value-param]
+ 1751 |     std::jthread responder{[&](const std::stop_token stop) {
+      |                                                      ^
+      |                                                     &
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:1878:52: warning: the const qualified parameter 'stop' of type 'const std::stop_token' is copied for each invocation; consider making it a reference [performance-unnecessary-value-param]
+ 1878 |     std::jthread capture{[&](const std::stop_token stop) {
+      |                                                    ^
+      |                                                   &
+

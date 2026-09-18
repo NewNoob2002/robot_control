@@ -1,0 +1,14 @@
+{
+  "scope": "Offline envelope audit of archived packet; no USB/hardware reproduction",
+  "jcan_commit": "b9d39f2",
+  "source_sha256": "fb7d908523cbc94f9893726c6db705703e10399a8a4e93c61db2ebde2ed876c1",
+  "fixture": "docs/verification/evidence/p6_zero_motion_soak_v4_20260915/jcan_ack_keeper_once/jcan_session.jsonl",
+  "fixture_sha256": "1bb0f261e71f9aefbfc04892a813babe558c3e64e591932ba55de17b16433cb7",
+  "packet_sha256": "53aeaae6a74ac60e98f875cacd827c01fdde8653f6c1f738b3f485ef05355414",
+  "packet_bytes": 3654,
+  "header": "4a0501ff000c",
+  "declared_body_bytes": 3072,
+  "actual_body_bytes": 3648,
+  "inner_frame_preambles": 0,
+  "current_receive_length_check_accepts": false
+}

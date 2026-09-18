@@ -246,6 +246,16 @@ uses the bounded online heartbeat preparation; see
 
 ## Coding Rules
 
+- All future physical tests use the operator-approved +/-2rpm (20 tenths rpm)
+  band for measured near-zero feedback, including startup, standstill, stop,
+  uncommanded wheels and cleanup. Do not restore an exact-zero feedback gate.
+  Targets, safe command payloads, protocol values and active-motion requirements
+  remain exact or independently bounded; decoder/unit-test exactness is unchanged.
+
+- All project-owned C/C++ modules, tools and tests use the root `.clang-tidy`
+  and `.clang-format`. Follow `docs/development/STATIC_ANALYSIS.md` for complete
+  optional-build coverage, generated-code exceptions and warning triage.
+
 - Use modern conservative C++ with explicit ownership and deterministic lifetime. C is acceptable at C library boundaries.
 - No hidden mutable globals. Process-lifetime singletons require written justification and tests.
 - Errors carry operation, device/node identity, and underlying error information; no silent failure.
@@ -432,3 +442,17 @@ compiled-input identity, evidence inventory and exact remote CI disposition.
 Current acceptance is bounded unloaded P10.3 HIL; P6/long soak remain separate.
 Older OPEN/unavailable-cross/powered notes retain their dated meaning. The latest
 recorded operator disposition is OFF after F6 A1, not future powered readiness.
+
+
+## Latest three-hour CANopen/JCAN soak acceptance (2026-09-18)
+
+175 cycles/10807.299s and348246 order/payload-identical dual-capture frames pass
+under the user-confirmed +/-2rpm standstill criterion. Nine right-feedback
+samples at-0.3..+0.3rpm are accepted; raw evidence and the original strict-zero
+audit remain historical. Operator confirms both wheels stationary/no abnormal
+sound/drive OFF and approves this trial. No JCAN malformed-packet error,
+disconnect/reconnect or sampled CAN counter increase occurred. No new run or
+interface change accompanies this retrospective acceptance. See
+docs/verification/evidence/rk3588_can_soak_20260918/README.md.
+This is disabled CANopen lifecycle acceptance, not integrated SBUS/ControlLoop,
+moving/loaded, kernel-repair or production acceptance. All runners remain consumed.

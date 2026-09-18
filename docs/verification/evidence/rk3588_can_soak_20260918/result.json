@@ -1,0 +1,10 @@
+{
+  "status": "AWAITING_DUAL_CAPTURE_AUDIT",
+  "error": null,
+  "target_done": {
+    "rc": 0,
+    "lease_error": null
+  },
+  "elapsed_s": 10810.22454556,
+  "scope": "RK3588 disabled CANopen lifecycle; not integrated SBUS/ControlLoop soak"
+}

@@ -310,7 +310,8 @@ int main(const int argc, char** argv) {
         std::cout << "qualification_online_probe node=1 object=0x1017:00\n" << std::flush;
     }
 
-    QualificationSession session{*owner.value()};
+    QualificationSession session{*owner.value(), 20};
+    std::cout << "qualification_standstill_tolerance_tenths_rpm=20 targets_exact=1\n";
     Status result = Status::from_errno("qualification_operation", "unselected", EINVAL);
     switch (arguments->operation) {
         case Operation::nmt:

@@ -3,8 +3,11 @@
 Bounded unloaded HIL is accepted in [the checkpoint](P10_3_HIL_CHECKPOINT.md).
 This record separates physical acceptance from source delivery and remote CI.
 Base commit4c7390f on codex/phase9-sbus-development; no production behavior change
-was made during this delivery review. Final commit and CI disposition follow in
-the delivery evidence after push; local success is not remote-CI success.
+was made during this delivery review. Delivery commit
+55617ec36a2f2447159fb7b59e73474366137ebf was pushed to the same branch.
+Actions run35216344992 completed successfully for that exact commit; see
+evidence/p10_3_delivery_20260917/remote-ci.json. This result does not cover
+subsequent workspace policy or soak-preparation changes.
 
 ## Reviewed scope
 

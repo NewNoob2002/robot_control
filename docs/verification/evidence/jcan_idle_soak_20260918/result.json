@@ -1,0 +1,12 @@
+{
+  "status": "INTERRUPTED",
+  "error": null,
+  "requested_s": 10800,
+  "elapsed_s": 345.215482864,
+  "frames": 0,
+  "data_frame_commands": 0,
+  "shutdown_ack": true,
+  "process_rc": 0,
+  "finished_utc": "2026-09-18T01:47:09.638533+00:00",
+  "limitation": "No load qualification or proof of permanent repair; USB raw transfers not captured"
+}

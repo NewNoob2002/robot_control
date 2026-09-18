@@ -1,0 +1,431 @@
+Running clang-tidy in 2 threads for 69 files out of 69 in compilation database ...
+[ 1/69][2.8s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_runtime_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[ 2/69][0.2s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/protocol/parser.cpp
+[ 3/69][4.9s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/application/control/control_cycle.cpp
+[ 4/69][2.2s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/platform_probe/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[ 5/69][1.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/zlac8015d.cpp
+[ 6/69][0.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/transmit_gate.c
+[ 7/69][0.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_zero_gate_tests.cpp
+[ 8/69][1.4s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/safety/safety_manager.cpp
+[ 9/69][15.6s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[10/69][2.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/linux/source_bridge.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[11/69][4.9s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp
+[12/69][2.9s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/interface_inhibitor.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[13/69][2.3s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/socketcan_frame_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[14/69][0.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/canopen_observer/observer_log.c
+[15/69][4.5s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/socket.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[16/69][1.4s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/sbus_reader_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[17/69][1.6s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_commissioning_gate_tests.cpp
+[18/69][6.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/can_probe/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/can_probe/main.cpp:353:5: warning: an exception may be thrown in function 'main' which should not throw exceptions [bugprone-exception-escape]
+  353 | int main(const int argc, char *argv[]) {
+      |     ^
+/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/16/../../../../include/c++/16/optional:128:5: note: frame #0: unhandled exception of type 'bad_optional_access' may be thrown in function '__throw_bad_optional_access' here
+  128 |   { _GLIBCXX_THROW_OR_ABORT(bad_optional_access()); }
+      |     ^
+/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/16/../../../../include/c++/16/x86_64-pc-linux-gnu/bits/c++config.h:262:42: note: expanded from macro '_GLIBCXX_THROW_OR_ABORT'
+  262 | #  define _GLIBCXX_THROW_OR_ABORT(_EXC) (throw (_EXC))
+      |                                          ^
+/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/16/../../../../include/c++/16/optional:1288:2: note: frame #1: function 'value' calls function '__throw_bad_optional_access' here
+ 1288 |         __throw_bad_optional_access();
+      |         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/can_probe/main.cpp:339:25: note: frame #2: function 'run_probe' calls function 'value' here
+  339 |     print_frame(frames, observation.value());
+      |                         ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/can_probe/main.cpp:365:10: note: frame #3: function 'main' calls function 'run_probe' here
+  365 |   return run_probe(options.value());
+      |          ^
+
+[19/69][0.3s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/process/termination_event.cpp
+[20/69][9.6s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/lifecycle.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[21/69][0.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/zlac_qualification/qualification_log.c
+[22/69][5.2s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/linux_platform_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[23/69][8.4s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/control_qualification.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[24/69][5.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_cycle_tests.cpp
+[25/69][0.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_test_log_stub.c
+[26/69][6.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/sbus_observer/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+
+[27/69][3.3s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/stack_config.cpp
+[28/69][2.5s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/io/poll_wait.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[29/69][2.5s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/stack_storage.cpp
+[30/69][4.9s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/domain_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/domain_tests.cpp:371:33: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  371 |     CHECK("P6.2-mode-position", decode_mode_display(position_mode)->mode == OperationMode::profile_position);
+      |                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/domain_tests.cpp:50:38: note: expanded from macro 'CHECK'
+   50 | #define CHECK(id, expression) check((expression), (id), #expression)
+      |                                      ^~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/domain_tests.cpp:372:31: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  372 |     CHECK("P6.2-mode-torque", decode_mode_display(torque_mode)->mode == OperationMode::profile_torque);
+      |                               ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/domain_tests.cpp:50:38: note: expanded from macro 'CHECK'
+   50 | #define CHECK(id, expression) check((expression), (id), #expression)
+      |                                      ^~~~~~~~~~
+
+[31/69][4.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/control/control_arbiter.cpp
+[32/69][4.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/runtime.cpp
+[33/69][4.2s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_motion_gate_tests.cpp
+[34/69][4.8s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/canopen_commission/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/canopen_commission/main.cpp:150:40: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  150 |     const auto result = session.upload(arguments->upload->first, arguments->upload->second, arguments->retry_once);
+      |                                        ^~~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/canopen_commission/main.cpp:150:66: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  150 |     const auto result = session.upload(arguments->upload->first, arguments->upload->second, arguments->retry_once);
+      |                                                                  ^~~~~~~~~~~~~~~~~
+
+[35/69][0.9s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/can_interface_inhibitor/main.cpp
+[36/69][2.3s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/domain/drive/cia402.cpp
+[37/69][3.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/time/monotonic_timer.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[38/69][2.8s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/linux/reader.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[39/69][2.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/service/logging/logger.cpp
+[40/69][4.5s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/sbus_source_tests.cpp
+[41/69][5.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_stack_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[42/69][0.1s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification_gate.c
+[43/69][2.2s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp
+[44/69][2.5s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/application/control/linux_loop.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[45/69][8.4s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_layout_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[46/69][5.4s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/can_interface_inhibitor_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[47/69][4.5s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_gate_tests.cpp
+[48/69][4.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/observation.cpp
+[49/69][5.1s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/canopen_observer/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[50/69][0.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/canopen_commission/commissioning_log.c
+[51/69][4.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[52/69][5.4s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/uart/serial_port.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[53/69][3.1s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/can/classic_frame.cpp
+[54/69][7.1s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification_runtime_layout.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[55/69][5.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/commissioning.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[56/69][3.4s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_runtime_policy_tests.cpp
+[57/69][5.9s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_commissioning_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[58/69][6.5s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_qualification_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_qualification_vcan_tests.cpp:231:44: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+  231 |               << ':' << cleanup.context << std::endl;
+      |                                            ^~~~~~~~~
+      |                                            '\n'
+
+[59/69][41.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:94:16: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+   94 |         return clean;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:112:16: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  112 |         return ready;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:126:16: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  126 |         return ready;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:407:24: warning: constness of 'sent' prevents automatic move [performance-no-automatic-move]
+  407 |                 return sent;
+      |                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:643:20: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  643 |             return ready;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:672:20: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+  672 |             return clean;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:699:20: warning: constness of 'ready' prevents automatic move [performance-no-automatic-move]
+  699 |             return ready;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:884:16: warning: constness of 'preop' prevents automatic move [performance-no-automatic-move]
+  884 |         return preop;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:972:16: warning: constness of 'zero' prevents automatic move [performance-no-automatic-move]
+  972 |         return zero;
+      |                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1211:12: warning: constness of 'restored' prevents automatic move [performance-no-automatic-move]
+ 1211 |     return restored;
+      |            ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1293:20: warning: constness of 'status' prevents automatic move [performance-no-automatic-move]
+ 1293 |             return status;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1339:20: warning: constness of 'clean' prevents automatic move [performance-no-automatic-move]
+ 1339 |             return clean;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1416:20: warning: constness of 'supervised' prevents automatic move [performance-no-automatic-move]
+ 1416 |             return supervised;
+      |                    ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1850:22: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1850 |                   << std::endl;
+      |                      ^~~~~~~~~
+      |                      '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1884:102: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1884 |                           << load_u32(std::as_bytes(std::span{tpdo.raw.payload}.subspan(4U, 4U))) << std::endl;
+      |                                                                                                      ^~~~~~~~~
+      |                                                                                                      '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/qualification.cpp:1905:47: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+ 1905 |         std::cout << "MANUAL_ROTATION_END" << std::endl;
+      |                                               ^~~~~~~~~
+      |                                               '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+
+[60/69][13.8s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/runtime.cpp
+[61/69][6.1s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/socketcan_socket_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[62/69][5.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/input/sbus/source/source.cpp
+[63/69][0.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/service/logging/easylogger_port.c
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/service/logging/easylogger_config/elog_cfg.h:30:9: warning: declaration uses identifier '_ELOG_CFG_H_', which is a reserved identifier [bugprone-reserved-identifier]
+   30 | #define _ELOG_CFG_H_
+      |         ^~~~~~~~~~~~
+      |         ELOG_CFG_H_
+
+[64/69][0.1s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/od/OD.c
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/od/OD.c:1156:13: warning: declaration uses identifier '_OD', which is a reserved identifier [bugprone-reserved-identifier]
+ 1156 | static OD_t _OD = {
+      |             ^~~
+      |             OD
+ 1157 |     (sizeof(ODList) / sizeof(ODList[0])) - 1,
+ 1158 |     &ODList[0]
+ 1159 | };
+ 1160 | 
+ 1161 | OD_t *OD = &_OD;
+      |             ~~~
+      |             OD
+
+[65/69][8.1s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/sbus_parser_tests.cpp
+[66/69][7.7s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/zlac_qualification/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[67/69][0.2s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/communication/canopen/commissioning_gate.c
+[68/69][7.0s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_loop_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[69/69][46.6s] /usr/bin/clang-tidy -p=out/build/tidy-workspace -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:77:22: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+   77 |         std::cerr << std::endl;
+      |                      ^~~~~~~~~
+      |                      '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:646:47: warning: do not use 'std::endl' with streams; use '\n' instead [performance-avoid-endl]
+  646 |                   << ':' << result.context << std::endl;
+      |                                               ^~~~~~~~~
+      |                                               '\n'
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:1033:54: warning: the const qualified parameter 'stop' of type 'const std::stop_token' is copied for each invocation; consider making it a reference [performance-unnecessary-value-param]
+ 1033 |     std::jthread responder{[&](const std::stop_token stop) {
+      |                                                      ^
+      |                                                     &
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:1416:54: warning: the const qualified parameter 'stop' of type 'const std::stop_token' is copied for each invocation; consider making it a reference [performance-unnecessary-value-param]
+ 1416 |     std::jthread responder{[&](const std::stop_token stop) {
+      |                                                      ^
+      |                                                     &
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:1734:54: warning: the const qualified parameter 'stop' of type 'const std::stop_token' is copied for each invocation; consider making it a reference [performance-unnecessary-value-param]
+ 1734 |     std::jthread responder{[&](const std::stop_token stop) {
+      |                                                      ^
+      |                                                     &
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/canopen_qualification_vcan_tests.cpp:1861:52: warning: the const qualified parameter 'stop' of type 'const std::stop_token' is copied for each invocation; consider making it a reference [performance-unnecessary-value-param]
+ 1861 |     std::jthread capture{[&](const std::stop_token stop) {
+      |                                                    ^
+      |                                                   &
+

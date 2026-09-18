@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-18",
+  "archive": "archives/september18-capture-and-pilots.tar.gz",
+  "archive_sha256": "003fa17130da00dd7446cdba112ed54a8606c67aae0abcb961ff039cf0f1463d",
+  "archived_files": 7,
+  "archived_original_bytes": 52718408,
+  "archive_bytes": 481749,
+  "verification": "Every extracted member compared byte-for-byte to its original before removing the loose copy. Raw SHA256 values are in MANIFEST.json.",
+  "retained": "All original verdicts, raw bytes, consumed markers, authorization records and target archive. No build or remote cleanup."
+}

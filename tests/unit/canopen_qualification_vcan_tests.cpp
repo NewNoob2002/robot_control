@@ -498,6 +498,11 @@ void test_zero_preflight(const std::string_view interface_name, CanSocket& peer)
     QualificationSession duration_bound{*owner};
     CHECK(!duration_bound.qualify_first_motion_cia402(IndependentChannel::subindex_1, 5, 3001ms, 60ms).ok());
     expect_no_frame(peer);
+    for (const int tolerance : {-1, 21}) {
+        QualificationSession invalid_tolerance{*owner, tolerance};
+        CHECK(!invalid_tolerance.qualify_zero_target_cia402(60ms).ok());
+        expect_no_frame(peer);
+    }
     QualificationSession session{*owner};
     std::jthread responder{[&] {
         answer_mapping(peer);
@@ -1707,7 +1712,7 @@ void test_manual_tpdo(const std::string_view interface_name, CanSocket& peer, co
     if (!owner.ok()) {
         return;
     }
-    QualificationSession session{*owner.value()};
+    QualificationSession session{*owner.value(), scenario >= 19U ? 20 : 0};
     std::map<std::pair<std::uint16_t, std::uint8_t>, std::uint32_t> values{
         {{0x1800U, 1U}, 0x181U},      {{0x1800U, 2U}, 255U},
         {{0x1800U, 5U}, 100U},        {{0x1A00U, 0U}, 2U},
@@ -1728,6 +1733,18 @@ void test_manual_tpdo(const std::string_view interface_name, CanSocket& peer, co
     }
     if (scenario == 11U) {
         values[{0x1800U, 5U}] = 101U;
+    }
+    // Approved standstill feedback accepts both signed boundaries, never targets.
+    if (scenario == 19U || scenario == 24U) {
+        values[{0x606CU, 1U}] = 20U;
+        values[{0x606CU, 2U}] = 0xFFFFFFECU;
+        values[{0x606CU, 3U}] = 0xFFEC0014U;
+    } else if (scenario == 20U || scenario == 21U || scenario == 25U) {
+        values[{0x606CU, 1U}] = scenario == 20U ? 21U : scenario == 21U ? 0xFFFFFFEBU : 0x80000000U;
+    } else if (scenario == 22U || scenario == 23U) {
+        values[{0x606CU, 3U}] = scenario == 22U ? 21U : 0xFFEB0000U;
+    } else if (scenario == 26U) {
+        values[{0x60FFU, 1U}] = 1U;
     }
     unsigned writes = 0U;
     unsigned starts = 0U;
@@ -1812,9 +1829,9 @@ void test_manual_tpdo(const std::string_view interface_name, CanSocket& peer, co
     responder.request_stop();
     responder.join();
     std::cout << "manual_tpdo scenario=" << scenario << " result=" << result.operation << ':' << result.context << '\n';
-    CHECK(result.ok() == (scenario == 0U || scenario == 18U));
-    CHECK(starts == (scenario == 0U || scenario >= 12U ? 1U : 0U));
-    if ((scenario >= 1U && scenario <= 7U) || scenario == 10U || scenario == 11U) {
+    CHECK(result.ok() == (scenario == 0U || scenario == 18U || scenario == 19U || scenario == 24U));
+    CHECK(starts == (scenario == 0U || (scenario >= 12U && scenario <= 19U) || scenario == 24U ? 1U : 0U));
+    if ((scenario >= 1U && scenario <= 7U) || scenario == 10U || scenario == 11U || (scenario >= 20U && scenario != 24U)) {
         CHECK(writes == 0U);
     }
     CHECK(values[std::make_pair(std::uint16_t{0x1800U}, std::uint8_t{1U})] == 0x181U);
@@ -1966,7 +1983,7 @@ int main() {
         test_communication_loss(interface_name, peer, CommunicationLossStimulus::external, scenario);
         expected_interface_loss.store(false);
     }
-    for (const unsigned scenario : {0U, 1U, 2U, 3U, 4U, 5U, 6U, 7U, 8U, 10U, 11U, 12U, 13U, 14U, 15U, 16U, 17U, 18U}) {
+    for (const unsigned scenario : {0U, 1U, 2U, 3U, 4U, 5U, 6U, 7U, 8U, 10U, 11U, 12U, 13U, 14U, 15U, 16U, 17U, 18U, 19U, 20U, 21U, 22U, 23U, 24U, 25U, 26U}) {
         test_manual_tpdo(interface_name, peer, scenario);
     }
     test_signal(interface_name, peer);

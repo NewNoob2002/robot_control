@@ -1,0 +1,26 @@
+31 warnings generated.
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/tidy-workspace/policy_probe.cpp:5:7: warning: invalid case style for class 'bad_type' [readability-identifier-naming]
+    5 | class bad_type {};
+      |       ^~~~~~~~
+      |       BadType
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/tidy-workspace/policy_probe.cpp:6:48: warning: unused local variable 'moved' of type 'typename std::remove_reference<std::basic_string<char, std::char_traits<char>, std::allocator<char>> &>::type' (aka 'std::basic_string<char>') [bugprone-unused-local-non-trivial-variable]
+    6 | char probe() { std::string value = "abc"; auto moved = std::move(value); return value[0]; }
+      |                                                ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/tidy-workspace/policy_probe.cpp:6:81: error: 'value' used after it was moved [bugprone-use-after-move,-warnings-as-errors]
+    6 | char probe() { std::string value = "abc"; auto moved = std::move(value); return value[0]; }
+      |                                                                                 ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/tidy-workspace/policy_probe.cpp:6:56: note: move occurred here
+    6 | char probe() { std::string value = "abc"; auto moved = std::move(value); return value[0]; }
+      |                                                        ^
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/tidy-workspace/policy_probe.cpp:6:81: error: Method called on moved-from object 'value' of type 'std::basic_string' [clang-analyzer-cplusplus.Move,-warnings-as-errors]
+    6 | char probe() { std::string value = "abc"; auto moved = std::move(value); return value[0]; }
+      |                                                                                 ^~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/tidy-workspace/policy_probe.cpp:6:56: note: Object 'value' of type 'std::basic_string' is left in a valid but unspecified state after move
+    6 | char probe() { std::string value = "abc"; auto moved = std::move(value); return value[0]; }
+      |                                                        ^~~~~~~~~~~~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/tidy-workspace/policy_probe.cpp:6:81: note: Method called on moved-from object 'value' of type 'std::basic_string'
+    6 | char probe() { std::string value = "abc"; auto moved = std::move(value); return value[0]; }
+      |                                                                                 ^~~~~~~~
+Suppressed 27 warnings (27 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+2 warnings treated as errors

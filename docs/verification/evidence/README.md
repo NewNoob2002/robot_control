@@ -247,3 +247,31 @@ rerunning historical analyzers; do not overwrite current evidence.
 independent virtual feedback, fault/restart/shutdown injection, P6 regression and
 locked aarch64 build. Initial failures remain preserved. No physical test or
 future hardware authorization is included.
+
+## September 18 node: actual-traffic soak accepted and policy delivery
+
+- [P10.3 delivery](../P10_3_DELIVERY_BASELINE.md): bounded unloaded F1–F6
+  accepted; source commit 55617ec passed remote CI run 35216344992.
+- [Static-analysis policy](clang_tidy_20260917/README.md): root clang-tidy
+  adopted across 69 first-party translation units; 33 advisory findings retained.
+- [Soak preparation](soak_preconditions_20260917/) retains the runner cleanup
+  and watchdog checks. [Empty-bus capture](jcan_idle_soak_20260918/README.md)
+  was interrupted at 345 seconds with zero frames, not accepted as a long soak.
+- [RK3588/JCAN soak](rk3588_can_soak_20260918/README.md): 10807.299 seconds,
+  175 cycles and 348246 matching frames; operator accepts the observed feedback
+  under +/-2rpm. Original strict-zero audit failure remains unchanged.
+- [Standstill policy](standstill_policy_20260918/README.md): physical CLI and
+  soak analysis use +/-2rpm measured feedback, while commands remain exact.
+  Debug and sanitizer each pass 78/78; focused Control HIL, static analysis,
+  locked aarch64 build and ELF audit pass. New artifact is not deployed.
+
+P6 remains open: this disabled CANopen lifecycle test does not qualify continuous
+SBUS-to-ControlLoop operation, loaded motion, production or the kernel repair.
+The operator's latest recorded disposition is stationary/no abnormal sound/OFF.
+All historical failed/incomplete trials and consumed authorizations are retained.
+
+[Cleanup ledger](archives/WORKSPACE_CLEANUP_20260918.json) records seven files
+(52718408 bytes) preserved in a 481749-byte archive after byte-for-byte verification.
+The existing Phase 6 evidence checker validates its manifest and every member.
+Extract to a separate scratch directory for historical replay; never execute
+consumed runners. See the soak README for the extraction command.

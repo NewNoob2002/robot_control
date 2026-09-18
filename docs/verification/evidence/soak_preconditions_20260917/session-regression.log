@@ -1,0 +1,41 @@
+stop requested by signal 15
+{
+  "status": "FAIL",
+  "requested_hours": 1,
+  "elapsed_s": 0.5591207370016491,
+  "cycles": 0,
+  "failure": "AssertionError: candump exited rc=0",
+  "capture_stopped": true,
+  "capture_returncode": 0,
+  "executor_stopped": true,
+  "x1_must_remain_locked_until_drive_power_off": true,
+  "drive_power_off_confirmed": false
+}
+ARCHIVE=/tmp/tmpvutp5_vc/interrupted.tar.gz
+{
+  "status": "INTERRUPTED",
+  "requested_hours": 1,
+  "elapsed_s": 7.574654897998698,
+  "cycles": 0,
+  "failure": null,
+  "capture_stopped": true,
+  "capture_returncode": -2,
+  "executor_stopped": true,
+  "x1_must_remain_locked_until_drive_power_off": true,
+  "drive_power_off_confirmed": false
+}
+ARCHIVE=/tmp/tmpvutp5_vc/stubborn.tar.gz
+{
+  "status": "PASS_PHASE6_ZERO_MOTION_SOAK",
+  "cycles": 1,
+  "elapsed_s": 3600,
+  "can": {
+    "frames": 5,
+    "tpdo1_frames": 1,
+    "sdo_requests": 2
+  },
+  "counter_increases": {},
+  "scope": "Repeated 60-second disabled/NMT/heartbeat/TPDO lifecycle soak; no motion or load claim.",
+  "operator_next_step": "Keep X1 locked, power the drive OFF, then restore X1 only after both wheels are stopped."
+}
+PASS: Phase 6 zero-motion soak parsers and fail-closed checks

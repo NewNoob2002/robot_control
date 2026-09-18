@@ -1,0 +1,27 @@
+{
+  "started_utc": "2026-09-18T01:41:24.408789+00:00",
+  "serial": "207F346D5650",
+  "binary_sha256": "151a84145830dbb79ee8931d7bb10ccf686b7e161d956ca0f4492e5597c19cbc",
+  "command": [
+    "/home/gtc/Desktop/workspace/JCAN/target/release/jcan",
+    "--json",
+    "--serial",
+    "207F346D5650",
+    "session",
+    "--mode",
+    "normal",
+    "--receive",
+    "--reconnect-ms",
+    "60000"
+  ],
+  "duration_s": 10800,
+  "authorization": "User requested JCAN stability test and supplied current readiness",
+  "operator_state": {
+    "drive_power": "ON",
+    "x1_locked": false,
+    "continuous_can_traffic": false
+  },
+  "scope": "Normal receive with hardware ACK; no data-frame sends or drive configuration",
+  "recovery": "First error aborts; shutdown/CANStop; no intentional reconnect or retry",
+  "limitation": "Idle receive only; no traffic-load or motor safety acceptance"
+}

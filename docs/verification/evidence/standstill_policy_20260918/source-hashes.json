@@ -1,0 +1,8 @@
+{
+  "communication/canopen/qualification.cpp": "802282de5b1b27fe6d5c7d185b137822118af513cb3cb4067be3788550932abc",
+  "communication/canopen/qualification.hpp": "bd9d9cce8a358bc9b5c6e8ff4b2353c607fcdeb041cb4b930f6b2fc5f5fab2d0",
+  "tools/zlac_qualification/main.cpp": "de6a81abbcb3c4615d54d5eebbda398a891374714f6a0921e3f8431f80f1fa28",
+  "tests/unit/canopen_qualification_vcan_tests.cpp": "85b19ea6408bb5633b2a3ec287ab23d2cdc20c3e4caf6c3df229e08b256dafd1",
+  "scripts/hil/phase6_zero_motion_soak.py": "a38f03919ba99ce7444f7504975010c0b4f7dc519b112096cd923616c4202d42",
+  "scripts/test/test_phase6_zero_motion_soak.py": "36a90220d1d691341fad49dd3ede711ca6f20bd3992186c2815732f5a10a57c9"
+}

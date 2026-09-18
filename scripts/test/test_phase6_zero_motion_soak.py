@@ -3,6 +3,7 @@
 import importlib.util
 import json
 import os
+import signal
 import subprocess
 import sys
 import tempfile
@@ -33,8 +34,16 @@ def main():
         + "manual_velocity sub=1 raw=0\nmanual_velocity sub=2 raw=0\nmanual_velocity sub=3 raw=0\n"
         for item in range(60)) + "MANUAL_ROTATION_END\n"
     assert soak.validate_cycle_output(cycle) == {"manual_samples": 60, "sdo_velocity_samples": 180}
-    expect_failure(lambda: soak.validate_cycle_output(cycle.replace("tpdo_velocity_raw=0", "tpdo_velocity_raw=1", 1)))
-    expect_failure(lambda: soak.validate_cycle_output(cycle.replace("manual_velocity sub=2 raw=0", "manual_velocity sub=2 raw=-1", 1)))
+    # Feedback is signed 0.1rpm; targets and protocol values remain exact.
+    for raw in (20, 0xFFFFFFEC, -20):
+        assert soak.validate_cycle_output(cycle.replace("manual_velocity sub=2 raw=0", f"manual_velocity sub=2 raw={raw}", 1))
+    packed_boundary = 20 | (0xFFEC << 16)
+    assert soak.validate_cycle_output(cycle.replace("tpdo_velocity_raw=0", f"tpdo_velocity_raw={packed_boundary}", 1))
+    assert soak.validate_cycle_output(cycle.replace("manual_velocity sub=3 raw=0", f"manual_velocity sub=3 raw={packed_boundary}", 1))
+    for raw in (21, 0xFFFFFFEB, -21, 0x80000000, 0x100000000):
+        expect_failure(lambda: soak.validate_cycle_output(cycle.replace("manual_velocity sub=2 raw=0", f"manual_velocity sub=2 raw={raw}", 1)))
+    for raw in (21, 0xFFEB, 21 << 16, 0xFFEB << 16):
+        expect_failure(lambda: soak.validate_cycle_output(cycle.replace("tpdo_velocity_raw=0", f"tpdo_velocity_raw={raw}", 1)))
     status = (0x9460 | (0x1460 << 16)).to_bytes(4, "little")
     frames = [(1.0, 0x181, status + bytes(4)),
               (1.1, 0x601, bytes.fromhex("4017100000000000")),
@@ -42,6 +51,14 @@ def main():
               (1.3, 0, bytes([1, 1])),
               (1.4, 0x581, bytes.fromhex("60171000f4010000"))]
     assert soak.validate_can_records(frames)["tpdo1_frames"] == 1
+    assert soak.validate_can_records([(1.0, 0x181, status + packed_boundary.to_bytes(4, "little")), *frames[1:]])
+    for raw in (21, 0xFFEB, 21 << 16, 0xFFEB << 16):
+        expect_failure(lambda: soak.validate_can_records([(1.0, 0x181, status + raw.to_bytes(4, "little")), *frames[1:]]))
+    for part in (1, 2, 3):
+        good = packed_boundary if part == 3 else 0xFFFFFFEC
+        response = bytes([0x43, 0x6C, 0x60, part])
+        assert soak.validate_can_records([*frames, (2.0, 0x581, response + good.to_bytes(4, "little"))])
+        expect_failure(lambda: soak.validate_can_records([*frames, (2.0, 0x581, response + (21).to_bytes(4, "little"))]))
     expect_failure(lambda: soak.validate_can_records([(1.0, 0x181, bytes(8)), *frames[1:]]))
     both_active = (0x9460 | (0x9460 << 16)).to_bytes(4, "little")
     expect_failure(lambda: soak.validate_can_records([(1.0, 0x181, both_active + bytes(4)), *frames[1:]]))
@@ -55,6 +72,9 @@ def main():
     for code in (0, -15):
         expect_failure(lambda: soak.assert_capture_running(SimpleNamespace(poll=lambda: code)))
     soak.assert_capture_running(SimpleNamespace(poll=lambda: None))
+    with patch.object(soak.time, "monotonic", return_value=100):
+        soak.assert_cycle_deadline(10.001)
+        expect_failure(lambda: soak.assert_cycle_deadline(10))
     with tempfile.TemporaryDirectory() as temporary:
         fake = Path(temporary) / "candump"
         fake.write_text("#!/usr/bin/env python3\nimport signal,time\nsignal.signal(signal.SIGHUP, lambda *_: exit(0))\nprint('READY', flush=True)\ntime.sleep(10)\n")
@@ -96,6 +116,27 @@ finally:
         assert result["failure"] == "AssertionError: candump exited rc=0"
         assert result["executor_stopped"] and result["capture_returncode"] == 0
         assert result["elapsed_s"] < 3 and result["cycles"] == 0
+        # A TERM-ignoring executor must reach bounded cleanup after operator stop.
+        (root / "candump").write_text("#!/usr/bin/env python3\nimport time\ntime.sleep(30)\n")
+        (root / "fake-qualification").write_text(
+            "#!/usr/bin/env python3\nimport os,signal,time\n"
+            "signal.signal(signal.SIGTERM, signal.SIG_IGN)\n"
+            "os.kill(os.getppid(), signal.SIGTERM)\ntime.sleep(30)\n")
+        previous_handlers = {sig: signal.getsignal(sig) for sig in (signal.SIGINT, signal.SIGTERM)}
+        try:
+            with patch.dict(os.environ, {"PATH": temporary + os.pathsep + os.environ["PATH"]}), \
+                 patch.object(soak, "assert_target_ready", return_value=link), \
+                 patch.object(soak, "snapshot", return_value=link):
+                assert soak.run_soak(SimpleNamespace(confirm="X1_LOCKED_WHEELS_RAISED", hours=1,
+                    interface="unused", elf=root / "fake-qualification", output=root / "stubborn")) == 1
+            result = json.loads((root / "stubborn/result.json").read_text())
+            assert result["status"] == "INTERRUPTED" and result["cycles"] == 0
+            assert result["executor_stopped"] and result["capture_stopped"]
+            assert 7 <= result["elapsed_s"] < 12
+        finally:
+            soak.STOP_REQUESTED = False
+            for sig, handler in previous_handlers.items():
+                signal.signal(sig, handler)
     with tempfile.TemporaryDirectory() as temporary:
         directory = Path(temporary) / "soak"
         directory.mkdir()

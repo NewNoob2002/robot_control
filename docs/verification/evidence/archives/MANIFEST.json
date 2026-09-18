@@ -3253,6 +3253,51 @@
           "sha256": "6df6c6912bb4ca2fd28e6aa510713d47d8edd866f0c73b155d551866fd838cce"
         }
       ]
+    },
+    {
+      "path": "archives/september18-capture-and-pilots.tar.gz",
+      "directories": [
+        "clang_tidy_20260917",
+        "rk3588_can_soak_20260918"
+      ],
+      "files": [
+        {
+          "path": "rk3588_can_soak_20260918/jcan/session.jsonl",
+          "sha256": "809cbc9c13d6c7c95ba2958695cd2820a6ddfebbd4a5d8a3fd0c88b6f9887907",
+          "bytes": 52319099
+        },
+        {
+          "path": "clang_tidy_20260917/final-naming-scan.log",
+          "sha256": "cdf6acf3f7e70f5a150e21934fd3ec719c663a991fbc177985c2ed2098f332ab",
+          "bytes": 29973
+        },
+        {
+          "path": "clang_tidy_20260917/final-scan.log",
+          "sha256": "3db40e4576374da1add7d27addd9ef5d9e57b19b4e196a3d076bbfc09020154a",
+          "bytes": 50063
+        },
+        {
+          "path": "clang_tidy_20260917/workspace-scan.log",
+          "sha256": "4d0b8e8a0a3dc68a3dc68d6f8d6d7b70510e619ef90972e02772ecb117d462df",
+          "bytes": 113610
+        },
+        {
+          "path": "clang_tidy_20260917/project-scan.log",
+          "sha256": "2ade23edbc02cf5e87bd4ff00a32f5af5f938a851fb187c5b171c8fda0785f76",
+          "bytes": 169108
+        },
+        {
+          "path": "clang_tidy_20260917/revised-runtime.log",
+          "sha256": "ca5e52b88a86c3b0e86e2a101a65fb68afa66a7e0f230e3121d880d128223a24",
+          "bytes": 10668
+        },
+        {
+          "path": "clang_tidy_20260917/original-runtime.log",
+          "sha256": "b6231896004ceabd856ec4780f899382765a09799f3a2e3f575d1bfab04ed34e",
+          "bytes": 25887
+        }
+      ],
+      "sha256": "003fa17130da00dd7446cdba112ed54a8606c67aae0abcb961ff039cf0f1463d"
     }
   ],
   "removed_duplicates": [

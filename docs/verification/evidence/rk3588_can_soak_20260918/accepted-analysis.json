@@ -1,0 +1,18 @@
+{
+  "can": {
+    "frames": 348246,
+    "sdo_requests": 46725,
+    "tpdo1_frames": 211221
+  },
+  "counter_increases": {},
+  "cycles": 175,
+  "elapsed_s": 10807.298674208985,
+  "operator_next_step": "Keep X1 locked, power the drive OFF, then restore X1 only after both wheels are stopped.",
+  "scope": "Repeated 60-second disabled/NMT/heartbeat/TPDO lifecycle soak; no motion or load claim.",
+  "standstill_tolerance_tenths_rpm": 20,
+  "status": "PASS_PHASE6_ZERO_MOTION_SOAK",
+  "operator_power_off_confirmed": true,
+  "operator_acceptance": "operator-acceptance.json",
+  "approved_verdict": "PASS",
+  "raw_feedback_unchanged": true
+}

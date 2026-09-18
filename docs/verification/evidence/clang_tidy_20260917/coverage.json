@@ -1,0 +1,99 @@
+{
+  "translation_units": 69,
+  "databases": [
+    {
+      "database": "out/build/p103-control-hil/compile_commands.json",
+      "additional_sources": [
+        "application/control/control_cycle.cpp",
+        "application/control/linux_loop.cpp",
+        "communication/canopen/control_qualification.cpp",
+        "communication/canopen/lifecycle.cpp",
+        "communication/canopen/observation.cpp",
+        "communication/canopen/od/OD.c",
+        "communication/canopen/qualification.cpp",
+        "communication/canopen/qualification_gate.c",
+        "communication/canopen/qualification_runtime_layout.cpp",
+        "communication/canopen/runtime.cpp",
+        "communication/canopen/stack_config.cpp",
+        "communication/canopen/stack_storage.cpp",
+        "communication/canopen/transmit_gate.c",
+        "domain/control/control_arbiter.cpp",
+        "domain/drive/cia402.cpp",
+        "domain/drive/runtime.cpp",
+        "domain/drive/zlac8015d.cpp",
+        "domain/safety/safety_manager.cpp",
+        "input/sbus/linux/reader.cpp",
+        "input/sbus/linux/source_bridge.cpp",
+        "input/sbus/protocol/parser.cpp",
+        "input/sbus/source/source.cpp",
+        "platform/linux/can/classic_frame.cpp",
+        "platform/linux/can/interface_inhibitor.cpp",
+        "platform/linux/can/socket.cpp",
+        "platform/linux/io/poll_wait.cpp",
+        "platform/linux/process/termination_event.cpp",
+        "platform/linux/time/monotonic_timer.cpp",
+        "platform/linux/uart/serial_port.cpp",
+        "service/logging/easylogger_port.c",
+        "service/logging/logger.cpp",
+        "tests/integration/linux_platform_tests.cpp",
+        "tests/integration/sbus_reader_tests.cpp",
+        "tests/unit/canopen_runtime_policy_tests.cpp",
+        "tests/unit/canopen_stack_tests.cpp",
+        "tests/unit/canopen_test_log_stub.c",
+        "tests/unit/canopen_vcan_tests.cpp",
+        "tests/unit/control_cycle_tests.cpp",
+        "tests/unit/control_hil_motion_gate_tests.cpp",
+        "tests/unit/control_hil_trace_tests.cpp",
+        "tests/unit/control_hil_zero_gate_tests.cpp",
+        "tests/unit/control_qualification_vcan_tests.cpp",
+        "tests/unit/domain_tests.cpp",
+        "tests/unit/sbus_parser_tests.cpp",
+        "tests/unit/sbus_source_tests.cpp",
+        "tests/unit/socketcan_frame_tests.cpp",
+        "tests/unit/socketcan_socket_tests.cpp",
+        "tools/can_probe/main.cpp",
+        "tools/canopen_observer/main.cpp",
+        "tools/canopen_observer/observer_log.c",
+        "tools/control_hil/main.cpp",
+        "tools/control_hil/zero_gate.cpp",
+        "tools/platform_probe/main.cpp",
+        "tools/sbus_observer/main.cpp",
+        "tools/zlac_qualification/qualification_log.c"
+      ]
+    },
+    {
+      "database": "out/build/p8r-debug/compile_commands.json",
+      "additional_sources": [
+        "tests/integration/control_loop_vcan_tests.cpp",
+        "tests/unit/canopen_runtime_vcan_tests.cpp"
+      ]
+    },
+    {
+      "database": "out/build/p8r-p6-regression/compile_commands.json",
+      "additional_sources": [
+        "tests/unit/can_interface_inhibitor_tests.cpp",
+        "tests/unit/canopen_qualification_gate_tests.cpp",
+        "tests/unit/canopen_qualification_layout_vcan_tests.cpp",
+        "tests/unit/canopen_qualification_vcan_tests.cpp",
+        "tools/can_interface_inhibitor/main.cpp",
+        "tools/zlac_qualification/main.cpp"
+      ]
+    },
+    {
+      "database": "out/build/checkpoint-commissioning/compile_commands.json",
+      "additional_sources": [
+        "communication/canopen/commissioning.cpp",
+        "communication/canopen/commissioning_gate.c",
+        "tests/unit/canopen_commissioning_gate_tests.cpp",
+        "tests/unit/canopen_commissioning_vcan_tests.cpp",
+        "tools/canopen_commission/commissioning_log.c",
+        "tools/canopen_commission/main.cpp"
+      ]
+    },
+    {
+      "database": "out/build/host-test/compile_commands.json",
+      "additional_sources": []
+    }
+  ],
+  "uncovered_sources": []
+}
