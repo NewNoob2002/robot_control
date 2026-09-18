@@ -16,6 +16,20 @@ not establish a permanent USB/kernel repair or integrated SBUS/ControlLoop,
 moving/loaded or production soak acceptance. Those remaining boundaries keep
 P6 OPEN. Earlier failed/retired trials remain unchanged.
 
+The delivered source node d6bbaa9c88185c451567b6672528dbc95e5aed15 passed
+GitHub Actions35312438999. Its +/-2rpm policy passes local Debug/sanitizer78/78
+each, locked cross/ELF and focused checks; the new artifact is not deployed.
+See [policy evidence](evidence/standstill_policy_20260918/README.md).
+
+Next work is continuous diagnostics and a bounded full-chain zero-target entry,
+then a one-hour real-SBUS full-chain soak, raised negative/dual-wheel qualification and a
+separate ground-readiness gate. Per the September18 user decision, subsequent
+stage soaks are one hour; a five-hour system stability test follows completion
+of all main features. The accepted three-hour evidence is unchanged.
+The current HIL trace is bounded and exported
+only after stop; it is not a long-running monitor. See
+[the implementation and acceptance plan](../plans/POST_SOAK_GROUND_READINESS.md).
+
 ## Historical checkpoint — 2026-09-15
 
 **Historical disposition: Phase6 OPEN; long-duration soak DEFERRED, not passed.**
@@ -57,7 +71,7 @@ can0 UP/ERROR-ACTIVE with zero current error counters. No subsequent physical
 power-off confirmation is recorded. Older OFF/DOWN statements belong to their
 dated trials. Archiving/CI does not change physical CAN or drive state.
 
-## Acceptance table
+## Historical acceptance table — September 15 (see current update above)
 
 | Item | Status | Evidence and limits |
 | --- | --- | --- |

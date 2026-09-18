@@ -1,0 +1,8 @@
+{
+  "tools/control_hil/main.cpp": "7721c4cdfebbeb75f42c67072a1a6a38ecf2c983b90e70799dbb05ebf52a5fdd",
+  "tools/control_hil/trace.hpp": "610050fff8cc3f37281f2fc565b3a3d3b1b0faf9f2ccf6830ec2b38929652529",
+  "tools/control_hil/diagnostics.cpp": "319c6e7ebf3a6e65ab30251f66a779cf16ab2ccff2c6a75bb9d640cc9f28bb1c",
+  "tools/control_hil/CMakeLists.txt": "83bebe5d255b59a19db7a8068ab3f6c42362b82d7430b3f187b0801d2b75f7f2",
+  "scripts/hil/control_zero_soak.py": "71498274d6b7abad426f9fedbd6bec0d6ce8275c7c4cb6acdcf04f31203bb0c8",
+  "scripts/test/analyze_control_soak.py": "8e67208b9c55f1c9becacc8449e3e0faf86a27a4a377317193ed38ea4e5830b0"
+}

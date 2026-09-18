@@ -38,14 +38,22 @@ observation. Target RXF/RXMF advanced by two, TX remained zero, no error frame
 was observed, and cleanup passed. Phase 5 is complete.
 See
 docs/verification/PHASE5_CANOPEN_BASELINE.md.
-Current checkpoint, September 17, 2026: P9 input, P8-R runtime and P10.1–P10.3
-bounded unloaded integration are accepted, including F1–F6 fault/recovery trials.
-P10.3 remains a Debug-only/default-OFF qualification tool, not a production daemon.
-Phase 6 final acceptance and both lifecycle/full-chain endurance remain open;
-userspace CAN inhibition does not resolve the kernel delayed-TX issue. Original
-failed/incomplete trials remain unchanged. The latest recorded operator disposition
-is drive OFF after F6 A1; any future run needs current readiness and authorization.
-See the [P10.3 checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md),
+Current checkpoint, September 18, 2026: P9 input, P8-R runtime and P10.1–P10.3
+bounded unloaded integration are accepted, including F1–F6. The three-hour
+**disabled CANopen lifecycle / JCAN soak** is also accepted: 175 cycles and
+348246 matching frames under the approved +/-2rpm near-zero feedback criterion.
+Node d6bbaa9 passed GitHub Actions run35312438999. Original failures are preserved.
+P10.3 remains Debug-only/default-OFF, not a production daemon. Continuous
+SBUS/ControlLoop endurance, negative/dual-wheel/loaded motion and final P6
+acceptance remain open; the kernel delayed-TX issue is unresolved. The latest
+recorded operator disposition is stationary/no abnormal sound/drive OFF after
+the September18 soak; this is not future powered readiness.
+Next: continuous diagnostics and bounded full-chain zero-target soak preparation,
+then a one-hour full-chain soak, raised motion-matrix qualification and a separate
+ground-readiness review. Subsequent stage soaks are one hour; a five-hour system
+stability test is planned after all main features are complete.
+See the [post-soak plan](docs/plans/POST_SOAK_GROUND_READINESS.md),
+[P10.3 checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md),
 [delivery record](docs/verification/P10_3_DELIVERY_BASELINE.md),
 [Phase 6 checkpoint](docs/verification/PHASE6_CHECKPOINT.md), and
 [evidence index](docs/verification/evidence/README.md).

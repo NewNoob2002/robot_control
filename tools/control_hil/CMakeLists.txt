@@ -1,9 +1,15 @@
+add_executable(robot-control-diagnostics diagnostics.cpp)
+target_link_libraries(robot-control-diagnostics PRIVATE robot_control_service_logging robot_control_project_warnings)
+
 add_executable(robot-control-hil main.cpp zero_gate.cpp ../zlac_qualification/qualification_log.c)
 target_link_libraries(robot-control-hil PRIVATE robot_control_application_loop
   robot_control_platform_linux robot_control_project_warnings)
 target_link_options(robot-control-hil PRIVATE "-Wl,--wrap=send" "-Wl,--wrap=recv")
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
+  add_test(NAME control_diagnostics COMMAND python3
+    ${PROJECT_SOURCE_DIR}/scripts/test/test_control_diagnostics.py
+    $<TARGET_FILE:robot-control-hil> $<TARGET_FILE:robot-control-diagnostics>)
   add_executable(robot_control_hil_trace_tests
     ${PROJECT_SOURCE_DIR}/tests/unit/control_hil_trace_tests.cpp)
   target_include_directories(robot_control_hil_trace_tests PRIVATE ${PROJECT_SOURCE_DIR})
@@ -26,6 +32,11 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
       ${PROJECT_SOURCE_DIR}/tests/integration/control_hil_zero_vcan.py)
   set_tests_properties(control_hil_zero_vcan_managed PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 40
     ENVIRONMENT "CONTROL_HIL_PROGRAM=$<TARGET_FILE:robot-control-hil>")
+  add_test(NAME control_hil_stream_vcan_managed
+    COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+      ${PROJECT_SOURCE_DIR}/tests/integration/control_hil_zero_vcan.py)
+  set_tests_properties(control_hil_stream_vcan_managed PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 40
+    ENVIRONMENT "CONTROL_HIL_PROGRAM=$<TARGET_FILE:robot-control-hil>;CONTROL_DIAGNOSTICS_PROGRAM=$<TARGET_FILE:robot-control-diagnostics>;CONTROL_HIL_STREAM_TEST=1")
 
   add_test(NAME control_hil_motion_vcan_managed
     COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh

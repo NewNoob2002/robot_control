@@ -1,6 +1,21 @@
 # Phase 6 ZLAC8015D Drive Qualification Plan
 
-Status: **IN PROGRESS — P6.5 COMPLETE; P6.6 NMT STOP, SHUTDOWN, DISABLE VOLTAGE AND QUICK STOP SLICES HIL PASS**
+Status: **OPEN — bounded drive/P10.3 HIL and disabled lifecycle soak accepted;
+full-chain endurance and remaining applicable qualification boundaries stay open.**
+
+2026-09-18 amendment: the complete three-hour disabled CANopen lifecycle soak
+passes (175 cycles,348246 exact dual-capture frames), accepted by the operator
+under +/-2rpm measured near-zero feedback. The original strict-zero audit stays
+unchanged. Latest operator disposition is stationary/no abnormal sound/drive OFF.
+Source node d6bbaa9 and CI35312438999 pass; the new tolerance artifact has not
+been deployed. Continuous SBUS/ControlLoop soak, negative/dual-wheel/loaded
+operation and kernel delayed-TX closure are separate. Follow the
+[post-soak readiness plan](POST_SOAK_GROUND_READINESS.md) for diagnostics,
+full-chain soak and ground-motion gates. The operator now sets subsequent
+stage soaks to one hour, with a separate five-hour system stability test after
+all main features are complete; past three-hour evidence stays unchanged.
+Earlier dated statuses below are
+historical; September15 deferral no longer describes lifecycle-soak acceptance.
 
 2026-09-11 amendment: the user-authorized synchronous packed PDO repair has
 passed one SDO left-axis and separate RPDO left/right trials. Those trials
@@ -340,7 +355,7 @@ Acceptance:
 
 ### P6.7 — Regression, evidence, and closure
 
-Current status: the 2026-09-11 NMT Stop repair passes host qualification and
+Historical status (superseded for soak by the September18 amendment): the 2026-09-11 NMT Stop repair passes host qualification and
 ASan/UBSan (60/60 each), default Debug/Release (28/28 each), P5.6 (36/36),
 clean locked-sysroot cross/ELF, target isolated vcan, and one operator-accepted
 physical NMT Stop trial with verified SDO cleanup. Earlier failed trials remain
@@ -372,8 +387,8 @@ Acceptance:
 ## Slice order and authorization rule
 
 Implement P6.1 through P6.7 in order. The operator-approved September 15
-exception allows later SBUS/component development while P6.7 soak remains
-explicitly deferred. Retain short unit/vcan/integration regressions; run both
+exception allowed later SBUS/component development during the original soak
+deferral. The September18 lifecycle soak is now accepted; full-chain soak remains pending. Retain short unit/vcan/integration regressions; run both
 CANopen lifecycle and full-chain soak before final system acceptance. P6.1 through P6.3 do not authorize later
 physical writes. P6.4, every P6.5 trial, and every P6.6 stimulus require fresh
 dated authorization after review of the exact preflight. Stop on `ok=false`,

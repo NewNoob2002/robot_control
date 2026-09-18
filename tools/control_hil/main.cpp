@@ -89,6 +89,32 @@ void record_cycle(hil::Trace& trace, const application::control::LoopResult& res
          static_cast<std::int64_t>(request.action), source.sample.enabled, static_cast<std::int64_t>(source.health)});
 }
 
+/** Publish fixed-size diagnostic snapshots; pipe I/O is nonblocking and never formats strings. */
+void record_diagnostics(hil::Trace& trace, const application::control::LoopResult& result,
+                        const domain::drive::RuntimeState& state, Clock::time_point started,
+                        std::chrono::milliseconds duration) noexcept {
+    const auto now = Clock::now();
+    /** Preserve unknown/future timestamps rather than inventing a fresh age. */
+    const auto age = [now](Clock::time_point stamp) -> std::int64_t {
+        return stamp == Clock::time_point{} || stamp > now ? -1
+            : std::chrono::duration_cast<std::chrono::microseconds>(now - stamp).count();
+    };
+    trace.append(hil::Trace::Kind::timing, now,
+                 {static_cast<std::int64_t>(result.cycles), static_cast<std::int64_t>(result.missed_periods),
+                  std::chrono::duration_cast<std::chrono::microseconds>(result.maximum_lateness).count(),
+                  std::chrono::duration_cast<std::chrono::microseconds>(result.maximum_cycle_time).count(),
+                  started == Clock::time_point{} ? 0 : std::chrono::duration_cast<std::chrono::milliseconds>(now-started).count(),
+                  duration.count(), std::chrono::duration_cast<std::chrono::microseconds>(result.shutdown_elapsed).count(),
+                  result.finished, result.status.error.value(), result.stop_status.error.value()});
+    trace.append(hil::Trace::Kind::state, now,
+                 {static_cast<std::int64_t>(result.source.fault), static_cast<std::int64_t>(state.output.reason),
+                  state.feedback.status_raw, state.feedback.fault_raw, state.feedback.mode_raw,
+                  state.left_tenths_rpm, state.right_tenths_rpm, age(result.source.sample.captured_at),
+                  age(state.feedback.heartbeat_at), age(state.feedback.status_at), age(state.feedback.diagnostics_at),
+                  state.armed, state.healthy, static_cast<std::int64_t>(state.epoch),
+                  static_cast<std::int64_t>(state.authorization), result.finished});
+}
+
 /** Zero-only test observer; never changes a command, source sample or authorization. */
 struct RecoveryTrial {
     int zero_tolerance{0};
@@ -330,7 +356,8 @@ int observe_input(input::sbus::Reader& reader, platform::linux::process::Termina
 
 /** Run one bounded zero or selected-wheel session through the actual SBUS/control path. */
 int run(const std::string& interface, std::chrono::milliseconds duration, const std::string& device,
-        std::string_view mode, int zero_tolerance, std::chrono::milliseconds motion_window) {
+        std::string_view mode, int zero_tolerance, std::chrono::milliseconds motion_window, int stream_fd) {
+    const bool soak = mode == "--zero-soak";
     const bool input_only = mode == "--observe-input";
     const bool uart = mode == "--zero-uart-recovery";
     const bool recovery = mode == "--zero-x1-recovery" || mode == "--zero-sbus-recovery" || uart;
@@ -341,7 +368,7 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
                      : !motion                                     ? hil::Trace::Mode::zero
                      : (mode == "--single-right" || throttle_only) ? hil::Trace::Mode::right
                                                                    : hil::Trace::Mode::left,
-                     hil::Trace::maximum_records, zero_tolerance};
+                     hil::Trace::maximum_records, zero_tolerance, stream_fd};
     if (trace.failed()) {
         report("trace_allocate", Status::from_errno("trace_allocate", "startup", ENOMEM));
         return 1;
@@ -403,6 +430,7 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
     unsigned enabled_samples = 0;
     unsigned moving_feedback = 0;
     auto last_moving_feedback = Clock::time_point{};
+    auto run_started = Clock::time_point{};
     bool motion_ready = false;
     if (proof.ok()) {
         // The operator-calibrated fixed trial profile is injected at startup.
@@ -429,6 +457,7 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
             auto loop = std::move(attached).value();
             status = reader.open(device, serial); // Flush preparation backlog and require a fresh receiver session.
             const auto started = Clock::now();
+            run_started = started;
             auto next_log = started;
             std::string_view previous_input_state;
             std::cout << "event=control_start duration_ms=" << duration.count()
@@ -463,6 +492,11 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
                     stop_cause = 4;
                     if (status.ok())
                         status = Status::from_errno("control_hil_interrupted", interface, ECANCELED);
+                    break;
+                }
+                if (soak && enabled_samples == 0 && Clock::now() - started > 60s) {
+                    status = Status::from_errno("control_soak_enable_timeout", interface, ETIMEDOUT);
+                    stop_cause = 5;
                     break;
                 }
                 const auto selected_speed = right ? state.right_tenths_rpm : state.left_tenths_rpm;
@@ -542,7 +576,11 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
                     ++moving_feedback;
                 }
                 if (Clock::now() >= next_log) {
-                    next_log = Clock::now() + 100ms;
+                    next_log = Clock::now() + (soak ? 1s : 100ms);
+                    if (soak) {
+                        record_diagnostics(trace, result, state, started, duration);
+                        continue;
+                    }
                     std::cout << "event=control elapsed_ms="
                               << std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - started).count()
                               << " source_health=" << static_cast<unsigned>(result.source.health)
@@ -645,6 +683,11 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
         }
     }
     const auto cleanup = qualification.finish();
+    if (soak) {
+        result.status = status;
+        result.stop_status = cleanup;
+        record_diagnostics(trace, result, {}, run_started, duration);
+    }
     if (status.ok() && trace.failed())
         status = Status::from_errno("control_hil_trace_failure", "feedback or evidence incomplete", EPROTO);
     report("control", status);
@@ -670,12 +713,13 @@ int main(int argc, char* argv[]) {
     const std::string_view usage =
         "Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms "
         "MS "
-        "(--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--zero-sbus-"
+        "(--zero-soak|--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--zero-sbus-"
         "recovery|--zero-uart-recovery|--restore-"
         "zero-baseline)\n"
         "Optional for control/restore: --zero-feedback-tenths-rpm 0..20 (default20); standstill only; "
         "moving direction/target bounds unchanged.\n"
         "Optional for motion: --motion-window-ms 3000..8000 (default3000); cutoff50ms before limit.\n"
+        "Zero-soak: requires ROBOT_CONTROL_HIL_TRACE_FD nonblocking pipe; duration 2000..3600000ms.\n"
         "MS: 2000..20000 for zero-only; 2000..120000 for zero-uart-recovery; "
         "2000..60000 for other bounded trials.\n";
     if (argc == 2 && std::string_view{argv[1]} == "--help") {
@@ -684,7 +728,7 @@ int main(int argc, char* argv[]) {
     }
     if ((argc != 8 && argc != 10 && argc != 12) || std::string_view{argv[1]} != "--interface"
         || std::string_view{argv[3]} != "--device" || std::string_view{argv[5]} != "--duration-ms"
-        || (std::string_view{argv[7]} != "--zero-only" && std::string_view{argv[7]} != "--single-left"
+        || (std::string_view{argv[7]} != "--zero-soak" && std::string_view{argv[7]} != "--zero-only" && std::string_view{argv[7]} != "--single-left"
             && std::string_view{argv[7]} != "--single-right" && std::string_view{argv[7]} != "--right-throttle"
             && std::string_view{argv[7]} != "--observe-input" && std::string_view{argv[7]} != "--zero-x1-recovery"
             && std::string_view{argv[7]} != "--zero-sbus-recovery"
@@ -725,13 +769,24 @@ int main(int argc, char* argv[]) {
     const auto parsed = std::from_chars(duration.data(), duration.data() + duration.size(), milliseconds);
     const auto* fixture = std::getenv("ROBOT_CONTROL_TEST_VCAN_INTERFACE");
     if (parsed.ec != std::errc{} || parsed.ptr != duration.data() + duration.size() || milliseconds < 2000
-        || milliseconds > (std::string_view{argv[7]} == "--zero-only" ? 20000U
+        || milliseconds > (std::string_view{argv[7]} == "--zero-soak" ? 3600000U
+                            : std::string_view{argv[7]} == "--zero-only" ? 20000U
                             : std::string_view{argv[7]} == "--zero-uart-recovery" ? 120000U : 60000U) || !device.starts_with("/dev/")
         || (interface != (std::string_view{argv[7]} == "--observe-input" ? "none" : "can0")
             && !(interface == "vcan0" && fixture && std::string_view{fixture} == "vcan0"))) {
         std::cerr << usage;
         return 2;
     }
+    int stream_fd = -1;
+    if (const char* descriptor = std::getenv("ROBOT_CONTROL_HIL_TRACE_FD")) {
+        const std::string_view value{descriptor};
+        const auto parsed_fd = std::from_chars(value.data(), value.data() + value.size(), stream_fd);
+        if (parsed_fd.ec != std::errc{} || parsed_fd.ptr != value.data() + value.size() || stream_fd < 3
+            || std::string_view{argv[7]} != "--zero-soak")
+            return 2;
+    }
+    if (std::string_view{argv[7]} == "--zero-soak" && stream_fd < 3)
+        return 2;
     // Blocking diagnostic output must not hold an enabled drive indefinitely.
     const int flags = ::fcntl(STDOUT_FILENO, F_GETFL);
     const int err_flags = ::fcntl(STDERR_FILENO, F_GETFL);
@@ -739,7 +794,7 @@ int main(int argc, char* argv[]) {
         || ::fcntl(STDERR_FILENO, F_SETFL, err_flags | O_NONBLOCK) < 0 || ::signal(SIGPIPE, SIG_IGN) == SIG_ERR)
         return 1;
     const auto result =
-        run(interface, std::chrono::milliseconds{milliseconds}, device, argv[7], zero_tolerance, motion_window);
+        run(interface, std::chrono::milliseconds{milliseconds}, device, argv[7], zero_tolerance, motion_window, stream_fd);
     static_cast<void>(::fcntl(STDOUT_FILENO, F_SETFL, flags));
     static_cast<void>(::fcntl(STDERR_FILENO, F_SETFL, err_flags));
     return result;

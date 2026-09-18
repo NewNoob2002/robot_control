@@ -3,6 +3,10 @@
 #include "input/sbus/linux/reader.hpp"
 
 #include <array>
+#include <bit>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <chrono>
 #include <cstdint>
 #include <linux/can.h>
@@ -13,8 +17,8 @@
 namespace robot_control::hil {
 /**
  * Bounded qualification evidence on the sole owner thread. Storage is allocated
- * and zero-initialized before device activation. Append never allocates or does
- * I/O; overflow and hard feedback violations permanently invalidate the trial.
+ * before device activation, or replaced by a borrowed nonblocking FIFO. Append
+ * never allocates or waits; overflow/hard feedback failure invalidates the trial.
  * Selected-wheel stop-band excursions are retained for post-trial review.
  * CAN RX means successful owner MSG_PEEK, not proof of application acceptance.
  */
@@ -22,7 +26,9 @@ class Trace final {
   public:
     using Clock = std::chrono::steady_clock;
     enum class Mode : std::uint8_t { input_only, zero, left, right };
-    enum class Kind : std::uint8_t { batch, frame, rejected, cycle, can_rx, can_tx, stop };
+    enum class Kind : std::uint8_t { batch, frame, rejected, cycle, can_rx, can_tx, stop, timing, state, end, header };
+    using Packet = std::array<std::int64_t, 19>;
+    static_assert(std::endian::native == std::endian::little && sizeof(Packet) <= 512);
     static constexpr std::size_t maximum_records = 65536;
     /** One fixed-width record; field meanings are defined in the qualification trace schema. */
     struct Record {
@@ -30,22 +36,38 @@ class Trace final {
         std::int64_t ns{};
         std::array<std::int64_t, 16> fields{};
     };
-    /** Preallocate bounded storage; standstill tolerance is explicit, 0..20 tenths rpm, default exact zero. */
+    /** Preallocate storage or borrow a zero-only FIFO until dump; owner-only, tolerance0..20 tenths rpm. */
     // Existing capacity argument remains source-compatible; call sites name the validated tolerance.
     // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-    explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0) noexcept
+    explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0, int stream_fd = -1) noexcept
         : mode_{mode}, capacity_{capacity <= maximum_records ? capacity : 0},
-          records_{capacity_ ? new (std::nothrow) Record[capacity_]{} : nullptr}, overflow_{!records_},
+          records_{stream_fd < 0 && capacity_ ? new (std::nothrow) Record[capacity_]{} : nullptr},
+          stream_fd_{stream_fd}, overflow_{stream_fd < 0 && !records_},
           zero_tolerance_{zero_tolerance_tenths_rpm} {
         hard_feedback_bad_ = feedback_bad_ =
             zero_tolerance_ < 0 || zero_tolerance_ > 20 || (mode_ == Mode::input_only && zero_tolerance_ != 0);
+        if (stream_fd_ >= 0) {
+            struct stat info{};
+            const int flags = ::fcntl(stream_fd_, F_GETFL);
+            overflow_ = mode_ != Mode::zero || flags < 0 || !(flags & O_NONBLOCK)
+                        || (flags & O_ACCMODE) != O_WRONLY || ::fstat(stream_fd_, &info) != 0 || !S_ISFIFO(info.st_mode);
+            if (!failed())
+                append(Kind::header, Clock::now(), {1, zero_tolerance_});
+        }
     }
     /** Return a monotonic nanosecond timestamp; not transmitter time or wall time. */
     [[nodiscard]] static std::int64_t ns(Clock::time_point stamp) noexcept {
         return std::chrono::duration_cast<std::chrono::nanoseconds>(stamp.time_since_epoch()).count();
     }
-    /** Append without overwriting old evidence; missing capacity latches failure. */
+    /** Append to storage or atomically write one FIFO packet; no wait/overwrite, failure is latched. */
     void append(Kind kind, Clock::time_point stamp, std::array<std::int64_t, 16> fields) noexcept {
+        if (stream_fd_ >= 0) {
+            if (!overflow_ && write_packet(kind, ns(stamp), fields))
+                ++count_;
+            else
+                overflow_ = true;
+            return;
+        }
         if (count_ == capacity_ || !records_) {
             overflow_ = true;
             return;
@@ -131,6 +153,12 @@ class Trace final {
     }
     /** Export after bounded stop/cleanup; false means output evidence is incomplete. */
     [[nodiscard]] bool dump(std::ostream& output) const {
+        if (stream_fd_ >= 0) {
+            const bool sent = write_packet(Kind::end, ns(Clock::now()),
+                                           {overflow_, hard_feedback_bad_, zero_tolerance_});
+            output << "event=stream_end records=" << count_ << " complete=" << (sent && !failed()) << '\n';
+            return sent && !failed() && output.good();
+        }
         output << "event=trace_header version=1 count=" << count_ << " overflow=" << overflow_
                << " feedback_bad=" << feedback_bad_ << " capacity=" << capacity_
                << " feedback_hard_bad=" << hard_feedback_bad_ << " feedback_reviews=" << feedback_reviews_
@@ -162,9 +190,21 @@ class Trace final {
     }
 
   private:
+    /** Write one atomic pipe record; preserve the observed syscall errno and never retry or wait. */
+    [[nodiscard]] bool write_packet(Kind kind, std::int64_t stamp,
+                                    const std::array<std::int64_t, 16>& fields) const noexcept {
+        Packet packet{static_cast<std::int64_t>(count_), static_cast<std::int64_t>(kind), stamp};
+        for (std::size_t i = 0; i < fields.size(); ++i)
+            packet[i + 3] = fields[i];
+        const int saved = errno;
+        const auto result = ::write(stream_fd_, packet.data(), sizeof(packet));
+        errno = saved;
+        return result == static_cast<ssize_t>(sizeof(packet));
+    }
     Mode mode_;
     std::size_t capacity_;
     std::unique_ptr<Record[]> records_;
+    int stream_fd_{-1}; // Borrowed nonblocking FIFO; caller closes after final export.
     std::size_t count_{0};
     std::uint64_t batch_id_{0};
     bool overflow_{false};

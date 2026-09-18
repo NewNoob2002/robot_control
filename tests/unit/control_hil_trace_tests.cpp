@@ -130,6 +130,27 @@ int main() {
         trace.batch(batch);
         check(trace.failed());
     }
+    {
+        int descriptors[2]{};
+        check(::pipe2(descriptors, O_NONBLOCK | O_CLOEXEC) == 0);
+        Trace trace{Trace::Mode::zero, 1, 20, descriptors[1]};
+        Trace::Packet packet{};
+        check(::read(descriptors[0], packet.data(), sizeof(packet)) == sizeof(packet));
+        check(packet[0] == 0 && packet[1] == 10 && packet[3] == 1 && packet[4] == 20);
+        // Streaming has bounded pipe capacity, not the legacy in-memory count limit.
+        for (int i = 0; i < 100; ++i) {
+            trace.append(Trace::Kind::cycle, now, {i});
+            check(::read(descriptors[0], packet.data(), sizeof(packet)) == sizeof(packet));
+            check(packet[0] == i + 1 && packet[3] == i);
+        }
+        check(!trace.failed());
+        const auto begin = Trace::Clock::now();
+        for (int i = 0; i < 10000 && !trace.failed(); ++i)
+            trace.append(Trace::Kind::cycle, now, {});
+        check(trace.failed() && Trace::Clock::now() - begin < 100ms);
+        ::close(descriptors[0]);
+        ::close(descriptors[1]);
+    }
     std::cout << "trace_failures=" << failures << '\n';
     return failures ? 1 : 0;
 }

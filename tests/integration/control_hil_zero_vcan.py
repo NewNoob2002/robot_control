@@ -17,6 +17,8 @@ import time
 
 def trial(scenario):
     """Check zero enable, rejected targets, transient X1, signal exit and restoration."""
+    streaming = os.environ.get("CONTROL_HIL_STREAM_TEST") == "1"
+    collector_fault = scenario in ("collector_exit", "collector_stall")
     startup = scenario.startswith("motion_throttle_startup_")
     startup_timeout = scenario == "motion_throttle_startup_timeout"
     standstill_noise = scenario in ("motion_throttle_tolerance", "motion_throttle_tolerance_reject")
@@ -66,11 +68,26 @@ def trial(scenario):
     master, slave = pty.openpty()
     os.set_blocking(master, False)
     program = os.environ['CONTROL_HIL_PROGRAM']
+    collector = None
+    raw_stream = tempfile.TemporaryFile()
+    collector_log = tempfile.TemporaryFile()
+    read_fd, write_fd = os.pipe2(os.O_NONBLOCK | os.O_CLOEXEC) if streaming else (-1, -1)
+    if streaming:
+        os.set_blocking(read_fd, True)
+        collector = subprocess.Popen([os.environ['CONTROL_DIAGNOSTICS_PROGRAM']], stdin=read_fd,
+                                     stdout=raw_stream, stderr=collector_log)
+        os.close(read_fd)
+    stream_env = dict(os.environ)
+    if streaming:
+        stream_env['ROBOT_CONTROL_HIL_TRACE_FD'] = str(write_fd)
     process = subprocess.Popen([program, '--interface', 'vcan0', '--device', os.ttyname(slave),
                                 '--duration-ms', '60000' if scenario == 'recovery_uart_reconnect_timeout' else '15000' if uart else '2500' if startup_timeout else '16000' if extended else '11000' if recovery else ('60000' if scenario == 'motion_late_authorization' else '6000') if motion else '2500',
                                 '--restore-zero-baseline' if restoring else ('--zero-uart-recovery' if uart else '--zero-x1-recovery' if x1_recovery else '--zero-sbus-recovery') if recovery else
-                                ('--right-throttle' if throttle_only else '--single-right' if right else '--single-left') if motion else ('--observe-input' if input_case else '--zero-only')] + (['--zero-feedback-tenths-rpm', '10'] if tolerant or restoring else [] if standstill_noise or input_case else ['--zero-feedback-tenths-rpm', '0']) + (['--motion-window-ms', '8000'] if extended else []),
-                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                                ('--right-throttle' if throttle_only else '--single-right' if right else '--single-left') if motion else ('--zero-soak' if streaming else '--observe-input' if input_case else '--zero-only')] + (['--zero-feedback-tenths-rpm', '10'] if tolerant or restoring else [] if streaming or standstill_noise or input_case else ['--zero-feedback-tenths-rpm', '0']) + (['--motion-window-ms', '8000'] if extended else []),
+                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=stream_env,
+                               pass_fds=(write_fd,) if streaming else ())
+    if streaming:
+        os.close(write_fd)
     os.set_blocking(process.stdout.fileno(), False)
     if input_case:
         fcntl.fcntl(process.stdout.fileno(), fcntl.F_SETPIPE_SZ, 4096)
@@ -332,6 +349,9 @@ def trial(scenario):
                 process.send_signal(signal.SIGTERM)
                 injected = True
             if enabled_at and now-enabled_at > 0.2 and not injected:
+                if collector_fault and not injected:
+                    collector.send_signal(signal.SIGSTOP if scenario == 'collector_stall' else signal.SIGKILL)
+                    injected = True
                 if scenario == 'x1_pulse':
                     send(0x181, struct.pack('<II', values[0x6041, 0] | 0x8000, 0))
                     send(0x181, struct.pack('<II', values[0x6041, 0], 0))
@@ -341,6 +361,37 @@ def trial(scenario):
                     injected = True
         output.extend(process.stdout.read() or b'')
         text = output.decode(errors='replace')
+        if streaming and collector_fault:
+            if scenario == 'collector_stall':
+                collector.send_signal(signal.SIGCONT)
+            assert collector.wait(timeout=3) != 0
+            assert process.returncode == 1 and 'restore_ok=1' in text and 'trace_failure' in text, text
+            assert values == baseline and all(payload[2:] == bytes(4) for _, ident, payload in trace if ident == 0x201)
+            print(scenario + ': passed, bounded stop and restoration verified')
+            return
+        if streaming:
+            collector_rc = collector.wait(timeout=3)
+            raw_stream.seek(0)
+            data = raw_stream.read()
+            assert len(data) % 152 == 0
+            packets = list(struct.iter_unpack('<19q', data))
+            assert all(row[0] == i for i, row in enumerate(packets))
+            assert packets[0][1] == 10 and packets[-1][1] == 9
+            assert collector_rc == (1 if packets[-1][3] or packets[-1][4] else 0)
+            if scenario == 'happy':
+                import sys
+                sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'scripts/test'))
+                from analyze_control_soak import analyze as analyze_soak
+                with tempfile.NamedTemporaryFile() as saved:
+                    saved.write(data)
+                    saved.flush()
+                    assert analyze_soak(saved.name, 2.5)['status'] == 'PASS_SOFTWARE_EVIDENCE'
+            rows = [row for row in packets if row[1] <= 6]
+            # Reuse the existing independent oracle for bounded fixture rows only.
+            text += f'\nevent=trace_header version=1 count={len(rows)} capacity=65536 overflow=0 feedback_bad={packets[-1][4]} zero_feedback_tenths_rpm={packets[0][4]}\n'
+            for i,row in enumerate(rows):
+                text += f'event=trace_row ordinal={i} kind={row[1]} ns={row[2]} fields=' + ','.join(map(str,row[3:])) + '\n'
+            text += f'event=trace_end count={len(rows)}\n'
         full_text = text
         text = '\n'.join(line for line in text.splitlines() if not line.startswith('event=trace_row'))
         assert process.returncode == (0 if success else 1), (
@@ -433,6 +484,11 @@ def trial(scenario):
         if process.poll() is None:
             process.kill()
             process.wait()
+        if collector is not None and collector.poll() is None:
+            collector.kill()
+            collector.wait()
+        raw_stream.close()
+        collector_log.close()
         process.stdout.close()
         bus.close()
         os.close(master)
@@ -642,5 +698,7 @@ if __name__ == '__main__':
     if os.environ.get('CONTROL_HIL_STARTUP_TEST') == '1':
         cases = ('motion_throttle_startup_failsafe', 'motion_throttle_startup_silence',
                  'motion_throttle_startup_nonneutral', 'motion_throttle_startup_timeout')
+    if os.environ.get("CONTROL_HIL_STREAM_TEST") == "1":
+        cases += ("collector_exit", "collector_stall")
     for case in cases:
         trial(case)

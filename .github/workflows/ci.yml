@@ -285,7 +285,7 @@ jobs:
             -DROBOT_CONTROL_BUILD_CONTROL_HIL=ON \
             -DROBOT_CONTROL_WARNINGS_AS_ERRORS=ON "${flags[@]}"
           cmake --build out/build/control-hil-ci --parallel 2 --target \
-            robot-control-hil robot_control_hil_trace_tests robot_control_hil_zero_gate_tests robot_control_hil_motion_gate_tests robot_control_control_qualification_vcan_tests
+            robot-control-hil robot-control-diagnostics robot_control_hil_trace_tests robot_control_hil_zero_gate_tests robot_control_hil_motion_gate_tests robot_control_control_qualification_vcan_tests
 
       - name: Run runtime contracts and mandatory managed vcan
         env:
@@ -314,17 +314,18 @@ jobs:
           UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
         run: |
           ctest --test-dir out/build/control-hil-ci --output-on-failure --no-tests=error \
-            --tests-regex '^(control_hil_|control_qualification_)' \
+            --tests-regex '^(control_diagnostics|control_hil_|control_qualification_)' \
             --output-junit "$PWD/out/build/control-hil-ci/results.xml"
           python3 - <<'PYTEST'
           import xml.etree.ElementTree as ET
           cases = {c.attrib['name']: c for c in ET.parse('out/build/control-hil-ci/results.xml').iter('testcase')}
-          for name in ('control_hil_trace', 'control_hil_zero_gate', 'control_hil_motion_gate', 'control_hil_zero_vcan_managed', 'control_hil_motion_vcan_managed', 'control_hil_recovery_vcan_managed',
+          for name in ('control_diagnostics', 'control_hil_stream_vcan_managed', 'control_hil_trace', 'control_hil_zero_gate', 'control_hil_motion_gate', 'control_hil_zero_vcan_managed', 'control_hil_motion_vcan_managed', 'control_hil_recovery_vcan_managed',
                        'control_hil_window_vcan_managed', 'control_hil_startup_vcan_managed',
                        'control_hil_uart_vcan_managed', 'control_qualification_vcan_managed'):
               assert name in cases, f'Missing control HIL test: {name}'
           assert all(c.find('skipped') is None for c in cases.values()), 'HIL virtual test skipped'
           PYTEST
+          python3 scripts/test/test_control_soak_supervisor.py out/build/control-hil-ci/tools/control_hil/robot-control-diagnostics
 
   ci-result:
     name: CI result
