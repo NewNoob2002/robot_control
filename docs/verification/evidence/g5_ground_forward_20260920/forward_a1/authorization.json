@@ -1,0 +1,43 @@
+{
+  "stage": "G5 first ground forward A1",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Ground plan finalized, level isolated unloaded site; X1 accessible; transmitter/receiver online; neutral sticks and fresh local START",
+    "CONTROL_READY: CH6 once; MOTION_READY: forward throttle only, steering neutral; automatic cutoff2950ms",
+    "STOP: neutral; independently observe actual standstill; X1 if abnormal; mechanical anti-roll before drive OFF; record actual travel/stopping measurements"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Correct equal positive dual targets <=5rpm and first nonzero to zero <3s",
+    "Measured actual forward displacement and ground stopping distance/time within frozen site plan",
+    "No restart; full restoration; unchanged CAN counters; exact dual capture and normal physical observations",
+    "Ground total displacement <1m, stopping displacement <=0.5m; no barrier contact; measurement reviewed independently; no measurement means ground-distance acceptance incomplete"
+  ],
+  "failure": "Preserve failures; X1 first, power cutoff if ineffective, barrier last resort; stationary and anti-roll before final OFF; no retry",
+  "next": "Backward and turning only after separate evidence review and new trial",
+  "authorized": true,
+  "authorization": "User authorized first G5 ground forward trial; fresh START confirms barrier, empty area and marked1m intervention line; <=5rpm/<3s",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_forward_a1",
+  "right_sign": -1
+}

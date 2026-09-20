@@ -1,0 +1,36 @@
+{
+  "left": {
+    "final": [
+      4,
+      5
+    ],
+    "first_rejected": {
+      "ch1": 840,
+      "ch3": 1316,
+      "candidate": [
+        0,
+        3
+      ]
+    },
+    "invalid_sample_count": 323,
+    "path": "small steering first while output zero, then gradual forward throttle",
+    "physical_run": false
+  },
+  "right": {
+    "final": [
+      5,
+      4
+    ],
+    "first_rejected": {
+      "ch1": 1160,
+      "ch3": 1316,
+      "candidate": [
+        3,
+        0
+      ]
+    },
+    "invalid_sample_count": 323,
+    "path": "small steering first while output zero, then gradual forward throttle",
+    "physical_run": false
+  }
+}

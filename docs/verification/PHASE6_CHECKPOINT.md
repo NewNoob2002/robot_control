@@ -140,3 +140,14 @@ Per-file hashes preserve both direct and archived bytes. In particular:
 
 Production motion services, ROS2, loaded operation, persistent drive changes,
 automatic motion reauthorization and production deployment remain outside scope.
+
+
+## September 18 G2 acceptance and next work
+
+The user accepted [continuous real-SBUS zero-target hour A2](evidence/control_zero_soak_20260918/hour_a2/README.md),
+including its disclosed three-frame cross-direction capture-order exception.
+Original strict-order FAIL and unknown cause remain preserved. This closes G2
+zero-target endurance, not P6 overall, moving/loaded endurance or kernel repair.
+The earlier Next work section is historical: G1/G2 are now complete. Proceed with
+[G3 software preparation and G4 prerequisites](../plans/POST_SOAK_GROUND_READINESS.md),
+then separately authorized raised-wheel trials. No new hardware permit is created.

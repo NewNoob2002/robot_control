@@ -1,0 +1,70 @@
+{
+  "status": "FAILED_EXTERNAL_PUSH_REPORTED_CLEANUP_UNVERIFIED",
+  "operator_report": "不小心用手推动了一下车，授权进行一次重测",
+  "nonzero_rpdo_count": 0,
+  "enabled_samples": 0,
+  "feedback_bad": true,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -21,
+      5
+    ],
+    [
+      -5,
+      6
+    ]
+  ],
+  "restore_ok": false,
+  "last_sdo_writes": [
+    {
+      "ns": 14588577883133,
+      "index": "0x1801",
+      "sub": 5,
+      "payload": "2b01180564000000"
+    },
+    {
+      "ns": 14588581887293,
+      "index": "0x1801",
+      "sub": 1,
+      "payload": "2301180181020000"
+    },
+    {
+      "ns": 14588779886862,
+      "index": "0x60ff",
+      "sub": 1,
+      "payload": "23ff600100000000"
+    },
+    {
+      "ns": 14588783886064,
+      "index": "0x60ff",
+      "sub": 2,
+      "payload": "23ff600200000000"
+    },
+    {
+      "ns": 14588787884391,
+      "index": "0x6040",
+      "sub": 0,
+      "payload": "2b40600006000000"
+    },
+    {
+      "ns": 14591893984538,
+      "index": "0x60ff",
+      "sub": 1,
+      "payload": "23ff600100000000"
+    },
+    {
+      "ns": 14591897887785,
+      "index": "0x60ff",
+      "sub": 2,
+      "payload": "23ff600200000000"
+    },
+    {
+      "ns": 14591901890779,
+      "index": "0x6040",
+      "sub": 0,
+      "payload": "2b40600000000000"
+    }
+  ],
+  "next": "Existing retry authorization retained; first establish stationary/off disposition, inspect current baseline and explicitly bounded restoration before retry",
+  "operator_off_received": false
+}

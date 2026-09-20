@@ -1,0 +1,43 @@
+{
+  "stage": "G3 differential-right A1",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--differential-right",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Confirm raised/unloaded, drive powered, X1 accessible, transmitter/receiver online, neutral sticks, CH6 released",
+    "CONTROL_READY: CH6 once; MOTION_READY: forward throttle first, then right steering, no prescribed stick percentage",
+    "STOP or actual wheel stop: neutral; after cleanup X1 and drive OFF; report actual observations"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Correct positive right<=left<=5rpm targets, first nonzero to zero <3s",
+    "At least two fresh right-slower-than-left positive dual-wheel feedback samples after unequal targets",
+    "Safe bounded stop, no restart, full restoration, dual capture agreement, unchanged CAN counters and normal operator observations",
+    "User-approved functional acceptance permits later rejected candidate after sufficient valid differential evidence; original protective exit preserved"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "Independently reviewed remaining raised modes after this trial acceptance",
+  "authorized": true,
+  "authorization": "User requested next G3 test; fresh local START authorizes differential-right A1 once, positive right<=left<=5rpm/<3s, forward throttle then right steering without a prescribed stick percentage",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/differential_right_a1",
+  "right_sign": -1
+}

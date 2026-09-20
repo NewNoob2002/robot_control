@@ -16,15 +16,16 @@ using namespace std::chrono_literals;
 ControlLoop::ControlLoop(communication::canopen::Lifecycle& owner, input::sbus::Reader& reader,
                          input::sbus::Source& source, CycleConfig config,
                          std::unique_ptr<communication::canopen::RuntimeSession> runtime,
-                         time::Duration shutdown_timeout, bool right_throttle_only)
+                         time::Duration shutdown_timeout, bool right_throttle_only, CommandCheck command_check)
     : owner_{owner}, reader_{reader}, source_{source}, config_{config}, shutdown_timeout_{shutdown_timeout},
-      right_throttle_only_{right_throttle_only}, runtime_{std::move(runtime)}, cycle_{config},
-      next_cycle_{Clock::now()} {}
+      right_throttle_only_{right_throttle_only}, command_check_{command_check}, runtime_{std::move(runtime)},
+      cycle_{config}, next_cycle_{Clock::now()} {}
 
 ControlLoop::CreateResult ControlLoop::create(communication::canopen::Lifecycle& owner, input::sbus::Reader& reader,
                                               input::sbus::Source& source, CycleConfig config,
                                               const communication::canopen::RuntimeLayoutProof& proof,
-                                              time::Duration shutdown_timeout, bool right_throttle_only) {
+                                              time::Duration shutdown_timeout, bool right_throttle_only,
+                                              CommandCheck command_check) {
     if (!valid_cycle_config(config) || config.period > 1s || shutdown_timeout <= time::Duration::zero()
         || shutdown_timeout > 1s || source.snapshot().config_error != input::sbus::ConfigError::none)
         return CreateResult::failure(Status::from_errno("control_loop_config", "startup", EINVAL));
@@ -34,8 +35,9 @@ ControlLoop::CreateResult ControlLoop::create(communication::canopen::Lifecycle&
     auto runtime = communication::canopen::RuntimeSession::create(owner, config.runtime, proof);
     if (!runtime.ok())
         return CreateResult::failure(runtime.status());
-    auto loop = std::unique_ptr<ControlLoop>{new (std::nothrow) ControlLoop(
-        owner, reader, source, config, std::move(runtime).value(), shutdown_timeout, right_throttle_only)};
+    auto loop = std::unique_ptr<ControlLoop>{new (std::nothrow)
+                                                 ControlLoop(owner, reader, source, config, std::move(runtime).value(),
+                                                             shutdown_timeout, right_throttle_only, command_check)};
     if (!loop)
         return CreateResult::failure(Status::from_errno("control_loop_allocate", "startup", ENOMEM));
     // A previous loop's enabled sample cannot authorize its replacement.
@@ -102,6 +104,9 @@ LoopResult ControlLoop::step(CycleInput input, input::sbus::ReadBatch* captured_
         // Preserve Source and all authority metadata; project only this qualification command.
         input.sbus.command.left_rpm = 0;
     }
+    if (command_check_ && input.sbus.valid && input.sbus.enabled && !command_check_(input.sbus.command))
+        return finish(Status::from_errno("control_loop_command_envelope", "qualification input rejected", EACCES),
+                      LifecycleExit::quit, start);
     input.coherent = input.coherent && input.sbus.coherent;
     const auto now = Clock::now();
     result_.control = cycle_.prepare(input, runtime_->state(), now);

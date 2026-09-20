@@ -1,0 +1,9 @@
+{
+  "recorded_wall_time": 1789867500.3036609,
+  "source": "operator chat",
+  "statement": "刚才做完SBUS测试忘记接回数据线了，授权重新开始本轮测试",
+  "data_line_not_reconnected": true,
+  "new_attempt_authorized": true,
+  "scope": "New RF A2 only; fresh local START verifies reconnection/readiness",
+  "previous_disposition_correction": "UART A2 operator OFF included signal restored; subsequent statement corrects that reconnection claim only; previous raw motion/loss evidence preserved"
+}

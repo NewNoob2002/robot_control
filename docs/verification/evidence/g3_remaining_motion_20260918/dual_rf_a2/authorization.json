@@ -1,0 +1,44 @@
+{
+  "stage": "G3 dual-positive transmitter-off A2",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": true,
+  "executed": false,
+  "operator_sequence": [
+    "Fresh local START confirms raised/powered/neutral and TX/RX online, X1 released/accessible",
+    "CH6 once at CONTROL_READY; hand ready at transmitter power button; forward throttle only at MOTION_READY",
+    "TX_OFF_NOW: turn transmitter off immediately; receiver powered, wiring unchanged; stop then neutral",
+    "Keep transmitter OFF; after cleanup lock X1 and switch drive OFF; report actual direction/stop/no sound"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Dual forward <=5rpm/<3s; RF loss before2950ms cutoff",
+    "Raw frame_lost/failsafe flags with receiver continuously powered; no UART discontinuity",
+    "Zero output/no rearm; stable +/-2rpm within1s and >=150ms plus fresh frame",
+    "Exact dual capture/full baseline restoration; operator normal direction/stop/no sound/drive OFF"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "No further physical trial authorized by this runner",
+  "authorized": true,
+  "authorization": "User requested next G3 test; fresh local START authorizes dual-wheel transmitter-off A2 once, equal <=5rpm/<3s, throttle forward only with steering neutral",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/dual_rf_a2",
+  "right_sign": -1
+}

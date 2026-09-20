@@ -1,0 +1,43 @@
+{
+  "stage": "G3 dual-negative motion A1",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--turn-right",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Fresh local START: raised, powered, X1 accessible/released, neutral, CH6 released",
+    "CONTROL_READY: CH6 once; MOTION_READY: throttle neutral, steering right only",
+    "After automatic stop neutral, X1 lock, drive OFF; verify left \u524d\u8fdb right \u540e\u9000 and normal stop/no sound"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Logical targets opposite with correct turn-right signs; raw binding right=-1;abs<=5rpm,nonzero<3s",
+    "Independent direction/feedback and no restart; absolute7.5rpm/stable2rpm;150ms hold plus fresh frame within1s",
+    "Dual-capture exact order/payload,36 writes/full baseline restoration,CAN counters unchanged",
+    "Operator confirms physical directions and normal stop/no sound/OFF"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "Independently reviewed remaining raised modes after this trial acceptance",
+  "authorized": true,
+  "authorization": "User requested next G3 test; fresh local START authorizes turn-right A1 once, equal <=5rpm/<3s, steering right only with throttle neutral",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/turn_right_a1",
+  "right_sign": -1
+}

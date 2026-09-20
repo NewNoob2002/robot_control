@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-clang++"
+	tests="2"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="cathyLaptop"
+	time="147"
+	timestamp="2026-09-18T17:48:23"
+	>
+	<testcase name="control_hil_motion_vcan_managed" classname="control_hil_motion_vcan_managed" time="90.0848" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+motion_throttle_tolerance: passed, zero_rpdo=196, restored=verified
+motion_throttle_tolerance_reject: passed, zero_rpdo=198, restored=verified
+motion_throttle: passed, zero_rpdo=196, restored=verified
+motion_throttle_x1: passed, zero_rpdo=150, restored=verified
+motion_throttle_steering: passed, zero_rpdo=116, restored=verified
+motion_throttle_reverse: passed, zero_rpdo=116, restored=verified
+motion_throttle_failsafe: passed, zero_rpdo=147, restored=verified
+motion_throttle_silence: passed, zero_rpdo=157, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 803,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 124,
+    "0x0": 3,
+    "0x181": 117,
+    "0x281": 117,
+    "0x201": 198
+  },
+  "tpdo2_frames": 117,
+  "tpdo2_span_ms": 2384.1299999985495,
+  "tpdo2_interval_ms": [
+    18.962000001920387,
+    22.951999999349937
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "left"...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="control_hil_g3_vcan_managed" classname="control_hil_g3_vcan_managed" time="57.762" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+motion_g3_single-left-negative: passed, zero_rpdo=196, restored=verified
+motion_g3_single-right-negative: passed, zero_rpdo=198, restored=verified
+motion_g3_dual-positive: passed, zero_rpdo=198, restored=verified
+motion_g3_dual-negative: passed, zero_rpdo=196, restored=verified
+motion_g3_turn-left: passed, zero_rpdo=196, restored=verified
+motion_g3_turn-right: passed, zero_rpdo=196, restored=verified
+motion_g3_differential-left: passed, zero_rpdo=198, restored=verified
+motion_g3_differential-right: passed, zero_rpdo=198, restored=verified
+motion_g3_dual-positive__deadline: passed, zero_rpdo=412, restored=verified
+motion_g3_dual-positive__x1: passed, zero_rpdo=149, restored=verified
+motion_g3_dual-positive__failsafe: passed, zero_rpdo=146, restored=verified
+motion_g3_dual-positive__silence: passed, zero_rpdo=155, restored=verified
+motion_g3_dual-positive__sigterm: passed, zero_rpdo=145, restored=verified
+motion_g3_dual-positive__right_fault: passed, zero_rpdo=150, restored=v...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+</testsuite>

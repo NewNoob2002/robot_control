@@ -1,0 +1,12 @@
+{
+  "status": "FAILED_INCOMPLETE",
+  "reason": "Drive not powered, confirmed by operator; first 0x6041 SDO upload timed out",
+  "matching_frames": 1,
+  "sdo_reads": 1,
+  "sdo_writes": 0,
+  "nmt": 0,
+  "rpdo": 0,
+  "cycles": 0,
+  "enabled_samples": 0,
+  "automatic_retry": false
+}

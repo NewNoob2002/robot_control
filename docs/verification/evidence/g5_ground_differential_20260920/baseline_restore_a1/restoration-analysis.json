@@ -1,0 +1,16 @@
+{
+  "status": "PASS_DISABLED_ONLY_BASELINE_RESTORATION",
+  "matching_target_frames": 345,
+  "jcan_frames": 410,
+  "capture_offset": 65,
+  "exact_writes": 18,
+  "no_enable_or_rpdo": true,
+  "baseline_restored": true,
+  "trace_records": 332,
+  "standstill_holds_ms": [
+    161.00597381591797,
+    161.00502014160156,
+    162.05906867980957
+  ],
+  "operator": "Separate physical disposition required; no X1 recovery acceptance implied"
+}

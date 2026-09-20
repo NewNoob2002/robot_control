@@ -1,0 +1,12 @@
+{
+  "status": "PASS_USER_APPROVED_START_STOP_TRANSIENT",
+  "classification": "NORMAL_START_STOP_FEEDBACK_TRANSIENT",
+  "original_verdict_preserved": "FAILED_FEEDBACK_CRITERION",
+  "archived_checksums_verified": 42,
+  "matching_frames": 1466,
+  "motion_ms": 2950.092712,
+  "stop_verified_ms": 378.48142,
+  "peak_rpm": 2.9,
+  "hardware_run": false,
+  "runtime_binary_changed": false
+}

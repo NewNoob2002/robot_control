@@ -1,0 +1,74 @@
+{
+  "status": "FAILED_PHYSICAL_DIRECTION",
+  "protocol_software_status": "PASS",
+  "profile": "dual-positive",
+  "summary": {
+    "event": "summary",
+    "cycles": "583",
+    "enabled_samples": "440",
+    "missed_periods": "3",
+    "maximum_lateness_us": "36840",
+    "maximum_cycle_us": "112",
+    "shutdown_us": "8",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  },
+  "feedback": {
+    "profile": "dual-positive",
+    "first_nonzero_ns": 380564940642968,
+    "first_zero_ns": 380567890666515,
+    "axis_motion_samples": [
+      57,
+      57
+    ],
+    "stable_since_ns": 380567942650418,
+    "stable_verified_ns": 380568192366176
+  },
+  "capture": {
+    "matching_frames": 1200,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "wire_motion": {
+      "profile": "dual-positive",
+      "first_nonzero_ns": 1789728387991239168,
+      "first_zero_ns": 1789728390941401856,
+      "axis_motion_samples": [
+        57,
+        57
+      ],
+      "stable_since_ns": 1789728390992953088,
+      "stable_verified_ns": 1789728391242686976
+    },
+    "scope": "Normal bounded G3 trial only; separate physical direction/operator acceptance required"
+  },
+  "motion_ms": 2950.023547,
+  "stop_verified_ms": 301.699661,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -8,
+      53
+    ],
+    [
+      -12,
+      55
+    ]
+  ],
+  "sbus_frames": 875,
+  "trace_records": 3397,
+  "can_counters_unchanged": true,
+  "operator": {
+    "recorded_at": "2026-09-18T10:50:06.683989+00:00",
+    "source": "Explicit user statements in this session after local terminal report",
+    "direction_statement": "左轮是正常的向前，这里右轮方向是反的，正常车体向前运动时从车后看应该轮胎是往前转动的，但是右轮是往后转的",
+    "off_statement": "已断电，双轮静止，无异响",
+    "left_vehicle_forward": true,
+    "right_vehicle_forward": false,
+    "right_vehicle_backward": true,
+    "drive_power_off": true,
+    "wheels_stationary": true,
+    "no_abnormal_sound": true,
+    "physical_direction_verdict": "FAILED",
+    "interpretation": "Vehicle-forward reference; not a transient-feedback exception"
+  },
+  "scope": "Logical signed targets/feedback and cleanup pass; operator confirms right physical direction wrong; no motion acceptance or retry"
+}

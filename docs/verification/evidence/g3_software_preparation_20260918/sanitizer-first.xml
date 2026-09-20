@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-clang++"
+	tests="49"
+	failures="2"
+	disabled="0"
+	skipped="0"
+	hostname="cathyLaptop"
+	time="316"
+	timestamp="2026-09-18T17:36:48"
+	>
+	<testcase name="sbus_source_contract" classname="sbus_source_contract" time="0.0888779" status="run">
+		<properties/>
+		<system-out>P9.3 source contract: PASS
+</system-out>
+	</testcase>
+	<testcase name="control_cycle_contract" classname="control_cycle_contract" time="0.0212975" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_runtime_policy" classname="canopen_runtime_policy" time="0.00984884" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="platform_probe_help" classname="platform_probe_help" time="0.0102516" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-platform-probe [--help|--phase3-smoke]
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_run" classname="platform_probe_run" time="0.00711158" status="run">
+		<properties/>
+		<system-out>probe_version=1
+sysname=Linux
+release=7.2.6-1-cachyos
+machine=x86_64
+pid=1506827
+monotonic_ns=30369293795864
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_phase3_smoke" classname="platform_probe_phase3_smoke" time="0.00740436" status="run">
+		<properties/>
+		<system-out>I/elog     EasyLogger V2.2.0 is initialize success.
+I/platform_probe timestamp_unix_s=1789724209 severity=INFO event="phase3_smoke" result=pass
+</system-out>
+	</testcase>
+	<testcase name="can_probe_help" classname="can_probe_help" time="0.0100194" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_missing_interface" classname="can_probe_missing_interface" time="0.0226481" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing required argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_unknown_argument" classname="can_probe_unknown_argument" time="0.0989001" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="unknown argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_zero" classname="can_probe_duration_zero" time="0.123087" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms out of range value=0" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_nonnumeric" classname="can_probe_duration_nonnumeric" time="0.117031" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=abc" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_overflow" classname="can_probe_duration_overflow" time="0.105963" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms overflow value=9999999999999999999999999999999999999999" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_interface" classname="can_probe_duplicate_interface" time="0.0991097" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_duration" classname="can_probe_duplicate_duration" time="0.0995279" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_interface_missing_value" classname="can_probe_interface_missing_value" time="0.0253069" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_missing_value" classname="can_probe_duration_missing_value" time="0.0150355" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_negative" classname="can_probe_duration_negative" time="0.0145823" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=-1" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_help" classname="canopen_observer_help" time="0.0102873" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid_" classname="canopen_observer_invalid_" time="0.0159176" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___unknown" classname="canopen_observer_invalid___unknown" time="0.015466" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing value argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0" classname="canopen_observer_invalid___interface_unused0" time="0.0157121" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0___interface_unused1" classname="canopen_observer_invalid___interface_unused0___interface_unused1" time="0.0146499" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_0" classname="canopen_observer_invalid___duration_ms_0" time="0.0162666" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="invalid value argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_1___duration_ms_2" classname="canopen_observer_invalid___duration_ms_1___duration_ms_2" time="0.0151846" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="control_diagnostics" classname="control_diagnostics" time="0.10131" status="run">
+		<properties/>
+		<system-out>PASS: streaming diagnostics, EasyLogger, framing and failing sinks
+</system-out>
+	</testcase>
+	<testcase name="control_hil_trace" classname="control_hil_trace" time="0.019785" status="run">
+		<properties/>
+		<system-out>trace_failures=0
+</system-out>
+	</testcase>
+	<testcase name="control_hil_motion_gate" classname="control_hil_motion_gate" time="0.00803257" status="run">
+		<properties/>
+		<system-out>motion_gate_failures=0
+</system-out>
+	</testcase>
+	<testcase name="control_hil_zero_gate" classname="control_hil_zero_gate" time="0.00841512" status="run">
+		<properties/>
+		<system-out>zero_gate_failures=0
+</system-out>
+	</testcase>
+	<testcase name="control_hil_help" classname="control_hil_help" time="0.00868475" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms MS (--zero-soak|--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--zero-sbus-recovery|--zero-uart-recovery|--restore-zero-baseline|--single-left-negative|--single-right-negative|--dual-positive|--dual-negative|--turn-left|--turn-right|--differential-left|--differential-right)
+Optional for control/restore: --zero-feedback-tenths-rpm 0..20 (default20); standstill only; moving direction/target bounds unchanged.
+Motion: --motion-window-ms 3000..8000 for legacy positive single-wheel modes; G3 modes require3000.
+Default3000; cutoff50ms before limit. G3 differential-left/right means positive left&lt;right/left&gt;right.
+Zero-soak: requires ROBOT_CONTROL_HIL_TRACE_FD nonblocking pipe; duration 2000..3600000ms.
+MS: 2000..20000 for zero-only; 2000..120000 for zero-uart-recovery; 2000..60000 for other bounded trials.
+</system-out>
+	</testcase>
+	<testcase name="control_hil_zero_vcan_managed" classname="control_hil_zero_vcan_managed" time="8.41101" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 884,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 133,
+    "0x0": 3,
+    "0x181": 126,
+    "0x281": 126,
+    "0x201": 252
+  },
+  "tpdo2_frames": 126,
+  "tpdo2_span_ms": 2567.689999999857,
+  "tpdo2_interval_ms": [
+    19.420000000536675,
+    22.13599999959115
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 252,
+  "enabled_feedback": 87,
+  "enabled_samples": 178,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "Zero-target ControlLoop only; motion and fault trials remain open"
+}
+happy: passed, zero_rpdo=252, restored=verified
+nonzero: passed, zero_rpdo=94, restored=verified
+x1_pulse: passed, zero_rpdo=97, restored=verified
+sigterm: passed, zero_rpdo=95, restored=verified
+missing_diagnostics: passed, zero_rpdo=0, restored=verified
+</system-out>
+	</testcase>
+	<testcase name="control_hil_stream_vcan_managed" classname="control_hil_stream_vcan_managed" time="14.9577" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 977,
+  "counts": {
+    "0x601": 158,
+    "0x581": 158,
+    "0x701": 140,
+    "0x0": 3,
+    "0x181": 133,
+    "0x281": 133,
+    "0x201": 252
+  },
+  "tpdo2_frames": 133,
+  "tpdo2_span_ms": 2712.536999999429,
+  "tpdo2_interval_ms": [
+    19.175999997969484,
+    22.584000002098037
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 252,
+  "enabled_feedback": 87,
+  "enabled_samples": 178,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "Zero-target ControlLoop only; motion and fault trials remain open"
+}
+happy: passed, zero_rpdo=252, restored=verified
+nonzero: passed, zero_rpdo=92, restored=verified
+x1_pulse: passed, zero_rpdo=95, restored=verified
+sigterm: passed, zero_rpdo=95, restored=verified
+missing_diagnostics: passed, zero_rpdo=0, restored=verified
+...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="control_hil_motion_vcan_managed" classname="control_hil_motion_vcan_managed" time="53.97" status="fail">
+		<failure message="Failed"/>
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+motion_throttle_tolerance: passed, zero_rpdo=199, restored=verified
+motion_throttle_tolerance_reject: passed, zero_rpdo=198, restored=verified
+motion_throttle: passed, zero_rpdo=198, restored=verified
+motion_throttle_x1: passed, zero_rpdo=150, restored=verified
+motion_throttle_steering: passed, zero_rpdo=116, restored=verified
+motion_throttle_reverse: passed, zero_rpdo=116, restored=verified
+motion_throttle_failsafe: passed, zero_rpdo=148, restored=verified
+motion_throttle_silence: passed, zero_rpdo=158, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 798,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 123,
+    "0x0": 3,
+    "0x181": 116,
+    "0x281": 116,
+    "0x201": 196
+  },
+  "tpdo2_frames": 116,
+  "tpdo2_span_ms": 2364.691999999195,
+  "tpdo2_interval_ms": [
+    19.689000000653323,
+    21.755000001576263
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "left",
+  "nonzero_window_ms": 810.0970000014058,
+  "stop_to_zero_ms": 161.26200000144308,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 196,
+  "enabled_feedback": 60,
+  "enabled_samples": 122,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}
+motion_left: passed, zero_rpdo=196, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 799,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 123,
+    "0x0": 3,
+    "0x181": 116,
+    "0x281": 116,
+    "0x201": 197
+  },
+  "tpdo2_frames": 116,
+  "tpdo2_span_ms": 2361.061999999947,
+  "tpdo2_interval_ms": [
+    18.22099999844795,
+    22.637000001850538
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "right",
+  "nonzero_window_ms": 809.1809999968973,
+  "stop_to_zero_ms": 153.04400000241003,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 197,
+  "enabled_feedback": 60,
+  "enabled_samples": 122,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}
+motion_right: passed, zero_rpdo=197, restored=verified
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 1328,
+  "counts": {
+    "0x601": 122,
+    "0x581": 122,
+    "0x701": 228,
+    "0x0": 3,
+    "0x181": 221,
+    "0x281": 221,
+    "0x201": 411
+  },
+  "tpdo2_frames": 221,
+  "tpdo2_span_ms": 4515.201999998681,
+  "tpdo2_interval_ms": [
+    18.5620000011113,
+    22.43799999996554
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "selected_wheel": "left",
+  "nonzero_window_ms": 2958.9540000015404,
+  "stop_to_zero_ms": 164.20400000060908,
+  "opposite_targets_and_feedback_zero": true,
+  "rpdo_frames": 411,
+  "enabled_feedback": 165,
+  "enabled_samples": 337,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "One selected positive wheel only; physical sign confirmation and fault trials remain separate"
+}
+motion_deadline: passed, zero_rpdo=411, restored=verified
+motion_both: passed, zero_rpdo=116, restored=verified
+motion_reverse: passed, zero_rpdo=118, restored=verified
+motion_no_feedback: passed, zero_rpdo=198, restored=verified
+motion_wrong_feedback: passed, zero_rpdo=77, restored=verified
+motion_stop_timeout: passed, zero_rpdo=165, restored=verified
+motion_sigterm: passed, zero_rpdo=127, restored=verified
+motion_throttle_sigterm: passed, zero_rpdo=143, restored=verified
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 790, in &lt;module&gt;
+    trial(case)
+    ~~~~~^^^^^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 432, in trial
+    assert process.returncode == (0 if success else 1), (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: CAN Interface "vcan0" RX buffer set to 477 messages (212992 Bytes)
+hil_read index=24641 sub=0 raw=4194368
+hil_read index=24672 sub=0 raw=3
+hil_read index=24673 sub=0 raw=3
+hil_read index=24639 sub=0 raw=0
+hil_read index=24831 sub=1 raw=0
+hil_read index=24831 sub=2 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=8207 sub=0 raw=1
+hil_read index=8192 sub=0 raw=0
+hil_read index=4119 sub=0 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5120 sub=5 raw=1000
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1616904200
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6144 sub=5 raw=100
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6145 sub=5 raw=0
+hil_read index=6657 sub=0 raw=0
+hil_read index=6657 sub=1 raw=0
+hil_read index=6657 sub=2 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1627325216
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6657 sub=0 raw=2
+hil_read index=6657 sub=1 raw=1616969736
+hil_read index=6657 sub=2 raw=1614741536
+hil_read index=8207 sub=0 raw=1
+event=control_start duration_ms=60000 targets=single-left zero_feedback_tenths_rpm=0 motion_window_ms=3000 input_profile=differential operator=neutral_release_then_press
+event=control elapsed_ms=5 source_health=1 authorization=0 armed=0 status=2162721 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=110 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=210 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=312 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=413 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=526 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=627 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=728 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=861 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=962 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1069 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1171 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1279 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1388 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1489 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1599 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1708 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1808 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=1911 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2019 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2129 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2238 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2343 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2449 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2550 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2660 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2770 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2885 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=2988 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3098 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3200 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3314 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3422 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3524 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3626 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3736 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3844 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=3947 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4049 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4158 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4269 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4369 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4478 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4586 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4686 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4787 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4892 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=4999 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5103 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5209 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5311 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5420 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5528 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5629 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5736 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5839 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=5978 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=6107 source_health=4 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=stop_cause code=5 signal_exit=4 at_ns=30446813281557
+phase=runtime_stop ok=1 operation= context= errno=0
+hil_read index=24641 sub=0 raw=4194368
+phase=control ok=0 operation=control_hil_motion_envelope context=vcan0 healthy=0 armed=0 reason=3 status=458759 source_fault=0 source_age_ms=25 errno=13
+phase=restore ok=1 operation= context= errno=0
+event=summary cycles=553 enabled_samples=0 missed_periods=48 maximum_lateness_us=26573 maximum_cycle_us=46194 shutdown_us=261 primary_ok=0 restore_ok=1
+event=trace_header version=1 count=3529 overflow=0 feedback_bad=0 capacity=65536 motion_mode=2 feedback_hard_bad=0 feedback_reviews=0 zero_feedback_tenths_rpm=0 timestamp=steady_receive_ns storage_bytes=9437184
+event=trace_end count=3529
+event=feedback_review_summary count=0 verdict=none
+LAST CAN FRAMES:
+30446.903945 601 4000140100000000
+30446.903962 581 4300140101020080
+30446.905990 601 2f00160000000000
+30446.906023 581 6000160000000000
+30446.907973 601 4000160000000000
+30446.907988 581 4f00160000000000
+30446.910629 601 2300160110004060
+30446.910676 581 6000160100000000
+30446.911950 601 4000160100000000
+30446.911964 581 4300160110004060
+30446.913985 601 2300160208006060
+30446.914008 581 6000160200000000
+30446.915955 601 4000160200000000
+30446.915968 581 4300160208006060
+30446.917496 601 2f00160002000000
+30446.917514 581 6000160000000000
+30446.918963 601 4000160000000000
+30446.919102 581 4f00160002000000
+30446.919126 701 7f
+30446.920963 601 2300140101020000
+30446.920982 581 6000140100000000
+30446.923040 601 4000140100000000
+30446.923071 581 4300140101020000
+30446.924959 601 2301180181020080
+30446.924979 581 6001180100000000
+30446.925950 601 4001180100000000
+30446.925964 581 4301180181020080
+30446.927995 601 2f011a0000000000
+30446.928023 581 60011a0000000000
+30446.929955 601 40011a0000000000
+30446.929973 581 4f011a0000000000
+30446.931976 601 23011a0100000000
+30446.931999 581 60011a0100000000
+30446.933984 601 40011a0100000000
+30446.934013 581 43011a0100000000
+30446.935076 601 23011a0200000000
+30446.935096 581 60011a0200000000
+30446.936968 601 40011a0200000000
+30446.936985 581 43011a0200000000
+30446.939043 601 2f011a0000000000
+30446.939067 581 60011a0000000000
+30446.940192 701 7f
+30446.940409 601 40011a0000000000
+30446.940423 581 4f011a0000000000
+30446.942098 601 2b01180500000000
+30446.942116 581 6001180500000000
+30446.943966 601 4001180500000000
+30446.943979 581 4b01180500000000
+30446.945977 601 2301180181020000
+30446.945997 581 6001180100000000
+30446.948175 601 4001180100000000
+30446.948193 581 4301180181020000
+30446.950088 601 2b00200000000000
+30446.950114 581 6000200000000000
+30446.951477 601 4000200000000000
+30446.951490 581 4b00200000000000
+30446.952981 601 2b17100000000000
+30446.952997 581 6017100000000000
+30446.954932 601 4017100000000000
+30446.954946 581 4b17100000000000
+</system-out>
+	</testcase>
+	<testcase name="control_hil_g3_vcan_managed" classname="control_hil_g3_vcan_managed" time="4.28133" status="fail">
+		<failure message="Failed"/>
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 790, in &lt;module&gt;
+    trial(case)
+    ~~~~~^^^^^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/integration/control_hil_zero_vcan.py", line 432, in trial
+    assert process.returncode == (0 if success else 1), (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: CAN Interface "vcan0" RX buffer set to 477 messages (212992 Bytes)
+hil_read index=24641 sub=0 raw=4194368
+hil_read index=24672 sub=0 raw=3
+hil_read index=24673 sub=0 raw=3
+hil_read index=24639 sub=0 raw=0
+hil_read index=24831 sub=1 raw=0
+hil_read index=24831 sub=2 raw=0
+hil_read index=8207 sub=0 raw=1
+hil_read index=8192 sub=0 raw=0
+hil_read index=4119 sub=0 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5120 sub=5 raw=1000
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1616904200
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6144 sub=5 raw=100
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6145 sub=5 raw=0
+hil_read index=6657 sub=0 raw=0
+hil_read index=6657 sub=1 raw=0
+hil_read index=6657 sub=2 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+event=standstill_verified tolerance_tenths_rpm=20 elapsed_us=160031
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1627325216
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6657 sub=0 raw=2
+hil_read index=6657 sub=1 raw=1616969736
+hil_read index=6657 sub=2 raw=1614741536
+hil_read index=8207 sub=0 raw=1
+event=control_start duration_ms=6000 targets=single-left-negative zero_feedback_tenths_rpm=20 motion_window_ms=3000 input_profile=differential operator=neutral_release_then_press
+event=input_status state=waiting_link source_fault=0 flags=0
+event=control elapsed_ms=0 source_health=1 authorization=0 armed=0 status=2162721 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=input_status state=ready source_fault=0 flags=0
+event=control elapsed_ms=100 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=210 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=310 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=410 source_health=2 authorization=0 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=input_status state=arming source_fault=0 flags=0
+event=control elapsed_ms=510 source_health=3 authorization=1 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=610 source_health=3 authorization=1 armed=0 status=458759 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=713 source_health=3 authorization=1 armed=1 status=2162721 word=7 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=control elapsed_ms=820 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=5
+event=control elapsed_ms=928 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=15
+event=motion_ready profile=single-left-negative max_rpm=5 maximum_nonzero_ms=3000
+event=control elapsed_ms=1031 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=25
+event=control elapsed_ms=1134 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=35
+event=control elapsed_ms=1241 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=-50 right_tenths_rpm=0 enabled_samples=46
+event=control elapsed_ms=1350 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=-50 right_tenths_rpm=0 enabled_samples=57
+event=control elapsed_ms=1466 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=-50 right_tenths_rpm=0 enabled_samples=68
+event=control elapsed_ms=1573 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=-50 right_tenths_rpm=0 enabled_samples=78
+event=control elapsed_ms=1675 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=-50 right_tenths_rpm=0 enabled_samples=88
+event=control elapsed_ms=1787 source_health=3 authorization=1 armed=1 status=2555943 word=15 left_tenths_rpm=-50 right_tenths_rpm=0 enabled_samples=99
+event=control elapsed_ms=1937 source_health=3 authorization=1 armed=0 status=2555943 word=6 left_tenths_rpm=-50 right_tenths_rpm=0 enabled_samples=108
+event=stop_cause code=5 signal_exit=4 at_ns=30450906333574
+phase=runtime_stop ok=1 operation= context= errno=0
+event=motion_stop verified=1 elapsed_us=350257 left_moving_feedback=32 right_moving_feedback=0 moving_feedback=32
+hil_read index=24641 sub=0 raw=4194368
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+event=standstill_verified tolerance_tenths_rpm=20 elapsed_us=163587
+phase=control ok=0 operation=control_hil_motion_envelope context=vcan0 healthy=1 armed=0 reason=6 status=2555943 source_fault=0 source_age_ms=12 errno=13
+phase=restore ok=1 operation= context= errno=0
+event=summary cycles=184 enabled_samples=108 missed_periods=9 maximum_lateness_us=41293 maximum_cycle_us=11586 shutdown_us=202 primary_ok=0 restore_ok=1
+event=trace_header version=1 count=1679 overflow=0 feedback_bad=0 capacity=65536 motion_mode=4 feedback_hard_bad=0 feedback_reviews=0 zero_feedback_tenths_rpm=20 timestamp=steady_receive_ns storage_bytes=9437184
+event=trace_end count=1679
+event=feedback_review_summary count=0 verdict=none
+LAST CAN FRAMES:
+30451.451038 581 4f00160000000000
+30451.454768 601 2300160110004060
+30451.454911 581 6000160100000000
+30451.459546 601 4000160100000000
+30451.459596 581 4300160110004060
+30451.466465 701 7f
+30451.471864 601 2300160208006060
+30451.472056 581 6000160200000000
+30451.478105 601 4000160200000000
+30451.478193 581 4300160208006060
+30451.484714 701 7f
+30451.488101 601 2f00160002000000
+30451.488194 581 6000160000000000
+30451.513462 701 7f
+30451.525288 601 4000160000000000
+30451.525334 581 4f00160002000000
+30451.528465 601 2300140101020000
+30451.528586 581 6000140100000000
+30451.531791 601 4000140100000000
+30451.531840 581 4300140101020000
+30451.534730 701 7f
+30451.544521 601 2301180181020080
+30451.544595 581 6001180100000000
+30451.556256 601 4001180100000000
+30451.556372 581 4301180181020080
+30451.556436 701 7f
+30451.557877 601 2f011a0000000000
+30451.557947 581 60011a0000000000
+30451.560861 601 40011a0000000000
+30451.560909 581 4f011a0000000000
+30451.563449 601 23011a0100000000
+30451.563511 581 60011a0100000000
+30451.569518 601 40011a0100000000
+30451.570639 581 43011a0100000000
+30451.573420 601 23011a0200000000
+30451.573484 581 60011a0200000000
+30451.576758 701 7f
+30451.577439 601 40011a0200000000
+30451.577481 581 43011a0200000000
+30451.579935 601 2f011a0000000000
+30451.580061 581 60011a0000000000
+30451.584211 601 40011a0000000000
+30451.584259 581 4f011a0000000000
+30451.586113 601 2b01180500000000
+30451.586216 581 6001180500000000
+30451.589896 601 4001180500000000
+30451.589936 581 4b01180500000000
+30451.592701 601 2301180181020000
+30451.592763 581 6001180100000000
+30451.595787 601 4001180100000000
+30451.595847 581 4301180181020000
+30451.595942 701 7f
+30451.597203 601 2b00200000000000
+30451.597250 581 6000200000000000
+30451.598597 601 4000200000000000
+30451.598633 581 4b00200000000000
+30451.600884 601 2b17100000000000
+30451.600938 581 6017100000000000
+30451.602480 601 4017100000000000
+30451.602510 581 4b17100000000000
+</system-out>
+	</testcase>
+	<testcase name="control_hil_window_vcan_managed" classname="control_hil_window_vcan_managed" time="16.8173" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+motion_throttle_long_failsafe: passed, zero_rpdo=503, restored=verified
+motion_throttle_long_deadline: passed, zero_rpdo=894, restored=verified
+</system-out>
+	</testcase>
+	<testcase name="control_hil_startup_vcan_managed" classname="control_hil_startup_vcan_managed" time="17.3938" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+motion_throttle_startup_failsafe: passed, zero_rpdo=335, restored=verified
+motion_throttle_startup_silence: passed, zero_rpdo=346, restored=verified
+motion_throttle_startup_nonneutral: passed, zero_rpdo=349, restored=verified
+motion_throttle_startup_timeout: passed, zero_rpdo=237, restored=verified
+</system-out>
+	</testcase>
+	<testcase name="control_hil_recovery_vcan_managed" classname="control_hil_recovery_vcan_managed" time="62.5518" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 1620,
+  "counts": {
+    "0x601": 123,
+    "0x581": 123,
+    "0x701": 280,
+    "0x0": 3,
+    "0x181": 273,
+    "0x281": 273,
+    "0x201": 545
+  },
+  "tpdo2_frames": 273,
+  "tpdo2_span_ms": 5641.614000000118,
+  "tpdo2_interval_ms": [
+    10.358000003179768,
+    32.86799999841605
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 545,
+  "enabled_feedback": 66,
+  "enabled_samples": 125,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "x1",
+    "zero_feedback_tenths_rpm": 0,
+    "phases": {
+      "fault_ready": 30488199854481,
+      "fault_observed": 30488268024701,
+      "release_fault": 30489277872094,
+      "neutral_ready": 30490288292467,
+      "rearm_ready": 30491332198289,
+      "zero_reenabled": 30491775678556,
+      "complete": 30...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="control_hil_uart_vcan_managed" classname="control_hil_uart_vcan_managed" time="123.75" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+{
+  "status": "PASS_protocol_and_restoration",
+  "matching_frames": 2858,
+  "counts": {
+    "0x601": 123,
+    "0x581": 123,
+    "0x701": 523,
+    "0x0": 3,
+    "0x181": 516,
+    "0x281": 516,
+    "0x201": 1054
+  },
+  "tpdo2_frames": 516,
+  "tpdo2_span_ms": 10586.938000000373,
+  "tpdo2_interval_ms": [
+    19.041999999899417,
+    23.81999999852269
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 1054,
+  "enabled_feedback": 63,
+  "enabled_samples": 128,
+  "baseline_restored": true,
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "recovery": {
+    "kind": "sbus",
+    "zero_feedback_tenths_rpm": 0,
+    "phases": {
+      "fault_ready": 30550262849438,
+      "fault_observed": 30550332705545,
+      "release_fault": 30555333468653,
+      "neutral_ready": 30557383763235,
+      "rearm_ready": 30558403456398,
+      "zero_reenabled": 30558853202008,
+      "complete...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="control_qualification_vcan_managed" classname="control_qualification_vcan_managed" time="9.15869" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+hil_read index=24641 sub=0 raw=4194368
+hil_read index=24672 sub=0 raw=3
+hil_read index=24673 sub=0 raw=3
+hil_read index=24639 sub=0 raw=0
+hil_read index=24831 sub=1 raw=0
+hil_read index=24831 sub=2 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=8207 sub=0 raw=1
+hil_read index=8192 sub=0 raw=0
+hil_read index=4119 sub=0 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5120 sub=5 raw=1000
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1616904200
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6144 sub=5 raw=100
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6145 sub=5 raw=0
+hil_read index=6657 sub=0 raw=0
+hil_read index=6657 sub=...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="domain_behavior_lock" classname="domain_behavior_lock" time="0.0611085" status="run">
+		<properties/>
+		<system-out>domain_behavior_lock passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_parser_contract" classname="sbus_parser_contract" time="0.0702494" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_stack_build" classname="canopen_stack_build" time="0.0148649" status="run">
+		<properties/>
+		<system-out>canopen_stack_tests passed
+</system-out>
+	</testcase>
+	<testcase name="canopen_vcan_managed" classname="canopen_vcan_managed" time="0.679039" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: P5.5 observation service=boot raw_can_id=0x00000701 dlc=1 payload=0000000000000000 timestamp_ns=30681917666471 transport=1 boot=1
+INFO: P5.5 observation service=heartbeat raw_can_id=0x00000701 dlc=1 payload=0500000000000000 timestamp_ns=30681929237595 transport=1 boot=1
+INFO: P5.5 observation service=emcy raw_can_id=0x00000081 dlc=8 payload=34125678efcdab90 timestamp_ns=30681939593238 transport=1 boot=1
+INFO: P5.5 observation service=tpdo1 raw_can_id=0x00000181 dlc=8 payload=1122334455667788 timestamp_ns=30681950801028 transport=1 boot=1
+INFO: P5.5 observation service=tpdo2 raw_can_id=0x00000281 dlc=0 payload=0000000000000000 timestamp_ns=30681961805363 transport=1 boot=1
+INFO: P5.5 observation service=tpdo3 raw_can_id=0x00000381 dlc=0 payload=0000000000000000 timestamp_ns=30681972711304 transport=1 boot=1
+INFO: P5.5 observation service=tpdo4 raw_can_id=0x00000481 dlc=0 payload=0000000000000000 timestamp_ns=30681983796722 transport=1 boot=1
+INFO: P5.5 observation serv...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="socketcan_frame_codec" classname="socketcan_frame_codec" time="0.0313968" status="run">
+		<properties/>
+		<system-out>socketcan_frame_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_socket_lifecycle" classname="socketcan_socket_lifecycle" time="0.0131509" status="run">
+		<properties/>
+		<system-out>SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing vcan interface for bind/filter/frame/metadata checks
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_vcan_managed" classname="socketcan_vcan_managed" time="0.176411" status="run">
+		<properties/>
+		<system-out>INFO: managed namespace vcan0 is up
+INFO: managed vcan RX overflow evidence requested_rcvbuf=1024 effective_rcvbuf=2304 frames_attempted=4096 frames_sent=4096 raw_overflow_counter=4093
+INFO: managed vcan CAN error-frame evidence raw_can_id=0x20000044 error_classes=0x00000044 payload=0004123456789abc
+INFO: managed vcan link-down/reopen evidence interface=vcan0 original_ifindex=2 reopened_ifindex=2 receive_operation=poll receive_context="interface=vcan0 socket failure" receive_errno=5 send_operation=write send_context="interface=vcan0" send_errno=100 raw_can_id=0x000006a5 dlc=8 len8_dlc=0 payload=a55adeadbeef4224
+INFO: managed vcan bidirectional frame and filter isolation checks passed
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="linux_platform_integration" classname="linux_platform_integration" time="0.305387" status="run">
+		<properties/>
+		<system-out>linux_platform_integration passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_reader_pty" classname="sbus_reader_pty" time="0.180929" status="run">
+		<properties/>
+		<system-out>SBUS reader PTY tests passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_observer_cli" classname="sbus_observer_cli" time="2.1457" status="run">
+		<properties/>
+		<system-out>SBUS observer CLI, PTY, SIGTERM and output-backpressure tests passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_source_archived_replay" classname="sbus_source_archived_replay" time="0.594929" status="run">
+		<properties/>
+		<system-out>p9_2_sbus_capture_20260916: frames/rejected/lost/failsafe=(1428, 0, 0, 0) PASS (offline replay)
+attempt1: frames/rejected/lost/failsafe=(4098, 2, 422, 351) PASS (offline replay)
+attempt2: frames/rejected/lost/failsafe=(4290, 3, 420, 348) PASS (offline replay)
+</system-out>
+	</testcase>
+</testsuite>

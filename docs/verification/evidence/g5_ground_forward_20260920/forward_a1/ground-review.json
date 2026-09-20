@@ -1,0 +1,23 @@
+{
+  "status": "PASS_bounded_ground_forward_stop_with_visual_distance_estimates",
+  "protocol": "PASS_protocol_pending_ground_measurements",
+  "motion_ms": 2950.029632,
+  "feedback_standstill_verified_ms": 410.140204,
+  "matching_frames": 1362,
+  "baseline_restored": true,
+  "can_counters_unchanged": true,
+  "operator_report": {
+    "raw": "没有X1介入档，没有超越1米线，实际运动距离应该再25cm左右，停止到静止的距离在1cm",
+    "source": "local operator measurement"
+  },
+  "reported_travel_m_approx": 0.25,
+  "reported_stop_displacement_m_approx": 0.01,
+  "measurement_method": "Operator confirmed visual estimation; no ruler or video measurement",
+  "physical_stop_time": "not supplied; feedback verification time is not a direct physical stop-time measurement",
+  "x1_intervention_reported": false,
+  "one_m_line_crossed_reported": false,
+  "barrier_contact": false,
+  "distance_acceptance": "Operator visually estimates travel about0.25m and stopping displacement about0.01m, reports no1m-line crossing and no barrier contact; precise stopping distance/time and general stopping bound remain unverified",
+  "no_retry_authorization": true,
+  "operator_clarification": "目测的，没有接触围挡"
+}

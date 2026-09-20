@@ -1,0 +1,31 @@
+PROGRESS: active
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 59
+CONTROL_READY: neutral; press and release CH6 once
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 58
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 57
+MOTION_READY: TURN left; throttle neutral, steering left only; opposite targets max5rpm/3s
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 56
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 55
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 54
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 53
+PROGRESS: active
+APPLICATION_STOPPING: neutral, no further stimulus
+WINDOW_REMAINING: 52
+PROGRESS: active
+PROGRESS: active
+APPLICATION_EXIT: neutral, no further stimulus
+{"passed": true, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--turn-left", "--zero-feedback-tenths-rpm", "20", "--motion-window-ms", "3000", "--right-sign", "-1"], "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2", "operator_prompted": true, "motion_prompted": true, "stopping": true, "application_exit": 0, "application_elapsed_ms": 8860.465464007575}

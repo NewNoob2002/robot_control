@@ -1,0 +1,3 @@
+# Corrected-binding zero A2 — INCOMPLETE
+
+First CH6 enabled zero output; a second CH6 press disabled the Source after 1141 enabled samples, causing the qualification envelope to exit early at 13.640s. Operator confirmed the duplicate press because the original console did not display enabled status. No feedback failure: 2314 matching capture frames, 1366 exact-zero RPDOs, all measured feedback zero and 36 writes/full volatile restoration. Operator OFF/stationary/no sound confirmed. Original exit1 remains incomplete, not a passed20s run. A3 adds an enabled-zero console cue only; firmware remains9b336936.

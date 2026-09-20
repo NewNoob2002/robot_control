@@ -1,0 +1,40 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_forward_a1",
+  "authorization": "User explicitly authorized G5 ground forward and confirmed barrier containment; fresh local START checks readiness",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START: >=3m clear level empty area, suitable firm barrier, marked1m intervention line, immediate X1 and supply cutoff",
+  "limits": "<=5rpm/<3s; prospective ground travel<1m, stop displacement<=0.5m; barrier contact fails; no fault injection",
+  "recovery": "X1 normal emergency path; power-off may coast; mechanical anti-roll before final power removal;3s host lease/12s cleanup; no retry",
+  "prerequisite": "51f94c1f identity/123 inputs and stationary ground X1 PASS; user reported barrier; current local readiness required",
+  "scripts": {
+    "start_once.py": "3af6fe3cddc1d61079da20a67dd0e97e04649632d6d96a0c0b4c4d411cfff081",
+    "target_once.py": "84f277082678ed5588dc151f6024682b3cfcc081db1a5dfba2d9d925aacd4a4d",
+    "check_runner.py": "130d5e902212283d502b2eedaf7745f0e791b46342cb3e7f792b660a3f00ff56",
+    "analyze-motion.py": "f37402c3a073cb40161d554a9ef42e7ee49280809270c6edf94f0f63186dbd20",
+    "jcan/capture_once.py": "fce0de9727979edf1b998bc221390771aef96832c21519f432ec0a431bcb25ae"
+  },
+  "right_sign": -1,
+  "previous_trial": "Ground zero X1 A1 PASS; all previous runners consumed",
+  "ground_plan_sha256": "80ce0f14409d215635e5de4f838589b4967c484abe1f4fdda8ab6da134f58603"
+}

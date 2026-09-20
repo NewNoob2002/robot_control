@@ -114,7 +114,7 @@ int collect() {
                     return 1;
                 break;
             case Trace::Kind::header:
-                if (!emit(logger, "diagnostics_start", packet, "version standstill_tenths"))
+                if (!emit(logger, "diagnostics_start", packet, "version standstill_tenths right_sign"))
                     return 1;
                 break;
             case Trace::Kind::end:

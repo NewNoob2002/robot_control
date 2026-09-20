@@ -1,0 +1,124 @@
+{
+  "status": "BLOCKED_MANUAL_DIFFERENTIAL_TRANSITION",
+  "paths": [
+    {
+      "side": "left",
+      "path": "steering_then_throttle",
+      "samples": 968,
+      "final_targets": [
+        4,
+        5
+      ],
+      "first_rejected": {
+        "index": 483,
+        "ch1": 840,
+        "ch3": 1316,
+        "targets": [
+          0,
+          3
+        ]
+      },
+      "rejected_samples": 323
+    },
+    {
+      "side": "left",
+      "path": "throttle_then_steering",
+      "samples": 968,
+      "final_targets": [
+        4,
+        5
+      ],
+      "first_rejected": {
+        "index": 485,
+        "ch1": 1000,
+        "ch3": 1478,
+        "targets": [
+          3,
+          3
+        ]
+      },
+      "rejected_samples": 363
+    },
+    {
+      "side": "left",
+      "path": "simultaneous_linear_ramp",
+      "samples": 808,
+      "final_targets": [
+        4,
+        5
+      ],
+      "first_rejected": {
+        "index": 404,
+        "ch1": 920,
+        "ch3": 1397,
+        "targets": [
+          0,
+          3
+        ]
+      },
+      "rejected_samples": 200
+    },
+    {
+      "side": "right",
+      "path": "steering_then_throttle",
+      "samples": 968,
+      "final_targets": [
+        5,
+        4
+      ],
+      "first_rejected": {
+        "index": 483,
+        "ch1": 1160,
+        "ch3": 1316,
+        "targets": [
+          3,
+          0
+        ]
+      },
+      "rejected_samples": 323
+    },
+    {
+      "side": "right",
+      "path": "throttle_then_steering",
+      "samples": 968,
+      "final_targets": [
+        5,
+        4
+      ],
+      "first_rejected": {
+        "index": 485,
+        "ch1": 1000,
+        "ch3": 1478,
+        "targets": [
+          3,
+          3
+        ]
+      },
+      "rejected_samples": 363
+    },
+    {
+      "side": "right",
+      "path": "simultaneous_linear_ramp",
+      "samples": 808,
+      "final_targets": [
+        5,
+        4
+      ],
+      "first_rejected": {
+        "index": 404,
+        "ch1": 1080,
+        "ch3": 1397,
+        "targets": [
+          3,
+          0
+        ]
+      },
+      "rejected_samples": 200
+    }
+  ],
+  "compiled_source_inputs_verified": 123,
+  "hardware_run": false,
+  "runtime_changed": false,
+  "limitation": "Discrete gradual input paths only; not a proof about all sampled human gestures",
+  "consequence": "First invalid enabled candidate stops ControlLoop before submission; later valid endpoint cannot resume"
+}

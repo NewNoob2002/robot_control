@@ -1,0 +1,5 @@
+{
+  "operator_report": "遥控器后开机；用户授权重新测试",
+  "observed": "flags=12 source_fault=4 failsafe; enabled_samples=0; restore_ok=1",
+  "status": "FAILED preserved"
+}

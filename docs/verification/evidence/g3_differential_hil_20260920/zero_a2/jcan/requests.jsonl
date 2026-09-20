@@ -1,0 +1,4 @@
+{"id": 1, "op": "status"}
+{"id": 2, "op": "status"}
+{"id": 3, "op": "status"}
+{"id": "finish", "op": "shutdown"}

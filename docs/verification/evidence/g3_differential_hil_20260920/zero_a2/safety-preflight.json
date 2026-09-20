@@ -1,0 +1,36 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/zero_a2",
+  "authorization": "User explicitly requested retry after late transmitter power-on; fresh local START required",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "20000",
+    "--zero-only",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Local START checklist required before any capture or application",
+  "limits": "One attempt; exact zero targets; +/-2rpm measured feedback;20s application window; no interface changes or persistent writes; JCAN receive/ACK only",
+  "recovery": "3s host lease loss triggers SIGTERM; bounded cleanup12s; independent capture retained through cleanup; local X1/OFF; failures preserved without retry",
+  "scripts": {
+    "start_once.py": "6f8f283dd2e3286f906ea49b9d635eb3bbf984706bdcd4999b0307a6729a01ae",
+    "target_once.py": "cc68ae26be67dd1d1ff6080437304252b9eb5d1d331c2e30b39fe9f9373fc54f",
+    "check_runner.py": "557024a22384e1f5f1c2a60178c9d09d8b1cbfce6a8b2ed7bc6185101556ea24",
+    "analyze-zero.py": "9087ef548ebc9b32a40e4626482ae2d92e4e4528906a7e4bd054800599972aaa",
+    "jcan/capture_once.py": "dbf91137afbfbdb037196ae349e907949c555e5cdb5c032a25c1888efa2b5134"
+  },
+  "right_sign": -1,
+  "compiled_inputs_verified": 123
+}

@@ -1,0 +1,40 @@
+{
+  "stage": "Ground known residual baseline restoration A1",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "2000",
+    "--restore-zero-baseline",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Power on stationary mechanically restrained vehicle, X1 released, unchanged wiring; local START",
+    "No CH6, X1 or stick stimulus; wait for restore to exit",
+    "Confirm stationary/restraint before OFF"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Complete disabled/zero/known residual match before first write",
+    "No RPDO or enable; exact18 volatile restore writes and original baseline readbacks",
+    "Dual captures, unchanged CAN counters and actual stationary/off feedback"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "Fresh left-differential A2 only after baseline verified",
+  "authorized": true,
+  "authorization": "User authorized baseline recovery before retry; fresh local START confirms powered stationary restrained readiness",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_baseline_restore_a1",
+  "right_sign": -1
+}

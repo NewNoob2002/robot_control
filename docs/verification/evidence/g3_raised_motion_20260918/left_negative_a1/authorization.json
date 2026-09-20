@@ -1,0 +1,43 @@
+{
+  "stage": "G3 left-negative motion A1",
+  "artifact_sha256": "5f44146c71747eb93cdf30c8ae675b3c9fb48566c7951c53daa96dbed627c14a",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-5f44146c-20260918/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--single-left-negative",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Neutral and fresh local START",
+    "CONTROL_READY: neutral CH6 press/release",
+    "MOTION_READY: coordinate backward throttle plus left steering together, hold; no isolated full-axis movement",
+    "At STOP or stopped wheel, immediately neutral; after cleanup X1 locked and drive OFF"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Left target -5..-1rpm; right target exact zero",
+    "Left negative feedback >2rpm magnitude on at least two fresh frames; right feedback +/-2rpm",
+    "Nonzero window <3s; no restart",
+    "Dual-axis150ms stable +/-2rpm plus new frame within1s",
+    "Exact dual-capture sequence/payload and full baseline restoration",
+    "Operator left reverse/stop normal, right stationary, no sound, drive OFF"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "Right-negative only after left trial review and new per-trial readiness",
+  "authorized": true,
+  "authorization": "User requested negative motion; fresh local START explicitly authorizes left-negative A1 once with actual powered readiness and coordinated two-axis stimulus",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-5f44146c-20260918/left_negative_a1"
+}

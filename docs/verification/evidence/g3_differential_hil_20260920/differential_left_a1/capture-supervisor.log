@@ -1,0 +1,2 @@
+RUNNING: normal receive; RK3588 companion capture; no data sends
+{"status": "INTERRUPTED", "error": null, "requested_s": 150, "elapsed_s": 10.757422069999848, "frames": 1209, "data_frame_commands": 0, "shutdown_ack": true, "process_rc": 0, "finished_utc": "2026-09-20T02:24:07.491139+00:00", "limitation": "No proof of permanent repair; USB raw transfers not captured; use joint target/capture result"}

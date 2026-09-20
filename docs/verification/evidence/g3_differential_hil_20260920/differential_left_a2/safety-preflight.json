@@ -1,0 +1,39 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/differential_left_a2",
+  "authorization": "User explicitly authorized one left-differential retry after A1 envelope rejection; fresh local START required",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--differential-left",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms both wheels raised/unloaded, actual drive power, X1 released/accessible, neutral/CH6 released, unchanged wiring and visible console",
+  "limits": "Positive left<=right<=5rpm;3s hard/2950ms cutoff includes straight approach;60s total; stable2rpm/hard7.5rpm; no persistent/interface changes",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "51f94c1f zero A2 PASS with 3230 matching frames; fresh local START required",
+  "scripts": {
+    "start_once.py": "c7437008f3f3f960e27b13228deeb2fe09c98634e24e937a3481fdc19eb0e257",
+    "target_once.py": "5829b0e2d520e3271978107036ba34cbed748101a62d55a4ea71276c3f2a4c03",
+    "check_runner.py": "6418794ae0d0cd98d68463deb2cd1e43996b72026a3ddc6dd532a3223e3f1128",
+    "analyze-motion.py": "5915304cb0a51186aeb552dc2b888a916d4965fbe550a3ed2a5c5d8f5c62d524",
+    "jcan/capture_once.py": "d6901a076c35a85e466755c64e2cafb2430c6dd6a01dafc6f01e7c0ac0375e7d"
+  },
+  "right_sign": -1,
+  "previous_trial": "A1 preserved INCOMPLETE: (0,5) candidate rejected; full restoration/normal operator OFF confirmed"
+}

@@ -1,0 +1,6 @@
+{
+  "status": "INCOMPLETE_no_motion",
+  "reason": "Healthy CH1=797 CH3=1274 maps to (0,3); rejected before any nonzero RPDO",
+  "operator_off_record": "Preserved original OFF; its motion-direction confirmations are not evidence of motion because no nonzero target was sent",
+  "application_restore_ok": true
+}

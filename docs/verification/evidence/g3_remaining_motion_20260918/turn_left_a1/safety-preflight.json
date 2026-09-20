@@ -1,0 +1,38 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/turn_left_a1",
+  "authorization": "User: 继续剩余的测试; fresh local START confirms turn-left and powered raised readiness",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--turn-left",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms both wheels raised/unloaded, actual drive power, X1 released/accessible, neutral/CH6 released, unchanged wiring and visible console",
+  "limits": "Logical opposite wheel targets for turn-left; abs<=5rpm/3s hard/2950ms cutoff;60s total; stable2rpm/hard7.5rpm; no persistent/interface changes",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "Unchanged9b336936 zero A3 PASS; preceding mode accepted; fresh local START required",
+  "scripts": {
+    "target_once.py": "df1f31f6aab8b37065868ba6dc0a6c25b069699fe2800bf4bee26a37457fd9e4",
+    "start_once.py": "7b8d706441d3e6f548bedcd9d3ed5b4330501303b4b98e120bb1fd3f9b05057f",
+    "check_runner.py": "831c466f57788fcc5b0785b61497d16c2b9d03826734fa31029af606c340b320",
+    "analyze-motion.py": "ba02b394610380b64901b3e3e3617fd1d10d15798e7bfee731943cc37a78eca9",
+    "jcan/capture_once.py": "830460c5781e993a15535bc1d6634bde7d29e1fb0ce8a8c994d7467e8c0849c6"
+  },
+  "right_sign": -1
+}

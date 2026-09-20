@@ -158,3 +158,66 @@ progress resets. uart_resync invalidates the earlier operator cue and subsequent
 uart_reconnected emits a new cue. Independent audit rejects a candidate rejection,
 nonneutral/enabled source or missing fresh frames inside each claimed stable span.
 Only phase2 gets this bounded retry; fixed45s deadline and hard faults are unchanged.
+
+
+## G3 signed qualification modes — 2026-09-18
+
+The bounded v1 text header adds motion_mode (0 input-only,1 zero,2 left-positive,
+3 right-positive,4 left-negative,5 right-negative,6 dual-positive,7 dual-negative,
+8 turn-left,9 turn-right,10 differential-left,11 differential-right). Existing
+record field positions and binary zero-soak framing are unchanged. Raw signs are
+retained. Deployed artifact5f44146c has no G3 deferred stop-feedback exception;
+legacy positive single-wheel review behavior is unchanged. The2026-09-18
+user-approved acceptance revision classifies bounded startup/stop feedback
+transients as normal when the other trial gates pass; see the G3 trial sheet.
+This does not change trace semantics: right-negative A1 retains exit1,
+feedback_bad=1 and feedback_hard_bad=1 under its original guard. Its current
+acceptance is PASS_USER_APPROVED_START_STOP_TRANSIENT in a separate revision
+record, never an edited header or claim of an updated runtime. motion_stop adds left_moving_feedback and
+right_moving_feedback. moving_feedback counts fresh samples where every selected
+wheel simultaneously exceeds the near-zero band in its required direction;
+two such samples are required for normal success.
+Submission-time qualification rejection follows normal ControlLoop shutdown.
+Stop cause4 alone does not imply SIGTERM: inspect LifecycleExit and the primary
+operation. See the [G3 trial sheet](../plans/G3_RAISED_MOTION.md).
+
+## Physical right-axis binding — 2026-09-18 polarity correction
+
+New HIL text headers add binding_version=1 and right_sign=-1|1; both must be
+present together for new records. Historical headers lacking both mean legacy+1.
+Raw CAN TX/RX rows and signed raw bytes stay unchanged. Candidate/selected/approved
+and RuntimeState wheel speeds are vehicle-coordinate values. The right wire
+target and raw right feedback are multiplied by right_sign at their respective
+boundaries; left remains+1 with low-half target/feedback binding.
+
+MotionGate normalizes the right raw target before logical profile checking;
+Trace normalizes only for envelope checks and preserves raw rows/review values.
+The fixed binary stream header uses field2 for right_sign (version and tolerance
+positions unchanged); diagnostics_start includes that field.
+
+CLI --right-sign -1 selects the identified RK3588 vehicle-forward mapping.
+Physical motion on can0 requires this option explicitly; invalid/duplicate or
+missing physical-motion binding fails before opening devices. Legacy/default+1
+remains available for zero-only and explicit virtual fixtures; receive-only
+--observe-input rejects the option. The offline auditor accepts --right-sign
+to require the trial binding and compares logical relationships after normalization,
+while dual-capture payload comparison remains raw/exact. This change does not
+modify the previously documented startup/stop transient acceptance policy.
+
+## Differential approach qualification — 2026-09-20
+
+Modes10/11 now allow positive equal-wheel approach while preserving the requested
+inequality direction (left<=right / right<=left). motion_stop adds
+differential_feedback: distinct owner-observed TPDO samples strictly after the
+current unequal-target interval began, with both normalized speeds above the
+near-zero band and the requested measured speed ordering. Normal differential
+success requires at least two such samples; straight-only motion fails with
+control_hil_no_differential_feedback. Other modes report zero in this field.
+
+The raw trace header/rows and binding remain unchanged. The offline differential
+auditor requires matching command-before-feedback evidence before first zero,
+counts distinct timestamps and reports differential_feedback_samples; its count
+need not equal the owner count because it audits every captured TPDO. It still
+checks exact targets, no restart, hard3s measured from FIRST nonzero (including
+straight approach), bounded standstill, exact dual captures and restoration.
+Old artifacts/failed trials retain their original interpretation and verdicts.

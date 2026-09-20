@@ -15,8 +15,27 @@ import subprocess
 import time
 
 
+# Explicit input/output vectors are independent of application mixing and gate helpers.
+G3_VECTORS = {
+    'single-left-negative': ((200,200),(-5,0)),
+    'single-right-negative': ((1800,200),(0,-5)),
+    'dual-positive': ((1000,1800),(5,5)),
+    'dual-negative': ((1000,200),(-5,-5)),
+    'turn-left': ((200,993),(-5,5)),
+    'turn-right': ((1800,993),(5,-5)),
+    'differential-left': ((840,1800),(4,5)),
+    'differential-right': ((1160,1800),(5,4)),
+}
+
+
 def trial(scenario):
     """Check zero enable, rejected targets, transient X1, signal exit and restoration."""
+    right_sign = int(os.environ.get('CONTROL_HIL_RIGHT_SIGN','1'))
+    g3 = scenario.startswith('motion_g3_')
+    profile, _, g3_fault = scenario.removeprefix('motion_g3_').partition('__') if g3 else ('','','')
+    differential = g3 and profile.startswith('differential-')
+    approach = differential and g3_fault in ('approach','approach_deadline','straight_only','equal_feedback',
+                                            'opposite_feedback','opposite_command','approach_failsafe')
     streaming = os.environ.get("CONTROL_HIL_STREAM_TEST") == "1"
     collector_fault = scenario in ("collector_exit", "collector_stall")
     startup = scenario.startswith("motion_throttle_startup_")
@@ -41,7 +60,7 @@ def trial(scenario):
     success = scenario in ("happy", "motion_left", "motion_right", "motion_deadline", "motion_late_authorization", "input_observation")
     success = success or scenario in ('restore_baseline', 'motion_throttle', 'motion_throttle_tolerance', 'motion_throttle_tolerance_reject', 'motion_stop_rebound', 'motion_throttle_long_deadline')
     success = success or scenario in ('recovery_native_x1', 'recovery_x1', 'recovery_failsafe', 'recovery_silence', 'recovery_jitter', 'recovery_uart_partial', 'recovery_uart_clean', 'recovery_uart_resync', 'recovery_uart_bounce', 'recovery_uart_bounce_after_ready')
-    success = success or (startup and not startup_timeout)
+    success = success or (startup and not startup_timeout) or (g3 and g3_fault in ('', 'deadline', 'approach', 'approach_deadline'))
     values = {
         (0x6040, 0): 0, (0x6041, 0): 0x00400040,
         (0x6060, 0): 3, (0x6061, 0): 3, (0x603F, 0): 0,
@@ -83,7 +102,7 @@ def trial(scenario):
     process = subprocess.Popen([program, '--interface', 'vcan0', '--device', os.ttyname(slave),
                                 '--duration-ms', '60000' if scenario == 'recovery_uart_reconnect_timeout' else '15000' if uart else '2500' if startup_timeout else '16000' if extended else '11000' if recovery else ('60000' if scenario == 'motion_late_authorization' else '6000') if motion else '2500',
                                 '--restore-zero-baseline' if restoring else ('--zero-uart-recovery' if uart else '--zero-x1-recovery' if x1_recovery else '--zero-sbus-recovery') if recovery else
-                                ('--right-throttle' if throttle_only else '--single-right' if right else '--single-left') if motion else ('--zero-soak' if streaming else '--observe-input' if input_case else '--zero-only')] + (['--zero-feedback-tenths-rpm', '10'] if tolerant or restoring else [] if streaming or standstill_noise or input_case else ['--zero-feedback-tenths-rpm', '0']) + (['--motion-window-ms', '8000'] if extended else []),
+                                ('--'+profile if g3 else '--right-throttle' if throttle_only else '--single-right' if right else '--single-left') if motion else ('--zero-soak' if streaming else '--observe-input' if input_case else '--zero-only')] + (['--zero-feedback-tenths-rpm', '10'] if tolerant or restoring else [] if streaming or standstill_noise or input_case or g3 else ['--zero-feedback-tenths-rpm', '0']) + (['--motion-window-ms', '8000'] if extended else []) + (['--right-sign',str(right_sign)] if right_sign != 1 else []),
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=stream_env,
                                pass_fds=(write_fd,) if streaming else ())
     if streaming:
@@ -165,7 +184,15 @@ def trial(scenario):
                     targets = struct.unpack('<hh', data[2:])
                     if motion:
                         selected, other = (targets[1], targets[0]) if right else targets
-                        assert 0 <= selected <= 5 and other == 0, 'out-of-envelope target reached bus'
+                        if g3:
+                            if differential:
+                                a,b = targets[0],targets[1]*right_sign
+                                assert (a,b)==(0,0) or (1<=a<=5 and 1<=b<=5 and
+                                    (a<=b if profile=='differential-left' else a>=b)), 'wrong differential targets reached bus'
+                            else:
+                                assert targets in ((0,0),(G3_VECTORS[profile][1][0],G3_VECTORS[profile][1][1]*right_sign)), 'wrong signed targets reached bus'
+                        else:
+                            assert 0 <= selected <= 5 and other == 0, 'out-of-envelope target reached bus'
                         if any(targets):
                             assert motion_ready is not None and data[0] == 15
                             assert zero_requested is None, 'nonzero target restarted after stop'
@@ -219,6 +246,10 @@ def trial(scenario):
                 x1_active = scenario in ('motion_x1','motion_throttle_x1')
             if scenario == 'motion_throttle_long_failsafe' and first_motion and now-first_motion > 4.0 and not injected:
                 fault_started, injected = now, True
+            if g3 and first_motion and now-first_motion > 0.3 and not injected and g3_fault:
+                fault_started, injected = now, True
+                x1_active = g3_fault == 'x1'
+                if g3_fault == 'sigterm': process.send_signal(signal.SIGTERM)
             if now >= next_feedback:
                 next_feedback = now + 0.02
                 if values[0x1017, 0]:
@@ -236,8 +267,17 @@ def trial(scenario):
                             pattern = [-10,-36,9,-5,0,3,0,0,-6,-1,0,0,0,0]
                             position = min(int((now-zero_requested)/0.05), len(pattern)-1)
                             speeds = (pattern[position], 0)
-                        values[0x606C, 1], values[0x606C, 2] = speeds
-                        values[0x606C, 3] = (speeds[1] << 16) | speeds[0]
+                        if g3 and any(targets):
+                            if g3_fault == 'missing_left': speeds = (0,speeds[1])
+                            if g3_fault == 'missing_right': speeds = (speeds[0],0)
+                            if injected and g3_fault == 'wrong_sign': speeds = (-speeds[0],speeds[1])
+                            if injected and g3_fault == 'wrong_right_sign': speeds = (speeds[0],-speeds[1])
+                            if injected and g3_fault == 'overspeed': speeds = (76,speeds[1])
+                            if g3_fault == 'equal_feedback': speeds = (50,50*right_sign)
+                            if g3_fault == 'opposite_feedback':
+                                speeds = (40,50*right_sign) if profile=='differential-right' else (50,40*right_sign)
+                        values[0x606C, 1], values[0x606C, 2] = (v & 0xffffffff for v in speeds)
+                        values[0x606C, 3] = ((speeds[1] & 0xffff) << 16) | (speeds[0] & 0xffff)
                     if standstill_noise and control_started:
                         if not first_motion or (zero_requested and now-zero_requested >= 0.15):
                             v = -21 if scenario == 'motion_throttle_tolerance_reject' and zero_requested and now-zero_requested < 0.30 else -20
@@ -253,7 +293,10 @@ def trial(scenario):
                         if scenario == 'recovery_jitter_reject' and enabled_at and now-enabled_at > 0.1 and not feedback_rejected:
                             speeds = (11, 0)
                             feedback_rejected = True
-                    send(0x181, struct.pack('<Ihh', values[0x6041, 0] | (0x8000 if x1_active else 0), *speeds))
+                    observed_status = values[0x6041,0]
+                    if g3 and injected and g3_fault == 'right_fault' and zero_requested is None:
+                        observed_status = (observed_status & 0xffff) | (0x08 << 16)
+                    send(0x181, struct.pack('<Ihh', observed_status | (0x8000 if x1_active else 0), *speeds))
                     if values[0x1A01, 0] == 2 and scenario != 'missing_diagnostics':
                         send(0x281, bytes([3,1 if scenario == 'recovery_fault' and injected else 0,0,0,0]))
             if control_started and now >= next_serial and not stop_drain:
@@ -272,7 +315,19 @@ def trial(scenario):
                     if scenario == 'motion_throttle_reverse': channels[2] = 200
                     if scenario == 'motion_both': channels[0] = 1000
                     if scenario == 'motion_reverse': channels[2] = 200
-                    if first_motion and now-first_motion > 0.8 and scenario not in ('motion_deadline', 'motion_throttle_long_deadline', 'motion_throttle_long_failsafe'):
+                    if g3:
+                        channels[0],channels[2] = G3_VECTORS[profile][0]
+                        if injected and g3_fault == 'reverse': channels[2] = 200
+                        if approach:
+                            channels[0] = 1000
+                            channels[2] = min(1800,993+int((now-motion_ready-0.2)*3000))
+                            turn_after = 2.6 if g3_fault=='approach_deadline' else 0.3
+                            if first_motion and now-first_motion > turn_after and g3_fault not in ('straight_only','approach_failsafe'):
+                                steering = min(160,int((now-first_motion-turn_after)*1000))
+                                sign = -1 if profile=='differential-left' else 1
+                                if g3_fault=='opposite_command': sign = -sign
+                                channels[0] = 1000+sign*steering
+                    if first_motion and now-first_motion > 0.8 and g3_fault not in ('deadline','approach_deadline') and scenario not in ('motion_deadline', 'motion_throttle_long_deadline', 'motion_throttle_long_failsafe'):
                         channels[0], channels[2] = 1000, 993
                 if input_case:
                     channels[5] = 200
@@ -280,6 +335,9 @@ def trial(scenario):
                     if 0.5 < elapsed < 0.85 or 1.3 < elapsed < 1.7:
                         channels[0], channels[2] = 1400, 1396
                 flags = 0
+                if g3 and injected and g3_fault == 'failsafe': flags = 12
+                if g3 and injected and g3_fault == 'approach_failsafe': flags = 12
+                if g3 and injected and g3_fault == 'silence': continue
                 if scenario in ('motion_failsafe','motion_throttle_failsafe','motion_throttle_long_failsafe') and injected:
                     flags = 12
                 if scenario in ('motion_silence','motion_throttle_silence') and injected:
@@ -477,7 +535,22 @@ def trial(scenario):
             check_trace(trace, full_text, scenario)
         if throttle_only:
             assert all(p[2:4] == bytes(2) for _,i,p in trace if i == 0x201)
-        if success and not restoring and not startup and scenario not in ('input_observation', 'motion_throttle', 'motion_throttle_tolerance', 'motion_throttle_tolerance_reject', 'motion_stop_rebound', 'motion_throttle_long_deadline'):
+        if g3:
+            assert first_motion and zero_requested and 'event=motion_stop verified=1' in text
+            assert all(p[2:] == bytes(4) for t,i,p in trace if i == 0x201 and t >= zero_requested)
+            if g3_fault in ('x1','failsafe','silence','sigterm','right_fault','wrong_sign','wrong_right_sign','overspeed','reverse'):
+                assert injected and 0 <= zero_requested-fault_started < (0.15 if g3_fault == 'silence' else 0.1)
+            if g3_fault in ('missing_left','missing_right'): assert 'control_hil_no_motion_feedback' in text
+            if g3_fault in ('deadline','approach_deadline'): assert 2.9 <= zero_requested-first_motion < 3.05
+            if g3_fault in ('straight_only','equal_feedback','opposite_feedback'):
+                assert 'control_hil_no_differential_feedback' in text, text
+            if g3_fault == 'opposite_command':
+                assert 'control_loop_command_envelope' in text, text
+            if g3_fault == 'approach_failsafe':
+                assert injected and 0 <= zero_requested-fault_started < 0.1
+            if approach:
+                assert any(i==0x201 and p[2:] == struct.pack('<hh',3,3*right_sign) for _,i,p in trace)
+        if success and not g3 and not restoring and not startup and scenario not in ('input_observation', 'motion_throttle', 'motion_throttle_tolerance', 'motion_throttle_tolerance_reject', 'motion_stop_rebound', 'motion_throttle_long_deadline'):
             check_analyzer(trace, full_text, process.returncode, scenario)
         print(f'{scenario}: passed, zero_rpdo={len(words)}, restored=verified')
     finally:
@@ -502,6 +575,12 @@ def check_trace(wire, text, scenario):
     script = Path(__file__).resolve().parents[2]/'scripts/test/analyze_control_hil_trace.py'
     analyze = runpy.run_path(str(script))['analyze']
     result = analyze(text)
+    assert result['right_sign'] == int(os.environ.get('CONTROL_HIL_RIGHT_SIGN','1'))
+    if 'binding_version=1' in text:
+        import re
+        try: analyze(re.sub(r' right_sign=-?1', '', text))
+        except AssertionError: pass
+        else: raise AssertionError('new trace accepted missing binding')
     if not scenario.startswith("restore_") and scenario not in ("missing_diagnostics", "recovery_option"): assert result["frames"] and result["cycles"]
     else: assert not result["frames"] and not result["cycles"]
     actual = Counter((i,p) for _,i,p in result['tx'])
@@ -577,6 +656,49 @@ def check_trace(wire, text, scenario):
         assert 45000000000 <= result['stops'][0]['ns']-released < 46000000000
     if scenario in ('recovery_uart_flags','recovery_uart_noise'):
         assert 'operation=control_hil_recovery' in text and 'phase=complete' not in text
+    if scenario.startswith('motion_g3_'):
+        profile, _, fault = scenario.removeprefix('motion_g3_').partition('__')
+        if fault in ('','deadline','approach','approach_deadline'):
+            capture_audit = runpy.run_path(str(script))['analyze_g3_captures']
+            independent = [(i,p) for _,i,p in wire]
+            capture_audit(result,wire,independent,profile,20)
+            for mutation in ('order','restore'):
+                changed = list(wire)
+                changed_result = dict(result)
+                if mutation == 'order':
+                    independent = independent[1:]
+                else:
+                    n = next(n for n,(_,i,p) in enumerate(changed) if i == 0x601 and p == bytes.fromhex('2300160208006060'))
+                    t,i,p = changed[n]
+                    changed[n] = (t,i,p[:4]+bytes.fromhex('2003ff60'))
+                    independent = [(i,p) for _,i,p in changed]
+                    changed_result['tx'] = [(t,i,p[:4]+bytes.fromhex('2003ff60') if i == 0x601 and p == bytes.fromhex('2300160208006060') else p) for t,i,p in result['tx']]
+                try: capture_audit(changed_result,changed,independent,profile,20)
+                except (AssertionError,StopIteration): pass
+                else: raise AssertionError('G3 capture tampering passed')
+        if fault not in ('wrong_sign','wrong_right_sign','overspeed','missing_left','missing_right',
+                         'straight_only','equal_feedback','opposite_feedback','opposite_command','approach_failsafe'):
+            audit = runpy.run_path(str(script))['analyze_g3_feedback']
+            audit(result, profile, 20)
+            import copy
+            for mutation in ('target','feedback','mode','restart','right_sign'):
+                changed = copy.deepcopy(result)
+                if mutation == 'right_sign': changed['right_sign'] = 0
+                elif mutation == 'mode': changed['motion_mode'] = -1
+                elif mutation == 'feedback':
+                    changed['rx'] = [(t,i,p[:4]+bytes(4) if i == 0x181 else p,r,e) for t,i,p,r,e in changed['rx']]
+                else:
+                    indices = [n for n,(_,i,p) in enumerate(changed['tx']) if i == 0x201 and p[2:] != bytes(4)]
+                    if mutation == 'target':
+                        n = indices[0]
+                        t,i,p = changed['tx'][n]
+                        changed['tx'][n] = (t,i,p[:2]+bytes.fromhex('06000000'))
+                    else:
+                        n = next(n for n in range(indices[-1]+1,len(changed['tx'])) if changed['tx'][n][1] == 0x201)
+                        changed['tx'].insert(n+1,(changed['tx'][n][0]+1,0x201,changed['tx'][indices[0]][2]))
+                try: audit(changed,profile,20)
+                except (AssertionError,StopIteration): pass
+                else: raise AssertionError('G3 tampered '+mutation+' accepted')
     if scenario in ('happy','motion_left','input_observation'):
         for changed in (text.replace('overflow=0','overflow=1'),
                         '\n'.join(line for line in text.splitlines() if not line.startswith('event=trace_end'))):
@@ -656,6 +778,14 @@ if __name__ == '__main__':
     if os.environ.get('ROBOT_CONTROL_TEST_VCAN_INTERFACE') != 'vcan0':
         raise SystemExit(77)
     for mode, options in (
+        ('--dual-positive', ['--right-sign', '0']),
+        ('--dual-positive', ['--right-sign', '-2']),
+        ('--dual-positive', ['--right-sign', '1junk']),
+        ('--dual-positive', ['--right-sign', '-1', '--right-sign', '1']),
+        ('--observe-input', ['--right-sign', '-1']),
+        ('--dual-positive', ['--motion-window-ms', '3001']),
+        ('--single-left-negative', ['--motion-window-ms', '8000']),
+        ('--turn-right', ['--motion-window-ms', '2999']),
         ('--right-throttle', ['--motion-window-ms', '-1']),
         ('--right-throttle', ['--motion-window-ms', '2999']),
         ('--right-throttle', ['--motion-window-ms', '8001']),
@@ -681,6 +811,11 @@ if __name__ == '__main__':
                                   '--device', '/dev/nonexistent-f5-window-test', '--duration-ms', duration, mode],
                                  capture_output=True, timeout=2)
         assert checked.returncode == expected, (mode, duration, checked.returncode)
+    for options, expected in (([],2), (['--right-sign','-1'],1)):
+        checked = subprocess.run([os.environ['CONTROL_HIL_PROGRAM'],'--interface','can0',
+                                  '--device','/dev/nonexistent-polarity-test','--duration-ms','2000',
+                                  '--dual-positive',*options],capture_output=True,timeout=2)
+        assert checked.returncode == expected, 'physical motion must require explicit binding before device open'
     cases = ('happy', 'nonzero', 'x1_pulse', 'sigterm', 'missing_diagnostics')
     if os.environ.get('CONTROL_HIL_MOTION_TEST') == '1':
         cases = ('motion_throttle_tolerance', 'motion_throttle_tolerance_reject', 'motion_throttle', 'motion_throttle_x1', 'motion_throttle_steering', 'motion_throttle_reverse', 'motion_throttle_failsafe', 'motion_throttle_silence', 'motion_left', 'motion_right', 'motion_deadline', 'motion_both', 'motion_reverse',
@@ -700,5 +835,10 @@ if __name__ == '__main__':
                  'motion_throttle_startup_nonneutral', 'motion_throttle_startup_timeout')
     if os.environ.get("CONTROL_HIL_STREAM_TEST") == "1":
         cases += ("collector_exit", "collector_stall")
+    if os.environ.get('CONTROL_HIL_G3_TEST') == '1':
+        cases = tuple('motion_g3_'+p for p in G3_VECTORS) + tuple('motion_g3_dual-positive__'+f for f in ('deadline','x1','failsafe','silence','sigterm','right_fault','wrong_sign','wrong_right_sign','overspeed','reverse','missing_left','missing_right'))
+    if os.environ.get('CONTROL_HIL_DIFFERENTIAL_TEST') == '1':
+        cases = tuple('motion_g3_differential-'+side+'__'+fault for side in ('left','right')
+                      for fault in ('approach','approach_deadline','straight_only','equal_feedback','opposite_feedback','opposite_command','approach_failsafe'))
     for case in cases:
         trial(case)

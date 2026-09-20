@@ -1,0 +1,40 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_turn_left_a1",
+  "authorization": "User requested continuation after ground reverse PASS; one ground turn-left trial with fresh swept-area readiness",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--turn-left",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh START confirms entire swept area plus3m clear all-around perimeter and barriers, center1m boundary, no people, X1/cutoff",
+  "limits": "Ground turn-left abs<=5rpm/<3s; center drift<1m/post-stop center displacement<=0.5m; no contact or fault injection",
+  "recovery": "X1 normal emergency path; power-off may coast; mechanical anti-roll before final power removal;3s host lease/12s cleanup; no retry",
+  "prerequisite": "51f94c1f identity/123 inputs and stationary ground X1 PASS; user reported barrier; current local readiness required",
+  "scripts": {
+    "start_once.py": "72068af67c4228ad4334036cf4dcf3014678a202bb34a4b0c9c0e60a1c64d4bc",
+    "target_once.py": "cd0f0875176b78a6dd3b49afb3ee3f83b1ab7b536258009c2fb1106f6627d630",
+    "check_runner.py": "bdaed969e9a0ee8e5ea6735b0ed9ec2b4c584b7a0c2c1d1669b51c2ef791f92c",
+    "analyze-motion.py": "6f8612d7b826b1f476d927d595935100423b23d40444f73af23809587ca36d46",
+    "jcan/capture_once.py": "830460c5781e993a15535bc1d6634bde7d29e1fb0ce8a8c994d7467e8c0849c6"
+  },
+  "right_sign": -1,
+  "previous_trial": "Ground forward/reverse accepted with approximate operator distances; all runners consumed",
+  "ground_plan_sha256": "898434516ffd94f1395d732eb8d9fa6f49e6a1b9621251a8087c40971e1950c7"
+}

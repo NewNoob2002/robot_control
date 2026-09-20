@@ -20,6 +20,8 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
   target_include_directories(robot_control_hil_motion_gate_tests PRIVATE ${PROJECT_SOURCE_DIR})
   target_link_libraries(robot_control_hil_motion_gate_tests PRIVATE robot_control_project_warnings)
   add_test(NAME control_hil_motion_gate COMMAND robot_control_hil_motion_gate_tests)
+  add_test(NAME control_hil_differential_audit COMMAND python3
+    ${PROJECT_SOURCE_DIR}/scripts/test/test_control_hil_differential.py)
   add_executable(robot_control_hil_zero_gate_tests
     ${PROJECT_SOURCE_DIR}/tests/unit/control_hil_zero_gate_tests.cpp zero_gate.cpp
     $<TARGET_OBJECTS:robot_control_canopen_qualification_gate>)
@@ -27,6 +29,14 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
   target_link_libraries(robot_control_hil_zero_gate_tests PRIVATE robot_control_project_warnings)
   add_test(NAME control_hil_zero_gate COMMAND robot_control_hil_zero_gate_tests)
   add_test(NAME control_hil_help COMMAND robot-control-hil --help)
+  foreach(right_sign IN ITEMS 1 -1)
+    add_test(NAME control_hil_differential_${right_sign}_vcan_managed
+      COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+        ${PROJECT_SOURCE_DIR}/tests/integration/control_hil_zero_vcan.py)
+    set_tests_properties(control_hil_differential_${right_sign}_vcan_managed PROPERTIES
+      SKIP_RETURN_CODE 77 TIMEOUT 90
+      ENVIRONMENT "CONTROL_HIL_PROGRAM=$<TARGET_FILE:robot-control-hil>;CONTROL_HIL_DIFFERENTIAL_TEST=1;CONTROL_HIL_RIGHT_SIGN=${right_sign}")
+  endforeach()
   add_test(NAME control_hil_zero_vcan_managed
     COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
       ${PROJECT_SOURCE_DIR}/tests/integration/control_hil_zero_vcan.py)
@@ -43,6 +53,18 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
       ${PROJECT_SOURCE_DIR}/tests/integration/control_hil_zero_vcan.py)
   set_tests_properties(control_hil_motion_vcan_managed PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 140
     ENVIRONMENT "CONTROL_HIL_PROGRAM=$<TARGET_FILE:robot-control-hil>;CONTROL_HIL_MOTION_TEST=1")
+
+  add_test(NAME control_hil_g3_vcan_managed
+    COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+      ${PROJECT_SOURCE_DIR}/tests/integration/control_hil_zero_vcan.py)
+  set_tests_properties(control_hil_g3_vcan_managed PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 100
+    ENVIRONMENT "CONTROL_HIL_PROGRAM=$<TARGET_FILE:robot-control-hil>;CONTROL_HIL_G3_TEST=1")
+
+  add_test(NAME control_hil_polarity_vcan_managed
+    COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh
+      ${PROJECT_SOURCE_DIR}/tests/integration/control_hil_zero_vcan.py)
+  set_tests_properties(control_hil_polarity_vcan_managed PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 100
+    ENVIRONMENT "CONTROL_HIL_PROGRAM=$<TARGET_FILE:robot-control-hil>;CONTROL_HIL_G3_TEST=1;CONTROL_HIL_RIGHT_SIGN=-1")
 
   add_test(NAME control_hil_window_vcan_managed
     COMMAND bash ${PROJECT_SOURCE_DIR}/scripts/test/test_socketcan_vcan.sh

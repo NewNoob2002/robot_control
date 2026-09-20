@@ -1,0 +1,7 @@
+{
+  "status": "INCOMPLETE_no_motion",
+  "reason": "Right steering before full throttle produced (3,0), rejected before nonzero output",
+  "restore": "Application restore_ok=1",
+  "operator": "OFF recorded; direction claims do not establish actual motion",
+  "retry": "User explicitly authorized A2; A1 remains consumed"
+}

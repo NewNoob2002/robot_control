@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-18",
+  "status": "ACCEPTED",
+  "operator_statement": "确认验收，规划下一步工作",
+  "scope": "G2 continuous real-SBUS zero-target ControlLoop one-hour endurance, unloaded wheels",
+  "evidence": "reviewed-analysis.json",
+  "accepted_exception": "One three-frame cross-direction ordering difference at indices 116748..116750; per-ID and per-direction sequences equal across 518836 frames per capture. Cause remains unproven.",
+  "original_strict_order": "FAIL, preserved",
+  "historical_review_status": "PENDING_OPERATOR_ACCEPTANCE, preserved in original analysis",
+  "limits": [
+    "Not a general relaxation of future capture criteria",
+    "No moving/loaded endurance, P6 closure, production or kernel repair acceptance",
+    "All runners consumed; no new hardware authorization"
+  ]
+}

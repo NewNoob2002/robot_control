@@ -1,0 +1,38 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/dual_uart_a2",
+  "authorization": "User confirms A1 signal unplugged after stop; A2 changes manual coordination to pre-positioned hand, immediate disconnect at cue; fresh local START required",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms both wheels raised/unloaded, actual drive power, X1 released/accessible, neutral/CH6 released, unchanged wiring and visible console",
+  "limits": "Dual-positive<=5rpm/<3s/2950ms cutoff; signal-only SBUS disconnection during movement; power/ground/USB unchanged; total60s; no automatic reconnect/rearm",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "Unchanged9b336936; existing zero and motion accepted; user explicitly confirms accessible signal-only connector; fresh local START",
+  "scripts": {
+    "target_once.py": "979eac15fa766f72d97d2f9be61bde6acfa0ecf8fd03c5f3d9c7c7f6afb67486",
+    "start_once.py": "dbb2358f98a3b0198c52a5e35f4d1fede769e8b995ab8106896ad0b252933e3b",
+    "check_runner.py": "a83bbeca674d0579eec729c3307fced39857c019f84edeaa8f3ba1968411819f",
+    "analyze-uart.py": "205d63d88b0861e73d15d7f77b9e61fa800f84f93d80aa08d104c7cb1a49266d",
+    "jcan/capture_once.py": "fce0de9727979edf1b998bc221390771aef96832c21519f432ec0a431bcb25ae"
+  },
+  "right_sign": -1
+}

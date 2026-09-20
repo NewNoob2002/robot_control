@@ -1,0 +1,40 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_reverse_a1",
+  "authorization": "User requested continuation to ground reverse; fresh local START must establish rear clearance and containment",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-negative",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms >=3m rear clearance, firm suitable rear barrier, no persons, rear1m mark, X1 and supply cutoff",
+  "limits": "Single ground equal reverse targets abs<=5rpm/<3s; total reverse displacement<1m, stopping displacement<=0.5m; no barrier contact",
+  "recovery": "X1 normal emergency path; power-off may coast; mechanical anti-roll before final power removal;3s host lease/12s cleanup; no retry",
+  "prerequisite": "51f94c1f identity/123 inputs and stationary ground X1 PASS; user reported barrier; current local readiness required",
+  "scripts": {
+    "start_once.py": "c6baf0c902160d82edb737127b5b892df153044a711a0a328cc48bfa2647644c",
+    "target_once.py": "ad3ef88690f29d49f44d92067e9bfbae921ac413064dd209c07329f2ec83fe08",
+    "check_runner.py": "9a486288ef0bd8e545d9432fca6ad681753f704ffcf0ee25d0ebf9e9de42512d",
+    "analyze-motion.py": "066d8173b7528af4c0560e15364f8c63e0b0c5480cffe948765665c93f0b8ad0",
+    "jcan/capture_once.py": "186f9d8a35206ada8dccc127614357df66b7d90ff88588a9283348fd5410a8be"
+  },
+  "right_sign": -1,
+  "previous_trial": "Ground forward A1 accepted with visual distance estimates; original files/runners untouched",
+  "ground_plan_sha256": "2c368269af6f91dec81efdaf3df2a025aa11b8f130cba0026347f7eb614e5373"
+}

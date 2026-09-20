@@ -96,23 +96,26 @@ void record_diagnostics(hil::Trace& trace, const application::control::LoopResul
     const auto now = Clock::now();
     /** Preserve unknown/future timestamps rather than inventing a fresh age. */
     const auto age = [now](Clock::time_point stamp) -> std::int64_t {
-        return stamp == Clock::time_point{} || stamp > now ? -1
-            : std::chrono::duration_cast<std::chrono::microseconds>(now - stamp).count();
+        return stamp == Clock::time_point{} || stamp > now
+                   ? -1
+                   : std::chrono::duration_cast<std::chrono::microseconds>(now - stamp).count();
     };
-    trace.append(hil::Trace::Kind::timing, now,
-                 {static_cast<std::int64_t>(result.cycles), static_cast<std::int64_t>(result.missed_periods),
-                  std::chrono::duration_cast<std::chrono::microseconds>(result.maximum_lateness).count(),
-                  std::chrono::duration_cast<std::chrono::microseconds>(result.maximum_cycle_time).count(),
-                  started == Clock::time_point{} ? 0 : std::chrono::duration_cast<std::chrono::milliseconds>(now-started).count(),
-                  duration.count(), std::chrono::duration_cast<std::chrono::microseconds>(result.shutdown_elapsed).count(),
-                  result.finished, result.status.error.value(), result.stop_status.error.value()});
+    trace.append(
+        hil::Trace::Kind::timing, now,
+        {static_cast<std::int64_t>(result.cycles), static_cast<std::int64_t>(result.missed_periods),
+         std::chrono::duration_cast<std::chrono::microseconds>(result.maximum_lateness).count(),
+         std::chrono::duration_cast<std::chrono::microseconds>(result.maximum_cycle_time).count(),
+         started == Clock::time_point{} ? 0
+                                        : std::chrono::duration_cast<std::chrono::milliseconds>(now - started).count(),
+         duration.count(), std::chrono::duration_cast<std::chrono::microseconds>(result.shutdown_elapsed).count(),
+         result.finished, result.status.error.value(), result.stop_status.error.value()});
     trace.append(hil::Trace::Kind::state, now,
                  {static_cast<std::int64_t>(result.source.fault), static_cast<std::int64_t>(state.output.reason),
-                  state.feedback.status_raw, state.feedback.fault_raw, state.feedback.mode_raw,
-                  state.left_tenths_rpm, state.right_tenths_rpm, age(result.source.sample.captured_at),
-                  age(state.feedback.heartbeat_at), age(state.feedback.status_at), age(state.feedback.diagnostics_at),
-                  state.armed, state.healthy, static_cast<std::int64_t>(state.epoch),
-                  static_cast<std::int64_t>(state.authorization), result.finished});
+                  state.feedback.status_raw, state.feedback.fault_raw, state.feedback.mode_raw, state.left_tenths_rpm,
+                  state.right_tenths_rpm, age(result.source.sample.captured_at), age(state.feedback.heartbeat_at),
+                  age(state.feedback.status_at), age(state.feedback.diagnostics_at), state.armed, state.healthy,
+                  static_cast<std::int64_t>(state.epoch), static_cast<std::int64_t>(state.authorization),
+                  result.finished});
 }
 
 /** Zero-only test observer; never changes a command, source sample or authorization. */
@@ -170,25 +173,23 @@ struct RecoveryTrial {
         const bool active_x1 = (state.feedback.status_raw & 0x8000U) != 0;
         if (uart && batch.discontinuity != input::sbus::Discontinuity::none) {
             if (phase != 1 || fault_seen || partial_seen
-                || batch.discontinuity != input::sbus::Discontinuity::partial_timeout
-                || batch.raw_size != 0 || batch.event_count != 0
-                || source.fault != input::sbus::InputFault::discontinuity)
+                || batch.discontinuity != input::sbus::Discontinuity::partial_timeout || batch.raw_size != 0
+                || batch.event_count != 0 || source.fault != input::sbus::InputFault::discontinuity)
                 return fail();
             partial_seen = true;
             std::cout << "event=uart_boundary kind=partial_timeout at_ns=" << hil::Trace::ns(batch.captured_at)
-                      << " session=" << batch.session << '\n' << std::flush;
+                      << " session=" << batch.session << '\n'
+                      << std::flush;
         }
         if (uart && phase == 1 && fault_seen && batch.raw_size != 0)
             return fail(); // Bytes during the explicit silence hold invalidate F5.
-        const bool source_fault = uart
-                                  ? (source.fault == input::sbus::InputFault::timeout
-                                     || (partial_seen && phase <= 2
-                                         && source.fault == input::sbus::InputFault::discontinuity))
-                                  : source.fault == input::sbus::InputFault::frame_lost
-                                  || source.fault == input::sbus::InputFault::failsafe
-                                  || source.fault == input::sbus::InputFault::timeout;
-        const bool reacquiring = uart && phase == 2
-                                 && source.fault == input::sbus::InputFault::rejected;
+        const bool source_fault =
+            uart ? (source.fault == input::sbus::InputFault::timeout
+                    || (partial_seen && phase <= 2 && source.fault == input::sbus::InputFault::discontinuity))
+                 : source.fault == input::sbus::InputFault::frame_lost
+                       || source.fault == input::sbus::InputFault::failsafe
+                       || source.fault == input::sbus::InputFault::timeout;
+        const bool reacquiring = uart && phase == 2 && source.fault == input::sbus::InputFault::rejected;
         if (uart && phase == 2 && now >= reconnect_deadline)
             return fail();
         if (uart && phase == 2) {
@@ -198,8 +199,8 @@ struct RecoveryTrial {
             if (!healthy_input) {
                 if ((reacquiring || uart_reacquired) && !resync_reported) {
                     resync_reported = true;
-                    std::cout << "event=uart_resync at_ns=" << hil::Trace::ns(now)
-                              << " authority=revoked" << '\n' << std::flush;
+                    std::cout << "event=uart_resync at_ns=" << hil::Trace::ns(now) << " authority=revoked" << '\n'
+                              << std::flush;
                 }
                 uart_stable_since = {};
                 uart_reacquired = false;
@@ -215,8 +216,9 @@ struct RecoveryTrial {
                         uart_reacquired = true;
                         resync_reported = false;
                         std::cout << "event=uart_reconnected at_ns=" << hil::Trace::ns(now)
-                                  << " stable_since_ns=" << hil::Trace::ns(uart_stable_since)
-                                  << " authority=revoked" << '\n' << std::flush;
+                                  << " stable_since_ns=" << hil::Trace::ns(uart_stable_since) << " authority=revoked"
+                                  << '\n'
+                                  << std::flush;
                     }
                 }
             }
@@ -354,27 +356,61 @@ int observe_input(input::sbus::Reader& reader, platform::linux::process::Termina
     return status.ok() && captured ? 0 : 1;
 }
 
+/** Bind a pure static-lifetime command predicate; it can only inhibit, never grant authority or change bytes. */
+application::control::ControlLoop::CommandCheck command_check(hil::MotionMode mode) noexcept {
+    using Mode = hil::MotionMode;
+    const auto predicate = []<Mode profile>() {
+        /** Check the selected profile against the actual post-projection command before arbitration. */
+        return +[](const domain::command::MotionCommand& value) noexcept {
+            return hil::targets_match(profile, value.left_rpm, value.right_rpm);
+        };
+    };
+    switch (mode) {
+        case Mode::left:
+            return predicate.operator()<Mode::left>();
+        case Mode::right:
+            return predicate.operator()<Mode::right>();
+        case Mode::left_negative:
+            return predicate.operator()<Mode::left_negative>();
+        case Mode::right_negative:
+            return predicate.operator()<Mode::right_negative>();
+        case Mode::dual_positive:
+            return predicate.operator()<Mode::dual_positive>();
+        case Mode::dual_negative:
+            return predicate.operator()<Mode::dual_negative>();
+        case Mode::turn_left:
+            return predicate.operator()<Mode::turn_left>();
+        case Mode::turn_right:
+            return predicate.operator()<Mode::turn_right>();
+        case Mode::differential_left:
+            return predicate.operator()<Mode::differential_left>();
+        case Mode::differential_right:
+            return predicate.operator()<Mode::differential_right>();
+        default:
+            return nullptr;
+    }
+}
+
 /** Run one bounded zero or selected-wheel session through the actual SBUS/control path. */
 int run(const std::string& interface, std::chrono::milliseconds duration, const std::string& device,
-        std::string_view mode, int zero_tolerance, std::chrono::milliseconds motion_window, int stream_fd) {
+        std::string_view mode, int zero_tolerance, std::chrono::milliseconds motion_window, int stream_fd,
+        int right_sign) {
     const bool soak = mode == "--zero-soak";
     const bool input_only = mode == "--observe-input";
     const bool uart = mode == "--zero-uart-recovery";
     const bool recovery = mode == "--zero-x1-recovery" || mode == "--zero-sbus-recovery" || uart;
     RecoveryTrial recovery_trial{.zero_tolerance = zero_tolerance, .uart = uart};
     const bool throttle_only = mode == "--right-throttle";
-    const bool motion = mode == "--single-left" || mode == "--single-right" || throttle_only;
-    hil::Trace trace{input_only                                    ? hil::Trace::Mode::input_only
-                     : !motion                                     ? hil::Trace::Mode::zero
-                     : (mode == "--single-right" || throttle_only) ? hil::Trace::Mode::right
-                                                                   : hil::Trace::Mode::left,
-                     hil::Trace::maximum_records, zero_tolerance, stream_fd};
+    const auto motion_profile = hil::motion_mode(mode);
+    const bool motion = motion_profile != hil::MotionMode::zero;
+    const bool g3 = motion && motion_profile != hil::MotionMode::left && motion_profile != hil::MotionMode::right;
+    hil::Trace trace{input_only ? hil::Trace::Mode::input_only : motion_profile, hil::Trace::maximum_records,
+                     zero_tolerance, stream_fd, right_sign};
     if (trace.failed()) {
         report("trace_allocate", Status::from_errno("trace_allocate", "startup", ENOMEM));
         return 1;
     }
-    const bool right = mode == "--single-right" || throttle_only;
-    hil::MotionGate gate{right, motion_window};
+    hil::MotionGate gate{motion_profile, motion_window, right_sign};
     // The wrapper borrows this stack object only for the lifetime of this run.
     struct Binding {
         /** Bind on the sole owner thread; a null gate retains zero-only behavior. */
@@ -429,6 +465,8 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
     application::control::LoopResult result;
     unsigned enabled_samples = 0;
     unsigned moving_feedback = 0;
+    unsigned differential_feedback = 0;
+    std::array<unsigned, 2> axis_moving_feedback{};
     auto last_moving_feedback = Clock::time_point{};
     auto run_started = Clock::time_point{};
     bool motion_ready = false;
@@ -441,7 +479,7 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
         config.runtime = {domain::drive::PackedHalf::low,
                           domain::drive::PackedHalf::low,
                           1,
-                          1,
+                          right_sign,
                           5,
                           zero_tolerance,
                           1000ms,
@@ -451,7 +489,7 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
         config.arbiter.max_abs_rpm = 5;
         config.transition_timeout = 1000ms;
         auto attached = application::control::ControlLoop::create(*owner, reader, source, config, proof.value(), 100ms,
-                                                                  throttle_only);
+                                                                  throttle_only, command_check(motion_profile));
         status = attached.status();
         if (attached.ok()) {
             auto loop = std::move(attached).value();
@@ -461,9 +499,9 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
             auto next_log = started;
             std::string_view previous_input_state;
             std::cout << "event=control_start duration_ms=" << duration.count()
-                      << " targets=" << (motion ? (right ? "right_positive" : "left_positive") : "zero")
-                      << " zero_feedback_tenths_rpm=" << zero_tolerance
-                      << " motion_window_ms=" << motion_window.count()
+                      << " targets=" << (motion ? mode.substr(2) : "zero")
+                      << " zero_feedback_tenths_rpm=" << zero_tolerance << " motion_window_ms=" << motion_window.count()
+                      << " right_sign=" << right_sign
                       << " input_profile=" << (throttle_only ? "right_throttle" : "differential")
                       << " operator=neutral_release_then_press" << '\n'
                       << std::flush;
@@ -499,24 +537,17 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
                     stop_cause = 5;
                     break;
                 }
-                const auto selected_speed = right ? state.right_tenths_rpm : state.left_tenths_rpm;
-                const auto other_speed = right ? state.left_tenths_rpm : state.right_tenths_rpm;
-                const auto selected_candidate =
-                    right ? result.source.candidate.right_rpm : result.source.candidate.left_rpm;
-                const auto other_candidate =
-                    right ? result.source.candidate.left_rpm : result.source.candidate.right_rpm;
-                const bool awaiting_input = throttle_only && enabled_samples == 0 && !result.source.sample.enabled;
+                const bool awaiting_input =
+                    (throttle_only || g3) && enabled_samples == 0 && !result.source.sample.enabled;
                 const bool envelope =
-                    motion
-                        ? other_speed >= -zero_tolerance && other_speed <= zero_tolerance
-                              && (gate.started()
-                                      ? (selected_speed >= -zero_tolerance && selected_speed <= 75)
-                                      : (selected_speed >= -zero_tolerance && selected_speed <= zero_tolerance))
-                              && (awaiting_input || ((throttle_only ? result.source.steering == 0 : other_candidate == 0)
-                                                     && selected_candidate >= 0 && selected_candidate <= 5))
-                        : state.left_tenths_rpm >= -zero_tolerance && state.left_tenths_rpm <= zero_tolerance
-                              && state.right_tenths_rpm >= -zero_tolerance && state.right_tenths_rpm <= zero_tolerance
-                              && result.source.candidate.left_rpm == 0 && result.source.candidate.right_rpm == 0;
+                    hil::feedback_matches(motion_profile, false, state.left_tenths_rpm, zero_tolerance, gate.started())
+                    && hil::feedback_matches(motion_profile, true, state.right_tenths_rpm, zero_tolerance,
+                                             gate.started())
+                    && (awaiting_input
+                        || (throttle_only ? result.source.steering == 0 && result.source.candidate.right_rpm >= 0
+                                                && result.source.candidate.right_rpm <= 5
+                                          : hil::targets_match(motion_profile, result.source.candidate.left_rpm,
+                                                               result.source.candidate.right_rpm)));
                 if (!recovery && (!state.healthy || (enabled_samples > 0 && !state.armed) || !envelope))
                     status = Status::from_errno(
                         motion ? "control_hil_motion_envelope" : "control_hil_zero_envelope",
@@ -539,14 +570,14 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
                 if (state.armed && axes.low_half.state == domain::drive::Cia402State::operation_enabled
                     && axes.high_half.state == domain::drive::Cia402State::operation_enabled)
                     ++enabled_samples;
-                if (throttle_only && status.ok() && !motion_ready && enabled_samples == 0) {
+                if ((throttle_only || g3) && status.ok() && !motion_ready && enabled_samples == 0) {
                     const auto& source_state = result.source;
                     const std::string_view input_state =
-                        source_state.sample.enabled ? "arming"
-                        : source_state.health != input::sbus::Health::disabled ? "waiting_link"
-                        : source_state.steering != 0 || source_state.throttle != 0 ? "neutral_required"
+                        source_state.sample.enabled                                               ? "arming"
+                        : source_state.health != input::sbus::Health::disabled                    ? "waiting_link"
+                        : source_state.steering != 0 || source_state.throttle != 0                ? "neutral_required"
                         : source_state.raw.channels[profile.channels[2]] > profile.button_release ? "release_ch6"
-                                                                                       : "ready";
+                                                                                                  : "ready";
                     if (input_state != previous_input_state) {
                         std::cout << "event=input_status state=" << input_state
                                   << " source_fault=" << static_cast<unsigned>(source_state.fault)
@@ -556,24 +587,41 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
                     }
                 }
                 if (recovery && status.ok()) {
-                    status = recovery_trial.observe(mode == "--zero-x1-recovery", result, state, enabled_samples, captured_batch);
+                    status = recovery_trial.observe(mode == "--zero-x1-recovery", result, state, enabled_samples,
+                                                    captured_batch);
                     if (!status.ok() || recovery_trial.phase == 6) {
                         stop_cause = status.ok() ? 7U : 5U;
                         break;
                     }
                 }
-                if (motion && status.ok() && !motion_ready && enabled_samples >= 20 && selected_speed >= -zero_tolerance
-                    && selected_speed <= zero_tolerance && selected_candidate == 0) {
+                if (motion && status.ok() && !motion_ready && enabled_samples >= 20
+                    && state.left_tenths_rpm >= -zero_tolerance && state.left_tenths_rpm <= zero_tolerance
+                    && state.right_tenths_rpm >= -zero_tolerance && state.right_tenths_rpm <= zero_tolerance
+                    && result.source.candidate.is_zero()) {
                     gate.arm();
                     motion_ready = true;
-                    std::cout << "event=motion_ready wheel=" << (right ? "right" : "left")
+                    std::cout << "event=motion_ready profile=" << mode.substr(2)
                               << " max_rpm=5 maximum_nonzero_ms=" << motion_window.count() << '\n'
                               << std::flush;
                 }
-                if (motion && gate.started() && selected_speed > zero_tolerance
-                    && state.feedback.status_at > last_moving_feedback) {
+                if (motion && gate.started() && state.feedback.status_at > last_moving_feedback) {
                     last_moving_feedback = state.feedback.status_at;
-                    ++moving_feedback;
+                    const bool left_moving =
+                        hil::axis_direction(motion_profile, false) * state.left_tenths_rpm > zero_tolerance;
+                    const bool right_moving =
+                        hil::axis_direction(motion_profile, true) * state.right_tenths_rpm > zero_tolerance;
+                    axis_moving_feedback[0] += left_moving ? 1U : 0U;
+                    axis_moving_feedback[1] += right_moving ? 1U : 0U;
+                    if ((!hil::axis_direction(motion_profile, false) || left_moving)
+                        && (!hil::axis_direction(motion_profile, true) || right_moving))
+                        ++moving_feedback;
+                    if (status.ok() && state.armed && left_moving && right_moving
+                        && gate.differential_since() != Clock::time_point{}
+                        && state.feedback.status_at > gate.differential_since()
+                        && (motion_profile == hil::MotionMode::differential_left
+                                ? state.left_tenths_rpm < state.right_tenths_rpm
+                                : state.left_tenths_rpm > state.right_tenths_rpm))
+                        ++differential_feedback;
                 }
                 if (Clock::now() >= next_log) {
                     next_log = Clock::now() + (soak ? 1s : 100ms);
@@ -671,13 +719,18 @@ int run(const std::string& interface, std::chrono::milliseconds duration, const 
                 }
                 std::cout << "event=motion_stop verified=" << stopped << " elapsed_us="
                           << std::chrono::duration_cast<std::chrono::microseconds>(Clock::now() - stop_started).count()
-                          << " moving_feedback=" << moving_feedback << '\n'
+                          << " left_moving_feedback=" << axis_moving_feedback[0]
+                          << " right_moving_feedback=" << axis_moving_feedback[1]
+                          << " moving_feedback=" << moving_feedback
+                          << " differential_feedback=" << differential_feedback << '\n'
                           << std::flush;
                 if (status.ok() && !stopped)
                     status = Status::from_errno("control_hil_motion_stop_deadline", interface, ETIMEDOUT);
             }
             if (status.ok() && motion && (!gate.started() || moving_feedback < 2))
                 status = Status::from_errno("control_hil_no_motion_feedback", interface, ENODATA);
+            if (status.ok() && hil::is_differential(motion_profile) && differential_feedback < 2)
+                status = Status::from_errno("control_hil_no_differential_feedback", interface, ENODATA);
             // Detach the sole RPDO writer before any SDO cleanup.
             loop.reset();
         }
@@ -713,12 +766,19 @@ int main(int argc, char* argv[]) {
     const std::string_view usage =
         "Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms "
         "MS "
-        "(--zero-soak|--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--zero-sbus-"
+        "(--zero-soak|--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--"
+        "zero-sbus-"
         "recovery|--zero-uart-recovery|--restore-"
-        "zero-baseline)\n"
+        "zero-baseline|--single-left-negative|--single-right-negative|--dual-positive|--dual-negative|"
+        "--turn-left|--turn-right|--differential-left|--differential-right)\n"
         "Optional for control/restore: --zero-feedback-tenths-rpm 0..20 (default20); standstill only; "
         "moving direction/target bounds unchanged.\n"
-        "Optional for motion: --motion-window-ms 3000..8000 (default3000); cutoff50ms before limit.\n"
+        "Binding: --right-sign -1|1 (legacy default1); required explicitly for physical motion on can0.\n"
+        "RK3588 vehicle-forward binding: left+1/right-1; raw CAN evidence is retained.\n"
+        "Motion: --motion-window-ms 3000..8000 for legacy positive single-wheel modes; G3 modes require3000.\n"
+        "Default3000; cutoff50ms before limit. G3 differential-left/right means positive left<right/left>right.\n"
+        "Differential trials allow positive equal-wheel approach; require two fresh unequal-target/directional "
+        "feedback samples.\n"
         "Zero-soak: requires ROBOT_CONTROL_HIL_TRACE_FD nonblocking pipe; duration 2000..3600000ms.\n"
         "MS: 2000..20000 for zero-only; 2000..120000 for zero-uart-recovery; "
         "2000..60000 for other bounded trials.\n";
@@ -726,12 +786,11 @@ int main(int argc, char* argv[]) {
         std::cout << usage;
         return 0;
     }
-    if ((argc != 8 && argc != 10 && argc != 12) || std::string_view{argv[1]} != "--interface"
+    if ((argc != 8 && argc != 10 && argc != 12 && argc != 14) || std::string_view{argv[1]} != "--interface"
         || std::string_view{argv[3]} != "--device" || std::string_view{argv[5]} != "--duration-ms"
-        || (std::string_view{argv[7]} != "--zero-soak" && std::string_view{argv[7]} != "--zero-only" && std::string_view{argv[7]} != "--single-left"
-            && std::string_view{argv[7]} != "--single-right" && std::string_view{argv[7]} != "--right-throttle"
-            && std::string_view{argv[7]} != "--observe-input" && std::string_view{argv[7]} != "--zero-x1-recovery"
-            && std::string_view{argv[7]} != "--zero-sbus-recovery"
+        || (hil::motion_mode(argv[7]) == hil::MotionMode::zero && std::string_view{argv[7]} != "--zero-soak"
+            && std::string_view{argv[7]} != "--zero-only" && std::string_view{argv[7]} != "--observe-input"
+            && std::string_view{argv[7]} != "--zero-x1-recovery" && std::string_view{argv[7]} != "--zero-sbus-recovery"
             && std::string_view{argv[7]} != "--zero-uart-recovery"
             && std::string_view{argv[7]} != "--restore-zero-baseline")) {
         std::cerr << usage;
@@ -739,25 +798,34 @@ int main(int argc, char* argv[]) {
     }
     int zero_tolerance = std::string_view{argv[7]} == "--observe-input" ? 0 : 20;
     auto motion_window = hil::MotionGate::default_window;
-    bool tolerance_set = false, window_set = false;
+    bool tolerance_set = false, window_set = false, sign_set = false;
+    int right_sign = 1;
     for (int index = 8; index < argc; index += 2) {
         const std::string_view name{argv[index]}, value{argv[index + 1]}, mode{argv[7]};
         int number = 0;
         const auto parsed_option = std::from_chars(value.data(), value.data() + value.size(), number);
-        const bool tolerance = name == "--zero-feedback-tenths-rpm" && !tolerance_set
-                               && mode != "--observe-input" && number >= 0 && number <= 20;
+        const bool tolerance = name == "--zero-feedback-tenths-rpm" && !tolerance_set && mode != "--observe-input"
+                               && number >= 0 && number <= 20;
+        const bool binding =
+            name == "--right-sign" && !sign_set && mode != "--observe-input" && (number == 1 || number == -1);
         const bool window = name == "--motion-window-ms" && !window_set
-                            && (mode == "--single-left" || mode == "--single-right" || mode == "--right-throttle")
+                            && hil::motion_mode(mode) != hil::MotionMode::zero
                             && number >= hil::MotionGate::default_window.count()
-                            && number <= hil::MotionGate::maximum_window.count();
+                            && number <= ((hil::motion_mode(mode) == hil::MotionMode::left
+                                           || hil::motion_mode(mode) == hil::MotionMode::right)
+                                              ? hil::MotionGate::maximum_window.count()
+                                              : hil::MotionGate::default_window.count());
         if (parsed_option.ec != std::errc{} || parsed_option.ptr != value.data() + value.size()
-            || (!tolerance && !window)) {
+            || (!tolerance && !window && !binding)) {
             std::cerr << usage;
             return 2;
         }
         if (tolerance) {
             zero_tolerance = number;
             tolerance_set = true;
+        } else if (binding) {
+            right_sign = number;
+            sign_set = true;
         } else {
             motion_window = std::chrono::milliseconds{number};
             window_set = true;
@@ -769,9 +837,12 @@ int main(int argc, char* argv[]) {
     const auto parsed = std::from_chars(duration.data(), duration.data() + duration.size(), milliseconds);
     const auto* fixture = std::getenv("ROBOT_CONTROL_TEST_VCAN_INTERFACE");
     if (parsed.ec != std::errc{} || parsed.ptr != duration.data() + duration.size() || milliseconds < 2000
-        || milliseconds > (std::string_view{argv[7]} == "--zero-soak" ? 3600000U
-                            : std::string_view{argv[7]} == "--zero-only" ? 20000U
-                            : std::string_view{argv[7]} == "--zero-uart-recovery" ? 120000U : 60000U) || !device.starts_with("/dev/")
+        || milliseconds > (std::string_view{argv[7]} == "--zero-soak"            ? 3600000U
+                           : std::string_view{argv[7]} == "--zero-only"          ? 20000U
+                           : std::string_view{argv[7]} == "--zero-uart-recovery" ? 120000U
+                                                                                 : 60000U)
+        || (interface == "can0" && hil::motion_mode(argv[7]) != hil::MotionMode::zero && !sign_set)
+        || !device.starts_with("/dev/")
         || (interface != (std::string_view{argv[7]} == "--observe-input" ? "none" : "can0")
             && !(interface == "vcan0" && fixture && std::string_view{fixture} == "vcan0"))) {
         std::cerr << usage;
@@ -793,8 +864,8 @@ int main(int argc, char* argv[]) {
     if (flags < 0 || err_flags < 0 || ::fcntl(STDOUT_FILENO, F_SETFL, flags | O_NONBLOCK) < 0
         || ::fcntl(STDERR_FILENO, F_SETFL, err_flags | O_NONBLOCK) < 0 || ::signal(SIGPIPE, SIG_IGN) == SIG_ERR)
         return 1;
-    const auto result =
-        run(interface, std::chrono::milliseconds{milliseconds}, device, argv[7], zero_tolerance, motion_window, stream_fd);
+    const auto result = run(interface, std::chrono::milliseconds{milliseconds}, device, argv[7], zero_tolerance,
+                            motion_window, stream_fd, right_sign);
     static_cast<void>(::fcntl(STDOUT_FILENO, F_SETFL, flags));
     static_cast<void>(::fcntl(STDERR_FILENO, F_SETFL, err_flags));
     return result;

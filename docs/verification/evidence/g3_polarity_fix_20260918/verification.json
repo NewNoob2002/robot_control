@@ -1,0 +1,33 @@
+{
+  "debug": {
+    "passed": 50,
+    "total": 50,
+    "seconds": 436.55
+  },
+  "sanitizer": {
+    "passed": 50,
+    "total": 50,
+    "seconds": 440.85
+  },
+  "g3_matrix": {
+    "polarities": [
+      1,
+      -1
+    ],
+    "scenarios_each": 20
+  },
+  "compiled_inputs": 123,
+  "format": true,
+  "diff_check": true,
+  "python_syntax": true,
+  "historical_manifests_unchanged": [
+    "right_negative_a1",
+    "dual_positive_a1",
+    "transient_feedback_revision"
+  ],
+  "static": "Scoped clang-tidy completed; preexisting Result::value unchecked optional advisories retained",
+  "cross": "Locked offline Docker, actual target sysroot, both ELF audits passed",
+  "target": "identity/hash plus four device-free smoke checks passed",
+  "physical": "zero A3 PASS; corrected dual-positive PASS_USER_APPROVED_START_STOP_TRANSIENT; original application exit1 retained",
+  "latest_operator": "drive OFF, both vehicle-forward and normal stop, no abnormal sound"
+}

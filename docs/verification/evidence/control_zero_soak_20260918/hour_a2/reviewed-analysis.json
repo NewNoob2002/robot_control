@@ -1,0 +1,41 @@
+{
+  "status": "PENDING_OPERATOR_ACCEPTANCE",
+  "original_strict_order": "FAIL",
+  "functional_checks": "PASS",
+  "directional_sequences_equal": true,
+  "all_id_sequences_equal": true,
+  "local_reorder_indices": [
+    116748,
+    116749,
+    116750
+  ],
+  "resource_samples": 3559,
+  "rss_min_kib": 1668,
+  "rss_max_kib": 1668,
+  "cpu_peak_percent": 5.9966843189851655,
+  "sdo_downloads": 36,
+  "restored_objects": 13,
+  "software": {
+    "status": "PASS_SOFTWARE_EVIDENCE",
+    "records": 1760263,
+    "frames": 514256,
+    "cycles": 360001,
+    "rpdo": 360002,
+    "enabled_cycles": 359644,
+    "elapsed_ms": 3600367,
+    "missed_periods": 3,
+    "maximum_lateness_us": 36913,
+    "maximum_cycle_us": 1034,
+    "scope": "Continuous real-input zero-target control; dual wire capture/operator acceptance still required"
+  },
+  "matched_can_frames": 518836,
+  "jcan_frames": 518836,
+  "jcan_extra_prefix": 0,
+  "jcan_extra_suffix": 0,
+  "operator": {
+    "confirmed_at": 1789720926.989715,
+    "response": "OFF",
+    "accepted_conditions": true
+  },
+  "scope": "Unloaded continuous real-SBUS zero-target control only; no moving or loaded qualification"
+}

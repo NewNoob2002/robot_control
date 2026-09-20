@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "right_sign": -1,
+  "profile": "dual-negative",
+  "summary": {
+    "event": "summary",
+    "cycles": "554",
+    "enabled_samples": "440",
+    "missed_periods": "3",
+    "maximum_lateness_us": "31127",
+    "maximum_cycle_us": "500",
+    "shutdown_us": "8",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  },
+  "feedback": {
+    "profile": "dual-negative",
+    "first_nonzero_ns": 384316722425634,
+    "first_zero_ns": 384319682189593,
+    "axis_motion_samples": [
+      57,
+      57
+    ],
+    "stable_since_ns": 384319732173578,
+    "stable_verified_ns": 384319981875923
+  },
+  "capture": {
+    "matching_frames": 1158,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "wire_motion": {
+      "profile": "dual-negative",
+      "first_nonzero_ns": 1789732139773016832,
+      "first_zero_ns": 1789732142732924928,
+      "axis_motion_samples": [
+        58,
+        58
+      ],
+      "stable_since_ns": 1789732142782465024,
+      "stable_verified_ns": 1789732143032196096
+    },
+    "scope": "Normal bounded G3 trial only; separate physical direction/operator acceptance required"
+  },
+  "motion_ms": 2959.763959,
+  "stop_verified_ms": 299.68633,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -58,
+      6
+    ],
+    [
+      -15,
+      55
+    ]
+  ],
+  "sbus_frames": 833,
+  "trace_records": 3252,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789732147.5905745,
+    "response": "OFF",
+    "left_backward_and_stop_normal": true,
+    "right_backward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "scope": "Dual-negative raised/unloaded only; no retry or other-mode authorization"
+}

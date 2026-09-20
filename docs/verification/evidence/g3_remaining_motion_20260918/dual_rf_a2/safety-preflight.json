@@ -1,0 +1,39 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/dual_rf_a2",
+  "authorization": "Explicit operator retry authorization after identifying disconnected SBUS data line; fresh local START requires reconnected signal",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms both wheels raised/unloaded, actual drive power, X1 released/accessible, neutral/CH6 released, unchanged wiring and visible console",
+  "limits": "Dual-positive <=5rpm; hard3s/2950ms cutoff; total60s; transmitter OFF only during motion; receiver powered/wiring unchanged; no retry",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "User explicitly authorizes A2 after identifying missing SBUS data line; fresh START confirms reconnection and all powered readiness",
+  "scripts": {
+    "analyze-rf.py": "8e13b739178275eef055b7548164749c0e5497fd1dd34cf1dfd5df4da5832a71",
+    "check_rf_audit.py": "7117385e158b3de472fbb96b54d9379ec3fc1a2eef01c4f602ad461e54997e81",
+    "check_runner.py": "704da00de7d3ea1ecd2463094b4c96f06e8055f88f01dc33be06d07ba5b6dfbb",
+    "jcan/capture_once.py": "fce0de9727979edf1b998bc221390771aef96832c21519f432ec0a431bcb25ae",
+    "start_once.py": "6c7fcfe0c6dc9f4176b54de0c5d69cbf83ea44d15a9d4e4c0cbc847e55d95051",
+    "target_once.py": "fd271187649b89360f66223162a86a5668b6f22634d88d62151fa608ec29b282"
+  },
+  "right_sign": -1
+}

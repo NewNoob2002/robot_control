@@ -1,0 +1,68 @@
+{
+  "status": "PASS_protocol_pending_ground_measurements",
+  "right_sign": -1,
+  "profile": "turn-left",
+  "summary": {
+    "event": "summary",
+    "cycles": "1398",
+    "enabled_samples": "1159",
+    "missed_periods": "3",
+    "maximum_lateness_us": "33105",
+    "maximum_cycle_us": "77",
+    "shutdown_us": "6",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  },
+  "feedback": {
+    "profile": "turn-left",
+    "first_nonzero_ns": 13335216274640,
+    "first_zero_ns": 13338166285462,
+    "axis_motion_samples": [
+      57,
+      57
+    ],
+    "stable_since_ns": 13338426627672,
+    "stable_verified_ns": 13338676375811
+  },
+  "capture": {
+    "matching_frames": 2383,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "wire_motion": {
+      "profile": "turn-left",
+      "first_nonzero_ns": 1789879053866016000,
+      "first_zero_ns": 1789879056816230912,
+      "axis_motion_samples": [
+        57,
+        57
+      ],
+      "stable_since_ns": 1789879057076153088,
+      "stable_verified_ns": 1789879057325901056
+    },
+    "scope": "Normal bounded G3 trial only; separate physical direction/operator acceptance required"
+  },
+  "motion_ms": 2950.010822,
+  "stop_verified_ms": 510.090349,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -47,
+      7
+    ],
+    [
+      -47,
+      9
+    ]
+  ],
+  "sbus_frames": 2069,
+  "trace_records": 7505,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789879134.483228,
+    "response": "OFF",
+    "left_backward_and_stop_normal": true,
+    "right_forward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "scope": "Ground left-turn protocol only; independent measured travel/stop limits and barrier/contact observations required for ground acceptance"
+}

@@ -1,0 +1,14 @@
+{
+  "recorded_at": "2026-09-18T10:50:06.683989+00:00",
+  "source": "Explicit user statements in this session after local terminal report",
+  "direction_statement": "左轮是正常的向前，这里右轮方向是反的，正常车体向前运动时从车后看应该轮胎是往前转动的，但是右轮是往后转的",
+  "off_statement": "已断电，双轮静止，无异响",
+  "left_vehicle_forward": true,
+  "right_vehicle_forward": false,
+  "right_vehicle_backward": true,
+  "drive_power_off": true,
+  "wheels_stationary": true,
+  "no_abnormal_sound": true,
+  "physical_direction_verdict": "FAILED",
+  "interpretation": "Vehicle-forward reference; not a transient-feedback exception"
+}

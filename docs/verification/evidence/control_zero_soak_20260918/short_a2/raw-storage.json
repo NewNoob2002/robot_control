@@ -1,0 +1,8 @@
+{
+  "original": "jcan/session.jsonl",
+  "compressed": "jcan/session.jsonl.gz",
+  "original_bytes": 12682430,
+  "original_sha256": "bc8a0e7d06b6111cc0b621e973acb5f98a2e24948c6c0b2388f61b048353e632",
+  "compressed_sha256": "d2c6cabcc821e1f47d8d7acc8bed2e426b0d24c3fe56980d8a4f989fbac5b990",
+  "verified": "decompressed bytes equal original before removing duplicate"
+}

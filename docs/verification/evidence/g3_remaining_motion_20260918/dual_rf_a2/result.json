@@ -1,0 +1,42 @@
+{
+  "passed": false,
+  "target_invoked": true,
+  "display_phase": "STOP",
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "monotonic_ns": 1910804460067
+    },
+    {
+      "phase": "WAITING_LINK:14:0",
+      "monotonic_ns": 1912925864338
+    },
+    {
+      "phase": "CONTROL_READY",
+      "monotonic_ns": 1912976325678
+    },
+    {
+      "phase": "RELEASE_CH6:0:0",
+      "monotonic_ns": 1916363079689
+    },
+    {
+      "phase": "ARMING:0:0",
+      "monotonic_ns": 1916414247821
+    },
+    {
+      "phase": "MOTION_READY",
+      "monotonic_ns": 1916874411423
+    },
+    {
+      "phase": "TX_OFF_NOW",
+      "monotonic_ns": 1918802091553
+    },
+    {
+      "phase": "STOP",
+      "monotonic_ns": 1921526022278
+    }
+  ],
+  "target_exit": 1,
+  "error": "target failed; no retry",
+  "capture_clean": true
+}

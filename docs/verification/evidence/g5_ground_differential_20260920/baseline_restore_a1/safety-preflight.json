@@ -1,0 +1,37 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_baseline_restore_a1",
+  "authorization": "User confirmed stationary/off/restraint and authorized proceeding with baseline recovery before one retry",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "2000",
+    "--restore-zero-baseline",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Local START confirms ground stationary with mechanical restraint throughout; no raised-wheel assertion",
+  "limits": "Disabled-only restore known residue; no control loop/RPDO/enable/nonzero targets; exact18 volatile writes; CLI20; no persistent/interface changes",
+  "recovery": "3s host lease; bounded SIGTERM cleanup12s; mechanical restraint retained through Disable Voltage and power off; no retry",
+  "prerequisite": "User confirmed stationary/no sound/restraint/OFF after failed ground differential A1; fresh powered local START required",
+  "scripts": {
+    "start_once.py": "9c750f1f0817bdcf7b51dc0fccdb7e27e2479bf39ec5baa7eb12e5a89f6dac4c",
+    "target_once.py": "5e32fc49d36c0911cb5dbf8687673298db224785987f2082d56c3dfb7ca87b4d",
+    "analyze-restore.py": "18a92cc61c1582d028231220593bbb30bb819500d65fe9f80d60efec02eddeee",
+    "check_runner.py": "eac453c2a604bd9e71e3ef515c6284fcd08187bb4ea7c9790aaf47a7bbd41e48",
+    "jcan/capture_once.py": "f673701dac20f1adcfd832b0bcf1d7af40ff76f94cc9e0c180aa354c8904543b"
+  },
+  "right_sign": -1,
+  "previous_trial": "No preceding ground run; all historical runners consumed"
+}

@@ -1,0 +1,70 @@
+{
+  "status": "PASS_revised_differential_protocol_pending_ground_review",
+  "right_sign": -1,
+  "profile": "differential-right",
+  "summary": {
+    "event": "summary",
+    "cycles": "605",
+    "enabled_samples": "437",
+    "missed_periods": "3",
+    "maximum_lateness_us": "37767",
+    "maximum_cycle_us": "188",
+    "shutdown_us": "29",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  },
+  "feedback": {
+    "profile": "differential-right",
+    "first_nonzero_ns": 20835154802073,
+    "first_zero_ns": 20836104737485,
+    "axis_motion_samples": [
+      17,
+      17
+    ],
+    "stable_since_ns": 20836279126995,
+    "stable_verified_ns": 20836528869741,
+    "differential_feedback_samples": 7
+  },
+  "capture": {
+    "matching_frames": 1238,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "wire_motion": {
+      "profile": "differential-right",
+      "first_nonzero_ns": 1789886553804593920,
+      "first_zero_ns": 1789886554754481152,
+      "axis_motion_samples": [
+        17,
+        17
+      ],
+      "stable_since_ns": 1789886554928653056,
+      "stable_verified_ns": 1789886555178395136,
+      "differential_feedback_samples": 7
+    },
+    "scope": "Normal bounded G3 trial only; separate physical direction/operator acceptance required"
+  },
+  "motion_ms": 949.935412,
+  "stop_verified_ms": 424.132256,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -12,
+      51
+    ],
+    [
+      -51,
+      4
+    ]
+  ],
+  "sbus_frames": 925,
+  "trace_records": 3591,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789886667.0368123,
+    "response": "OFF",
+    "left_forward_and_stop_normal": true,
+    "right_forward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "scope": "Ground right-differential protocol only; independent measured travel/stop limits and barrier/contact observations required for ground acceptance"
+}

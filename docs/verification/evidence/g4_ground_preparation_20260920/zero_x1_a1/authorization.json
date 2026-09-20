@@ -1,0 +1,40 @@
+{
+  "stage": "G4 ground stationary zero-target X1 A1",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--zero-x1-recovery",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Ground stationary, mechanically restrained, unloaded and isolated; transmitter and receiver online; fresh START",
+    "Follow local CONTROL_READY/X1 hold/release/nonneutral rejection/neutral/fresh CH6 cues",
+    "Keep restraint throughout disable and cleanup; stationary/restraint confirmed before drive OFF"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "All SDO/RPDO velocity targets exactly zero; no unintended vehicle displacement",
+    "X1 observed >=1s; nonneutral CH6 rejected; fresh neutral rearm; no automatic reenable",
+    "Full baseline restoration, exact dual capture agreement, unchanged CAN counters, actual operator disposition"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "Ground holding torque and ground motion admission remain separate",
+  "authorized": true,
+  "authorization": "User authorized stationary ground X1 zero-only check; fresh local START confirms mechanical restraint",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_zero_x1_a1",
+  "right_sign": -1
+}

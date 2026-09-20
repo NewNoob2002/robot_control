@@ -1,0 +1,37 @@
+PROGRESS: active
+PROGRESS: active
+PROGRESS: active
+INPUT_STATUS: state=waiting_link source_fault=14 flags=0
+WINDOW_REMAINING: 59
+INPUT_STATUS: state=ready source_fault=0 flags=0
+CONTROL_READY: neutral; press and release CH6 once
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 58
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 57
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 56
+INPUT_STATUS: state=arming source_fault=0 flags=0
+PROGRESS: active
+MOTION_READY: BOTH forward; steering neutral, forward throttle only; equal targets max5rpm/3s
+PROGRESS: active
+WINDOW_REMAINING: 55
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 54
+TX_OFF_NOW: both wheels moving; turn transmitter OFF now; receiver power and all wiring unchanged; keep throttle until stop then neutral
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 53
+PROGRESS: active
+WINDOW_REMAINING: 52
+PROGRESS: active
+APPLICATION_STOPPING: neutral, no further stimulus
+PROGRESS: active
+WINDOW_REMAINING: 51
+PROGRESS: active
+APPLICATION_EXIT: neutral, no further stimulus
+{"passed": true, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--dual-positive", "--zero-feedback-tenths-rpm", "20", "--motion-window-ms", "3000", "--right-sign", "-1"], "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2", "last_input_status": "state=arming source_fault=0 flags=0", "operator_prompted": true, "motion_prompted": true, "rf_off_prompted": true, "rf_off_cue_ns": 2342973090819, "stopping": true, "application_exit": 1, "application_elapsed_ms": 9300.912784000047}

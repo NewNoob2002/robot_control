@@ -1,0 +1,80 @@
+{
+  "status": "PASS_revised_differential_and_approved_stop_transient",
+  "feedback": {
+    "profile": "differential-left",
+    "first_nonzero_ns": 16638631970256,
+    "first_zero_ns": 16640411967397,
+    "axis_motion_samples": [
+      33,
+      34
+    ],
+    "stable_since_ns": 16640874400394,
+    "stable_verified_ns": 16641124393051,
+    "differential_feedback_samples": 13,
+    "excursions": [
+      {
+        "ns": 16640824449638,
+        "after_zero_ms": 412.482241,
+        "left_raw_tenths": -4,
+        "right_raw_tenths": 22,
+        "right_logical_tenths": -22,
+        "phase": "bounded_stop"
+      }
+    ],
+    "excursion_count": 1,
+    "excursion_span_ms": 0,
+    "excursion_peak_rpm": 2.2,
+    "raw_samples_unchanged": true
+  },
+  "capture": {
+    "matching_frames": 1274,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "wire_motion": {
+      "profile": "differential-left",
+      "first_nonzero_ns": 1789882357281765888,
+      "first_zero_ns": 1789882359061767936,
+      "axis_motion_samples": [
+        33,
+        34
+      ],
+      "stable_since_ns": 1789882359523922944,
+      "stable_verified_ns": 1789882359773914112,
+      "differential_feedback_samples": 13,
+      "excursions": [
+        {
+          "ns": 1789882359473959936,
+          "after_zero_ms": 412.192,
+          "left_raw_tenths": -4,
+          "right_raw_tenths": 22,
+          "right_logical_tenths": -22,
+          "phase": "bounded_stop"
+        }
+      ],
+      "excursion_count": 1,
+      "excursion_span_ms": 0,
+      "excursion_peak_rpm": 2.2,
+      "raw_samples_unchanged": true
+    },
+    "scope": "Normal bounded G3 trial only; separate physical direction/operator acceptance required"
+  },
+  "motion_ms": 1779.997141,
+  "feedback_stop_verified_ms": 712.425654,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789882483.737578,
+    "response": "OFF",
+    "left_forward_and_stop_normal": true,
+    "right_forward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "ground_observations": {
+    "raw": "前进20cm左左转弯位移1-2cm，余几乎没有，目测，无X1介入，无接触，中心未超越1米线",
+    "source": "local operator measurement"
+  },
+  "classification": "NORMAL_START_STOP_FEEDBACK_TRANSIENT",
+  "original_exit1_and_feedback_flags_preserved": true,
+  "online_guard_changed": false,
+  "mutation_checks": 2
+}

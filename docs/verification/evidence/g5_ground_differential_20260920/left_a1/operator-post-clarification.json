@@ -1,0 +1,8 @@
+{
+  "raw": "确认并继续",
+  "vehicle_stationary": true,
+  "no_abnormal_sound": true,
+  "mechanical_restraint": true,
+  "drive_power_off": true,
+  "retry_authorization_retained": true
+}

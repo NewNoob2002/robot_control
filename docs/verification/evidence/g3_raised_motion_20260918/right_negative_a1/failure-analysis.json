@@ -1,0 +1,68 @@
+{
+  "status": "FAILED_FEEDBACK_CRITERION",
+  "protocol": {
+    "matching_frames": 1466,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "scope": "Protocol/restoration only; original right-negative feedback failure remains FAILED"
+  },
+  "summary": {
+    "event": "summary",
+    "cycles": "765",
+    "enabled_samples": "607",
+    "missed_periods": "4",
+    "maximum_lateness_us": "43107",
+    "maximum_cycle_us": "441",
+    "shutdown_us": "22",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  },
+  "wire_motion_ms": 2950.3870010375977,
+  "wire_excursions": [
+    {
+      "after_zero_ms": 78.22203636169434,
+      "right_tenths": 29
+    }
+  ],
+  "motion_ms": 2950.092712,
+  "stop_verified_ms": 378.48142,
+  "violations": [
+    {
+      "ns": 379559845396739,
+      "after_zero_ms": 78.847781,
+      "left_tenths": 0,
+      "right_tenths": 29
+    }
+  ],
+  "raw_feedback_range_tenths_rpm": [
+    [
+      0,
+      0
+    ],
+    [
+      -61,
+      29
+    ]
+  ],
+  "no_positive_target": true,
+  "no_restart": true,
+  "stop_cause": [
+    {
+      "ns": 379559766530000,
+      "cause": 2,
+      "lifecycle_exit": 0,
+      "source_sequence": 766,
+      "source_ns": 379559766462332
+    }
+  ],
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789727391.3154302,
+    "response": "OFF",
+    "right_reverse_and_stop_normal": true,
+    "left_stationary": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "scope": "Protocol/restoration and bounded eventual standstill verified; right-negative physical acceptance NOT granted; no retry"
+}

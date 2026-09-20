@@ -1,0 +1,19 @@
+{
+  "wall_time": 1789877037.227192,
+  "response": "START",
+  "drive_power_on": true,
+  "ground_unloaded": true,
+  "rear_clearance_confirmed": true,
+  "containment_ready": true,
+  "intervention_line_marked": true,
+  "ground_plan_sha256": "2c368269af6f91dec81efdaf3df2a025aa11b8f130cba0026347f7eb614e5373",
+  "emergency_stop_available": true,
+  "x1_released": true,
+  "sticks_neutral": true,
+  "ch6_released": true,
+  "transmitter_receiver_online": true,
+  "unchanged_wiring": true,
+  "operator_display_visible": true,
+  "independent_capture_ready": true,
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451"
+}

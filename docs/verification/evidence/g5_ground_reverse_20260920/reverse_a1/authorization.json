@@ -1,0 +1,42 @@
+{
+  "stage": "G5 ground reverse A1",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-negative",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Confirm rear >=3m clear level area, firm suitable rear barrier, rear1m intervention mark, unloaded vehicle and X1/supply-cutoff access",
+    "CONTROL_READY: neutral CH6 once; MOTION_READY: reverse throttle only, steering centered; <=5rpm/<3s",
+    "STOP: neutral; actual standstill and anti-roll before OFF; record actual reverse displacement/stopping observations"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Correct equal negative logical targets, abs<=5rpm, nonzero<3s",
+    "Actual rearward motion/normal stop, no unintended restart, full restoration and dual capture agreement",
+    "Total displacement<1m and post-stop distance<=0.5m; no barrier contact; measurement method recorded"
+  ],
+  "failure": "Preserve failures; X1 first, power cutoff if ineffective, barrier last resort; stationary and anti-roll before final OFF; no retry",
+  "next": "Ground turning/differential only after review and a new trial",
+  "authorized": true,
+  "authorization": "User authorized G5 ground reverse trial; fresh START confirms barrier, empty area and marked1m intervention line; <=5rpm/<3s",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_reverse_a1",
+  "right_sign": -1
+}

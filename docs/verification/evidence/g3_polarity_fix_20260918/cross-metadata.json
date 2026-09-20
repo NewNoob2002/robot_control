@@ -1,0 +1,29 @@
+{
+  "source": {
+    "dirty": true,
+    "file_count": 5509,
+    "revision": "a2338896cefee2edecfc6edc1890b0f1d4c4de2c",
+    "schema_version": 1,
+    "snapshot_sha256": "c606c462451c4c722bcd06504c1dd95c0a3c0d37dfcfee6d6407edbac6bc3497"
+  },
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/g3-polarity-v1-runtime",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_CONTROL_HIL=ON"
+  ],
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "sysroot_content": "a685ab13c6e2087dde9ec29e0f6c18a49cf0af477692f2e3a2b0b8b6e5c39911  sysroot-content.jsonl",
+  "artifacts": {
+    "tools/control_hil/robot-control-hil": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+    "tools/control_hil/robot-control-diagnostics": "d309dccb4c216a06c3319f9cf59659109aaec3f1f57d5d881d7818112f85a94d"
+  }
+}

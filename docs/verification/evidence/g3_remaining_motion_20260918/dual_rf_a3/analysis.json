@@ -1,0 +1,111 @@
+{
+  "status": "PASS_USER_APPROVED_START_STOP_TRANSIENT",
+  "loss": {
+    "kind": "frame_lost",
+    "fault": 3,
+    "loss_ns": 2345320153812,
+    "first_nonzero_ns": 2342830176248,
+    "first_zero_ns": 2345320173639,
+    "loss_to_zero_us": 19.827,
+    "flags_observed": [
+      0,
+      4
+    ],
+    "no_restart": true,
+    "scope": "Reader RF flags to successful zero RPDO; physical button/RF timing not measured"
+  },
+  "right_sign": -1,
+  "profile": "dual-positive",
+  "summary": {
+    "event": "summary",
+    "cycles": "752",
+    "enabled_samples": "402",
+    "missed_periods": "3",
+    "maximum_lateness_us": "32952",
+    "maximum_cycle_us": "97",
+    "shutdown_us": "6",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  },
+  "feedback": {
+    "first_nonzero_ns": 2342830176248,
+    "first_zero_ns": 2345320173639,
+    "stable_since_ns": 2345438017045,
+    "stable_verified_ns": 2345687697339,
+    "simultaneous_motion_samples": 48,
+    "excursions": [
+      {
+        "ns": 2345388081803,
+        "after_zero_ms": 67.908164,
+        "left_raw_tenths": -10,
+        "right_raw_tenths": 34,
+        "right_logical_tenths": -34,
+        "phase": "bounded_stop"
+      }
+    ],
+    "excursion_count": 1,
+    "excursion_span_ms": 0,
+    "excursion_peak_rpm": 3.4,
+    "no_restart": true,
+    "raw_samples_unchanged": true
+  },
+  "capture": {
+    "matching_frames": 1446,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "scope": "Exact capture/restoration; RF causality and raw feedback audited separately",
+    "wire_motion": {
+      "first_nonzero_ns": 1789868061479971840,
+      "first_zero_ns": 1789868063969971968,
+      "stable_since_ns": 1789868064087536128,
+      "stable_verified_ns": 1789868064337205760,
+      "simultaneous_motion_samples": 48,
+      "excursions": [
+        {
+          "ns": 1789868064037601024,
+          "after_zero_ms": 67.629056,
+          "left_raw_tenths": -10,
+          "right_raw_tenths": 34,
+          "right_logical_tenths": -34,
+          "phase": "bounded_stop"
+        }
+      ],
+      "excursion_count": 1,
+      "excursion_span_ms": 0,
+      "excursion_peak_rpm": 3.4,
+      "no_restart": true,
+      "raw_samples_unchanged": true
+    }
+  },
+  "motion_ms": 2489.997391,
+  "stop_verified_ms": 367.5237,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -10,
+      54
+    ],
+    [
+      -61,
+      34
+    ]
+  ],
+  "sbus_frames": 1126,
+  "trace_records": 4265,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789868069.5873923,
+    "response": "OFF",
+    "left_forward_and_stop_normal": true,
+    "right_forward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true,
+    "transmitter_off": true,
+    "receiver_continuously_powered": true,
+    "wiring_unchanged": true
+  },
+  "scope": "Dual-positive transmitter loss; protected exit1 expected; receiver powered; no recovery/rearm claim",
+  "classification": "NORMAL_START_STOP_FEEDBACK_TRANSIENT",
+  "original_verdict": "FAILED_FEEDBACK_CRITERION",
+  "criterion": "docs/plans/G3_RAISED_MOTION.md: approved start/stop transient rule",
+  "online_guard_changed": false
+}

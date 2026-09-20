@@ -1,0 +1,111 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/p103-control-hil-san
+      Start  1: sbus_source_contract
+ 1/53 Test  #1: sbus_source_contract ...............................................   Passed    0.02 sec
+      Start  2: control_cycle_contract
+ 2/53 Test  #2: control_cycle_contract .............................................   Passed    0.02 sec
+      Start  3: canopen_runtime_policy
+ 3/53 Test  #3: canopen_runtime_policy .............................................   Passed    0.01 sec
+      Start  4: platform_probe_help
+ 4/53 Test  #4: platform_probe_help ................................................   Passed    0.01 sec
+      Start  5: platform_probe_run
+ 5/53 Test  #5: platform_probe_run .................................................   Passed    0.01 sec
+      Start  6: platform_probe_phase3_smoke
+ 6/53 Test  #6: platform_probe_phase3_smoke ........................................   Passed    0.01 sec
+      Start  7: can_probe_help
+ 7/53 Test  #7: can_probe_help .....................................................   Passed    0.01 sec
+      Start  8: can_probe_missing_interface
+ 8/53 Test  #8: can_probe_missing_interface ........................................   Passed    0.02 sec
+      Start  9: can_probe_unknown_argument
+ 9/53 Test  #9: can_probe_unknown_argument .........................................   Passed    0.02 sec
+      Start 10: can_probe_duration_zero
+10/53 Test #10: can_probe_duration_zero ............................................   Passed    0.02 sec
+      Start 11: can_probe_duration_nonnumeric
+11/53 Test #11: can_probe_duration_nonnumeric ......................................   Passed    0.01 sec
+      Start 12: can_probe_duration_overflow
+12/53 Test #12: can_probe_duration_overflow ........................................   Passed    0.02 sec
+      Start 13: can_probe_duplicate_interface
+13/53 Test #13: can_probe_duplicate_interface ......................................   Passed    0.01 sec
+      Start 14: can_probe_duplicate_duration
+14/53 Test #14: can_probe_duplicate_duration .......................................   Passed    0.02 sec
+      Start 15: can_probe_interface_missing_value
+15/53 Test #15: can_probe_interface_missing_value ..................................   Passed    0.02 sec
+      Start 16: can_probe_duration_missing_value
+16/53 Test #16: can_probe_duration_missing_value ...................................   Passed    0.02 sec
+      Start 17: can_probe_duration_negative
+17/53 Test #17: can_probe_duration_negative ........................................   Passed    0.01 sec
+      Start 18: canopen_observer_help
+18/53 Test #18: canopen_observer_help ..............................................   Passed    0.01 sec
+      Start 19: canopen_observer_invalid_
+19/53 Test #19: canopen_observer_invalid_ ..........................................   Passed    0.02 sec
+      Start 20: canopen_observer_invalid___unknown
+20/53 Test #20: canopen_observer_invalid___unknown .................................   Passed    0.02 sec
+      Start 21: canopen_observer_invalid___interface_unused0
+21/53 Test #21: canopen_observer_invalid___interface_unused0 .......................   Passed    0.02 sec
+      Start 22: canopen_observer_invalid___interface_unused0___interface_unused1
+22/53 Test #22: canopen_observer_invalid___interface_unused0___interface_unused1 ...   Passed    0.02 sec
+      Start 23: canopen_observer_invalid___duration_ms_0
+23/53 Test #23: canopen_observer_invalid___duration_ms_0 ...........................   Passed    0.02 sec
+      Start 24: canopen_observer_invalid___duration_ms_1___duration_ms_2
+24/53 Test #24: canopen_observer_invalid___duration_ms_1___duration_ms_2 ...........   Passed    0.01 sec
+      Start 25: control_diagnostics
+25/53 Test #25: control_diagnostics ................................................   Passed    0.10 sec
+      Start 26: control_hil_trace
+26/53 Test #26: control_hil_trace ..................................................   Passed    0.02 sec
+      Start 27: control_hil_motion_gate
+27/53 Test #27: control_hil_motion_gate ............................................   Passed    0.01 sec
+      Start 28: control_hil_differential_audit
+28/53 Test #28: control_hil_differential_audit .....................................   Passed    0.02 sec
+      Start 29: control_hil_zero_gate
+29/53 Test #29: control_hil_zero_gate ..............................................   Passed    0.01 sec
+      Start 30: control_hil_help
+30/53 Test #30: control_hil_help ...................................................   Passed    0.01 sec
+      Start 31: control_hil_differential_1_vcan_managed
+31/53 Test #31: control_hil_differential_1_vcan_managed ............................   Passed   47.25 sec
+      Start 32: control_hil_differential_-1_vcan_managed
+32/53 Test #32: control_hil_differential_-1_vcan_managed ...........................   Passed   47.22 sec
+      Start 33: control_hil_zero_vcan_managed
+33/53 Test #33: control_hil_zero_vcan_managed ......................................   Passed    9.68 sec
+      Start 34: control_hil_stream_vcan_managed
+34/53 Test #34: control_hil_stream_vcan_managed ....................................   Passed   14.82 sec
+      Start 35: control_hil_motion_vcan_managed
+35/53 Test #35: control_hil_motion_vcan_managed ....................................   Passed   87.59 sec
+      Start 36: control_hil_g3_vcan_managed
+36/53 Test #36: control_hil_g3_vcan_managed ........................................   Passed   58.67 sec
+      Start 37: control_hil_polarity_vcan_managed
+37/53 Test #37: control_hil_polarity_vcan_managed ..................................   Passed   57.23 sec
+      Start 38: control_hil_window_vcan_managed
+38/53 Test #38: control_hil_window_vcan_managed ....................................   Passed   15.91 sec
+      Start 39: control_hil_startup_vcan_managed
+39/53 Test #39: control_hil_startup_vcan_managed ...................................   Passed   15.51 sec
+      Start 40: control_hil_recovery_vcan_managed
+40/53 Test #40: control_hil_recovery_vcan_managed ..................................   Passed   57.95 sec
+      Start 41: control_hil_uart_vcan_managed
+41/53 Test #41: control_hil_uart_vcan_managed ......................................   Passed  116.42 sec
+      Start 42: control_qualification_vcan_managed
+42/53 Test #42: control_qualification_vcan_managed .................................   Passed    8.89 sec
+      Start 43: domain_behavior_lock
+43/53 Test #43: domain_behavior_lock ...............................................   Passed    0.10 sec
+      Start 44: sbus_parser_contract
+44/53 Test #44: sbus_parser_contract ...............................................   Passed    0.04 sec
+      Start 45: canopen_stack_build
+45/53 Test #45: canopen_stack_build ................................................   Passed    0.02 sec
+      Start 46: canopen_vcan_managed
+46/53 Test #46: canopen_vcan_managed ...............................................   Passed    0.65 sec
+      Start 47: socketcan_frame_codec
+47/53 Test #47: socketcan_frame_codec ..............................................   Passed    0.01 sec
+      Start 48: socketcan_socket_lifecycle
+48/53 Test #48: socketcan_socket_lifecycle .........................................   Passed    0.01 sec
+      Start 49: socketcan_vcan_managed
+49/53 Test #49: socketcan_vcan_managed .............................................   Passed    0.18 sec
+      Start 50: linux_platform_integration
+50/53 Test #50: linux_platform_integration .........................................   Passed    0.22 sec
+      Start 51: sbus_reader_pty
+51/53 Test #51: sbus_reader_pty ....................................................   Passed    0.12 sec
+      Start 52: sbus_observer_cli
+52/53 Test #52: sbus_observer_cli ..................................................   Passed    0.93 sec
+      Start 53: sbus_source_archived_replay
+53/53 Test #53: sbus_source_archived_replay ........................................   Passed    0.12 sec
+
+100% tests passed, 0 tests failed out of 53
+
+Total Test time (real) = 540.06 sec

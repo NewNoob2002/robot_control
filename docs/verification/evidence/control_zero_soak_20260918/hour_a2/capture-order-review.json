@@ -1,0 +1,12 @@
+{
+  "original_strict_order": "FAIL",
+  "frame_counts": [
+    518836,
+    518836
+  ],
+  "multiset_equal": true,
+  "differing_positions": 2,
+  "adjacent_swaps": [],
+  "reconciled_by_swaps": false,
+  "disposition": "PENDING_REVIEW; raw captures unchanged; not acceptance"
+}

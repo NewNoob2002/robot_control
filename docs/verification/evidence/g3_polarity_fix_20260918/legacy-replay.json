@@ -1,0 +1,6 @@
+{
+  "legacy_header_default_right_sign": 1,
+  "protocol_capture_replay": "PASS",
+  "matching_frames": 1200,
+  "physical_verdict": "FAILED_PHYSICAL_DIRECTION unchanged"
+}

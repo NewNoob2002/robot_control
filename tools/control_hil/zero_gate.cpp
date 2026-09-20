@@ -23,8 +23,12 @@ bool allowed(const can_frame& f) noexcept {
             return false;
         if (f.data[0] != 0 && f.data[0] != 2 && f.data[0] != 6 && f.data[0] != 7 && f.data[0] != 15)
             return false;
-        const int left = f.data[2] | (static_cast<int>(f.data[3]) << 8);
-        const int right = f.data[4] | (static_cast<int>(f.data[5]) << 8);
+        /** Decode signed little-endian targets without implementation-defined casts. */
+        const auto decode = [&](unsigned offset) {
+            const int raw = f.data[offset] | (static_cast<int>(f.data[offset + 1]) << 8);
+            return raw >= 32768 ? raw - 65536 : raw;
+        };
+        const int left = decode(2), right = decode(4);
         return motion_gate ? motion_gate->allow(f.data[0], left, right, robot_control::hil::MotionGate::Clock::now())
                            : left == 0 && right == 0;
     }

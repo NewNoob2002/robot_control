@@ -30,6 +30,8 @@ struct LoopResult {
  */
 class ControlLoop final {
   public:
+    /** Pure, non-owning qualification predicate called synchronously by the sole owner; may only reject commands. */
+    using CommandCheck = bool (*)(const domain::command::MotionCommand&) noexcept;
     using CreateResult = platform::linux::Result<std::unique_ptr<ControlLoop>>;
     /**
      * Attach one runtime session after caller-verified current layout readbacks.
@@ -42,6 +44,8 @@ class ControlLoop final {
      * @param right_throttle_only Debug qualification: retain raw Source, require neutral steering
      * and nonnegative throttle for valid enabled samples, suppress left command before arbitration.
      * Invalid/disabled input retains normal zero-output policy; default is unchanged.
+     * @param command_check Optional pure qualification predicate with static lifetime; no I/O, mutation or blocking.
+     * Checked on valid enabled input before submission. Rejection invokes normal bounded shutdown.
      * @return Owned loop or contextual failure. No CAN send occurs during creation.
      * Thread safety: Single owner; all borrowed objects must outlive the result.
      */
@@ -49,7 +53,7 @@ class ControlLoop final {
                                              input::sbus::Source& source, CycleConfig config,
                                              const communication::canopen::RuntimeLayoutProof& proof,
                                              time::Duration shutdown_timeout = std::chrono::milliseconds{100},
-                                             bool right_throttle_only = false);
+                                             bool right_throttle_only = false, CommandCheck command_check = nullptr);
     ControlLoop(const ControlLoop&) = delete;
     ControlLoop& operator=(const ControlLoop&) = delete;
     /** Detach the session without implicit I/O; explicit stop is required. */
@@ -60,7 +64,7 @@ class ControlLoop final {
      * @param captured_batch Optional caller-owned diagnostic copy of the exact read batch.
      * Cleared on entry, filled only after a successful read, never retained or used for policy.
      * @return Owned diagnostic/result snapshot. Errors/signals finish the loop permanently.
-     * Thread safety: Single owner, no callbacks. Late cycles skip catch-up publications.
+     * Thread safety: Single owner, no asynchronous callbacks. Late cycles skip catch-up publications.
      */
     [[nodiscard]] LoopResult step(CycleInput input, input::sbus::ReadBatch* captured_batch = nullptr);
     /** Inhibit intake, stop Source and attempt one safe RPDO within the configured deadline. */
@@ -72,7 +76,7 @@ class ControlLoop final {
     /** Bind already validated resources without I/O; caller owns borrowed lifetimes. */
     ControlLoop(communication::canopen::Lifecycle& owner, input::sbus::Reader& reader, input::sbus::Source& source,
                 CycleConfig config, std::unique_ptr<communication::canopen::RuntimeSession> runtime,
-                time::Duration shutdown_timeout, bool right_throttle_only);
+                time::Duration shutdown_timeout, bool right_throttle_only, CommandCheck command_check);
     /** Preserve the first failure, stop once and latch signal/deadline disposition. */
     [[nodiscard]] LoopResult finish(platform::linux::Status status, communication::canopen::LifecycleExit exit,
                                     time::MonotonicTime started);
@@ -83,6 +87,7 @@ class ControlLoop final {
     const CycleConfig config_;
     const time::Duration shutdown_timeout_;
     const bool right_throttle_only_;
+    const CommandCheck command_check_;
     std::unique_ptr<communication::canopen::RuntimeSession> runtime_;
     ControlCycle cycle_;
     time::MonotonicTime next_cycle_{};

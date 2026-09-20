@@ -1,0 +1,44 @@
+{
+  "stage": "G3 differential-left motion A1",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--differential-left",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Transmitter and receiver online before START; raised unloaded wheels, powered drive, X1 available, sticks neutral, CH6 released",
+    "CONTROL_READY: press/release CH6 once; MOTION_READY: forward throttle with steering neutral, then small left steering (~20% travel); HOLD steering near 20% travel, do not continue increasing; keep forward throttle full",
+    "STOP: neutral; after cleanup lock X1 and power drive OFF; record actual directions, speed order, stop and sound"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Positive 1<=left<=right<=5rpm; first nonzero to zero <3s including straight approach",
+    "At least two fresh ordered dual-wheel feedback samples after unequal targets and before zero",
+    "Existing 7.5rpm hard feedback bound and 1s stop/150ms continuous \u00b12rpm plus fresh frame",
+    "Exact dual capture match,36 volatile writes/full baseline restoration,CAN counters unchanged",
+    "Operator both forward/left slower/normal stop/no sound/OFF"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "Independently reviewed remaining raised modes after this trial acceptance",
+  "authorized": true,
+  "authorization": "User requested next G3 test; fresh local START authorizes differential-left A2 once, positive left<=right<=5rpm/<3s, forward throttle then small left steering",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/differential_left_a2",
+  "right_sign": -1
+}

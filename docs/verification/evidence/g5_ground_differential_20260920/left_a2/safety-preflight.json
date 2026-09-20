@@ -1,0 +1,40 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_differential_left_a2",
+  "authorization": "User explicitly authorized one retry after accidental manual push; baseline restore A1 now independently accepted; fresh local START required",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--differential-left",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh START confirms forward/left curve clearance and entire vehicle envelope with3m clear perimeter and barriers",
+  "limits": "Positive left<=right<=5rpm;3s/2950ms includes straight approach; center displacement<1m/post-stop<=0.5m; no contact",
+  "recovery": "X1 normal emergency path; power-off may coast; mechanical anti-roll before final power removal;3s host lease/12s cleanup; no retry",
+  "prerequisite": "51f94c1f same artifact; baseline restore A1 accepted; fresh local ground clearance/readiness; no pushing from START to completion",
+  "scripts": {
+    "start_once.py": "4b8ec4aa621e2a7ac06180e244adf0c7b28b78d5834a37b532c903c459b07232",
+    "target_once.py": "683c1701be231402229548241804290bd529be14cb10c7f36e0320d2fefc82dc",
+    "check_runner.py": "865fc6f7821f102d18a777d07c69ab8950cd4d877e7a1075048d4ceb9665f416",
+    "analyze-motion.py": "cf790c2d90c9896669be5b9aab8606efb4150891247517054c2823ac8d4b97f5",
+    "jcan/capture_once.py": "d6901a076c35a85e466755c64e2cafb2430c6dd6a01dafc6f01e7c0ac0375e7d"
+  },
+  "right_sign": -1,
+  "previous_trial": "Left A1 interrupted by reported manual push and incomplete cleanup; preserved. Separate baseline restore A1 PASS with18 writes and full readback; operator OFF confirmed",
+  "ground_plan_sha256": "d9b5f74ce1d7cd4b8d89dc7e0b2616d0924eff9527a709a06ce1757241540e77"
+}

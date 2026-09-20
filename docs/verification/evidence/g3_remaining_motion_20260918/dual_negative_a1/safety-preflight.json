@@ -1,0 +1,38 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/dual_negative_a1",
+  "authorization": "User: 继续剩余的测试; fresh local START confirms powered raised readiness and dual-backward action",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-negative",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms both wheels raised/unloaded, actual drive power, X1 released/accessible, neutral/CH6 released, unchanged wiring and visible console",
+  "limits": "Logical L=R=-1..-5rpm, raw L negative/right positive;3s hard/2950ms cutoff,60s total, stable +/-2rpm, absolute7.5rpm hard; no persistent/interface changes; JCAN receive/ACK only",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "Unchanged9b336936: zero_a3 PASS and corrected dual-positive accepted; fresh current readiness required",
+  "scripts": {
+    "target_once.py": "c30b637d997e80109a956b2d1b13a604365bb2e43b6a9a53a8d9230be38cb1c7",
+    "start_once.py": "7d8d67a092957d8a071dd5facd7f2bdc28701dc775576afdffe93633decf9417",
+    "check_runner.py": "13c70a72da823033c97628d26b8e19860fa06bcde3520bc7769a68df7c9cac14",
+    "analyze-motion.py": "c146d5608127e30050946ce59f2fc00776211b9f64b727e385cfe249995f1f5f",
+    "jcan/capture_once.py": "186f9d8a35206ada8dccc127614357df66b7d90ff88588a9283348fd5410a8be"
+  },
+  "right_sign": -1
+}

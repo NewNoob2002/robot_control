@@ -1,0 +1,4 @@
+Preimplementation checks (2026-09-20):
+cmake --build out/build/p103-control-hil --target robot_control_hil_motion_gate_tests --parallel 2: PASS
+ctest -R ^control_hil_motion_gate$: FAILED, motion_gate_failures=40
+python3 -B scripts/test/test_control_hil_differential.py: FAILED at old left < right target assertion

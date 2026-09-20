@@ -1,0 +1,46 @@
+{
+  "stage": "G3 dual-positive motion A1",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Raised/powered, X1 released and reachable within3s, neutral/CH6 released, transmitter/receiver online, START",
+    "CONTROL_READY CH6 once; MOTION_READY forward throttle only; X1_NOW press/latch X1 while moving; neutral after stop",
+    "Keep X1 latched, power OFF, confirm both forward/stop/no sound/transmitter and receiver online"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "Both targets equal and positive1..5rpm, zero permitted; nonzero<3s",
+    "At least two simultaneous fresh correct-direction feedback samples for both axes",
+    "Record bounded start/stop feedback transients as normal under user-approved rule when other gates pass; preserve original runtime verdict",
+    "Feedback absolute hard limit7.5rpm; dual-axis stable+/-2rpm >=150ms plus fresh frame within1s of zero",
+    "No restart; exact dual captures/full baseline restoration",
+    "Operator confirms both wheels vehicle-forward direction/stop normal, no sound, drive OFF",
+    "Fresh X1 status during dual motion before first zero/cutoff; receive-to-zero<=100ms; no nonzero/restart after X1, latched through end"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "No further physical trial authorized by this runner",
+  "authorized": true,
+  "authorization": "User requested next G3 test; fresh local START authorizes dual-wheel X1 A1 once, equal <=5rpm/<3s, throttle forward only with steering neutral",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/dual_x1_a1",
+  "right_sign": -1
+}

@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "x1": {
+    "first_nonzero_ns": 385426425351461,
+    "x1_ns": 385427659839321,
+    "first_zero_ns": 385427659857696,
+    "x1_to_zero_ms": 0.018375,
+    "nonzero_window_ms": 1234.506235
+  },
+  "wire_x1": {
+    "first_nonzero_ns": 1789733249475947008,
+    "x1_ns": 1789733250710148096,
+    "first_zero_ns": 1789733250710455040,
+    "x1_to_zero_ms": 0.306944,
+    "nonzero_window_ms": 1234.508032
+  },
+  "right_sign": -1,
+  "profile": "dual-positive",
+  "summary": {
+    "event": "summary",
+    "cycles": "504",
+    "enabled_samples": "345",
+    "missed_periods": "3",
+    "maximum_lateness_us": "35973",
+    "maximum_cycle_us": "215",
+    "shutdown_us": "7",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  },
+  "feedback": {
+    "profile": "dual-positive",
+    "first_nonzero_ns": 385426425351461,
+    "first_zero_ns": 385427659857696,
+    "axis_motion_samples": [
+      24,
+      24
+    ],
+    "stable_since_ns": 385427709809056,
+    "stable_verified_ns": 385427959536100
+  },
+  "capture": {
+    "matching_frames": 1087,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "scope": "Protocol/restoration only; X1 accepted separately by causal audit"
+  },
+  "motion_ms": 1234.506235,
+  "stop_verified_ms": 299.678404,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -3,
+      54
+    ],
+    [
+      -59,
+      3
+    ]
+  ],
+  "sbus_frames": 761,
+  "trace_records": 3010,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789733259.4495873,
+    "response": "OFF",
+    "left_forward_and_stop_normal": true,
+    "right_forward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true,
+    "x1_locked": true,
+    "transmitter_receiver_online": true
+  },
+  "scope": "Dual-positive X1 raised/unloaded; protective exit1 accepted independently; no retry"
+}

@@ -1,0 +1,29 @@
+{
+  "debug": {
+    "tests": 53,
+    "passed": 53,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 531.0
+  },
+  "sanitizer": {
+    "tests": 53,
+    "passed": 53,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 540.0
+  },
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "compiled_inputs": 123,
+  "differential_matrix_cases_per_polarity": 14,
+  "right_axis_polarities": [
+    1,
+    -1
+  ],
+  "scoped_static": "PASS; existing Result optional-access advisories retained",
+  "cross_and_elf": "PASS",
+  "target_device_free_checks": 5,
+  "physical_trial": false,
+  "source_window_ms": 3000,
+  "production_activated": false
+}

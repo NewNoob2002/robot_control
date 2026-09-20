@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "target_invoked": true,
+  "display_phase": "STOP",
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "monotonic_ns": 8555431344047
+    },
+    {
+      "phase": "CONTROL_READY",
+      "monotonic_ns": 8557610071730
+    },
+    {
+      "phase": "FAULT_READY",
+      "monotonic_ns": 8560093059219
+    },
+    {
+      "phase": "RELEASE_FAULT",
+      "monotonic_ns": 8565001980536
+    },
+    {
+      "phase": "NEUTRAL_READY",
+      "monotonic_ns": 8573208204498
+    },
+    {
+      "phase": "REARM_READY",
+      "monotonic_ns": 8576963631308
+    },
+    {
+      "phase": "ZERO_REENABLED",
+      "monotonic_ns": 8580252961162
+    },
+    {
+      "phase": "STOP",
+      "monotonic_ns": 8581267588457
+    }
+  ],
+  "target_exit": 0,
+  "capture_clean": true
+}

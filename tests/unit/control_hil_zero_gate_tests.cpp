@@ -74,6 +74,39 @@ int main() {
         robot_control::hil::bind_motion_gate(nullptr);
         check(single, false); // No borrowed context means zero-only.
     }
+    // Exercise signed wire decoding for all new profiles and reject unsigned aliases.
+    using Mode = robot_control::hil::MotionMode;
+    struct Vector {
+        Mode mode;
+        int left;
+        int right;
+    };
+    for (const auto v :
+         {Vector{Mode::left_negative, -5, 0}, Vector{Mode::right_negative, 0, -5}, Vector{Mode::dual_positive, 5, 5},
+          Vector{Mode::dual_negative, -5, -5}, Vector{Mode::turn_left, -5, 5}, Vector{Mode::turn_right, 5, -5},
+          Vector{Mode::differential_left, 3, 5}, Vector{Mode::differential_right, 5, 3}}) {
+        for (int right_sign : {-1, 1}) {
+            robot_control::hil::MotionGate gate{v.mode, std::chrono::milliseconds{3000}, right_sign};
+            robot_control::hil::bind_motion_gate(&gate);
+            gate.arm();
+            auto frame = rpdo;
+            const auto left = static_cast<unsigned>(v.left) & 0xffffU;
+            const auto right = static_cast<unsigned>(v.right * right_sign) & 0xffffU;
+            frame.data[2] = static_cast<std::uint8_t>(left);
+            frame.data[3] = static_cast<std::uint8_t>(left >> 8U);
+            frame.data[4] = static_cast<std::uint8_t>(right);
+            frame.data[5] = static_cast<std::uint8_t>(right >> 8U);
+            check(frame, true);
+            auto bad = frame;
+            bad.data[2] = 0;
+            bad.data[3] = 0x80; // -32768 must not wrap into an allowed target.
+            check(bad, false);
+            check(frame, false);
+            check(rpdo, true);
+            robot_control::hil::bind_motion_gate(nullptr);
+            check(frame, false);
+        }
+    }
     if (__wrap_send(-1, nullptr, CAN_MTU, MSG_DONTWAIT) != -1)
         ++failures;
     if (__wrap_send(-1, &rpdo, CAN_MTU - 1, MSG_DONTWAIT) != -1)

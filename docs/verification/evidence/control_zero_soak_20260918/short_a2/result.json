@@ -1,0 +1,10 @@
+{
+  "status": "AWAITING_DUAL_CAPTURE_AUDIT",
+  "error": null,
+  "target_done": {
+    "rc": 0,
+    "lease_error": null
+  },
+  "elapsed_s": 604.7308865010018,
+  "scope": "RK3588 continuous SBUS/ControlLoop zero-target soak; no moving/loaded acceptance"
+}

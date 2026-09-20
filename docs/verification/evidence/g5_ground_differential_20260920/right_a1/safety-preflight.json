@@ -1,0 +1,40 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_differential_right_a1",
+  "authorization": "User requested continuation after ground left differential A2 accepted; fresh local START for one right differential trial",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--differential-right",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh START confirms forward/right curved path and full vehicle envelope,3m clear perimeter, barriers,1m boundary",
+  "limits": "Positive right<=left<=5rpm;3s/2950ms includes straight approach; center displacement<1m/post-stop<=0.5m; no contact",
+  "recovery": "X1 normal emergency path; power-off may coast; mechanical anti-roll before final power removal;3s host lease/12s cleanup; no retry",
+  "prerequisite": "Same51f94c1f; previous left A2 full baseline restoration and OFF confirmed; fresh local readiness/no pushing required",
+  "scripts": {
+    "start_once.py": "e7bb04a0ea659648fdf0c09eb8c13452699a9430f9923e1c853844fa77ccefc6",
+    "target_once.py": "009bc7abdee1037c6e3730b8b2768f9e60ef1ed216725a178f83d675087ba54e",
+    "check_runner.py": "b6c0a7272413156763abdd9b8cbdd539def0a1826f95268a213ea124e7c3d687",
+    "analyze-motion.py": "c110d0a4c2837fcfd6d1a32ab00d86a4c5d6cc315260865cd7b4d1cea7bbbc12",
+    "jcan/capture_once.py": "c194d8e1725705243fac2ed29a2e3b3a7180aa96c839b3626c4599dd91d6facf"
+  },
+  "right_sign": -1,
+  "previous_trial": "Ground left differential A2 accepted under existing functional and single stop-transient rules; original exit1 preserved",
+  "ground_plan_sha256": "e8bbb53c53bf6297b5c99766d524379dce81fc284515f6aaf4310ed42f0f4ae0"
+}

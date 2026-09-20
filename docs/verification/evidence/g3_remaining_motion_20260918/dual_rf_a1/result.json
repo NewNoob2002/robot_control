@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "target_invoked": true,
+  "display_phase": "STOP",
+  "display_events": [
+    {
+      "phase": "WAIT",
+      "monotonic_ns": 1414851555645
+    },
+    {
+      "phase": "STOP",
+      "monotonic_ns": 1475782777912
+    }
+  ],
+  "target_exit": 1,
+  "error": "target failed; no retry",
+  "capture_clean": true
+}

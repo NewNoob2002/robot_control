@@ -1,0 +1,29 @@
+{
+  "status": "INCOMPLETE_NO_UART_BYTES",
+  "summary": {
+    "event": "summary",
+    "cycles": "6002",
+    "enabled_samples": "0",
+    "missed_periods": "0",
+    "maximum_lateness_us": "5597",
+    "maximum_cycle_us": "90",
+    "shutdown_us": "6",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  },
+  "read_batches": 6002,
+  "raw_bytes": 0,
+  "sbus_frames": 0,
+  "zero_rpdos": 6003,
+  "motion_occurred": false,
+  "protocol": {
+    "matching_frames": 8989,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "scope": "Zero-output and restoration only; no motion/RF acceptance"
+  },
+  "can_counters_unchanged": true,
+  "source_fault": "14 shutdown remains from create-time authority revocation; no fresh input",
+  "physical_cause": "Operator confirms SBUS data line not reconnected after previous trial",
+  "original_run_preserved": true
+}

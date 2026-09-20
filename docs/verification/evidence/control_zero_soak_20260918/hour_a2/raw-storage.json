@@ -1,0 +1,8 @@
+{
+  "original": "jcan/session.jsonl",
+  "compressed": "jcan/session.jsonl.gz",
+  "original_bytes": 75821975,
+  "original_sha256": "9e9aaf6c9f3100ca662b819ad56a11f86ba339caa148d3410d8f5abd01ebe384",
+  "compressed_sha256": "33a886c124486f25439015beefccc4394842c46709c044821a77500dc1bf86d3",
+  "verified": "Decompressed bytes compared with source; original out/ files retained."
+}

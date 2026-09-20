@@ -1,0 +1,33 @@
+{
+  "debug": {
+    "tests": 49,
+    "failed": [],
+    "skipped": []
+  },
+  "g3-final-debug": {
+    "tests": 1,
+    "failed": [],
+    "skipped": []
+  },
+  "sanitizer-first": {
+    "tests": 49,
+    "failed": [
+      "control_hil_motion_vcan_managed",
+      "control_hil_g3_vcan_managed"
+    ],
+    "skipped": []
+  },
+  "sanitizer-retest": {
+    "tests": 2,
+    "failed": [],
+    "skipped": []
+  },
+  "runtime-default": {
+    "tests": 2,
+    "failed": [],
+    "skipped": []
+  },
+  "status": "PASS_SOFTWARE_ONLY",
+  "target_deployment_smoke_hil": "NOT_RUN",
+  "initial_sanitizer_failures_preserved": true
+}

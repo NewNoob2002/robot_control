@@ -1,0 +1,35 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-5f44146c-20260918/right_negative_a1",
+  "authorization": "User requested negative motion tests; left A1 PASS. Fresh local START required for right-negative action and actual powered readiness.",
+  "artifact_sha256": "5f44146c71747eb93cdf30c8ae675b3c9fb48566c7951c53daa96dbed627c14a",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--single-right-negative",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms raised/unloaded, actually powered, X1 released/accessible, unchanged wiring, neutral/CH6 released and coordinated two-axis operation",
+  "limits": "Only right-negative<=5rpm/left exact zero; motion<3s/cutoff2950ms; total60s; measured near-zero+/-2rpm, active7.5rpm; no persistent writes or interface changes; JCAN receive/ACK only",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "zero A2 and left-negative A1 PASS on unchanged artifact; fresh local readiness required",
+  "scripts": {
+    "target_once.py": "d447a7031a60ea8f82ec41979d3c2f75d91271f50d50fa51b00f263bcd3c4474",
+    "start_once.py": "f4bbce319dc2a30b7b7906f48095e89595bea073dba79f04a670e3959637ca4f",
+    "check_runner.py": "866e6cd68e55ec0460ae2ce799bd6862bef8023c1a4d04920118bb7cd19c10cc",
+    "analyze-motion.py": "5acb1b6e641f9ad7142610efb069eb03dcd76498c26a3b48994032ee43cb3773",
+    "jcan/capture_once.py": "9ec77343d4af3dd32ac71fb8bc52e99a15cc9c5aee75b60ed39df39eefb2d0ab"
+  }
+}

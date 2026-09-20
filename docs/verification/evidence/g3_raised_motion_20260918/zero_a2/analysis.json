@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "matching_frames": 3230,
+  "counts": {
+    "0x601": 158,
+    "0x581": 158,
+    "0x701": 85,
+    "0x0": 3,
+    "0x181": 411,
+    "0x281": 411,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 2002
+  },
+  "tpdo2_frames": 411,
+  "tpdo2_span_ms": 20485.333919525146,
+  "tpdo2_interval_ms": [
+    49.70216751098633,
+    50.31919479370117
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 2002,
+  "enabled_feedback": 343,
+  "enabled_samples": 1712,
+  "baseline_restored": true,
+  "near_zero_tenths_rpm": 20,
+  "raw_feedback_range_tenths_rpm": [
+    -2,
+    2
+  ],
+  "operator": "Separate post-trial confirmation required; not inferred from protocol",
+  "scope": "New G3 artifact zero-target prerequisite only; G3 signed motion remains untested",
+  "trace_records": 10090,
+  "sbus_frames": 2857,
+  "cycles": 2001,
+  "trace_tx_equals_wire": true,
+  "all_candidate_selected_approved_zero": true,
+  "fresh_ch6_enable": true,
+  "discontinuities": 0,
+  "summary": {
+    "event": "summary",
+    "cycles": "2001",
+    "enabled_samples": "1712",
+    "missed_periods": "3",
+    "maximum_lateness_us": "35901",
+    "maximum_cycle_us": "696",
+    "shutdown_us": "36",
+    "primary_ok": "1",
+    "restore_ok": "1"
+  },
+  "standstill_holds_us": [
+    162022,
+    162003
+  ],
+  "can_error_counters_unchanged": true,
+  "operator_off": {
+    "wall_time": 1789726430.7381997,
+    "response": "OFF",
+    "wheels_stationary": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "no_automatic_retry": true
+}

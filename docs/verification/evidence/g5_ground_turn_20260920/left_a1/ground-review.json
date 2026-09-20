@@ -1,0 +1,31 @@
+{
+  "status": "PASS_bounded_ground_left_turn_stop_with_visual_estimates",
+  "motion_ms": 2950.010822,
+  "feedback_standstill_verified_ms": 510.090349,
+  "matching_frames": 2383,
+  "baseline_restored": true,
+  "can_counters_unchanged": true,
+  "operator_report": {
+    "raw": "40度左右，停止后几乎没怎么动，中心偏移1-2cm，目测，无X1接入，围挡未接触，中心未超越1米线",
+    "source": "local operator measurement"
+  },
+  "measurement_method": "visual_estimate",
+  "reported_left_turn_degrees_approx": 40,
+  "reported_center_drift_m_approx": [
+    0.01,
+    0.02
+  ],
+  "reported_post_stop_rotation": "Almost no visible motion; no numeric angle or time supplied",
+  "x1_intervention_reported": false,
+  "barrier_contact_reported": false,
+  "one_m_center_boundary_crossed_reported": false,
+  "precise_stop_angle_or_time_verified": false,
+  "operator": {
+    "wall_time": 1789879134.483228,
+    "response": "OFF",
+    "left_backward_and_stop_normal": true,
+    "right_forward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918",
+  "checks": [
+    {
+      "args": [
+        "--help"
+      ],
+      "exit": 0,
+      "stdout": "Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms MS (--zero-soak|--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--zero-sbus-recovery|--zero-uart-recovery|--restore-zero-baseline|--single-left-negative|--single-right-negative|--dual-positive|--dual-negative|--turn-left|--turn-right|--differential-left|--differential-right)\nOptional for control/restore: --zero-feedback-tenths-rpm 0..20 (default20); standstill only; moving direction/target bounds unchanged.\nBinding: --right-sign -1|1 (legacy default1); required explicitly for physical motion on can0.\nRK3588 vehicle-forward binding: left+1/right-1; raw CAN evidence is retained.\nMotion: --motion-window-ms 3000..8000 for legacy positive single-wheel modes; G3 modes require3000.\nDefault3000; cutoff50ms before limit. G3 differential-left/right means positive left<right/left>right.\nZero-soak: requires ROBOT_CONTROL_HIL_TRACE_FD nonblocking pipe; duration 2000..3600000ms.\nMS: 2000..20000 for zero-only; 2000..120000 for zero-uart-recovery; 2000..60000 for other bounded trials.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--interface",
+        "can0",
+        "--device",
+        "/dev/robot-control-polarity-missing",
+        "--duration-ms",
+        "2000",
+        "--zero-only",
+        "--right-sign",
+        "-1"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "phase=uart ok=0 operation=open context=/dev/robot-control-polarity-missing errno=2\n"
+    },
+    {
+      "args": [
+        "--interface",
+        "can0",
+        "--device",
+        "/dev/robot-control-polarity-missing",
+        "--duration-ms",
+        "2000",
+        "--dual-positive"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "Usage: robot-control-hil --interface can0|none --device /dev/tty... --duration-ms MS (--zero-soak|--zero-only|--single-left|--single-right|--right-throttle|--observe-input|--zero-x1-recovery|--zero-sbus-recovery|--zero-uart-recovery|--restore-zero-baseline|--single-left-negative|--single-right-negative|--dual-positive|--dual-negative|--turn-left|--turn-right|--differential-left|--differential-right)\nOptional for control/restore: --zero-feedback-tenths-rpm 0..20 (default20); standstill only; moving direction/target bounds unchanged.\nBinding: --right-sign -1|1 (legacy default1); required explicitly for physical motion on can0.\nRK3588 vehicle-forward binding: left+1/right-1; raw CAN evidence is retained.\nMotion: --motion-window-ms 3000..8000 for legacy positive single-wheel modes; G3 modes require3000.\nDefault3000; cutoff50ms before limit. G3 differential-left/right means positive left<right/left>right.\nZero-soak: requires ROBOT_CONTROL_HIL_TRACE_FD nonblocking pipe; duration 2000..3600000ms.\nMS: 2000..20000 for zero-only; 2000..120000 for zero-uart-recovery; 2000..60000 for other bounded trials.\n"
+    },
+    {
+      "args": [
+        "--interface",
+        "can0",
+        "--device",
+        "/dev/robot-control-polarity-missing",
+        "--duration-ms",
+        "2000",
+        "--dual-positive",
+        "--right-sign",
+        "-1"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "phase=uart ok=0 operation=open context=/dev/robot-control-polarity-missing errno=2\n"
+    }
+  ]
+}

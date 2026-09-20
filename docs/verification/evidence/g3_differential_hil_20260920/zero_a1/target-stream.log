@@ -1,0 +1,12 @@
+PROGRESS: active
+PROGRESS: active
+PROGRESS: active
+CONTROL_READY: 摇杆保持中立；现在按下并释放CH6一次，然后保持中立等待结束。
+PROGRESS: active
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "20000", "--zero-only", "--zero-feedback-tenths-rpm", "20", "--right-sign", "-1"], "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451", "operator_prompted": true, "application_exit": 1, "application_elapsed_ms": 1559.3519739995827, "error": "application failed; inspect log before any retry"}
+Traceback (most recent call last):
+  File "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/zero_a1/target_once.py", line 150, in <module>
+    main()
+  File "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/zero_a1/target_once.py", line 118, in main
+    assert application.returncode == 0, 'application failed; inspect log before any retry'
+AssertionError: application failed; inspect log before any retry

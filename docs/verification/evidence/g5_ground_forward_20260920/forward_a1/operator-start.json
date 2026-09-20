@@ -1,0 +1,16 @@
+{
+  "wall_time": 1789875216.4713044,
+  "response": "START",
+  "drive_power_on": true,
+  "ground_unloaded": true,
+  "containment_ready": true,
+  "intervention_line_marked": true,
+  "ground_plan_sha256": "80ce0f14409d215635e5de4f838589b4967c484abe1f4fdda8ab6da134f58603",
+  "emergency_stop_available": true,
+  "x1_released": true,
+  "sticks_neutral": true,
+  "ch6_released": true,
+  "transmitter_receiver_online": true,
+  "unchanged_wiring": true,
+  "operator_display_visible": true
+}

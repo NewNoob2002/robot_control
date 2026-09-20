@@ -1,0 +1,28 @@
+Running clang-tidy in 2 threads for 7 files out of 69 in compilation database ...
+[1/7][3.8s] /usr/bin/clang-tidy -p=out/build/p103-control-hil -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_motion_gate_tests.cpp
+[2/7][3.9s] /usr/bin/clang-tidy -p=out/build/p103-control-hil -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_trace_tests.cpp
+[3/7][7.0s] /usr/bin/clang-tidy -p=out/build/p103-control-hil -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp
+[1/1] (1/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp.
+[1/1] (2/2) Processing file /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/zero_gate.cpp.
+
+[4/7][4.9s] /usr/bin/clang-tidy -p=out/build/p103-control-hil -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/application/control/linux_loop.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+
+[5/7][2.6s] /usr/bin/clang-tidy -p=out/build/p103-control-hil -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tests/unit/control_hil_zero_gate_tests.cpp
+[6/7][6.9s] /usr/bin/clang-tidy -p=out/build/p103-control-hil -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/diagnostics.cpp
+[7/7][28.4s] /usr/bin/clang-tidy -p=out/build/p103-control-hil -quiet /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/tools/control_hil/main.cpp
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:97:49: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+   97 |   [[nodiscard]] T &value() & noexcept { return *value_; }
+      |                                                 ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:106:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  106 |   [[nodiscard]] const T &value() const & noexcept { return *value_; }
+      |                                                             ^~~~~~
+/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/platform/linux/error.hpp:115:61: warning: unchecked access to optional value [bugprone-unchecked-optional-access]
+  115 |   [[nodiscard]] T &&value() && noexcept { return std::move(*value_); }
+      |                                                             ^~~~~~
+

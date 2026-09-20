@@ -1,0 +1,10 @@
+{
+  "wall_time": 1789733259.4495873,
+  "response": "OFF",
+  "left_forward_and_stop_normal": true,
+  "right_forward_and_stop_normal": true,
+  "no_abnormal_sound": true,
+  "drive_power_off": true,
+  "x1_locked": true,
+  "transmitter_receiver_online": true
+}

@@ -1,0 +1,5 @@
+[1/5] Building CXX object application/control/CMakeFiles/robot_control_application_loop.dir/linux_loop.cpp.o
+[2/5] Linking CXX static library application/control/librobot_control_application_loop.a
+[3/5] Linking CXX executable robot_control_canopen_runtime_vcan_tests
+[4/5] Building CXX object CMakeFiles/robot_control_control_loop_vcan_tests.dir/tests/integration/control_loop_vcan_tests.cpp.o
+[5/5] Linking CXX executable robot_control_control_loop_vcan_tests

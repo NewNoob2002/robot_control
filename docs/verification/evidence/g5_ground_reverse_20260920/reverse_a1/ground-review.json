@@ -1,0 +1,30 @@
+{
+  "status": "PASS_bounded_ground_reverse_stop_with_operator_distance_estimates",
+  "motion_ms": 2950.005764,
+  "feedback_standstill_verified_ms": 400.222879,
+  "matching_frames": 1385,
+  "baseline_restored": true,
+  "can_counters_unchanged": true,
+  "operator_report": {
+    "raw": "起始到停止距离同样在25cm左右，停止后制动距离1-2cm，无X1介入、围挡无接触，未越过1米线",
+    "source": "local operator measurement"
+  },
+  "reported_travel_m_approx": 0.25,
+  "reported_stop_displacement_m_approx": [
+    0.01,
+    0.02
+  ],
+  "measurement_method": "Not explicitly stated for this trial; retained as approximate operator report, not instrumented measurement",
+  "x1_intervention_reported": false,
+  "barrier_contact_reported": false,
+  "one_m_line_crossed_reported": false,
+  "precise_stop_distance_or_time_verified": false,
+  "operator": {
+    "wall_time": 1789877107.9286692,
+    "response": "OFF",
+    "left_backward_and_stop_normal": true,
+    "right_backward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  }
+}

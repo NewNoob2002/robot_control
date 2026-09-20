@@ -1,0 +1,35 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-5f44146c-20260918/dual_positive_a1",
+  "authorization": "User: \u597d\u7684\uff0c\u7ee7\u7eed\u4e0b\u4e00\u6b65\u6d4b\u8bd5; fresh local START confirms exact dual-positive action and current readiness",
+  "artifact_sha256": "5f44146c71747eb93cdf30c8ae675b3c9fb48566c7951c53daa96dbed627c14a",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms both wheels raised/unloaded, actual drive power, X1 released/accessible, neutral/CH6 released, unchanged wiring and visible console",
+  "limits": "Both targets equal and positive1..5rpm; nonzero<3s/cutoff2950ms; total60s; +/-2rpm stable feedback/absolute7.5rpm hard bound; no persistent changes or interface configuration; JCAN receive/ACK only",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "zero A2 and both negative single-wheel items accepted on unchanged5f44146c; transient-feedback acceptance rule recorded; historical OFF is not fresh readiness",
+  "scripts": {
+    "target_once.py": "bdf082ffc770ed2bca003a95269a32206235acfc2e1098919fb4b26e1ef34198",
+    "start_once.py": "e10d742d39f6c8034164f2920146a5352e90e213bf8ec30dc8538fc2c601bba3",
+    "check_runner.py": "b0c78e984b97a38d44f7ee4991a00a0cdb0ff98205e0936da3895ff084c5e2be",
+    "analyze-motion.py": "2ce5bbe2addb1142818d5f6383e31b5cc066ad98c355bcb7f0b970e91fcfaada",
+    "jcan/capture_once.py": "fce0de9727979edf1b998bc221390771aef96832c21519f432ec0a431bcb25ae"
+  }
+}

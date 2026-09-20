@@ -1,0 +1,353 @@
+{
+  "status": "INCOMPLETE_command_envelope_rejection",
+  "feedback": {
+    "profile": "differential-left",
+    "first_nonzero_ns": 5326940226063,
+    "first_zero_ns": 5327550223865,
+    "axis_motion_samples": [
+      10,
+      10
+    ],
+    "stable_since_ns": 5327655827662,
+    "stable_verified_ns": 5327905702825,
+    "differential_feedback_samples": 6
+  },
+  "capture": {
+    "matching_frames": 1209,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "wire_motion": {
+      "profile": "differential-left",
+      "first_nonzero_ns": 1789871045589965056,
+      "first_zero_ns": 1789871046199965952,
+      "axis_motion_samples": [
+        10,
+        10
+      ],
+      "stable_since_ns": 1789871046305352960,
+      "stable_verified_ns": 1789871046555227136,
+      "differential_feedback_samples": 6
+    },
+    "scope": "Normal bounded G3 trial only; separate physical direction/operator acceptance required"
+  },
+  "motion_ms": 609.997802,
+  "stop_ms": 355.47896,
+  "stop": {
+    "ns": 5327550228824,
+    "cause": 4,
+    "lifecycle_exit": 4,
+    "source_sequence": 590,
+    "source_ns": 5327550203157
+  },
+  "last_frames": [
+    {
+      "ns": 5327410203298,
+      "session": 2,
+      "ch1": 783,
+      "ch3": 1781,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -271,
+        976,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327410203298,
+      "session": 2,
+      "ch1": 783,
+      "ch3": 1781,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -271,
+        976,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327420203496,
+      "session": 2,
+      "ch1": 772,
+      "ch3": 1778,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -285,
+        972,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327430203111,
+      "session": 2,
+      "ch1": 772,
+      "ch3": 1778,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -285,
+        972,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327430203111,
+      "session": 2,
+      "ch1": 772,
+      "ch3": 1778,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -285,
+        972,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327440203018,
+      "session": 2,
+      "ch1": 767,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -291,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327450202924,
+      "session": 2,
+      "ch1": 767,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -291,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327450202924,
+      "session": 2,
+      "ch1": 767,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -291,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327460203414,
+      "session": 2,
+      "ch1": 766,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -292,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327470202737,
+      "session": 2,
+      "ch1": 766,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -292,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327480202936,
+      "session": 2,
+      "ch1": 766,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -292,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327480202936,
+      "session": 2,
+      "ch1": 761,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -298,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327490203134,
+      "session": 2,
+      "ch1": 761,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -298,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327500202457,
+      "session": 2,
+      "ch1": 761,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -298,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327500202457,
+      "session": 2,
+      "ch1": 724,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -345,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327510203530,
+      "session": 2,
+      "ch1": 724,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -345,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327520202562,
+      "session": 2,
+      "ch1": 724,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -345,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327520202562,
+      "session": 2,
+      "ch1": 708,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -365,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327530202760,
+      "session": 2,
+      "ch1": 708,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -365,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327540202958,
+      "session": 2,
+      "ch1": 708,
+      "ch3": 1774,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -365,
+        967,
+        3,
+        5
+      ]
+    },
+    {
+      "ns": 5327550203157,
+      "session": 2,
+      "ch1": 704,
+      "ch3": 1773,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -370,
+        966,
+        0,
+        5
+      ]
+    },
+    {
+      "ns": 5327550203157,
+      "session": 2,
+      "ch1": 704,
+      "ch3": 1773,
+      "ch6": 200,
+      "flags": 0,
+      "mapped": [
+        -370,
+        966,
+        0,
+        5
+      ]
+    }
+  ],
+  "can_counters_unchanged": true
+}

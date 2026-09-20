@@ -1,0 +1,28 @@
+{
+  "pid": 137550,
+  "process_start_ticks": 38512559,
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "executable": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "positive_observed_ns": 385129893329255,
+  "signal": 15,
+  "monotonic_before_ns": 385130198836088,
+  "wall_before_ns": 1789732953249173943,
+  "monotonic_after_ns": 385130199128353,
+  "wall_after_ns": 1789732953249464750,
+  "sent": true
+}

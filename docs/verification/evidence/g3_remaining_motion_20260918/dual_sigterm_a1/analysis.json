@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "signal": {
+    "first_nonzero_ns": 385129763366794,
+    "first_zero_ns": 385130199141770,
+    "signal_before_ns": 385130198836088,
+    "signal_after_ns": 385130199128353,
+    "signal_to_zero_upper_us": 305.682,
+    "signal_syscall_bracket_us": 292.265,
+    "no_restart": true,
+    "source_revoked": true,
+    "nonzero_window_ms": 435.774976
+  },
+  "right_sign": -1,
+  "profile": "dual-positive",
+  "summary": {
+    "event": "summary",
+    "cycles": "349",
+    "enabled_samples": "176",
+    "missed_periods": "4",
+    "maximum_lateness_us": "41879",
+    "maximum_cycle_us": "111",
+    "shutdown_us": "5754",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  },
+  "feedback": {
+    "profile": "dual-positive",
+    "first_nonzero_ns": 385129763366794,
+    "first_zero_ns": 385130199141770,
+    "axis_motion_samples": [
+      8,
+      8
+    ],
+    "stable_since_ns": 385130234075871,
+    "stable_verified_ns": 385130483840337
+  },
+  "capture": {
+    "matching_frames": 863,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "wire_motion": {
+      "profile": "dual-positive",
+      "first_nonzero_ns": 1789732952813961984,
+      "first_zero_ns": 1789732953249683968,
+      "axis_motion_samples": [
+        8,
+        8
+      ],
+      "stable_since_ns": 1789732953284377088,
+      "stable_verified_ns": 1789732953534132992
+    },
+    "scope": "Normal bounded G3 trial only; separate physical direction/operator acceptance required"
+  },
+  "motion_ms": 435.774976,
+  "stop_verified_ms": 284.698567,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -12,
+      52
+    ],
+    [
+      -60,
+      9
+    ]
+  ],
+  "sbus_frames": 538,
+  "trace_records": 2245,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789732964.6072156,
+    "response": "OFF",
+    "left_forward_and_stop_normal": true,
+    "right_forward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "scope": "Dual-positive SIGTERM raised/unloaded only; original protective exit1 expected; no retry"
+}

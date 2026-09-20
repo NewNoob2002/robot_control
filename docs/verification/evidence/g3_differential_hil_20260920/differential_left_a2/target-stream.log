@@ -1,0 +1,31 @@
+PROGRESS: active
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 59
+CONTROL_READY: neutral; press and release CH6 once
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 58
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 57
+MOTION_READY: Forward throttle first, then small left steering; positive left<=right max5rpm/3s
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 56
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 55
+PROGRESS: active
+APPLICATION_STOPPING: neutral, no further stimulus
+PROGRESS: active
+WINDOW_REMAINING: 54
+PROGRESS: active
+APPLICATION_EXIT: neutral, no further stimulus
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--differential-left", "--zero-feedback-tenths-rpm", "20", "--motion-window-ms", "3000", "--right-sign", "-1"], "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451", "operator_prompted": true, "motion_prompted": true, "stopping": true, "application_exit": 1, "application_elapsed_ms": 6594.769319999614, "error": "application failed; inspect log before any retry"}
+Traceback (most recent call last):
+  File "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/differential_left_a2/target_once.py", line 163, in <module>
+    main()
+  File "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/differential_left_a2/target_once.py", line 127, in main
+    assert application.returncode == 0, 'application failed; inspect log before any retry'
+AssertionError: application failed; inspect log before any retry

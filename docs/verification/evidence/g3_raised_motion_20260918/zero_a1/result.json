@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "target_invoked": true,
+  "target_exit": 1,
+  "error": "target failed; no retry",
+  "capture_clean": true
+}

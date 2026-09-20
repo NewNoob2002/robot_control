@@ -1,0 +1,40 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_turn_right_a1",
+  "authorization": "User requested next ground trial after left turn PASS; fresh local START for right-turn swept-area readiness",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--turn-right",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh START confirms entire swept area plus3m clear all-around perimeter and barriers, center1m boundary, no people, X1/cutoff",
+  "limits": "Ground turn-right abs<=5rpm/<3s; center drift<1m/post-stop center displacement<=0.5m; no contact or fault injection",
+  "recovery": "X1 normal emergency path; power-off may coast; mechanical anti-roll before final power removal;3s host lease/12s cleanup; no retry",
+  "prerequisite": "51f94c1f identity/123 inputs and stationary ground X1 PASS; user reported barrier; current local readiness required",
+  "scripts": {
+    "start_once.py": "da2ebb0087889d4a48ae2d0405aa6e400aa26c207b48eaefa0f8c8f2207ee00f",
+    "target_once.py": "9f9f30295472dca08f04c5d1ca48bad6b37ebd519f592633609618738883c6be",
+    "check_runner.py": "66f99746a3b7abfcf688bff37419e4cb5a66bdbaa60a012c3f8a44462de9ec7b",
+    "analyze-motion.py": "e811c8858f52827628cf1ce7772b15dfd3e0e45406179b324a3c9f62855da9f0",
+    "jcan/capture_once.py": "8c705e64f342fc4a2f5de6e2609f768416d9c970997a3579d1460bb2a5796d98"
+  },
+  "right_sign": -1,
+  "previous_trial": "Ground left-turn A1 accepted with visual angle/drift estimates; original runner consumed",
+  "ground_plan_sha256": "61ee718cc0d2cf6aa59f16dbefbc1aa71fc6c669395f32eaacc849a54e6d30ed"
+}

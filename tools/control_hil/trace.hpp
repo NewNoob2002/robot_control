@@ -1,18 +1,19 @@
 #pragma once
 
 #include "input/sbus/linux/reader.hpp"
+#include "tools/control_hil/motion_gate.hpp"
 
 #include <array>
 #include <bit>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <unistd.h>
 #include <chrono>
 #include <cstdint>
+#include <fcntl.h>
 #include <linux/can.h>
 #include <memory>
 #include <new>
 #include <ostream>
+#include <sys/stat.h>
+#include <unistd.h>
 
 namespace robot_control::hil {
 /**
@@ -25,7 +26,7 @@ namespace robot_control::hil {
 class Trace final {
   public:
     using Clock = std::chrono::steady_clock;
-    enum class Mode : std::uint8_t { input_only, zero, left, right };
+    using Mode = MotionMode;
     enum class Kind : std::uint8_t { batch, frame, rejected, cycle, can_rx, can_tx, stop, timing, state, end, header };
     using Packet = std::array<std::int64_t, 19>;
     static_assert(std::endian::native == std::endian::little && sizeof(Packet) <= 512);
@@ -36,23 +37,32 @@ class Trace final {
         std::int64_t ns{};
         std::array<std::int64_t, 16> fields{};
     };
-    /** Preallocate storage or borrow a zero-only FIFO until dump; owner-only, tolerance0..20 tenths rpm. */
+    /**
+     * Preallocate storage or borrow a zero-only FIFO until dump; owner-only, no shared ownership.
+     * @param mode Logical qualification profile.
+     * @param capacity Maximum in-memory records; overflow fails the trial.
+     * @param zero_tolerance_tenths_rpm Standstill band, 0..20.
+     * @param stream_fd Borrowed nonblocking FIFO or -1 for memory storage; caller retains lifetime.
+     * @param right_sign Right wire-to-logical polarity, +1 or -1; raw records are never modified.
+     */
     // Existing capacity argument remains source-compatible; call sites name the validated tolerance.
     // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-    explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0, int stream_fd = -1) noexcept
+    explicit Trace(Mode mode, std::size_t capacity = maximum_records, int zero_tolerance_tenths_rpm = 0,
+                   int stream_fd = -1, int right_sign = 1) noexcept
         : mode_{mode}, capacity_{capacity <= maximum_records ? capacity : 0},
           records_{stream_fd < 0 && capacity_ ? new (std::nothrow) Record[capacity_]{} : nullptr},
-          stream_fd_{stream_fd}, overflow_{stream_fd < 0 && !records_},
-          zero_tolerance_{zero_tolerance_tenths_rpm} {
-        hard_feedback_bad_ = feedback_bad_ =
-            zero_tolerance_ < 0 || zero_tolerance_ > 20 || (mode_ == Mode::input_only && zero_tolerance_ != 0);
+          stream_fd_{stream_fd}, overflow_{stream_fd < 0 && !records_}, zero_tolerance_{zero_tolerance_tenths_rpm},
+          right_sign_{right_sign} {
+        hard_feedback_bad_ = feedback_bad_ = (right_sign_ != 1 && right_sign_ != -1) || zero_tolerance_ < 0
+                                             || zero_tolerance_ > 20
+                                             || (mode_ == Mode::input_only && zero_tolerance_ != 0);
         if (stream_fd_ >= 0) {
             struct stat info{};
             const int flags = ::fcntl(stream_fd_, F_GETFL);
-            overflow_ = mode_ != Mode::zero || flags < 0 || !(flags & O_NONBLOCK)
-                        || (flags & O_ACCMODE) != O_WRONLY || ::fstat(stream_fd_, &info) != 0 || !S_ISFIFO(info.st_mode);
+            overflow_ = mode_ != Mode::zero || flags < 0 || !(flags & O_NONBLOCK) || (flags & O_ACCMODE) != O_WRONLY
+                        || ::fstat(stream_fd_, &info) != 0 || !S_ISFIFO(info.st_mode);
             if (!failed())
-                append(Kind::header, Clock::now(), {1, zero_tolerance_});
+                append(Kind::header, Clock::now(), {1, zero_tolerance_, right_sign_});
         }
     }
     /** Return a monotonic nanosecond timestamp; not transmitter time or wall time. */
@@ -129,16 +139,12 @@ class Trace final {
             int value = frame.data[offset] | (static_cast<int>(frame.data[offset + 1]) << 8);
             return value >= 32768 ? value - 65536 : value;
         };
-        const int left = decode(4), right = decode(6);
+        const int left = decode(4), right = right_sign_ == -1 ? -decode(6) : decode(6);
         const int selected = mode_ == Mode::right ? right : left;
         const int other = mode_ == Mode::right ? left : right;
         const bool motion = mode_ == Mode::left || mode_ == Mode::right;
-        if (motion ? (other < -zero_tolerance_ || other > zero_tolerance_
-                      || (nonzero_sent_ ? (selected < -zero_tolerance_ || selected > 75)
-                                        : (selected < -zero_tolerance_ || selected > zero_tolerance_)))
-                   : (left < -zero_tolerance_ || left > zero_tolerance_ || right < -zero_tolerance_
-                      || right > zero_tolerance_))
-        {
+        if (!feedback_matches(mode_, false, left, zero_tolerance_, nonzero_sent_)
+            || !feedback_matches(mode_, true, right, zero_tolerance_, nonzero_sent_)) {
             feedback_bad_ = true;
             const bool review = motion && stopping_ && other >= -zero_tolerance_ && other <= zero_tolerance_
                                 && selected >= -75 && selected < -zero_tolerance_;
@@ -154,15 +160,16 @@ class Trace final {
     /** Export after bounded stop/cleanup; false means output evidence is incomplete. */
     [[nodiscard]] bool dump(std::ostream& output) const {
         if (stream_fd_ >= 0) {
-            const bool sent = write_packet(Kind::end, ns(Clock::now()),
-                                           {overflow_, hard_feedback_bad_, zero_tolerance_});
+            const bool sent =
+                write_packet(Kind::end, ns(Clock::now()), {overflow_, hard_feedback_bad_, zero_tolerance_});
             output << "event=stream_end records=" << count_ << " complete=" << (sent && !failed()) << '\n';
             return sent && !failed() && output.good();
         }
         output << "event=trace_header version=1 count=" << count_ << " overflow=" << overflow_
                << " feedback_bad=" << feedback_bad_ << " capacity=" << capacity_
-               << " feedback_hard_bad=" << hard_feedback_bad_ << " feedback_reviews=" << feedback_reviews_
-               << " zero_feedback_tenths_rpm=" << zero_tolerance_
+               << " motion_mode=" << static_cast<unsigned>(mode_) << " feedback_hard_bad=" << hard_feedback_bad_
+               << " feedback_reviews=" << feedback_reviews_ << " zero_feedback_tenths_rpm=" << zero_tolerance_
+               << " binding_version=1 right_sign=" << right_sign_
                << " timestamp=steady_receive_ns storage_bytes=" << sizeof(Record) * capacity_ << '\n';
         for (std::size_t i = 0; i < count_; ++i) {
             const auto& row = records_[i];
@@ -215,6 +222,7 @@ class Trace final {
     bool watching_{false};
     bool nonzero_sent_{false};
     int zero_tolerance_{0};
+    int right_sign_{1};
 };
 
 /** Bind a borrowed qualification recorder to the syscall ABI on this owner thread; null detaches. */

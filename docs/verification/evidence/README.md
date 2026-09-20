@@ -275,3 +275,68 @@ All historical failed/incomplete trials and consumed authorizations are retained
 The existing Phase 6 evidence checker validates its manifest and every member.
 Extract to a separate scratch directory for historical replay; never execute
 consumed runners. See the soak README for the extraction command.
+
+## September 18 continuous SBUS/control one-hour archive
+
+[One-hour A2](control_zero_soak_20260918/hour_a2/README.md) records 3600.367 s,
+514256 SBUS frames and 360002 zero RPDOs, complete restoration and stable sampled
+resources. Functional audit passes; strict global capture order fails within one
+three-frame window despite equal per-ID/per-direction sequences (518836 frames
+each). The user explicitly accepted this trial on 2026-09-18; original strict failure and raw data remain preserved. G2 zero-target endurance is accepted.
+Operator OFF/stationary/no sound is recorded. This supersedes the historical
+not-yet-started status, without claiming moving/loaded endurance or P6 closure.
+
+
+## G3.1 signed motion software preparation — September 18
+
+[Software baseline](g3_software_preparation_20260918/README.md) records eight
+bounded signed profiles,19 virtual scenarios, pre-submit command inhibition,
+independent trace/capture auditing, host/sanitizer/static and locked cross/ELF
+results. Initial sanitizer timeout failures and successful focused rechecks are
+separate records. New artifacts have not been deployed or physically tested;
+[trial preparation](../../plans/G3_RAISED_MOTION.md) grants no hardware permission.
+
+
+## G3 new-artifact zero-target prerequisite — September 18
+
+[A2 PASS](g3_raised_motion_20260918/zero_a2/README.md): artifact5f44146c staged
+and smoke-checked;20s zero control,3230 order/payload-identical frames,2002 zero
+RPDOs, full baseline restoration and operator OFF/stationary/no sound. A1 remains
+failed/incomplete due to operator-confirmed missing drive power; no writes.
+All runners consumed; signed physical motion remains pending.
+
+
+## G3 negative single-wheel trials — September 18
+
+[Left-negative A1 PASS](g3_raised_motion_20260918/left_negative_a1/README.md):
+2.960s,1629 matching frames,266ms stop verification/full restoration.
+[Right-negative A1 revised PASS](g3_raised_motion_20260918/transient_feedback_revision/README.md):
+user classifies the single+2.9rpm post-zero sample as a normal brief startup/stop
+feedback transient.2.950s,1466 matching frames,378ms stable stop/full restoration,
+no positive target or restart; operator OFF/right reverse+stop normal/left still/no sound.
+Both negative single-wheel items accepted. Original right-negative exit1/flags,
+failed audit and raw evidence remain unchanged. No online guard/binary change,
+new hardware run or retry authorization; remaining G3 modes are pending.
+
+
+## G3 dual-positive A1 — September 18
+
+[Physical direction FAILED](g3_raised_motion_20260918/dual_positive_a1/README.md):
+left vehicle-forward/right vehicle-backward despite equal positive raw targets.
+Software/protocol checks pass:2.950s,1200 matching frames,302ms stable stop/full
+restoration. No feedback-transient failure. Current right+1 physical binding
+requires correction with consistent HIL wire/feedback audit conventions; no
+source or persistent setting changed. Operator OFF/both stopped/no sound.
+All runners consumed; no automatic next motion or retry.
+
+
+## G3 right vehicle-polarity correction — September 18
+
+[Correction and new physical acceptance](g3_polarity_fix_20260918/README.md):
+9b336936/right_sign=-1; Debug/sanitizer50/50, static/cross/ELF/123 inputs and target
+smoke verified. New zero A3 PASS20s/3230 frames after A1 unpowered/A2 duplicate-CH6
+incomplete attempts. Corrected dual-forward2.950s/1433 frames/357ms stop/full
+restore; operator confirms both forward/normal stop/no sound/OFF. One right
+logical-2.5rpm stop sample is accepted under the existing transient rule; original
+exit1 and feedback failure flags retained. Old physical-direction failure unchanged.
+Remaining G3 modes/protection and ground/loaded acceptance remain pending.

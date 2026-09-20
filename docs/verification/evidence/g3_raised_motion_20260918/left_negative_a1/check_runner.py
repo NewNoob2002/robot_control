@@ -1,0 +1,43 @@
+"""Check fixed motion bounds, lease fragmentation, current cues and the coordinated input path offline."""
+import ast
+import importlib.util
+import json
+import hashlib
+import sys
+from pathlib import Path
+
+BASE = Path(__file__).resolve().parent
+
+def load(name):
+    """Load one side-effect-free runner module without executing its main entry point."""
+    spec = importlib.util.spec_from_file_location(name, BASE / (name + '.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+target, host = load('target_once'), load('start_once')
+auth = json.loads((BASE/'authorization.json').read_text())
+assert auth['arguments'] == target.ARGS and auth['artifact_sha256'] == target.SHA == host.SHA
+assert target.ARGS[5:] == ['60000','--single-left-negative','--zero-feedback-tenths-rpm','20','--motion-window-ms','3000']
+assert target.consume_lease(b'',b'LE') == (b'LE',False)
+assert target.consume_lease(b'LE',b'ASE\nLEASE\n') == (b'',True)
+for bad in (b'',b'ABORT\n',b'LEASE\nBAD',b'L'*4097):
+    try: target.consume_lease(b'',bad)
+    except AssertionError: continue
+    raise AssertionError('invalid lease accepted')
+assert host.current_prompt('')[0]=='WAIT'
+assert host.current_prompt('CONTROL_READY:')[0]=='CONTROL_READY'
+assert host.current_prompt('CONTROL_READY:\nMOTION_READY:')[0]=='MOTION_READY'
+for terminal in ('APPLICATION_STOPPING:', 'APPLICATION_EXIT:', 'WINDOW_REMAINING: 0'):
+    assert host.current_prompt('MOTION_READY:\n'+terminal+'\n')[0]=='STOP'
+sys.path.insert(0,str(Path('scripts/test').resolve()))
+from analyze_control_hil_trace import candidate
+path=[candidate(1000-step,993-round(793*step/800))[2:] for step in range(801)]
+assert all(-5 <= left <= 0 and right == 0 for left,right in path) and path[-1]==(-5,0)
+assert candidate(1000,200)[2:]==(-5,-5), 'isolated throttle must remain outside selected profile'
+for f in BASE.rglob('*.py'): ast.parse(f.read_text())
+inputs=json.loads(Path('docs/verification/evidence/g3_software_preparation_20260918/compiled-inputs.json').read_text())['sha256']
+assert all(hashlib.sha256(Path(f).read_bytes()).hexdigest()==h for f,h in inputs.items())
+assert hashlib.sha256(Path('out/build/cross/g3-motion-v1-runtime/tools/control_hil/robot-control-hil').read_bytes()).hexdigest()==target.SHA
+assert not (BASE/'CONSUMED').exists()
+print('PASS: left-negative3s/5rpm bounds, lease gate, stale-cue rejection,801 coordinated input points,123 source inputs and artifact identity; no hardware access')

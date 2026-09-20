@@ -1,0 +1,456 @@
+CAN Interface "can0" RX buffer set to 477 messages (212992 Bytes)
+hil_read index=24641 sub=0 raw=339743808
+hil_read index=24672 sub=0 raw=3
+hil_read index=24673 sub=0 raw=3
+hil_read index=24639 sub=0 raw=0
+hil_read index=24831 sub=1 raw=0
+hil_read index=24831 sub=2 raw=0
+hil_read index=8207 sub=0 raw=1
+hil_read index=8192 sub=0 raw=0
+hil_read index=4119 sub=0 raw=0
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5120 sub=5 raw=1000
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1616904200
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6144 sub=5 raw=100
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6145 sub=5 raw=0
+hil_read index=6657 sub=0 raw=0
+hil_read index=6657 sub=1 raw=0
+hil_read index=6657 sub=2 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+event=standstill_verified tolerance_tenths_rpm=20 elapsed_us=162008
+hil_read index=5120 sub=1 raw=513
+hil_read index=5120 sub=2 raw=255
+hil_read index=5632 sub=0 raw=2
+hil_read index=5632 sub=1 raw=1614807056
+hil_read index=5632 sub=2 raw=1627325216
+hil_read index=6144 sub=1 raw=385
+hil_read index=6144 sub=2 raw=255
+hil_read index=6656 sub=0 raw=2
+hil_read index=6656 sub=1 raw=1614872608
+hil_read index=6656 sub=2 raw=1617691424
+hil_read index=6145 sub=1 raw=641
+hil_read index=6145 sub=2 raw=255
+hil_read index=6657 sub=0 raw=2
+hil_read index=6657 sub=1 raw=1616969736
+hil_read index=6657 sub=2 raw=1614741536
+hil_read index=8207 sub=0 raw=1
+event=control_start duration_ms=20000 targets=zero zero_feedback_tenths_rpm=20 motion_window_ms=3000 right_sign=-1 input_profile=differential operator=neutral_release_then_press
+event=control elapsed_ms=0 source_health=4 authorization=0 armed=0 status=337712161 word=2 left_tenths_rpm=0 right_tenths_rpm=0 enabled_samples=0
+event=stop_cause code=5 signal_exit=4 at_ns=4609429444442
+phase=runtime_stop ok=1 operation= context= errno=0
+hil_read index=24641 sub=0 raw=341840992
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+hil_read index=24684 sub=1 raw=0
+hil_read index=24684 sub=2 raw=0
+hil_read index=24684 sub=3 raw=0
+event=standstill_verified tolerance_tenths_rpm=20 elapsed_us=160986
+phase=control ok=0 operation=control_hil_zero_envelope context=can0 healthy=1 armed=0 reason=8 status=337712161 source_fault=4 source_age_ms=0 errno=13
+phase=restore ok=1 operation= context= errno=0
+event=summary cycles=2 enabled_samples=0 missed_periods=3 maximum_lateness_us=35980 maximum_cycle_us=81 shutdown_us=6 primary_ok=0 restore_ok=1
+event=trace_header version=1 count=357 overflow=0 feedback_bad=0 capacity=65536 motion_mode=1 feedback_hard_bad=0 feedback_reviews=0 zero_feedback_tenths_rpm=20 binding_version=1 right_sign=-1 timestamp=steady_receive_ns storage_bytes=9437184
+event=trace_row ordinal=0 kind=5 ns=4608319656453 fields=1537,8,64,65,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=1 kind=4 ns=4608320308630 fields=1409,8,67,65,96,0,64,20,64,20,16,0,0,0,0,0
+event=trace_row ordinal=2 kind=5 ns=4608321439147 fields=1537,8,64,96,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=3 kind=4 ns=4608322002363 fields=1409,8,79,96,96,0,3,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=4 kind=5 ns=4608323391009 fields=1537,8,64,97,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=5 kind=4 ns=4608324049019 fields=1409,8,79,97,96,0,3,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=6 kind=5 ns=4608325382539 fields=1537,8,64,63,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=7 kind=4 ns=4608325985715 fields=1409,8,67,63,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=8 kind=5 ns=4608327382528 fields=1537,8,64,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=9 kind=4 ns=4608327982495 fields=1409,8,67,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=10 kind=5 ns=4608329381933 fields=1537,8,64,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=11 kind=4 ns=4608330043735 fields=1409,8,67,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=12 kind=5 ns=4608331383380 fields=1537,8,64,15,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=13 kind=4 ns=4608331972264 fields=1409,8,75,15,32,0,1,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=14 kind=5 ns=4608333382494 fields=1537,8,64,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=15 kind=4 ns=4608333971669 fields=1409,8,75,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=16 kind=5 ns=4608335381607 fields=1537,8,64,23,16,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=17 kind=4 ns=4608335962324 fields=1409,8,75,23,16,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=18 kind=5 ns=4608337381887 fields=1537,8,64,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=19 kind=4 ns=4608337956479 fields=1409,8,67,0,20,1,1,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=20 kind=5 ns=4608339382167 fields=1537,8,64,0,20,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=21 kind=4 ns=4608340012469 fields=1409,8,79,0,20,2,255,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=22 kind=5 ns=4608341383031 fields=1537,8,64,0,20,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=23 kind=4 ns=4608341945373 fields=1409,8,75,0,20,5,232,3,0,0,16,0,0,0,0,0
+event=trace_row ordinal=24 kind=5 ns=4608343382436 fields=1537,8,64,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=25 kind=4 ns=4608343947986 fields=1409,8,79,0,22,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=26 kind=5 ns=4608345381841 fields=1537,8,64,0,22,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=27 kind=4 ns=4608345934558 fields=1409,8,67,0,22,1,16,0,64,96,16,0,0,0,0,0
+event=trace_row ordinal=28 kind=5 ns=4608347381538 fields=1537,8,64,0,22,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=29 kind=4 ns=4608347937463 fields=1409,8,67,0,22,2,8,0,96,96,16,0,0,0,0,0
+event=trace_row ordinal=30 kind=5 ns=4608349381235 fields=1537,8,64,0,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=31 kind=4 ns=4608350052662 fields=1409,8,67,0,24,1,129,1,0,0,16,0,0,0,0,0
+event=trace_row ordinal=32 kind=5 ns=4608351383265 fields=1537,8,64,0,24,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=33 kind=4 ns=4608351988483 fields=1409,8,79,0,24,2,255,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=34 kind=5 ns=4608353382379 fields=1537,8,64,0,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=35 kind=4 ns=4608353984971 fields=1409,8,75,0,24,5,100,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=36 kind=5 ns=4608355382076 fields=1537,8,64,0,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=37 kind=4 ns=4608355983793 fields=1409,8,79,0,26,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=38 kind=5 ns=4608357382064 fields=1537,8,64,0,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=39 kind=4 ns=4608357972406 fields=1409,8,67,0,26,1,32,0,65,96,16,0,0,0,0,0
+event=trace_row ordinal=40 kind=5 ns=4608359382053 fields=1537,8,64,0,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=41 kind=4 ns=4608360025187 fields=1409,8,67,0,26,2,32,3,108,96,16,0,0,0,0,0
+event=trace_row ordinal=42 kind=5 ns=4608361382041 fields=1537,8,64,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=43 kind=4 ns=4608361965383 fields=1409,8,67,1,24,1,129,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=44 kind=5 ns=4608363382613 fields=1537,8,64,1,24,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=45 kind=4 ns=4608363961288 fields=1409,8,79,1,24,2,255,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=46 kind=5 ns=4608365382018 fields=1537,8,64,1,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=47 kind=4 ns=4608365953693 fields=1409,8,75,1,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=48 kind=5 ns=4608367382298 fields=1537,8,64,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=49 kind=4 ns=4608367954557 fields=1409,8,79,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=50 kind=5 ns=4608369382287 fields=1537,8,64,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=51 kind=4 ns=4608370006171 fields=1409,8,67,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=52 kind=5 ns=4608371381400 fields=1537,8,64,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=53 kind=4 ns=4608371940242 fields=1409,8,67,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=54 kind=5 ns=4608373384014 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=55 kind=4 ns=4608373941397 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=56 kind=5 ns=4608375383711 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=57 kind=4 ns=4608375936136 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=58 kind=5 ns=4608377383699 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=59 kind=4 ns=4608377989208 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=60 kind=5 ns=4608400380796 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=61 kind=4 ns=4608401000014 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=62 kind=5 ns=4608402382243 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=63 kind=4 ns=4608402995044 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=64 kind=5 ns=4608404382523 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=65 kind=4 ns=4608404989199 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=66 kind=5 ns=4608427380787 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=67 kind=4 ns=4608428000588 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=68 kind=5 ns=4608429382525 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=69 kind=4 ns=4608429997076 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=70 kind=5 ns=4608431383097 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=71 kind=4 ns=4608431938439 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=72 kind=5 ns=4608454379902 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=73 kind=4 ns=4608455002037 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=74 kind=5 ns=4608456382224 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=75 kind=4 ns=4608457000275 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=76 kind=5 ns=4608458382213 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=77 kind=4 ns=4608458938138 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=78 kind=5 ns=4608481379309 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=79 kind=4 ns=4608481943693 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=80 kind=5 ns=4608483383673 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=81 kind=4 ns=4608484001724 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=82 kind=5 ns=4608485382203 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=83 kind=4 ns=4608485939003 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=84 kind=5 ns=4608508380175 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=85 kind=4 ns=4608508946600 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=86 kind=5 ns=4608510382789 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=87 kind=4 ns=4608511001131 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=88 kind=5 ns=4608512381902 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=89 kind=4 ns=4608512997328 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=90 kind=5 ns=4608535379874 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=91 kind=4 ns=4608535948049 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=92 kind=5 ns=4608537382487 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=93 kind=4 ns=4608538003747 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=94 kind=5 ns=4608539382184 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=95 kind=4 ns=4608539998777 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=96 kind=5 ns=4608541399673 fields=1537,8,43,23,16,0,244,1,0,0,16,0,0,0,0,0
+event=trace_row ordinal=97 kind=4 ns=4608542004599 fields=1409,8,96,23,16,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=98 kind=5 ns=4608543381870 fields=1537,8,64,23,16,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=99 kind=4 ns=4608544046296 fields=1409,8,75,23,16,0,244,1,0,0,16,0,0,0,0,0
+event=trace_row ordinal=100 kind=4 ns=4608791502362 fields=1793,1,127,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=101 kind=5 ns=4608793382765 fields=0,2,128,1,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=102 kind=4 ns=4609041067501 fields=1793,1,127,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=103 kind=5 ns=4609042389646 fields=1537,8,43,0,32,0,232,3,0,0,16,0,0,0,0,0
+event=trace_row ordinal=104 kind=4 ns=4609043062531 fields=1409,8,96,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=105 kind=5 ns=4609044381468 fields=1537,8,64,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=106 kind=4 ns=4609045046186 fields=1409,8,75,0,32,0,232,3,0,0,16,0,0,0,0,0
+event=trace_row ordinal=107 kind=5 ns=4609046389915 fields=1537,8,35,0,20,1,1,2,0,128,16,0,0,0,0,0
+event=trace_row ordinal=108 kind=4 ns=4609047048800 fields=1409,8,96,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=109 kind=5 ns=4609048381737 fields=1537,8,64,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=110 kind=4 ns=4609048979079 fields=1409,8,67,0,20,1,1,2,0,128,16,0,0,0,0,0
+event=trace_row ordinal=111 kind=5 ns=4609050382017 fields=1537,8,47,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=112 kind=4 ns=4609051040027 fields=1409,8,96,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=113 kind=5 ns=4609052379380 fields=1537,8,64,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=114 kind=4 ns=4609053033599 fields=1409,8,79,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=115 kind=5 ns=4609054381994 fields=1537,8,35,0,22,1,16,0,64,96,16,0,0,0,0,0
+event=trace_row ordinal=116 kind=4 ns=4609054972044 fields=1409,8,96,0,22,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=117 kind=5 ns=4609056381107 fields=1537,8,64,0,22,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=118 kind=4 ns=4609057018700 fields=1409,8,67,0,22,1,16,0,64,96,16,0,0,0,0,0
+event=trace_row ordinal=119 kind=5 ns=4609058381971 fields=1537,8,35,0,22,2,32,3,255,96,16,0,0,0,0,0
+event=trace_row ordinal=120 kind=4 ns=4609058962980 fields=1409,8,96,0,22,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=121 kind=5 ns=4609060380209 fields=1537,8,64,0,22,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=122 kind=4 ns=4609060952176 fields=1409,8,67,0,22,2,32,3,255,96,16,0,0,0,0,0
+event=trace_row ordinal=123 kind=5 ns=4609062381948 fields=1537,8,47,0,22,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=124 kind=4 ns=4609063011666 fields=1409,8,96,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=125 kind=5 ns=4609064380186 fields=1537,8,64,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=126 kind=4 ns=4609064948362 fields=1409,8,79,0,22,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=127 kind=5 ns=4609066381925 fields=1537,8,35,0,20,1,1,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=128 kind=4 ns=4609067003768 fields=1409,8,96,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=129 kind=5 ns=4609068380747 fields=1537,8,64,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=130 kind=4 ns=4609068938130 fields=1409,8,67,0,20,1,1,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=131 kind=5 ns=4609070385985 fields=1537,8,35,1,24,1,129,2,0,128,16,0,0,0,0,0
+event=trace_row ordinal=132 kind=4 ns=4609070991203 fields=1409,8,96,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=133 kind=5 ns=4609072379849 fields=1537,8,64,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=134 kind=4 ns=4609073044275 fields=1409,8,67,1,24,1,129,2,0,128,16,0,0,0,0,0
+event=trace_row ordinal=135 kind=5 ns=4609074383337 fields=1537,8,47,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=136 kind=4 ns=4609074986805 fields=1409,8,96,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=137 kind=5 ns=4609076380409 fields=1537,8,64,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=138 kind=4 ns=4609077039877 fields=1409,8,79,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=139 kind=5 ns=4609078383606 fields=1537,8,35,1,26,1,8,0,97,96,16,0,0,0,0,0
+event=trace_row ordinal=140 kind=4 ns=4609078974823 fields=1409,8,96,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=141 kind=5 ns=4609080380094 fields=1537,8,64,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=142 kind=4 ns=4609080964895 fields=1409,8,67,1,26,1,8,0,97,96,16,0,0,0,0,0
+event=trace_row ordinal=143 kind=5 ns=4609082383583 fields=1537,8,35,1,26,2,32,0,63,96,16,0,0,0,0,0
+event=trace_row ordinal=144 kind=4 ns=4609083024384 fields=1409,8,96,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=145 kind=5 ns=4609084379488 fields=1537,8,64,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=146 kind=4 ns=4609084956413 fields=1409,8,67,1,26,2,32,0,63,96,16,0,0,0,0,0
+event=trace_row ordinal=147 kind=5 ns=4609086382102 fields=1537,8,47,1,26,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=148 kind=4 ns=4609087018528 fields=1409,8,96,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=149 kind=5 ns=4609088379465 fields=1537,8,64,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=150 kind=4 ns=4609088952599 fields=1409,8,79,1,26,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=151 kind=5 ns=4609090383829 fields=1537,8,43,1,24,5,100,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=152 kind=4 ns=4609090950545 fields=1409,8,96,1,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=153 kind=5 ns=4609092380317 fields=1537,8,64,1,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=154 kind=4 ns=4609093001868 fields=1409,8,75,1,24,5,100,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=155 kind=5 ns=4609094382347 fields=1537,8,35,1,24,1,129,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=156 kind=4 ns=4609094942356 fields=1409,8,96,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=157 kind=5 ns=4609096380586 fields=1537,8,64,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=158 kind=4 ns=4609096997762 fields=1409,8,67,1,24,1,129,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=159 kind=5 ns=4609098380866 fields=0,2,1,1,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=160 kind=4 ns=4609098923666 fields=385,8,64,20,64,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=161 kind=4 ns=4609099115877 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=162 kind=4 ns=4609099214753 fields=897,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=163 kind=4 ns=4609099311880 fields=1153,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=164 kind=4 ns=4609148946420 fields=385,8,64,20,64,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=165 kind=4 ns=4609149071839 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=166 kind=4 ns=4609198952258 fields=385,8,64,20,64,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=167 kind=4 ns=4609199084385 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=168 kind=4 ns=4609248966262 fields=385,8,64,20,64,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=169 kind=4 ns=4609249094306 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=170 kind=4 ns=4609290621557 fields=1793,1,5,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=171 kind=5 ns=4609291389527 fields=1537,8,35,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=172 kind=4 ns=4609291998245 fields=1409,8,96,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=173 kind=5 ns=4609293383391 fields=1537,8,64,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=174 kind=4 ns=4609294053359 fields=1409,8,67,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=175 kind=5 ns=4609295384837 fields=1537,8,35,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=176 kind=4 ns=4609295989180 fields=1409,8,96,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=177 kind=5 ns=4609297380159 fields=1537,8,64,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=178 kind=4 ns=4609298044294 fields=1409,8,67,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=179 kind=5 ns=4609298924266 fields=1537,8,43,64,96,0,6,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=180 kind=4 ns=4609298929808 fields=385,8,64,20,64,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=181 kind=4 ns=4609299107144 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=182 kind=4 ns=4609299730445 fields=1409,8,96,64,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=183 kind=5 ns=4609300380871 fields=1537,8,64,64,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=184 kind=4 ns=4609300975880 fields=1409,8,75,64,96,0,6,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=185 kind=4 ns=4609348986396 fields=385,8,33,20,33,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=186 kind=4 ns=4609349115606 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=187 kind=5 ns=4609350387584 fields=1537,8,64,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=188 kind=4 ns=4609351045302 fields=1409,8,67,0,20,1,1,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=189 kind=5 ns=4609352390197 fields=1537,8,64,0,20,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=190 kind=4 ns=4609353041790 fields=1409,8,79,0,20,2,255,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=191 kind=5 ns=4609354384644 fields=1537,8,64,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=192 kind=4 ns=4609354983445 fields=1409,8,79,0,22,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=193 kind=5 ns=4609356384341 fields=1537,8,64,0,22,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=194 kind=4 ns=4609357031851 fields=1409,8,67,0,22,1,16,0,64,96,16,0,0,0,0,0
+event=trace_row ordinal=195 kind=5 ns=4609358384329 fields=1537,8,64,0,22,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=196 kind=4 ns=4609358968255 fields=1409,8,67,0,22,2,32,3,255,96,16,0,0,0,0,0
+event=trace_row ordinal=197 kind=5 ns=4609360383734 fields=1537,8,64,0,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=198 kind=4 ns=4609360965618 fields=1409,8,67,0,24,1,129,1,0,0,16,0,0,0,0,0
+event=trace_row ordinal=199 kind=5 ns=4609362383431 fields=1537,8,64,0,24,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=200 kind=4 ns=4609363020441 fields=1409,8,79,0,24,2,255,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=201 kind=5 ns=4609364383711 fields=1537,8,64,0,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=202 kind=4 ns=4609364959178 fields=1409,8,79,0,26,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=203 kind=5 ns=4609366384575 fields=1537,8,64,0,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=204 kind=4 ns=4609367007001 fields=1409,8,67,0,26,1,32,0,65,96,16,0,0,0,0,0
+event=trace_row ordinal=205 kind=5 ns=4609368383397 fields=1537,8,64,0,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=206 kind=4 ns=4609368939322 fields=1409,8,67,0,26,2,32,3,108,96,16,0,0,0,0,0
+event=trace_row ordinal=207 kind=5 ns=4609370383968 fields=1537,8,64,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=208 kind=4 ns=4609370940185 fields=1409,8,67,1,24,1,129,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=209 kind=5 ns=4609372383665 fields=1537,8,64,1,24,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=210 kind=4 ns=4609373002300 fields=1409,8,79,1,24,2,255,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=211 kind=5 ns=4609374383945 fields=1537,8,64,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=212 kind=4 ns=4609374996163 fields=1409,8,79,1,26,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=213 kind=5 ns=4609376384517 fields=1537,8,64,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=214 kind=4 ns=4609377043986 fields=1409,8,67,1,26,1,8,0,97,96,16,0,0,0,0,0
+event=trace_row ordinal=215 kind=5 ns=4609378383922 fields=1537,8,64,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=216 kind=4 ns=4609378980681 fields=1409,8,67,1,26,2,32,0,63,96,16,0,0,0,0,0
+event=trace_row ordinal=217 kind=5 ns=4609380384494 fields=1537,8,64,15,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=218 kind=4 ns=4609380980670 fields=1409,8,75,15,32,0,1,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=219 kind=5 ns=4609418489860 fields=513,6,2,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=220 kind=0 ns=4609418439401 fields=1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+event=trace_row ordinal=221 kind=3 ns=4609418496569 fields=1,2,0,2,0,0,0,0,0,0,0,0,0,6,0,4
+event=trace_row ordinal=222 kind=4 ns=4609418536236 fields=385,8,33,20,33,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=223 kind=4 ns=4609418548778 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=224 kind=5 ns=4609429428400 fields=513,6,2,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=225 kind=0 ns=4609429391358 fields=2,2,0,25,1,0,0,0,0,0,0,0,0,0,0,0
+event=trace_row ordinal=226 kind=1 ns=4609429391358 fields=2,2,0,1000,0,1000,1000,12,1,0,0,0,0,0,0,0
+event=trace_row ordinal=227 kind=3 ns=4609429433942 fields=2,3,0,2,4609429391358,0,-1000,-5,-5,0,0,0,0,6,0,4
+event=trace_row ordinal=228 kind=6 ns=4609429444442 fields=5,0,3,4609429391358,0,0,0,0,0,0,0,0,0,0,0,0
+event=trace_row ordinal=229 kind=5 ns=4609429450567 fields=513,6,6,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=230 kind=5 ns=4609429514152 fields=1537,8,35,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=231 kind=4 ns=4609430571459 fields=1409,8,96,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=232 kind=5 ns=4609432382736 fields=1537,8,64,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=233 kind=4 ns=4609433050955 fields=1409,8,67,255,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=234 kind=5 ns=4609434383892 fields=1537,8,35,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=235 kind=4 ns=4609434986484 fields=1409,8,96,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=236 kind=5 ns=4609436380088 fields=1537,8,64,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=237 kind=4 ns=4609437044807 fields=1409,8,67,255,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=238 kind=5 ns=4609438383577 fields=1537,8,43,64,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=239 kind=4 ns=4609438980336 fields=1409,8,96,64,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=240 kind=5 ns=4609440379774 fields=1537,8,64,64,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=241 kind=4 ns=4609440977116 fields=1409,8,75,64,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=242 kind=5 ns=4609442382387 fields=1537,8,64,65,96,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=243 kind=4 ns=4609443021438 fields=1409,8,67,65,96,0,96,20,96,20,16,0,0,0,0,0
+event=trace_row ordinal=244 kind=5 ns=4609444384417 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=245 kind=4 ns=4609444961343 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=246 kind=5 ns=4609446385281 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=247 kind=4 ns=4609447015290 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=248 kind=5 ns=4609448383519 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=249 kind=4 ns=4609448949944 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=250 kind=4 ns=4609449191740 fields=385,8,96,20,96,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=251 kind=4 ns=4609449383659 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=252 kind=5 ns=4609470381643 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=253 kind=4 ns=4609471025361 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=254 kind=5 ns=4609472384839 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=255 kind=4 ns=4609473022432 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=256 kind=5 ns=4609474382786 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=257 kind=4 ns=4609474955336 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=258 kind=5 ns=4609497380175 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=259 kind=4 ns=4609498025934 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=260 kind=5 ns=4609499159076 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=261 kind=4 ns=4609499164910 fields=385,8,96,20,96,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=262 kind=4 ns=4609499341371 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=263 kind=4 ns=4609499957963 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=264 kind=5 ns=4609500384095 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=265 kind=4 ns=4609501018188 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=266 kind=5 ns=4609523380900 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=267 kind=4 ns=4609524030451 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=268 kind=5 ns=4609525382930 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=269 kind=4 ns=4609525968314 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=270 kind=5 ns=4609527384085 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=271 kind=4 ns=4609528023136 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=272 kind=4 ns=4609540241821 fields=1793,1,5,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=273 kind=4 ns=4609549223248 fields=385,8,96,20,96,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=274 kind=4 ns=4609549354208 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=275 kind=5 ns=4609550381182 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=276 kind=4 ns=4609551032192 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=277 kind=5 ns=4609552383504 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=278 kind=4 ns=4609553027513 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=279 kind=5 ns=4609554383200 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=280 kind=4 ns=4609554963626 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=281 kind=5 ns=4609577380005 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=282 kind=4 ns=4609578033349 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=283 kind=5 ns=4609579383202 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=284 kind=4 ns=4609580028087 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=285 kind=5 ns=4609581383191 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=286 kind=4 ns=4609581964491 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=287 kind=4 ns=4609599242793 fields=385,8,96,20,96,20,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=288 kind=4 ns=4609599374045 fields=641,5,3,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=289 kind=5 ns=4609604379996 fields=1537,8,64,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=290 kind=4 ns=4609605033339 fields=1409,8,67,108,96,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=291 kind=5 ns=4609606384651 fields=1537,8,64,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=292 kind=4 ns=4609607030411 fields=1409,8,67,108,96,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=293 kind=5 ns=4609608383181 fields=1537,8,64,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=294 kind=4 ns=4609608965648 fields=1409,8,67,108,96,3,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=295 kind=5 ns=4609610386086 fields=0,2,128,1,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=296 kind=4 ns=4609789751248 fields=1793,1,127,0,0,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=297 kind=5 ns=4609791390440 fields=1537,8,35,0,20,1,1,2,0,128,16,0,0,0,0,0
+event=trace_row ordinal=298 kind=4 ns=4609791997116 fields=1409,8,96,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=299 kind=5 ns=4609793381678 fields=1537,8,64,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=300 kind=4 ns=4609794046105 fields=1409,8,67,0,20,1,1,2,0,128,16,0,0,0,0,0
+event=trace_row ordinal=301 kind=5 ns=4609795383417 fields=1537,8,47,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=302 kind=4 ns=4609795988342 fields=1409,8,96,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=303 kind=5 ns=4609797379613 fields=1537,8,64,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=304 kind=4 ns=4609798042290 fields=1409,8,79,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=305 kind=5 ns=4609799383102 fields=1537,8,35,0,22,1,16,0,64,96,16,0,0,0,0,0
+event=trace_row ordinal=306 kind=4 ns=4609800039654 fields=1409,8,96,0,22,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=307 kind=5 ns=4609801380174 fields=1537,8,64,0,22,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=308 kind=4 ns=4609801968474 fields=1409,8,67,0,22,1,16,0,64,96,16,0,0,0,0,0
+event=trace_row ordinal=309 kind=5 ns=4609803382496 fields=1537,8,35,0,22,2,8,0,96,96,16,0,0,0,0,0
+event=trace_row ordinal=310 kind=4 ns=4609803971671 fields=1409,8,96,0,22,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=311 kind=5 ns=4609805379859 fields=1537,8,64,0,22,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=312 kind=4 ns=4609805958243 fields=1409,8,67,0,22,2,8,0,96,96,16,0,0,0,0,0
+event=trace_row ordinal=313 kind=5 ns=4609807381889 fields=1537,8,47,0,22,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=314 kind=4 ns=4609807962023 fields=1409,8,96,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=315 kind=5 ns=4609809380128 fields=1537,8,64,0,22,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=316 kind=4 ns=4609810015679 fields=1409,8,79,0,22,0,2,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=317 kind=5 ns=4609811382158 fields=1537,8,35,0,20,1,1,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=318 kind=4 ns=4609811950916 fields=1409,8,96,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=319 kind=5 ns=4609813380688 fields=1537,8,64,0,20,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=320 kind=4 ns=4609813942155 fields=1409,8,67,0,20,1,1,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=321 kind=5 ns=4609815387093 fields=1537,8,35,1,24,1,129,2,0,128,16,0,0,0,0,0
+event=trace_row ordinal=322 kind=4 ns=4609815945060 fields=1409,8,96,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=323 kind=5 ns=4609817380373 fields=1537,8,64,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=324 kind=4 ns=4609817936882 fields=1409,8,67,1,24,1,129,2,0,128,16,0,0,0,0,0
+event=trace_row ordinal=325 kind=5 ns=4609819383862 fields=1537,8,47,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=326 kind=4 ns=4609820052955 fields=1409,8,96,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=327 kind=5 ns=4609821380059 fields=1537,8,64,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=328 kind=4 ns=4609821989068 fields=1409,8,79,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=329 kind=5 ns=4609823383839 fields=1537,8,35,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=330 kind=4 ns=4609823984973 fields=1409,8,96,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=331 kind=5 ns=4609825380036 fields=1537,8,64,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=332 kind=4 ns=4609825974461 fields=1409,8,67,1,26,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=333 kind=5 ns=4609827382649 fields=1537,8,35,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=334 kind=4 ns=4609827973575 fields=1409,8,96,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=335 kind=5 ns=4609829380012 fields=1537,8,64,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=336 kind=4 ns=4609830028689 fields=1409,8,67,1,26,2,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=337 kind=5 ns=4609831382626 fields=1537,8,47,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=338 kind=4 ns=4609831965968 fields=1409,8,96,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=339 kind=5 ns=4609833379698 fields=1537,8,64,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=340 kind=4 ns=4609833962457 fields=1409,8,79,1,26,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=341 kind=5 ns=4609835382603 fields=1537,8,43,1,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=342 kind=4 ns=4609835957487 fields=1409,8,96,1,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=343 kind=5 ns=4609837379966 fields=1537,8,64,1,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=344 kind=4 ns=4609837949892 fields=1409,8,75,1,24,5,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=345 kind=5 ns=4609839382288 fields=1537,8,35,1,24,1,129,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=346 kind=4 ns=4609840010256 fields=1409,8,96,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=347 kind=5 ns=4609841379943 fields=1537,8,64,1,24,1,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=348 kind=4 ns=4609841940243 fields=1409,8,67,1,24,1,129,2,0,0,16,0,0,0,0,0
+event=trace_row ordinal=349 kind=5 ns=4609843383432 fields=1537,8,43,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=350 kind=4 ns=4609844004983 fields=1409,8,96,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=351 kind=5 ns=4609845379920 fields=1537,8,64,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=352 kind=4 ns=4609845943429 fields=1409,8,75,0,32,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=353 kind=5 ns=4609847382534 fields=1537,8,43,23,16,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=354 kind=4 ns=4609847992710 fields=1409,8,96,23,16,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=355 kind=5 ns=4609849379897 fields=1537,8,64,23,16,0,0,0,0,0,16,0,0,0,0,0
+event=trace_row ordinal=356 kind=4 ns=4609850046074 fields=1409,8,75,23,16,0,0,0,0,0,16,0,0,0,0,0
+event=trace_end count=357
+event=feedback_review_summary count=0 verdict=none

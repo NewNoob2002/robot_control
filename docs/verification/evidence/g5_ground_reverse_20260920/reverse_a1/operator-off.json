@@ -1,0 +1,8 @@
+{
+  "wall_time": 1789877107.9286692,
+  "response": "OFF",
+  "left_backward_and_stop_normal": true,
+  "right_backward_and_stop_normal": true,
+  "no_abnormal_sound": true,
+  "drive_power_off": true
+}

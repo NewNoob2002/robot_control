@@ -49,7 +49,7 @@ int main() {
     for (int tolerance : {15, 20}) {
         for (const auto mode : {Trace::Mode::left, Trace::Mode::right}) {
             for (int stage : {0, 1, 2}) {
-                for (int speed : {-tolerance-1, -tolerance, -1, 0, tolerance, tolerance+1}) {
+                for (int speed : {-tolerance - 1, -tolerance, -1, 0, tolerance, tolerance + 1}) {
                     Trace trace{mode, 16, tolerance};
                     trace.watch_feedback();
                     can_frame tx{};
@@ -71,7 +71,9 @@ int main() {
                     rx.data[offset] = static_cast<unsigned char>(encoded & 255U);
                     rx.data[offset + 1] = static_cast<unsigned char>(encoded >> 8U);
                     trace.can(Trace::Kind::can_rx, rx, now + 2ms, CAN_MTU, 0);
-                    check(trace.failed() == (stage == 0 ? (speed < -tolerance || speed > tolerance) : stage == 1 && speed < -tolerance));
+                    check(
+                        trace.failed()
+                        == (stage == 0 ? (speed < -tolerance || speed > tolerance) : stage == 1 && speed < -tolerance));
                 }
             }
         }
@@ -151,6 +153,48 @@ int main() {
         ::close(descriptors[0]);
         ::close(descriptors[1]);
     }
+    for (int right_sign : {-1, 1}) {
+        // Startup remains near-zero; signed active feedback is checked on every axis/frame.
+        struct Vector {
+            Trace::Mode mode;
+            int left;
+            int right;
+        };
+        for (const auto v :
+             {Vector{Trace::Mode::left_negative, -1, 0}, Vector{Trace::Mode::right_negative, 0, -1},
+              Vector{Trace::Mode::dual_positive, 1, 1}, Vector{Trace::Mode::dual_negative, -1, -1},
+              Vector{Trace::Mode::turn_left, -1, 1}, Vector{Trace::Mode::turn_right, 1, -1},
+              Vector{Trace::Mode::differential_left, 1, 1}, Vector{Trace::Mode::differential_right, 1, 1}}) {
+            for (bool started : {false, true}) {
+                for (bool right : {false, true}) {
+                    for (int speed : {-32768, -76, -75, -21, -20, 0, 20, 21, 75, 76, 32767}) {
+                        Trace trace{v.mode, 4, 20, -1, right_sign};
+                        trace.watch_feedback();
+                        if (started) {
+                            can_frame tx{};
+                            tx.can_id = 0x201;
+                            tx.can_dlc = 6;
+                            tx.data[2] = 1;
+                            trace.can(Trace::Kind::can_tx, tx, now, CAN_MTU, 0);
+                        }
+                        can_frame rx{};
+                        rx.can_id = 0x181;
+                        rx.can_dlc = 8;
+                        const unsigned offset = right ? 6U : 4U;
+                        const auto raw = static_cast<unsigned>(speed) & 0xffffU;
+                        rx.data[offset] = static_cast<std::uint8_t>(raw);
+                        rx.data[offset + 1] = static_cast<std::uint8_t>(raw >> 8U);
+                        trace.can(Trace::Kind::can_rx, rx, now + 1ms, CAN_MTU, 0);
+                        const int sign = right ? v.right * right_sign : v.left;
+                        const bool allowed =
+                            started && sign ? speed * sign >= -20 && speed * sign <= 75 : speed >= -20 && speed <= 20;
+                        check(trace.failed() == !allowed);
+                    }
+                }
+            }
+        }
+    }
+    check(Trace{Trace::Mode::dual_positive, 4, 20, -1, 0}.failed());
     std::cout << "trace_failures=" << failures << '\n';
     return failures ? 1 : 0;
 }

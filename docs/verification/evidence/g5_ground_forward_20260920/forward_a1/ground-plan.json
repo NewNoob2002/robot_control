@@ -1,0 +1,26 @@
+{
+  "ready_for_execution": true,
+  "reason": "User authorized trial and confirmed containment barrier; fresh local START checks barrier suitability and marked limits",
+  "max_rpm": 5,
+  "motion_hard_limit_ms": 3000,
+  "automatic_cutoff_ms": 2950,
+  "clear_travel_m": 3.0,
+  "allowed_travel_m": 1.0,
+  "allowed_stop_distance_m": 0.5,
+  "coast_containment": "Operator-reported perimeter barrier; local START must confirm firmly secured, suitable to stop this vehicle, with nobody in travel or containment area",
+  "measurement_method": "Mark starting point and1m intervention line; record stationary-camera video and measure actual displacement/stopping distance after safe stop; unknown measurements remain unverified",
+  "conditional_nominal_3s_distance_m": 0.281,
+  "nominal_distance_is_safety_limit": false,
+  "operator_reported_clearance_m": [
+    3,
+    4
+  ],
+  "surface": "Operator reports relatively level ground",
+  "operator_coast_statement": "地平比较平整不会进行滑行",
+  "latest_user_statement": "有围挡进行阻挡",
+  "ground_trial_authorized": true,
+  "digital_power_supply_cutoff_available": true,
+  "environment_safe_operator_report": true,
+  "intervention": "X1 immediately at1m total displacement, abnormal motion, or continued travel after STOP; supply cutoff if X1 ineffective; barrier is last resort, contact is failure",
+  "boundary_note": "1m total travel and0.5m post-stop distance are prospective test limits, not measured braking performance; mechanical barrier remains at >=3m clear boundary"
+}

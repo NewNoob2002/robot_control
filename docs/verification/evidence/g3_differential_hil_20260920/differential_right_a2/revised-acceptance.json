@@ -1,0 +1,70 @@
+{
+  "status": "PASS_revised_functional_acceptance",
+  "right_sign": -1,
+  "profile": "differential-right",
+  "summary": {
+    "event": "summary",
+    "cycles": "528",
+    "enabled_samples": "404",
+    "missed_periods": "3",
+    "maximum_lateness_us": "33519",
+    "maximum_cycle_us": "92",
+    "shutdown_us": "29",
+    "primary_ok": "0",
+    "restore_ok": "1"
+  },
+  "feedback": {
+    "profile": "differential-right",
+    "first_nonzero_ns": 6450730991013,
+    "first_zero_ns": 6452190992615,
+    "axis_motion_samples": [
+      27,
+      27
+    ],
+    "stable_since_ns": 6452241640967,
+    "stable_verified_ns": 6452491528799,
+    "differential_feedback_samples": 7
+  },
+  "capture": {
+    "matching_frames": 1121,
+    "volatile_writes": 36,
+    "baseline_restored": true,
+    "wire_motion": {
+      "profile": "differential-right",
+      "first_nonzero_ns": 1789872169380785920,
+      "first_zero_ns": 1789872170840791040,
+      "axis_motion_samples": [
+        27,
+        27
+      ],
+      "stable_since_ns": 1789872170891161856,
+      "stable_verified_ns": 1789872171141050112,
+      "differential_feedback_samples": 7
+    },
+    "scope": "Normal bounded G3 trial only; separate physical direction/operator acceptance required"
+  },
+  "motion_ms": 1460.001602,
+  "stop_verified_ms": 300.536184,
+  "raw_feedback_range_tenths_rpm": [
+    [
+      -10,
+      53
+    ],
+    [
+      -59,
+      11
+    ]
+  ],
+  "sbus_frames": 798,
+  "trace_records": 3129,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789872177.6731107,
+    "response": "OFF",
+    "left_forward_and_stop_normal": true,
+    "right_forward_and_stop_normal": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "scope": "User-approved functional differential acceptance despite subsequent rejected candidate; original exit1 unchanged; no software change or new hardware permit"
+}

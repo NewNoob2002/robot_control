@@ -1,0 +1,34 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-5f44146c-20260918/left_negative_a1",
+  "authorization": "User: \u597d\u7684\uff0c\u7ee7\u7eed\u8d1f\u5411\u8fd0\u52a8\u6d4b\u8bd5; fresh local START required for current power/readiness and exact left-negative action",
+  "artifact_sha256": "5f44146c71747eb93cdf30c8ae675b3c9fb48566c7951c53daa96dbed627c14a",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--single-left-negative",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms raised/unloaded, actually powered, X1 released/accessible, unchanged wiring, neutral/CH6 released and coordinated two-axis operation",
+  "limits": "Only left-negative<=5rpm/right exact zero; motion<3s/cutoff2950ms; total60s; measured near-zero+/-2rpm, active7.5rpm; no persistent writes or interface changes; JCAN receive/ACK only",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "zero_a2 PASS for this unchanged artifact; prior OFF is not current readiness",
+  "scripts": {
+    "target_once.py": "05361480fc363244b08a2cc12a1f87b4d46a18792e24d8a3b4397acbe36d4d29",
+    "start_once.py": "8067005e51f2e9c4493a50739870f89a3b656556d59cd69f63933c787b7c3f25",
+    "check_runner.py": "9097adcced07e43bbd3911d1518e1f03118c4820b1bf84764f62a1f15b098a58",
+    "jcan/capture_once.py": "dc65803facdda419748e8e467ae1b62f3cc7facf033d2b2e698c0e00eec4a0e8"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/dual_positive_a1",
+  "authorization": "User requested correction and new tests; fresh local START required",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Fresh local START confirms both wheels raised/unloaded, actual drive power, X1 released/accessible, neutral/CH6 released, unchanged wiring and visible console",
+  "limits": "Logical vehicle targets equal positive1..5rpm; raw right targets negative1..5rpm; nonzero<3s/cutoff2950ms; total60s; +/-2rpm stable feedback/absolute7.5rpm hard bound; no persistent changes or interface configuration; JCAN receive/ACK only",
+  "recovery": "Reject mismatched candidate before submission; exact zero and bounded stop;3s host lease SIGTERM; cleanup12s; local X1/OFF; no automatic retry",
+  "prerequisite": "Corrected-artifact zero_a3 PASS and fresh local START; old trials do not establish vehicle direction",
+  "scripts": {
+    "target_once.py": "4881130940dc8fbfcc611aaf7c9d2234505e1e123fca3c07c80fe43ace7fe5d2",
+    "start_once.py": "9af54264e6ec89d8d98a7c4e8357dd449e0581337d30bed56a06893dd8c33e05",
+    "check_runner.py": "acb751e9089456d934ca8a9bef38b22854843398d88ab5d9a4f16d4c1491822e",
+    "jcan/capture_once.py": "fce0de9727979edf1b998bc221390771aef96832c21519f432ec0a431bcb25ae",
+    "analyze-motion.py": "08f25436c6fded46da3416767aec0b9b58518a43f9b3e9a6cf87229e3ee2c538"
+  },
+  "right_sign": -1
+}

@@ -1,0 +1,14 @@
+{
+  "wall_time": 1789880939.3344452,
+  "response": "START",
+  "drive_power_on": true,
+  "ground_stationary": true,
+  "mechanical_restraint": true,
+  "emergency_stop_available": true,
+  "x1_released": true,
+  "sticks_neutral": true,
+  "ch6_released": true,
+  "transmitter_receiver_online": true,
+  "unchanged_wiring": true,
+  "operator_display_visible": true
+}

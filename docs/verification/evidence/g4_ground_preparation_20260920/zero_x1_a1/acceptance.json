@@ -1,0 +1,20 @@
+{
+  "status": "PASS_ground_stationary_zero_X1_recovery",
+  "matching_frames": 3759,
+  "all_targets_zero": true,
+  "rpdo_frames": 2368,
+  "x1_hold_ms": 1009.999795,
+  "reenabled_zero_hold_ms": 1009.996817,
+  "exact_baseline_restored": true,
+  "can_counters_unchanged": true,
+  "operator": {
+    "wall_time": 1789874314.152997,
+    "response": "OFF",
+    "vehicle_stationary": true,
+    "mechanical_restraint_retained": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "holding_torque_proven": false,
+  "ground_stopping_distance_measured": false
+}

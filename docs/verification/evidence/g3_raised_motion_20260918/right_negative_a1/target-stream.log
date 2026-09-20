@@ -1,0 +1,39 @@
+PROGRESS: active
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 59
+CONTROL_READY: neutral; press and release CH6 once
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 58
+PROGRESS: active
+MOTION_READY: RIGHT negative only; coordinated backward throttle plus right steering; max5rpm/3s
+PROGRESS: active
+WINDOW_REMAINING: 57
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 56
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 55
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 54
+PROGRESS: active
+PROGRESS: active
+WINDOW_REMAINING: 53
+PROGRESS: active
+WINDOW_REMAINING: 52
+PROGRESS: active
+PROGRESS: active
+APPLICATION_STOPPING: neutral, no further stimulus
+WINDOW_REMAINING: 51
+PROGRESS: active
+APPLICATION_EXIT: neutral, no further stimulus
+{"passed": false, "arguments": ["--interface", "can0", "--device", "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00", "--duration-ms", "60000", "--single-right-negative", "--zero-feedback-tenths-rpm", "20", "--motion-window-ms", "3000"], "artifact_sha256": "5f44146c71747eb93cdf30c8ae675b3c9fb48566c7951c53daa96dbed627c14a", "operator_prompted": true, "motion_prompted": true, "stopping": true, "application_exit": 1, "application_elapsed_ms": 9612.76861501392, "error": "application failed; inspect log before any retry"}
+Traceback (most recent call last):
+  File "/home/cat/.cache/robot-control/staging/g3-5f44146c-20260918/right_negative_a1/target_once.py", line 163, in <module>
+    main()
+  File "/home/cat/.cache/robot-control/staging/g3-5f44146c-20260918/right_negative_a1/target_once.py", line 127, in main
+    assert application.returncode == 0, 'application failed; inspect log before any retry'
+AssertionError: application failed; inspect log before any retry

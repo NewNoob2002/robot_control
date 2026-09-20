@@ -1,0 +1,46 @@
+{
+  "right_sign": -1,
+  "status": "INCOMPLETE_CH6_disabled_after_enable",
+  "matching_frames": 2314,
+  "counts": {
+    "0x601": 158,
+    "0x581": 158,
+    "0x701": 59,
+    "0x0": 3,
+    "0x181": 284,
+    "0x281": 284,
+    "0x381": 1,
+    "0x481": 1,
+    "0x201": 1366
+  },
+  "tpdo2_frames": 284,
+  "tpdo2_span_ms": 14141.43705368042,
+  "tpdo2_interval_ms": [
+    49.687862396240234,
+    50.315141677856445
+  ],
+  "exact_volatile_writes": 36,
+  "nmt": [
+    "8001",
+    "0101",
+    "8001"
+  ],
+  "all_targets_zero": true,
+  "rpdo_frames": 1366,
+  "enabled_feedback": 229,
+  "enabled_samples": 1141,
+  "baseline_restored": true,
+  "near_zero_tenths_rpm": 20,
+  "raw_feedback_range_tenths_rpm": [
+    0,
+    0
+  ],
+  "operator": {
+    "wall_time": 1789731053.0618398,
+    "response": "OFF",
+    "wheels_stationary": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "scope": "Zero-target ControlLoop only; motion and fault trials remain open"
+}

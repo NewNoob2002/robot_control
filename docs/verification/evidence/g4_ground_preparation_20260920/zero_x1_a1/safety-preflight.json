@@ -1,0 +1,37 @@
+{
+  "target": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-differential-51f94c1f-20260920/ground_zero_x1_a1",
+  "authorization": "User authorized stationary ground X1 check; fresh local START and mechanical restraint required",
+  "artifact_sha256": "51f94c1f51945f3d28fa945d58f14cb15ad4ec7a4cab353331a2f39e7ca16451",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--zero-x1-recovery",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "interface": "can0",
+  "bitrate": 500000,
+  "uart_serial": "586D017868",
+  "jcan_serial": "207F346D5650",
+  "readiness": "Local START confirms ground stationary with mechanical restraint throughout; no raised-wheel assertion",
+  "limits": "60s zero-target X1 recovery; exact zero velocity; measured\u00b12rpm; no external push, motion or persistent/interface changes",
+  "recovery": "3s host lease; bounded SIGTERM cleanup12s; mechanical restraint retained through Disable Voltage and power off; no retry",
+  "prerequisite": "51f94c1f target smoke and zero A2 PASS; ground site and X1 identity confirmed; restraint required locally",
+  "scripts": {
+    "start_once.py": "6a13c05a2eaf86a5f0573fce2aa2de265c46fda93676492d4127fd21e4975365",
+    "target_once.py": "ba5f8cca5a2d09d0e63911057092e7f4548e797d81a8f06ab1890c5eee97da1d",
+    "analyze-recovery.py": "85103d8bb6bd2e71e9304791c63661973029dc46ea395c1eefb41d9f81eb8e5c",
+    "jcan/capture_once.py": "d4e3c79f1eaddbb55491ca885ff9ebca25cfec10d97e4f205d8273ef47388f2e",
+    "check_runner.py": "b94cb0735277fd71b46f5c302b97d0e539c4b531355cbd0caa73f8d031c09a7f"
+  },
+  "right_sign": -1,
+  "previous_trial": "No preceding ground run; all historical runners consumed"
+}

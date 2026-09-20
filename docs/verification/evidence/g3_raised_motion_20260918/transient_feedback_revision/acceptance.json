@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-18",
+  "status": "PASS_USER_APPROVED_START_STOP_TRANSIENT",
+  "trial": "right_negative_a1",
+  "profile": "single-right-negative",
+  "authorization_source": "Explicit user instruction in this session",
+  "user_statement": "这种启停时的几帧的跳变标记为正常并将这个规则进行同步到相关文档和约束，确认右轮通向通过",
+  "interpretation": "User confirms right-negative acceptance and normal classification of this brief start/stop feedback fluctuation",
+  "classification": "NORMAL_START_STOP_FEEDBACK_TRANSIENT",
+  "sample_count": 1,
+  "raw_peak_rpm": 2.9,
+  "after_zero_ms": 78.847781,
+  "stop_verified_ms": 378.48142,
+  "matching_frames": 1466,
+  "original_status": "FAILED_FEEDBACK_CRITERION",
+  "original_application_exit": 1,
+  "original_feedback_bad": true,
+  "original_feedback_hard_bad": true,
+  "original_evidence_sha256": {
+    "SHA256SUMS": "c764442f72fc65148be8b97232603a89a9f9374fe5be015bb77c95911dd12749",
+    "failure-analysis.json": "3dcc6aece7be2a249f8cfa751cee3432f390c916e19c6aacb9a89e1078d23a5e",
+    "physical-once/application.log": "f88bff8840f085888189f788465353c4b44445177732dd9698c8ea4134a09bd8",
+    "operator-off.json": "7b3eeaeac4b82e89d08e50057928765bcebd3f822c5f8116493649cb0bf1db70"
+  },
+  "scope": "Bounded raised/unloaded single-right-negative trial; paired left-negative already PASS",
+  "no_new_hardware_run": true,
+  "no_runtime_binary_change": true,
+  "all_runners_remain_consumed": true,
+  "latest_operator_disposition": "Drive OFF, right reverse/stop normal, left stationary, no abnormal sound",
+  "remaining": "G3 dual-wheel/turn/differential and corresponding protection matrix; no ground/loaded or new trial authorization"
+}

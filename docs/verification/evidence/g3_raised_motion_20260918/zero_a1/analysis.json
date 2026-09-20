@@ -1,0 +1,19 @@
+{
+  "status": "FAILED_PRECONDITION_INCOMPLETE",
+  "operator_cause": "User: 忘记驱动器上电了",
+  "matching_frames": 1,
+  "sdo_uploads": 1,
+  "sdo_downloads": 0,
+  "rpdo_frames": 0,
+  "nmt_frames": 0,
+  "control_cycles": 0,
+  "cleanup": "Application restore_ok=1 with no drive writes to restore; full baseline not acquired",
+  "operator_off": {
+    "wall_time": 1789726259.7145596,
+    "response": "OFF",
+    "wheels_stationary": true,
+    "no_abnormal_sound": true,
+    "drive_power_off": true
+  },
+  "retry_permit": false
+}

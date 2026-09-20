@@ -1,0 +1,25 @@
+{
+  "status": "PASS_bounded_ground_right_differential_revised_functional_criterion",
+  "motion_ms": 949.935412,
+  "feedback_stop_verified_ms": 424.132256,
+  "differential_feedback_samples": 7,
+  "matching_frames": 1238,
+  "baseline_restored": true,
+  "can_counters_unchanged": true,
+  "operator_report": {
+    "raw": "前进20cm，右转停止弯位移1-2cm，余角几乎没有，目测，无X1介入，无接触，中心未超越1米线",
+    "source": "local operator measurement"
+  },
+  "measurement_method": "visual_estimate",
+  "reported_forward_travel_m_approx": 0.2,
+  "reported_curve_stop_displacement_m_approx": [
+    0.01,
+    0.02
+  ],
+  "x1_intervention_reported": false,
+  "barrier_contact_reported": false,
+  "one_m_center_boundary_crossed_reported": false,
+  "original_exit1_preserved": true,
+  "feedback_violation": false,
+  "precise_distance_or_speed_scale_verified": false
+}

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "60000",
+    "--dual-positive",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--motion-window-ms",
+    "3000",
+    "--right-sign",
+    "-1"
+  ],
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "operator_prompted": true,
+  "motion_prompted": true,
+  "x1_prompted": true,
+  "x1_cue_ns": 385426540130187,
+  "stopping": true,
+  "application_exit": 1,
+  "application_elapsed_ms": 6824.403397040442
+}

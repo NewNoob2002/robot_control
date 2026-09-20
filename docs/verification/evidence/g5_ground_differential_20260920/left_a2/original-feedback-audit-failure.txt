@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/docs/verification/evidence/g5_ground_differential_20260920/left_a2/audit-revised.py", line 50, in main
+    try: audit.analyze_g3_feedback(r,'differential-left',20)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/scripts/test/analyze_control_hil_trace.py", line 224, in analyze_g3_feedback
+    assert not result['feedback_bad'] and len(result['stops']) == 1
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

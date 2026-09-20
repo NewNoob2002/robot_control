@@ -1,0 +1,42 @@
+{
+  "stage": "G3 new-artifact zero-target prerequisite",
+  "artifact_sha256": "9b3369368e868d22208c7e2b468d2a3538f0d8303e10d41b937f10980ab1d8b2",
+  "machine_id": "6923ab3301fb4a8d816759b04ec6bf0a",
+  "binary": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/robot-control-hil",
+  "arguments": [
+    "--interface",
+    "can0",
+    "--device",
+    "/dev/serial/by-id/usb-1a86_USB_Single_Serial_586D017868-if00",
+    "--duration-ms",
+    "20000",
+    "--zero-only",
+    "--zero-feedback-tenths-rpm",
+    "20",
+    "--right-sign",
+    "-1"
+  ],
+  "node_id": 1,
+  "attempts": 1,
+  "readiness_confirmed": false,
+  "executed": false,
+  "operator_sequence": [
+    "Confirm raised unloaded wheels, powered drive, X1 released and accessible, transmitter/receiver ON, neutral sticks and CH6 released",
+    "Wait for local CONTROL_READY cue; press and release CH6 once; retain neutral sticks",
+    "After exit lock X1, switch drive OFF, confirm stationary wheels and no abnormal sound"
+  ],
+  "capture": "RK3588 candump plus independent JCAN 207F346D5650 receive/hardware ACK; no JCAN data sends",
+  "acceptance": [
+    "All RPDO targets exactly zero",
+    "Feedback within +/-2 rpm",
+    "Complete current baseline readback and exact volatile restoration",
+    "Dual-capture order and payload audit; no inherited G2 ordering exception",
+    "No new CAN error counters; independent operator disposition"
+  ],
+  "failure": "No automatic retry; preserve original evidence; failed cleanup remains unverified. Operator X1 and drive OFF recovery.",
+  "next": "New dual-positive trial only after corrected-artifact zero prerequisite PASS",
+  "authorized": true,
+  "authorization": "Fresh local START explicitly authorizes corrected-binding zero A2 once after actual drive power confirmation",
+  "remote": "/home/cat/.cache/robot-control/staging/g3-polarity-9b336936-20260918/zero_a2",
+  "right_sign": -1
+}
