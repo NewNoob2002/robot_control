@@ -24,6 +24,8 @@ struct RuntimeConfig {
     time::Duration feedback_timeout{};
     time::Duration decision_timeout{};
     std::uint32_t emergency_status_mask{0}; // Deployment-confirmed active-high bits; zero leaves binding external.
+    int speed_resolution{1};                // Command counts per rpm (0x2026:05); feedback remains tenths rpm.
+    bool powered_standby{false};            // Explicit zero-only servo holding; never grants motion authority.
 };
 
 /** Identify one transport lifetime and remote boot, including online boot zero. */
@@ -135,6 +137,10 @@ class RuntimePolicy final {
     std::uint64_t highest_authorization_{0};
     bool zero_confirmed_{false};
     bool enabled_seen_{false};
+    bool standby_started_{false};
+    bool standby_enabled_{false};
+    bool standby_blocked_{false};
+    time::MonotonicTime standby_since_{};
 };
 
 } // namespace robot_control::domain::drive

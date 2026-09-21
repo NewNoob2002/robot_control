@@ -53,6 +53,17 @@ bool robot_control_canopen_qualification_authorize_upload(robot_control_canopen_
  * Thread safety: Authorization is isolated to the calling thread.
  */
 bool robot_control_canopen_qualification_authorize_velocity_mode(void);
+#ifdef ROBOT_CONTROL_TEST_APP
+/** Check a reviewed persistent/configuration download and width; pure, no I/O or ownership. */
+bool robot_control_canopen_device_download_allowed(robot_control_canopen_qualification_object_t object, uint32_t value,
+                                                   uint8_t size);
+/** Arm exactly one reviewed device-configuration download; owner-thread, consumed once. */
+bool robot_control_canopen_qualification_authorize_device_parameter(robot_control_canopen_qualification_object_t object,
+                                                                    uint32_t value, uint8_t size);
+
+/** Arm exactly one vendor EEPROM-save SDO (2010:00 U16=1); owner-thread, consumed once. */
+bool robot_control_canopen_qualification_authorize_device_save(void);
+#endif
 
 /**
  * Authorize one volatile command-application download.
@@ -118,8 +129,8 @@ bool robot_control_canopen_qualification_authorize_target(uint8_t subindex, int3
 bool robot_control_canopen_qualification_authorize_packed_target(uint32_t value);
 
 /** Authorize fixed RPDO1 mapping setup/restoration on the owner thread; no retained pointers. */
-bool robot_control_canopen_qualification_authorize_rpdo_mapping(
-    robot_control_canopen_qualification_object_t object, uint32_t value, uint8_t size);
+bool robot_control_canopen_qualification_authorize_rpdo_mapping(robot_control_canopen_qualification_object_t object,
+                                                                uint32_t value, uint8_t size);
 
 /** Authorize one node-1 RPDO: enabled single-axis bounded target, or Shutdown with both targets zero. */
 bool robot_control_canopen_qualification_authorize_rpdo(uint16_t controlword, uint32_t value);

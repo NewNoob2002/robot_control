@@ -45,6 +45,19 @@ static struct can_frame download_frame(const qualification_download_t request) {
 
 uint8_t robot_control_canopen_qualification_upload_size(const robot_control_canopen_qualification_object_t object) {
     switch (object.index) {
+#ifdef ROBOT_CONTROL_TEST_APP
+        case 0x2026U:
+            return object.subindex == 3U || object.subindex == 4U || object.subindex == 5U || object.subindex == 7U
+                       ? 2U
+                       : 0U;
+        case 0x2007U:
+        case 0x2008U:
+            return object.subindex == 0U ? 2U : 0U;
+        case 0x6083U:
+        case 0x6084U:
+        case 0x6085U:
+            return object.subindex == 1U || object.subindex == 2U ? 4U : 0U;
+#endif
         case 0x1017U:
         case 0x2000U:
         case 0x200FU:
@@ -94,6 +107,80 @@ bool robot_control_canopen_qualification_authorize_upload(const robot_control_ca
     return authorize_frame(download_frame(
         (qualification_download_t){.command = 0x40U, .index = object.index, .subindex = object.subindex, .value = 0U}));
 }
+
+#ifdef ROBOT_CONTROL_TEST_APP
+bool robot_control_canopen_device_download_allowed(const robot_control_canopen_qualification_object_t object,
+                                                   const uint32_t value, const uint8_t size) {
+    if (robot_control_canopen_qualification_upload_size(object) != size || size == 0U)
+        return false;
+    switch (object.index) {
+        case 0x6060U:
+            return value == 3U;
+        case 0x200FU:
+            return value == 1U;
+        case 0x605AU:
+            return value == 5U;
+        case 0x2007U:
+            return value <= 1U;
+        case 0x2008U:
+            return value >= 1U && value <= 1000U;
+        case 0x6083U:
+        case 0x6084U:
+        case 0x6085U:
+            return value <= 32767U;
+        case 0x2026U:
+            return (object.subindex == 5U && value >= 1U && value <= 10U)
+                   || ((object.subindex == 4U || object.subindex == 7U) && value <= 1U)
+                   || (object.subindex == 3U && value <= 514U && (value & 255U) <= 2U && (value >> 8U) <= 2U);
+        case 0x1017U:
+            return value == 0U || value == 500U;
+        case 0x1400U:
+        case 0x1800U:
+        case 0x1801U: {
+            const uint32_t cob = object.index == 0x1400U ? 0x201U : object.index == 0x1800U ? 0x181U : 0x281U;
+            return (object.subindex == 1U && (value == cob || value == (cob | 0x80000000U)))
+                   || (object.subindex == 2U && value == 255U)
+                   || (object.subindex == 5U
+                       && value
+                              == (object.index == 0x1400U   ? 1000U
+                                  : object.index == 0x1800U ? 100U
+                                                            : 0U));
+        }
+        case 0x1600U:
+            return (object.subindex == 0U && (value == 0U || value == 2U))
+                   || (object.subindex == 1U && value == 0x60400010U)
+                   || (object.subindex == 2U && value == 0x60600008U);
+        case 0x1A00U:
+            return (object.subindex == 0U && (value == 0U || value == 2U))
+                   || (object.subindex == 1U && value == 0x60410020U)
+                   || (object.subindex == 2U && value == 0x606C0320U);
+        case 0x1A01U:
+            return value == 0U;
+        default:
+            return false;
+    }
+}
+
+bool robot_control_canopen_qualification_authorize_device_parameter(
+    const robot_control_canopen_qualification_object_t object, const uint32_t value, const uint8_t size) {
+    if (!robot_control_canopen_device_download_allowed(object, value, size)) {
+        robot_control_canopen_qualification_clear_authorization();
+        return false;
+    }
+    return authorize_frame(download_frame((qualification_download_t){.command = size == 1U   ? 0x2FU
+                                                                                : size == 2U ? 0x2BU
+                                                                                             : 0x23U,
+                                                                     .index = object.index,
+                                                                     .subindex = object.subindex,
+                                                                     .value = value}));
+}
+
+bool robot_control_canopen_qualification_authorize_device_save(void) {
+    return authorize_frame(
+        download_frame((qualification_download_t){.command = 0x2BU, .index = 0x2010U, .subindex = 0U, .value = 1U}));
+}
+
+#endif
 
 bool robot_control_canopen_qualification_authorize_velocity_mode(void) {
     return authorize_frame(
@@ -189,8 +276,8 @@ bool robot_control_canopen_qualification_authorize_packed_target(const uint32_t 
         robot_control_canopen_qualification_clear_authorization();
         return false;
     }
-    return authorize_frame(download_frame(
-        (qualification_download_t){.command = 0x23U, .index = 0x60FFU, .subindex = 3U, .value = value}));
+    return authorize_frame(
+        download_frame((qualification_download_t){.command = 0x23U, .index = 0x60FFU, .subindex = 3U, .value = value}));
 }
 
 bool robot_control_canopen_qualification_authorize_rpdo_mapping(

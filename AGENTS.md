@@ -1,9 +1,23 @@
-# Current checkpoint — 2026-09-20
+# Current checkpoint — 2026-09-21
 
-See docs/verification/GROUND_HANDOFF_CHECKPOINT_20260920.md for the consolidated
-accepted/open nodes before test-app handoff. Historical entries below retain their
-original scope and failures. Test-app/config/logging/IPC development is authorized;
-no new hardware run, production deployment or persistent drive change is authorized.
+Current software and verification: docs/verification/TEST_APP_BASELINE.md.
+Current usage/configuration: docs/development/TEST_APP.md; handoff scope:
+docs/plans/TEST_APP_HANDOFF.md. The preserved pre-app ground acceptance is in
+docs/verification/GROUND_HANDOFF_CHECKPOINT_20260920.md. Historical entries below
+retain their original scope and failures.
+
+The Debug-only/default-OFF SBUS test app, startup configuration, rotating process
+logger and separate device-configuration tool are implemented. IPC is deferred;
+ROS2 remains an adapter design only. The app reads persistent parameters; only
+explicit device-config --apply may write the reviewed parameters and request one
+EEPROM save. Software validation is not physical-operation authorization.
+
+User-approved app idle/uncommanded feedback fault threshold is +/-5rpm on
+2026-09-21. Preflight, reauthorization, bounded stop and cleanup standstill
+confirmation remain +/-2rpm; old HIL thresholds and evidence are unchanged.
+Healthy powered standby holds zero without granting motion authority. No current
+app hardware acceptance, production deployment or new persistent drive change is
+authorized. Older app field logs are diagnostic evidence only.
 
 # Robot Control Middleware — Project Agent Guide
 

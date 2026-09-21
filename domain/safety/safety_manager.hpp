@@ -29,6 +29,7 @@ enum class DriveAction : std::uint8_t {
   quick_stop,
   disable_voltage,
   fault_reset,
+  standby_hold,
 };
 
 struct SafetyInput {
@@ -51,6 +52,7 @@ struct SafetyInput {
   bool emergency_stop_active{false};
   bool shutdown_requested{false};
   bool fault_reset_requested{false};
+  bool powered_standby{false};
 };
 
 struct SafetyDecision {

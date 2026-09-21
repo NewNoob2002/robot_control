@@ -53,6 +53,7 @@ RuntimeSession::CreateResult RuntimeSession::create(Lifecycle& owner, domain::dr
         || proof.diagnostics_cob_id != 0x280U + stack.remote_node_id || proof.rpdo_type != 255
         || proof.status_type != 255 || proof.diagnostics_type != 255 || proof.rpdo_count != 2 || proof.status_count != 2
         || proof.diagnostics_count != 2 || proof.command_application != 1
+        || proof.speed_resolution != config.speed_resolution
         || proof.rpdo_map != std::array<std::uint32_t, 2>{0x60400010U, 0x60FF0320U}
         || proof.status_map != std::array<std::uint32_t, 2>{0x60410020U, 0x606C0320U}
         || proof.diagnostics_map != std::array<std::uint32_t, 2>{0x60610008U, 0x603F0020U}) {

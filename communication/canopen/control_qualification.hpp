@@ -1,7 +1,8 @@
 #pragma once
-#ifndef ROBOT_CONTROL_CONTROL_HIL
-#error "ControlQualification is available only in the isolated control HIL artifact"
+#if !defined(ROBOT_CONTROL_CONTROL_HIL) && !defined(ROBOT_CONTROL_TEST_APP)
+#error "ControlQualification is available only in the isolated control HIL or test-app artifact"
 #endif
+#include "communication/canopen/device_parameters.hpp"
 #include "communication/canopen/qualification.hpp"
 #include "communication/canopen/runtime.hpp"
 
@@ -18,10 +19,22 @@ class ControlQualification final {
     /** Verify exact baseline, establish zero/ready and obtain fresh actual layout readbacks.
      * @param require_quick_stop_option Require current 605A:00=5 before any write for recovery trials.
      * @param zero_tolerance_tenths_rpm Explicit HIL standstill tolerance 0..20; default exact zero.
+     * @param speed_resolution Expected preconfigured counts/rpm1..10; read only, zero skips the object for legacy HIL.
+     * @param device Optional borrowed expected persistent parameters; read only, lifetime limited to this call.
      * @return Current-owner proof or failure; call finish on every path after prepare.
      * Single owner, once per instance; no persistent parameters or drive enable. */
     [[nodiscard]] platform::linux::Result<RuntimeLayoutProof> prepare(bool require_quick_stop_option = false,
-                                                                      int zero_tolerance_tenths_rpm = 0);
+                                                                      int zero_tolerance_tenths_rpm = 0,
+                                                                      int speed_resolution = 0,
+                                                                      const DeviceConfiguration* device = nullptr);
+#ifdef ROBOT_CONTROL_TEST_APP
+    /** Configure reviewed persistent parameters/PDO baseline, then request one EEPROM save.
+     * @param config Validated value-owned profile; -1 optional fields remain untouched.
+     * @return SDO acknowledgement status, not proof of persistence or active scaling.
+     * Owner-thread, once per instance; requires disabled/zero state and clean heartbeat/watchdog baseline. No enable,
+     * automatic reboot, retry or rollback. Caller must notify the operator to restart. */
+    [[nodiscard]] platform::linux::Status configure_device(const DeviceConfiguration& config);
+#endif
     /** Zero/disable, verify standstill and restore only owned volatile values once.
      * @return Cleanup status, retaining first failure; cannot run with an attached runtime.
      * Single owner; requires the borrowed owner and original generation to remain alive. */
@@ -34,6 +47,12 @@ class ControlQualification final {
     [[nodiscard]] platform::linux::Status restore_interrupted(int zero_tolerance_tenths_rpm);
 
   private:
+#ifdef ROBOT_CONTROL_TEST_APP
+    /** Read/compare selected persistent parameters; no writes. Owner-thread, borrowed config. */
+    [[nodiscard]] platform::linux::Status check_device_parameters(const DeviceConfiguration& config);
+    /** Establish or check the fixed node1 app PDO baseline; writes require verified Pre-operational NMT. */
+    [[nodiscard]] platform::linux::Status device_pdo_baseline(bool configure);
+#endif
     /** Begin one bounded owner generation and validate the initial disabled/ready state. */
     [[nodiscard]] platform::linux::Status begin(int zero_tolerance_tenths_rpm);
     /** Read the exact normal or known interrupted baseline; never writes or claims ownership. */

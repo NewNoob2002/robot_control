@@ -4,6 +4,15 @@ This checkpoint archives the current qualification source and physical evidence
 before a separate manually launched test application is developed. It does not
 promote the bounded HIL executable to a continuous vehicle application.
 
+## Subsequent software checkpoint — 2026-09-21
+
+The pre-app acceptance below is preserved. The separate SBUS app, configuration,
+logging and device-configuration tool are now implemented and software-tested;
+IPC is deferred. Current scope and remaining target validation are in
+[TEST_APP_HANDOFF](../plans/TEST_APP_HANDOFF.md) and
+[TEST_APP_BASELINE](TEST_APP_BASELINE.md). The open/next-work lists below describe
+the September 20 handoff boundary, not the current app implementation status.
+
 ## Accepted nodes
 
 - G1: separate nonblocking diagnostics and raw trace collection.

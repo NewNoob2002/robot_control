@@ -38,23 +38,34 @@ observation. Target RXF/RXMF advanced by two, TX remained zero, no error frame
 was observed, and cleanup passed. Phase 5 is complete.
 See
 docs/verification/PHASE5_CANOPEN_BASELINE.md.
-Current checkpoint, September 18, 2026: P9 input, P8-R runtime and P10.1–P10.3
-bounded unloaded integration are accepted, including F1–F6. The three-hour
-**disabled CANopen lifecycle / JCAN soak** is also accepted: 175 cycles and
-348246 matching frames under the approved +/-2rpm near-zero feedback criterion.
-Node d6bbaa9 passed GitHub Actions run35312438999. Original failures are preserved.
-P10.3 remains Debug-only/default-OFF, not a production daemon. Continuous
-SBUS/ControlLoop endurance, negative/dual-wheel/loaded motion and final P6
-acceptance remain open; the kernel delayed-TX issue is unresolved. The latest
-recorded operator disposition is stationary/no abnormal sound/drive OFF after
-the September18 soak; this is not future powered readiness.
-Next: continuous diagnostics and bounded full-chain zero-target soak preparation,
-then a one-hour full-chain soak, raised motion-matrix qualification and a separate
-ground-readiness review. Subsequent stage soaks are one hour; a five-hour system
-stability test is planned after all main features are complete.
+Current checkpoint, September 21, 2026: P9 input, P8-R runtime and bounded
+P10.1–P10.3 integration are accepted. The separate three-hour disabled-drive soak,
+one-hour zero-target SBUS/ControlLoop soak, raised motion matrix and six bounded
+unloaded ground functions have their own accepted evidence. Original failures
+and consumed runners remain unchanged; see the
+[ground handoff checkpoint](docs/verification/GROUND_HANDOFF_CHECKPOINT_20260920.md).
+
+The current software adds a separate Debug-only/default-OFF SBUS test app,
+strict startup configuration, a separately invoked device-configuration tool,
+and an independent rotating log collector. Healthy drives hold zero in powered
+standby without granting motion authority. The app's idle/uncommanded feedback
+fault threshold is +/-5rpm; preflight, reauthorization and stop verification
+retain +/-2rpm. Object-dictionary text logs use hexadecimal fields.
+See [test-app usage](docs/development/TEST_APP.md),
+[handoff status](docs/plans/TEST_APP_HANDOFF.md),
+[software verification](docs/verification/TEST_APP_BASELINE.md), and the
+[ROS2 integration guide](docs/development/ROS2_PORTING_GUIDE.md).
+
+Current app Debug and ASan/UBSan each pass 41 host tests, including isolated vcan;
+locked RK3588 cross builds and ELF audits pass. Earlier app field logs document
+fault investigations, not acceptance of the current binary. Current-version
+hardware regression, measured speed scaling/stopping/holding, loaded operation,
+remaining ground fault injection and final five-hour integrated stability remain
+open. IPC is deferred, ROS2 is not implemented, and production/systemd deployment
+is not accepted. The Rockchip delayed-TX issue remains unresolved. Archived
+power-off/readiness statements never authorize a later hardware run.
 See the [post-soak plan](docs/plans/POST_SOAK_GROUND_READINESS.md),
 [P10.3 checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md),
-[delivery record](docs/verification/P10_3_DELIVERY_BASELINE.md),
 [Phase 6 checkpoint](docs/verification/PHASE6_CHECKPOINT.md), and
 [evidence index](docs/verification/evidence/README.md).
 GitHub Actions selects tests from the complete push diff or PR merge-base diff
@@ -66,6 +77,7 @@ never suppress tests for changed dependencies:
 | SBUS, UART, SBUS tests or P9 evidence | SBUS Debug/Release/ASan+UBSan: contracts, PTY, observer, archived replay, offline control cycle and Linux platform tests; input/sbus and platform/linux/uart code also run runtime/vcan closure |
 | CAN/CANopen, Phase6 tools/tests or P6 evidence | CAN/Phase6 Debug and ASan+UBSan regression, evidence checks and mandatory vcan; shared CAN transport changes also run PDO runtime |
 | P8-R runtime or P10 application/control/tests/evidence | PDO runtime, offline control cycle and domain Debug/ASan+UBSan contracts plus managed vcan including PTY-to-RPDO closure; no Phase6 suite unless shared dependencies change |
+| Test app, startup config or device-configuration tool | App/config/device gates and mandatory app/device vcan in Debug and ASan+UBSan, plus conservative full regression for new code paths |
 | Mixed subsystem changes | All affected scoped suites |
 | README/AGENTS or ordinary documentation only | Selection regression and CI result; builds skipped |
 | Shared code/build configuration, CI itself or unclassified code | Full host, Phase6 and PDO runtime regression, including SBUS |

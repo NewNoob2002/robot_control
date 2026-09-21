@@ -35,7 +35,8 @@ bool valid_runtime_config(const RuntimeConfig& c) noexcept {
     return (c.left_target == PackedHalf::low || c.left_target == PackedHalf::high)
            && (c.left_feedback == PackedHalf::low || c.left_feedback == PackedHalf::high)
            && (c.left_sign == 1 || c.left_sign == -1) && (c.right_sign == 1 || c.right_sign == -1) && c.max_abs_rpm > 0
-           && c.max_abs_rpm <= 1000 && c.standstill_tenths_rpm >= 0 && c.standstill_tenths_rpm <= 20
+           && c.max_abs_rpm <= 1000 && c.speed_resolution >= 1 && c.speed_resolution <= 10
+           && c.standstill_tenths_rpm >= 0 && c.standstill_tenths_rpm <= 20
            && c.heartbeat_timeout > time::Duration::zero() && c.feedback_timeout > time::Duration::zero()
            && c.decision_timeout > time::Duration::zero();
 }
@@ -48,6 +49,9 @@ RuntimePolicy::RuntimePolicy(RuntimeConfig config) noexcept : config_{config} {
 }
 
 void RuntimePolicy::inhibit(RuntimeReason reason) noexcept {
+    if (reason != RuntimeReason::startup && reason != RuntimeReason::rearm_required
+        && reason != RuntimeReason::zero_required && reason != RuntimeReason::none)
+        standby_blocked_ = true;
     if (state_.armed || state_.output.reason != reason) {
         if (state_.epoch == std::numeric_limits<std::uint64_t>::max()) {
             state_.stopped = true;
@@ -134,16 +138,17 @@ RuntimeOutput RuntimePolicy::publish(TransitionControlword word, command::Motion
     const auto control = zlac8015d::encode_transition_controlword(word);
     const auto left = std::clamp(command.left_rpm, -config_.max_abs_rpm, config_.max_abs_rpm);
     const auto right = std::clamp(command.right_rpm, -config_.max_abs_rpm, config_.max_abs_rpm);
-    const auto left_bytes =
-        zlac8015d::encode_independent_target(zlac8015d::IndependentChannel::subindex_1, left * config_.left_sign);
-    const auto right_bytes =
-        zlac8015d::encode_independent_target(zlac8015d::IndependentChannel::subindex_2, right * config_.right_sign);
-    if (!control || !left_bytes || !right_bytes) {
+    // Validated limits bound signed packed counts to +/-10000, inside int16.
+    const auto left_raw = static_cast<std::uint16_t>(left * config_.left_sign * config_.speed_resolution);
+    const auto right_raw = static_cast<std::uint16_t>(right * config_.right_sign * config_.speed_resolution);
+    const std::array left_bytes{std::byte(left_raw & 255U), std::byte(left_raw >> 8U)};
+    const std::array right_bytes{std::byte(right_raw & 255U), std::byte(right_raw >> 8U)};
+    if (!control) {
         inhibit(RuntimeReason::config_invalid);
         return state_.output;
     }
-    const auto& low = config_.left_target == PackedHalf::low ? *left_bytes : *right_bytes;
-    const auto& high = config_.left_target == PackedHalf::low ? *right_bytes : *left_bytes;
+    const auto& low = config_.left_target == PackedHalf::low ? left_bytes : right_bytes;
+    const auto& high = config_.left_target == PackedHalf::low ? right_bytes : left_bytes;
     state_.output = {.payload = {(*control)[0], (*control)[1], low[0], low[1], high[0], high[1]},
                      .command = {left, right, command.stop_requested},
                      .reason = reason,
@@ -198,11 +203,49 @@ RuntimeOutput RuntimePolicy::evaluate(const RuntimeRequest& r, time::MonotonicTi
     }
     const bool zero = d.approved_command.left_rpm == 0 && d.approved_command.right_rpm == 0;
     const auto feedback_status = decode_dual_axis_status(state_.feedback.status_raw);
+    if (d.action == DriveAction::standby_hold) {
+        if (!config_.powered_standby || standby_blocked_ || !zero || d.motion_approved
+            || d.state != safety::SafetyState::zero_hold) {
+            state_.stopped = config_.powered_standby;
+            return reject(RuntimeReason::decision_invalid);
+        }
+        highest_authorization_ = std::max(highest_authorization_, r.authorization);
+        inhibit(RuntimeReason::rearm_required);
+        const auto both = [&](Cia402State expected) {
+            return feedback_status.low_half.state == expected && feedback_status.high_half.state == expected;
+        };
+        if (!standby_started_) {
+            standby_started_ = true;
+            standby_since_ = now;
+        }
+        if (!standby_enabled_ && now - standby_since_ >= std::chrono::seconds{1}) {
+            state_.stopped = true;
+            return reject(RuntimeReason::transition_invalid);
+        }
+        if (both(Cia402State::operation_enabled)) {
+            standby_enabled_ = true;
+            return publish(TransitionControlword::enable_operation, {}, RuntimeReason::rearm_required);
+        }
+        // Never automatically energize again after a lost holding state or failed transition.
+        if (standby_enabled_ || !stationary(state_, config_.standstill_tenths_rpm)) {
+            state_.stopped = true;
+            return reject(RuntimeReason::transition_invalid);
+        }
+        if (both(Cia402State::switch_on_disabled))
+            return publish(TransitionControlword::shutdown, {}, RuntimeReason::rearm_required);
+        if (both(Cia402State::ready_to_switch_on))
+            return publish(TransitionControlword::switch_on, {}, RuntimeReason::rearm_required);
+        if (both(Cia402State::switched_on))
+            return publish(TransitionControlword::enable_operation, {}, RuntimeReason::rearm_required);
+        state_.stopped = true;
+        return reject(RuntimeReason::transition_invalid);
+    }
     // ZLAC physical recovery: verified standstill, Disable Voltage, then Shutdown
     // after a newer Disabled status. Never rely on a virtual Quick Stop shortcut.
     const auto shutdown_word = feedback_status.low_half.state == Cia402State::quick_stop_active
-                                  || feedback_status.high_half.state == Cia402State::quick_stop_active
-                              ? TransitionControlword::disable_voltage : TransitionControlword::shutdown;
+                                       || feedback_status.high_half.state == Cia402State::quick_stop_active
+                                   ? TransitionControlword::disable_voltage
+                                   : TransitionControlword::shutdown;
     const bool transition = d.action == DriveAction::shutdown || d.action == DriveAction::switch_on
                             || d.action == DriveAction::enable_operation;
     const bool compatible_state = d.state == safety::SafetyState::zero_hold || d.state == safety::SafetyState::normal;
@@ -223,7 +266,10 @@ RuntimeOutput RuntimePolicy::evaluate(const RuntimeRequest& r, time::MonotonicTi
         zero_confirmed_ = false;
         enabled_seen_ = false;
         last_request_at_ = r.issued_at;
-        return publish(shutdown_word, {}, RuntimeReason::zero_required);
+        const bool held = config_.powered_standby && standby_enabled_ && !standby_blocked_
+                          && velocity_motion_eligible(feedback_status, state_.feedback.mode_raw);
+        return publish(held ? TransitionControlword::enable_operation : shutdown_word, {},
+                       RuntimeReason::zero_required);
     }
     if (!state_.armed || r.authorization == 0 || r.authorization != state_.authorization) {
         return reject(RuntimeReason::rearm_required);
@@ -234,6 +280,13 @@ RuntimeOutput RuntimePolicy::evaluate(const RuntimeRequest& r, time::MonotonicTi
         return status.low_half.state == expected && status.high_half.state == expected;
     };
     if (!newer_zero) {
+        if (config_.powered_standby && standby_enabled_ && !standby_blocked_
+            && (d.action == DriveAction::enable_operation || d.action == DriveAction::approved_target)
+            && both(Cia402State::operation_enabled) && stationary(state_, config_.standstill_tenths_rpm)) {
+            // Hold zero even if the stick moves before the first post-authorization TPDO.
+            last_request_at_ = r.issued_at;
+            return publish(TransitionControlword::enable_operation, {}, RuntimeReason::zero_required);
+        }
         // The owner may keep sending zero Shutdown while awaiting new feedback.
         // Its transition deadline bounds this wait; enable/motion still reject.
         if (zero && d.action == DriveAction::shutdown && stationary(state_, config_.standstill_tenths_rpm)) {

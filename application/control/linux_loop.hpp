@@ -32,6 +32,8 @@ class ControlLoop final {
   public:
     /** Pure, non-owning qualification predicate called synchronously by the sole owner; may only reject commands. */
     using CommandCheck = bool (*)(const domain::command::MotionCommand&) noexcept;
+    /** Synchronous pure owner-local veto; may only request permanent stop, never publish or rearm. */
+    using StopCheck = bool (*)(const void*, time::MonotonicTime) noexcept;
     using CreateResult = platform::linux::Result<std::unique_ptr<ControlLoop>>;
     /**
      * Attach one runtime session after caller-verified current layout readbacks.
@@ -66,7 +68,10 @@ class ControlLoop final {
      * @return Owned diagnostic/result snapshot. Errors/signals finish the loop permanently.
      * Thread safety: Single owner, no asynchronous callbacks. Late cycles skip catch-up publications.
      */
-    [[nodiscard]] LoopResult step(CycleInput input, input::sbus::ReadBatch* captured_batch = nullptr);
+    /** Optional stop_check borrows stop_context only during this call; runs after fresh events, before publication.
+     * It must not allocate, block, perform I/O or mutate policy. True uses the normal bounded stop path. */
+    [[nodiscard]] LoopResult step(CycleInput input, input::sbus::ReadBatch* captured_batch = nullptr,
+                                  StopCheck stop_check = nullptr, const void* stop_context = nullptr);
     /** Inhibit intake, stop Source and attempt one safe RPDO within the configured deadline. */
     [[nodiscard]] LoopResult stop();
     /** Return actual guard diagnostics without refreshing timestamps; owner only. */

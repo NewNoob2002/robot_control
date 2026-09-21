@@ -75,7 +75,8 @@ LoopResult ControlLoop::stop() {
     return finish(Status::success(), LifecycleExit::quit, Clock::now());
 }
 
-LoopResult ControlLoop::step(CycleInput input, input::sbus::ReadBatch* captured_batch) {
+LoopResult ControlLoop::step(CycleInput input, input::sbus::ReadBatch* captured_batch, StopCheck stop_check,
+                             const void* stop_context) {
     if (captured_batch)
         *captured_batch = {};
     if (result_.finished)
@@ -106,6 +107,9 @@ LoopResult ControlLoop::step(CycleInput input, input::sbus::ReadBatch* captured_
     }
     if (command_check_ && input.sbus.valid && input.sbus.enabled && !command_check_(input.sbus.command))
         return finish(Status::from_errno("control_loop_command_envelope", "qualification input rejected", EACCES),
+                      LifecycleExit::quit, start);
+    if (stop_check && stop_check(stop_context, Clock::now()))
+        return finish(Status::from_errno("control_loop_owner_veto", "owner safety observation", EACCES),
                       LifecycleExit::quit, start);
     input.coherent = input.coherent && input.sbus.coherent;
     const auto now = Clock::now();

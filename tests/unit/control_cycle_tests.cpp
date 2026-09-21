@@ -350,6 +350,51 @@ void sbus_snapshots() {
     } while (!done.load());
     producer.join();
 }
+/** No remote or CH6-off keeps zero servo output; only a fresh neutral authorization permits motion. */
+void powered_standby() {
+    auto c = config();
+    c.runtime.powered_standby = true;
+    ControlCycle owner{c};
+    time::MonotonicTime now{1s};
+    std::uint64_t seq = 0;
+    CycleInput in{.coherent = true, .emergency_stop_known = true};
+    drive::RuntimeFeedback f{.generation = {1, 0}, .mode_raw = 3, .current = true, .operational = true};
+    const auto tick = [&](std::uint32_t status, bool enabled, std::uint64_t auth = 0, int rpm = 0) {
+        now += 10ms;
+        ++seq;
+        in.sbus = sample(command::Source::sbus, now, seq, auth, rpm);
+        in.sbus.enabled = enabled;
+        f.version = seq;
+        f.status_raw = status;
+        f.heartbeat_at = f.status_at = f.diagnostics_at = now;
+        owner.observe(f, now);
+        return owner.tick(in, now);
+    };
+    check(tick(0x00400040, false).output.payload[0] == std::byte{6}, "standby shutdown transition");
+    check(tick(0x00210021, false).output.payload[0] == std::byte{7}, "standby switch on transition");
+    check(tick(0x00230023, false).output.payload[0] == std::byte{15}, "standby zero enable");
+    auto r = tick(0x00270027, false);
+    check(r.output.payload[0] == std::byte{15} && !owner.runtime.state().armed, "standby has torque but no authority");
+    in.sbus = {};
+    r = owner.tick(in, now);
+    check(r.output.payload[0] == std::byte{15} && r.output.command.is_zero(), "absent remote holds zero");
+    for (int i = 0; i < 4; ++i) {
+        r = tick(0x00270027, true, 1);
+        check(r.output.payload[0] == std::byte{15} && r.output.command.is_zero(), "authorization retains torque");
+    }
+    check(tick(0x00270027, true, 1, 5).output.command.left_rpm == 5, "fresh authorization moves");
+    r = tick(0x00270027, false, 1, 5);
+    check(r.output.payload[0] == std::byte{15} && r.output.command.is_zero() && !owner.runtime.state().armed,
+          "CH6 off revokes motion and retains zero servo");
+    for (int i = 0; i < 4; ++i)
+        check(tick(0x00270027, true, 1, 5).output.command.is_zero(), "old authorization cannot move");
+    for (int i = 0; i < 4; ++i)
+        static_cast<void>(tick(0x00270027, true, 2));
+    check(tick(0x00270027, true, 2, 5).output.command.left_rpm == 5, "fresh neutral rearm after disable");
+    in.emergency_stop_active = true;
+    r = tick(0x00270027, false, 2);
+    check(r.output.payload[0] == std::byte{0}, "emergency overrides holding policy");
+}
 } // namespace
 /** Run pure P10.1 contracts without Linux devices, sleeps or a test framework. */
 int main() {
@@ -359,5 +404,6 @@ int main() {
     independent_losses();
     completion_contract();
     sbus_snapshots();
+    powered_standby();
     return failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }

@@ -404,6 +404,7 @@ class QualificationSession final {
     friend class ControlQualification;
     /** Decode signed32 or dual signed16 feedback; never apply this band to targets. */
     [[nodiscard]] bool within_standstill(std::uint32_t raw, bool packed) const noexcept;
+    bool device_configuration_{false}; ///< Only the separate provisioning flow permits persistent downloads.
     ObservationGeneration sequence_generation_{};
     Lifecycle* lifecycle_{nullptr};
     int standstill_tolerance_{0};

@@ -16,6 +16,7 @@ struct RuntimeLayoutProof {
     std::array<std::uint32_t, 2> rpdo_map{}, status_map{}, diagnostics_map{};
     std::uint8_t rpdo_count{0}, status_count{0}, diagnostics_count{0};
     std::uint16_t command_application{0};
+    int speed_resolution{1}; // Legacy fixtures use whole-rpm commands; app obtains an actual readback.
 };
 /** Bind the decision to a runtime session as well as the remote boot. */
 struct RuntimeSubmission {

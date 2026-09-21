@@ -50,12 +50,13 @@ found automatically; do not pass `-config-file`, which would bypass the generate
 directory's inherited exception. Editor integrations must use the matching CMake
 compile database and the workspace configuration.
 
-Default builds do not cover optional tools. For a complete check, configure four
+Default builds do not cover optional tools. For a complete check, configure five
 separate Debug build directories with BUILD_TESTING=ON and
 CMAKE_EXPORT_COMPILE_COMMANDS=ON, enabling one of the following options in each:
 
 | Build mode | CMake option set to ON |
 | --- | --- |
+| SBUS test app | ROBOT_CONTROL_BUILD_TEST_APP |
 | Control HIL | ROBOT_CONTROL_BUILD_CONTROL_HIL |
 | Runtime owner | ROBOT_CONTROL_BUILD_CANOPEN_RUNTIME |
 | Phase 6 qualification | ROBOT_CONTROL_BUILD_ZLAC_QUALIFICATION |

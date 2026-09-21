@@ -212,6 +212,13 @@ platform::linux::Status QualificationSession::download(const std::uint16_t index
                          : robot_control_canopen_qualification_authorize_target(object_subindex,
                                                                                  std::bit_cast<std::int32_t>(value));
     }
+#ifdef ROBOT_CONTROL_TEST_APP
+    if (device_configuration_)
+        authorized = robot_control_canopen_qualification_authorize_device_parameter(
+            {index, object_subindex}, value, static_cast<std::uint8_t>(data.size()));
+    if (device_configuration_ && index == 0x2010U && object_subindex == 0U && data.size() == 2U && value == 1U)
+        authorized = robot_control_canopen_qualification_authorize_device_save();
+#endif
     if (!authorized) {
         return failure("qualification_authorize_download", lifecycle_->storage_->config(), EACCES);
     }

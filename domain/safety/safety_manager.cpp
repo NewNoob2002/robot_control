@@ -89,13 +89,13 @@ SafetyDecision SafetyManager::evaluate(const SafetyInput &input) noexcept {
                      decision_generation_);
   }
   if (!input.selected.valid || input.selected.source == command::Source::none) {
-    rearm_required_ = true;
-    return inhibited(SafetyState::zero_hold, DriveAction::quick_stop,
-                     decision_generation_);
+      rearm_required_ = true;
+      return inhibited(SafetyState::zero_hold,
+                       input.powered_standby ? DriveAction::standby_hold : DriveAction::quick_stop,
+                       decision_generation_);
   }
 
-  const bool fresh_authorization =
-      input.system_authorization_generation > last_authorization_generation_;
+  const bool fresh_authorization = input.system_authorization_generation > last_authorization_generation_;
   if ((fresh_authorization && !input.selected.command.is_zero()) ||
       (rearm_required_ && !fresh_authorization) ||
       input.system_authorization_generation < last_authorization_generation_) {

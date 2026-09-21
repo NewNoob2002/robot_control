@@ -5,7 +5,9 @@
 #include <array>
 #include <bit>
 #include <cerrno>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <type_traits>
 
 namespace robot_control::communication::canopen {
@@ -18,6 +20,12 @@ struct Entry {
     std::uint8_t sub;
     std::uint32_t value;
 };
+/** Format an unsigned dictionary field without changing shared stream formatting; pure and reentrant. */
+std::string hex_field(std::uint32_t value, int width) {
+    std::ostringstream text;
+    text << "0x" << std::hex << std::uppercase << std::setfill('0') << std::setw(width) << value;
+    return text.str();
+}
 /** Compare signed independent32 or both packed16 feedback fields without changing raw evidence. */
 bool within_standstill(std::uint32_t raw, bool packed, int tolerance) noexcept {
     const auto within = [tolerance](std::int32_t value) {
@@ -51,7 +59,8 @@ platform::linux::Result<std::uint32_t> ControlQualification::read(std::uint16_t 
     std::uint32_t value = 0;
     for (unsigned i = 0; i < 4; ++i)
         value |= static_cast<std::uint32_t>(result.value().data[i]) << (8U * i);
-    std::cout << "hil_read index=" << index << " sub=" << static_cast<unsigned>(sub) << " raw=" << value << '\n';
+    std::cout << "hil_read index=" << hex_field(index, 4) << " sub=" << hex_field(sub, 2)
+              << " raw=" << hex_field(value, 8) << '\n';
     return Result::success(value);
 }
 // Object index/subindex/value order matches the CANopen dictionary and existing SDO API.
@@ -64,7 +73,7 @@ Status ControlQualification::expect(std::uint16_t index, std::uint8_t sub, std::
         return Status::success();
     auto failed = error("control_hil_baseline", EPROTO);
     failed.context +=
-        " index=" + std::to_string(index) + " sub=" + std::to_string(sub) + " raw=" + std::to_string(result.value());
+        " index=" + hex_field(index, 4) + " sub=" + hex_field(sub, 2) + " raw=" + hex_field(result.value(), 8);
     return failed;
 }
 // Object index/subindex/value order is validated again by the wire allowlist.
@@ -192,8 +201,12 @@ Status ControlQualification::check_baseline(bool interrupted) {
     return Status::success();
 }
 platform::linux::Result<RuntimeLayoutProof> ControlQualification::prepare(bool require_quick_stop_option,
-                                                                          int zero_tolerance_tenths_rpm) {
+                                                                          int zero_tolerance_tenths_rpm,
+                                                                          int speed_resolution,
+                                                                          const DeviceConfiguration* device) {
     using Result = platform::linux::Result<RuntimeLayoutProof>;
+    if (speed_resolution < 0 || speed_resolution > 10)
+        return Result::failure(error("speed_resolution_range", EINVAL));
     auto initial = begin(zero_tolerance_tenths_rpm);
     if (initial.ok())
         initial = check_baseline(false);
@@ -204,6 +217,24 @@ platform::linux::Result<RuntimeLayoutProof> ControlQualification::prepare(bool r
         if (!option.ok())
             return Result::failure(option);
     }
+    if (speed_resolution != 0) {
+        const auto original = read(0x2026, 5);
+        if (!original.ok())
+            return Result::failure(original.status());
+        if (original.value() < 1 || original.value() > 10)
+            return Result::failure(error("speed_resolution_baseline", ERANGE));
+        if (original.value() != static_cast<std::uint32_t>(speed_resolution))
+            return Result::failure(error("device_configuration_required_speed_resolution_mismatch", EPROTO));
+    }
+#ifdef ROBOT_CONTROL_TEST_APP
+    if (device != nullptr) {
+        const auto checked = check_device_parameters(*device);
+        if (!checked.ok())
+            return Result::failure(checked);
+    }
+#else
+    static_cast<void>(device);
+#endif
     auto status = operations_.require_clean_generation();
     if (!status.ok())
         return Result::failure(status);
@@ -296,6 +327,11 @@ platform::linux::Result<RuntimeLayoutProof> ControlQualification::prepare(bool r
         return field(0x200f, 0, proof.command_application);
     };
     status = fill();
+    if (status.ok() && speed_resolution != 0) {
+        status = field(0x2026, 5, proof.speed_resolution);
+        if (status.ok() && proof.speed_resolution != speed_resolution)
+            status = error("speed_resolution_changed", EPROTO);
+    }
     if (status.ok())
         status = current();
     if (!status.ok())
@@ -303,6 +339,144 @@ platform::linux::Result<RuntimeLayoutProof> ControlQualification::prepare(bool r
     proof.verified_at = Clock::now();
     return Result::success(proof);
 }
+#ifdef ROBOT_CONTROL_TEST_APP
+Status ControlQualification::check_device_parameters(const DeviceConfiguration& config) {
+    if (!valid_device_configuration(config))
+        return error("device_configuration_invalid", EINVAL);
+    for (std::size_t i = 0; i < config.values.size(); ++i) {
+        if (config.values[i] == -1)
+            continue;
+        const auto& p = device_parameters[i];
+        auto status = expect(p.index, p.sub, static_cast<std::uint32_t>(config.values[i]));
+        if (!status.ok()) {
+            status.context += " device_configuration_required key=" + std::string{p.key};
+            return status;
+        }
+    }
+    return Status::success();
+}
+Status ControlQualification::device_pdo_baseline(bool configure) {
+    if (configure) {
+        const auto snapshot = owner_.observation_snapshot(Clock::now());
+        if (!snapshot.nmt.current || snapshot.nmt.state != RemoteNmtState::pre_operational)
+            return error("device_pdo_not_preoperational", EACCES);
+    }
+    for (unsigned slot = 0; slot < 3; ++slot) {
+        const std::uint16_t comm = slot == 0 ? 0x1400 : slot == 1 ? 0x1800 : 0x1801;
+        const std::uint16_t map = slot == 0 ? 0x1600 : slot == 1 ? 0x1a00 : 0x1a01;
+        const std::uint32_t cob = slot == 0 ? 0x201 : slot == 1 ? 0x181 : 0x281;
+        if (configure) {
+            auto status = write(comm, 1, cob | 0x80000000U);
+            if (status.ok())
+                status = write(map, 0, 0);
+            if (!status.ok())
+                return status;
+        }
+        const std::array entries{Entry{map, 1,
+                                       slot == 0   ? 0x60400010U
+                                       : slot == 1 ? 0x60410020U
+                                                   : 0U},
+                                 Entry{map, 2,
+                                       slot == 0   ? 0x60600008U
+                                       : slot == 1 ? 0x606c0320U
+                                                   : 0U},
+                                 Entry{comm, 2, 255},
+                                 Entry{comm, 5,
+                                       slot == 0   ? 1000U
+                                       : slot == 1 ? 100U
+                                                   : 0U},
+                                 Entry{map, 0, slot == 2 ? 0U : 2U},
+                                 Entry{comm, 1, cob}};
+        for (auto entry : entries) {
+            const auto status =
+                configure ? write(entry.index, entry.sub, entry.value) : expect(entry.index, entry.sub, entry.value);
+            if (!status.ok())
+                return status;
+        }
+    }
+    return Status::success();
+}
+Status ControlQualification::configure_device(const DeviceConfiguration& config) {
+    if (!valid_device_configuration(config))
+        return error("device_configuration_invalid", EINVAL);
+    auto status = begin(20);
+    deadline_ = Clock::now() + 30s;
+    // No enable/target/stop commands here: the operator must present a disabled, stationary device.
+    constexpr std::array safe{Entry{0x6040, 0, 0}, Entry{0x603f, 0, 0}, Entry{0x60ff, 1, 0},
+                              Entry{0x60ff, 2, 0}, Entry{0x1017, 0, 0}, Entry{0x2000, 0, 0}};
+    for (auto entry : safe) {
+        if (status.ok())
+            status = expect(entry.index, entry.sub, entry.value);
+    }
+    if (status.ok())
+        status = stable_standstill();
+    if (status.ok() && !config.configure_pdo)
+        status = device_pdo_baseline(false);
+    std::array<std::uint32_t, device_parameters.size()> original{};
+    for (std::size_t i = 0; status.ok() && i < config.values.size(); ++i) {
+        if (config.values[i] == -1)
+            continue;
+        const auto& p = device_parameters[i];
+        const auto value = read(p.index, p.sub);
+        status = value.status();
+        if (value.ok()) {
+            original[i] = value.value();
+            std::cout << "event=device_parameter key=" << p.key << " index=" << hex_field(p.index, 4)
+                      << " sub=" << hex_field(p.sub, 2) << " before=" << hex_field(original[i], 8)
+                      << " requested=" << hex_field(static_cast<std::uint32_t>(config.values[i]), 8) << '\n'
+                      << std::flush;
+        }
+    }
+    if (!status.ok())
+        return status; // Complete all parameter reads before the first write.
+    operations_.device_configuration_ = true;
+    bool heartbeat_touched = false;
+    if (config.configure_pdo) {
+        heartbeat_touched = true;
+        const auto started = Clock::now();
+        status = write(0x1017, 0, 500);
+        if (status.ok())
+            status = operations_.wait_heartbeat(started, 1000ms);
+        if (status.ok())
+            status = nmt(QualificationNmt::pre_operational);
+    }
+    for (std::size_t i = 0; status.ok() && i < config.values.size(); ++i) {
+        if (config.values[i] != -1 && original[i] != static_cast<std::uint32_t>(config.values[i]))
+            status = write(device_parameters[i].index, device_parameters[i].sub,
+                           static_cast<std::uint32_t>(config.values[i]));
+    }
+    if (status.ok() && config.configure_pdo)
+        status = device_pdo_baseline(true);
+    if (heartbeat_touched) {
+        // Restore this temporary handshake before saving; retain both errors if restoration fails.
+        const auto restored = write(0x1017, 0, 0);
+        if (!restored.ok()) {
+            if (status.ok())
+                status = restored;
+            else
+                status.context += " heartbeat_restore_failed=" + restored.operation;
+        }
+    }
+    if (status.ok())
+        status = check_device_parameters(config);
+    if (status.ok())
+        status = device_pdo_baseline(false);
+    if (status.ok())
+        status = expect(0x2000, 0, 0);
+    if (status.ok())
+        status = current();
+    if (status.ok()) {
+        // Save is a self-clearing command: do not read-back or retry it.
+        const std::array save{std::byte{1}, std::byte{0}};
+        std::cout << "event=eeprom_save_requested index=0x2010 sub=0x00 value=0x0001\n" << std::flush;
+        status = operations_.download(0x2010, 0, save, false, deadline_);
+    }
+    operations_.device_configuration_ = false;
+    if (!status.ok())
+        status.context += " configuration_or_save_unverified no_automatic_retry";
+    return status;
+}
+#endif
 Status ControlQualification::restore_interrupted(int zero_tolerance_tenths_rpm) {
     auto status = begin(zero_tolerance_tenths_rpm);
     if (status.ok())

@@ -148,6 +148,7 @@ CycleResult ControlCycle::prepare(const CycleInput& input, const drive::RuntimeS
         .emergency_stop_known = input.emergency_stop_known,
         .emergency_stop_active = input.emergency_stop_active,
         .shutdown_requested = stopped_,
+        .powered_standby = config_.runtime.powered_standby && safe && !transition_failed,
     };
     result.request = {.decision = safety_.evaluate(safety_input),
                       .generation = state.feedback.generation,

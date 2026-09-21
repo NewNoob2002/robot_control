@@ -75,6 +75,27 @@ void arm(RuntimePolicy& p, time::MonotonicTime now) {
 void test_policy() {
     const time::MonotonicTime t{1s};
     CHECK(!drive::valid_runtime_config({}));
+    for (int resolution = 1; resolution <= 10; ++resolution) {
+        auto scaled = config();
+        scaled.speed_resolution = resolution;
+        scaled.max_abs_rpm = 1000;
+        RuntimePolicy policy{scaled};
+        arm(policy, t);
+        const auto output = policy.evaluate(request(policy, t + 2ms, 2, 1, 1000, -1000), t + 2ms);
+        CHECK(output.accepted && output.command.left_rpm == 1000 && output.command.right_rpm == -1000);
+        const auto positive = static_cast<unsigned>(1000 * resolution);
+        const auto negative = static_cast<unsigned>(65536 - 1000 * resolution);
+        CHECK(output.payload[2] == std::byte(positive & 255U));
+        CHECK(output.payload[3] == std::byte(positive >> 8U));
+        CHECK(output.payload[4] == std::byte(negative & 255U));
+        CHECK(output.payload[5] == std::byte(negative >> 8U));
+    }
+    for (int resolution : {0, 11}) {
+        auto invalid = config();
+        invalid.speed_resolution = resolution;
+        CHECK(!drive::valid_runtime_config(invalid));
+    }
+
     for (int sign : {0, 2, -2}) {
         auto c = config();
         c.left_sign = sign;
@@ -100,16 +121,16 @@ void test_policy() {
     RuntimePolicy emergency{c};
     arm(emergency, t);
     const auto before = emergency.state().epoch;
-    auto x1 = feedback(t+2ms);
+    auto x1 = feedback(t + 2ms);
     x1.version = 3;
     x1.status_raw |= 0x8000;
-    emergency.observe(x1, t+2ms);
+    emergency.observe(x1, t + 2ms);
     CHECK(!emergency.state().healthy && !emergency.state().armed && emergency.state().epoch > before);
     x1.status_raw &= ~0x8000U;
     x1.version = 4;
-    emergency.observe(x1, t+3ms);
+    emergency.observe(x1, t + 3ms);
     CHECK(emergency.state().healthy && !emergency.state().armed);
-    CHECK(!emergency.evaluate(request(emergency, t+3ms, 2, 1, 5, 0), t+3ms).accepted);
+    CHECK(!emergency.evaluate(request(emergency, t + 3ms, 2, 1, 5, 0), t + 3ms).accepted);
     // Physical Quick Stop Active cannot be recovered by Shutdown alone.
     RuntimePolicy recovery{config()};
     auto stopped = feedback(t);
@@ -120,11 +141,11 @@ void test_policy() {
     CHECK(recovery.evaluate(recover, t).payload[0] == std::byte{0});
     stopped.status_raw = 0x00400040;
     stopped.version = 2;
-    stopped.status_at = t+1ms;
-    recovery.observe(stopped, t+1ms);
-    recover = request(recovery, t+1ms, 2);
+    stopped.status_at = t + 1ms;
+    recovery.observe(stopped, t + 1ms);
+    recover = request(recovery, t + 1ms, 2);
     recover.decision.action = safety::DriveAction::shutdown;
-    CHECK(recovery.evaluate(recover, t+1ms).payload[0] == std::byte{6});
+    CHECK(recovery.evaluate(recover, t + 1ms).payload[0] == std::byte{6});
     RuntimePolicy invalid{{}};
     CHECK(!invalid.evaluate({}, t).accepted);
     RuntimePolicy p{config()};
@@ -329,9 +350,104 @@ void test_policy() {
     CHECK(exhausted.state().stopped);
     CHECK(!exhausted.evaluate(request(exhausted, t + 3ms, 3, 2), t + 3ms).accepted);
 }
+/** Powered standby may energize zero only, and must never mint or revive motion authority. */
+void test_powered_standby() {
+    auto c = config();
+    c.powered_standby = true;
+    RuntimePolicy p{c};
+    time::MonotonicTime now{1s};
+    std::uint64_t seq = 0;
+    auto f = feedback(now);
+    const auto hold = [&](std::uint32_t status, std::uint32_t velocity = 0) {
+        now += 10ms;
+        f.status_raw = status;
+        f.velocity_raw = velocity;
+        f.version = ++seq;
+        f.heartbeat_at = f.status_at = f.diagnostics_at = now;
+        p.observe(f, now);
+        auto r = request(p, now, seq, p.state().authorization);
+        r.decision.state = safety::SafetyState::zero_hold;
+        r.decision.action = safety::DriveAction::standby_hold;
+        return p.evaluate(r, now);
+    };
+    CHECK(hold(0x00400040).payload[0] == std::byte{6});
+    CHECK(hold(0x00210021).payload[0] == std::byte{7});
+    CHECK(hold(0x00230023).payload[0] == std::byte{15});
+    CHECK(hold(0x00270027).payload[0] == std::byte{15});
+    CHECK(!p.state().armed && p.state().output.command.is_zero());
+    // Fresh motion authority starts at zero without dropping holding torque.
+    auto r = request(p, now, ++seq, 1);
+    CHECK(p.evaluate(r, now).payload[0] == std::byte{15});
+    const auto waiting = p.evaluate(request(p, now, ++seq, 1, 5, 5), now);
+    CHECK(waiting.accepted && waiting.payload[0] == std::byte{15} && waiting.command.is_zero());
+    CHECK(p.state().armed); // A deflection before the next TPDO cannot interrupt holding torque.
+    now += 1ms;
+    f.version = ++seq;
+    f.heartbeat_at = f.status_at = f.diagnostics_at = now;
+    p.observe(f, now);
+    CHECK(p.evaluate(request(p, now, seq, 1, 5, 5), now).command.left_rpm == 5);
+    CHECK(hold(0x00270027, 0x00320032).payload[0] == std::byte{15});
+    CHECK(!p.state().armed && p.state().output.command.is_zero());
+    CHECK(!p.evaluate(request(p, now, ++seq, 1, 5, 5), now).accepted);
+    // The hold opcode itself cannot carry a target, even with valid authorization.
+    r = request(p, now, ++seq, 2, 5, 0);
+    r.decision.state = safety::SafetyState::zero_hold;
+    r.decision.action = safety::DriveAction::standby_hold;
+    CHECK(!p.evaluate(r, now).accepted);
+    CHECK(!hold(0x00400040).accepted); // Unexpected loss of drive enable does not auto-reenable.
+    RuntimePolicy legacy{config()};
+    legacy.observe(feedback(now), now);
+    r = request(legacy, now, 1);
+    r.decision.state = safety::SafetyState::zero_hold;
+    r.decision.action = safety::DriveAction::standby_hold;
+    CHECK(!legacy.evaluate(r, now).accepted);
+    RuntimePolicy timeout{c};
+    for (int i = 0; i <= 100; ++i) {
+        const auto stamp = now + i * 10ms;
+        auto stuck = feedback(stamp);
+        stuck.status_raw = 0x00400040;
+        stuck.version = static_cast<std::uint64_t>(i) + 1;
+        timeout.observe(stuck, stamp);
+        auto hold_request = request(timeout, stamp, stuck.version, 0);
+        hold_request.decision.state = safety::SafetyState::zero_hold;
+        hold_request.decision.action = safety::DriveAction::standby_hold;
+        const auto out = timeout.evaluate(hold_request, stamp);
+        CHECK(i < 100 ? out.accepted : !out.accepted);
+    }
+    c.emergency_status_mask = 0x8000;
+    for (int fault = 0; fault < 4; ++fault) {
+        RuntimePolicy guarded{c};
+        auto good = feedback(now);
+        guarded.observe(good, now);
+        auto hold_request = request(guarded, now, 1, 0);
+        hold_request.decision.state = safety::SafetyState::zero_hold;
+        hold_request.decision.action = safety::DriveAction::standby_hold;
+        CHECK(guarded.evaluate(hold_request, now).accepted);
+        auto bad = good;
+        bad.version = 2;
+        if (fault == 0)
+            bad.status_raw |= 0x8000;
+        if (fault == 1)
+            bad.fault_raw = 1;
+        if (fault == 2)
+            bad.current = false;
+        if (fault == 3)
+            ++bad.generation.boot;
+        guarded.observe(bad, now);
+        good.version = 3;
+        good.generation = bad.generation;
+        guarded.observe(good, now);
+        hold_request.generation = good.generation;
+        hold_request.feedback_epoch = guarded.state().epoch;
+        hold_request.decision.decision_generation = 2;
+        CHECK(!guarded.evaluate(hold_request, now).accepted);
+        CHECK(guarded.state().stopped); // A transient fault never auto-restores servo holding.
+    }
+}
 } // namespace
 /** Run pure runtime contract tests without Linux devices. */
 int main() {
     test_policy();
+    test_powered_standby();
     return failures == 0 ? 0 : 1;
 }

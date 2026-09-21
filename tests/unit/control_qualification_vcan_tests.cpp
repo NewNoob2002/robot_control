@@ -217,6 +217,9 @@ void trial(unsigned scenario) {
     if (scenario == 28 && result.ok()) {
         const domain::drive::RuntimeConfig config{
             domain::drive::PackedHalf::low, domain::drive::PackedHalf::low, 1, 1, 5, 0, 100ms, 50ms, 20ms};
+        auto mismatched = result.value();
+        mismatched.speed_resolution = 10;
+        CHECK(!RuntimeSession::create(*owner, config, mismatched).ok());
         auto runtime = RuntimeSession::create(*owner, config, result.value());
         CHECK(runtime.ok());
         CHECK(!session.finish().ok()); // No SDO while an RPDO writer is attached.
