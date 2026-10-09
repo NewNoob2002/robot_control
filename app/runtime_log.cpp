@@ -85,20 +85,20 @@ class RotatingFile final {
         }
         used_ += size;
     }
-    /** Prepare bounded EasyLogger output and redirect only the child stderr to the current segment. */
+    /** Prepare bounded structured output and redirect only the child stderr to the current segment. */
     void logger_sink() {
-        reserve(512);
+        reserve(service::logging::Logger::max_record_bytes);
         require(::dup2(fd_.get(), STDERR_FILENO) >= 0, "dup2 diagnostics log");
     }
-    /** Account for the bytes actually written by EasyLogger through its append descriptor. */
+    /** Account for the bytes actually written by the logger through its append descriptor. */
     bool update_size() {
         const auto size = ::lseek(fd_.get(), 0, SEEK_END);
         require(size >= 0, "measure diagnostic log");
         const auto previous = used_;
         used_ = static_cast<std::size_t>(size);
-        if (used_ > limit_ || used_ < previous || used_ - previous > 512)
-            throw std::runtime_error("EasyLogger record exceeds bound");
-        std::array<char, 512> formatted{};
+        if (used_ > limit_ || used_ < previous || used_ - previous > service::logging::Logger::max_record_bytes)
+            throw std::runtime_error("logger record exceeds bound");
+        std::array<char, service::logging::Logger::max_record_bytes> formatted{};
         const auto bytes = used_ - previous;
         require(::pread(fd_.get(), formatted.data(), bytes, static_cast<off_t>(previous))
                     == static_cast<ssize_t>(bytes),
@@ -137,7 +137,7 @@ int collect(const application::config::Startup& config, const std::string& direc
         file.logger_sink();
         logger.log(service::logging::Severity::info, tag, event, value);
         if (logger.health().output_failures)
-            throw std::runtime_error("EasyLogger file output failed");
+            throw std::runtime_error("logger file output failed");
         if (!file.update_size())
             ++console_dropped;
     };

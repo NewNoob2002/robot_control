@@ -1,6 +1,6 @@
 # Third-Party Dependency Provenance
 
-Status date: 2026-09-16.
+Status date: 2026-10-09.
 
 Normal builds must not fetch mutable branches. A dependency is accepted only
 after its upstream URL, immutable commit, license, integration method, and local
@@ -15,6 +15,23 @@ and the non-root colcon smoke result are recorded in
 [its README](../docker/ros2/README.md). It is a host development environment only,
 with no new core CMake dependency or target ROS2 qualification claim. The
 official image layers are reused without local patches or package additions.
+
+A separate arm64 official Humble runtime was extracted into a private RK3588
+user directory for device-free IPC/DDS checks. It is pinned by its platform digest
+and retains package/version/license evidence in
+[the board baseline](../docs/verification/IPC_BOARD_BASELINE.md).
+That extraction changed no system packages and does not change the amd64 development
+lock or add a core link dependency. Production ROS deployment or drive HIL is not claimed.
+
+A separate host RViz environment reuses OSRF's Humble desktop amd64 image at
+`sha256:fb07245b32187d74350be25323d8ad2f8ca5c25c325759911a1eff2267a49c1e`, without
+local image patches or apt additions. Its purpose, observed RViz version, package
+license locations, X11/network settings and actual GUI smoke are documented in
+[docker/ros2/README.md](../docker/ros2/README.md). It is independent of the existing
+ros-base test image and core targets. The operator has installed native board
+ros-base using official ros2-apt-source1.3.0; native imports and the IPC/DDS
+regression pass. Exact package versions and archived identity/test evidence are
+recorded in [the board baseline](../docs/verification/IPC_BOARD_BASELINE.md).
 
 ## Removed snapshots
 
@@ -43,37 +60,29 @@ available files. For example:
 Those files resolve to different commits. P5.1 removed the directory instead
 of preserving a second CANopenNode copy.
 
-## Existing snapshots
+### Historical EasyLogger snapshot
 
-### EasyLogger
-
-- Path: `components/EasyLogger`
+- Former path: `components/EasyLogger` (removed and replaced by spdlog v1.17.0)
 - Upstream: <https://github.com/armink/EasyLogger>
-- License: MIT (`components/EasyLogger/LICENSE`)
-- Local file count at baseline: 433
-- Baseline content digest:
-  `c34343500332a71e37ce0e09ce52a86ad4a7f417b15dbb5ebf6f08eb68762c08`
-- Version status: **unresolved mixed/unversioned snapshot**
+- Historical license: MIT; the former file is preserved by the Git baseline,
+  not present at the removed working-tree path.
 
-The local `easylogger/src/elog.c` matches upstream commit
-`980eac7383e26a98837a6b42e9cefcd219b15166`, while the license file first
-matches another historical commit. The directory also contains large unrelated
-MCU demonstrations. The amended ADR-0002 permits only the following
-checksum-pinned core subset:
+## Installed dependencies
 
-| File | SHA-256 |
-|---|---|
-| `easylogger/src/elog.c` | `775e0cbde6a7ebb9ef69bceb400042a55f98f02372b88b5cf61c5fef5d131e25` |
-| `easylogger/src/elog_utils.c` | `937eaf98151cb5fa25f102621802637d71ccadd56028098e3a45978a0707d9d0` |
-| `easylogger/inc/elog.h` | `e073ebceedaa064c058ecccf0ef1b06250975d937a30eee14f57de1fd9eff281` |
-| `LICENSE` | `c80023edf0b6ab08a88059549d4a79daa1f3ac3dc6a6350f25dff42fd9a88e44` |
+### spdlog
 
-Normal builds compile only this subset plus the project-owned synchronous Linux
-port and configuration. MCU demonstrations, bundled ports, plugins, async
-output, buffering, and color are excluded. Replacing the snapshot with a clean
-immutable upstream checkout remains a release-readiness task.
+- Path: `components/spdlog`
+- Upstream: <https://github.com/gabime/spdlog.git>
+- Immutable commit / Tag: `79524ddd08a4ec981b7fea76afd08ee05f83755d` (`v1.17.0`)
+- License: MIT (`components/spdlog/LICENSE`)
+- Integrated via Git submodule at `components/spdlog` and built via `add_subdirectory`.
+- Static/private implementation dependency of `service/logging`; no ROS dependency.
+- Target availability: built with the locked GCC11.4 runner against the actual
+  RK3588 Ubuntu22.04 sysroot. Local patches: none.
+- Test impact: structured formatting, 512-byte record limits, pipe/socket/file
+  failure diagnostics, app rotation/mirroring and existing Phase3 ELF audit.
 
-## Installed CANopen dependency pair
+### CANopen dependency pair
 
 P5.1 installs the pair as recursive Git submodules:
 

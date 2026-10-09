@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-09",
+  "base_revision": "b6cf527d680606296953d268893e5a9c5dcd96f3",
+  "branch": "codex/ros2-control-thread-integration",
+  "native_humble": "IMPORTS_AND_DDS_PASS",
+  "native_prefix": "/opt/ros/humble",
+  "native_dds_timeout_s": 50,
+  "native_test": "python3 scripts/test/test_ros2_ipc.py ./robot_control_ipc_fixture",
+  "native_dds_domain_id": 187,
+  "native_dds_localhost_only": true,
+  "compiled_inputs_match_count": 108,
+  "source_hashes": {
+    "ros2/robot_control_ipc_node.py": "520f049b1c10d6de281856c1a67579ff9e94f46732044491474ab7aff613661d",
+    "scripts/test/test_ros2_ipc.py": "ac490c1a446382ca580cb316a9e2747f58b650c7c9a676b3507fa5e2e132d346",
+    "docker/ros2/run-rviz.sh": "a867b2bbb61dae1699337e51103617bab048ff5c41e7081856ea46e958c5a3bb"
+  },
+  "host_rviz": "WINDOW_OPENGL_CONFIG_SIGINT_PASS",
+  "host_ros_cli": "PASS",
+  "cross_machine_dds": "NOT_RUN",
+  "physical_can_uart_hil": "NOT_RUN",
+  "residual_test_processes": [],
+  "residual_stage_sockets": [],
+  "initial_native_invocation": "FAILED_BEFORE_TEST_SETUP_NOUNSET",
+  "installation_actor": "operator",
+  "apt_actions_this_followup": false,
+  "artifacts": {
+    "BUILD.json": "04f7c049f1068a6a680a55e773efb9c20ebfb6f5dcd1a6e8ef02aab8ec752888",
+    "SOURCE_INPUTS.json": "3068af5f2813b6e07fb6bf5a4a9ed80ab1a185d002e0d6ee153bf5f80c59f785",
+    "board-core.json": "c063dfd763db7b2c60b8c1a8c79e6a5f2dc05ff84037cea0796aea7f9ed490a0",
+    "board-private-dds.json": "5af5f1a70ce8b2ce1c35132aa3c3cc308215598e72eb84db12a82714c1489845",
+    "ci-scope.log": "cf8080f9f36cbe00ce28ef2afe961985da4a8694d8e3e8f0e45a7f8885da4e0e",
+    "debug-focused.log": "7b7ad82732442373fddb67311a45954e39e4e9ee692b87d0f4c3dcd2d9883a2c",
+    "debug.xml": "1f02f29c4f5370f9ec550d7490e39f4da30f5d9c65808a6970c8b98329ca90b4",
+    "host-dds-race-green.log": "720ef2ada9e168acd007298a4d5ecf79233b57469aa79e3b986da9c7814b9928",
+    "host-dds-race-red.log": "06b8a1f7baca57100d26295155963e79eb3e8236f99bced47d8e0f0a9e770f91",
+    "native-dds-final.log": "fa7a1bbf012454e622e6499f5079d572114e0508b0139adfcaef2b9187f35d6b",
+    "native-dds.log": "2a17e60adebf33191546cd0098812c2676617b58b4db4198eebbc902c7a9bbff",
+    "native-environment.log": "aa4df0c3628822da002fe629f582bd0553320b63a0cc7e6bdba28e94ace436da",
+    "phase1-scripts.log": "211513c8d42b948a2fa23b4bd7d2f646e9def5a73e102a5b1ce1f69728984ff9",
+    "private-runtime-result.json": "87486e16d0cca89f6389de75390e03e0cd8ecc524261231f8461b88c2a992941",
+    "rviz-cli.log": "3cb028f9b35d8485052913b83f5249d5a1d3dd04f60a9e36b44923681d2d0b74",
+    "rviz-final.log": "bf0d4eac60d04747e8d322d6864fd458b2c48900db30044904978b03847e03ad",
+    "rviz-initial.log": "3b38b30759d9145898beb99ee5f962c1759d756213ab3e918ca9e84236ab5d79",
+    "sanitizer-focused.log": "cc50dc31ecaa6e19546200c0e4c37ba5b1f37f06946c77de63ab76cd47a0e1ec",
+    "sanitizer.xml": "5e6dc029bd32a287c368e1e1b167ef9057302d94358f2c052cd38829d6621339",
+    "static.log": "0e73591b1e1dddb8fa12a8db0903583d4668340284b37a0bc24776a378cd77d0"
+  },
+  "followup_debug_focused": {
+    "passed": 3,
+    "failed": 0
+  },
+  "followup_sanitizer_focused": {
+    "passed": 3,
+    "failed": 0
+  },
+  "followup_ci_scope": "PASS",
+  "followup_phase1_scripts": "PASS"
+}

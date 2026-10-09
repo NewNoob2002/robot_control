@@ -1,7 +1,8 @@
 # SBUS 整车测试 app
 
-独立入口 robot-control-app，Debug 构建、默认关闭。IPC 客户端与外部控制按用户要求暂停，
-本版只接 SBUS。原 robot-control-hil 及其时间/动作边界保持不变。
+独立入口 robot-control-app，Debug 构建、默认关闭。运动命令只接 SBUS；可选的只读IPC
+支持独立ROS2节点查询状态和校验探测值，见[ROS2_IPC.md](ROS2_IPC.md)。
+原 robot-control-hil 及其时间/动作边界保持不变。
 
 算法同事的框架/API导航及ROS2移植建议见 [ROS2_PORTING_GUIDE.md](ROS2_PORTING_GUIDE.md)。
 
@@ -107,9 +108,10 @@ keep不会开启上电锁轴。2026:04的文档只有开关值，未将其推定
 | run_duration_ms | 0，允许0..3600000 | 0至收到停止信号，其他值为控制运行时长 |
 | log_file_bytes | 67108864，允许65536..1073741824 | 每个日志段最大字节数 |
 | log_files | 4，允许1..20 | 每类日志保留的段数，包含当前段 |
+| ipc_socket | off；旧配置省略时仍关闭 | 只读IPC绝对路径，小于108字节；父目录须为当前UID所有、权限0700 |
 
-例如 --set log_file_bytes=16777216 --set log_files=8。当前没有 IPC 参数，也不接受旧 H1 的
-control_source/ipc_socket/command_timeout_ms 配置；请使用随本版交付的配置文件。
+例如 --set log_file_bytes=16777216 --set log_files=8。ipc_socket仅启用只读状态/探测，
+不接受旧H1的control_source/command_timeout_ms配置，不授予外部运动权限。
 
 ## 测试调参：配置项与源码限制
 
@@ -296,13 +298,14 @@ app在任何运行配置写入前读取全部明确设定的驱动参数，并�
 | 文件 | 内容 |
 | --- | --- |
 | config.conf | 最终生效配置与固定映射/时间阈值 |
-| application.log | EasyLogger格式；初始化读回、启动、主错误和清理结果 |
-| diagnostics.log | EasyLogger 约1Hz状态/时序；使能、输入故障变化立即记录 |
+| application.log | spdlog保留原等级/标签格式；初始化读回、启动、主错误和清理结果 |
+| diagnostics.log | spdlog约1Hz状态/时序；使能、输入故障变化立即记录 |
 | trace.bin | 有序原始CAN、SBUS事件、每周期目标/反馈/代际和停止记录 |
 | logger-error.log | 日志进程初始化或写入失败时的错误原因，仅失败时产生 |
 
 运行终端现在同时显示application和diagnostics格式化记录，包含等级、标签、日期时间、收集进程PID/TID及事件。
-application中的stream事件包装原始应用输出；超过240字符的行以stream_fragment分段，避免EasyLogger行缓冲截断。
+application中的stream事件包装原始应用输出；超过240字符的行以stream_fragment分段。
+最终格式化记录含前缀及换行最多512字节，超长记录带truncated=1；轮转与终端镜像共用该上限。
 原始CAN/SBUS高频数据仅写trace.bin，诊断仍约1Hz或状态变化时输出。前缀PID/TID为日志收集者，业务时间使用记录中的mono_ns。
 终端为非阻塞镜像，终端堵塞/断开可丢弃镜像并在console_summary记录dropped_records；文件记录保持，终端不是完整证据。
 启动目录提示、配置错误和最终result仍可为普通终端文本。文件写入失败或收集进程卡顿仍触发控制保护。

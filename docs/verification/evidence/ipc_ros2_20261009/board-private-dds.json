@@ -1,0 +1,22 @@
+[
+  {
+    "name": "ros_import",
+    "command": [
+      "python3",
+      "-c",
+      "import rclpy; from std_msgs.msg import String; from rclpy.impl.implementation_singleton import rclpy_implementation; print(rclpy.__file__); print(String.__module__); print(rclpy_implementation.RCLError.__name__)"
+    ],
+    "exit": 0,
+    "duration_s": 0.1699156290001156
+  },
+  {
+    "name": "ros_dds",
+    "command": [
+      "python3",
+      "scripts/test/test_ros2_ipc.py",
+      "./robot_control_ipc_fixture"
+    ],
+    "exit": 0,
+    "duration_s": 16.791122342000108
+  }
+]

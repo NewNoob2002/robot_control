@@ -3,6 +3,7 @@
 from pathlib import Path
 import os
 import fcntl
+import json
 import pty
 import select
 import signal
@@ -61,6 +62,12 @@ def trial(scenario):
                    '--interface', interface, '--device', os.ttyname(slave), '--log-dir', str(root),
                    '--duration-ms', '7500' if scenario == 'drive' else '0' if scenario in ('sigterm','sighup') else '4000',
                    '--set', f'max_rpm={maximum}', '--set', f'speed_resolution={resolution}', '--set', 'log_file_bytes=65536', '--set', 'log_files=3']
+        ipc = None
+        ipc_replies = []
+        ipc_sequence = 0
+        next_ipc = 0
+        if scenario.startswith('ipc_'):
+            command += ['--set', f'ipc_socket={root}/control.sock']
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
         os.set_blocking(process.stdout.fileno(), False)
         console_start = time.monotonic()
@@ -137,6 +144,27 @@ def trial(scenario):
                     application = runs[0] / 'application.log'
                     if application.exists() and 'event=control_start ' in application.read_text(): started = now
                 elapsed = now - first_motion if first_motion else 0
+                if scenario.startswith('ipc_') and started:
+                    if ipc is None:
+                        ipc = socket.socket(socket.AF_UNIX, socket.SOCK_SEQPACKET)
+                        ipc.connect(str(root / 'control.sock'))
+                        ipc.setblocking(False)
+                    if now >= next_ipc:
+                        ipc_sequence += 1
+                        try:
+                            ipc.send(f'RCI1 {ipc_sequence} {time.monotonic_ns()} 1 5 -5'.encode())
+                        except (BlockingIOError, BrokenPipeError, ConnectionResetError):
+                            pass
+                        next_ipc = now + (.002 if scenario == 'ipc_drive' and elapsed >= 1 else .02)
+                    if scenario == 'ipc_probe' or elapsed < 1:
+                        try:
+                            raw = ipc.recv(1024)
+                        except (BlockingIOError, ConnectionResetError):
+                            raw = b''
+                        if raw:
+                            reply = json.loads(raw)
+                            assert reply['executed'] is False and reply['motion_authority'] is False
+                            ipc_replies.append(reply)
                 steering, throttle, button, flags = 1000, 993, 200, 0
                 if started and now - started > .2: button = 1800
                 if started and now - started > .8:
@@ -169,7 +197,7 @@ def trial(scenario):
                         injected = None  # This is not a stop stimulus for the first app.
                         scenario = 'second_done'
                 if injected and scenario == 'sbus_loss': flags = 4
-                if scenario == 'standby': button,throttle = 200,993
+                if scenario in ('standby', 'ipc_probe'): button,throttle = 200,993
                 if now >= next_serial:
                     gear = 1800
                     if scenario == 'gears':
@@ -203,12 +231,19 @@ def trial(scenario):
                 assert values[0x1017,0] == baseline[0x1017,0]
             else:
                 assert sent[-1][2:] == (0,0), (scenario,sent[-8:])
-                if scenario in ('standby', 'remote_off'):
+                if scenario in ('standby', 'remote_off', 'ipc_probe'):
                     assert not first_motion and enabled is not None
                     held = [(word,left,right) for stamp,word,left,right in sent if started+.8 < stamp < started+3]
                     assert held and all(item == (15,0,0) for item in held), (scenario,held)
                 else:
                     assert first_motion, (scenario, [p.read_text() for p in root.glob('run-*/diagnostics.log')])
+                if scenario.startswith('ipc_'):
+                    assert len(ipc_replies) >= 20, ipc_replies
+                    assert any(reply['result'] == 'probe_ok' for reply in ipc_replies)
+                    assert all(reply['source'] != 2 for reply in ipc_replies)
+                    if scenario == 'ipc_drive':
+                        assert any(stamp-first_motion > 2 and left == 5 and right == -5
+                                   for stamp,_,left,right in sent), 'slow IPC observer disrupted SBUS motion'
                 for key,value in baseline.items():
                     if key not in ((0x6040,0),(0x6041,0),(0x606C,1),(0x606C,2),(0x606C,3)):
                         assert values[key] == value, (scenario,key,values[key],value)
@@ -264,6 +299,7 @@ def trial(scenario):
 
             print('PASS',scenario,'RPDOs',len(sent),'writes',len(writes),flush=True)
         finally:
+            if ipc is not None: ipc.close()
             if child:
                 try: os.kill(child, signal.SIGCONT)
                 except ProcessLookupError: pass
@@ -277,7 +313,7 @@ def main():
     assert os.environ.get('ROBOT_CONTROL_TEST_VCAN_INTERFACE') == 'vcan0'
     subprocess.run(['ip','link','add','dev','vcan1','type','vcan'],check=True)
     subprocess.run(['ip','link','set','dev','vcan1','up'],check=True)
-    scenarios = os.environ.get('TEST_APP_CASES', 'baseline,device_mismatch,gears,console_slow,resolution_invalid,resolution_timeout,resolution_abort,resolution_mismatch,resolution2,resolution10,interface,drive,ch6,standby,remote_off,sigterm,sighup,sbus_loss,overspeed,can_loss,logger_exit,logger_stall,second').split(',')
+    scenarios = os.environ.get('TEST_APP_CASES', 'baseline,device_mismatch,gears,console_slow,resolution_invalid,resolution_timeout,resolution_abort,resolution_mismatch,resolution2,resolution10,interface,drive,ch6,standby,remote_off,sigterm,sighup,sbus_loss,overspeed,can_loss,logger_exit,logger_stall,second,ipc_probe,ipc_drive').split(',')
     for scenario in scenarios: trial(scenario)
 
 

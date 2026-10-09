@@ -1,0 +1,10 @@
+Linux 6.1.84 aarch64
+0eb0153e3711fc755b4b334ed7eb72c1a4f7b0114eb622c9c90b99403ea69f3f  /etc/machine-id
+ROS_DISTRO=humble
+/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py
+std_msgs.msg._string
+ros-humble-rclpy	3.3.22-1jammy.20260907.232408
+ros-humble-rmw-fastrtps-cpp	6.2.10-1jammy.20260907.212405
+ros-humble-ros-base	0.10.0-1jammy.20260910.003535
+ros-humble-std-msgs	4.9.2-1jammy.20260907.211527
+ros2-apt-source	1.3.0~jammy

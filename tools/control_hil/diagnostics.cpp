@@ -14,7 +14,7 @@ using robot_control::hil::Trace;
 using robot_control::service::logging::Logger;
 using robot_control::service::logging::Severity;
 
-/** Emit a small key-value record; each record stays below EasyLogger's512-byte line bound. */
+/** Emit a small key-value record; each record stays below structured logger's 512-byte line bound. */
 bool emit(Logger& logger, std::string_view event, const Trace::Packet& row, std::string_view names) {
     std::istringstream keys{std::string{names}};
     std::ostringstream values;
@@ -134,10 +134,10 @@ int collect() {
 }
 } // namespace
 
-/** Separate diagnostic consumer; stdin is the owner pipe, stdout raw evidence, stderr EasyLogger. */
+/** Separate diagnostic consumer; stdin is the owner pipe, stdout raw evidence, stderr spdlog. */
 int main(int argc, char* argv[]) {
     if (argc == 2 && std::string_view{argv[1]} == "--help") {
-        std::cout << "robot-control-diagnostics: stdin=trace pipe stdout=binary evidence stderr=EasyLogger\n";
+        std::cout << "robot-control-diagnostics: stdin=trace pipe stdout=binary evidence stderr=spdlog\n";
         return 0;
     }
     if (argc != 1 || ::signal(SIGPIPE, SIG_IGN) == SIG_ERR)

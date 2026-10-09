@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 
+
 PACKET = struct.Struct('<19q')
 
 
@@ -51,7 +52,7 @@ def main():
         finally:
             os.close(read_fd)
             os.close(write_fd)
-    print('PASS: streaming diagnostics, EasyLogger, framing and failing sinks')
+    print('PASS: streaming diagnostics, spdlog, framing and failing sinks')
 
 
 if __name__ == '__main__':

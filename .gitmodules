@@ -1,3 +1,7 @@
 [submodule "components/CANopenLinux"]
 	path = components/CANopenLinux
 	url = https://github.com/CANopenNode/CANopenLinux.git
+[submodule "components/spdlog"]
+	path = components/spdlog
+	url = https://github.com/gabime/spdlog.git
+	branch = v1.17.0

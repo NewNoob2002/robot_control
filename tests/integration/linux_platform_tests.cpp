@@ -9,8 +9,8 @@
 #include <fcntl.h>
 #include <pthread.h>
 #include <signal.h>
-#include <sys/socket.h>
 #include <stdlib.h>
+#include <sys/socket.h>
 #include <termios.h>
 #include <unistd.h>
 
@@ -44,663 +44,686 @@ bool log_changed_stderr_flags = false;
 extern "C" void handle_test_signal(int) {}
 
 /** Record one integration assertion failure. */
-void check(const bool condition, const std::string_view id,
-           const std::string_view expression) {
-  if (!condition) {
-    ++failures;
-    std::cerr << "FAIL id=" << id << " expression=\"" << expression << "\"\n";
-  }
+void check(const bool condition, const std::string_view id, const std::string_view expression) {
+    if (!condition) {
+        ++failures;
+        std::cerr << "FAIL id=" << id << " expression=\"" << expression << "\"\n";
+    }
 }
 
 #define CHECK(id, expression) check((expression), (id), #expression)
 
 /** Fill one nonblocking pipe writer until the kernel reports EAGAIN. */
 bool fill_nonblocking_pipe(const int fd) {
-  const std::array<std::byte, 4096> data{};
-  while (true) {
-    const ssize_t count = ::write(fd, data.data(), data.size());
-    if (count > 0) {
-      continue;
+    const std::array<std::byte, 4096> data{};
+    while (true) {
+        const ssize_t count = ::write(fd, data.data(), data.size());
+        if (count > 0) {
+            continue;
+        }
+        if (count < 0 && errno == EINTR) {
+            continue;
+        }
+        return count < 0 && (errno == EAGAIN || errno == EWOULDBLOCK);
     }
-    if (count < 0 && errno == EINTR) {
-      continue;
-    }
-    return count < 0 && (errno == EAGAIN || errno == EWOULDBLOCK);
-  }
 }
 
 /** Verify move-only descriptor ownership and poll readiness/timeout behavior.
  */
 void test_fd_and_poll() {
-  std::array<int, 2> pipe_fds{};
-  const bool pipe_ready = ::pipe2(pipe_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("FD-001", pipe_ready);
-  if (!pipe_ready) {
-    return;
-  }
-  UniqueFd reader{pipe_fds[0]};
-  UniqueFd writer{pipe_fds[1]};
-  UniqueFd moved{std::move(reader)};
-  CHECK("FD-002", static_cast<bool>(moved));
-
-  const int duplicate = ::dup(writer.get());
-  CHECK("FD-003", duplicate >= 0);
-  if (duplicate < 0) {
-    return;
-  }
-  {
-    UniqueFd scoped{duplicate};
-    CHECK("FD-003", ::fcntl(scoped.get(), F_GETFD) >= 0);
-  }
-  errno = 0;
-  CHECK("FD-003", ::fcntl(duplicate, F_GETFD) == -1 && errno == EBADF);
-
-  const auto short_wait_start = std::chrono::steady_clock::now();
-  auto event = io::wait_readable(moved.get(), 1ms);
-  const auto short_wait_elapsed =
-      std::chrono::steady_clock::now() - short_wait_start;
-  CHECK("POLL-001", event.ok());
-  if (!event.ok()) {
-    return;
-  }
-  CHECK("POLL-001", !event.value().readable);
-  CHECK("POLL-001", short_wait_elapsed >= 500us && short_wait_elapsed < 50ms);
-
-  const std::byte value{0x5a};
-  CHECK("POLL-002", ::write(writer.get(), &value, sizeof(value)) == 1);
-  event = io::wait_readable(moved.get(), 50ms);
-  CHECK("POLL-002", event.ok());
-  if (!event.ok()) {
-    return;
-  }
-  CHECK("POLL-002", event.value().readable);
-
-  std::array<int, 2> cancel_fds{};
-  const bool cancel_ready =
-      ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("POLL-003", cancel_ready);
-  if (!cancel_ready) {
-    return;
-  }
-  UniqueFd cancel_reader{cancel_fds[0]};
-  UniqueFd cancel_writer{cancel_fds[1]};
-  CHECK("POLL-003", ::write(cancel_writer.get(), &value, sizeof(value)) == 1);
-  event = io::wait_readable(moved.get(), 5s, cancel_reader.get());
-  CHECK("POLL-003", event.ok());
-  if (!event.ok()) {
-    return;
-  }
-  CHECK("POLL-003", event.value().cancelled);
-
-  const auto bad = io::wait_readable(-1, 1ms);
-  CHECK("POLL-004", !bad.ok());
-  CHECK("POLL-004", bad.status().operation == "poll");
-  const int invalid_main = ::dup(moved.get());
-  CHECK("POLL-004", invalid_main >= 0);
-  if (invalid_main < 0) {
-    return;
-  }
-  CHECK("POLL-004", ::close(invalid_main) == 0);
-  const auto invalid_main_result = io::wait_readable(invalid_main, 1ms);
-  CHECK("POLL-004", !invalid_main_result.ok());
-  CHECK("POLL-004", invalid_main_result.status().error.value() == EBADF);
-  const int invalid_cancellation = ::dup(cancel_reader.get());
-  CHECK("POLL-004", invalid_cancellation >= 0);
-  if (invalid_cancellation < 0) {
-    return;
-  }
-  CHECK("POLL-004", ::close(invalid_cancellation) == 0);
-  const auto invalid_cancel =
-      io::wait_readable(moved.get(), 1ms, invalid_cancellation);
-  CHECK("POLL-004", !invalid_cancel.ok());
-  CHECK("POLL-004", invalid_cancel.status().error.value() == EBADF);
-
-  std::array<int, 2> failed_cancel_fds{};
-  const bool failed_cancel_ready =
-      ::pipe2(failed_cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("POLL-004", failed_cancel_ready);
-  if (!failed_cancel_ready) {
-    return;
-  }
-  UniqueFd failed_cancel_reader{failed_cancel_fds[0]};
-  UniqueFd failed_cancel_writer{failed_cancel_fds[1]};
-  CHECK("POLL-004", failed_cancel_writer.close().ok());
-  const auto failed_cancel =
-      io::wait_readable(moved.get(), 1ms, failed_cancel_reader.get());
-  CHECK("POLL-004", !failed_cancel.ok());
-  CHECK("POLL-004", failed_cancel.status().error.value() == EIO);
-
-  std::array<int, 2> interrupt_fds{};
-  const bool interrupt_ready =
-      ::pipe2(interrupt_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("POLL-005", interrupt_ready);
-  if (!interrupt_ready) {
-    return;
-  }
-
-  const int close_failure_descriptor = ::dup(writer.get());
-  UniqueFd close_failure{close_failure_descriptor};
-  CHECK("FD-004", static_cast<bool>(close_failure));
-  if (!close_failure) {
-    return;
-  }
-  CHECK("FD-004", ::close(close_failure.get()) == 0);
-  const auto close_status = close_failure.close();
-  CHECK("FD-004", !close_status.ok() && close_status.error.value() == EBADF);
-  UniqueFd interrupt_reader{interrupt_fds[0]};
-  UniqueFd interrupt_writer{interrupt_fds[1]};
-  CHECK("POLL-005", static_cast<bool>(interrupt_writer));
-  struct sigaction action{};
-  action.sa_handler = handle_test_signal;
-  const bool signal_set_ready = ::sigemptyset(&action.sa_mask) == 0;
-  CHECK("POLL-005", signal_set_ready);
-  if (!signal_set_ready) {
-    return;
-  }
-  struct sigaction old_action{};
-  const bool handler_installed =
-      ::sigaction(SIGUSR1, &action, &old_action) == 0;
-  CHECK("POLL-005", handler_installed);
-  if (!handler_installed) {
-    return;
-  }
-  const pthread_t waiting_thread = ::pthread_self();
-  std::thread interrupter{[waiting_thread] {
-    for (int index = 0; index < 4; ++index) {
-      std::this_thread::sleep_for(2ms);
-      static_cast<void>(::pthread_kill(waiting_thread, SIGUSR1));
+    std::array<int, 2> pipe_fds{};
+    const bool pipe_ready = ::pipe2(pipe_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("FD-001", pipe_ready);
+    if (!pipe_ready) {
+        return;
     }
-  }};
-  const auto wait_start = std::chrono::steady_clock::now();
-  const auto interrupted = io::wait_readable(interrupt_reader.get(), 20ms);
-  const auto wait_elapsed = std::chrono::steady_clock::now() - wait_start;
-  interrupter.join();
-  CHECK("POLL-005", ::sigaction(SIGUSR1, &old_action, nullptr) == 0);
-  CHECK("POLL-005", interrupted.ok());
-  CHECK("POLL-005", wait_elapsed >= 10ms && wait_elapsed < 100ms);
+    UniqueFd reader{pipe_fds[0]};
+    UniqueFd writer{pipe_fds[1]};
+    UniqueFd moved{std::move(reader)};
+    CHECK("FD-002", static_cast<bool>(moved));
+
+    const int duplicate = ::dup(writer.get());
+    CHECK("FD-003", duplicate >= 0);
+    if (duplicate < 0) {
+        return;
+    }
+    {
+        UniqueFd scoped{duplicate};
+        CHECK("FD-003", ::fcntl(scoped.get(), F_GETFD) >= 0);
+    }
+    errno = 0;
+    CHECK("FD-003", ::fcntl(duplicate, F_GETFD) == -1 && errno == EBADF);
+
+    const auto short_wait_start = std::chrono::steady_clock::now();
+    auto event = io::wait_readable(moved.get(), 1ms);
+    const auto short_wait_elapsed = std::chrono::steady_clock::now() - short_wait_start;
+    CHECK("POLL-001", event.ok());
+    if (!event.ok()) {
+        return;
+    }
+    CHECK("POLL-001", !event.value().readable);
+    CHECK("POLL-001", short_wait_elapsed >= 500us && short_wait_elapsed < 50ms);
+
+    const std::byte value{0x5a};
+    CHECK("POLL-002", ::write(writer.get(), &value, sizeof(value)) == 1);
+    event = io::wait_readable(moved.get(), 50ms);
+    CHECK("POLL-002", event.ok());
+    if (!event.ok()) {
+        return;
+    }
+    CHECK("POLL-002", event.value().readable);
+
+    std::array<int, 2> cancel_fds{};
+    const bool cancel_ready = ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("POLL-003", cancel_ready);
+    if (!cancel_ready) {
+        return;
+    }
+    UniqueFd cancel_reader{cancel_fds[0]};
+    UniqueFd cancel_writer{cancel_fds[1]};
+    CHECK("POLL-003", ::write(cancel_writer.get(), &value, sizeof(value)) == 1);
+    event = io::wait_readable(moved.get(), 5s, cancel_reader.get());
+    CHECK("POLL-003", event.ok());
+    if (!event.ok()) {
+        return;
+    }
+    CHECK("POLL-003", event.value().cancelled);
+
+    const auto bad = io::wait_readable(-1, 1ms);
+    CHECK("POLL-004", !bad.ok());
+    CHECK("POLL-004", bad.status().operation == "poll");
+    const int invalid_main = ::dup(moved.get());
+    CHECK("POLL-004", invalid_main >= 0);
+    if (invalid_main < 0) {
+        return;
+    }
+    CHECK("POLL-004", ::close(invalid_main) == 0);
+    const auto invalid_main_result = io::wait_readable(invalid_main, 1ms);
+    CHECK("POLL-004", !invalid_main_result.ok());
+    CHECK("POLL-004", invalid_main_result.status().error.value() == EBADF);
+    const int invalid_cancellation = ::dup(cancel_reader.get());
+    CHECK("POLL-004", invalid_cancellation >= 0);
+    if (invalid_cancellation < 0) {
+        return;
+    }
+    CHECK("POLL-004", ::close(invalid_cancellation) == 0);
+    const auto invalid_cancel = io::wait_readable(moved.get(), 1ms, invalid_cancellation);
+    CHECK("POLL-004", !invalid_cancel.ok());
+    CHECK("POLL-004", invalid_cancel.status().error.value() == EBADF);
+
+    std::array<int, 2> failed_cancel_fds{};
+    const bool failed_cancel_ready = ::pipe2(failed_cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("POLL-004", failed_cancel_ready);
+    if (!failed_cancel_ready) {
+        return;
+    }
+    UniqueFd failed_cancel_reader{failed_cancel_fds[0]};
+    UniqueFd failed_cancel_writer{failed_cancel_fds[1]};
+    CHECK("POLL-004", failed_cancel_writer.close().ok());
+    const auto failed_cancel = io::wait_readable(moved.get(), 1ms, failed_cancel_reader.get());
+    CHECK("POLL-004", !failed_cancel.ok());
+    CHECK("POLL-004", failed_cancel.status().error.value() == EIO);
+
+    std::array<int, 2> interrupt_fds{};
+    const bool interrupt_ready = ::pipe2(interrupt_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("POLL-005", interrupt_ready);
+    if (!interrupt_ready) {
+        return;
+    }
+
+    const int close_failure_descriptor = ::dup(writer.get());
+    UniqueFd close_failure{close_failure_descriptor};
+    CHECK("FD-004", static_cast<bool>(close_failure));
+    if (!close_failure) {
+        return;
+    }
+    CHECK("FD-004", ::close(close_failure.get()) == 0);
+    const auto close_status = close_failure.close();
+    CHECK("FD-004", !close_status.ok() && close_status.error.value() == EBADF);
+    UniqueFd interrupt_reader{interrupt_fds[0]};
+    UniqueFd interrupt_writer{interrupt_fds[1]};
+    CHECK("POLL-005", static_cast<bool>(interrupt_writer));
+    struct sigaction action{};
+    action.sa_handler = handle_test_signal;
+    const bool signal_set_ready = ::sigemptyset(&action.sa_mask) == 0;
+    CHECK("POLL-005", signal_set_ready);
+    if (!signal_set_ready) {
+        return;
+    }
+    struct sigaction old_action{};
+    const bool handler_installed = ::sigaction(SIGUSR1, &action, &old_action) == 0;
+    CHECK("POLL-005", handler_installed);
+    if (!handler_installed) {
+        return;
+    }
+    const pthread_t waiting_thread = ::pthread_self();
+    std::thread interrupter{[waiting_thread] {
+        for (int index = 0; index < 4; ++index) {
+            std::this_thread::sleep_for(2ms);
+            static_cast<void>(::pthread_kill(waiting_thread, SIGUSR1));
+        }
+    }};
+    const auto wait_start = std::chrono::steady_clock::now();
+    const auto interrupted = io::wait_readable(interrupt_reader.get(), 20ms);
+    const auto wait_elapsed = std::chrono::steady_clock::now() - wait_start;
+    interrupter.join();
+    CHECK("POLL-005", ::sigaction(SIGUSR1, &old_action, nullptr) == 0);
+    CHECK("POLL-005", interrupted.ok());
+    CHECK("POLL-005", wait_elapsed >= 10ms && wait_elapsed < 100ms);
 }
 
 /** Verify writable readiness, cancellation, invalid fds, and fixed deadlines.
  */
 void test_writable_poll() {
-  std::array<int, 2> pipe_fds{};
-  const bool pipe_ready = ::pipe2(pipe_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("POLL-W-001", pipe_ready);
-  if (!pipe_ready) {
-    return;
-  }
-  UniqueFd reader{pipe_fds[0]};
-  UniqueFd writer{pipe_fds[1]};
-
-  auto event = io::wait_writable(writer.get(), 10ms);
-  CHECK("POLL-W-001", event.ok());
-  CHECK("POLL-W-001", event.ok() && event.value().writable);
-
-  std::array<int, 2> cancel_fds{};
-  const bool cancel_ready =
-      ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("POLL-W-002", cancel_ready);
-  if (!cancel_ready) {
-    return;
-  }
-  UniqueFd cancel_reader{cancel_fds[0]};
-  UniqueFd cancel_writer{cancel_fds[1]};
-  const std::byte value{0x1};
-  CHECK("POLL-W-002", ::write(cancel_writer.get(), &value, sizeof(value)) == 1);
-  event = io::wait_writable(writer.get(), 5s, cancel_reader.get());
-  CHECK("POLL-W-002", event.ok());
-  CHECK("POLL-W-002", event.ok() && event.value().writable);
-  CHECK("POLL-W-002", event.ok() && event.value().cancelled);
-
-  const auto negative_main = io::wait_writable(-1, 1ms);
-  CHECK("POLL-W-003", !negative_main.ok());
-  CHECK("POLL-W-003", negative_main.status().error.value() == EINVAL);
-
-  const int invalid_main = ::dup(writer.get());
-  CHECK("POLL-W-003", invalid_main >= 0);
-  if (invalid_main < 0) {
-    return;
-  }
-  CHECK("POLL-W-003", ::close(invalid_main) == 0);
-  const auto invalid_main_result = io::wait_writable(invalid_main, 1ms);
-  CHECK("POLL-W-003", !invalid_main_result.ok());
-  CHECK("POLL-W-003", invalid_main_result.status().error.value() == EBADF);
-
-  const int invalid_cancellation = ::dup(cancel_reader.get());
-  CHECK("POLL-W-004", invalid_cancellation >= 0);
-  if (invalid_cancellation < 0) {
-    return;
-  }
-  CHECK("POLL-W-004", ::close(invalid_cancellation) == 0);
-  const auto invalid_cancel =
-      io::wait_writable(writer.get(), 1ms, invalid_cancellation);
-  CHECK("POLL-W-004", !invalid_cancel.ok());
-  CHECK("POLL-W-004", invalid_cancel.status().error.value() == EBADF);
-
-  const auto same_fd = io::wait_writable(writer.get(), 1ms, writer.get());
-  CHECK("POLL-W-005", !same_fd.ok());
-  CHECK("POLL-W-005", same_fd.status().error.value() == EINVAL);
-
-  CHECK("POLL-W-006", fill_nonblocking_pipe(writer.get()));
-  const auto timeout_start = std::chrono::steady_clock::now();
-  const auto timed_out = io::wait_writable(writer.get(), 2ms);
-  const auto timeout_elapsed = std::chrono::steady_clock::now() - timeout_start;
-  CHECK("POLL-W-006", timed_out.ok());
-  CHECK("POLL-W-006", timed_out.ok() && !timed_out.value().writable);
-  CHECK("POLL-W-006", timeout_elapsed >= 1ms && timeout_elapsed < 50ms);
-
-  struct sigaction action{};
-  action.sa_handler = handle_test_signal;
-  CHECK("POLL-W-007", ::sigemptyset(&action.sa_mask) == 0);
-  struct sigaction old_action{};
-  const bool handler_installed =
-      ::sigaction(SIGUSR1, &action, &old_action) == 0;
-  CHECK("POLL-W-007", handler_installed);
-  if (!handler_installed) {
-    return;
-  }
-  const pthread_t waiting_thread = ::pthread_self();
-  std::thread interrupter{[waiting_thread] {
-    for (int index = 0; index < 20; ++index) {
-      std::this_thread::sleep_for(5ms);
-      static_cast<void>(::pthread_kill(waiting_thread, SIGUSR1));
+    std::array<int, 2> pipe_fds{};
+    const bool pipe_ready = ::pipe2(pipe_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("POLL-W-001", pipe_ready);
+    if (!pipe_ready) {
+        return;
     }
-  }};
-  const auto wait_start = std::chrono::steady_clock::now();
-  const auto interrupted = io::wait_writable(writer.get(), 20ms);
-  const auto wait_elapsed = std::chrono::steady_clock::now() - wait_start;
-  interrupter.join();
-  CHECK("POLL-W-007", ::sigaction(SIGUSR1, &old_action, nullptr) == 0);
-  CHECK("POLL-W-007", interrupted.ok());
-  CHECK("POLL-W-007", interrupted.ok() && !interrupted.value().writable);
-  CHECK("POLL-W-007", wait_elapsed >= 10ms && wait_elapsed < 70ms);
+    UniqueFd reader{pipe_fds[0]};
+    UniqueFd writer{pipe_fds[1]};
+
+    auto event = io::wait_writable(writer.get(), 10ms);
+    CHECK("POLL-W-001", event.ok());
+    CHECK("POLL-W-001", event.ok() && event.value().writable);
+
+    std::array<int, 2> cancel_fds{};
+    const bool cancel_ready = ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("POLL-W-002", cancel_ready);
+    if (!cancel_ready) {
+        return;
+    }
+    UniqueFd cancel_reader{cancel_fds[0]};
+    UniqueFd cancel_writer{cancel_fds[1]};
+    const std::byte value{0x1};
+    CHECK("POLL-W-002", ::write(cancel_writer.get(), &value, sizeof(value)) == 1);
+    event = io::wait_writable(writer.get(), 5s, cancel_reader.get());
+    CHECK("POLL-W-002", event.ok());
+    CHECK("POLL-W-002", event.ok() && event.value().writable);
+    CHECK("POLL-W-002", event.ok() && event.value().cancelled);
+
+    const auto negative_main = io::wait_writable(-1, 1ms);
+    CHECK("POLL-W-003", !negative_main.ok());
+    CHECK("POLL-W-003", negative_main.status().error.value() == EINVAL);
+
+    const int invalid_main = ::dup(writer.get());
+    CHECK("POLL-W-003", invalid_main >= 0);
+    if (invalid_main < 0) {
+        return;
+    }
+    CHECK("POLL-W-003", ::close(invalid_main) == 0);
+    const auto invalid_main_result = io::wait_writable(invalid_main, 1ms);
+    CHECK("POLL-W-003", !invalid_main_result.ok());
+    CHECK("POLL-W-003", invalid_main_result.status().error.value() == EBADF);
+
+    const int invalid_cancellation = ::dup(cancel_reader.get());
+    CHECK("POLL-W-004", invalid_cancellation >= 0);
+    if (invalid_cancellation < 0) {
+        return;
+    }
+    CHECK("POLL-W-004", ::close(invalid_cancellation) == 0);
+    const auto invalid_cancel = io::wait_writable(writer.get(), 1ms, invalid_cancellation);
+    CHECK("POLL-W-004", !invalid_cancel.ok());
+    CHECK("POLL-W-004", invalid_cancel.status().error.value() == EBADF);
+
+    const auto same_fd = io::wait_writable(writer.get(), 1ms, writer.get());
+    CHECK("POLL-W-005", !same_fd.ok());
+    CHECK("POLL-W-005", same_fd.status().error.value() == EINVAL);
+
+    CHECK("POLL-W-006", fill_nonblocking_pipe(writer.get()));
+    const auto timeout_start = std::chrono::steady_clock::now();
+    const auto timed_out = io::wait_writable(writer.get(), 2ms);
+    const auto timeout_elapsed = std::chrono::steady_clock::now() - timeout_start;
+    CHECK("POLL-W-006", timed_out.ok());
+    CHECK("POLL-W-006", timed_out.ok() && !timed_out.value().writable);
+    CHECK("POLL-W-006", timeout_elapsed >= 1ms && timeout_elapsed < 50ms);
+
+    struct sigaction action{};
+    action.sa_handler = handle_test_signal;
+    CHECK("POLL-W-007", ::sigemptyset(&action.sa_mask) == 0);
+    struct sigaction old_action{};
+    const bool handler_installed = ::sigaction(SIGUSR1, &action, &old_action) == 0;
+    CHECK("POLL-W-007", handler_installed);
+    if (!handler_installed) {
+        return;
+    }
+    const pthread_t waiting_thread = ::pthread_self();
+    std::thread interrupter{[waiting_thread] {
+        for (int index = 0; index < 20; ++index) {
+            std::this_thread::sleep_for(5ms);
+            static_cast<void>(::pthread_kill(waiting_thread, SIGUSR1));
+        }
+    }};
+    const auto wait_start = std::chrono::steady_clock::now();
+    const auto interrupted = io::wait_writable(writer.get(), 20ms);
+    const auto wait_elapsed = std::chrono::steady_clock::now() - wait_start;
+    interrupter.join();
+    CHECK("POLL-W-007", ::sigaction(SIGUSR1, &old_action, nullptr) == 0);
+    CHECK("POLL-W-007", interrupted.ok());
+    CHECK("POLL-W-007", interrupted.ok() && !interrupted.value().writable);
+    CHECK("POLL-W-007", wait_elapsed >= 10ms && wait_elapsed < 70ms);
 }
 
 /** Verify absolute monotonic sleeping and invalid-period error propagation. */
 void test_monotonic_timer() {
-  const auto start = platform_time::now();
-  CHECK("TIME-001", start.ok());
-  if (!start.ok()) {
-    return;
-  }
-  const auto status = platform_time::sleep_until(start.value() + 2ms);
-  CHECK("TIME-002", status.ok());
-  const auto wake = platform_time::now();
-  CHECK("TIME-002", wake.ok());
-  if (!wake.ok()) {
-    return;
-  }
-  CHECK("TIME-002", wake.value() >= start.value() + 2ms);
+    const auto start = platform_time::now();
+    CHECK("TIME-001", start.ok());
+    if (!start.ok()) {
+        return;
+    }
+    const auto status = platform_time::sleep_until(start.value() + 2ms);
+    CHECK("TIME-002", status.ok());
+    const auto wake = platform_time::now();
+    CHECK("TIME-002", wake.ok());
+    if (!wake.ok()) {
+        return;
+    }
+    CHECK("TIME-002", wake.value() >= start.value() + 2ms);
 
-  platform_time::PeriodicDeadline periodic{wake.value() + 1ms, 1ms};
-  const auto periodic_result = periodic.wait_next();
-  CHECK("TIME-003", periodic_result.ok());
-  CHECK("TIME-003", periodic.next() > wake.value() + 1ms);
+    platform_time::PeriodicDeadline periodic{wake.value() + 1ms, 1ms};
+    const auto periodic_result = periodic.wait_next();
+    CHECK("TIME-003", periodic_result.ok());
+    CHECK("TIME-003", periodic.next() > wake.value() + 1ms);
 
-  platform_time::PeriodicDeadline overdue{wake.value() - 2s, 1ns};
-  const auto overdue_start = std::chrono::steady_clock::now();
-  const auto overdue_result = overdue.wait_next();
-  CHECK("TIME-004", overdue_result.ok());
-  CHECK("TIME-004", std::chrono::steady_clock::now() - overdue_start < 100ms);
-  CHECK("TIME-004", overdue_result.ok() && overdue_result.value() > 1'000'000);
+    platform_time::PeriodicDeadline overdue{wake.value() - 2s, 1ns};
+    const auto overdue_start = std::chrono::steady_clock::now();
+    const auto overdue_result = overdue.wait_next();
+    CHECK("TIME-004", overdue_result.ok());
+    CHECK("TIME-004", std::chrono::steady_clock::now() - overdue_start < 100ms);
+    CHECK("TIME-004", overdue_result.ok() && overdue_result.value() > 1'000'000);
 
-  std::array<int, 2> cancel_fds{};
-  const bool cancel_ready =
-      ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("TIME-005", cancel_ready);
-  if (!cancel_ready) {
-    return;
-  }
-  UniqueFd cancel_reader{cancel_fds[0]};
-  UniqueFd cancel_writer{cancel_fds[1]};
-  const std::byte value{0x1};
-  std::thread delayed_cancel{[fd = cancel_writer.get(), value] {
-    std::this_thread::sleep_for(20ms);
-    [[maybe_unused]] const auto written = ::write(fd, &value, sizeof(value));
-  }};
-  const auto cancel_start = std::chrono::steady_clock::now();
-  const auto cancelled =
-      platform_time::sleep_until(wake.value() + 5s, cancel_reader.get());
-  const auto cancel_elapsed = std::chrono::steady_clock::now() - cancel_start;
-  delayed_cancel.join();
-  CHECK("TIME-005", !cancelled.ok() && cancelled.error.value() == ECANCELED);
-  CHECK("TIME-005", cancel_elapsed >= 10ms && cancel_elapsed < 200ms);
-
-  std::array<int, 2> periodic_cancel_fds{};
-  const bool periodic_cancel_ready =
-      ::pipe2(periodic_cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("TIME-006", periodic_cancel_ready);
-  if (!periodic_cancel_ready) {
-    return;
-  }
-  UniqueFd periodic_cancel_reader{periodic_cancel_fds[0]};
-  UniqueFd periodic_cancel_writer{periodic_cancel_fds[1]};
-  platform_time::PeriodicDeadline cancellable_periodic{wake.value() + 5s, 10ms};
-  std::thread delayed_periodic_cancel{
-      [fd = periodic_cancel_writer.get(), value] {
+    std::array<int, 2> cancel_fds{};
+    const bool cancel_ready = ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("TIME-005", cancel_ready);
+    if (!cancel_ready) {
+        return;
+    }
+    UniqueFd cancel_reader{cancel_fds[0]};
+    UniqueFd cancel_writer{cancel_fds[1]};
+    const std::byte value{0x1};
+    std::thread delayed_cancel{[fd = cancel_writer.get(), value] {
         std::this_thread::sleep_for(20ms);
         [[maybe_unused]] const auto written = ::write(fd, &value, sizeof(value));
-      }};
-  const auto periodic_cancelled =
-      cancellable_periodic.wait_next(periodic_cancel_reader.get());
-  delayed_periodic_cancel.join();
-  CHECK("TIME-006", !periodic_cancelled.ok());
-  CHECK("TIME-006", periodic_cancelled.status().error.value() == ECANCELED);
+    }};
+    const auto cancel_start = std::chrono::steady_clock::now();
+    const auto cancelled = platform_time::sleep_until(wake.value() + 5s, cancel_reader.get());
+    const auto cancel_elapsed = std::chrono::steady_clock::now() - cancel_start;
+    delayed_cancel.join();
+    CHECK("TIME-005", !cancelled.ok() && cancelled.error.value() == ECANCELED);
+    CHECK("TIME-005", cancel_elapsed >= 10ms && cancel_elapsed < 200ms);
 
-  const int invalid_fd = ::dup(cancel_reader.get());
-  CHECK("TIME-007", invalid_fd >= 0 && ::close(invalid_fd) == 0);
-  if (invalid_fd < 0) {
-    return;
-  }
-  const auto invalid_deadline = platform_time::now();
-  CHECK("TIME-007", invalid_deadline.ok());
-  const auto invalid_cancel = platform_time::sleep_until(
-      invalid_deadline.ok() ? invalid_deadline.value() + 5s : wake.value() + 5s,
-      invalid_fd);
-  CHECK("TIME-007",
-        !invalid_cancel.ok() && invalid_cancel.error.value() == EBADF);
+    std::array<int, 2> periodic_cancel_fds{};
+    const bool periodic_cancel_ready = ::pipe2(periodic_cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("TIME-006", periodic_cancel_ready);
+    if (!periodic_cancel_ready) {
+        return;
+    }
+    UniqueFd periodic_cancel_reader{periodic_cancel_fds[0]};
+    UniqueFd periodic_cancel_writer{periodic_cancel_fds[1]};
+    platform_time::PeriodicDeadline cancellable_periodic{wake.value() + 5s, 10ms};
+    std::thread delayed_periodic_cancel{[fd = periodic_cancel_writer.get(), value] {
+        std::this_thread::sleep_for(20ms);
+        [[maybe_unused]] const auto written = ::write(fd, &value, sizeof(value));
+    }};
+    const auto periodic_cancelled = cancellable_periodic.wait_next(periodic_cancel_reader.get());
+    delayed_periodic_cancel.join();
+    CHECK("TIME-006", !periodic_cancelled.ok());
+    CHECK("TIME-006", periodic_cancelled.status().error.value() == ECANCELED);
 
-  platform_time::PeriodicDeadline invalid{start.value(), 0ns};
-  const auto result = invalid.wait_next();
-  CHECK("TIME-008", !result.ok());
-  CHECK("TIME-008", result.status().operation == "periodic_wait");
+    const int invalid_fd = ::dup(cancel_reader.get());
+    CHECK("TIME-007", invalid_fd >= 0 && ::close(invalid_fd) == 0);
+    if (invalid_fd < 0) {
+        return;
+    }
+    const auto invalid_deadline = platform_time::now();
+    CHECK("TIME-007", invalid_deadline.ok());
+    const auto invalid_cancel = platform_time::sleep_until(
+        invalid_deadline.ok() ? invalid_deadline.value() + 5s : wake.value() + 5s, invalid_fd);
+    CHECK("TIME-007", !invalid_cancel.ok() && invalid_cancel.error.value() == EBADF);
+
+    platform_time::PeriodicDeadline invalid{start.value(), 0ns};
+    const auto result = invalid.wait_next();
+    CHECK("TIME-008", !result.ok());
+    CHECK("TIME-008", result.status().operation == "periodic_wait");
 }
 
 /** Verify SIGTERM is consumed synchronously through signalfd. */
 void test_termination_event() {
-  auto created = process::TerminationEvent::create();
-  CHECK("SIGNAL-001", created.ok());
-  if (!created.ok()) {
-    return;
-  }
-  {
-    auto event = std::move(created).value();
-    CHECK("SIGNAL-002", ::kill(::getpid(), SIGTERM) == 0);
-    const auto ready = io::wait_readable(event.fd(), 100ms);
-    CHECK("SIGNAL-002", ready.ok());
-    if (!ready.ok()) {
-      return;
+    auto created = process::TerminationEvent::create();
+    CHECK("SIGNAL-001", created.ok());
+    if (!created.ok()) {
+        return;
     }
-    CHECK("SIGNAL-002", ready.value().readable);
-    const auto signal = event.consume();
-    CHECK("SIGNAL-003", signal.ok());
-    if (!signal.ok()) {
-      return;
+    {
+        auto event = std::move(created).value();
+        CHECK("SIGNAL-002", ::kill(::getpid(), SIGTERM) == 0);
+        const auto ready = io::wait_readable(event.fd(), 100ms);
+        CHECK("SIGNAL-002", ready.ok());
+        if (!ready.ok()) {
+            return;
+        }
+        CHECK("SIGNAL-002", ready.value().readable);
+        const auto signal = event.consume();
+        CHECK("SIGNAL-003", signal.ok());
+        if (!signal.ok()) {
+            return;
+        }
+        CHECK("SIGNAL-003", signal.value() == SIGTERM);
+        const auto empty = event.consume();
+        CHECK("SIGNAL-004", empty.ok());
+        if (!empty.ok()) {
+            return;
+        }
+        CHECK("SIGNAL-004", empty.value() == 0);
     }
-    CHECK("SIGNAL-003", signal.value() == SIGTERM);
-    const auto empty = event.consume();
-    CHECK("SIGNAL-004", empty.ok());
-    if (!empty.ok()) {
-      return;
-    }
-    CHECK("SIGNAL-004", empty.value() == 0);
-  }
-  sigset_t current_mask{};
-  CHECK("SIGNAL-005",
-        ::pthread_sigmask(SIG_BLOCK, nullptr, &current_mask) == 0);
-  CHECK("SIGNAL-005", ::sigismember(&current_mask, SIGTERM) == 1);
+    sigset_t current_mask{};
+    CHECK("SIGNAL-005", ::pthread_sigmask(SIG_BLOCK, nullptr, &current_mask) == 0);
+    CHECK("SIGNAL-005", ::sigismember(&current_mask, SIGTERM) == 1);
 }
 
 /** Verify raw tty configuration, fragmented reads, timeout, and disconnect. */
 void test_serial_port() {
-  const int master_descriptor =
-      ::posix_openpt(O_RDWR | O_NOCTTY | O_NONBLOCK | O_CLOEXEC);
-  CHECK("UART-001", master_descriptor >= 0);
-  if (master_descriptor < 0) {
-    return;
-  }
-  UniqueFd master{master_descriptor};
-  const bool granted = ::grantpt(master.get()) == 0;
-  const bool unlocked = granted && ::unlockpt(master.get()) == 0;
-  CHECK("UART-001", granted);
-  CHECK("UART-001", unlocked);
-  if (!unlocked) {
-    return;
-  }
-  std::array<char, 256> slave_path{};
-  const bool named =
-      ::ptsname_r(master.get(), slave_path.data(), slave_path.size()) == 0;
-  CHECK("UART-001", named);
-  if (!named) {
-    return;
-  }
+    const int master_descriptor = ::posix_openpt(O_RDWR | O_NOCTTY | O_NONBLOCK | O_CLOEXEC);
+    CHECK("UART-001", master_descriptor >= 0);
+    if (master_descriptor < 0) {
+        return;
+    }
+    UniqueFd master{master_descriptor};
+    const bool granted = ::grantpt(master.get()) == 0;
+    const bool unlocked = granted && ::unlockpt(master.get()) == 0;
+    CHECK("UART-001", granted);
+    CHECK("UART-001", unlocked);
+    if (!unlocked) {
+        return;
+    }
+    std::array<char, 256> slave_path{};
+    const bool named = ::ptsname_r(master.get(), slave_path.data(), slave_path.size()) == 0;
+    CHECK("UART-001", named);
+    if (!named) {
+        return;
+    }
 
-  auto opened = uart::SerialPort::open(slave_path.data(), uart::SerialConfig{});
-  CHECK("UART-002", opened.ok());
-  if (!opened.ok()) {
-    return;
-  }
-  auto serial = std::move(opened).value();
-  termios attributes{};
-  CHECK("UART-003", ::tcgetattr(serial.fd(), &attributes) == 0);
-  CHECK("UART-003", ::cfgetispeed(&attributes) == B115200);
-  CHECK("UART-003", ::cfgetospeed(&attributes) == B115200);
+    auto opened = uart::SerialPort::open(slave_path.data(), uart::SerialConfig{});
+    CHECK("UART-002", opened.ok());
+    if (!opened.ok()) {
+        return;
+    }
+    auto serial = std::move(opened).value();
+    termios attributes{};
+    CHECK("UART-003", ::tcgetattr(serial.fd(), &attributes) == 0);
+    CHECK("UART-003", ::cfgetispeed(&attributes) == B115200);
+    CHECK("UART-003", ::cfgetospeed(&attributes) == B115200);
 
-  std::array<std::byte, 8> buffer{};
-  const auto negative_timeout = serial.read_some(buffer, -1ms);
-  CHECK("UART-003", !negative_timeout.ok());
-  CHECK("UART-003", negative_timeout.status().error.value() == EINVAL);
-  const auto overflow_timeout =
-      serial.read_some(buffer, std::chrono::milliseconds::max());
-  CHECK("UART-003", !overflow_timeout.ok());
-  CHECK("UART-003", overflow_timeout.status().error.value() == EOVERFLOW);
+    std::array<std::byte, 8> buffer{};
+    const auto negative_timeout = serial.read_some(buffer, -1ms);
+    CHECK("UART-003", !negative_timeout.ok());
+    CHECK("UART-003", negative_timeout.status().error.value() == EINVAL);
+    const auto overflow_timeout = serial.read_some(buffer, std::chrono::milliseconds::max());
+    CHECK("UART-003", !overflow_timeout.ok());
+    CHECK("UART-003", overflow_timeout.status().error.value() == EOVERFLOW);
 
-  auto count = serial.read_some(buffer, 1ms);
-  CHECK("UART-004", count.ok());
-  if (!count.ok()) {
-    return;
-  }
-  CHECK("UART-004", count.value() == 0);
+    auto count = serial.read_some(buffer, 1ms);
+    CHECK("UART-004", count.ok());
+    if (!count.ok()) {
+        return;
+    }
+    CHECK("UART-004", count.value() == 0);
 
-  const std::array<std::byte, 2> first{std::byte{0x11}, std::byte{0x22}};
-  const std::array<std::byte, 1> second{std::byte{0x33}};
-  CHECK("UART-005", ::write(master.get(), first.data(), first.size()) ==
-                        static_cast<ssize_t>(first.size()));
-  count = serial.read_some(buffer, 100ms);
-  CHECK("UART-005", count.ok());
-  if (!count.ok()) {
-    return;
-  }
-  CHECK("UART-005", count.value() == first.size());
-  CHECK("UART-005",
-        std::memcmp(buffer.data(), first.data(), first.size()) == 0);
-  CHECK("UART-006", ::write(master.get(), second.data(), second.size()) ==
-                        static_cast<ssize_t>(second.size()));
-  count = serial.read_some(buffer, 100ms);
-  CHECK("UART-006", count.ok() && count.value() == second.size());
+    const std::array<std::byte, 2> first{std::byte{0x11}, std::byte{0x22}};
+    const std::array<std::byte, 1> second{std::byte{0x33}};
+    CHECK("UART-005", ::write(master.get(), first.data(), first.size()) == static_cast<ssize_t>(first.size()));
+    count = serial.read_some(buffer, 100ms);
+    CHECK("UART-005", count.ok());
+    if (!count.ok()) {
+        return;
+    }
+    CHECK("UART-005", count.value() == first.size());
+    CHECK("UART-005", std::memcmp(buffer.data(), first.data(), first.size()) == 0);
+    CHECK("UART-006", ::write(master.get(), second.data(), second.size()) == static_cast<ssize_t>(second.size()));
+    count = serial.read_some(buffer, 100ms);
+    CHECK("UART-006", count.ok() && count.value() == second.size());
 
-  std::array<int, 2> cancel_fds{};
-  const bool cancel_ready =
-      ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("UART-007", cancel_ready);
-  if (!cancel_ready) {
-    return;
-  }
-  UniqueFd cancel_reader{cancel_fds[0]};
-  UniqueFd cancel_writer{cancel_fds[1]};
-  const std::byte cancel_byte{0x1};
-  std::thread delayed_cancel{[fd = cancel_writer.get(), cancel_byte] {
-    std::this_thread::sleep_for(20ms);
-    [[maybe_unused]] const auto written =
-        ::write(fd, &cancel_byte, sizeof(cancel_byte));
-  }};
-  const auto cancel_start = std::chrono::steady_clock::now();
-  count = serial.read_some(buffer, 5s, cancel_reader.get());
-  const auto cancel_elapsed = std::chrono::steady_clock::now() - cancel_start;
-  delayed_cancel.join();
-  CHECK("UART-007", !count.ok() && count.status().error.value() == ECANCELED);
-  CHECK("UART-007", cancel_elapsed >= 10ms && cancel_elapsed < 200ms);
+    std::array<int, 2> cancel_fds{};
+    const bool cancel_ready = ::pipe2(cancel_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("UART-007", cancel_ready);
+    if (!cancel_ready) {
+        return;
+    }
+    UniqueFd cancel_reader{cancel_fds[0]};
+    UniqueFd cancel_writer{cancel_fds[1]};
+    const std::byte cancel_byte{0x1};
+    std::thread delayed_cancel{[fd = cancel_writer.get(), cancel_byte] {
+        std::this_thread::sleep_for(20ms);
+        [[maybe_unused]] const auto written = ::write(fd, &cancel_byte, sizeof(cancel_byte));
+    }};
+    const auto cancel_start = std::chrono::steady_clock::now();
+    count = serial.read_some(buffer, 5s, cancel_reader.get());
+    const auto cancel_elapsed = std::chrono::steady_clock::now() - cancel_start;
+    delayed_cancel.join();
+    CHECK("UART-007", !count.ok() && count.status().error.value() == ECANCELED);
+    CHECK("UART-007", cancel_elapsed >= 10ms && cancel_elapsed < 200ms);
 
-  master.reset();
-  count = serial.read_some(buffer, 100ms);
-  CHECK("UART-008", !count.ok());
-  CHECK("UART-008", count.status().error.value() == EIO);
-  CHECK("UART-008",
-        count.status().context.find(slave_path.data()) != std::string::npos);
+    master.reset();
+    count = serial.read_some(buffer, 100ms);
+    CHECK("UART-008", !count.ok());
+    CHECK("UART-008", count.status().error.value() == EIO);
+    CHECK("UART-008", count.status().context.find(slave_path.data()) != std::string::npos);
 
-  const auto missing =
-      uart::SerialPort::open("/definitely/missing/robot-control-tty", {});
-  CHECK("UART-009", !missing.ok());
-  CHECK("UART-009", missing.status().operation == "open");
+    const auto missing = uart::SerialPort::open("/definitely/missing/robot-control-tty", {});
+    CHECK("UART-009", !missing.ok());
+    CHECK("UART-009", missing.status().operation == "open");
 }
 
 /** Verify structured fields and deterministic repetition throttling. */
 void test_logger() {
-  std::array<int, 2> capture_fds{};
-  const bool capture_ready = ::pipe2(capture_fds.data(), O_CLOEXEC) == 0;
-  CHECK("LOG-001", capture_ready);
-  if (!capture_ready) {
-    return;
-  }
-  UniqueFd capture_reader{capture_fds[0]};
-  UniqueFd capture_writer{capture_fds[1]};
-  const int saved_stderr = ::dup(STDERR_FILENO);
-  CHECK("LOG-001", saved_stderr >= 0);
-  if (saved_stderr < 0) {
-    return;
-  }
-  UniqueFd restore_stderr{saved_stderr};
-  const bool redirected = ::dup2(capture_writer.get(), STDERR_FILENO) >= 0;
-  CHECK("LOG-001", redirected);
-  if (!redirected) {
-    return;
-  }
-  logging::Logger logger;
-  expected_stderr_flags = ::fcntl(STDERR_FILENO, F_GETFL);
-  inspect_log_flags = true;
-  const std::chrono::steady_clock::time_point t0{};
-  logger.log(logging::Severity::info, "test", "started", "value=1");
-  logger.log_throttled("repeat", 100ms, logging::Severity::warning, "test",
-                       "repeat", "code=2", t0);
-  logger.log_throttled("repeat", 100ms, logging::Severity::warning, "test",
-                       "repeat", "code=2", t0 + 1ms);
-  logger.log_throttled("repeat", 100ms, logging::Severity::warning, "test",
-                       "repeat", "code=2", t0 + 100ms);
-  inspect_log_flags = false;
-  const bool flags_preserved = !log_changed_stderr_flags;
-  CHECK("LOG-001", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
-  CHECK("LOG-FLAGS-001", flags_preserved);
-  capture_writer.reset();
-  std::array<char, 2048> output{};
-  const auto output_size =
-      ::read(capture_reader.get(), output.data(), output.size() - 1U);
-  CHECK("LOG-001", output_size > 0);
-  const std::string_view text{
-      output.data(),
-      output_size > 0 ? static_cast<std::size_t>(output_size) : 0U};
-  CHECK("LOG-001", text.find("severity=INFO") != std::string::npos);
-  CHECK("LOG-001", text.find("test") != std::string::npos);
-  CHECK("LOG-002", text.find("suppressed=1") != std::string::npos);
-
-  const int null_fd = ::open("/dev/null", O_WRONLY | O_CLOEXEC);
-  CHECK("LOG-003", null_fd >= 0);
-  if (null_fd >= 0) {
-    CHECK("LOG-003", ::dup2(null_fd, STDERR_FILENO) >= 0);
-    static_cast<void>(::close(null_fd));
-    for (std::size_t index = 0; index < 300U; ++index) {
-      logger.log_throttled("key-" + std::to_string(index), 1s,
-                           logging::Severity::debug, "test", "bounded", "", t0);
+    std::array<int, 2> capture_fds{};
+    const bool capture_ready = ::pipe2(capture_fds.data(), O_CLOEXEC) == 0;
+    CHECK("LOG-001", capture_ready);
+    if (!capture_ready) {
+        return;
     }
-    CHECK("LOG-003", logger.throttle_key_count() == 256U);
-  }
-
-  robot_control_elog_reset_health();
-  const int full_fd = ::open("/dev/full", O_WRONLY | O_CLOEXEC);
-  CHECK("LOG-004", full_fd >= 0);
-  if (full_fd >= 0) {
-    CHECK("LOG-004", ::dup2(full_fd, STDERR_FILENO) >= 0);
-    static_cast<void>(::close(full_fd));
-    logger.log(logging::Severity::error, "test", "forced_failure", "");
-    const auto health = logger.health();
-    CHECK("LOG-004", health.output_failures >= 1U);
-    CHECK("LOG-004", health.last_error == ENOSPC);
-  }
-  CHECK("LOG-005", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
-
-  std::array<int, 2> backpressure_fds{};
-  const bool backpressure_ready =
-      ::pipe2(backpressure_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
-  CHECK("LOG-006", backpressure_ready);
-  if (backpressure_ready) {
-    UniqueFd backpressure_reader{backpressure_fds[0]};
-    UniqueFd backpressure_writer{backpressure_fds[1]};
-    std::array<std::byte, 4096> fill{};
-    while (::write(backpressure_writer.get(), fill.data(), fill.size()) > 0) {
+    UniqueFd capture_reader{capture_fds[0]};
+    UniqueFd capture_writer{capture_fds[1]};
+    const int saved_stderr = ::dup(STDERR_FILENO);
+    CHECK("LOG-001", saved_stderr >= 0);
+    if (saved_stderr < 0) {
+        return;
     }
-    CHECK("LOG-006", errno == EAGAIN || errno == EWOULDBLOCK);
-    const int flags = ::fcntl(backpressure_writer.get(), F_GETFL);
-    CHECK("LOG-006", flags >= 0);
-    CHECK("LOG-006", ::fcntl(backpressure_writer.get(), F_SETFL,
-                             flags & ~O_NONBLOCK) == 0);
-    CHECK("LOG-006", ::dup2(backpressure_writer.get(), STDERR_FILENO) >= 0);
+    UniqueFd restore_stderr{saved_stderr};
+    const bool redirected = ::dup2(capture_writer.get(), STDERR_FILENO) >= 0;
+    CHECK("LOG-001", redirected);
+    if (!redirected) {
+        return;
+    }
+    logging::Logger logger;
+    expected_stderr_flags = ::fcntl(STDERR_FILENO, F_GETFL);
+    inspect_log_flags = true;
+    const std::chrono::steady_clock::time_point t0{};
+    logger.log(logging::Severity::info, "test", "started", "value=1");
+    logger.log_throttled("repeat", 100ms, logging::Severity::warning, "test", "repeat", "code=2", t0);
+    logger.log_throttled("repeat", 100ms, logging::Severity::warning, "test", "repeat", "code=2", t0 + 1ms);
+    logger.log_throttled("repeat", 100ms, logging::Severity::warning, "test", "repeat", "code=2", t0 + 100ms);
+    inspect_log_flags = false;
+    const bool flags_preserved = !log_changed_stderr_flags;
+    CHECK("LOG-001", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
+    CHECK("LOG-FLAGS-001", flags_preserved);
+    capture_writer.reset();
+    std::array<char, 2048> output{};
+    const auto output_size = ::read(capture_reader.get(), output.data(), output.size() - 1U);
+    CHECK("LOG-001", output_size > 0);
+    const std::string_view text{output.data(), output_size > 0 ? static_cast<std::size_t>(output_size) : 0U};
+    CHECK("LOG-001", text.find("severity=INFO") != std::string::npos);
+    CHECK("LOG-001", text.find("test") != std::string::npos);
+    CHECK("LOG-002", text.find("suppressed=1") != std::string::npos);
+
+    const int null_fd = ::open("/dev/null", O_WRONLY | O_CLOEXEC);
+    CHECK("LOG-003", null_fd >= 0);
+    if (null_fd >= 0) {
+        CHECK("LOG-003", ::dup2(null_fd, STDERR_FILENO) >= 0);
+        static_cast<void>(::close(null_fd));
+        for (std::size_t index = 0; index < 300U; ++index) {
+            logger.log_throttled("key-" + std::to_string(index), 1s, logging::Severity::debug, "test", "bounded", "",
+                                 t0);
+        }
+        CHECK("LOG-003", logger.throttle_key_count() == 256U);
+    }
+
     robot_control_elog_reset_health();
-    const auto blocked_start = std::chrono::steady_clock::now();
-    logger.log(logging::Severity::error, "test", "backpressure", "");
-    const auto blocked_elapsed =
-        std::chrono::steady_clock::now() - blocked_start;
-    const auto health = logger.health();
-    CHECK("LOG-006", blocked_elapsed < 100ms);
-    CHECK("LOG-006", health.output_failures >= 1U);
-    CHECK("LOG-006",
-          health.last_error == EAGAIN || health.last_error == EWOULDBLOCK);
-    CHECK("LOG-006", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
-  }
+    const int full_fd = ::open("/dev/full", O_WRONLY | O_CLOEXEC);
+    CHECK("LOG-004", full_fd >= 0);
+    if (full_fd >= 0) {
+        CHECK("LOG-004", ::dup2(full_fd, STDERR_FILENO) >= 0);
+        static_cast<void>(::close(full_fd));
+        logger.log(logging::Severity::error, "test", "forced_failure", "");
+        const auto health = logger.health();
+        CHECK("LOG-004", health.output_failures >= 1U);
+        CHECK("LOG-004", health.last_error == ENOSPC);
+    }
+    CHECK("LOG-005", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
+
+    std::array<int, 2> backpressure_fds{};
+    const bool backpressure_ready = ::pipe2(backpressure_fds.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+    CHECK("LOG-006", backpressure_ready);
+    if (backpressure_ready) {
+        UniqueFd backpressure_reader{backpressure_fds[0]};
+        UniqueFd backpressure_writer{backpressure_fds[1]};
+        std::array<std::byte, 4096> fill{};
+        while (::write(backpressure_writer.get(), fill.data(), fill.size()) > 0) {}
+        CHECK("LOG-006", errno == EAGAIN || errno == EWOULDBLOCK);
+        const int flags = ::fcntl(backpressure_writer.get(), F_GETFL);
+        CHECK("LOG-006", flags >= 0);
+        CHECK("LOG-006", ::fcntl(backpressure_writer.get(), F_SETFL, flags & ~O_NONBLOCK) == 0);
+        CHECK("LOG-006", ::dup2(backpressure_writer.get(), STDERR_FILENO) >= 0);
+        robot_control_elog_reset_health();
+        const auto blocked_start = std::chrono::steady_clock::now();
+        logger.log(logging::Severity::error, "test", "backpressure", "");
+        const auto blocked_elapsed = std::chrono::steady_clock::now() - blocked_start;
+        const auto health = logger.health();
+        CHECK("LOG-006", blocked_elapsed < 100ms);
+        CHECK("LOG-006", health.output_failures >= 1U);
+        CHECK("LOG-006", health.last_error == EAGAIN || health.last_error == EWOULDBLOCK);
+        CHECK("LOG-006", ::dup2(restore_stderr.get(), STDERR_FILENO) >= 0);
+    }
 }
 
 /** Verify socket output/backpressure and append-only reopening preserve shared sink flags. */
 void test_logger_sinks() {
-  UniqueFd saved{::dup(STDERR_FILENO)};
-  CHECK("LOG-SINK-001", static_cast<bool>(saved));
-  if (!saved) { return; }
-  std::array<int, 2> sockets{};
-  const bool created = ::socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0, sockets.data()) == 0;
-  CHECK("LOG-SINK-001", created);
-  if (!created) { return; }
-  UniqueFd reader{sockets[0]};
-  UniqueFd writer{sockets[1]};
-  CHECK("LOG-SINK-001", ::dup2(writer.get(), STDERR_FILENO) >= 0);
-  const int flags = ::fcntl(writer.get(), F_GETFL);
-  logging::Logger logger;
-  robot_control_elog_reset_health();
-  logger.log(logging::Severity::info, "test", "socket_record", "");
-  std::array<char, 2048> output{};
-  const auto count = ::recv(reader.get(), output.data(), output.size(), MSG_DONTWAIT);
-  const bool delivered = count > 0 && std::string_view(output.data(), static_cast<std::size_t>(count))
-                                         .find("socket_record") != std::string_view::npos;
-  const std::array<char, 4096> fill{};
-  while (::send(writer.get(), fill.data(), fill.size(), MSG_DONTWAIT | MSG_NOSIGNAL) > 0) {}
-  const bool full = errno == EAGAIN || errno == EWOULDBLOCK;
-  const auto start = std::chrono::steady_clock::now();
-  logger.log(logging::Severity::error, "test", "socket_full", "");
-  const auto elapsed = std::chrono::steady_clock::now() - start;
-  const auto health = logger.health();
-  const bool preserved = ::fcntl(writer.get(), F_GETFL) == flags;
-  reader.reset();
-  logger.log(logging::Severity::error, "test", "closed_socket", "");
-  const auto closed_health = logger.health();
-  CHECK("LOG-SINK-001", ::dup2(saved.get(), STDERR_FILENO) >= 0);
-  CHECK("LOG-SINK-001", delivered && full && preserved);
-  CHECK("LOG-SINK-002", elapsed < 100ms && health.output_failures >= 1U);
-  CHECK("LOG-SINK-002", health.last_error == EAGAIN || health.last_error == EWOULDBLOCK);
-  CHECK("LOG-SINK-003", closed_health.last_error == EPIPE);
+    UniqueFd saved{::dup(STDERR_FILENO)};
+    CHECK("LOG-SINK-001", static_cast<bool>(saved));
+    if (!saved) {
+        return;
+    }
+    std::array<int, 2> sockets{};
+    const bool created = ::socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0, sockets.data()) == 0;
+    CHECK("LOG-SINK-001", created);
+    if (!created) {
+        return;
+    }
+    UniqueFd reader{sockets[0]};
+    UniqueFd writer{sockets[1]};
+    CHECK("LOG-SINK-001", ::dup2(writer.get(), STDERR_FILENO) >= 0);
+    const int flags = ::fcntl(writer.get(), F_GETFL);
+    logging::Logger logger;
+    robot_control_elog_reset_health();
+    logger.log(logging::Severity::info, "test", "socket_record", "");
+    std::array<char, 2048> output{};
+    const auto count = ::recv(reader.get(), output.data(), output.size(), MSG_DONTWAIT);
+    const bool delivered = count > 0
+                           && std::string_view(output.data(), static_cast<std::size_t>(count)).find("socket_record")
+                                  != std::string_view::npos;
+    const std::array<char, 4096> fill{};
+    while (::send(writer.get(), fill.data(), fill.size(), MSG_DONTWAIT | MSG_NOSIGNAL) > 0) {}
+    const bool full = errno == EAGAIN || errno == EWOULDBLOCK;
+    const auto start = std::chrono::steady_clock::now();
+    logger.log(logging::Severity::error, "test", "socket_full", "");
+    const auto elapsed = std::chrono::steady_clock::now() - start;
+    const auto health = logger.health();
+    const bool preserved = ::fcntl(writer.get(), F_GETFL) == flags;
+    reader.reset();
+    logger.log(logging::Severity::error, "test", "closed_socket", "");
+    const auto closed_health = logger.health();
+    CHECK("LOG-SINK-001", ::dup2(saved.get(), STDERR_FILENO) >= 0);
+    CHECK("LOG-SINK-001", delivered && full && preserved);
+    CHECK("LOG-SINK-002", elapsed < 100ms && health.output_failures >= 1U);
+    CHECK("LOG-SINK-002", health.last_error == EAGAIN || health.last_error == EWOULDBLOCK);
+    CHECK("LOG-SINK-003", closed_health.last_error == EPIPE);
 
-  char path[] = "/tmp/robot-control-log-XXXXXX";
-  UniqueFd file{::mkstemp(path)};
-  CHECK("LOG-SINK-004", static_cast<bool>(file));
-  if (!file) { return; }
-  CHECK("LOG-SINK-004", ::unlink(path) == 0);
-  CHECK("LOG-SINK-004", ::write(file.get(), "prefix", 6U) == 6);
-  CHECK("LOG-SINK-004", ::lseek(file.get(), 0, SEEK_SET) == 0);
-  const int file_flags = ::fcntl(file.get(), F_GETFL);
-  CHECK("LOG-SINK-004", ::dup2(file.get(), STDERR_FILENO) >= 0);
-  logger.log(logging::Severity::info, "test", "appended", "");
-  CHECK("LOG-SINK-004", ::dup2(saved.get(), STDERR_FILENO) >= 0);
-  CHECK("LOG-SINK-004", ::lseek(file.get(), 0, SEEK_CUR) == 0);
-  CHECK("LOG-SINK-004", ::fcntl(file.get(), F_GETFL) == file_flags);
-  const auto file_count = ::read(file.get(), output.data(), output.size());
-  CHECK("LOG-SINK-004", file_count > 6);
-  const std::string_view text(output.data(), file_count > 0 ? static_cast<std::size_t>(file_count) : 0U);
-  CHECK("LOG-SINK-004", text.starts_with("prefix") && text.find("appended") != std::string_view::npos);
+    char path[] = "/tmp/robot-control-log-XXXXXX";
+    UniqueFd file{::mkstemp(path)};
+    CHECK("LOG-SINK-004", static_cast<bool>(file));
+    if (!file) {
+        return;
+    }
+    CHECK("LOG-SINK-004", ::unlink(path) == 0);
+    CHECK("LOG-SINK-004", ::write(file.get(), "prefix", 6U) == 6);
+    CHECK("LOG-SINK-004", ::lseek(file.get(), 0, SEEK_SET) == 0);
+    const int file_flags = ::fcntl(file.get(), F_GETFL);
+    CHECK("LOG-SINK-004", ::dup2(file.get(), STDERR_FILENO) >= 0);
+    logger.log(logging::Severity::info, "test", "appended", "");
+    CHECK("LOG-SINK-004", ::dup2(saved.get(), STDERR_FILENO) >= 0);
+    CHECK("LOG-SINK-004", ::lseek(file.get(), 0, SEEK_CUR) == 0);
+    CHECK("LOG-SINK-004", ::fcntl(file.get(), F_GETFL) == file_flags);
+    const auto file_count = ::read(file.get(), output.data(), output.size());
+    CHECK("LOG-SINK-004", file_count > 6);
+    const std::string_view text(output.data(), file_count > 0 ? static_cast<std::size_t>(file_count) : 0U);
+    CHECK("LOG-SINK-004", text.starts_with("prefix") && text.find("appended") != std::string_view::npos);
+}
+
+/** Verify final record bounds, explicit truncation and complete nonblocking pipe delivery. */
+void test_logger_record_bound() {
+    UniqueFd saved{::dup(STDERR_FILENO)};
+    CHECK("LOG-BOUND-001", static_cast<bool>(saved));
+    if (!saved) {
+        return;
+    }
+    for (const bool detailed : {false, true}) {
+        logging::Logger logger{detailed};
+        const auto capture = [&](std::string_view module, std::string_view event, std::string_view context,
+                                 bool throttled = false) {
+            std::array<int, 2> descriptors{};
+            const bool ready = ::pipe2(descriptors.data(), O_CLOEXEC | O_NONBLOCK) == 0;
+            CHECK("LOG-BOUND-001", ready);
+            if (!ready) {
+                return std::string{};
+            }
+            UniqueFd reader{descriptors[0]};
+            UniqueFd writer{descriptors[1]};
+            CHECK("LOG-BOUND-001", ::fcntl(writer.get(), F_SETPIPE_SZ, 4096) >= 4096);
+            CHECK("LOG-BOUND-001", ::dup2(writer.get(), STDERR_FILENO) >= 0);
+            robot_control_elog_reset_health();
+            if (throttled) {
+                logger.log_throttled("bounded", 0ms, logging::Severity::info, module, event, context, {});
+            } else {
+                logger.log(logging::Severity::info, module, event, context);
+            }
+            const auto health = logger.health();
+            CHECK("LOG-BOUND-001", ::dup2(saved.get(), STDERR_FILENO) >= 0);
+            std::array<char, 32768> buffer{};
+            const auto count = ::read(reader.get(), buffer.data(), buffer.size());
+            CHECK("LOG-BOUND-002", count > 0 && count <= 512);
+            CHECK("LOG-BOUND-002", health.output_failures == 0);
+            return count > 0 ? std::string{buffer.data(), static_cast<std::size_t>(count)} : std::string{};
+        };
+        const auto short_line = capture("test", "bound", "");
+        CHECK("LOG-BOUND-003", short_line.ends_with("event=\"bound\"\n"));
+        CHECK("LOG-BOUND-003", short_line.find("truncated=1") == std::string::npos);
+        if (short_line.size() >= 510) {
+            return;
+        }
+        for (const std::size_t length : {511U, 512U, 513U}) {
+            const auto line = capture("test", "bound", std::string(length - short_line.size() - 1U, 'x'));
+            CHECK("LOG-BOUND-004", line.size() == (length > 512 ? 512 : length));
+            CHECK("LOG-BOUND-004", line.ends_with('\n'));
+            CHECK("LOG-BOUND-004", (line.find("truncated=1") != std::string::npos) == (length > 512));
+        }
+        for (const auto& line :
+             {capture("test", "bound", std::string(20000, 'x')), capture(std::string(20000, 'm'), "bound", ""),
+              capture("test", std::string(20000, 'e'), ""), capture("test", "bound", std::string(20000, 'x'), true)}) {
+            CHECK("LOG-BOUND-005", line.size() == 512);
+            CHECK("LOG-BOUND-005", line.ends_with(" truncated=1\n"));
+        }
+    }
 }
 
 } // namespace
@@ -709,10 +732,10 @@ void test_logger_sinks() {
 extern "C" ssize_t __real_write(int fd, const void* buffer, size_t size);
 /** Inspect flags at the write boundary, then invoke the real syscall unchanged. */
 extern "C" ssize_t __wrap_write(int fd, const void* buffer, size_t size) {
-  if (inspect_log_flags && ::fcntl(STDERR_FILENO, F_GETFL) != expected_stderr_flags) {
-    log_changed_stderr_flags = true;
-  }
-  return __real_write(fd, buffer, size);
+    if (inspect_log_flags && ::fcntl(STDERR_FILENO, F_GETFL) != expected_stderr_flags) {
+        log_changed_stderr_flags = true;
+    }
+    return __real_write(fd, buffer, size);
 }
 
 /**
@@ -721,17 +744,18 @@ extern "C" ssize_t __wrap_write(int fd, const void* buffer, size_t size) {
  * @return EXIT_SUCCESS when all assertions pass, otherwise EXIT_FAILURE.
  */
 int main() {
-  test_fd_and_poll();
-  test_writable_poll();
-  test_monotonic_timer();
-  test_termination_event();
-  test_serial_port();
-  test_logger();
-  test_logger_sinks();
-  if (failures != 0) {
-    std::cerr << "linux_platform_integration failures=" << failures << '\n';
-    return EXIT_FAILURE;
-  }
-  std::cout << "linux_platform_integration passed\n";
-  return EXIT_SUCCESS;
+    test_fd_and_poll();
+    test_writable_poll();
+    test_monotonic_timer();
+    test_termination_event();
+    test_serial_port();
+    test_logger();
+    test_logger_sinks();
+    test_logger_record_bound();
+    if (failures != 0) {
+        std::cerr << "linux_platform_integration failures=" << failures << '\n';
+        return EXIT_FAILURE;
+    }
+    std::cout << "linux_platform_integration passed\n";
+    return EXIT_SUCCESS;
 }

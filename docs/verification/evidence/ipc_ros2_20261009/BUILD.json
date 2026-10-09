@@ -1,0 +1,38 @@
+{
+  "version": "ipc-board-20261009T074826Z",
+  "source": {
+    "dirty": true,
+    "file_count": 6537,
+    "revision": "b6cf527d680606296953d268893e5a9c5dcd96f3",
+    "schema_version": 1,
+    "snapshot_sha256": "08016d525247fdfe0db9819409ecd705536691bfb2fdf62124634dd8d5b88235"
+  },
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/ipc-board-20261009T074826Z",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_TEST_APP=ON"
+  ],
+  "build": "out/build/cross/ipc-board-20261009T074826Z",
+  "source_directory": "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/ipc-board-20261009T074826Z-source",
+  "artifacts": {
+    "out/build/cross/ipc-board-20261009T074826Z/app/robot-control-app": "9432add8e2f4dc16c11f0cd22559394e50cca97f26aec0404b19b321ba7683b3",
+    "out/build/cross/ipc-board-20261009T074826Z/app/robot-control-device-config": "b36a9172232b987ef6af0148541fef6a2f3b8899f691784d821bf3784c2758b2",
+    "out/build/cross/ipc-board-20261009T074826Z/app/robot-control-config-check": "a6d7399403621aa8245f3f9388f9406d25a66078a121ca217253f2f038c92840",
+    "out/build/cross/ipc-board-20261009T074826Z/tools/platform_probe/robot-control-platform-probe": "54585be68da1308f34efa8413a4adbae815c981bd59f5478d5256ee026f0c17d",
+    "out/build/cross/ipc-board-20261009T074826Z/app/robot_control_ipc_fixture": "63ce6f61eb65575e1a55cc67820bd071258025daed2ce847c2db71316c9e6784",
+    "out/build/cross/ipc-board-20261009T074826Z/robot_control_sbus_source_tests": "111f930e51deb54bd88494f258be6407d6814b76e4e8e6e067074378e30dce71",
+    "out/build/cross/ipc-board-20261009T074826Z/robot_control_control_cycle_tests": "2881e533e09567f36ee2b2dfa863b7bf6e88b29c0289f5d0ef8a888df8bd79e9",
+    "out/build/cross/ipc-board-20261009T074826Z/robot_control_canopen_runtime_policy_tests": "dd312486496d3ac2f01608e8b872a3e879e42f313da782b79683314a96645be7"
+  },
+  "target_directory": "/home/cat/robot-control-tests/ipc-board-20261009T074826Z"
+}

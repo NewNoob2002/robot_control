@@ -10,7 +10,7 @@ an adapter and is not the low-level safety authority.
 
 Phase 3 provides Linux mechanism adapters for descriptor ownership, poll-based
 waiting, absolute monotonic timing, synchronous termination events, raw UART,
-and throttled structured logging through EasyLogger. These adapters contain no
+and throttled structured logging through spdlog. These adapters contain no
 motion policy and are covered by pipe, PTY, signal, timing, sanitizer, and
 cross-build tests.
 Phase 4 SocketCAN work provides a policy-free Classical CAN frame codec, a
@@ -38,7 +38,7 @@ observation. Target RXF/RXMF advanced by two, TX remained zero, no error frame
 was observed, and cleanup passed. Phase 5 is complete.
 See
 docs/verification/PHASE5_CANOPEN_BASELINE.md.
-Current checkpoint, September 21, 2026: P9 input, P8-R runtime and bounded
+Current checkpoint, October 9, 2026: P9 input, P8-R runtime and bounded
 P10.1–P10.3 integration are accepted. The separate three-hour disabled-drive soak,
 one-hour zero-target SBUS/ControlLoop soak, raised motion matrix and six bounded
 unloaded ground functions have their own accepted evidence. Original failures
@@ -56,13 +56,19 @@ See [test-app usage](docs/development/TEST_APP.md),
 [software verification](docs/verification/TEST_APP_BASELINE.md), and the
 [ROS2 integration guide](docs/development/ROS2_PORTING_GUIDE.md).
 
-Current app Debug and ASan/UBSan each pass 41 host tests, including isolated vcan;
-locked RK3588 cross builds and ELF audits pass. Earlier app field logs document
+The latest app Debug and ASan/UBSan runs each pass 38 host tests with four vcan
+checks skipped because namespace capabilities or kernel support are unavailable;
+the earlier 42/42 baseline retains its original scope. Locked RK3588 cross builds
+and ELF audits pass. Earlier app field logs document
 fault investigations, not acceptance of the current binary. Current-version
 hardware regression, measured speed scaling/stopping/holding, loaded operation,
 remaining ground fault injection and final five-hour integrated stability remain
-open. IPC is deferred, ROS2 is not implemented, and production/systemd deployment
-is not accepted. The Rockchip delayed-TX issue remains unresolved. Archived
+open. [Read-only IPC and a Humble status/probe node](docs/development/ROS2_IPC.md)
+are implemented, and [device-free RK3588 IPC/DDS checks](docs/verification/IPC_BOARD_BASELINE.md)
+pass in both the original private runtime and the installed native Humble environment.
+Host RViz GUI smoke also passes; [host Docker/native board usage](docker/ros2/README.md)
+records the launch and networking settings. ROS2 motion and production/systemd deployment
+are not accepted. The Rockchip delayed-TX issue remains unresolved. Archived
 power-off/readiness statements never authorize a later hardware run.
 See the [post-soak plan](docs/plans/POST_SOAK_GROUND_READINESS.md),
 [P10.3 checkpoint](docs/verification/P10_3_HIL_CHECKPOINT.md),

@@ -1,0 +1,2 @@
+PASS: shutdown/context race and live-context error propagation
+PASS: Humble DDS status/probe, SIGTERM, node restart, paused simulation clock, server loss and reconnection

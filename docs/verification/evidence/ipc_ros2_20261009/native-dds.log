@@ -1,0 +1,16 @@
+BUILD.json: OK
+ROS_RUNTIME.json: OK
+config/rk3588-test.conf: OK
+robot-control-app: OK
+robot-control-config-check: OK
+robot-control-device-config: OK
+robot-control-platform-probe: OK
+robot_control_canopen_runtime_policy_tests: OK
+robot_control_control_cycle_tests: OK
+robot_control_ipc_fixture: OK
+robot_control_sbus_source_tests: OK
+ros2/robot_control_ipc_node.py: OK
+run_board_checks.py: OK
+scripts/test/test_app_ipc.py: OK
+scripts/test/test_ros2_ipc.py: OK
+/opt/ros/humble/setup.bash: line 8: AMENT_TRACE_SETUP_FILES: unbound variable

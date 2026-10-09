@@ -1,3 +1,90 @@
+# 当前 diff 整理与 RK3588 IPC/ROS2 软件验证（2026-10-09）
+
+用户要求整理当前diff后实板测试；RTK暂停。日志依赖/formatter/契约和过时文档已整理，
+既有IPC fixture可交叉构建。主机Debug与ASan/UBSan各38通过、4项vcan跳过；
+修复Humble SIGTERM/context竞态，确定性回归及真实DDS通过。
+锁定交叉构建8个ELF审计通过，RK3588设备无访问10项检查及Humble导入/DDS两项通过。
+独立用户目录部署，无残留测试进程/socket；最初使用私有运行时。
+用户现已完成原生Humble ros-base安装，/opt/ros/humble导入与同一DDS回归通过；
+host固定desktop镜像的RViz窗口/OpenGL/配置保存也通过。真实CAN/UART和驱动/运动HIL未执行。
+产物身份、命令、原始失败、运行时来源及范围见[实板基线](IPC_BOARD_BASELINE.md)。
+本次提交前逐项核对108个编译输入和部署节点/测试，与原验证产物一致；
+可携带的原始测试与身份记录归档于[evidence/ipc_ros2_20261009](evidence/ipc_ros2_20261009/)。
+以下记录保留各轮原始范围，旧“未部署/smoke”不代表本轮结果。
+
+---
+
+# spdlog / IPC 复审 P2 修复
+
+上一轮未确认P1；本次修复两项P2，未改变硬件操作授权。
+
+- Logger最终编码记录上限为512字节，包含模块/时间/PID/TID前缀和换行。
+  超长记录尾部为`truncated=1`并保留换行；普通和节流输出使用同一实现。
+  app轮转预留、长度检查和镜像缓冲区复用`Logger::max_record_bytes`。
+- ROS2 IPC定时器显式使用`ClockType.STEADY_TIME`，不随use_sim_time或暂停的/clock停止。
+
+先新增回归再修改实现：原实现的linux_platform_integration出现38条边界断言失败；
+Humble测试在启用use_sim_time且不发布/clock后因收不到连接状态失败。原失败日志保留。
+最终日志回归覆盖普通/详细格式的511、512、513字节边界，以及20KB context、module、
+event和节流记录在4096字节非阻塞管道中的完整换行及健康计数。
+Humble DDS回归覆盖普通时钟、SIGTERM、节点重启、暂停仿真时钟下的探测、服务端退出与重连。
+
+本次实际验证：
+
+- `cmake --build out/build/test-app-debug --parallel 4`；
+  `ctest --test-dir out/build/test-app-debug --output-on-failure --no-tests=error -j 2`：
+  38项通过、4项vcan跳过，无失败；不能记为完整42/42。
+- 相同命令用于test-app-san，设置`ASAN_OPTIONS=detect_leaks=0:halt_on_error=1`
+  与`UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1`：38项通过、相同4项vcan跳过。
+  跳过日志为`namespace capabilities or kernel vcan support are unavailable`。
+- docker/ros2/image.lock固定Humble镜像、无设备/无外部网络环境中运行
+  `python3 scripts/test/test_ros2_ipc.py out/build/ros2-ipc-humble/app/robot_control_ipc_fixture`：通过。
+- control-hil-regression构建diagnostics/hil；`scripts/test/test_control_diagnostics.py`：通过。
+- 固定交叉镜像身份校验和实际Ubuntu22.04 sysroot锁校验通过。
+  新目录out/build/cross/spdlog-fix.jYpyW7构建app、device-config、platform-probe；
+  三个ELF的解释器、依赖、符号版本和无RPATH审计通过，platform-probe的Phase3符号检查通过。
+- `clang-tidy -p out/build/test-app-debug service/logging/logger.cpp app/runtime_log.cpp
+  tests/integration/linux_platform_tests.cpp`退出0；工具23.1.1与既有22.1.8基线不同。
+  保留既有位运算、optional-access和未使用spdlog前置声明的命名提示；不宣称无告警。
+- 修改文件的主动LSP扫描未发现未处置诊断，但部分C++服务超时/无法确认clean；
+  C++验证以上述编译与clang-tidy为准。主机ROS导入缺少依赖的提示局部标注，
+  所有对应导入已在固定Humble镜像实际验证。JSON异常传递和精确False检查的误报局部标注，
+  不改变拒绝行为。Ruff导入检查、Python语法和git diff --check通过。
+
+日志位于out/verification/spdlog-fix/，包含原始失败、修复后的通过、静态及交叉审计结果。
+未部署、未执行目标板smoke或硬件测试；远端CI未运行，不以原始阶段的42/42替代本次跳过项。
+
+---
+
+# 2026-09-21 ROS2 / IPC 第一阶段
+
+基于b6cf527，在codex/ros2-control-thread-integration实现可选Unix SOCK_SEQPACKET
+状态/探测端和独立Humble rclpy节点；合同见[ROS2_IPC.md](../development/ROS2_IPC.md)。
+只读请求不会填充external或授予运动权限。每周期最多处理一包，单客户端、同UID、
+私有目录、年龄/序号/范围校验和慢观察者断开；默认关闭，旧配置继续可用。
+
+实际验证：
+- cmake --build out/build/test-app-debug -j 4；ctest --test-dir out/build/test-app-debug
+  --output-on-failure -j 2：42/42，无skip。初始化错误路径的errno修正后定向配置/IPC复核2/2。
+- cmake --build out/build/test-app-san -j 4；ASAN_OPTIONS=detect_leaks=0:halt_on_error=1
+  UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1 ctest --test-dir out/build/test-app-san
+  --output-on-failure -j 2：最终代码42/42，无skip。
+- 新增app_ipc_contract；app vcan从23扩为25场景，验证非零探测不产生运动和观察者堵塞不影响SBUS。
+- docker/ros2/image.lock锁定Humble镜像内，根CMake构建robot_control_ipc_fixture，
+  scripts/test/test_ros2_ipc.py通过真实DDS状态/探测、SIGTERM、节点重启、服务端退出与重连。
+- 四个相关TU的clang-tidy通过；仅保留platform/linux/error.hpp既有optional-access提示。
+- 锁定交叉镜像GCC11.4、经锁校验的实际Ubuntu22.04 sysroot，构建
+  out/build/cross/ros2-ipc-20260921；app/device-config两个ELF的解释器、依赖、符号版本及无RPATH审计通过。
+
+首次IPC测试被沙箱禁止bind，后在授权的本地socket环境通过；首次新增vcan测试未处理
+app退出时的ECONNRESET，修正测试后完整回归通过；首次静态检查报告errno错误路径，已修正。
+本地日志：out/build/test-app-debug/ipc-tests.log、ipc-static.log，
+out/build/test-app-san/ipc-tests.log，out/build/ipc-cross.log。
+未部署、未运行RK3588设备无访问smoke或硬件测试。外部运动、安全授权合同、Twist转换及
+ROS2目标环境仍未交付；新版本不继承旧实车验收。未提交/push，远端CI不作为本轮证据。
+
+---
+
 # 2026-09-21 源码交接复审与文档同步
 
 README、AGENTS当前检查点、TEST_APP_HANDOFF和ROS2移植说明已统一到当前两阶段配置、

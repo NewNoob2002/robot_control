@@ -1,0 +1,160 @@
+{
+  "status": "PASS_WITH_VCAN_SKIPS",
+  "host_debug": {
+    "pass": 38,
+    "skip": 4,
+    "fail": 0
+  },
+  "host_sanitizer": {
+    "pass": 38,
+    "skip": 4,
+    "fail": 0
+  },
+  "host_dds": "PASS_AFTER_SHUTDOWN_RACE_FIX",
+  "aarch64_elf_audits": 8,
+  "board_core": {
+    "pass": 10,
+    "fail": 0
+  },
+  "board_ros": {
+    "pass": 2,
+    "fail": 0
+  },
+  "compiled_input_count": 108,
+  "final_source": {
+    "dirty": true,
+    "file_count": 6537,
+    "revision": "b6cf527d680606296953d268893e5a9c5dcd96f3",
+    "schema_version": 1,
+    "snapshot_sha256": "e965d7cc0d5de541c01e385335bb4363a87fd557019f7416c48cb883242fb5d2"
+  },
+  "board_postflight": {
+    "machine": "aarch64",
+    "machine_identity_sha256": "0eb0153e3711fc755b4b334ed7eb72c1a4f7b0114eb622c9c90b99403ea69f3f",
+    "residual_test_processes": [],
+    "residual_sockets_under_stage": [],
+    "system_ros_directory_exists": false,
+    "stage": "/home/cat/robot-control-tests/ipc-board-20261009T074826Z",
+    "physical_interfaces_opened": false,
+    "core_checks": [
+      {
+        "name": "app_help",
+        "command": [
+          "./robot-control-app",
+          "--help"
+        ],
+        "exit": 0,
+        "duration_s": 0.0063418219999675784
+      },
+      {
+        "name": "app_config",
+        "command": [
+          "./robot-control-app",
+          "--config",
+          "config/rk3588-test.conf",
+          "--check-config"
+        ],
+        "exit": 0,
+        "duration_s": 0.006617730000016309
+      },
+      {
+        "name": "app_ipc_config",
+        "command": [
+          "./robot-control-app",
+          "--config",
+          "config/rk3588-test.conf",
+          "--check-config",
+          "--set",
+          "ipc_socket=/home/cat/robot-control-tests/ipc-board-20261009T074826Z/control.sock"
+        ],
+        "exit": 0,
+        "duration_s": 0.006443027000159418
+      },
+      {
+        "name": "device_config_help",
+        "command": [
+          "./robot-control-device-config",
+          "--help"
+        ],
+        "exit": 0,
+        "duration_s": 0.0038985979999779374
+      },
+      {
+        "name": "platform_identity",
+        "command": [
+          "./robot-control-platform-probe"
+        ],
+        "exit": 0,
+        "duration_s": 0.0034844440001506882
+      },
+      {
+        "name": "platform_spdlog_smoke",
+        "command": [
+          "./robot-control-platform-probe",
+          "--phase3-smoke"
+        ],
+        "exit": 0,
+        "duration_s": 0.0037043540000922803
+      },
+      {
+        "name": "sbus_source",
+        "command": [
+          "./robot_control_sbus_source_tests"
+        ],
+        "exit": 0,
+        "duration_s": 0.004586621000044033
+      },
+      {
+        "name": "control_cycle",
+        "command": [
+          "./robot_control_control_cycle_tests"
+        ],
+        "exit": 0,
+        "duration_s": 0.0076300769999306794
+      },
+      {
+        "name": "runtime_policy",
+        "command": [
+          "./robot_control_canopen_runtime_policy_tests"
+        ],
+        "exit": 0,
+        "duration_s": 0.005860584999936691
+      },
+      {
+        "name": "unix_ipc",
+        "command": [
+          "python3",
+          "scripts/test/test_app_ipc.py",
+          "./robot_control_ipc_fixture"
+        ],
+        "exit": 0,
+        "duration_s": 8.110136696000154
+      }
+    ],
+    "dds_checks": [
+      {
+        "name": "ros_import",
+        "command": [
+          "python3",
+          "-c",
+          "import rclpy; from std_msgs.msg import String; from rclpy.impl.implementation_singleton import rclpy_implementation; print(rclpy.__file__); print(String.__module__); print(rclpy_implementation.RCLError.__name__)"
+        ],
+        "exit": 0,
+        "duration_s": 0.1699156290001156
+      },
+      {
+        "name": "ros_dds",
+        "command": [
+          "python3",
+          "scripts/test/test_ros2_ipc.py",
+          "./robot_control_ipc_fixture"
+        ],
+        "exit": 0,
+        "duration_s": 16.791122342000108
+      }
+    ]
+  },
+  "physical_can_uart_hil": "NOT_RUN",
+  "git_commit_or_push": false,
+  "system_ros_install": false
+}

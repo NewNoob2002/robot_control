@@ -51,12 +51,17 @@ version_info="$("${readelf_bin}" --version-info "${binary}")"
 symbols="$("${readelf_bin}" --wide --symbols --demangle "${binary}")"
 
 # UART now uses termios2 ioctl for exact custom baud rates (including 100000).
-for symbol in pthread_sigmask signalfd ppoll clock_nanosleep ioctl elog_output; do
+for symbol in pthread_sigmask signalfd ppoll clock_nanosleep ioctl; do
   grep -Eq "[[:space:]]${symbol}(@|$)" <<<"${symbols}" || {
     echo "Required Phase 3 symbol is not linked: ${symbol}" >&2
     exit 8
   }
 done
+
+grep -Eq "robot_control::service::logging::Logger::log\(" <<<"${symbols}" || {
+  echo "Required Phase 3 logging symbol is not linked: robot_control::service::logging::Logger::log" >&2
+  exit 8
+}
 
 # ioctl alone could be supplied by CAN; also require the actual UART adapter.
 for method in open configuration; do

@@ -23,6 +23,8 @@ def main():
             return result.stdout
 
         normal = run(original)
+        assert 'ipc_socket=off' in normal
+        assert 'ipc_socket=/tmp/private/control.sock' in run(original, ['--set', 'ipc_socket=/tmp/private/control.sock'])
         assert 'CONFIG_VALID_DEVICE_ACCESS_NONE' in normal
         assert 'left=low/+1 right=high/-1' in normal
         assert 'standstill_tenths_rpm=20' in normal
@@ -84,7 +86,9 @@ def main():
             original + '\x00=1\n', original + 'x' * 1025,
             original + '# comment\n' * 2000,
             original.replace('log_dir=./logs', 'log_dir=$HOME/logs'),
-            original + 'ipc_socket=/tmp/control.sock\n',
+            original + 'ipc_socket=relative.sock\n',
+            original + 'ipc_socket=/tmp/../control.sock\n',
+            original + 'ipc_socket=/' + 'a' * 108 + '\n',
         ]
         for case in cases:
             run(case, expected=2)

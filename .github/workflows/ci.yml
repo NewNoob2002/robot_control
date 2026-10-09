@@ -299,7 +299,7 @@ jobs:
             -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DROBOT_CONTROL_BUILD_TEST_APP=ON "${flags[@]}"
           cmake --build out/build/test-app-ci --parallel 2 --target \
             robot-control-app robot-control-config-check robot_control_app_motion_monitor_tests \
-            robot-control-device-config robot_control_device_parameter_gate_tests
+            robot-control-device-config robot_control_device_parameter_gate_tests robot_control_ipc_fixture
 
       - name: Run SBUS app and continuous logging on managed vcan
         env:
@@ -307,13 +307,13 @@ jobs:
           UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
         run: |
           ctest --test-dir out/build/test-app-ci --output-on-failure --no-tests=error \
-            --tests-regex '^(startup_config_contract|test_app_|device_parameter_gates$|device_config_vcan_managed$)' \
+            --tests-regex '^(startup_config_contract|app_ipc_contract|test_app_|device_parameter_gates$|device_config_vcan_managed$)' \
             --output-junit "$PWD/out/build/test-app-ci/results.xml"
           python3 - <<'PYAPP'
           import xml.etree.ElementTree as ET
           cases = {c.attrib['name']: c for c in ET.parse('out/build/test-app-ci/results.xml').iter('testcase')}
           assert {'startup_config_contract', 'test_app_cli', 'test_app_motion_monitor', 'test_app_vcan_managed',
-                  'device_parameter_gates', 'device_config_vcan_managed'} <= cases.keys()
+                  'device_parameter_gates', 'device_config_vcan_managed', 'app_ipc_contract'} <= cases.keys()
           assert all(c.find('skipped') is None for c in cases.values()), 'test app virtual case skipped'
           PYAPP
 

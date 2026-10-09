@@ -12,9 +12,9 @@
 namespace robot_control::application::config {
 namespace {
 using namespace std::chrono_literals;
-constexpr std::array<std::string_view, 11> keys{"profile",   "interface",        "device",           "log_dir",
-                                                "max_rpm",   "period_ms",        "run_duration_ms",  "log_file_bytes",
-                                                "log_files", "speed_resolution", "drive_pdo_profile"};
+constexpr std::array<std::string_view, 12> keys{
+    "profile",         "interface",      "device",    "log_dir",          "max_rpm",           "period_ms",
+    "run_duration_ms", "log_file_bytes", "log_files", "speed_resolution", "drive_pdo_profile", "ipc_socket"};
 
 /** Trim configuration whitespace without changing internal path characters. */
 std::string_view trim(std::string_view value) {
@@ -98,6 +98,7 @@ Startup parse(std::istream& input, std::span<const std::string_view> overrides) 
     }
     values.try_emplace("speed_resolution", "1"); // Existing configuration files retain whole-rpm behavior.
     values.try_emplace("drive_pdo_profile", "0");
+    values.try_emplace("ipc_socket", "off");
     for (auto key : keys)
         if (!values.contains(std::string{key}))
             throw std::invalid_argument("missing configuration key: " + std::string{key});
@@ -107,6 +108,13 @@ Startup parse(std::istream& input, std::span<const std::string_view> overrides) 
     config.interface = values.at("interface");
     config.device = values.at("device");
     config.log_dir = values.at("log_dir");
+    if (values.at("ipc_socket") != "off") {
+        config.ipc_socket = values.at("ipc_socket");
+        if (!config.ipc_socket.starts_with('/') || config.ipc_socket.size() >= 108 || config.ipc_socket.ends_with('/')
+            || config.ipc_socket.find("/../") != std::string::npos || config.ipc_socket.ends_with("/.."))
+            throw std::invalid_argument(
+                "ipc_socket must be off or an absolute Unix socket path shorter than 108 bytes");
+    }
     if (config.interface.empty() || config.interface.size() > 15
         || !std::all_of(config.interface.begin(), config.interface.end(), [](char c) {
                return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '_'
@@ -170,6 +178,7 @@ void dump(std::ostream& output, const Startup& config) {
            << "\nperiod_ms=" << std::chrono::duration_cast<std::chrono::milliseconds>(config.cycle.period).count()
            << "\nrun_duration_ms=" << config.run_duration.count() << "\nlog_file_bytes=" << config.log_file_bytes
            << "\nlog_files=" << config.log_files
+           << "\nipc_socket=" << (config.ipc_socket.empty() ? "off" : config.ipc_socket)
            << "\n# Fixed profile: controller127 node1 target/feedback left=low/+1 right=high/-1; X1=0x8000"
            << "\n# CH1/3/6/7; steering=200/1000/1800 throttle=200/993/1800; neither reversed"
            << "\n# deadband=50 output_deadband_rpm=" << config.sbus.output_deadband_rpm
@@ -182,6 +191,7 @@ void dump(std::ostream& output, const Startup& config) {
            << "\n# HB=1000ms TPDO=200ms decision=50ms SBUS=100ms zero_dwell=150ms transition=1000ms"
            << "\n# button=500/1500 cooldown=300ms recovery_frames=3 gear_thresholds=500/1500"
            << "\n# powered_standby=1; CH6=motion_authority; absent/disabled SBUS=zero_speed_servo_hold"
-           << "\n# SBUS-only; IPC deferred; UART=100000/8E2/PARMRK; run_duration_ms=0 means until signal\n";
+           << "\n# Motion source=SBUS; IPC=read-only status/probe; UART=100000/8E2/PARMRK; run_duration_ms=0 means "
+              "until signal\n";
 }
 } // namespace robot_control::application::config

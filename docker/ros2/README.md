@@ -9,6 +9,79 @@ The native binaries built here are amd64, not RK3588 aarch64 artifacts.
 Use the existing cross runner with the real target sysroot for the core.
 Target ROS2 deployment and DDS/robot integration remain separate acceptance gates.
 RViz/Gazebo and a desktop image are outside this CLI development environment.
+For RViz, a separate digest-pinned Humble desktop image and
+[run-rviz.sh](run-rviz.sh) are now available; the original ros-base image/lock remain unchanged.
+
+## Host RViz and board ros-base
+
+From a local graphical desktop terminal at the repository root:
+
+```bash
+bash docker/ros2/run-rviz.sh
+# Inspect the board's topics with the same network/domain settings:
+bash docker/ros2/run-rviz.sh ros2 topic list --no-daemon
+bash docker/ros2/run-rviz.sh ros2 topic echo /robot_control_ipc/status std_msgs/msg/String \
+  --qos-reliability best_effort --no-daemon
+```
+
+The script uses `osrf/ros:humble-desktop` by immutable amd64 platform digest
+`sha256:fb07245b32187d74350be25323d8ad2f8ca5c25c325759911a1eff2267a49c1e`.
+It forwards the current desktop X11 cookie read-only through XWayland without
+changing xhost access policy. It uses the host UID/GID, read-only container root,
+software OpenGL, a writable `out/rviz-config` directory, and host networking.
+No physical CAN/UART or GPU device is passed. HOME/USER/LOGNAME retain the host
+values; only the RViz configuration subtree is mounted, not the host home tree.
+The workspace is mounted at `/workspace`, so custom RViz configs can also be saved there.
+Do not launch this GUI script from an ordinary headless SSH shell.
+
+Actual host validation created a window and an OpenGL4.5 context, wrote
+`persistent_settings` as the host user, and exited on bounded SIGINT.
+The first GUI attempt's config-path error is preserved; the final attempt has no
+RViz error. Logs: `out/verification/ipc-board-diff/rviz-smoke*.log`.
+Observed packages: ros-humble-rviz2 `11.2.28-1jammy.20260804.222726`, desktop
+`0.10.0-1jammy.20260804.223343`. Package licenses are inside the pinned image under
+`/opt/ros/humble/share/*/package.xml` and `/usr/share/doc/*/copyright`.
+This is a GUI smoke, not a robot visualization or cross-machine DDS acceptance.
+
+For board-to-host communication, both sides use Humble, matching message types,
+`ROS_DOMAIN_ID=186`, `ROS_LOCALHOST_ONLY=0`, and `RMW_IMPLEMENTATION=rmw_fastrtps_cpp`.
+The board and host must have bidirectional DDS reachability; host networking removes
+container NAT but does not fix Wi-Fi isolation, firewall or multicast restrictions.
+The existing automated board tests use localhost-only DDS; restart the actual
+bridge with the cross-machine environment to expose it to host tools.
+Unix IPC remains local to the board. RViz subscribes to DDS topics, not to that socket.
+The current `/robot_control_ipc/status` is diagnostic JSON in String and has no
+standard RViz display. TF/Odometry/LaserScan/PointCloud2 must be provided by future
+adapters/sensors before there is robot geometry or sensor data to visualize.
+
+## Native Humble on the board
+
+The identified board is Ubuntu22.04.5 arm64. The operator has installed native
+Humble ros-base under `/opt/ros/humble`; imports and the existing IPC/DDS regression
+have now passed against that installation. Package versions and archived evidence
+are in [the board baseline](../../docs/verification/IPC_BOARD_BASELINE.md).
+The earlier private runtime remains historical test evidence.
+
+Open a fresh board terminal to avoid inheriting the private runtime environment:
+
+```bash
+# Board's configured shell is zsh; use setup.bash instead if running Bash.
+source /opt/ros/humble/setup.zsh
+export ROS_DOMAIN_ID=186 ROS_LOCALHOST_ONLY=0 RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+# From the checkout or isolated board stage, with the configured local IPC endpoint:
+python3 ros2/robot_control_ipc_node.py --ros-args \
+  -p socket_path:=/path/to/private-ipc/control.sock
+```
+
+Only start the physical control app under its separately reviewed device conditions.
+The socket belongs to a board-local app or device-free fixture, not the host.
+Do not combine native `/opt/ros/humble` with the old private runtime library paths.
+For another Jammy board, use the
+[official Humble apt instructions](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html).
+The installation preparation used official ros2-apt-source1.3.0 and
+`apt-get --no-remove install ros-humble-ros-base`, without scheduling a full-system upgrade.
+System installation was performed by the operator.
+
 
 ## Restore and enter
 

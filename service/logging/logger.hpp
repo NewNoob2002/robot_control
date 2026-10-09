@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include <cstddef>
 #include <cstdint>
 #include <mutex>
 #include <string>
@@ -17,7 +18,7 @@ enum class Severity : std::uint8_t {
     critical,
 };
 
-/** Snapshot of non-recursive EasyLogger output health. */
+/** Snapshot of non-recursive logger output health. */
 struct LoggerHealth {
     std::uint64_t output_failures{0};
     int last_error{0};
@@ -25,59 +26,72 @@ struct LoggerHealth {
 
 class Logger final {
   public:
-    /**
-   * Construct a structured logger backed by EasyLogger stderr output.
-   * @param detailed Enable time/process/thread prefixes process-wide before workers start;
-   * false retains the existing format. Used by the isolated app collector.
-   */
-    explicit Logger(bool detailed = false);
+    /** Maximum encoded record size in bytes, including all prefixes and the final newline. */
+    static constexpr std::size_t max_record_bytes = 512;
 
     /**
-   * Emit one structured line.
-   *
-   * @param severity Event severity.
-   * @param module Stable module tag.
-   * @param event Stable event name.
-   * @param context Preformatted key-value context without secrets.
-   *
-   * Thread safety: Internally serialized. The output stream must not be written
-   * independently without external synchronization.
-   */
+     * Construct a structured logger backed by spdlog stderr output.
+     * @param detailed Enable time/process/thread prefixes for this Logger instance;
+     * false retains the standard level/module format. Used by the isolated app collector.
+     * Output and health use one process-lifetime sink shared by all Logger instances.
+     */
+    explicit Logger(bool detailed = false);
+    ~Logger();
+
+    Logger(const Logger&) = delete;
+    Logger& operator=(const Logger&) = delete;
+    Logger(Logger&&) = delete;
+    Logger& operator=(Logger&&) = delete;
+
+    /**
+     * Emit one structured line.
+     *
+     * Records exceeding max_record_bytes are truncated with a trailing truncated=1 field and newline.
+     * Shorter records retain their full contents. The bound includes prefixes and the newline.
+     *
+     * @param severity Event severity.
+     * @param module Stable module tag.
+     * @param event Stable event name.
+     * @param context Preformatted key-value context without secrets.
+     *
+     * Thread safety: Internally serialized. The output stream must not be written
+     * independently without external synchronization.
+     */
     void log(Severity severity, std::string_view module, std::string_view event, std::string_view context);
 
     /**
-   * Emit at most one event per key and interval.
-   *
-   * The next emitted line includes the number of suppressed repetitions.
-   * At most 256 stable keys are retained. New keys beyond that bound are
-   * emitted without throttling so unrelated events never suppress each other.
-   * Control-cycle callers must use a fixed, predeclared key set.
-   *
-   * @param key Stable throttle identity.
-   * @param interval Positive suppression interval.
-   * @param severity Event severity.
-   * @param module Stable module tag.
-   * @param event Stable event name.
-   * @param context Preformatted key-value context without secrets.
-   * @param now Injected steady-clock time for deterministic testing.
-   *
-   * Thread safety: Internally serialized.
-   */
+     * Emit at most one event per key and interval, with the same record bound as log().
+     *
+     * The next emitted line includes the number of suppressed repetitions.
+     * At most 256 stable keys are retained. New keys beyond that bound are
+     * emitted without throttling so unrelated events never suppress each other.
+     * Control-cycle callers must use a fixed, predeclared key set.
+     *
+     * @param key Stable throttle identity.
+     * @param interval Positive suppression interval.
+     * @param severity Event severity.
+     * @param module Stable module tag.
+     * @param event Stable event name.
+     * @param context Preformatted key-value context without secrets.
+     * @param now Injected steady-clock time for deterministic testing.
+     *
+     * Thread safety: Internally serialized.
+     */
     void log_throttled(std::string key, std::chrono::milliseconds interval, Severity severity, std::string_view module,
                        std::string_view event, std::string_view context, std::chrono::steady_clock::time_point now);
 
     /**
-   * Return non-recursive EasyLogger port failure diagnostics.
-   *
-   * @return Atomic process-wide health snapshot.
-   */
+     * Return non-recursive port failure diagnostics.
+     *
+     * @return Atomic process-wide health snapshot.
+     */
     [[nodiscard]] LoggerHealth health() const noexcept;
 
     /**
-   * Return the bounded number of tracked throttle identities.
-   *
-   * @return Value in the inclusive range 0..256.
-   */
+     * Return the bounded number of tracked throttle identities.
+     *
+     * @return Value in the inclusive range 0..256.
+     */
     [[nodiscard]] std::size_t throttle_key_count() const;
 
   private:
@@ -98,6 +112,7 @@ class Logger final {
     mutable std::mutex mutex_{};
     std::unordered_map<std::string, ThrottleState> throttles_{};
     static constexpr std::size_t max_throttle_keys = 256;
+    bool detailed_{false};
 };
 
 } // namespace robot_control::service::logging

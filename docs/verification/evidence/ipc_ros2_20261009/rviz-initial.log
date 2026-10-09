@@ -1,0 +1,9 @@
+ros-humble-desktop	0.10.0-1jammy.20260804.223343
+ros-humble-rviz2	11.2.28-1jammy.20260804.222726
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-'
+[ERROR] [1791534741.437098321] [rviz2]: failed to make config dir: //.rviz2
+[INFO] [1791534741.530806197] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1791534741.530839920] [rviz2]: OpenGl version: 4.5 (GLSL 4.5)
+[INFO] [1791534741.565470839] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1791534753.329925968] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [1791534753.394239992] [rviz2]: Failed to open //.rviz2/persistent_settings for writing.

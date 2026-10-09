@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/workspace/scripts/test/test_ros2_ipc.py", line 126, in <module>
+    main()
+  File "/workspace/scripts/test/test_ros2_ipc.py", line 53, in main
+    check_shutdown_race(script)
+  File "/workspace/scripts/test/test_ros2_ipc.py", line 38, in check_shutdown_race
+    module.main(arguments)
+  File "/workspace/ros2/robot_control_ipc_node.py", line 142, in main
+    rclpy.spin(node)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/workspace/scripts/test/test_ros2_ipc.py", line 35, in stopped_context
+    raise rclpy_implementation.RCLError('the given context is not valid')
+rclpy._rclpy_pybind11.RCLError: the given context is not valid

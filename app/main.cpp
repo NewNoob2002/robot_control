@@ -15,6 +15,7 @@
 #include "app/io_gate.hpp"
 #include "app/runtime_log.hpp"
 #include "application/control/linux_loop.hpp"
+#include "application/ipc/server.hpp"
 #include "communication/canopen/control_qualification.hpp"
 
 namespace {
@@ -107,6 +108,7 @@ bool owner_veto(const void* value, Clock::time_point now) noexcept {
 int run(const rc::application::config::Startup& config, rc::app::LogSession& logs,
         rc::platform::linux::process::TerminationEvent& termination) {
     auto lock = rc::app::check_interface(config.interface);
+    rc::application::ipc::Server ipc{config.ipc_socket, config.cycle.runtime.max_abs_rpm};
     rc::app::IoContext io{
         logs.records(), {}, config.cycle.runtime.max_abs_rpm, false, config.cycle.runtime.speed_resolution};
     rc::app::IoBinding binding{io};
@@ -174,6 +176,11 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
                     const auto state = loop->runtime_state();
                     static_cast<void>(io.monitor.ok(Clock::now()));
                     record_cycle(io.records, result, state, io.monitor);
+                    // Read-only observations after publication; IPC cannot populate CycleInput.external.
+                    ipc.poll({result.cycles, static_cast<unsigned>(result.control.selected.source),
+                              result.control.output.command.left_rpm, result.control.output.command.right_rpm,
+                              state.left_tenths_rpm, state.right_tenths_rpm, state.feedback.status_raw,
+                              state.feedback.fault_raw, state.healthy, state.armed});
                     status = result.status;
                     if (result.finished) {
                         signal_number = result.exit == LifecycleExit::sigint    ? SIGINT
@@ -225,12 +232,13 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
 }
 } // namespace
 
-/** Compose the Debug-only SBUS test app; validates all options before device activation, IPC is not supported. */
+/** Compose the Debug-only SBUS test app with optional read-only IPC; validate before device activation. */
 int main(int argc, char* argv[]) {
     constexpr std::string_view usage =
         "Usage: robot-control-app --config FILE [--interface can0] [--device /dev/ttyACM0]\n"
         "  [--log-dir DIR] [--duration-ms MS] [--set key=value] [--check-config]\n"
-        "SBUS only. Duration0 runs until Ctrl-C/SIGTERM. Existing CAN link must already be configured and up.\n";
+        "SBUS motion only. Optional --set ipc_socket=/private/path/control.sock enables read-only IPC.\n"
+        "Duration0 runs until Ctrl-C/SIGTERM. Existing CAN link must already be configured and up.\n";
     if (argc == 2 && std::string_view{argv[1]} == "--help") {
         std::cout << usage;
         return 0;

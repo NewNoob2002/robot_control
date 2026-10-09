@@ -1,4 +1,4 @@
-# Current checkpoint — 2026-09-21
+# Current checkpoint — 2026-10-09
 
 Current software and verification: docs/verification/TEST_APP_BASELINE.md.
 Current usage/configuration: docs/development/TEST_APP.md; handoff scope:
@@ -7,8 +7,13 @@ docs/verification/GROUND_HANDOFF_CHECKPOINT_20260920.md. Historical entries belo
 retain their original scope and failures.
 
 The Debug-only/default-OFF SBUS test app, startup configuration, rotating process
-logger and separate device-configuration tool are implemented. IPC is deferred;
-ROS2 remains an adapter design only. The app reads persistent parameters; only
+logger and separate device-configuration tool are implemented. Optional read-only
+Unix SEQPACKET IPC and a separate Humble status/probe node are implemented;
+external motion remains unconnected. See docs/development/ROS2_IPC.md.
+Device-free RK3588 IPC/DDS software checks pass both in the original private runtime
+and the now-installed native /opt/ros/humble environment; host RViz GUI smoke also passes.
+See docs/verification/IPC_BOARD_BASELINE.md. Physical CAN/UART/drive acceptance is separate.
+The app reads persistent parameters; only
 explicit device-config --apply may write the reviewed parameters and request one
 EEPROM save. Software validation is not physical-operation authorization.
 
@@ -109,9 +114,9 @@ Build a production-oriented, Linux-native low-level motion-control middleware fo
   loaded operation is included. Latest explicit physical disposition is drive OFF
   after right A1 on2026-09-17; use each new trial's timestamped disposition rather
   than treating this historical OFF as a future powered-readiness confirmation.
-- EasyLogger's checksum-pinned core subset remains integrated behind
-  `service/logging`. CANopen dependency provenance and zero-local-patch status
-  are recorded in `third_party/README.md`.
+- Logging now uses checksum-pinned spdlog v1.17.0 behind `service/logging`;
+  the former EasyLogger snapshot is removed. CANopen dependency provenance and
+  zero-local-patch status are recorded in `third_party/README.md`.
 - `docs/ZLAC8015D_CANOPEN_NOTES.md` and the vendor PDFs are drive references; statements marked for hardware verification are not safety assumptions.
 - The legacy STM32 project at `~/Desktop/workspace/STM32_PROJ/STM32G474_CANOPEN_Copy` is read-only architectural evidence, not a source tree to copy.
 - Phase 1 build evidence and remaining target validation are recorded in

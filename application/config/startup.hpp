@@ -15,6 +15,7 @@ struct Startup {
     std::string interface;
     std::string device;
     std::string log_dir;
+    std::string ipc_socket; // Empty disables the read-only IPC probe endpoint.
     std::chrono::milliseconds run_duration{};
     std::size_t log_file_bytes{67108864};
     unsigned log_files{4};

@@ -1,0 +1,11 @@
+Test project /home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/build/test-app-debug
+    Start 18: startup_config_contract
+1/3 Test #18: startup_config_contract ..........   Passed    0.14 sec
+    Start 19: app_ipc_contract
+2/3 Test #19: app_ipc_contract .................   Passed    8.08 sec
+    Start 39: linux_platform_integration
+3/3 Test #39: linux_platform_integration .......   Passed    0.24 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   8.47 sec

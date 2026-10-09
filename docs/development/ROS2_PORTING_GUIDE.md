@@ -1,8 +1,9 @@
 # 整车控制框架与 ROS2 移植交接说明
 
 面向算法/ROS2集成同事，依据2026-09-21工作区源码整理。
-本文说明现有实现和建议移植边界；ROS2节点、消息和服务均为建议，当前尚未实现ROS2接入，
-IPC客户端暂停。2026-09-21更新：speed_resolution已拆为独立设备配置/保存与app只读校验；本文不代表硬件验证。
+本文说明控制框架和后续运动接入边界。2026-09-21已开始独立ROS2进程与现有app的
+只读IPC状态/探测，具体已实现合同见[ROS2_IPC.md](ROS2_IPC.md)；下文运动节点/消息/服务
+仍为建议。speed_resolution已拆为独立设备配置/保存与app只读校验；本文不代表硬件验证。
 运行与调参另见 [TEST_APP.md](TEST_APP.md)。
 当前app开启健康驱动器通电零速待机：没有行驶授权也可保持零目标伺服，不能把CH6关闭理解为断电。
 待机/未命令轮反馈故障阈值为±5rpm；重新授权和停车的静止确认仍为±2rpm。
@@ -14,7 +15,8 @@ ROS2迁移须保留这两个不同判据与单一控制者，不能以topic发�
 单一ControlLoop和独立日志进程。CAN事件处理、UART批量读取、仲裁、安全决策和最终发送
 由同一个控制线程顺序执行，不是四个现成独立节点。
 
-推荐先包装成一个ROS2硬件控制节点，内部保留普通C++控制线程，再按需要分离输入生产者。
+原建议是包装一个ROS2硬件控制节点；当前按用户要求，先保留app控制线程，
+用独立ROS2节点经Unix IPC读取状态和提交不执行的探测。硬件所有权仍留在app。
 节点拆分必须保留以下合同：
 
 - 只有一个执行者拥有CANopen生命周期、驱动状态机和最终发送权限。
@@ -318,7 +320,8 @@ CAN重连/boot代际变化、SDO失败及停车恢复。
 建议main.cpp → linux_loop.cpp → control_cycle.cpp → runtime.cpp，
 然后按任务阅读Source或ControlQualification；不要从生成OD推断业务流程。
 
-本文调用链已根据当前源码核对。ROS2发行版未指定，具体API需按团队版本验证；
-本次官方在线文档访问失败，因此未声称验证特定ROS2版本API。
+本文调用链已根据当前源码核对。IPC节点复用docker/ros2/image.lock锁定的Humble环境；
+ROS2实际验证和后续阶段以ROS2_IPC.md为准。原文的官方在线文档访问失败记录保留，
+不将设计建议当作已实现或已完成硬件验证的接口。
 历史状态见 [GROUND_HANDOFF_CHECKPOINT_20260920.md](../verification/GROUND_HANDOFF_CHECKPOINT_20260920.md)，
 app软件结果见 [TEST_APP_BASELINE.md](../verification/TEST_APP_BASELINE.md)。

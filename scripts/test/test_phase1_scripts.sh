@@ -66,9 +66,11 @@ case "$1" in
   --program-headers) echo '[Requesting program interpreter: /lib/ld-linux-aarch64.so.1]' ;;
   --dynamic | --version-info) ;;
   --wide)
-    for symbol in pthread_sigmask signalfd ppoll clock_nanosleep ioctl elog_output; do
+    for symbol in pthread_sigmask signalfd ppoll clock_nanosleep ioctl; do
       [[ "${AUDIT_OMIT:-}" == "${symbol}" ]] || echo " UND ${symbol}"
     done
+    [[ "${AUDIT_OMIT:-}" == "Logger::log" ]] ||
+      echo " FUNC robot_control::service::logging::Logger::log()"
     for method in open configuration; do
       [[ "${AUDIT_OMIT:-}" == "${method}" ]] ||
         echo " FUNC robot_control::platform::linux::uart::SerialPort::${method}()"

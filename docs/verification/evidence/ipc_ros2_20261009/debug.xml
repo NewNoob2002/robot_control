@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-c++"
+	tests="42"
+	failures="0"
+	disabled="0"
+	skipped="4"
+	hostname="cathyLaptop"
+	time="8"
+	timestamp="2026-10-09T15:46:34"
+	>
+	<testcase name="sbus_source_contract" classname="sbus_source_contract" time="0.00182524" status="run">
+		<properties/>
+		<system-out>P9.3 source contract: PASS
+</system-out>
+	</testcase>
+	<testcase name="control_cycle_contract" classname="control_cycle_contract" time="0.00222279" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_runtime_policy" classname="canopen_runtime_policy" time="0.00181068" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="platform_probe_help" classname="platform_probe_help" time="0.00112139" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-platform-probe [--help|--phase3-smoke]
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_run" classname="platform_probe_run" time="0.00100044" status="run">
+		<properties/>
+		<system-out>probe_version=1
+sysname=Linux
+release=7.2.9-1-cachyos
+machine=x86_64
+pid=128633
+monotonic_ns=25132059114235
+</system-out>
+	</testcase>
+	<testcase name="platform_probe_phase3_smoke" classname="platform_probe_phase3_smoke" time="0.000913488" status="run">
+		<properties/>
+		<system-out>I/platform_probe timestamp_unix_s=1791531998 severity=INFO event="phase3_smoke" result=pass
+</system-out>
+	</testcase>
+	<testcase name="can_probe_help" classname="can_probe_help" time="0.000854761" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_missing_interface" classname="can_probe_missing_interface" time="0.00987438" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing required argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_unknown_argument" classname="can_probe_unknown_argument" time="0.008842" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="unknown argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_zero" classname="can_probe_duration_zero" time="0.00845583" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms out of range value=0" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_nonnumeric" classname="can_probe_duration_nonnumeric" time="0.00880381" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=abc" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_overflow" classname="can_probe_duration_overflow" time="0.0597879" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duration-ms overflow value=9999999999999999999999999999999999999999" errno=34 message="Numerical result out of range"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_interface" classname="can_probe_duplicate_interface" time="0.0202351" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duplicate_duration" classname="can_probe_duplicate_duration" time="0.0585914" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_interface_missing_value" classname="can_probe_interface_missing_value" time="0.071545" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --interface" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_missing_value" classname="can_probe_duration_missing_value" time="0.0777988" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="missing value for --duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="can_probe_duration_negative" classname="can_probe_duration_negative" time="0.0788521" status="run">
+		<properties/>
+		<system-out>event=error operation="parse_arguments" context="invalid duration-ms value=-1" errno=22 message="Invalid argument"
+Usage: robot-control-can-probe --interface &lt;ifname&gt; [--duration-ms &lt;milliseconds&gt;]
+       robot-control-can-probe --help
+duration-ms must be in the range 1..60000.
+</system-out>
+	</testcase>
+	<testcase name="startup_config_contract" classname="startup_config_contract" time="0.725831" status="run">
+		<properties/>
+		<system-out>PASS: strict parsing, range checks, CLI overrides, profile round trip; no device/log/socket access
+</system-out>
+	</testcase>
+	<testcase name="app_ipc_contract" classname="app_ipc_contract" time="8.3246" status="run">
+		<properties/>
+		<system-out>PASS: read-only IPC validation, replay, age, peer restart, backpressure, idle, cleanup and client
+</system-out>
+	</testcase>
+	<testcase name="device_parameter_gates" classname="device_parameter_gates" time="0.00118353" status="run">
+		<properties/>
+		<system-out>PASS: persistent parameters/save denied at runtime; unrelated writes and invalid widths rejected
+</system-out>
+	</testcase>
+	<testcase name="device_config_vcan_managed" classname="device_config_vcan_managed" time="0.0584002" status="notrun">
+		<skipped message="SKIP_RETURN_CODE=77"/>
+		<properties/>
+		<system-out>Error: Unknown device type.
+SKIP: namespace capabilities or kernel vcan support are unavailable
+</system-out>
+	</testcase>
+	<testcase name="test_app_motion_monitor" classname="test_app_motion_monitor" time="0.00173753" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="test_app_cli" classname="test_app_cli" time="0.048496" status="run">
+		<properties/>
+		<system-out>PASS: interface/device options, IPC rejection, no-device config check, per-run text/raw logs
+</system-out>
+	</testcase>
+	<testcase name="test_app_vcan_managed" classname="test_app_vcan_managed" time="0.0679921" status="notrun">
+		<skipped message="SKIP_RETURN_CODE=77"/>
+		<properties/>
+		<system-out>Error: Unknown device type.
+SKIP: namespace capabilities or kernel vcan support are unavailable
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_help" classname="canopen_observer_help" time="0.000921893" status="run">
+		<properties/>
+		<system-out>Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid_" classname="canopen_observer_invalid_" time="0.00810359" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___unknown" classname="canopen_observer_invalid___unknown" time="0.0777609" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing value argument=--unknown" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0" classname="canopen_observer_invalid___interface_unused0" time="0.0491892" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="missing required observer configuration" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___interface_unused0___interface_unused1" classname="canopen_observer_invalid___interface_unused0___interface_unused1" time="0.0578963" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--interface" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_0" classname="canopen_observer_invalid___duration_ms_0" time="0.0616704" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="invalid value argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="canopen_observer_invalid___duration_ms_1___duration_ms_2" classname="canopen_observer_invalid___duration_ms_1___duration_ms_2" time="0.0547847" status="run">
+		<properties/>
+		<system-out>event=error operation=parse_arguments context="duplicate argument=--duration-ms" errno=22 message="Invalid argument"
+Usage: robot-control-canopen-observer --interface IFACE --controller-node N --remote-node N
+       --bitrate-kbit N --heartbeat-timeout-ms N --sdo-timeout-ms N
+       --tpdo-timeout-ms N --tpdo-dlc D1,D2,D3,D4 [--duration-ms N]
+</system-out>
+	</testcase>
+	<testcase name="domain_behavior_lock" classname="domain_behavior_lock" time="0.00128892" status="run">
+		<properties/>
+		<system-out>domain_behavior_lock passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_parser_contract" classname="sbus_parser_contract" time="0.0102356" status="run">
+		<properties/>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="canopen_stack_build" classname="canopen_stack_build" time="0.00188633" status="run">
+		<properties/>
+		<system-out>canopen_stack_tests passed
+</system-out>
+	</testcase>
+	<testcase name="canopen_vcan_managed" classname="canopen_vcan_managed" time="0.0101276" status="notrun">
+		<skipped message="SKIP_RETURN_CODE=77"/>
+		<properties/>
+		<system-out>Error: Unknown device type.
+SKIP: namespace capabilities or kernel vcan support are unavailable
+</system-out>
+	</testcase>
+	<testcase name="socketcan_frame_codec" classname="socketcan_frame_codec" time="0.00121372" status="run">
+		<properties/>
+		<system-out>socketcan_frame_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_socket_lifecycle" classname="socketcan_socket_lifecycle" time="0.00172666" status="run">
+		<properties/>
+		<system-out>SKIP: set ROBOT_CONTROL_TEST_VCAN_INTERFACE to an existing vcan interface for bind/filter/frame/metadata checks
+socketcan_socket_tests passed
+</system-out>
+	</testcase>
+	<testcase name="socketcan_vcan_managed" classname="socketcan_vcan_managed" time="0.00875772" status="notrun">
+		<skipped message="SKIP_RETURN_CODE=77"/>
+		<properties/>
+		<system-out>Error: Unknown device type.
+SKIP: namespace capabilities or kernel vcan support are unavailable
+</system-out>
+	</testcase>
+	<testcase name="linux_platform_integration" classname="linux_platform_integration" time="0.193317" status="run">
+		<properties/>
+		<system-out>linux_platform_integration passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_reader_pty" classname="sbus_reader_pty" time="0.102144" status="run">
+		<properties/>
+		<system-out>SBUS reader PTY tests passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_observer_cli" classname="sbus_observer_cli" time="1.56068" status="run">
+		<properties/>
+		<system-out>SBUS observer CLI, PTY, SIGTERM and output-backpressure tests passed
+</system-out>
+	</testcase>
+	<testcase name="sbus_source_archived_replay" classname="sbus_source_archived_replay" time="0.0992703" status="run">
+		<properties/>
+		<system-out>p9_2_sbus_capture_20260916: frames/rejected/lost/failsafe=(1428, 0, 0, 0) PASS (offline replay)
+attempt1: frames/rejected/lost/failsafe=(4098, 2, 422, 351) PASS (offline replay)
+attempt2: frames/rejected/lost/failsafe=(4290, 3, 420, 348) PASS (offline replay)
+</system-out>
+	</testcase>
+</testsuite>

@@ -23,15 +23,17 @@ network manager, CiA402 layer, and vendor drive profile above it.
 
 Do not use ros2_canopen as the low-level core.
 
-The original logging decision was amended after Phase 3 review: use the
-repository's EasyLogger core through a project-owned Linux port and C++ facade.
-Keep synchronous stderr output for journald, disable color/async/buffer modes,
-retain project-owned structured fields and repetition throttling, and expose
-port failures through atomic health counters without recursively logging them.
-The Linux port temporarily enables `O_NONBLOCK` while holding the EasyLogger
-output lock, restores the original descriptor flags, and records EAGAIN or flag
-restoration failures. Control-cycle code may emit only predeclared throttled
-events; general informational logging belongs outside the control cycle.
+The original logging decision was amended: replace EasyLogger with spdlog
+v1.17.0 (`components/spdlog`, submodule tracking immutable commit `79524ddd08a4ec981b7fea76afd08ee05f83755d`).
+Keep synchronous stderr output for journald via a project-owned `StderrSink`,
+disable color/async/buffer modes, retain project-owned structured fields and
+repetition throttling, and expose sink failures through atomic health counters
+without recursively logging them. Nonblocking `/proc/self/fd/2` or `send(..., MSG_DONTWAIT)`
+writes prevent stalling under stderr backpressure and record EAGAIN or write failures.
+Control-cycle code may emit only predeclared throttled events; general informational
+logging belongs outside the control cycle. Final records, including all prefixes and the newline,
+are limited to 512 bytes; oversized records end with a `truncated=1` field and newline.
+The app collector uses the same `Logger::max_record_bytes` bound for rotation and mirroring.
 
 ## Alternatives
 
@@ -50,9 +52,8 @@ events; general informational logging belongs outside the control cycle.
 - Upstream stack objects remain owned by the CANopen execution context.
 - Project policy is isolated from upstream callbacks.
 - Any upstream patch requires provenance and review.
-- EasyLogger's process-global state is confined to `service/logging`; this is a
-  documented exception to the no-global-state preference imposed by the chosen
-  library. Domain and platform APIs do not depend on EasyLogger headers.
+- EasyLogger's process-global state is replaced by an spdlog StderrSink confined
+  to `service/logging`. Domain and platform APIs do not depend on spdlog headers.
 
 ## Verification
 
