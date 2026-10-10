@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-10-10T04:12:40.258623+00:00",
+  "verdict": "HOST_UFW_UDP_BLOCK_CONFIRMED_REMEDIATION_NOT_APPLIED",
+  "target": {
+    "authorization_source": "User: \u6392\u67e5\u8fd9\u4e9b\u65e0\u6cd5\u8bbf\u95ee\u7684\u95ee\u9898",
+    "target_alias": "robot-dev",
+    "machine_identity_sha256": "0eb0153e3711fc755b4b334ed7eb72c1a4f7b0114eb622c9c90b99403ea69f3f",
+    "target_address": "192.168.110.161",
+    "host_address": "192.168.110.198",
+    "host_route": "direct wlan0, 192.168.110.0/24",
+    "board_route": "direct p2p0, 192.168.110.0/24",
+    "previous_topology": "host 192.168.1.21; board saw SSH source 192.168.110.155",
+    "destination": "/home/cat/robot-control-tests/ipc-link-verification-20261009",
+    "fixture_sha256": "63ce6f61eb65575e1a55cc67820bd071258025daed2ce847c2db71316c9e6784",
+    "node_sha256": "520f049b1c10d6de281856c1a67579ff9e94f46732044491474ab7aff613661d",
+    "bounds": {
+      "single_attempt_sec": 60,
+      "fixture_lifetime_sec": 8,
+      "capture_sec": 40
+    },
+    "scope": "Device-free fixture/ROS status, UDP discovery and isolated container NAT comparison; process-scoped profiles and bounded IPv4 UDP RTPS capture for domain 186/test ports only",
+    "capture_permissions": "Ephemeral read-only pinned container, drop all capabilities except NET_RAW; no promiscuous mode; only matching RTPS packets stored",
+    "physical_can_uart_opened": false,
+    "network_capture_interface": "host wlan0 only",
+    "production_changed": false,
+    "physical_network_or_firewall_changed": false,
+    "recovery": "Stop only owned fixture/node/capture containers, check stage socket and ports, retain old evidence and user network configuration"
+  },
+  "captures": {
+    "default": {
+      "counts": {
+        "192.168.110.198:36991->239.255.0.1:53900": 15,
+        "192.168.110.161:40057->239.255.0.1:53900": 12,
+        "192.168.110.161:36914->192.168.110.198:53910": 84
+      },
+      "spdp_udp_locators": [
+        {
+          "packet_source": "192.168.110.161",
+          "pid": 49,
+          "address": "192.168.110.161",
+          "port": 53911
+        },
+        {
+          "packet_source": "192.168.110.161",
+          "pid": 50,
+          "address": "192.168.110.161",
+          "port": 53910
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 49,
+          "address": "172.18.0.1",
+          "port": 53911
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 49,
+          "address": "192.168.110.198",
+          "port": 53911
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 50,
+          "address": "172.18.0.1",
+          "port": 53910
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 50,
+          "address": "192.168.110.198",
+          "port": 53910
+        }
+      ],
+      "duration_sec": 40.09896721499899,
+      "interface": "wlan0",
+      "promiscuous": false,
+      "pcap_packets_verified": 111
+    },
+    "udp": {
+      "counts": {
+        "192.168.110.198:57369->192.168.110.161:54720": 15,
+        "192.168.110.161:41501->192.168.110.198:54710": 96
+      },
+      "spdp_udp_locators": [
+        {
+          "packet_source": "192.168.110.161",
+          "pid": 49,
+          "address": "192.168.110.161",
+          "port": 54721
+        },
+        {
+          "packet_source": "192.168.110.161",
+          "pid": 50,
+          "address": "192.168.110.161",
+          "port": 54720
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 49,
+          "address": "192.168.110.198",
+          "port": 54711
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 50,
+          "address": "192.168.110.198",
+          "port": 54710
+        }
+      ],
+      "duration_sec": 40.08619003300009,
+      "interface": "wlan0",
+      "promiscuous": false,
+      "pcap_packets_verified": 111
+    },
+    "port-probe": {
+      "counts": {
+        "192.168.110.161:54820->192.168.110.198:54710": 3,
+        "192.168.110.161:54820->192.168.110.198:54711": 2,
+        "192.168.110.198:54710->192.168.110.161:54820": 1
+      },
+      "spdp_udp_locators": [],
+      "duration_sec": 10.017840896998678,
+      "interface": "wlan0",
+      "promiscuous": false,
+      "pcap_packets_verified": 6
+    }
+  },
+  "independent_udp_probe": {
+    "spontaneous_delivered": [],
+    "related_reply_delivered": true,
+    "source": [
+      "192.168.110.161",
+      54820
+    ],
+    "capture_returncode": 0,
+    "board_returncode": 0,
+    "host_sockets_closed": true,
+    "capture_command": [
+      "docker",
+      "run",
+      "--rm",
+      "--pull=never",
+      "--name",
+      "robot-control-nettrace-port-probe",
+      "--network",
+      "host",
+      "--read-only",
+      "--user",
+      "0:0",
+      "--cap-drop",
+      "ALL",
+      "--cap-add",
+      "NET_RAW",
+      "--security-opt",
+      "no-new-privileges",
+      "--mount",
+      "type=bind,source=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/verification/ipc-network-diagnosis-20261009,target=/output,readonly",
+      "docker.io/library/ros:humble-ros-base-jammy@sha256:ba0391e31ffcfc5a1014578ecb0f4ca438be9d624b6375c85576ae16bc5232e6",
+      "python3",
+      "-u",
+      "/output/capture_rtps.py",
+      "wlan0",
+      "192.168.110.161",
+      "192.168.110.198",
+      "/output/port-probe",
+      "10"
+    ],
+    "board_command": "timeout 8 /usr/bin/python3 -u -c 'import socket,sys,time\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as peer:\n    peer.bind((sys.argv[2],54820))\n    peer.settimeout(4)\n    print('\"'\"'READY'\"'\"',flush=True)\n    time.sleep(.3)\n    for _ in range(2):\n        for port in (54710,54711):\n            peer.sendto(b'\"'\"'RC_UDP_DIAG SPONTANEOUS'\"'\"',(sys.argv[1],port))\n    data,source=peer.recvfrom(256)\n    assert data==b'\"'\"'RC_UDP_DIAG PING'\"'\"' and source==(sys.argv[1],54710)\n    peer.sendto(b'\"'\"'RC_UDP_DIAG PONG'\"'\"',source)\n    print('\"'\"'PONG_SENT'\"'\"',flush=True)\n' 192.168.110.198 192.168.110.161"
+  },
+  "confirmed_kernel_drop_ports": [
+    53910,
+    54710
+  ],
+  "current_default_dds": "FAILED_ZERO_SAMPLES",
+  "current_explicit_udp": "FAILED_ZERO_SAMPLES",
+  "current_tcp_control": {
+    "samples_by_server": {
+      "72635295936127": 30,
+      "72645336450730": 199
+    },
+    "stale_events": 2,
+    "final_fresh": false,
+    "publishers": [],
+    "expiry_sec": 0.5,
+    "source_age_verified": false,
+    "cross_host_monotonic_comparison": false,
+    "passed": true
+  },
+  "cpp_lsp": {
+    "source": "lens_diagnostics active lsp, primary server",
+    "date_utc": "2026-10-10",
+    "individual": {
+      "wait_ms": 5000,
+      "paths": [
+        "app/main.cpp",
+        "application/control/linux_loop.cpp",
+        "application/control/linux_loop.hpp",
+        "service/logging/stderr_sink.cpp",
+        "service/logging/stderr_sink_status.h",
+        "tests/integration/linux_platform_tests.cpp"
+      ],
+      "confirmed_clean": 6,
+      "findings": 0,
+      "timeouts": 0
+    },
+    "batch": {
+      "wait_ms": 10000,
+      "concurrency": 2,
+      "confirmed_clean": 6,
+      "findings": 0,
+      "timeouts": 0
+    },
+    "historical_timeout": "Not reproducible now; historical scheduler/cache/load cause not established"
+  },
+  "rule_proposal": {
+    "parsed_by": "installed UFW 0.36.2 parser, no backend constructed",
+    "syntax_valid": true,
+    "applied": false,
+    "argv": [
+      "sudo",
+      "/usr/bin/ufw",
+      "allow",
+      "in",
+      "on",
+      "wlan0",
+      "proto",
+      "udp",
+      "from",
+      "192.168.110.161",
+      "to",
+      "192.168.110.198",
+      "port",
+      "54710:54711",
+      "comment",
+      "robot-control diagnostic UDP"
+    ],
+    "rollback_argv": [
+      "sudo",
+      "/usr/bin/ufw",
+      "delete",
+      "allow",
+      "in",
+      "on",
+      "wlan0",
+      "proto",
+      "udp",
+      "from",
+      "192.168.110.161",
+      "to",
+      "192.168.110.198",
+      "port",
+      "54710:54711",
+      "comment",
+      "robot-control diagnostic UDP"
+    ],
+    "source": "192.168.110.161",
+    "destination": "192.168.110.198",
+    "interface": "wlan0",
+    "protocol": "udp",
+    "ports": "54710:54711",
+    "scope": "Only the fixed explicit UDP test profiles, not default multicast DDS or additional participants",
+    "root_required": true,
+    "authorization_required_for_global_firewall_change": true
+  },
+  "code_changes_required_for_this_block": false,
+  "global_firewall_changed": false,
+  "physical_can_uart_used": false,
+  "production_changed": false,
+  "postflight": {
+    "node_running": false,
+    "fixture_running": false,
+    "remaining_sockets": []
+  },
+  "acceptance_limits": [
+    "UDP has not been repaired; scoped firewall action and post-change retest require authorization",
+    "One fixed-profile firewall proposal is not default multicast or multi-participant ROS acceptance",
+    "Current topology differs from the old routed/NAT network; not every old failure is uniquely attributed",
+    "Historical LSP timeout cause not established, current active six-file checks all pass",
+    "Synthetic fixture status only; source age across hosts and hardware/motion remain unverified"
+  ],
+  "auxiliary_probe_corrections": [
+    "Native /usr/bin/python3 used for installed UFW instead of isolated Pi Python",
+    "UFWParserResponse uses data[rule]; allow/rollback parse succeeded without backend construction"
+  ]
+}

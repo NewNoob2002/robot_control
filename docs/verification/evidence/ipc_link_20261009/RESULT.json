@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "verdict": "PASS_DEVICE_FREE_DIAGNOSTIC_SCOPE",
+  "base_revision": "3823e51b77a93b8f94f14d2bc0bff6496a278d16",
+  "dirty": true,
+  "host": {
+    "debug": {
+      "passed": true,
+      "tests": 42,
+      "skipped": [],
+      "failed": [],
+      "returncode": 0,
+      "command": [
+        "ctest",
+        "--test-dir",
+        "out/build/test-app-debug",
+        "--output-on-failure",
+        "--no-tests=error",
+        "-V",
+        "--output-junit",
+        "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/verification/ipc-verification-20261009/debug.xml"
+      ]
+    },
+    "san": {
+      "passed": true,
+      "tests": 42,
+      "skipped": [],
+      "failed": [],
+      "returncode": 0,
+      "command": [
+        "ctest",
+        "--test-dir",
+        "out/build/test-app-san",
+        "--output-on-failure",
+        "--no-tests=error",
+        "-V",
+        "--output-junit",
+        "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/verification/ipc-verification-20261009/san.xml"
+      ]
+    }
+  },
+  "owner_timing": {
+    "debug": [
+      {
+        "scenario": "ipc_probe",
+        "requests_sent": 209,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9965.280999949755,
+        "rpdo_interval_max_us": 11566.49299991841,
+        "owner_cycles": 401,
+        "owner_max_work_us": 348,
+        "ipc_max_poll_us": 105,
+        "owner_overruns": 0
+      },
+      {
+        "scenario": "ipc_drive",
+        "requests_sent": 532,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9997.721999752684,
+        "rpdo_interval_max_us": 11792.444000093383,
+        "owner_cycles": 401,
+        "owner_max_work_us": 306,
+        "ipc_max_poll_us": 171,
+        "owner_overruns": 0
+      },
+      {
+        "scenario": "ipc_flood",
+        "requests_sent": 678,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9992.361000058736,
+        "rpdo_interval_max_us": 11157.831999753398,
+        "owner_cycles": 401,
+        "owner_max_work_us": 349,
+        "ipc_max_poll_us": 111,
+        "owner_overruns": 0
+      }
+    ],
+    "san": [
+      {
+        "scenario": "ipc_probe",
+        "requests_sent": 211,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 10002.666999753274,
+        "rpdo_interval_max_us": 11384.761000044819,
+        "owner_cycles": 401,
+        "owner_max_work_us": 777,
+        "ipc_max_poll_us": 156,
+        "owner_overruns": 0
+      },
+      {
+        "scenario": "ipc_drive",
+        "requests_sent": 531,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9979.202999602421,
+        "rpdo_interval_max_us": 11331.822000101965,
+        "owner_cycles": 401,
+        "owner_max_work_us": 890,
+        "ipc_max_poll_us": 217,
+        "owner_overruns": 0
+      },
+      {
+        "scenario": "ipc_flood",
+        "requests_sent": 678,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9966.749000341224,
+        "rpdo_interval_max_us": 10899.366000103328,
+        "owner_cycles": 401,
+        "owner_max_work_us": 806,
+        "ipc_max_poll_us": 159,
+        "owner_overruns": 0
+      }
+    ]
+  },
+  "pinned_humble_dds": "PASS",
+  "ci": {
+    "job_added": true,
+    "routing_passed": true,
+    "local_equivalent_passed": true,
+    "remote_actions_run": false,
+    "pushed": false
+  },
+  "cross": {
+    "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+    "configure": [
+      "cmake",
+      "-S",
+      ".",
+      "-B",
+      "out/build/cross/ipc-verification-20261009-final",
+      "-G",
+      "Ninja",
+      "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+      "-DCMAKE_BUILD_TYPE=Debug",
+      "-DBUILD_TESTING=ON",
+      "-DROBOT_CONTROL_BUILD_TEST_APP=ON"
+    ],
+    "source": {
+      "dirty": true,
+      "file_count": 6559,
+      "revision": "3823e51b77a93b8f94f14d2bc0bff6496a278d16",
+      "schema_version": 1,
+      "snapshot_sha256": "4348c1827eda9b76dc6382bee65d4354d8e24d2b81524738e29ca97fe982fa8e"
+    },
+    "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+    "artifacts": {
+      "out/build/cross/ipc-verification-20261009-final/app/robot-control-app": "208536ae8d6b91a319058db63457ef67f427b2e46782567bc18b9d8064aba337",
+      "out/build/cross/ipc-verification-20261009-final/app/robot_control_ipc_fixture": "3d6f5341ad1757f7c1afe917118d304926c7ad8e3875c19411580c41b7d7f023",
+      "out/build/cross/ipc-verification-20261009-final/app/robot-control-config-check": "6e8c1b1978549fa702ab6053678bc6d3e80acdf559d28a065725b08f55fa06fb"
+    }
+  },
+  "cpp_inputs_verified": 113,
+  "board_fixture_reused": true,
+  "board_fixture_sources_verified": [
+    "application/ipc/server.cpp",
+    "application/ipc/server.hpp",
+    "platform/linux/unique_fd.hpp",
+    "tests/integration/ipc_fixture.cpp"
+  ],
+  "direct_tcp": {
+    "samples_by_server": {
+      "64975104478977": 27,
+      "64985145698812": 199
+    },
+    "stale_events": 2,
+    "final_fresh": false,
+    "publishers": [],
+    "expiry_sec": 0.5,
+    "source_age_verified": false,
+    "cross_host_monotonic_comparison": false,
+    "passed": true
+  },
+  "network_trial": {
+    "samples_by_server": {
+      "65672648999357": 27,
+      "65682697159510": 119,
+      "65692743518692": 199
+    },
+    "stale_events": 4,
+    "final_fresh": false,
+    "publishers": [],
+    "expiry_sec": 0.5,
+    "source_age_verified": false,
+    "cross_host_monotonic_comparison": false,
+    "passed": true,
+    "network_interruption_passed": true,
+    "network_interruption_sec": 2.1148820420003176,
+    "same_server_recovery": true,
+    "reconnect_to_sample_sec": 1.0113649189997886
+  },
+  "network_injection": {
+    "disconnected_monotonic": 4143.176105294,
+    "reconnected_monotonic": 4145.290987336,
+    "interrupted_server_started_ns": 65682697159510,
+    "container": "robot-control-ipc-link-20261009",
+    "network": "bridge",
+    "host_or_board_links_changed": false
+  },
+  "independent_network_audit": {
+    "passed": true,
+    "last_sample_age_before_disconnect_sec": 0.12471907600047416,
+    "same_server_first_sample_after_reconnect_sec": 1.0113649189997886
+  },
+  "attempts": {
+    "default_dds": "FAILED_ZERO_SAMPLES",
+    "explicit_udp": "FAILED_ZERO_SAMPLES",
+    "tcp_proxy": "FAILED_SETUP_ZERO_SAMPLES",
+    "tcp_proxy_wan": "FAILED_SETUP_ZERO_SAMPLES",
+    "initial_container": "INCOMPLETE_NETWORK_CAUSALITY",
+    "final_container": "PASS_LIVE_SAME_SERVER_INTERRUPTION"
+  },
+  "postflight": {
+    "node_running": false,
+    "fixture_running": false,
+    "remaining_sockets": []
+  },
+  "static": {
+    "clang_tidy_returncode": 0,
+    "existing_warnings": 6,
+    "clang_format": "PASS",
+    "ruff": "PASS",
+    "python_lsp": "PASS",
+    "cpp_lsp": {
+      "confirmed_clean": 4,
+      "inconclusive_timeouts": 2,
+      "reported_findings": 0,
+      "wait_budget_ms": 10000,
+      "note": "No findings is not proof of clean for the two unconfirmed files; builds and clang-tidy checked changed C++."
+    },
+    "actionlint": "PASS",
+    "bash_syntax": "PASS",
+    "shellcheck": "UNAVAILABLE"
+  },
+  "later_scoped_checks": {
+    "linux_platform_debug": "PASS",
+    "linux_platform_asan_ubsan": "PASS",
+    "ci_routing": "PASS"
+  },
+  "acceptance_limits": [
+    "Receipt freshness only; source-state age and cross-host monotonic comparison unverified",
+    "No remote probe; captured_ns still requires board-local clock domain",
+    "Synthetic fixture; physical CAN/UART/drives, motion, production untested",
+    "Owner timing on host after CAN wait; prior CAN dispatch, wait and shutdown excluded",
+    "Default/explicit UDP DDS delivery failed; routing/multicast/firewall root cause unproven",
+    "No remote Actions run for these changes"
+  ],
+  "preserved_user_changes": [
+    ".clangd",
+    "deleted service/logging/easylogger_port_status.h"
+  ]
+}

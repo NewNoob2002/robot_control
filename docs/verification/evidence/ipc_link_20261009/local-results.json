@@ -1,0 +1,36 @@
+{
+  "debug": {
+    "passed": true,
+    "tests": 42,
+    "skipped": [],
+    "failed": [],
+    "returncode": 0,
+    "command": [
+      "ctest",
+      "--test-dir",
+      "out/build/test-app-debug",
+      "--output-on-failure",
+      "--no-tests=error",
+      "-V",
+      "--output-junit",
+      "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/verification/ipc-verification-20261009/debug.xml"
+    ]
+  },
+  "san": {
+    "passed": true,
+    "tests": 42,
+    "skipped": [],
+    "failed": [],
+    "returncode": 0,
+    "command": [
+      "ctest",
+      "--test-dir",
+      "out/build/test-app-san",
+      "--output-on-failure",
+      "--no-tests=error",
+      "-V",
+      "--output-junit",
+      "/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/verification/ipc-verification-20261009/san.xml"
+    ]
+  }
+}

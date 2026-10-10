@@ -1,0 +1,20 @@
+<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+  <transport_descriptors>
+    <transport_descriptor>
+      <transport_id>ipc_tcp</transport_id><type>TCPv4</type>
+      <keep_alive_frequency_ms>500</keep_alive_frequency_ms>
+      <keep_alive_timeout_ms>2000</keep_alive_timeout_ms>
+    </transport_descriptor>
+  </transport_descriptors>
+  <participant profile_name="ipc_tcp_host" is_default_profile="true">
+    <rtps>
+      <userTransports><transport_id>ipc_tcp</transport_id></userTransports>
+      <useBuiltinTransports>false</useBuiltinTransports>
+      <builtin>
+        <initialPeersList><locator><tcpv4>
+          <address>192.168.110.161</address><physical_port>54730</physical_port><port>54730</port>
+        </tcpv4></locator></initialPeersList>
+      </builtin>
+    </rtps>
+  </participant>
+</profiles>

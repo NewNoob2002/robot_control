@@ -1,4 +1,66 @@
-# 当前 diff 整理与 RK3588 IPC/ROS2 软件验证（2026-10-09）
+# IPC / ROS 阶段交付复审（2026-10-10）
+
+当前只读诊断范围复审通过，未发现阻止该范围提交的缺陷。
+Debug/sanitizer各4项focused checks和三个IPC managed vcan场景、锁定Humble DDS已复跑通过；
+首次同时运行两套CTest触发app共享锁，失败在启动前发生，保留日志并串行重跑通过。
+历史归档XML格式化副本单独保留，原验证字节恢复，179个旧checksum及113个C++输入匹配。
+用户报告的手动fixture/topic通过按人工功能报告记录，不新增精确时序/HIL结论。
+复审、最终源身份及提交范围见[阶段交付](evidence/ipc_stage_delivery_20261010/README.md)，
+后续实施见[计划](../plans/ROS2_IPC_NEXT_STEPS.md)。下面保留先前授权UDP与诊断检查点。
+
+---
+
+# 用户授权限定 UFW 与 UDP 复测（2026-10-10）
+
+已通过本机系统认证新增并保留一条wlan0/board161→host198/UDP54710–54711规则。
+UFW active、默认incoming/routed deny及原KDE Connect IPv4/IPv6规则保留。
+显式UDP两fixture实例193+195=388条有效状态，500ms host接收过期及第二实例恢复通过。
+独立socket四个获准主动包均送达；相邻54712两个包到网卡但未送达监听程序。
+默认DDS仍0条状态/observer退出1，作为未放行范围的预期负向证据保留。
+
+收尾确认无owned fixture/node/socket/listener/capture container。历史失败/未应用提案不改写，
+源状态年龄/跨机probe/物理CAN/UART/驱动/运动仍不在本轮验收内。无源码行为变更。
+规则、回退argv及原始记录见[限定规则与UDP复测](evidence/ipc_udp_allow_20261010/README.md)。
+下面为授权应用前的诊断检查点。
+
+---
+
+# DDS UDP 访问排查与 LSP 复查（2026-10-10）
+
+当前host已与board处于同一网段；更新显式UDP地址后仍0条状态。
+抓包确认板端报文到host网卡，内核UFW BLOCK确认53910/54710新UDP入站被丢弃。
+独立socket四个主动包到网卡但未进入监听程序，host发起请求后的同tuple回复通过；
+排除DDS层作为该socket不收包的原因。TCP对照两实例229条状态及退出/恢复通过。
+六个C++文件逐项与原批量主动LSP复查均6/6 clean，旧超时不再复现。
+
+安装的UFW解析器验证了仅限wlan0/该board IP/host54710–54711的规则及删除语法，
+未构造backend或改变全局防火墙。UDP尚未修复，规则应用及后验复测需要明确授权。
+无物理CAN/UART/驱动操作；旧失败与用户改动保留。
+当前[访问排查证据](evidence/ipc_network_20261010/README.md)独立归档，下面保留原验证范围。
+
+---
+
+# IPC 验证缺口补齐与板端→host诊断链路（2026-10-09）
+
+Debug与ASan/UBSan各42/42通过，四项managed vcan无CTest跳过；Humble DDS新增CI任务，
+锁定镜像等价命令本地通过，远端Actions尚未运行本次源码。IPC probe/背压/flood三个场景
+记录计划等待后至日志/IPC完成的owner工作时间：Debug306–349us、sanitizer777–890us，
+10ms预算超限均为0。主机测量不证明RK3588实时性。
+最终锁定交叉构建/app、fixture、config-check的ELF审计与113个C++输入比对通过。
+范围内clang-tidy命令通过，保留6条既有警告；格式、Python与CI静态检查通过。
+
+板端原生Humble经Fast DDS TCP向host送达诊断状态；三次fixture实例、500ms接收过期、
+2.115s仅隔离测试容器网络及同一fixture恢复通过，新状态在重连后1.011s到达。
+默认DDS/显式UDP和两个代理配置失败保留；首轮网络中断与fixture退出重叠，原PASS输出
+保留但独立判定INCOMPLETE_NETWORK_CAUSALITY，改为活跃同实例中断检查后通过。
+收尾无测试进程/socket/container；生产目录、物理CAN/UART及持久驱动参数未操作。
+源状态年龄/跨机probe/当前app实机HIL仍未验证。详见[补齐证据](evidence/ipc_link_20261009/README.md)。
+`.clangd`既有修改与旧EasyLogger头删除保留；构建缺失声明改为stderr_sink_status.h，C ABI不变。
+以下保留此前38通过/4跳过及其他历史范围。
+
+---
+
+# 此前 diff 整理与 RK3588 IPC/ROS2 软件验证（2026-10-09）
 
 用户要求整理当前diff后实板测试；RTK暂停。日志依赖/formatter/契约和过时文档已整理，
 既有IPC fixture可交叉构建。主机Debug与ASan/UBSan各38通过、4项vcan跳过；

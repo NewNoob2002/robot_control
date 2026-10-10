@@ -1,0 +1,75 @@
+{
+  "spontaneous_delivered": [
+    {
+      "port": 54710,
+      "data": "RC_UDP_DIAG SPONTANEOUS",
+      "source": [
+        "192.168.110.161",
+        54820
+      ]
+    },
+    {
+      "port": 54710,
+      "data": "RC_UDP_DIAG SPONTANEOUS",
+      "source": [
+        "192.168.110.161",
+        54820
+      ]
+    },
+    {
+      "port": 54711,
+      "data": "RC_UDP_DIAG SPONTANEOUS",
+      "source": [
+        "192.168.110.161",
+        54820
+      ]
+    },
+    {
+      "port": 54711,
+      "data": "RC_UDP_DIAG SPONTANEOUS",
+      "source": [
+        "192.168.110.161",
+        54820
+      ]
+    }
+  ],
+  "related_reply_delivered": true,
+  "source": [
+    "192.168.110.161",
+    54820
+  ],
+  "capture_returncode": 0,
+  "board_returncode": 0,
+  "host_sockets_closed": true,
+  "capture_command": [
+    "docker",
+    "run",
+    "--rm",
+    "--pull=never",
+    "--name",
+    "robot-control-nettrace-port-probe",
+    "--network",
+    "host",
+    "--read-only",
+    "--user",
+    "0:0",
+    "--cap-drop",
+    "ALL",
+    "--cap-add",
+    "NET_RAW",
+    "--security-opt",
+    "no-new-privileges",
+    "--mount",
+    "type=bind,source=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/verification/ipc-udp-allow-20261010,target=/output,readonly",
+    "docker.io/library/ros:humble-ros-base-jammy@sha256:ba0391e31ffcfc5a1014578ecb0f4ca438be9d624b6375c85576ae16bc5232e6",
+    "python3",
+    "-u",
+    "/output/capture_rtps.py",
+    "wlan0",
+    "192.168.110.161",
+    "192.168.110.198",
+    "/output/port-probe",
+    "10"
+  ],
+  "board_command": "timeout 8 /usr/bin/python3 -u -c 'import socket,sys,time\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as peer:\n    peer.bind((sys.argv[2],54820))\n    peer.settimeout(4)\n    print('\"'\"'READY'\"'\"',flush=True)\n    time.sleep(.3)\n    for _ in range(2):\n        for port in (54710,54711,54712):\n            peer.sendto(b'\"'\"'RC_UDP_DIAG SPONTANEOUS'\"'\"',(sys.argv[1],port))\n    data,source=peer.recvfrom(256)\n    assert data==b'\"'\"'RC_UDP_DIAG PING'\"'\"' and source==(sys.argv[1],54710)\n    peer.sendto(b'\"'\"'RC_UDP_DIAG PONG'\"'\"',source)\n    print('\"'\"'PONG_SENT'\"'\"',flush=True)\n' 192.168.110.198 192.168.110.161"
+}

@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-10-10T06:38:13.508578+00:00",
+  "verdict": "PASS_AUTHORIZED_SCOPED_UDP_DEVICE_FREE_DIAGNOSTICS",
+  "authorization": {
+    "authorization_source": "User: \u6388\u6743\u6211\u6dfb\u52a0\u8fd9\u6761\u9650\u5b9a\u89c4\u5219\uff0c\u5e76\u590d\u6d4b UDP \u901a\u4fe1",
+    "approved": true,
+    "host_address": "192.168.110.198",
+    "host_interface": "wlan0",
+    "target_alias": "robot-dev",
+    "target_address": "192.168.110.161",
+    "machine_identity_sha256": "0eb0153e3711fc755b4b334ed7eb72c1a4f7b0114eb622c9c90b99403ea69f3f",
+    "destination": "/home/cat/robot-control-tests/ipc-link-verification-20261009",
+    "fixture_sha256": "63ce6f61eb65575e1a55cc67820bd071258025daed2ce847c2db71316c9e6784",
+    "node_sha256": "520f049b1c10d6de281856c1a67579ff9e94f46732044491474ab7aff613661d",
+    "ufw_before": "active; only existing KDE Connect IPv4 and IPv6 application rules; proposed rule absent",
+    "scope": "Add one UFW inbound IPv4 rule on wlan0, from board IP to host IP, UDP ports 54710:54711, comment robot-control diagnostic UDP; retain all existing rules and default policy",
+    "privilege_mechanism": "Native pkexec with graphical authentication; no passwords passed to tools",
+    "physical_can_uart_opened": false,
+    "board_system_network_changed": false,
+    "production_changed": false,
+    "bounds": {
+      "single_software_attempt_sec": 60,
+      "fixture_lifetime_sec": 8
+    },
+    "recovery": "Record only actually newly added rule; if unusable, remove only that exact new rule; stop owned test fixture/node/capture processes and check sockets; retain working authorized rule on success"
+  },
+  "rule": {
+    "parsed_by": "installed UFW 0.36.2 parser, no backend constructed",
+    "syntax_valid": true,
+    "applied": true,
+    "argv": [
+      "sudo",
+      "/usr/bin/ufw",
+      "allow",
+      "in",
+      "on",
+      "wlan0",
+      "proto",
+      "udp",
+      "from",
+      "192.168.110.161",
+      "to",
+      "192.168.110.198",
+      "port",
+      "54710:54711",
+      "comment",
+      "robot-control diagnostic UDP"
+    ],
+    "rollback_argv": [
+      "sudo",
+      "/usr/bin/ufw",
+      "delete",
+      "allow",
+      "in",
+      "on",
+      "wlan0",
+      "proto",
+      "udp",
+      "from",
+      "192.168.110.161",
+      "to",
+      "192.168.110.198",
+      "port",
+      "54710:54711",
+      "comment",
+      "robot-control diagnostic UDP"
+    ],
+    "source": "192.168.110.161",
+    "destination": "192.168.110.198",
+    "interface": "wlan0",
+    "protocol": "udp",
+    "ports": "54710:54711",
+    "scope": "Only the fixed explicit UDP test profiles, not default multicast DDS or additional participants",
+    "root_required": true,
+    "authorization_required_for_global_firewall_change": true,
+    "newly_added": true,
+    "apply_output": "Rule added",
+    "authorization_source": "User: \u6388\u6743\u6211\u6dfb\u52a0\u8fd9\u6761\u9650\u5b9a\u89c4\u5219\uff0c\u5e76\u590d\u6d4b UDP \u901a\u4fe1",
+    "retained_on_success": true,
+    "rollback_performed": false,
+    "rollback_safety": "Remove only this actually newly added exact rule; do not use a changing rule number",
+    "authorization_granted_for_this_rule": true
+  },
+  "explicit_udp_dds": {
+    "samples_by_server": {
+      "82122831408687": 193,
+      "82132872495757": 195
+    },
+    "stale_events": 2,
+    "final_fresh": false,
+    "publishers": [],
+    "expiry_sec": 0.5,
+    "source_age_verified": false,
+    "cross_host_monotonic_comparison": false,
+    "passed": true
+  },
+  "independent_socket_probe": {
+    "spontaneous_delivered": [
+      {
+        "port": 54710,
+        "data": "RC_UDP_DIAG SPONTANEOUS",
+        "source": [
+          "192.168.110.161",
+          54820
+        ]
+      },
+      {
+        "port": 54710,
+        "data": "RC_UDP_DIAG SPONTANEOUS",
+        "source": [
+          "192.168.110.161",
+          54820
+        ]
+      },
+      {
+        "port": 54711,
+        "data": "RC_UDP_DIAG SPONTANEOUS",
+        "source": [
+          "192.168.110.161",
+          54820
+        ]
+      },
+      {
+        "port": 54711,
+        "data": "RC_UDP_DIAG SPONTANEOUS",
+        "source": [
+          "192.168.110.161",
+          54820
+        ]
+      }
+    ],
+    "related_reply_delivered": true,
+    "source": [
+      "192.168.110.161",
+      54820
+    ],
+    "capture_returncode": 0,
+    "board_returncode": 0,
+    "host_sockets_closed": true,
+    "capture_command": [
+      "docker",
+      "run",
+      "--rm",
+      "--pull=never",
+      "--name",
+      "robot-control-nettrace-port-probe",
+      "--network",
+      "host",
+      "--read-only",
+      "--user",
+      "0:0",
+      "--cap-drop",
+      "ALL",
+      "--cap-add",
+      "NET_RAW",
+      "--security-opt",
+      "no-new-privileges",
+      "--mount",
+      "type=bind,source=/home/gtc/Desktop/workspace/Linux_PROJ/robot_control/out/verification/ipc-udp-allow-20261010,target=/output,readonly",
+      "docker.io/library/ros:humble-ros-base-jammy@sha256:ba0391e31ffcfc5a1014578ecb0f4ca438be9d624b6375c85576ae16bc5232e6",
+      "python3",
+      "-u",
+      "/output/capture_rtps.py",
+      "wlan0",
+      "192.168.110.161",
+      "192.168.110.198",
+      "/output/port-probe",
+      "10"
+    ],
+    "board_command": "timeout 8 /usr/bin/python3 -u -c 'import socket,sys,time\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as peer:\n    peer.bind((sys.argv[2],54820))\n    peer.settimeout(4)\n    print('\"'\"'READY'\"'\"',flush=True)\n    time.sleep(.3)\n    for _ in range(2):\n        for port in (54710,54711,54712):\n            peer.sendto(b'\"'\"'RC_UDP_DIAG SPONTANEOUS'\"'\"',(sys.argv[1],port))\n    data,source=peer.recvfrom(256)\n    assert data==b'\"'\"'RC_UDP_DIAG PING'\"'\"' and source==(sys.argv[1],54710)\n    peer.sendto(b'\"'\"'RC_UDP_DIAG PONG'\"'\"',source)\n    print('\"'\"'PONG_SENT'\"'\"',flush=True)\n' 192.168.110.198 192.168.110.161"
+  },
+  "neighbor_port_negative_check": {
+    "port": 54712,
+    "arrived_at_interface": 2,
+    "delivered_to_bound_socket": 0,
+    "passed": true
+  },
+  "default_dds_negative_check": {
+    "expected_denial": true,
+    "raw_observer_verdict": {
+      "samples_by_server": {},
+      "stale_events": 0,
+      "final_fresh": false,
+      "publishers": [],
+      "expiry_sec": 0.5,
+      "source_age_verified": false,
+      "cross_host_monotonic_comparison": false,
+      "passed": false
+    },
+    "host_exit_code": 1,
+    "passed": true
+  },
+  "captures": {
+    "udp": {
+      "counts": {
+        "192.168.110.198:56481->192.168.110.161:54720": 35,
+        "192.168.110.161:55775->192.168.110.198:54710": 72,
+        "192.168.110.198:56481->192.168.110.161:54721": 5,
+        "192.168.110.161:55775->192.168.110.198:54711": 425
+      },
+      "spdp_udp_locators": [
+        {
+          "packet_source": "192.168.110.161",
+          "pid": 49,
+          "address": "192.168.110.161",
+          "port": 54721
+        },
+        {
+          "packet_source": "192.168.110.161",
+          "pid": 50,
+          "address": "192.168.110.161",
+          "port": 54720
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 49,
+          "address": "192.168.110.198",
+          "port": 54711
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 50,
+          "address": "192.168.110.198",
+          "port": 54710
+        }
+      ],
+      "duration_sec": 40.018455272998835,
+      "interface": "wlan0",
+      "promiscuous": false,
+      "pcap_packets_verified": 537
+    },
+    "default": {
+      "counts": {
+        "192.168.110.198:36196->239.255.0.1:53900": 15,
+        "192.168.110.161:38494->239.255.0.1:53900": 14,
+        "192.168.110.161:41097->192.168.110.198:53910": 82
+      },
+      "spdp_udp_locators": [
+        {
+          "packet_source": "192.168.110.161",
+          "pid": 49,
+          "address": "192.168.110.161",
+          "port": 53911
+        },
+        {
+          "packet_source": "192.168.110.161",
+          "pid": 50,
+          "address": "192.168.110.161",
+          "port": 53910
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 49,
+          "address": "172.18.0.1",
+          "port": 53911
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 49,
+          "address": "192.168.110.198",
+          "port": 53911
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 50,
+          "address": "172.18.0.1",
+          "port": 53910
+        },
+        {
+          "packet_source": "192.168.110.198",
+          "pid": 50,
+          "address": "192.168.110.198",
+          "port": 53910
+        }
+      ],
+      "duration_sec": 40.041003685997566,
+      "interface": "wlan0",
+      "promiscuous": false,
+      "pcap_packets_verified": 111
+    },
+    "port-probe": {
+      "counts": {
+        "192.168.110.161:54820->192.168.110.198:54710": 3,
+        "192.168.110.161:54820->192.168.110.198:54711": 2,
+        "192.168.110.161:54820->192.168.110.198:54712": 2,
+        "192.168.110.198:54710->192.168.110.161:54820": 1
+      },
+      "spdp_udp_locators": [],
+      "duration_sec": 10.012282140000025,
+      "interface": "wlan0",
+      "promiscuous": false,
+      "pcap_packets_verified": 8
+    }
+  },
+  "cleanup": {
+    "passed": true,
+    "board_command": "test ! -e /home/cat/robot-control-tests/ipc-link-verification-20261009/control.sock && printf '%s\\n' NO_STAGE_SOCKET; ss -ltn 'sport = :54730'; ss -uan 'sport = :54820'; pgrep -af '/home/cat/robot-control-tests/ipc-link-verification-20261009/[r]obot_control_ipc_(node[.]py|fixture)' || test $? -eq 1",
+    "board_output": "NO_STAGE_SOCKET\nState Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\nState Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\n",
+    "host_socket_output": "State Recv-Q Send-Q Local Address:Port Peer Address:Port\n",
+    "remaining_capture_containers": "",
+    "owned_test_processes_remaining": false
+  },
+  "host_firewall_changed": true,
+  "board_system_network_changed": false,
+  "physical_can_uart_used": false,
+  "production_changed": false,
+  "limitations": [
+    "Fixed explicit UDP profiles and one host participant only; default multicast remains unapproved",
+    "Freshness is receipt-only; source-state age across hosts and remote probes unverified",
+    "Synthetic fixture status only; hardware CAN/UART/drive/motion not exercised",
+    "Server exit/new-instance recovery verified; no new physical link interruption acceptance",
+    "No source behavior change, commit or remote CI run in this follow-up"
+  ]
+}

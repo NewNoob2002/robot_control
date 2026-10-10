@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-10-10T08:32:07.657415+00:00",
+  "verdict": "PASS_WITH_DOCUMENTED_LIMITS",
+  "reviewer": "Direct parent assistant, not independent delegated review",
+  "base_revision": "3823e51b77a93b8f94f14d2bc0bff6496a278d16",
+  "review_scope": "Read-only Unix IPC and ROS status/nonexecuting probes, control-owner timing, CI, device-free TCP/UDP evidence",
+  "blocking_findings": [],
+  "fresh_checks": {
+    "debug-focused": {
+      "passed": true,
+      "ctest_cases": 4,
+      "skipped": 0,
+      "ipc_scenarios": []
+    },
+    "san-focused": {
+      "passed": true,
+      "ctest_cases": 4,
+      "skipped": 0,
+      "ipc_scenarios": []
+    },
+    "debug-vcan": {
+      "passed": true,
+      "ctest_cases": 1,
+      "skipped": 0,
+      "ipc_scenarios": [
+        "ipc_probe",
+        "ipc_drive",
+        "ipc_flood"
+      ]
+    },
+    "san-vcan-serial": {
+      "passed": true,
+      "ctest_cases": 1,
+      "skipped": 0,
+      "ipc_scenarios": [
+        "ipc_probe",
+        "ipc_drive",
+        "ipc_flood"
+      ]
+    }
+  },
+  "owner_metrics": {
+    "debug-vcan": [
+      {
+        "scenario": "ipc_probe",
+        "requests_sent": 211,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9990.130998630775,
+        "rpdo_interval_max_us": 11681.855001370423,
+        "owner_cycles": 401,
+        "owner_max_work_us": 285,
+        "ipc_max_poll_us": 87,
+        "owner_overruns": 0
+      },
+      {
+        "scenario": "ipc_drive",
+        "requests_sent": 531,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 10023.91399742919,
+        "rpdo_interval_max_us": 11493.341997265816,
+        "owner_cycles": 401,
+        "owner_max_work_us": 307,
+        "ipc_max_poll_us": 157,
+        "owner_overruns": 0
+      },
+      {
+        "scenario": "ipc_flood",
+        "requests_sent": 678,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9987.196001020493,
+        "rpdo_interval_max_us": 12366.241000563605,
+        "owner_cycles": 401,
+        "owner_max_work_us": 355,
+        "ipc_max_poll_us": 160,
+        "owner_overruns": 0
+      }
+    ],
+    "san-vcan-serial": [
+      {
+        "scenario": "ipc_probe",
+        "requests_sent": 210,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 10002.708997490117,
+        "rpdo_interval_max_us": 10979.302001942415,
+        "owner_cycles": 401,
+        "owner_max_work_us": 380,
+        "ipc_max_poll_us": 82,
+        "owner_overruns": 0
+      },
+      {
+        "scenario": "ipc_drive",
+        "requests_sent": 531,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9999.193000112427,
+        "rpdo_interval_max_us": 11195.24800014915,
+        "owner_cycles": 401,
+        "owner_max_work_us": 773,
+        "ipc_max_poll_us": 187,
+        "owner_overruns": 0
+      },
+      {
+        "scenario": "ipc_flood",
+        "requests_sent": 678,
+        "peer_dropped": true,
+        "rpdo_interval_median_us": 9991.839997383067,
+        "rpdo_interval_max_us": 11140.435999550391,
+        "owner_cycles": 401,
+        "owner_max_work_us": 993,
+        "ipc_max_poll_us": 158,
+        "owner_overruns": 0
+      }
+    ]
+  },
+  "pinned_humble_dds_passed": true,
+  "ci_routing_actionlint_bash_ruff_format_passed": true,
+  "original_complete_host_ctest": {
+    "debug": 42,
+    "asan_ubsan": 42,
+    "evidence": "../ipc_link_20261009/RESULT.json"
+  },
+  "original_cross_inputs_verified": 113,
+  "identity": {
+    "passed": true,
+    "counts": {
+      "ipc_link_20261009": 86,
+      "ipc_network_20261010": 47,
+      "ipc_udp_allow_20261010": 46,
+      "FILES.json": 15,
+      "SOURCE_INPUTS.json": 113
+    },
+    "xml_integrity_correction": {
+      "detected": "Historical host-udp.xml was whitespace-formatted after capture",
+      "xml_semantics_equal": true,
+      "original_sha256": "74d67b2baa6950439ee0fd3691adbcf59b3364fa76181fb97170752efaabdabe",
+      "formatted_sha256": "1e5e0f44e4043eccfb1f308124132bb9b20edbc3a4cbb424dbcd384f5feff6f2",
+      "formatted_copy_preserved_at": "docs/verification/evidence/ipc_stage_delivery_20261010/host-udp-manual-formatted.xml",
+      "historical_original_restored": true,
+      "test_reexecution_required": false,
+      "reason": "Canonical XML with text whitespace stripped is identical; no address/port/transport change"
+    }
+  },
+  "preserved_failed_attempt": {
+    "name": "san-vcan",
+    "exit_code": 8,
+    "classification": "ORCHESTRATION_SHARED_APP_LOCK_COLLISION",
+    "error": "app lock unavailable: Resource temporarily unavailable",
+    "control_started": false,
+    "serial_recheck": "san-vcan-serial PASS"
+  },
+  "manual_report": "USER_MANUAL_REPORT.json",
+  "next_plan": "../../../plans/ROS2_IPC_NEXT_STEPS.md",
+  "no_new_source_behavior_fix_needed": true,
+  "no_new_hardware_or_firewall_action": true,
+  "commit_authorized": true,
+  "push_authorized": false,
+  "remote_ci_for_current_changes": false,
+  "limits": [
+    "Device-free diagnostic acceptance only; synthetic fixture feedback",
+    "Receipt freshness does not establish remote source-state age",
+    "Remote probes do not meet board-local time domain; no external motion integration",
+    "Fixed UDP profiles limited to one host participant; default DDS still not permitted",
+    "Target owner real-time/physical CAN/UART/drive/app HIL remain separate",
+    "Existing clang-tidy warnings and unavailable shellcheck remain documented",
+    "Historical LSP timeout did not reproduce in subsequent active checks"
+  ]
+}

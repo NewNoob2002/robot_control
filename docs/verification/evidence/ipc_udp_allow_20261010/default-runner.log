@@ -1,0 +1,12 @@
+READY
+Traceback (most recent call last):
+  File "/workspace/scripts/test/test_ros2_ipc_remote_status.py", line 110, in <module>
+    main()
+  File "/workspace/scripts/test/test_ros2_ipc_remote_status.py", line 101, in main
+    assert result['passed'], result
+AssertionError: {'samples_by_server': {}, 'stale_events': 0, 'final_fresh': False, 'publishers': [], 'expiry_sec': 0.5, 'source_age_verified': False, 'cross_host_monotonic_comparison': False, 'passed': False}
+
+CAPTURE_READY
+CAPTURE_COMPLETE 111
+
+RETURN_CODES 0 1 0

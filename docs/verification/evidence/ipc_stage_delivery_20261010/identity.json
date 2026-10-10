@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "counts": {
+    "ipc_link_20261009": 86,
+    "ipc_network_20261010": 47,
+    "ipc_udp_allow_20261010": 46,
+    "FILES.json": 15,
+    "SOURCE_INPUTS.json": 113
+  },
+  "xml_integrity_correction": {
+    "detected": "Historical host-udp.xml was whitespace-formatted after capture",
+    "xml_semantics_equal": true,
+    "original_sha256": "74d67b2baa6950439ee0fd3691adbcf59b3364fa76181fb97170752efaabdabe",
+    "formatted_sha256": "1e5e0f44e4043eccfb1f308124132bb9b20edbc3a4cbb424dbcd384f5feff6f2",
+    "formatted_copy_preserved_at": "docs/verification/evidence/ipc_stage_delivery_20261010/host-udp-manual-formatted.xml",
+    "historical_original_restored": true,
+    "test_reexecution_required": false,
+    "reason": "Canonical XML with text whitespace stripped is identical; no address/port/transport change"
+  }
+}

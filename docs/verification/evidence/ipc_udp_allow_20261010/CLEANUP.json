@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "board_command": "test ! -e /home/cat/robot-control-tests/ipc-link-verification-20261009/control.sock && printf '%s\\n' NO_STAGE_SOCKET; ss -ltn 'sport = :54730'; ss -uan 'sport = :54820'; pgrep -af '/home/cat/robot-control-tests/ipc-link-verification-20261009/[r]obot_control_ipc_(node[.]py|fixture)' || test $? -eq 1",
+  "board_output": "NO_STAGE_SOCKET\nState Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\nState Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\n",
+  "host_socket_output": "State Recv-Q Send-Q Local Address:Port Peer Address:Port\n",
+  "remaining_capture_containers": "",
+  "owned_test_processes_remaining": false
+}

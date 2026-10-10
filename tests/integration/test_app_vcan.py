@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 """Exercise the real SBUS app against a separately implemented virtual CANopen peer. No physical interface."""
-from pathlib import Path
-import os
 import fcntl
 import json
+import os
 import pty
+import re
 import select
 import signal
 import socket
+import statistics
 import struct
 import subprocess
 import tempfile
 import time
+from contextlib import suppress
+from itertools import pairwise
+from pathlib import Path
 
 
 def frame(steering=1000, throttle=993, button=200, flags=0, gear=1800):
@@ -47,14 +51,20 @@ def trial(scenario):
     interface = 'vcan1' if scenario == 'interface' else 'vcan0'
     assert interface.startswith('vcan')
     values = device_baseline(resolution)
-    if scenario == 'device_mismatch': values[0x6083,1] = 700
-    if scenario == 'baseline': values[0x200F, 0] = 0
-    if scenario == 'resolution_invalid': values[0x2026,5] = 0
-    if scenario == 'resolution_mismatch': values[0x2026,5] = 4
+    if scenario == 'device_mismatch':
+        values[0x6083,1] = 700
+    if scenario == 'baseline':
+        values[0x200F, 0] = 0
+    if scenario == 'resolution_invalid':
+        values[0x2026,5] = 0
+    if scenario == 'resolution_mismatch':
+        values[0x2026,5] = 4
     baseline = values.copy()
     bus = socket.socket(socket.AF_CAN, socket.SOCK_RAW, socket.CAN_RAW)
-    bus.bind((interface,)); bus.setblocking(False)
-    master, slave = pty.openpty(); os.set_blocking(master, False)
+    bus.bind((interface,))
+    bus.setblocking(False)
+    master, slave = pty.openpty()
+    os.set_blocking(master, False)
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         env = dict(os.environ, ROBOT_CONTROL_TEST_VCAN_INTERFACE=interface)
@@ -65,18 +75,29 @@ def trial(scenario):
         ipc = None
         ipc_replies = []
         ipc_sequence = 0
+        ipc_sent = 0
+        ipc_disconnected = False
         next_ipc = 0
         if scenario.startswith('ipc_'):
             command += ['--set', f'ipc_socket={root}/control.sock']
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
+        assert process.stdout is not None
         os.set_blocking(process.stdout.fileno(), False)
         console_start = time.monotonic()
-        if scenario == 'console_slow': fcntl.fcntl(process.stdout, fcntl.F_SETPIPE_SZ, 4096)
-        output = bytearray(); sent = []; writes = []
-        nmt = 127; targets = (0, 0); speeds = (0, 0)
+        if scenario == 'console_slow':
+            fcntl.fcntl(process.stdout, fcntl.F_SETPIPE_SZ, 4096)
+        output = bytearray()
+        sent = []
+        writes = []
+        nmt = 127
+        targets = (0, 0)
+        speeds = (0, 0)
         started = enabled = first_motion = injected = None
-        stopped_after_injection = None; child = None; second = None
-        next_serial = next_feedback = time.monotonic(); deadline = next_serial + 16
+        stopped_after_injection = None
+        child = None
+        second = None
+        next_serial = next_feedback = time.monotonic()
+        deadline = next_serial + 16
 
         def send(identifier, payload):
             """Use Linux's wire frame directly; this peer imports no project encoders or guards."""
@@ -89,8 +110,10 @@ def trial(scenario):
             assert word in states, word
             values[0x6040, 0] = word
             values[0x6041, 0] = states[word] * 0x10001
-            if word != 15: targets = speeds = (0, 0)
-            elif enabled is None: enabled = time.monotonic()
+            if word != 15:
+                targets = speeds = (0, 0)
+            elif enabled is None:
+                enabled = time.monotonic()
 
         try:
             while time.monotonic() < deadline:
@@ -100,8 +123,10 @@ def trial(scenario):
                         output.extend(os.read(process.stdout.fileno(), 65536))
                         continue
                     while True:
-                        try: raw = bus.recv(16)
-                        except BlockingIOError: break
+                        try:
+                            raw = bus.recv(16)
+                        except BlockingIOError:
+                            break
                         identifier, size, payload = struct.unpack('=IB3x8s', raw)
                         payload = payload[:size]
                         if identifier == 0:
@@ -109,7 +134,8 @@ def trial(scenario):
                             nmt = 5 if payload[0] == 1 else 127
                         elif identifier == 0x601:
                             command_byte = payload[0]
-                            index = int.from_bytes(payload[1:3], 'little'); sub = payload[3]
+                            index = int.from_bytes(payload[1:3], 'little')
+                            sub = payload[3]
                             key = index, sub
                             assert key in values, key
                             width = 2 if index in (0x2007,0x2008,0x2026,0x6040,0x605A,0x1017,0x2000,0x200F) or (index in (0x1400,0x1800,0x1801) and sub == 5) else 1 if index in (0x6060,0x6061) or (index in (0x1400,0x1800,0x1801) and sub == 2) or (index in (0x1600,0x1A00,0x1A01) and sub == 0) else 4
@@ -126,23 +152,29 @@ def trial(scenario):
                                 writes.append((key,value))
                                 assert key[0] not in (0x2026,0x2007,0x2008,0x6083,0x6084,0x6085,0x6060,0x200F,0x605A), 'runtime must never write persistent parameters'
                                 values[key] = value
-                                if index == 0x6040: apply_word(value)
-                                if index == 0x60FF: assert value == 0
+                                if index == 0x6040:
+                                    apply_word(value)
+                                if index == 0x60FF:
+                                    assert value == 0
                                 send(0x581, b'\x60' + payload[1:4] + bytes(4))
                         elif identifier == 0x201:
                             word, left, right = struct.unpack('<Hhh', payload)
                             assert -maximum*resolution <= left <= maximum*resolution and -maximum*resolution <= right <= maximum*resolution
                             assert left % resolution == 0 and right % resolution == 0
                             assert (left == right == 0) or word == 15
-                            apply_word(word); targets = (left,right); speeds = (left*10//values[0x2026,5],right*10//values[0x2026,5])
+                            apply_word(word)
+                            targets = (left,right)
+                            speeds = (left*10//values[0x2026,5],right*10//values[0x2026,5])
                             sent.append((now,word,left,right))
-                            if (left or right) and first_motion is None: first_motion = now
+                            if (left or right) and first_motion is None:
+                                first_motion = now
                             if injected and left == right == 0 and stopped_after_injection is None:
                                 stopped_after_injection = now
                 runs = list(root.glob('run-*'))
                 if runs and started is None:
                     application = runs[0] / 'application.log'
-                    if application.exists() and 'event=control_start ' in application.read_text(): started = now
+                    if application.exists() and 'event=control_start ' in application.read_text():
+                        started = now
                 elapsed = now - first_motion if first_motion else 0
                 if scenario.startswith('ipc_') and started:
                     if ipc is None:
@@ -150,54 +182,82 @@ def trial(scenario):
                         ipc.connect(str(root / 'control.sock'))
                         ipc.setblocking(False)
                     if now >= next_ipc:
-                        ipc_sequence += 1
-                        try:
-                            ipc.send(f'RCI1 {ipc_sequence} {time.monotonic_ns()} 1 5 -5'.encode())
-                        except (BlockingIOError, BrokenPipeError, ConnectionResetError):
-                            pass
-                        next_ipc = now + (.002 if scenario == 'ipc_drive' and elapsed >= 1 else .02)
-                    if scenario == 'ipc_probe' or elapsed < 1:
-                        try:
-                            raw = ipc.recv(1024)
-                        except (BlockingIOError, ConnectionResetError):
-                            raw = b''
-                        if raw:
+                        for _ in range(32 if scenario == 'ipc_flood' else 1):
+                            ipc_sequence += 1
+                            try:
+                                ipc.send(f'RCI1 {ipc_sequence} {time.monotonic_ns()} 1 5 -5'.encode())
+                                ipc_sent += 1
+                            except BlockingIOError:
+                                break
+                            except (BrokenPipeError, ConnectionResetError):
+                                ipc_disconnected = True
+                                break
+                        next_ipc = now + (.002 if scenario == 'ipc_flood' or scenario == 'ipc_drive' and elapsed >= 1 else .02)
+                    if scenario in ('ipc_probe', 'ipc_flood') or elapsed < 1:
+                        for _ in range(32 if scenario == 'ipc_flood' else 1):
+                            try:
+                                raw = ipc.recv(1024)
+                            except BlockingIOError:
+                                break
+                            except ConnectionResetError:
+                                ipc_disconnected = True
+                                break
+                            if not raw:
+                                ipc_disconnected = True
+                                break
                             reply = json.loads(raw)
                             assert reply['executed'] is False and reply['motion_authority'] is False
                             ipc_replies.append(reply)
                 steering, throttle, button, flags = 1000, 993, 200, 0
-                if started and now - started > .2: button = 1800
+                if started and now - started > .2:
+                    button = 1800
                 if started and now - started > .8:
                     throttle = 1800
                     if scenario == 'drive' and first_motion:
-                        if elapsed < 3.3: pass
-                        elif elapsed < 3.6: throttle = 993
-                        elif elapsed < 4.1: throttle = 200
-                        elif elapsed < 4.4: throttle = 993
-                        elif elapsed < 4.9: steering,throttle = 200,993
-                        elif elapsed < 5.2: throttle = 993
-                        elif elapsed < 5.7: steering,throttle = 1800,993
-                        else: throttle = 993
+                        if elapsed < 3.3:
+                            pass
+                        elif elapsed < 3.6:
+                            throttle = 993
+                        elif elapsed < 4.1:
+                            throttle = 200
+                        elif elapsed < 4.4:
+                            throttle = 993
+                        elif elapsed < 4.9:
+                            steering,throttle = 200,993
+                        elif elapsed < 5.2:
+                            throttle = 993
+                        elif elapsed < 5.7:
+                            steering,throttle = 1800,993
+                        else:
+                            throttle = 993
                     if scenario == 'ch6' and first_motion:
-                        if .4 < elapsed < .7: button,throttle = 200,993
-                        elif .7 <= elapsed < 1.0: button,throttle = 1800,993
-                        elif 1.0 <= elapsed < 1.3: button,throttle = 200,993
-                        elif 1.3 <= elapsed < 1.8: button,throttle = 1800,993
+                        if .4 < elapsed < .7:
+                            button,throttle = 200,993
+                        elif .7 <= elapsed < 1.0:
+                            button,throttle = 1800,993
+                        elif 1.0 <= elapsed < 1.3:
+                            button,throttle = 200,993
+                        elif 1.3 <= elapsed < 1.8:
+                            button,throttle = 1800,993
                 if first_motion and elapsed >= .4 and injected is None and scenario in (
                     'sigterm','sighup','sbus_loss','logger_exit','logger_stall','overspeed','can_loss','second'):
                     injected = now
-                    if scenario in ('sigterm','sighup'): process.send_signal(signal.SIGTERM if scenario == 'sigterm' else signal.SIGHUP)
+                    if scenario in ('sigterm','sighup'):
+                        process.send_signal(signal.SIGTERM if scenario == 'sigterm' else signal.SIGHUP)
                     if scenario.startswith('logger_'):
                         children = Path(f'/proc/{process.pid}/task/{process.pid}/children').read_text().split()
                         assert len(children) == 1
-                        child = int(children[0]); os.kill(child, signal.SIGKILL if scenario == 'logger_exit' else signal.SIGSTOP)
+                        child = int(children[0])
+                        os.kill(child, signal.SIGKILL if scenario == 'logger_exit' else signal.SIGSTOP)
                     if scenario == 'second':
-                        second = subprocess.run(command, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=5)
+                        second = subprocess.run(command, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=5, check=False)
                         assert second.returncode == 1
                         injected = None  # This is not a stop stimulus for the first app.
                         scenario = 'second_done'
-                if injected and scenario == 'sbus_loss': flags = 4
-                if scenario in ('standby', 'ipc_probe'): button,throttle = 200,993
+                if injected and scenario == 'sbus_loss':
+                    flags = 4
+                if scenario in ('standby', 'ipc_probe'):
+                    button,throttle = 200,993
                 if now >= next_serial:
                     gear = 1800
                     if scenario == 'gears':
@@ -208,28 +268,33 @@ def trial(scenario):
                 if now >= next_feedback:
                     next_feedback = now + .02
                     if not (injected and scenario == 'can_loss' and now-injected < .45):
-                        if values[0x1017,0]: send(0x701, bytes([nmt]))
+                        if values[0x1017,0]:
+                            send(0x701, bytes([nmt]))
                         if nmt == 5:
                             observed = (1001, speeds[1]) if injected and scenario == 'overspeed' and any(targets) else speeds
                             values[0x606C,1] = observed[0] & 0xFFFFFFFF
                             values[0x606C,2] = observed[1] & 0xFFFFFFFF
                             values[0x606C,3] = (observed[0] & 0xFFFF) | ((observed[1] & 0xFFFF) << 16)
                             send(0x181, struct.pack('<Ihh', values[0x6041,0], *observed))
-                            if values[0x1A01,0] == 2: send(0x281, bytes([3]) + struct.pack('<I', values[0x603F,0]))
+                            if values[0x1A01,0] == 2:
+                                send(0x281, bytes([3]) + struct.pack('<I', values[0x603F,0]))
                     else:
                         # SDO remains available for cleanup; this case loses periodic feedback only.
                         values[0x606C,1],values[0x606C,2],values[0x606C,3] = 0,0,0
-                if process.poll() is not None: break
+                if process.poll() is not None:
+                    break
             assert process.poll() is not None, ('app timeout',scenario,bytes(output))
             output.extend(process.stdout.read() or b'')
             expected = 143 if scenario in ('sigterm','sighup') else 1 if setup_failure or scenario in ('baseline','logger_exit','logger_stall','overspeed','can_loss') else 0
             assert process.returncode == expected, (scenario,process.returncode,bytes(output), [p.read_text()[-5000:] for p in root.glob('run-*/application.log')])
-            if scenario in ('baseline','resolution_invalid'): assert not writes and not sent
+            if scenario in ('baseline','resolution_invalid'):
+                assert not writes and not sent
             elif setup_failure:
                 assert not first_motion and not sent
                 assert values[0x2026,5] == baseline[0x2026,5]
                 assert values[0x1017,0] == baseline[0x1017,0]
             else:
+                assert started is not None
                 assert sent[-1][2:] == (0,0), (scenario,sent[-8:])
                 if scenario in ('standby', 'remote_off', 'ipc_probe'):
                     assert not first_motion and enabled is not None
@@ -241,9 +306,13 @@ def trial(scenario):
                     assert len(ipc_replies) >= 20, ipc_replies
                     assert any(reply['result'] == 'probe_ok' for reply in ipc_replies)
                     assert all(reply['source'] != 2 for reply in ipc_replies)
-                    if scenario == 'ipc_drive':
+                    if scenario in ('ipc_drive', 'ipc_flood'):
                         assert any(stamp-first_motion > 2 and left == 5 and right == -5
-                                   for stamp,_,left,right in sent), 'slow IPC observer disrupted SBUS motion'
+                                   for stamp,_,left,right in sent), 'loaded IPC observer disrupted SBUS motion'
+                    if scenario == 'ipc_drive':
+                        assert ipc_disconnected, 'backpressured IPC peer was not dropped'
+                    if scenario == 'ipc_flood':
+                        assert ipc_sent > 500, ('insufficient flood stimulus', ipc_sent)
                 for key,value in baseline.items():
                     if key not in ((0x6040,0),(0x6041,0),(0x606C,1),(0x606C,2),(0x606C,3)):
                         assert values[key] == value, (scenario,key,values[key],value)
@@ -259,9 +328,11 @@ def trial(scenario):
                 if scenario == 'gears':
                     assert {(70,-70),(150,-150),(250,-250)} <= {(left,right) for _,_,left,right in sent}
                 if scenario == 'ch6':
+                    assert first_motion is not None
                     assert any(stamp-first_motion > 2 and (left or right) for stamp,_,left,right in sent), ([p.read_text() for p in root.glob('run-*/diagnostics.log')], sent[-12:])
                     assert all(word == 15 for stamp,word,_,_ in sent if first_motion < stamp < first_motion+2), sent
                 if scenario == 'sbus_loss':
+                    assert injected is not None
                     held = [(word,left,right) for stamp,word,left,right in sent if injected+.35 < stamp < started+3]
                     assert held and all(item == (15,0,0) for item in held), held
             if not scenario.startswith('logger_'):
@@ -273,25 +344,40 @@ def trial(scenario):
                 assert 'hil_read index=24641' not in app_text
                 assert all(all(line.startswith('I/app') for line in p.read_text().splitlines()) for p in app_files)
                 assert b'event=app_stop' in output or scenario in ('baseline','resolution_invalid')
+                if scenario.startswith('ipc_'):
+                    assert started is not None
+                    stop_line = next(line for line in app_text.splitlines() if 'event=app_stop ' in line)
+                    metrics = {key: int(value) for key, value in re.findall(
+                        r'(owner_cycles|owner_max_work_us|ipc_max_poll_us|owner_overruns)=(\d+)', stop_line)}
+                    assert set(metrics) == {'owner_cycles', 'owner_max_work_us', 'ipc_max_poll_us', 'owner_overruns'}
+                    assert metrics['owner_cycles'] >= 200 and metrics['owner_max_work_us'] > 0, metrics
+                    assert metrics['owner_max_work_us'] >= metrics['ipc_max_poll_us'], metrics
+                    stamps = [stamp for stamp, _, _, _ in sent if started + 1 < stamp < started + 3]
+                    intervals_us = [(b-a)*1_000_000 for a, b in pairwise(stamps)]
+                    assert len(intervals_us) >= 50
+                    print('IPC_TIMING', json.dumps(dict(scenario=scenario, requests_sent=ipc_sent,
+                        peer_dropped=ipc_disconnected, rpdo_interval_median_us=statistics.median(intervals_us),
+                        rpdo_interval_max_us=max(intervals_us), **metrics)), flush=True)
                 if scenario == 'resolution_restore':
                     assert b'cleanup_unverified' in output
 
                 assert b'logs_complete=1' in output, (scenario,bytes(output))
-                run = sorted(root.glob('run-*'))[0]
+                run = min(root.glob('run-*'))
                 segments = sorted(run.glob('trace.bin.*'), key=lambda p:int(p.suffix[1:]), reverse=True) + [run/'trace.bin']
                 assert len(segments) <= 3
                 packets = []
                 for path in segments:
-                    raw = path.read_bytes(); assert len(raw) <= 65536 and len(raw)%256 == 0
+                    raw = path.read_bytes()
+                    assert len(raw) <= 65536 and len(raw)%256 == 0
                     packets.extend(struct.iter_unpack('<32q',raw))
                 assert packets and all(p[0] == 0x31414352 for p in packets)
-                assert all(b[1] == a[1]+1 for a,b in zip(packets,packets[1:]))
+                assert all(b[1] == a[1]+1 for a,b in pairwise(packets))
                 assert packets[-1][2] == 7
                 diagnostic = (run/'diagnostics.log').read_text()
                 assert 'logger_end' in diagnostic
                 if scenario == 'console_slow':
-                    import re
-                    assert int(re.search(r'dropped_records=(\d+)', diagnostic)[1]) > 0
+                    dropped = re.search(r'dropped_records=(\d+)', diagnostic)
+                    assert dropped is not None and int(dropped[1]) > 0
                 else:
                     for p in (run/'application.log',run/'diagnostics.log'):
                         for line in p.read_bytes().splitlines():
@@ -299,13 +385,17 @@ def trial(scenario):
 
             print('PASS',scenario,'RPDOs',len(sent),'writes',len(writes),flush=True)
         finally:
-            if ipc is not None: ipc.close()
+            if ipc is not None:
+                ipc.close()
             if child:
-                try: os.kill(child, signal.SIGCONT)
-                except ProcessLookupError: pass
+                with suppress(ProcessLookupError):
+                    os.kill(child, signal.SIGCONT)
             if process.poll() is None:
-                process.kill(); process.wait(timeout=3)
-            os.close(master); os.close(slave); bus.close()
+                process.kill()
+                process.wait(timeout=3)
+            os.close(master)
+            os.close(slave)
+            bus.close()
 
 
 def main():
@@ -313,8 +403,9 @@ def main():
     assert os.environ.get('ROBOT_CONTROL_TEST_VCAN_INTERFACE') == 'vcan0'
     subprocess.run(['ip','link','add','dev','vcan1','type','vcan'],check=True)
     subprocess.run(['ip','link','set','dev','vcan1','up'],check=True)
-    scenarios = os.environ.get('TEST_APP_CASES', 'baseline,device_mismatch,gears,console_slow,resolution_invalid,resolution_timeout,resolution_abort,resolution_mismatch,resolution2,resolution10,interface,drive,ch6,standby,remote_off,sigterm,sighup,sbus_loss,overspeed,can_loss,logger_exit,logger_stall,second,ipc_probe,ipc_drive').split(',')
-    for scenario in scenarios: trial(scenario)
+    scenarios = os.environ.get('TEST_APP_CASES', 'baseline,device_mismatch,gears,console_slow,resolution_invalid,resolution_timeout,resolution_abort,resolution_mismatch,resolution2,resolution10,interface,drive,ch6,standby,remote_off,sigterm,sighup,sbus_loss,overspeed,can_loss,logger_exit,logger_stall,second,ipc_probe,ipc_drive,ipc_flood').split(',')
+    for scenario in scenarios:
+        trial(scenario)
 
 
 if __name__ == '__main__':

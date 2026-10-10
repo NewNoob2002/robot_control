@@ -1,8 +1,25 @@
-# 当前 IPC/ROS2 阶段检查点 — 2026-10-09
+# 当前 IPC/ROS2 阶段检查点 — 2026-10-10
 
 RTK开发继续搁置。当前阶段为默认关闭的Unix IPC状态/不执行RPM探测，
 独立Humble节点已通过设备无访问验证，外部运动接入仍未实现。
 用户已完成板端原生Humble ros-base安装；本次核对安装身份并复跑原生DDS回归。
+后续补齐Debug/ASan各42/42及四项managed vcan、锁定Humble DDS CI命令、IPC背压/flood计时，
+并通过原生板端→host的Fast DDS TCP状态链路、500ms接收过期与2.115s隔离容器网络中断恢复。
+同一fixture恢复到新状态为1.011s；原默认DDS与显式UDP失败保留。
+2026-10-10同网段复测及网卡抓包/内核日志确认host UFW丢弃新UDP入站（53910/54710）；
+独立socket四个主动包到网卡但未送达，既有tuple回复可送达。TCP对照229条状态通过，
+六文件逐项与批量主动LSP复查均通过。见[访问排查](evidence/ipc_network_20261010/README.md)。
+随后用户授权限定UFW规则：wlan0上board161→host198 UDP54710–54711；实际新增且保留。
+显式UDP两实例388条状态、500ms过期及第二实例恢复通过；独立socket四个获准包通过，
+相邻54712及默认DDS仍预期阻断。UFW/default deny/原KDE规则保留；仅接受固定profiles的
+device-free状态范围。见[UDP复测](evidence/ipc_udp_allow_20261010/README.md)。
+113个C++输入与最终交叉产物身份通过，目标链路沿用未改动IPC源的已验证fixture。
+完整结果和边界见[补齐证据](evidence/ipc_link_20261009/README.md)。
+Debug/sanitizer各4项focused checks及三个IPC vcan场景、锁定Humble DDS均复跑通过；
+首次跨CTest并发锁冲突保留并经串行复跑通过。用户手动fixture/topic通过按人工报告归档。
+阶段复审与提交范围见[交付复审](evidence/ipc_stage_delivery_20261010/README.md)，
+后续顺序见[IPC/ROS实施计划](../plans/ROS2_IPC_NEXT_STEPS.md)。
+远端Actions尚未运行本次修改；源状态年龄、跨机probe、物理CAN/UART及运动验收仍独立保留。
 运行方法集中于[IPC合同](../development/ROS2_IPC.md)和
 [host Docker/RViz与板端原生环境](../../docker/ros2/README.md)。
 
@@ -54,7 +71,7 @@ python3 scripts/test/test_ros2_ipc.py ./robot_control_ipc_fixture
 
 Host独立固定Humble desktop镜像已通过真实RViz窗口/OpenGL4.5初始化、配置保存及SIGINT退出；
 配置文件属主为host UID。首轮配置路径错误及修正后日志保留。
-这只证明GUI smoke；跨机器DDS、TF/模型/地图可视化与物理运行未验证。
+该轮仅证明GUI smoke；跨机器DDS由上面的后续TCP验证补齐，TF/模型/地图可视化与物理运行未验证。
 
 108个C++编译输入及修复后Python节点/回归测试已与当前工作区逐项比对一致。
 可携带的原始身份、JUnit、核心/DDS结果、失败记录及RViz日志见

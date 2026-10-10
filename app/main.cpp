@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <csignal>
 #include <cstdlib>
 #include <cstring>
@@ -142,6 +143,8 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
     int signal_number = 0;
     int reason = 6; // 0 duration,1 signal,2 input,3 feedback,4 logging,5 runtime,6 preparation.
     bool prepared = false;
+    Clock::duration maximum_owner_work{}, maximum_ipc_poll{};
+    std::uint64_t measured_owner_cycles = 0, owner_overruns = 0;
     try {
         const auto proof = setup.prepare(true, 20, config.cycle.runtime.speed_resolution, &config.drive);
         status = proof.status();
@@ -177,10 +180,21 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
                     static_cast<void>(io.monitor.ok(Clock::now()));
                     record_cycle(io.records, result, state, io.monitor);
                     // Read-only observations after publication; IPC cannot populate CycleInput.external.
+                    const auto ipc_started = Clock::now();
                     ipc.poll({result.cycles, static_cast<unsigned>(result.control.selected.source),
                               result.control.output.command.left_rpm, result.control.output.command.right_rpm,
                               state.left_tenths_rpm, state.right_tenths_rpm, state.feedback.status_raw,
                               state.feedback.fault_raw, state.healthy, state.armed});
+                    const auto ipc_finished = Clock::now();
+                    if (!result.finished) {
+                        // Include batch/cycle recording and IPC, excluding scheduled event waiting.
+                        const auto owner_work = ipc_finished - result.cycle_started_at;
+                        maximum_owner_work = std::max(maximum_owner_work, owner_work);
+                        maximum_ipc_poll = std::max(maximum_ipc_poll, ipc_finished - ipc_started);
+                        ++measured_owner_cycles;
+                        if (owner_work >= config.cycle.period)
+                            ++owner_overruns;
+                    }
                     status = result.status;
                     if (result.finished) {
                         signal_number = result.exit == LifecycleExit::sigint    ? SIGINT
@@ -224,8 +238,12 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
     report("app_cleanup", cleanup);
     std::cout << "event=app_stop reason=" << reason << " signal=" << signal_number << " prepared=" << prepared
               << " stop_verify_us=" << std::chrono::duration_cast<std::chrono::microseconds>(stop_verification).count()
-              << " transient_samples=" << io.monitor.transients()
-              << " monitor_fault=" << static_cast<int>(io.monitor.fault()) << '\n'
+              << " transient_samples=" << io.monitor.transients() << " owner_cycles=" << measured_owner_cycles
+              << " owner_max_work_us="
+              << std::chrono::duration_cast<std::chrono::microseconds>(maximum_owner_work).count()
+              << " ipc_max_poll_us=" << std::chrono::duration_cast<std::chrono::microseconds>(maximum_ipc_poll).count()
+              << " owner_overruns=" << owner_overruns << " monitor_fault=" << static_cast<int>(io.monitor.fault())
+              << '\n'
               << std::flush;
     io.records.append(rc::app::RecordKind::stop, {reason, status.error.value(), cleanup.error.value(), signal_number});
     return status.ok() && cleanup.ok() ? (signal_number ? 128 + signal_number : 0) : 1;

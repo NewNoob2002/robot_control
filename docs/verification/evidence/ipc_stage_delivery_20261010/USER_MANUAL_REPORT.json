@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-10",
+  "source": "User chat after manually running board fixture and host topic subscriber",
+  "reported_text": "这个是怎么实现的，测试结果通过",
+  "classification": "OPERATOR_REPORTED_MANUAL_COMMUNICATION_PASS",
+  "raw_status_log_supplied": false,
+  "interpretation": "User reports the manual fixture/topic test passed; no independent new quantitative acceptance inferred",
+  "accepted_automatic_reference": "../ipc_udp_allow_20261010/RESULT.json",
+  "not_claimed": ["new 500ms expiry measurement", "complete restart matrix", "hardware feedback", "motion", "remote probe authorization"]
+}

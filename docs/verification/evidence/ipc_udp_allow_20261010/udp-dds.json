@@ -1,0 +1,13 @@
+{
+  "samples_by_server": {
+    "82122831408687": 193,
+    "82132872495757": 195
+  },
+  "stale_events": 2,
+  "final_fresh": false,
+  "publishers": [],
+  "expiry_sec": 0.5,
+  "source_age_verified": false,
+  "cross_host_monotonic_comparison": false,
+  "passed": true
+}

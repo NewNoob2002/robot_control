@@ -1,0 +1,7 @@
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] KDE Connect                ALLOW IN    Anywhere                  
+[ 2] KDE Connect (v6)           ALLOW IN    Anywhere (v6)             
+

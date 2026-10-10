@@ -47,8 +47,27 @@ For board-to-host communication, both sides use Humble, matching message types,
 `ROS_DOMAIN_ID=186`, `ROS_LOCALHOST_ONLY=0`, and `RMW_IMPLEMENTATION=rmw_fastrtps_cpp`.
 The board and host must have bidirectional DDS reachability; host networking removes
 container NAT but does not fix Wi-Fi isolation, firewall or multicast restrictions.
-The existing automated board tests use localhost-only DDS; restart the actual
-bridge with the cross-machine environment to expose it to host tools.
+The default multicast and explicit UDP-peer configurations received no DDS samples
+on the earlier routed network. The 2026-10-10 direct-subnet retest and packet/kernel
+records confirm host UFW drops new inbound DDS UDP. A process-scoped Fast DDS TCP server on the board
+and outbound host client passed status delivery and reconnection; see
+[the diagnostic link evidence](../../docs/verification/evidence/ipc_link_20261009/README.md).
+The [access diagnosis](../../docs/verification/evidence/ipc_network_20261010/README.md)
+includes matching UFW drop records, a socket-level control and the still-working TCP
+path. Following explicit authorization, one IPv4 UFW rule now permits only the board
+IP into host wlan0 UDP 54710:54711. The explicit UDP profiles pass 388 status samples,
+receipt expiry and new-fixture recovery; see
+[the scoped UDP acceptance](../../docs/verification/evidence/ipc_udp_allow_20261010/README.md)
+for exact rule, profiles and rollback. Existing rules/default deny remain. Neighboring
+54712 and default multicast DDS still fail the intentional out-of-scope check.
+This rule does not enable arbitrary additional ROS participants.
+Set `FASTRTPS_DEFAULT_PROFILES_FILE` explicitly for each ROS process; containers need
+an explicit `--env` plus a readable mount for the profile. The GUI wrapper currently
+uses default DDS settings. The archived server/client XML files record this test's
+addresses and ports; adapt them to the reviewed endpoints before reuse.
+The host observer expires status after 500ms of silence on its own steady clock.
+This proves receipt freshness, not source-state age across machines; remote probes
+still do not meet the board-local `CLOCK_MONOTONIC` contract.
 Unix IPC remains local to the board. RViz subscribes to DDS topics, not to that socket.
 The current `/robot_control_ipc/status` is diagnostic JSON in String and has no
 standard RViz display. TF/Odometry/LaserScan/PointCloud2 must be provided by future

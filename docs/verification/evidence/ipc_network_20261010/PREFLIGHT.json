@@ -1,0 +1,21 @@
+{
+  "authorization_source": "User: 排查这些无法访问的问题",
+  "target_alias": "robot-dev",
+  "machine_identity_sha256": "0eb0153e3711fc755b4b334ed7eb72c1a4f7b0114eb622c9c90b99403ea69f3f",
+  "target_address": "192.168.110.161",
+  "host_address": "192.168.110.198",
+  "host_route": "direct wlan0, 192.168.110.0/24",
+  "board_route": "direct p2p0, 192.168.110.0/24",
+  "previous_topology": "host 192.168.1.21; board saw SSH source 192.168.110.155",
+  "destination": "/home/cat/robot-control-tests/ipc-link-verification-20261009",
+  "fixture_sha256": "63ce6f61eb65575e1a55cc67820bd071258025daed2ce847c2db71316c9e6784",
+  "node_sha256": "520f049b1c10d6de281856c1a67579ff9e94f46732044491474ab7aff613661d",
+  "bounds": {"single_attempt_sec": 60, "fixture_lifetime_sec": 8, "capture_sec": 40},
+  "scope": "Device-free fixture/ROS status, UDP discovery and isolated container NAT comparison; process-scoped profiles and bounded IPv4 UDP RTPS capture for domain 186/test ports only",
+  "capture_permissions": "Ephemeral read-only pinned container, drop all capabilities except NET_RAW; no promiscuous mode; only matching RTPS packets stored",
+  "physical_can_uart_opened": false,
+  "network_capture_interface": "host wlan0 only",
+  "production_changed": false,
+  "physical_network_or_firewall_changed": false,
+  "recovery": "Stop only owned fixture/node/capture containers, check stage socket and ports, retain old evidence and user network configuration"
+}

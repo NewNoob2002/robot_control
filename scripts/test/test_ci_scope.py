@@ -2,14 +2,15 @@
 """Regression checks for CI routing without network or hardware access."""
 
 import importlib.util
-from pathlib import Path
 import subprocess
 import tempfile
+from pathlib import Path
 from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location(
     "select_scope", Path(__file__).resolve().parents[1] / "ci/select_scope.py"
 )
+assert spec is not None and spec.loader is not None
 scope = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(scope)
 
@@ -42,6 +43,12 @@ def main():
         (["CMakeLists.txt"], scope.SUITES),
         ([".github/workflows/ci.yml"], scope.SUITES),
         (["scripts/ci/select_scope.py"], scope.SUITES),
+        (["ros2/robot_control_ipc_node.py"], scope.SUITES),
+        (["application/ipc/server.cpp"], scope.SUITES),
+        (["scripts/test/test_ros2_ipc.py"], scope.SUITES),
+        (["scripts/test/test_ros2_ipc.sh"], scope.SUITES),
+        (["scripts/test/test_ros2_ipc_remote_status.py"], scope.SUITES),
+        (["docker/ros2/image.lock"], scope.SUITES),
         (["future/new_module.cpp"], scope.SUITES),
     ):
         assert scope.classify(paths) == expected, paths

@@ -90,6 +90,7 @@ LoopResult ControlLoop::step(CycleInput input, input::sbus::ReadBatch* captured_
     if (event.value() != LifecycleExit::deadline)
         return finish(Status::success(), event.value(), event_started);
     const auto start = Clock::now();
+    result_.cycle_started_at = start;
     result_.maximum_lateness = std::max(result_.maximum_lateness, start - next_cycle_);
     const auto batch = reader_.read(0ms);
     if (captured_batch && batch.ok())

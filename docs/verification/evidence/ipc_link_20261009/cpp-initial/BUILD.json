@@ -1,0 +1,29 @@
+{
+  "image_id": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "configure": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "out/build/cross/ipc-verification-20261009",
+    "-G",
+    "Ninja",
+    "-DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-rk3588-ubuntu2204.cmake",
+    "-DCMAKE_BUILD_TYPE=Debug",
+    "-DBUILD_TESTING=ON",
+    "-DROBOT_CONTROL_BUILD_TEST_APP=ON"
+  ],
+  "source": {
+    "dirty": true,
+    "file_count": 6558,
+    "revision": "3823e51b77a93b8f94f14d2bc0bff6496a278d16",
+    "schema_version": 1,
+    "snapshot_sha256": "cd5d3598228c9196e888531af66f1fc252b5d426a5546689cf741076800a39b8"
+  },
+  "sysroot_lock_sha256": "7e8e4e0f0e75606ebfa3e0104f5e67f8e559d07f72deb8503769a5072af3e68c",
+  "artifacts": {
+    "out/build/cross/ipc-verification-20261009/app/robot-control-app": "ffc733df2c527b1fe2d1f5702af136e5ca9dde776c1ddccfc4762f5c2ca3f96c",
+    "out/build/cross/ipc-verification-20261009/app/robot_control_ipc_fixture": "fda1872c9d384b1163264c95e1131c9ab6eb436c30f7e3a28e9cd5dda73d3c3f",
+    "out/build/cross/ipc-verification-20261009/app/robot-control-config-check": "a1346d030bd2e604426a5962bc552688a903bdad26791f1fb38169496a78e2ad"
+  }
+}

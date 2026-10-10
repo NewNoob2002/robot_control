@@ -1,0 +1,7 @@
+{
+  "disconnected_monotonic": 3923.37856966,
+  "reconnected_monotonic": 3925.493393203,
+  "container": "robot-control-ipc-link-20261009",
+  "network": "bridge",
+  "host_or_board_links_changed": false
+}

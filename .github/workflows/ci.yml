@@ -357,9 +357,36 @@ jobs:
           PYTEST
           python3 scripts/test/test_control_soak_supervisor.py out/build/control-hil-ci/tools/control_hil/robot-control-diagnostics
 
+  ros2-ipc-validation:
+    name: Humble IPC DDS
+    needs: changes
+    if: >-
+      needs.changes.outputs.runtime == 'true' ||
+      needs.changes.outputs.full == 'true'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.0.2
+        with:
+          persist-credentials: false
+          submodules: recursive
+      - name: Pull pinned Humble image
+        run: |
+          source docker/ros2/image.lock
+          docker pull --platform "${platform}" "${upstream_image}"
+      - name: Build fixture and run device-free DDS regression
+        run: bash scripts/test/test_ros2_ipc.sh
+
   ci-result:
     name: CI result
-    needs: [changes, host-validation, sbus-validation, phase6-qualification, runtime-validation]
+    needs:
+      - changes
+      - host-validation
+      - sbus-validation
+      - phase6-qualification
+      - runtime-validation
+      - ros2-ipc-validation
     if: always()
     runs-on: ubuntu-22.04
     steps:
@@ -371,16 +398,25 @@ jobs:
           import json
           import os
           jobs = json.loads(os.environ['NEEDS_JSON'])
-          assert jobs['changes']['result'] == 'success', 'Suite selection failed'
+          assert jobs['changes']['result'] == 'success', (
+              'Suite selection failed'
+          )
           scope = jobs['changes']['outputs']
           expected = {
               'host-validation': scope['full'] == 'true',
-              'sbus-validation': scope['sbus'] == 'true' and scope['full'] != 'true',
+              'sbus-validation': (
+                  scope['sbus'] == 'true' and scope['full'] != 'true'
+              ),
               'phase6-qualification': scope['phase6'] == 'true',
               'runtime-validation': scope['runtime'] == 'true',
+              'ros2-ipc-validation': (
+                  scope['runtime'] == 'true' or scope['full'] == 'true'
+              ),
           }
           for job, selected in expected.items():
               required = 'success' if selected else 'skipped'
-              assert jobs[job]['result'] == required, (job, jobs[job]['result'], required)
+              assert jobs[job]['result'] == required, (
+                  job, jobs[job]['result'], required
+              )
           print('PASS: all selected suites succeeded; other suites skipped')
           PYTHON

@@ -1,0 +1,18 @@
+{
+  "approved": true,
+  "authorization_source": "User: Close the verification gaps & Verify board-to-host diagnostic communication first",
+  "target_alias": "robot-dev",
+  "machine_identity_sha256": "0eb0153e3711fc755b4b334ed7eb72c1a4f7b0114eb622c9c90b99403ea69f3f",
+  "architecture": "aarch64",
+  "kernel": "6.1.84",
+  "destination": "/home/cat/robot-control-tests/ipc-link-verification-20261009",
+  "fixture_source": "/home/cat/robot-control-tests/ipc-board-20261009T074826Z/robot_control_ipc_fixture",
+  "fixture_sha256": "63ce6f61eb65575e1a55cc67820bd071258025daed2ce847c2db71316c9e6784",
+  "node_sha256": "520f049b1c10d6de281856c1a67579ff9e94f46732044491474ab7aff613661d",
+  "scope": "Device-free status only; process-scoped DDS settings; isolated fixture/node lifetime and transport interruption checks",
+  "bounds": {"single_attempt_sec": 60, "fixture_lifetime_sec": 8},
+  "physical_interfaces_opened": false,
+  "production_path_changed": false,
+  "system_packages_changed": false,
+  "recovery": "Stop only recorded test process IDs, resume any suspended test process, close tunnels/containers, verify no stage socket; preserve previous deployments"
+}

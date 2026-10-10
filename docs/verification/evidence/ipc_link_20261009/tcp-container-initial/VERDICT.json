@@ -1,0 +1,4 @@
+{
+  "verdict": "INCOMPLETE_NETWORK_CAUSALITY",
+  "reason": "The initial oracle did not require a live same-server stream immediately before and after the network gap; original PASS output is preserved."
+}

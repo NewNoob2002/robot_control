@@ -3,8 +3,8 @@
 #include "platform/linux/time/monotonic_timer.hpp"
 #include "platform/linux/uart/serial_port.hpp"
 #include "platform/linux/unique_fd.hpp"
-#include "service/logging/easylogger_port_status.h"
 #include "service/logging/logger.hpp"
+#include "service/logging/stderr_sink_status.h"
 
 #include <fcntl.h>
 #include <pthread.h>

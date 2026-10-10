@@ -1,0 +1,15 @@
+{
+  "events": [
+    {
+      "event": "network_down",
+      "host_monotonic": 3596.629421545
+    },
+    {
+      "event": "network_up",
+      "host_monotonic": 3598.618891224
+    }
+  ],
+  "connections": 2,
+  "forwarded_bytes": 2750,
+  "listener_closed": true
+}

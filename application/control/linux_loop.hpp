@@ -15,6 +15,8 @@ struct LoopResult {
     CycleResult control{};
     time::Duration maximum_lateness{};
     time::Duration maximum_cycle_time{};
+    /** Start of the latest cycle's work after scheduled CAN event waiting; owner diagnostics only. */
+    time::MonotonicTime cycle_started_at{};
     time::Duration shutdown_elapsed{};
     std::uint64_t runtime_session{0};
     std::uint64_t cycles{0};

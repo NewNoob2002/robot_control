@@ -1,4 +1,4 @@
-# ROS2 与 app 的 IPC 第一阶段（当前检查点：2026-10-09）
+# ROS2 与 app 的 IPC 第一阶段（当前检查点：2026-10-10）
 
 基于 b6cf527，开发分支 codex/ros2-control-thread-integration。
 用户恢复此前暂停的IPC工作；本阶段落实移植计划中“先读状态、验证退出，再接运动”的顺序。
@@ -10,7 +10,7 @@
 采用本机 AF_UNIX / SOCK_SEQPACKET：独立进程可按路径连接，双向通信并保留包边界，
 无需为字节流额外维护分帧缓存。与匿名pipe的父子进程/继承FD模型相比，更适合ROS节点
 独立启动与重启；FIFO则需要额外处理双向通道、连接身份和消息边界。首版不需要TCP、
-共享内存、额外库或把ROS executor放进硬件进程。
+共享内存、额外库或把ROS executor放进硬件进程。此处为app↔节点的本机IPC；跨机DDS传输独立配置。
 
 ~~~text
 ROS2 ~/probe → 节点校验/单槽 → Unix SEQPACKET → app owner每周期最多1包
@@ -120,16 +120,40 @@ SBUS仍连续输出，真实CAN发送门控与退出恢复继续工作。全部�
 ROS测试实际通过DDS发布探测/读取状态，验证SIGTERM、节点重启、服务端退出和新实例重连；
 另覆盖context在executor检查与wait-set创建之间关闭的竞态，仍有效的context错误不得被吞掉；
 重启节点启用use_sim_time且不发布/clock，验证暂停仿真时这些IPC行为仍正常。
-CI app Debug/sanitizer任务加入IPC契约；Humble DDS测试目前是锁定本地镜像验证，未加入CI。
+ROS2回归可通过`bash scripts/test/test_ros2_ipc.sh`在锁定镜像中重现；镜像按
+`docker/ros2/README.md`预先拉取。CI的`Humble IPC DDS`任务对runtime/full范围运行，
+并加入汇总门控；实际覆盖退出竞态、状态/探测、暂停仿真时钟和断连恢复。
 
-第一阶段原始基线记录Debug和ASan/UBSan各42项全部通过、Humble DDS通过，以及
-锁定GCC11.4/实际RK3588 Ubuntu22.04 sysroot交叉构建和ELF审计通过。
-后续spdlog/IPC时钟修复的当前验证见[验证基线](../verification/TEST_APP_BASELINE.md)：
-本次host各38项通过、4项vcan因环境能力/内核支持缺口跳过；Humble暂停时钟回归与交叉审计通过。
-RK3588设备无访问配置/纯合同/Unix IPC、私有Humble DDS及安装后的原生Humble DDS已通过，
-真实CAN/UART及驱动HIL未运行；
-详见[实板基线](../verification/IPC_BOARD_BASELINE.md)，不将历史42/42替代当前跳过项。
-fixture以BUILD_TESTING=ON交叉构建，目标端手动执行上述Python检查，不在主机CTest执行aarch64 ELF。
+当前补齐验证：Debug和ASan/UBSan各42/42通过，四项managed vcan均实际执行且无CTest跳过；
+`ipc_probe/ipc_drive/ipc_flood`覆盖背压、每批32包的持续请求、非执行合同及连续SBUS输出。
+停止诊断新增`owner_cycles/owner_max_work_us/ipc_max_poll_us/owner_overruns`；
+owner工作时间从计划CAN等待结束计至日志记录和IPC完成，不计CAN等待阶段或清理。
+Debug三个场景owner最大306–349us、sanitizer为777–890us，均无10ms预算超限；
+这是主机隔离vcan测量，不是RK3588实时性或硬件验收。锁定交叉构建/ELF与113个C++输入身份通过。
+
+RK3588原生Humble到host的诊断状态已通过进程级Fast DDS TCP配置：三次fixture实例、
+500ms接收静默过期、2.115s隔离容器网络中断及同一服务实例恢复通过；重连到新状态1.011s。
+默认DDS和显式UDP peers此前在路由网络未收到数据；原始失败保留。
+2026-10-10同网段/更新地址复测仍失败，网卡抓包、内核UFW BLOCK和独立socket对照
+确认host丢弃新的UDP入站。TCP通过；六文件逐项/批量LSP检查均通过，旧超时不再复现。
+见[访问排查](../verification/evidence/ipc_network_20261010/README.md)。
+随后用户授权并新增wlan0/board161→host198/UDP54710–54711限定规则，原规则/default deny保留。
+固定显式UDP profiles复测388条状态、500ms过期及新fixture恢复通过；独立socket四包送达，
+相邻54712和默认DDS仍预期阻断。必须为进程显式选择所存host/board profiles，固定端口不能
+未经规划供多个参与者共用。规则和回退见[UDP复测](../verification/evidence/ipc_udp_allow_20261010/README.md)。
+消费者只用host接收时间判新鲜度，未证明源状态年龄，不比较跨机CLOCK_MONOTONIC。
+跨机probe仍不符合本机时间域合同；真实CAN/UART和驱动HIL未执行。
+完整命令、未执行项、身份及失败见[补齐证据](../verification/evidence/ipc_link_20261009/README.md)。
+新CI任务已本地执行等价命令，尚无本次源码的远端Actions运行。
+
+此前spdlog/IPC时钟修复的38通过/4跳过记录保留在[验证基线](../verification/TEST_APP_BASELINE.md)，
+旧RK3588本机IPC/DDS和RViz smoke见[实板基线](../verification/IPC_BOARD_BASELINE.md)。
+fixture以BUILD_TESTING=ON交叉构建，目标端手动执行Python检查，不在主机CTest执行aarch64 ELF。
+
+当前阶段复审及验证身份见[交付复审](../verification/evidence/ipc_stage_delivery_20261010/README.md)，
+手动启动与socket生命周期见[手动复测](IPC_MANUAL_TEST.md)。用户报告fixture/topic测试通过，
+作为人工观察归档，不代替自动过期/恢复或真实设备验收。
+后续顺序和完成门槛见[实施计划](../plans/ROS2_IPC_NEXT_STEPS.md)。
 
 ## 后续运动接入阶段
 

@@ -1,4 +1,4 @@
-# Current checkpoint — 2026-10-09
+# Current checkpoint — 2026-10-10
 
 Current software and verification: docs/verification/TEST_APP_BASELINE.md.
 Current usage/configuration: docs/development/TEST_APP.md; handoff scope:
@@ -12,7 +12,26 @@ Unix SEQPACKET IPC and a separate Humble status/probe node are implemented;
 external motion remains unconnected. See docs/development/ROS2_IPC.md.
 Device-free RK3588 IPC/DDS software checks pass both in the original private runtime
 and the now-installed native /opt/ros/humble environment; host RViz GUI smoke also passes.
-See docs/verification/IPC_BOARD_BASELINE.md. Physical CAN/UART/drive acceptance is separate.
+Current Debug and sanitizer each pass 42/42, including all four managed vcan tests;
+Humble DDS is wired into CI with its pinned command verified locally. Device-free
+board-to-host status over native Fast DDS TCP, receipt expiry and isolated container
+network interruption/recovery pass. UDP packet/kernel diagnosis identified host
+UFW drops. The user subsequently authorized one IPv4 rule on wlan0, board
+192.168.110.161 to host 192.168.110.198 UDP 54710:54711. Explicit UDP now passes
+388 status samples across two fixture instances, receipt expiry and new-instance
+recovery; neighboring 54712 and default DDS remain denied as expected. Existing
+KDE Connect rules and default deny policy remain. See
+docs/verification/evidence/ipc_udp_allow_20261010/README.md for rule and acceptance;
+docs/verification/evidence/ipc_network_20261010/README.md preserves pre-rule diagnosis.
+The six changed C++ files pass individual/batch active LSP checks. Source-state age
+across hosts and remote probes remain unverified; earlier failures stay archived.
+Remote CI has not run these new changes. Direct stage review and fresh focused
+Debug/sanitizer, IPC vcan and Humble DDS checks pass; the first cross-CTest lock
+collision remains archived with its successful serial recheck. Operator-reported
+manual fixture/topic success is recorded without inventing quantitative evidence.
+See docs/verification/evidence/ipc_stage_delivery_20261010/README.md and
+docs/plans/ROS2_IPC_NEXT_STEPS.md for review scope and next-stage gates.
+Physical CAN/UART/drive acceptance is separate.
 The app reads persistent parameters; only
 explicit device-config --apply may write the reviewed parameters and request one
 EEPROM save. Software validation is not physical-operation authorization.

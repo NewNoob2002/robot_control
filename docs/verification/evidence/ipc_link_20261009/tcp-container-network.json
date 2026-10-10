@@ -1,0 +1,8 @@
+{
+  "disconnected_monotonic": 4143.176105294,
+  "reconnected_monotonic": 4145.290987336,
+  "interrupted_server_started_ns": 65682697159510,
+  "container": "robot-control-ipc-link-20261009",
+  "network": "bridge",
+  "host_or_board_links_changed": false
+}

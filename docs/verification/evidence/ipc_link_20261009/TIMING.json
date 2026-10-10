@@ -1,0 +1,72 @@
+{
+  "debug": [
+    {
+      "scenario": "ipc_probe",
+      "requests_sent": 209,
+      "peer_dropped": true,
+      "rpdo_interval_median_us": 9965.280999949755,
+      "rpdo_interval_max_us": 11566.49299991841,
+      "owner_cycles": 401,
+      "owner_max_work_us": 348,
+      "ipc_max_poll_us": 105,
+      "owner_overruns": 0
+    },
+    {
+      "scenario": "ipc_drive",
+      "requests_sent": 532,
+      "peer_dropped": true,
+      "rpdo_interval_median_us": 9997.721999752684,
+      "rpdo_interval_max_us": 11792.444000093383,
+      "owner_cycles": 401,
+      "owner_max_work_us": 306,
+      "ipc_max_poll_us": 171,
+      "owner_overruns": 0
+    },
+    {
+      "scenario": "ipc_flood",
+      "requests_sent": 678,
+      "peer_dropped": true,
+      "rpdo_interval_median_us": 9992.361000058736,
+      "rpdo_interval_max_us": 11157.831999753398,
+      "owner_cycles": 401,
+      "owner_max_work_us": 349,
+      "ipc_max_poll_us": 111,
+      "owner_overruns": 0
+    }
+  ],
+  "san": [
+    {
+      "scenario": "ipc_probe",
+      "requests_sent": 211,
+      "peer_dropped": true,
+      "rpdo_interval_median_us": 10002.666999753274,
+      "rpdo_interval_max_us": 11384.761000044819,
+      "owner_cycles": 401,
+      "owner_max_work_us": 777,
+      "ipc_max_poll_us": 156,
+      "owner_overruns": 0
+    },
+    {
+      "scenario": "ipc_drive",
+      "requests_sent": 531,
+      "peer_dropped": true,
+      "rpdo_interval_median_us": 9979.202999602421,
+      "rpdo_interval_max_us": 11331.822000101965,
+      "owner_cycles": 401,
+      "owner_max_work_us": 890,
+      "ipc_max_poll_us": 217,
+      "owner_overruns": 0
+    },
+    {
+      "scenario": "ipc_flood",
+      "requests_sent": 678,
+      "peer_dropped": true,
+      "rpdo_interval_median_us": 9966.749000341224,
+      "rpdo_interval_max_us": 10899.366000103328,
+      "owner_cycles": 401,
+      "owner_max_work_us": 806,
+      "ipc_max_poll_us": 159,
+      "owner_overruns": 0
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 #include "service/logging/stderr_sink.hpp"
-#include "service/logging/easylogger_port_status.h"
+#include "service/logging/stderr_sink_status.h"
 
 #include <atomic>
 #include <cerrno>

@@ -1,0 +1,6 @@
+READY
+FRESH 72635295936127
+STALE
+FRESH 72645336450730
+STALE
+PASS {"samples_by_server": {"72635295936127": 30, "72645336450730": 199}, "stale_events": 2, "final_fresh": false, "publishers": [], "expiry_sec": 0.5, "source_age_verified": false, "cross_host_monotonic_comparison": false, "passed": true}

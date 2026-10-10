@@ -1,0 +1,26 @@
+{
+  "source": "lens_diagnostics active lsp, primary server",
+  "date_utc": "2026-10-10",
+  "individual": {
+    "wait_ms": 5000,
+    "paths": [
+      "app/main.cpp",
+      "application/control/linux_loop.cpp",
+      "application/control/linux_loop.hpp",
+      "service/logging/stderr_sink.cpp",
+      "service/logging/stderr_sink_status.h",
+      "tests/integration/linux_platform_tests.cpp"
+    ],
+    "confirmed_clean": 6,
+    "findings": 0,
+    "timeouts": 0
+  },
+  "batch": {
+    "wait_ms": 10000,
+    "concurrency": 2,
+    "confirmed_clean": 6,
+    "findings": 0,
+    "timeouts": 0
+  },
+  "historical_timeout": "Not reproducible now; historical scheduler/cache/load cause not established"
+}
