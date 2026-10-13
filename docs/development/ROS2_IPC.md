@@ -42,8 +42,10 @@ python3 ros2/robot_control_ipc_node.py --ros-args \
 ros2 topic echo /robot_control_ipc/status --qos-reliability best_effort
 ~~~
 
-节点由根CMake随app安装为 robot_control_ipc_node.py，也可直接用python3运行。
-这是实际rclpy节点，尚未包装成colcon包，不提供ros2 run包入口。
+节点由根CMake随app保留顶层 robot_control_ipc_node.py，同时安装最小ROS包
+`robot_control_ros2`；`ros2/`也可独立由colcon构建。提供`ros2 run`入口与
+`diagnostics.launch.py`（bridge/monitor二选一），核心app仍不链接ROS库。
+安装、启动和本机接收过期显示见[诊断包使用说明](ROS2_DIAGNOSTICS.md)。
 第一阶段主机环境复用docker/ros2/image.lock锁定的Ubuntu22.04/Humble镜像，
 其中已有rclpy和std_msgs（均为Apache-2.0），核心app不链接ROS库。
 最初RK3588设备无访问验证使用用户目录提取的固定arm64官方Humble运行时。
@@ -157,7 +159,11 @@ fixture以BUILD_TESTING=ON交叉构建，目标端手动执行Python检查，不
 
 ## 后续运动接入阶段
 
-1. 定义服务端主导的启动/连接挑战、授权代际、显式切源和中立重授权合同；
+详见[状态年龄和外部运动授权合同](../plans/ROS2_EXTERNAL_AUTHORITY_CONTRACT.md)：
+当前诊断receipt age已实现，source age未知；运动v2挑战/采样证据/授权代际和撤权合同
+已定义，尚未签发或接入external。`probe_ok`不能作为运动确认。
+
+1. 实现服务端主导的启动/连接挑战、授权代际、显式切源和中立重授权合同；
    队列积压、节点死亡和跨进程旧时间均撤权，不能把本阶段probe改名就直接驱动。
 2. 以既有ControlArbiter/ControlCycle的external入口实现，只允许owner提交；
    保留SBUS联锁/人工接管、零保持、代际复核、反馈守卫和有界停车。先加离线/vcan回归。

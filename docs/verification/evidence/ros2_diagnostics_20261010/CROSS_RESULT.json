@@ -1,0 +1,6 @@
+{
+  "image": "sha256:9c7124ca8b89ac46c7e196df46b260ec8986503eb525739823ac1b719ef92935",
+  "fixture_elf_audit": true,
+  "root_cross_configure_and_ros_install": true,
+  "target_execution": false
+}

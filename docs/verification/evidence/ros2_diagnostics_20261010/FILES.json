@@ -1,0 +1,20 @@
+{
+  "AGENTS.md": "f285796dde68d3a1e6f628e745680c0f49fd84b202f8c7fce64918da276cfe57",
+  "CMakeLists.txt": "f47dbd66adcaea0af5a8aed094611f89008f91b86ae67abdfadf754b5b92484e",
+  "docs/development/IPC_MANUAL_TEST.md": "0846f13b38252c7f3cbb1b5741cef7dfd1108926be7f935ffbc0f02cf2acf18c",
+  "docs/development/ROS2_DIAGNOSTICS.md": "0e8285e40491f1439cd318ac6822d7bbb037ee60d47a475e106aee6d02c1067e",
+  "docs/development/ROS2_IPC.md": "5763cf6679fd52b759df88f9515e6fa6c518c929a8a4c5837a0c724b96f07054",
+  "docs/plans/ROS2_EXTERNAL_AUTHORITY_CONTRACT.md": "6482e1ccbff11f79a10da7011e6425fc1ca2b6a1aecb4aa59af6135b3147421c",
+  "docs/plans/ROS2_IPC_NEXT_STEPS.md": "4b8f0d07c60c6644aaef8cf1712185a454bbf9686cc15f9d76dab85615f5b7e8",
+  "docs/verification/ROS2_DIAGNOSTICS_BASELINE.md": "48db3f374acd6e5b70f155bfcb9486ab8c061a785438044f25794a2cee097f1b",
+  "docs/verification/TEST_APP_BASELINE.md": "fb72235f84bb4022db0df512ddf9fc2723773db609ce9582ba7c33f9cd977112",
+  "ros2/CMakeLists.txt": "0171e7328bd81f1d0dd4bc8bd28203c245b1fbb1928598c95cb345a93ae8a8a2",
+  "ros2/launch/diagnostics.launch.py": "fb31cfaca4cd7b7fc58bd8e5e2a25ff7c183d9cd65996b0af203e33c3430300c",
+  "ros2/package.xml": "e6f8e35d2703cc2ec5da45169479d0b682d744ca226e7ccd4ef577d7ea28f369",
+  "ros2/resource/robot_control_ros2": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "ros2/robot_control_ipc_monitor.py": "b27a759807479fd4dd14196d63aa96dca7d8ea35035636e54a01f380e19a80d7",
+  "ros2/robot_control_ipc_node.py": "2fa52d015390a2213432c3ed21cb702b5abf24c0b2b98750af064c26cc2c0c2b",
+  "scripts/test/test_ros2_ipc.sh": "60bf98bcad8378584d4503ebbfff144f641d1234a93d4540dd4098f83fe5e659",
+  "scripts/test/test_ros2_package.py": "a8b4fb8c181ce9ef31d882a2be92b2dab8ce2cd86f2407e2c5e5ffee10bae57e",
+  "scripts/test/test_ros2_receipt.py": "20874095bd52f775b75c16a1fe950401567b1a6430749dfd0d025935c2ea4a3d"
+}

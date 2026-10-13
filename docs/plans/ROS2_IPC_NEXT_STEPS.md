@@ -2,12 +2,16 @@
 
 当前只读诊断阶段按设备无访问范围完成交付。已实现的接口、软件与网络证据见
 [阶段复审](../verification/evidence/ipc_stage_delivery_20261010/README.md)。
+用户随后要求推进步骤1–2；最小ROS包/launch/run及monitor已实现，
+[使用方式](../development/ROS2_DIAGNOSTICS.md)和
+[年龄/运动授权合同](ROS2_EXTERNAL_AUTHORITY_CONTRACT.md)已落地。
+运动v2实现与external接入仍是下一切片，不由本合同自动授权。
 本文件是计划，不授权实际设备操作、持久参数写入、生产部署或运动。
 RTK继续暂停；历史已消费的HIL runner不复用为新试验入口。
 
 ## 1. 先完善可复用的诊断启动方式
 
-下一开发切片优先让测试人员和算法同事稳定启动现有节点：
+本切片已实现最小诊断入口；后续继续维护以下约束：
 
 - 在保留根CMake构建权威的前提下，为Python bridge添加最小ROS包/launch入口，支持
   colcon发现和`ros2 run`，不让核心控制库依赖ROS。
@@ -20,6 +24,7 @@ RTK继续暂停；历史已消费的HIL runner不复用为新试验入口。
   比对CMake原入口与ROS包入口的同一组DDS回归。
 
 完成条件：安装/启动可复现，既有无设备socket/DDS检查通过，诊断显示不会无限沿用旧healthy。
+已通过根CMake安装后的ros2 run、colcon安装后的ros2 launch及接收年龄边界检查。
 当前手动方法见[手动复测](../development/IPC_MANUAL_TEST.md)。
 远端Actions尚无本次提交结果；本地CI等价验证已通过，push/远端验证另按用户指令执行。
 
@@ -36,7 +41,9 @@ RTK继续暂停；历史已消费的HIL runner不复用为新试验入口。
 - 远程命令的采样年龄不能在ROS回调转发时刷新；需选择能验证原始年龄的时间/挑战机制，
   明确缺少该证据时拒绝命令的行为。
 
-完成条件：协议字段、时序、状态迁移和拒绝场景可审阅，纯逻辑测试覆盖关键代际/时钟边界。
+完成条件：协议字段、时序、状态迁移和拒绝场景可审阅。
+[合同](ROS2_EXTERNAL_AUTHORITY_CONTRACT.md)已定义对应矩阵；当前可执行检查仅覆盖诊断年龄与既有owner，
+运动v2尚未实现。下一切片须先为真实适配/owner入口补充代际、挑战与时效边界回归，不能以文档代替验证。
 
 ## 3. 复用现有external入口，先离线与vcan
 

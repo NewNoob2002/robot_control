@@ -128,7 +128,7 @@ def main(args=None):
             try:
                 self.client.submit_probe(message.data)
             except (ValueError, TypeError) as error:
-                self.status.publish(String(data=json.dumps({'connected': self.client.sock is not None,
+                self.status.publish(String(data=json.dumps({'version': 1, 'connected': self.client.sock is not None,
                     'executed': False, 'motion_authority': False, 'probe_error': str(error)})))
 
         def on_tick(self):

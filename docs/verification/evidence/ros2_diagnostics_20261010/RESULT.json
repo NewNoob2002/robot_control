@@ -1,0 +1,32 @@
+{
+  "verdict": "PASS_DEVICE_FREE_ROS_DIAGNOSTIC_PACKAGE_AND_DOCUMENTED_AUTHORITY_CONTRACT",
+  "debug_focused": "3/3",
+  "asan_ubsan_focused": "3/3",
+  "humble_original_dds": true,
+  "root_cmake_installed_ros2_run": true,
+  "colcon_installed_ros2_launch": true,
+  "non_source_cwd": true,
+  "namespace_and_profile": true,
+  "receipt_expiry_ms": 500,
+  "same_server_silence_recovery": true,
+  "paused_simulation_clock": true,
+  "sigterm": true,
+  "cross_fixture_elf_and_ros_install": true,
+  "final_cross_installed_scripts_match": true,
+  "python_lsp_clean": 5,
+  "cmake_lsp_unavailable": 2,
+  "ruff_ci_routing_actionlint_bash_diff_checks": true,
+  "source_age_verified": false,
+  "motion_v2_runtime_implemented": false,
+  "full_ctest_and_vcan_rerun": false,
+  "target_execution": false,
+  "physical_devices": false,
+  "firewall_changes": false,
+  "remote_ci": false,
+  "commit": false,
+  "push": false,
+  "preserved_failures": [
+    "tmpfs noexec prevents executable discovery",
+    "colcon setup under nounset"
+  ]
+}

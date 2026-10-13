@@ -1,5 +1,9 @@
 # 手动复测 IPC 与 ROS topic
 
+新ROS包支持安装后的`ros2 run/launch`与500ms过期monitor，见
+[诊断包使用说明](ROS2_DIAGNOSTICS.md)。下面保留旧板端stage的已验证直接脚本/echo方法；
+新包尚未部署到该stage。monitor可替代host echo，同一固定UDP profile只运行一个参与者。
+
 当前方法使用板端真实Unix socket和真实DDS/UDP，状态由device-free fixture合成；
 不启动robot-control-app，不打开物理CAN/UART，不证明电机反馈/运动。
 2026-10-10用户在聊天中报告“测试结果通过”，没有附状态日志/截图，因此记为人工报告，

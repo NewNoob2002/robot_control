@@ -1,3 +1,15 @@
+# ROS2 诊断包与授权合同切片（2026-10-10）
+
+最小ROS包、CMake/colcon安装、ros2 run/launch和500ms host-local receipt monitor已实现。
+Debug/sanitizer各3项focused contract、原DDS与安装入口回归、cross configure/fixture ELF/ROS组件安装通过。
+2026-10-12提交前完整Debug/sanitizer各43/43（含managed vcan、无skip）及Humble回归通过，
+并修正CI shellcheck对test_ros2_ipc.sh的失败；cross未重跑。
+source age仍未知，挑战/代际/中立新授权/切源/撤权合同已定义，运动v2尚未实现。
+本轮未运行物理设备或部署板端包；详细范围与命令见
+[ROS2诊断基线](ROS2_DIAGNOSTICS_BASELINE.md)。下面保留此前交付检查点。
+
+---
+
 # IPC / ROS 阶段交付复审（2026-10-10）
 
 当前只读诊断范围复审通过，未发现阻止该范围提交的缺陷。

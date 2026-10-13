@@ -32,6 +32,19 @@ manual fixture/topic success is recorded without inventing quantitative evidence
 See docs/verification/evidence/ipc_stage_delivery_20261010/README.md and
 docs/plans/ROS2_IPC_NEXT_STEPS.md for review scope and next-stage gates.
 Physical CAN/UART/drive acceptance is separate.
+External motion remains unconnected. The follow-up ROS diagnostic slice adds
+robot_control_ros2 CMake/colcon packaging, ros2 run/launch and a host-local
+500ms receipt monitor. Installed run/launch, paused /clock, same-server silence
+recovery, focused Debug/sanitizer checks and cross ROS-component install pass.
+The 2026-10-12 pre-commit rerun passes full Debug and sanitizer 43/43 each
+(managed vcan executed, no skips) and the pinned Humble regression; a CI
+shellcheck failure in test_ros2_ipc.sh was fixed. Cross was not rerun.
+See docs/verification/ROS2_DIAGNOSTICS_BASELINE.md and
+ docs/development/ROS2_DIAGNOSTICS.md. Source age remains unknown; proposed
+challenge/authorization contracts are documented in
+ docs/plans/ROS2_EXTERNAL_AUTHORITY_CONTRACT.md, not implemented motion authority.
+The new package has not been staged on the board; no new hardware/firewall action.
+
 The app reads persistent parameters; only
 explicit device-config --apply may write the reviewed parameters and request one
 EEPROM save. Software validation is not physical-operation authorization.
