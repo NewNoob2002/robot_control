@@ -29,9 +29,10 @@ host-local receipt monitor。当前外部运动未接入，RCI1 probe仍不执�
 - `bash scripts/test/test_ros2_ipc.sh`锁定Humble：receipt contract、原DDS、安装后ros2 run及
   colcon launch三项PASS。日志中的`XMLProfileManager ... Could not extract any profile`来自测试
   故意使用的空profile，只证明profile路径传给子进程，不证明profile内容生效。
-- 复审发现CI `shellcheck`（覆盖全部`.sh`）对`test_ros2_ipc.sh`报SC2155/SC2154/SC1091并退出1，
-  该缺陷自3823e51存在，远端CI未运行故此前未暴露；已按仓库既有lock读取方式修正并校验必需字段，
-  全部脚本shellcheck 0.11.0退出0。ruff、py_compile、receipt单测、CI scope与`git diff --check`通过。
+- 复审发现本机shellcheck 0.11.0（与CI一样覆盖全部`.sh`）对`test_ros2_ipc.sh`报
+  SC2155/SC2154/SC1091并退出1。该脚本由30f3b41引入（13f6a5e提交说明误写为3823e51），
+  远端CI此前未运行该提交；CI所用apt shellcheck 0.8.0对原脚本是否同样失败未验证。
+  已按仓库既有lock读取方式修正并校验必需字段，全部脚本shellcheck 0.11.0退出0。ruff、py_compile、receipt单测、CI scope与`git diff --check`通过。
 
 本次未重跑locked aarch64 cross、板端或物理设备；cross证据仍为上表10-10记录，C++源码未改变。
 归档`evidence/ros2_diagnostics_20261010/FILES.json`保持10-10源身份快照不改写；本次修改的
