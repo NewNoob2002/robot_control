@@ -110,6 +110,13 @@ if(BUILD_TESTING)
   if(NOT CMAKE_CROSSCOMPILING)
     add_test(NAME control_cycle_contract COMMAND robot_control_control_cycle_tests)
   endif()
+  # Motion v2 external authority is a pure owner-side contract; no IPC or ROS entry yet.
+  add_executable(robot_control_external_authority_tests tests/unit/external_authority_tests.cpp)
+  target_link_libraries(robot_control_external_authority_tests PRIVATE
+    robot_control_application_control robot_control_project_warnings)
+  if(NOT CMAKE_CROSSCOMPILING)
+    add_test(NAME external_authority_contract COMMAND robot_control_external_authority_tests)
+  endif()
 endif()
 
 # These contract/link fixtures are also cross-built; CTest registration is host-only.

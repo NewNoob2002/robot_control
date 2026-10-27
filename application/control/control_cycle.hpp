@@ -35,6 +35,13 @@ struct CycleResult {
     drive::RuntimeOutput output{};
 };
 
+/** Owner view of one source identity; consumed identities can never become active again. */
+enum class AuthorityStatus : std::uint8_t {
+    eligible,
+    active,
+    consumed,
+};
+
 /** Validate all startup limits without resources; pure and reentrant. */
 [[nodiscard]] bool valid_cycle_config(const CycleConfig& config) noexcept;
 
@@ -71,6 +78,16 @@ class ControlCycle final {
      * Thread safety: Single owner; mismatched/out-of-order completion inhibits.
      */
     void complete(CycleResult& result, const drive::RuntimeState& state, time::MonotonicTime now) noexcept;
+    /**
+     * Report how this owner currently treats one source authorization identity.
+     * @param source Producer kind; none is always consumed.
+     * @param session Producer session generation.
+     * @param generation Producer authorization generation.
+     * @return Active owner, still eligible for a later zero-hold handover, or permanently consumed.
+     * Thread safety: Same owner thread; read-only and never changes authorization.
+     */
+    [[nodiscard]] AuthorityStatus authority_status(command::Source source, std::uint64_t session,
+                                                   std::uint64_t generation) const noexcept;
 
   private:
     /** Source authorization identity; session alone does not grant motion. */

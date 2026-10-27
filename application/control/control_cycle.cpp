@@ -37,6 +37,16 @@ bool ControlCycle::fresh(Authority authority) const noexcept {
                || (authority.session == floor.session && authority.generation > floor.generation));
 }
 
+AuthorityStatus ControlCycle::authority_status(command::Source source, std::uint64_t session,
+                                               std::uint64_t generation) const noexcept {
+    const Authority authority{source, session, generation};
+    if (stopped_)
+        return AuthorityStatus::consumed;
+    if (active_.source != command::Source::none && active_ == authority)
+        return AuthorityStatus::active;
+    return fresh(authority) ? AuthorityStatus::eligible : AuthorityStatus::consumed;
+}
+
 void ControlCycle::revoke() noexcept {
     consume(active_);
     consume(pending_);
