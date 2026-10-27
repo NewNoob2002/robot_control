@@ -279,6 +279,8 @@ printf 'robot-control-sysroot-v1\n' \
 
 if ssh "${target}" 'command -v rsync >/dev/null 2>&1'; then
   for path in lib usr/include usr/lib; do
+    # rsync does not create missing parents such as usr/ for the destination.
+    mkdir -p "${staging}/${path}"
     rsync --archive --links --numeric-ids \
       "${target}:/${path}/" "${staging}/${path}/"
   done
