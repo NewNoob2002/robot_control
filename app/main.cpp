@@ -7,6 +7,7 @@
 #include <iostream>
 #include <net/if.h>
 #include <net/if_arp.h>
+#include <optional>
 #include <stdexcept>
 #include <sys/file.h>
 #include <sys/ioctl.h>
@@ -26,6 +27,50 @@ using namespace std::chrono_literals;
 using Status = rc::platform::linux::Status;
 using Loop = rc::application::control::ControlLoop;
 using LifecycleExit = rc::communication::canopen::LifecycleExit;
+
+/** Stable stop-reason values shared by text diagnostics and binary stop records. */
+enum class ExitReason : int {
+    duration = 0,
+    signal = 1,
+    input = 2,
+    feedback = 3,
+    logging = 4,
+    runtime = 5,
+    preparation = 6
+};
+
+/** Borrowed immutable values and runtime accessor from one completed step; owner-local only. */
+struct CycleView {
+    const rc::application::control::LoopResult& result;
+    const rc::input::sbus::ReadBatch& batch;
+    const Loop& loop;
+};
+
+/** Owned read-only runtime observation and original IPC timing boundaries from one fan-out. */
+struct CycleObservation {
+    rc::domain::drive::RuntimeState state;
+    Clock::time_point ipc_started{}, ipc_finished{};
+};
+
+/** Owner-local work statistics, excluding scheduled CAN event waiting and finished cycles. */
+struct OwnerMetrics {
+    Clock::duration maximum_owner_work{}, maximum_ipc_poll{};
+    std::uint64_t measured_owner_cycles{0}, owner_overruns{0};
+
+    /** Accumulate one completed fan-out using its original timing boundaries and configured period. */
+    void record(const rc::application::control::LoopResult& result, const CycleObservation& observation,
+                Clock::duration period) noexcept {
+        if (!result.finished) {
+            // Include batch/cycle recording and IPC, excluding scheduled event waiting.
+            const auto owner_work = observation.ipc_finished - result.cycle_started_at;
+            maximum_owner_work = std::max(maximum_owner_work, owner_work);
+            maximum_ipc_poll = std::max(maximum_ipc_poll, observation.ipc_finished - observation.ipc_started);
+            ++measured_owner_cycles;
+            if (owner_work >= period)
+                ++owner_overruns;
+        }
+    }
+};
 
 /** Forward terminal hangup to the blocked SIGTERM path using only async-signal-safe calls. */
 void hangup(int) noexcept {
@@ -99,6 +144,44 @@ void record_batch(rc::app::RecordWriter& writer, const rc::input::sbus::ReadBatc
                       fields, batch.captured_at);
     }
 }
+/** Observe only after publication, in original order; borrowed values never populate CycleInput.external. */
+CycleObservation observe_cycle(const CycleView& cycle, rc::app::RecordWriter& writer, rc::app::MotionMonitor& monitor,
+                               rc::application::ipc::Server& ipc) noexcept {
+    record_batch(writer, cycle.batch);
+    const auto state = cycle.loop.runtime_state();
+    static_cast<void>(monitor.ok(Clock::now()));
+    record_cycle(writer, cycle.result, state, monitor);
+    // Read-only observations after publication; IPC cannot populate CycleInput.external.
+    const auto ipc_started = Clock::now();
+    ipc.poll({cycle.result.cycles, static_cast<unsigned>(cycle.result.control.selected.source),
+              cycle.result.control.output.command.left_rpm, cycle.result.control.output.command.right_rpm,
+              state.left_tenths_rpm, state.right_tenths_rpm, state.feedback.status_raw, state.feedback.fault_raw,
+              state.healthy, state.armed});
+    const auto ipc_finished = Clock::now();
+    return {state, ipc_started, ipc_finished};
+}
+
+/** Stop after intake is closed, verify within the original one-second window, then detach before restoration. */
+Clock::duration stop_and_verify(std::unique_ptr<Loop>& loop, rc::communication::canopen::Lifecycle& owner,
+                                rc::app::MotionMonitor& monitor, Status& status, const std::string& interface) {
+    const auto stopped_at = Clock::now();
+    if (loop) {
+        const auto stopped = loop->stop();
+        if (status.ok() && !stopped.stop_status.ok())
+            status = stopped.stop_status;
+        monitor.shutdown(Clock::now());
+        while (!monitor.settled(Clock::now()) && Clock::now() - stopped_at < 1s) {
+            const auto progress = owner.run_until(Clock::now() + 1ms);
+            if (!progress.ok() || progress.value() != LifecycleExit::deadline)
+                break;
+        }
+        if (!monitor.settled(Clock::now()) && status.ok())
+            status = Status::from_errno("stop_not_verified_within_1s", interface, ETIMEDOUT);
+        loop.reset(); // Detach before any SDO/NMT restoration, including failures.
+    }
+    return Clock::now() - stopped_at;
+}
+
 /** Pure synchronous stop veto after newly received events; cannot create authority or perform I/O. */
 bool owner_veto(const void* value, Clock::time_point now) noexcept {
     const auto& io = *static_cast<const rc::app::IoContext*>(value);
@@ -141,10 +224,9 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
     std::unique_ptr<Loop> loop;
     rc::application::control::LoopResult result;
     int signal_number = 0;
-    int reason = 6; // 0 duration,1 signal,2 input,3 feedback,4 logging,5 runtime,6 preparation.
+    auto reason = ExitReason::preparation;
     bool prepared = false;
-    Clock::duration maximum_owner_work{}, maximum_ipc_poll{};
-    std::uint64_t measured_owner_cycles = 0, owner_overruns = 0;
+    OwnerMetrics metrics;
     try {
         const auto proof = setup.prepare(true, 20, config.cycle.runtime.speed_resolution, &config.drive);
         status = proof.status();
@@ -162,10 +244,10 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
                           << " duration_ms=" << config.run_duration.count()
                           << " source=sbus operator=neutral_release_then_press\n"
                           << std::flush;
-                reason = 0;
+                reason = ExitReason::duration;
                 while (status.ok() && (config.run_duration == 0ms || Clock::now() - started < config.run_duration)) {
                     if (!logs.healthy()) {
-                        reason = 4;
+                        reason = ExitReason::logging;
                         status = Status::from_errno("logger_unhealthy", logs.directory(), EIO);
                         break;
                     }
@@ -175,36 +257,18 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
                                          .emergency_stop_known = before.healthy,
                                          .emergency_stop_active = (before.feedback.status_raw & 0x8000U) != 0},
                                         &batch, owner_veto, &io);
-                    record_batch(io.records, batch);
-                    const auto state = loop->runtime_state();
-                    static_cast<void>(io.monitor.ok(Clock::now()));
-                    record_cycle(io.records, result, state, io.monitor);
-                    // Read-only observations after publication; IPC cannot populate CycleInput.external.
-                    const auto ipc_started = Clock::now();
-                    ipc.poll({result.cycles, static_cast<unsigned>(result.control.selected.source),
-                              result.control.output.command.left_rpm, result.control.output.command.right_rpm,
-                              state.left_tenths_rpm, state.right_tenths_rpm, state.feedback.status_raw,
-                              state.feedback.fault_raw, state.healthy, state.armed});
-                    const auto ipc_finished = Clock::now();
-                    if (!result.finished) {
-                        // Include batch/cycle recording and IPC, excluding scheduled event waiting.
-                        const auto owner_work = ipc_finished - result.cycle_started_at;
-                        maximum_owner_work = std::max(maximum_owner_work, owner_work);
-                        maximum_ipc_poll = std::max(maximum_ipc_poll, ipc_finished - ipc_started);
-                        ++measured_owner_cycles;
-                        if (owner_work >= config.cycle.period)
-                            ++owner_overruns;
-                    }
+                    const auto observation = observe_cycle({result, batch, *loop}, io.records, io.monitor, ipc);
+                    metrics.record(result, observation, config.cycle.period);
                     status = result.status;
                     if (result.finished) {
                         signal_number = result.exit == LifecycleExit::sigint    ? SIGINT
                                         : result.exit == LifecycleExit::sigterm ? SIGTERM
                                                                                 : 0;
-                        reason = signal_number ? 1 : 5;
+                        reason = signal_number ? ExitReason::signal : ExitReason::runtime;
                         break;
                     }
-                    if (!state.healthy || !io.monitor.safe(Clock::now())) {
-                        reason = 3;
+                    if (!observation.state.healthy || !io.monitor.safe(Clock::now())) {
+                        reason = ExitReason::feedback;
                         status = Status::from_errno("feedback_protection", config.interface, EACCES);
                         break;
                     }
@@ -214,44 +278,31 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
         }
     } catch (const std::exception& error) {
         status = Status::from_errno("app_exception", error.what(), EIO);
-        reason = 5;
+        reason = ExitReason::runtime;
     }
     io.closed = true; // New nonzero writes are permanently forbidden before any cleanup operation.
-    const auto stopped_at = Clock::now();
-    if (loop) {
-        const auto stopped = loop->stop();
-        if (status.ok() && !stopped.stop_status.ok())
-            status = stopped.stop_status;
-        io.monitor.shutdown(Clock::now());
-        while (!io.monitor.settled(Clock::now()) && Clock::now() - stopped_at < 1s) {
-            const auto progress = owner->run_until(Clock::now() + 1ms);
-            if (!progress.ok() || progress.value() != LifecycleExit::deadline)
-                break;
-        }
-        if (!io.monitor.settled(Clock::now()) && status.ok())
-            status = Status::from_errno("stop_not_verified_within_1s", config.interface, ETIMEDOUT);
-        loop.reset(); // Detach before any SDO/NMT restoration, including failures.
-    }
-    const auto stop_verification = Clock::now() - stopped_at;
+    const auto stop_verification = stop_and_verify(loop, *owner, io.monitor, status, config.interface);
     const auto cleanup = setup.finish();
     report("app_primary", status);
     report("app_cleanup", cleanup);
-    std::cout << "event=app_stop reason=" << reason << " signal=" << signal_number << " prepared=" << prepared
+    std::cout << "event=app_stop reason=" << static_cast<int>(reason) << " signal=" << signal_number
+              << " prepared=" << prepared
               << " stop_verify_us=" << std::chrono::duration_cast<std::chrono::microseconds>(stop_verification).count()
-              << " transient_samples=" << io.monitor.transients() << " owner_cycles=" << measured_owner_cycles
+              << " transient_samples=" << io.monitor.transients() << " owner_cycles=" << metrics.measured_owner_cycles
               << " owner_max_work_us="
-              << std::chrono::duration_cast<std::chrono::microseconds>(maximum_owner_work).count()
-              << " ipc_max_poll_us=" << std::chrono::duration_cast<std::chrono::microseconds>(maximum_ipc_poll).count()
-              << " owner_overruns=" << owner_overruns << " monitor_fault=" << static_cast<int>(io.monitor.fault())
-              << '\n'
+              << std::chrono::duration_cast<std::chrono::microseconds>(metrics.maximum_owner_work).count()
+              << " ipc_max_poll_us="
+              << std::chrono::duration_cast<std::chrono::microseconds>(metrics.maximum_ipc_poll).count()
+              << " owner_overruns=" << metrics.owner_overruns
+              << " monitor_fault=" << static_cast<int>(io.monitor.fault()) << '\n'
               << std::flush;
-    io.records.append(rc::app::RecordKind::stop, {reason, status.error.value(), cleanup.error.value(), signal_number});
+    io.records.append(rc::app::RecordKind::stop,
+                      {static_cast<int>(reason), status.error.value(), cleanup.error.value(), signal_number});
     return status.ok() && cleanup.ok() ? (signal_number ? 128 + signal_number : 0) : 1;
 }
-} // namespace
 
-/** Compose the Debug-only SBUS test app with optional read-only IPC; validate before device activation. */
-int main(int argc, char* argv[]) {
+/** Parse startup arguments before activation; return an early exit code or fill the borrowed configuration. */
+std::optional<int> parse_command_line(int argc, char* argv[], rc::application::config::Startup& config) {
     constexpr std::string_view usage =
         "Usage: robot-control-app --config FILE [--interface can0] [--device /dev/ttyACM0]\n"
         "  [--log-dir DIR] [--duration-ms MS] [--set key=value] [--check-config]\n"
@@ -265,7 +316,6 @@ int main(int argc, char* argv[]) {
         std::cerr << usage;
         return 2;
     }
-    rc::application::config::Startup config;
     bool check_only = false;
     try {
         std::vector<std::string> owned;
@@ -307,6 +357,15 @@ int main(int argc, char* argv[]) {
         rc::application::config::dump(std::cout, config);
         return std::cout.good() ? 0 : 1;
     }
+    return std::nullopt;
+}
+} // namespace
+
+/** Compose the Debug-only SBUS test app with optional read-only IPC; validate before device activation. */
+int main(int argc, char* argv[]) {
+    rc::application::config::Startup config;
+    if (const auto result = parse_command_line(argc, argv, config))
+        return *result;
     try {
         if (::signal(SIGPIPE, SIG_IGN) == SIG_ERR)
             throw std::runtime_error("SIGPIPE setup failed");
