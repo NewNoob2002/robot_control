@@ -2,6 +2,7 @@
 
 #include "application/control/control_cycle.hpp"
 #include "communication/canopen/device_parameters.hpp"
+#include "communication/canopen/stack_config.hpp"
 #include "input/sbus/source/source.hpp"
 
 #include <iosfwd>
@@ -34,6 +35,16 @@ struct Startup {
  * Thread safety: Reentrant with separate streams; retains no input/override storage.
  */
 [[nodiscard]] Startup parse(std::istream& input, std::span<const std::string_view> overrides = {});
+
+/**
+ * Build the fixed CANopen stack profile without device activation.
+ * @param config Borrowed startup configuration; only the interface name is copied.
+ * @param sdo_timeout Caller-selected timeout, including the longer EEPROM-save deadline.
+ * @return Owned stack configuration with the reviewed node, heartbeat and TPDO bindings.
+ * Thread safety: Pure and reentrant; no input storage or runtime resources are retained.
+ */
+[[nodiscard]] communication::canopen::StackConfig make_stack_config(const Startup& config,
+                                                                    std::chrono::milliseconds sdo_timeout);
 
 /**
  * Write the effective profile and fixed bindings for startup diagnostics.

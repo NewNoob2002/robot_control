@@ -70,6 +70,18 @@ enum class TransitionControlword : std::uint8_t {
 };
 
 /**
+ * Decode a signed little-endian 16-bit value without implementation-defined narrowing.
+ * @param low Least significant byte.
+ * @param high Most significant byte, including the sign bit.
+ * @return The signed value in the range -32768..32767.
+ * Thread safety: Pure and reentrant; no state or ownership is retained.
+ */
+[[nodiscard]] constexpr int decode_signed16_le(std::uint8_t low, std::uint8_t high) noexcept {
+    const unsigned raw = static_cast<unsigned>(low) | (static_cast<unsigned>(high) << 8U);
+    return raw >= 32768U ? static_cast<int>(raw) - 65536 : static_cast<int>(raw);
+}
+
+/**
  * Decode the vendor 32-bit dual status object using neutral half names.
  *
  * @param data Borrowed little-endian object bytes, valid only for this call.

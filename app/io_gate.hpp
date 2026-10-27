@@ -6,7 +6,7 @@ namespace robot_control::app {
 /** Explicit caller-owned syscall recording and inhibition context; only the control owner may access it. */
 struct IoContext {
     RecordWriter& records;
-    MotionMonitor monitor{};
+    MotionMonitor monitor;
     int max_rpm{5};
     bool closed{false};
     int speed_resolution{1};

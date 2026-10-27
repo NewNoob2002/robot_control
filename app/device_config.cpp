@@ -76,13 +76,7 @@ int main(int argc, char* argv[]) {
         if (!termination.ok())
             throw std::runtime_error("termination setup failed");
         using namespace std::chrono_literals;
-        rc::communication::canopen::StackConfig stack{.interface_name = config.interface,
-                                                      .controller_node_id = 127,
-                                                      .remote_node_id = 1,
-                                                      .heartbeat_timeout = 1000ms,
-                                                      .sdo_timeout = 2000ms,
-                                                      .tpdo_timeout = 200ms,
-                                                      .tpdo_expected_dlc = {8, 5, 0, 0}};
+        const auto stack = rc::application::config::make_stack_config(config, 2000ms);
         auto created = rc::communication::canopen::Lifecycle::create(stack, termination.value());
         auto status = created.status();
         if (created.ok()) {

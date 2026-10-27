@@ -10,7 +10,7 @@ ExternalAuthority::ExternalAuthority(const CycleConfig& config, Id128 app_instan
 }
 
 bool ExternalAuthority::within_timeout(time::MonotonicTime start, time::MonotonicTime now) const noexcept {
-    return start >= time::MonotonicTime{} && start <= now && now - start < config_.arbiter.external_timeout;
+    return time::age_below(start, now, config_.arbiter.external_timeout);
 }
 
 void ExternalAuthority::revoke() noexcept {
@@ -180,8 +180,7 @@ command::CommandSample ExternalAuthority::update(const command::CommandSample& s
         have_drive_generation_ = true;
     }
     const bool sbus_fresh = command::structurally_valid(sbus, command::Source::sbus)
-                            && sbus.captured_at >= time::MonotonicTime{} && sbus.captured_at <= now
-                            && now - sbus.captured_at < config_.arbiter.sbus_timeout;
+                            && time::age_below(sbus.captured_at, now, config_.arbiter.sbus_timeout);
     const bool sbus_neutral = sbus_fresh && sbus.command.is_zero();
     const auto band = config_.runtime.standstill_tenths_rpm;
     const bool stationary = state.left_tenths_rpm >= -band && state.left_tenths_rpm <= band

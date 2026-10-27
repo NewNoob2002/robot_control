@@ -10,6 +10,12 @@ class MotionMonitor final {
   public:
     using Clock = std::chrono::steady_clock;
     enum class Fault { none, hard_speed, uncommanded, direction, stop_timeout, stale };
+    /**
+     * Construct an owner-local monitor with the caller's standstill band.
+     * @param standstill_tenths_rpm Nonnegative inclusive feedback band in 0.1 rpm units.
+     * Thread safety: Construct before owner use; no state is shared or retained externally.
+     */
+    explicit MotionMonitor(int standstill_tenths_rpm) noexcept : standstill_tenths_rpm_{standstill_tenths_rpm} {}
     /** Begin after actual zero/preflight verification; never grants drive authorization. */
     void start(Clock::time_point now) noexcept {
         watching_ = true;
@@ -64,11 +70,11 @@ class MotionMonitor final {
             }
             minimum_[i] = std::min(minimum_[i], v);
             maximum_[i] = std::max(maximum_[i], v);
-            const bool band = v >= -20 && v <= 20;
+            const bool band = v >= -standstill_tenths_rpm_ && v <= standstill_tenths_rpm_;
             if (v < -1000 || v > 1000)
                 fail(Fault::hard_speed);
             if (a.target != 0) {
-                const bool wrong = a.target > 0 ? v < -20 : v > 20;
+                const bool wrong = a.target > 0 ? v < -standstill_tenths_rpm_ : v > standstill_tenths_rpm_;
                 if (wrong && now - a.since >= std::chrono::milliseconds{200})
                     fail(Fault::direction);
                 else if (wrong)
@@ -111,7 +117,7 @@ class MotionMonitor final {
                 return false;
         return true;
     }
-    /** Require both zero targets and two fresh frames spanning at least150ms inside the +/-2rpm band. */
+    /** Require both zero targets and two fresh frames spanning at least150ms inside the configured band. */
     [[nodiscard]] bool settled(Clock::time_point now) const noexcept {
         if (!watching_ || now < last_ || now - last_ >= std::chrono::milliseconds{200})
             return false;
@@ -157,6 +163,7 @@ class MotionMonitor final {
         if (fault_ == Fault::none)
             fault_ = fault;
     }
+    int standstill_tenths_rpm_;
     std::array<Axis, 2> axes_{};
     std::array<int, 2> minimum_{}, maximum_{};
     Clock::time_point last_{};

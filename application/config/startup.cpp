@@ -167,6 +167,17 @@ Startup parse(std::istream& input, std::span<const std::string_view> overrides) 
     return config;
 }
 
+communication::canopen::StackConfig make_stack_config(const Startup& config, std::chrono::milliseconds sdo_timeout) {
+    using namespace std::chrono_literals;
+    return {.interface_name = config.interface,
+            .controller_node_id = 127,
+            .remote_node_id = 1,
+            .heartbeat_timeout = 1000ms,
+            .sdo_timeout = sdo_timeout,
+            .tpdo_timeout = 200ms,
+            .tpdo_expected_dlc = {8, 5, 0, 0}};
+}
+
 void dump(std::ostream& output, const Startup& config) {
     output << "# ===== Driver parameters: provision/save/restart; app read-only =====\n";
     for (std::size_t i = 0; i < config.drive.values.size(); ++i)

@@ -89,11 +89,6 @@ void report(const char* phase, const Status& status) {
 void record_cycle(rc::app::RecordWriter& writer, const rc::application::control::LoopResult& result,
                   const rc::domain::drive::RuntimeState& state, const rc::app::MotionMonitor& monitor) noexcept {
     const auto now = Clock::now();
-    const auto age = [now](Clock::time_point stamp) -> std::int64_t {
-        return stamp == Clock::time_point{} || stamp > now
-                   ? -1
-                   : std::chrono::duration_cast<std::chrono::microseconds>(now - stamp).count();
-    };
     writer.append(rc::app::RecordKind::cycle,
                   {static_cast<std::int64_t>(result.cycles),
                    static_cast<std::int64_t>(result.source.sample.sequence),
@@ -111,9 +106,9 @@ void record_cycle(rc::app::RecordWriter& writer, const rc::application::control:
                    static_cast<std::int64_t>(result.source.health),
                    result.source.candidate.left_rpm,
                    state.armed,
-                   age(result.source.sample.captured_at),
-                   age(state.feedback.heartbeat_at),
-                   age(state.feedback.status_at),
+                   rc::domain::time::age_us(result.source.sample.captured_at, now),
+                   rc::domain::time::age_us(state.feedback.heartbeat_at, now),
+                   rc::domain::time::age_us(state.feedback.status_at, now),
                    static_cast<std::int64_t>(result.missed_periods),
                    std::chrono::duration_cast<std::chrono::microseconds>(result.maximum_lateness).count(),
                    std::chrono::duration_cast<std::chrono::microseconds>(result.maximum_cycle_time).count(),
@@ -191,10 +186,14 @@ bool owner_veto(const void* value, Clock::time_point now) noexcept {
 /** Run one explicitly configured SBUS owner with exact online setup and bounded stop/restoration. */
 int run(const rc::application::config::Startup& config, rc::app::LogSession& logs,
         rc::platform::linux::process::TerminationEvent& termination) {
+    if (config.cycle.runtime.emergency_status_mask == 0) {
+        report("startup", Status::from_errno("validate_emergency_status_mask", config.interface, EINVAL));
+        return 1;
+    }
     auto lock = rc::app::check_interface(config.interface);
     rc::application::ipc::Server ipc{config.ipc_socket, config.cycle.runtime.max_abs_rpm};
-    rc::app::IoContext io{
-        logs.records(), {}, config.cycle.runtime.max_abs_rpm, false, config.cycle.runtime.speed_resolution};
+    rc::app::IoContext io{logs.records(), rc::app::MotionMonitor{config.cycle.runtime.standstill_tenths_rpm},
+                          config.cycle.runtime.max_abs_rpm, false, config.cycle.runtime.speed_resolution};
     rc::app::IoBinding binding{io};
     rc::input::sbus::Reader reader;
     rc::input::sbus::ReaderConfig serial;
@@ -207,13 +206,7 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
     report("uart_open", status);
     if (!status.ok())
         return 1;
-    rc::communication::canopen::StackConfig stack{.interface_name = config.interface,
-                                                  .controller_node_id = 127,
-                                                  .remote_node_id = 1,
-                                                  .heartbeat_timeout = 1000ms,
-                                                  .sdo_timeout = 250ms,
-                                                  .tpdo_timeout = 200ms,
-                                                  .tpdo_expected_dlc = {8, 5, 0, 0}};
+    const auto stack = rc::application::config::make_stack_config(config, 250ms);
     auto created = rc::communication::canopen::Lifecycle::create(stack, termination);
     report("can_open", created.status());
     if (!created.ok())
@@ -228,7 +221,8 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
     bool prepared = false;
     OwnerMetrics metrics;
     try {
-        const auto proof = setup.prepare(true, 20, config.cycle.runtime.speed_resolution, &config.drive);
+        const auto proof = setup.prepare(true, config.cycle.runtime.standstill_tenths_rpm,
+                                         config.cycle.runtime.speed_resolution, &config.drive);
         status = proof.status();
         report("drive_prepare", status);
         if (proof.ok()) {
@@ -253,10 +247,12 @@ int run(const rc::application::config::Startup& config, rc::app::LogSession& log
                     }
                     const auto before = loop->runtime_state();
                     rc::input::sbus::ReadBatch batch;
-                    result = loop->step({.coherent = true,
-                                         .emergency_stop_known = before.healthy,
-                                         .emergency_stop_active = (before.feedback.status_raw & 0x8000U) != 0},
-                                        &batch, owner_veto, &io);
+                    result =
+                        loop->step({.coherent = true,
+                                    .emergency_stop_known = before.healthy,
+                                    .emergency_stop_active =
+                                        (before.feedback.status_raw & config.cycle.runtime.emergency_status_mask) != 0},
+                                   &batch, owner_veto, &io);
                     const auto observation = observe_cycle({result, batch, *loop}, io.records, io.monitor, ipc);
                     metrics.record(result, observation, config.cycle.period);
                     status = result.status;

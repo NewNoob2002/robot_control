@@ -2,16 +2,15 @@
 #include <cstring>
 #include <sys/socket.h>
 #include "communication/canopen/control_write_gate.hpp"
+#include "domain/drive/zlac8015d.hpp"
 
 namespace {
 // GNU --wrap has a fixed C ABI. Explicit binding owns this borrowed, single-thread context;
 // no process-lifetime policy singleton is used. Tested through actual vcan sends/receives.
 thread_local robot_control::app::IoContext* context = nullptr;
-/** Decode signed LE16 without implementation-defined conversion. */
-int signed16(const can_frame& frame, unsigned offset) noexcept {
-    const int raw = frame.data[offset] | (static_cast<int>(frame.data[offset + 1]) << 8);
-    return raw >= 32768 ? raw - 65536 : raw;
-}
+using robot_control::domain::drive::zlac8015d::decode_signed16_le;
+using robot_control::domain::drive::zlac8015d::encode_transition_controlword;
+using robot_control::domain::drive::zlac8015d::TransitionControlword;
 /** Retain raw bytes and syscall result; a successful send is not a wire-delivery assertion. */
 void record(robot_control::app::RecordKind kind, const can_frame& frame, ssize_t result, int error) noexcept {
     std::array<std::int64_t, 28> values{frame.can_id, frame.can_dlc, result, error};
@@ -49,19 +48,25 @@ extern "C" ssize_t __wrap_send(int fd, const void* data, size_t length, int flag
         return -1;
     }
     std::memcpy(&frame, data, sizeof(frame));
-    const int left = signed16(frame, 2), right = signed16(frame, 4);
+    const int left = decode_signed16_le(frame.data[2], frame.data[3]),
+              right = decode_signed16_le(frame.data[4], frame.data[5]);
     bool allowed = robot_control::communication::canopen::control_setup_allowed(frame);
     if (frame.can_id == 0x201) {
         const int limit = context->max_rpm * context->speed_resolution;
         const bool zero = left == 0 && right == 0;
-        const auto word = frame.data[0];
-        allowed = frame.can_dlc == 6 && frame.data[1] == 0
-                  && (word == 0 || word == 2 || word == 6 || word == 7 || word == 15)
-                  && (zero
-                      || (word == 15 && !context->closed && context->records.good()
-                          && context->monitor.ok(robot_control::app::MotionMonitor::Clock::now()) && left >= -limit
-                          && left <= limit && right >= -limit && right <= limit && left % context->speed_resolution == 0
-                          && right % context->speed_resolution == 0));
+        const std::array word{std::byte{frame.data[0]}, std::byte{frame.data[1]}};
+        const auto enable_operation = encode_transition_controlword(TransitionControlword::enable_operation);
+        allowed =
+            frame.can_dlc == 6 && frame.data[1] == 0
+            && (word == encode_transition_controlword(TransitionControlword::disable_voltage)
+                || word == encode_transition_controlword(TransitionControlword::quick_stop)
+                || word == encode_transition_controlword(TransitionControlword::shutdown)
+                || word == encode_transition_controlword(TransitionControlword::switch_on) || word == enable_operation)
+            && (zero
+                || (word == enable_operation && !context->closed && context->records.good()
+                    && context->monitor.ok(robot_control::app::MotionMonitor::Clock::now()) && left >= -limit
+                    && left <= limit && right >= -limit && right <= limit && left % context->speed_resolution == 0
+                    && right % context->speed_resolution == 0));
     }
     if (!allowed) {
         context->closed = true;
@@ -90,7 +95,8 @@ extern "C" ssize_t __wrap_recv(int fd, void* data, size_t length, int flags) {
         can_frame frame{};
         std::memcpy(&frame, data, sizeof(frame));
         if (frame.can_id == 0x181 && frame.can_dlc == 8)
-            context->monitor.observe(signed16(frame, 4), -signed16(frame, 6),
+            context->monitor.observe(decode_signed16_le(frame.data[4], frame.data[5]),
+                                     -decode_signed16_le(frame.data[6], frame.data[7]),
                                      robot_control::app::MotionMonitor::Clock::now());
         record(robot_control::app::RecordKind::can_rx, frame, result, 0);
     }

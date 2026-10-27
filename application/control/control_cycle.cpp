@@ -1,4 +1,5 @@
 #include "application/control/control_cycle.hpp"
+#include "domain/drive/zlac8015d.hpp"
 
 #include <limits>
 
@@ -138,10 +139,6 @@ CycleResult ControlCycle::prepare(const CycleInput& input, const drive::RuntimeS
         || status.low_half.state != drive::Cia402State::operation_enabled
         || status.high_half.state != drive::Cia402State::operation_enabled)
         selected.command = {};
-    /** Preserve distinct communication and drive-fault diagnostics. */
-    const auto feedback_fresh = [now](time::MonotonicTime stamp, time::Duration timeout) {
-        return stamp >= time::MonotonicTime{} && stamp <= now && now - stamp < timeout;
-    };
     safety::SafetyInput safety_input{
         .selected = selected,
         .low_half_state = status.low_half.state,
@@ -150,9 +147,9 @@ CycleResult ControlCycle::prepare(const CycleInput& input, const drive::RuntimeS
         .coherent = input.coherent,
         .can_started = state.feedback.current,
         .nmt_operational = state.feedback.operational,
-        .heartbeat_fresh = feedback_fresh(state.feedback.heartbeat_at, config_.runtime.heartbeat_timeout),
-        .status_fresh = feedback_fresh(state.feedback.status_at, config_.runtime.feedback_timeout),
-        .required_tpdo_fresh = feedback_fresh(state.feedback.diagnostics_at, config_.runtime.feedback_timeout),
+        .heartbeat_fresh = time::age_below(state.feedback.heartbeat_at, now, config_.runtime.heartbeat_timeout),
+        .status_fresh = time::age_below(state.feedback.status_at, now, config_.runtime.feedback_timeout),
+        .required_tpdo_fresh = time::age_below(state.feedback.diagnostics_at, now, config_.runtime.feedback_timeout),
         .mode_valid = state.feedback.mode_raw == 3,
         .drive_fault_active = state.feedback.fault_raw != 0,
         .emergency_stop_known = input.emergency_stop_known,
@@ -196,16 +193,19 @@ void ControlCycle::complete(CycleResult& result, const drive::RuntimeState& afte
         revoke();
     runtime_epoch_ = after.epoch;
     if (active_.source != command::Source::none && expected_ == drive::Cia402State::unknown) {
-        const auto word = result.output.payload[0];
+        // Track only the original low byte; the encoder's high byte is always zero.
+        const std::array word{result.output.payload[0], std::byte{0}};
         const auto status = drive::decode_dual_axis_status(after.feedback.status_raw);
         auto next = drive::Cia402State::unknown;
-        if (word == std::byte{0})
+        using drive::zlac8015d::encode_transition_controlword;
+        using drive::zlac8015d::TransitionControlword;
+        if (word == encode_transition_controlword(TransitionControlword::disable_voltage))
             next = drive::Cia402State::switch_on_disabled;
-        if (word == std::byte{6})
+        if (word == encode_transition_controlword(TransitionControlword::shutdown))
             next = drive::Cia402State::ready_to_switch_on;
-        if (word == std::byte{7})
+        if (word == encode_transition_controlword(TransitionControlword::switch_on))
             next = drive::Cia402State::switched_on;
-        if (word == std::byte{15}
+        if (word == encode_transition_controlword(TransitionControlword::enable_operation)
             && (status.low_half.state != drive::Cia402State::operation_enabled
                 || status.high_half.state != drive::Cia402State::operation_enabled))
             next = drive::Cia402State::operation_enabled;
