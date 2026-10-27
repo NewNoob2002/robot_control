@@ -7,6 +7,10 @@ target_link_libraries(robot-control-config-check PRIVATE
   robot_control_startup_config robot_control_project_warnings)
 
 if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
+  add_executable(robot_control_startup_config_tests ../tests/unit/startup_config_tests.cpp)
+  target_link_libraries(robot_control_startup_config_tests PRIVATE
+    robot_control_startup_config robot_control_project_warnings)
+  add_test(NAME startup_stack_config_contract COMMAND robot_control_startup_config_tests)
   add_test(NAME startup_config_contract COMMAND python3
     ${PROJECT_SOURCE_DIR}/scripts/test/test_startup_config.py
     $<TARGET_FILE:robot-control-config-check> ${PROJECT_SOURCE_DIR}/config/rk3588-test.conf)

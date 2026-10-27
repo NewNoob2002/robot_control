@@ -287,6 +287,37 @@ void independent_losses() {
     }
 }
 
+/**
+ * Pin exclusive feedback ages for each safety input independently.
+ * @return No value; records failures through the owner-thread test counter.
+ * Thread safety: Test-owner only; all snapshots and clocks are local.
+ */
+void feedback_age_boundaries() {
+    const time::MonotonicTime now{1s};
+    const std::array stamps{now - 100ms, now - 100ms + 1ns, now + 1ns, time::MonotonicTime{} - 1ns};
+    for (unsigned channel = 0; channel < 3; ++channel) {
+        for (const auto stamp : stamps) {
+            application::control::ControlCycle owner{config()};
+            drive::RuntimeState state{};
+            state.healthy = true;
+            state.feedback.current = state.feedback.operational = true;
+            state.feedback.mode_raw = 3;
+            state.feedback.status_raw = 0x00400040;
+            state.feedback.heartbeat_at = state.feedback.status_at = state.feedback.diagnostics_at = now;
+            if (channel == 0)
+                state.feedback.heartbeat_at = stamp;
+            else if (channel == 1)
+                state.feedback.status_at = stamp;
+            else
+                state.feedback.diagnostics_at = stamp;
+            const auto result = owner.prepare({.coherent = true, .emergency_stop_known = true}, state, now);
+            check((result.request.decision.state == safety::SafetyState::canopen_unavailable)
+                      == (stamp != now - 100ms + 1ns),
+                  "exclusive feedback age at timeout, one ns inside, future and before epoch");
+        }
+    }
+}
+
 /** The two-phase owner cannot skip or replay acknowledgements. */
 void completion_contract() {
     Rig f;
@@ -402,6 +433,7 @@ int main() {
     invalidation();
     handover_and_boundaries();
     independent_losses();
+    feedback_age_boundaries();
     completion_contract();
     sbus_snapshots();
     powered_standby();

@@ -265,9 +265,9 @@ void reply_validation() {
 
     r.now += 100ms;
     issued = r.challenge();
-    check(r.authority.submit({take(issued), ExternalKind::neutral, 3, 0, 0, false}, r.now + 99ms)
+    check(r.authority.submit({take(issued), ExternalKind::neutral, 3, 0, 0, false}, r.now + 100ms - 1ns)
               == ExternalVerdict::validated,
-          "age just below timeout accepted");
+          "age one nanosecond below timeout accepted");
     r.now += 100ms;
     issued = r.challenge();
     check(r.authority.submit({take(issued), ExternalKind::neutral, 3, 0, 0, false}, r.now)
@@ -342,6 +342,31 @@ void reply_validation() {
 
     ExternalAuthority invalid{config(), Id128{}};
     check(invalid.connect() == 0, "empty instance identity permanently inhibits");
+}
+
+/**
+ * Pin SBUS interlock freshness independently of external candidate age.
+ * @return No value; records failures through the owner-thread test counter.
+ * Thread safety: Test-owner only; each fixture owns its clocks and state.
+ */
+void sbus_age_boundaries() {
+    const std::array ages{100ms + 0ns, 100ms - 1ns, -1ns};
+    for (const auto age : ages) {
+        Rig r;
+        static_cast<void>(r.authority.connect());
+        check(r.authorize_and_enable(), "SBUS age boundary setup");
+        auto sbus = r.input.sbus;
+        sbus.captured_at = r.now - age;
+        const auto result = r.authority.update(sbus, r.runtime.state(), r.cycle, false, r.now);
+        check(result.valid == (age == 100ms - 1ns), "SBUS exclusive timeout and future boundary");
+    }
+    Rig r;
+    static_cast<void>(r.authority.connect());
+    check(r.authorize_and_enable(), "negative SBUS stamp setup");
+    auto sbus = r.input.sbus;
+    sbus.captured_at = time::MonotonicTime{} - 1ns;
+    check(!r.authority.update(sbus, r.runtime.state(), r.cycle, false, r.now).valid,
+          "SBUS stamp before epoch rejected");
 }
 
 /** Forwarding never refreshes age; a silent producer expires and revokes. */
@@ -488,6 +513,7 @@ int main() {
     authorization_edges();
     qualification_resets();
     reply_validation();
+    sbus_age_boundaries();
     silent_producer_expires();
     restarts_and_generations();
     inhibition_priority();

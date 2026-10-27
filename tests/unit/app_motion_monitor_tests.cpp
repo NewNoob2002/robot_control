@@ -11,6 +11,19 @@ int main() {
         if (!ok)
             ++failed;
     };
+    MotionMonitor boundary;
+    boundary.start(t);
+    boundary.observe(20, -20, t);
+    boundary.observe(-20, 20, t + 150ms);
+    check(boundary.ok(t + 150ms) && boundary.settled(t + 150ms));
+    boundary.observe(21, 0, t + 160ms);
+    check(boundary.ok(t + 160ms) && !boundary.settled(t + 160ms));
+    boundary.command(5, 0, t + 170ms);
+    boundary.observe(-20, 0, t + 370ms);
+    check(boundary.ok(t + 370ms) && boundary.transients() == 0);
+    boundary.observe(-21, 0, t + 371ms);
+    check(boundary.fault() == MotionMonitor::Fault::direction);
+
     MotionMonitor normal;
     normal.start(t);
     normal.observe(0, 0, t);
